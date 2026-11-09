@@ -61,5 +61,20 @@
   "set.catColors": "Function colors",
   "set.resetColors": "Reset colors to defaults",
   "view.export": "Export as image",
-  "cat.all": "All"
+  "cat.all": "All",
+  "start.main": "Main functions",
+  "start.external": "External resources",
+  "start.newWs": "Create a new workspace with the graphical editor",
+  "start.openFile": "Open a workspace file (.cwm)",
+  "start.tutorial": "View a tutorial video about CrypTool 2 on YouTube",
+  "start.book": "Visit the CrypTool Book page on the CrypTool portal",
+  "start.website": "Visit the official CrypTool 2 website",
+  "start.channel": "Visit the official YouTube channel",
+  "start.facebook": "Visit us on Facebook",
+  "start.recent": "Recently opened workspaces",
+  "start.clearRecent": "Clear the list",
+  "start.noRecent": "No workspaces opened yet.",
+  "start.noRecentData": "This file was too large to keep; open it again from disk.",
+  "start.videos": "YouTube videos",
+  "start.noVideos": "No video list available."
 }

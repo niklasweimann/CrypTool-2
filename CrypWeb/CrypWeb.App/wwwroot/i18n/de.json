@@ -61,5 +61,20 @@
   "set.catColors": "Farben der Funktionen",
   "set.resetColors": "Farben zurücksetzen",
   "view.export": "Als Bild exportieren",
-  "cat.all": "Alle"
+  "cat.all": "Alle",
+  "start.main": "Hauptfunktionen",
+  "start.external": "Externe Ressourcen",
+  "start.newWs": "Neuen Arbeitsbereich mit dem grafischen Editor erstellen",
+  "start.openFile": "Eine Arbeitsbereich-Datei (.cwm) öffnen",
+  "start.tutorial": "Tutorial-Video zu CrypTool 2 auf YouTube ansehen",
+  "start.book": "Die CrypTool-Buch-Seite im CrypTool-Portal besuchen",
+  "start.website": "Die offizielle CrypTool-2-Webseite besuchen",
+  "start.channel": "Den offiziellen YouTube-Kanal besuchen",
+  "start.facebook": "Uns auf Facebook besuchen",
+  "start.recent": "Zuletzt geöffnete Arbeitsbereiche",
+  "start.clearRecent": "Liste leeren",
+  "start.noRecent": "Noch keine Arbeitsbereiche geöffnet.",
+  "start.noRecentData": "Die Datei war zu groß zum Speichern; bitte erneut von der Festplatte öffnen.",
+  "start.videos": "YouTube-Videos",
+  "start.noVideos": "Keine Videoliste verfügbar."
 }

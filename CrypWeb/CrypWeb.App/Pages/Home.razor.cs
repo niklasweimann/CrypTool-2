@@ -83,6 +83,7 @@ public partial class Home : IDisposable
     protected override async Task OnInitializedAsync()
     {
         docs.Add(active);
+        _ = LoadStartData();
         settings = await AppSettings.LoadAsync(Js);
         try { templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new(); }
         catch (Exception e) { AddLog("Startup", CrypTool.Web.Core.LogLevel.Error, "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh"); }
@@ -333,7 +334,7 @@ public partial class Home : IDisposable
             }
             catch { }
             ed.Load(ws);
-            await FitAsync();
+            await FitAsync(); _ = AddRecent(t, "template");
         }
         catch (Exception e) { error = e.Message; }
     }
@@ -348,7 +349,7 @@ public partial class Home : IDisposable
             var ws = e.File.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase) ? WorkspaceEditor.FromJson(System.Text.Encoding.UTF8.GetString(b)) : CwmReader.Read(b);
             EnsureTarget();
             ed.Load(ws); current = e.File.Name; error = null;
-            await FitAsync();
+            await FitAsync(); _ = AddRecent(e.File.Name, "file", b);
         }
         catch (Exception ex) { error = "Could not open file: " + ex.Message; }
     }
@@ -394,7 +395,7 @@ public partial class Home : IDisposable
     {
         if (active.Kind != DocKind.Workspace) return;
         var name = current == null ? "workspace" : Path.GetFileNameWithoutExtension(current);
-        try { await Js.InvokeVoidAsync("ct2.downloadBytes", name + ".cwm", Convert.ToBase64String(CwmWriter.Write(ed.Ws))); }
+        try { await Js.InvokeVoidAsync("ct2.downloadBytes", name + ".cwm", Convert.ToBase64String(CwmWriter.Write(ed.Ws))); _ = AddRecent(name + ".cwm", "file", CwmWriter.Write(ed.Ws)); }
         catch (Exception e) { AddLog("Workspace", CrypTool.Web.Core.LogLevel.Error, "Could not save: " + e.Message); }
     }
 

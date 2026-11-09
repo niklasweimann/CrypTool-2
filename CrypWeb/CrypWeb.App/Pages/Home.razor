@@ -132,14 +132,45 @@
       @if (active.Kind == DocKind.Start)
       {
         <div class="page start">
-          <h1>@Loc["start.title"]</h1><p>@Loc["start.intro"]</p>
-          <div class="startbtns">
-            <button class="rbtn big" @onclick="NewDoc"><span class="ico">🗋</span>@Loc["file.new"]</button>
-            <label class="rbtn big"><span class="ico">📂</span>@Loc["file.open"]<InputFile OnChange="OpenFile" accept=".cwm,.json" /></label>
+          <div class="sc-head"><img src="logo.png" alt="" onerror="this.style.display='none'" /><h1>CrypTool 2</h1></div>
+          <p class="sc-intro">@Loc["start.intro"]</p>
+          <div class="sc-grid">
+            <div class="sc-col">
+              <h3 class="sc-h">★ @Loc["start.main"]</h3>
+              <div class="sc-box">
+                <div class="sc-link" @onclick="NewDoc"><span class="sc-ic">🗋</span>@Loc["start.newWs"]</div>
+                <label class="sc-link"><span class="sc-ic">📂</span>@Loc["start.openFile"]<InputFile OnChange="OpenFile" accept=".cwm,.json" /></label>
+              </div>
+              <h3 class="sc-h">ⓘ @Loc["start.external"]</h3>
+              <div class="sc-box">
+                <a class="sc-link" href="https://youtu.be/dYaUe4BKQhc" target="_blank" rel="noopener"><span class="sc-ic">💡</span>@Loc["start.tutorial"]</a>
+                <a class="sc-link" href="https://www.cryptool.org/en/documentation/ctbook/" target="_blank" rel="noopener"><span class="sc-ic">📕</span>@Loc["start.book"]</a>
+                <a class="sc-link" href="https://www.cryptool.org/CrypTool2" target="_blank" rel="noopener"><span class="sc-ic">🌐</span>@Loc["start.website"]</a>
+                <a class="sc-link" href="https://www.youtube.com/channel/UC8_FqvQWJfZYxcSoEJ5ob-Q" target="_blank" rel="noopener"><span class="sc-ic yt">▶</span>@Loc["start.channel"]</a>
+                <a class="sc-link" href="https://www.facebook.com/CrypTool2" target="_blank" rel="noopener"><span class="sc-ic fb">f</span>@Loc["start.facebook"]</a>
+              </div>
+            </div>
+            <div class="sc-col">
+              <h3 class="sc-h">▤ @Loc["panel.templates"]</h3>
+              <input class="pfilter tplfilter" placeholder="@Loc["panel.search"]" @bind="tplFilter" @bind:event="oninput" />
+              <div class="sc-box sc-tpl"><div class="tpltree">@TplTree(TplRoot(), 0)</div></div>
+              <h3 class="sc-h">🕘 @Loc["start.recent"]<button class="sc-trash" title="@Loc["start.clearRecent"]" @onclick="ClearRecents">🗑</button></h3>
+              <div class="sc-box sc-recent">
+                @if (recents.Count == 0) { <div class="mhint">@Loc["start.noRecent"]</div> }
+                @foreach (var r in recents) { var rr = r; <div class="tplfile @(rr.Kind == "file" && rr.Data == null ? "dis" : "")" @onclick="() => OpenRecent(rr)">▤ @Path.GetFileNameWithoutExtension(rr.Name)<i class="rk">@(rr.Kind == "file" ? "file" : "")</i></div> }
+              </div>
+            </div>
+            <div class="sc-col">
+              <h3 class="sc-h"><span class="ytb">▶</span> @Loc["start.videos"]</h3>
+              <div class="sc-box sc-videos">
+                @if (videos.Count == 0) { <div class="mhint">@Loc["start.noVideos"]</div> }
+                @foreach (var v in videos)
+                {
+                  <a class="sc-video" href="https://www.youtube.com/watch?v=@v.Id" target="_blank" rel="noopener"><img loading="lazy" src="https://i.ytimg.com/vi/@v.Id/mqdefault.jpg" alt="" /><span>@v.Title<small>@v.Published</small></span></a>
+                }
+              </div>
+            </div>
           </div>
-          <h2>@Loc["panel.templates"]</h2>
-          <input class="pfilter tplfilter" placeholder="@Loc["panel.search"]" @bind="tplFilter" @bind:event="oninput" />
-          <div class="tpltree">@TplTree(TplRoot(), 0)</div>
         </div>
       }
       else if (active.Kind == DocKind.Settings)
