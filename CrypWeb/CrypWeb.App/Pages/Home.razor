@@ -160,19 +160,6 @@
                 @foreach (var r in recents) { var rr = r; <div class="tplfile @(rr.Kind == "file" && rr.Data == null ? "dis" : "")" @onclick="() => OpenRecent(rr)">▤ @Path.GetFileNameWithoutExtension(rr.Name)<i class="rk">@(rr.Kind == "file" ? "file" : "")</i></div> }
               </div>
             </div>
-            <div class="sc-col">
-              <h3 class="sc-h"><span class="ytb">▶</span> @Loc["start.videos"]</h3>
-              <div class="sc-box sc-videos">
-                @if (!videosOn)
-                {
-                  <div class="sc-vconsent"><p>@Loc["start.videosConsent"]</p><button class="rbtn small" @onclick="() => videosOn = true">▶ @Loc["start.videosLoad"]</button></div>
-                }
-                else
-                {
-                  <iframe class="sc-yt" src="https://www.youtube-nocookie.com/embed/videoseries?list=UU8_FqvQWJfZYxcSoEJ5ob-Q" title="YouTube" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                }
-              </div>
-            </div>
           </div>
         </div>
       }

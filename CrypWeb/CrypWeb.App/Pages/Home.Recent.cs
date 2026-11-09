@@ -10,7 +10,6 @@ public partial class Home
     const string RecentKey = "ct2web.recent.v1";
     sealed record Recent(string Name, string Kind, string? Data);
     List<Recent> recents = new();
-    bool videosOn; // the YouTube player is only loaded after a click (privacy: no Google request on startup)
 
     async Task LoadStartData()
     {
