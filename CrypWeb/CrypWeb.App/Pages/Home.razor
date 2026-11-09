@@ -124,17 +124,20 @@
               var native = NativeComponent.TryCreate(p.TypeName)?.Which;
               <g class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "")">
                 <rect x="@F(p.X)" y="@F(p.Y)" width="@F(nw)" height="@F(nh)" rx="5" class="frame" @onpointerdown="e => NodeDown(e, p)" @onpointerdown:stopPropagation/>
-                <rect x="@F(p.X + 2)" y="@F(p.Y + 2)" width="@F(nw - 4)" height="@F(nh - 4)" rx="3" class="inner" style="stroke:@col" @onpointerdown="e => NodeDown(e, p)" @onpointerdown:stopPropagation/>
-                <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="16" class="head" style="fill:@col" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
-                @if (rn != null && engine.Running && rn.State == RunState.Running) { <rect x="@F(p.X + 3)" y="@F(p.Y + 17)" width="@F(Math.Max(0, (nw - 6) * rn.Progress))" height="2" class="prog"/> }
-                @Txt(p.X + 8, p.Y + 15, "title", "start", Title(p, meta))
-                @if (rn != null && rn.Pres.Count > 0) { <g class="viewbtn" @onpointerdown="() => OpenView(p)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + nw - 26, p.Y + 15, "mintxt", "middle", "▤")</g> }
-                <g class="min" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation>@Txt(p.X + nw - 10, p.Y + 15, "mintxt", "middle", p.Minimized ? "▾" : "▴")</g>
+                <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="17" class="head" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
+                @Txt(p.X + nw / 2 + 8, p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
+                <g class="tb">
+                  <g class="tbb" @onpointerdown="() => OpenView(p)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")</g>
+                  <g class="tbb" @onpointerdown="() => OpenSettings(p)" @onpointerdown:stopPropagation><title>@Loc["right.settings"]</title>@Txt(p.X + 27, p.Y + 15, "tbt", "middle", "⚙")</g>
+                  <g class="tbb" @onpointerdown="() => logOpen = true" @onpointerdown:stopPropagation><title>@Loc["log.title"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
+                </g>
+                <g class="tbb" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation>@Txt(p.X + nw - 30, p.Y + 15, "tbt", "middle", p.Minimized ? "▢" : "▁")</g>
+                <g class="tbb close" @onpointerdown="() => RemoveNode(p)" @onpointerdown:stopPropagation><title>@Loc["edit.delete"]</title>@Txt(p.X + nw - 12, p.Y + 16, "tbt x", "middle", "✖")</g>
                 @if (!p.Minimized)
                 {
                   @if (native != null)
                   {
-                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 22)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 28))" @onpointerdown:stopPropagation>
+                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36)))" @onpointerdown:stopPropagation>
                       @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
                       {
                         <textarea class="nat" spellcheck="false" value="@NativeText(p)" @oninput="e => SetNativeText(p, e.Value?.ToString() ?? string.Empty)" @onpointerdown:stopPropagation></textarea>
@@ -145,7 +148,7 @@
                   }
                   else if (meta?.Icon != null)
                   {
-                    <image href="@meta.Icon" x="@F(p.X + nw / 2 - 24)" y="@F(p.Y + 22 + (nh - 28) / 2 - 24)" width="48" height="48" class="cicon" style="pointer-events:none"/>
+                    <image href="@meta.Icon" x="@F(p.X + nw / 2 - 24)" y="@F(p.Y + 22 + (nh - 40) / 2 - 24)" width="48" height="48" class="cicon" style="pointer-events:none"/>
                   }
                   @if (!Runnable(p))
                   {
@@ -153,6 +156,19 @@
                   }
                   else if (rn?.State == RunState.Error) { <g class="warn err"><title>@(rn.LastError)</title><path d="@WarnPath(p.X + 14, p.Y + nh - 12)"/>@Txt(p.X + 14, p.Y + nh - 8, "wtxt", "middle", "!")</g> }
                 }
+                @if (!p.Minimized)
+                {
+                  @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.TextOutput or NativeComponent.Kind.NumberInput)
+                  {
+                    <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 33)" width="@F(nw - 12)" height="14" class="cnt"/>
+                    @Txt(p.X + 10, p.Y + nh - 22.5, "cnttxt", "start", CountText(native == NativeComponent.Kind.TextOutput ? rn?.Display : NativeText(p)))
+                  }
+                  var pct = rn == null ? 0 : (int)Math.Round(Math.Clamp(rn.Progress, 0, 1) * 100);
+                  <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F(nw - 12)" height="12" class="pbg"/>
+                  <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F((nw - 12) * pct / 100.0)" height="12" class="pfill"/>
+                  @Txt(p.X + nw / 2, p.Y + nh - 8, "ptxt", "middle", pct + "%")
+                }
+                @Txt(p.X + 2, p.Y + nh + 14, "uname", "start", Title(p, meta))
                 @foreach (var c in p.Inputs.Concat(p.Outputs))
                 {
                   var pp = PortPos(c);

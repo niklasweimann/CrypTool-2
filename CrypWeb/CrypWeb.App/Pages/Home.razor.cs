@@ -108,6 +108,17 @@ public partial class Home : IDisposable
 
     // ---------- metadata helpers ----------
     PluginMeta? Meta(PluginNode p) => meta.TryGetValue(p.TypeName, out var m) ? m : null;
+    string HeaderTitle(PluginNode p, PluginMeta? m, double w)
+    {
+        var s = m?.NameFor(Loc.Lang) ?? p.TypeName.Split('.').Last(); int max = Math.Max(3, (int)((w - 100) / 6.3));
+        return s.Length > max ? s[..Math.Max(1, max - 1)] + "…" : s;
+    }
+    string CountText(string? s)
+    {
+        s ??= ""; int lines = s.Length == 0 ? 0 : s.Split('\n').Length;
+        return $"{s.Length} {(s.Length == 1 ? "character" : "characters")}, {lines} {(lines == 1 ? "line" : "lines")}";
+    }
+    void RemoveNode(PluginNode p) { ed.Checkpoint(); ed.Selection.Clear(); ed.Selection.Add(p.Id); ed.DeleteSelection(); }
     string CatLabel(string c) => Loc["cat." + c];
     string Title(PluginNode p, PluginMeta? m) => !string.IsNullOrWhiteSpace(p.Name) && !p.Name.StartsWith('$') ? p.Name : (m?.NameFor(Loc.Lang) ?? p.TypeName.Split('.').Last());
     string PortTip(ConnectorPort c, PluginMeta? m)
@@ -323,7 +334,7 @@ public partial class Home : IDisposable
         var p = c.Plugin!; var (w, h) = Size(p); int side = SideOf(c);
         var list = OnSide(p, side).ToList(); int n = list.Count, i = Math.Max(0, list.IndexOf(c));
         double off = (i - (n - 1) / 2.0) * 26;
-        double top = p.Y + 22, bodyH = Math.Max(0, h - 25);
+        double top = p.Y + 22, bodyH = Math.Max(0, h - 40);
         return side switch
         {
             0 => (p.X + w / 2 + off, p.Y),
@@ -521,7 +532,7 @@ public partial class Home : IDisposable
     }
 
     // ---------- inline editing ----------
-    void EditName(PluginNode p) { editing = p; editText = Title(p, Meta(p)); editX = p.X * zoom + panX + 4; editY = p.Y * zoom + panY - 2; editW = Math.Max(120, (Size(p).w - 24) * zoom); FocusEdit(); }
+    void EditName(PluginNode p) { editing = p; editText = Title(p, Meta(p)); editX = p.X * zoom + panX; editY = (p.Y + Size(p).h + 2) * zoom + panY; editW = Math.Max(120, (Size(p).w - 24) * zoom); FocusEdit(); }
     void EditText(TextNode t) { editing = t; editText = t.Text; editX = t.X * zoom + panX; editY = t.Y * zoom + panY; editW = Math.Max(160, t.Width * zoom); FocusEdit(); }
     async void FocusEdit() { await Task.Delay(30); try { await Js.InvokeVoidAsync("eval", "(()=>{const i=document.getElementById('inline-edit'); if(i){i.focus(); i.select();}})()"); } catch { } }
     void EditKey(KeyboardEventArgs e) { if (e.Key == "Enter") CommitEdit(); else if (e.Key == "Escape") editing = null; }

@@ -36,7 +36,7 @@ html, body { margin:0; height:100%; font-family:"Segoe UI", system-ui, -apple-sy
 .doctabs { background:#e3eaf5; border-bottom:1px solid var(--line); display:flex; height:24px; align-items:flex-end; }
 .doctab { background:#fff; border:1px solid var(--line); border-bottom:none; padding:3px 14px; border-radius:3px 3px 0 0; margin-left:4px; }
 main { flex:1; position:relative; min-height:0; }
-.canvas { width:100%; height:100%; display:block; background:#fff; cursor:default; user-select:none; touch-action:none; outline:none; }
+.canvas { width:100%; height:100%; display:block; background:linear-gradient(180deg,#c9ddf8 0%,#a9c8f2 100%); cursor:default; user-select:none; touch-action:none; outline:none; }
 .canvas.grabbing { cursor:grabbing; }
 .msg.err { position:absolute; top:10px; left:10px; right:10px; background:#fde8e8; color:#a00; padding:8px; border:1px solid #e9a; z-index:3; }
 .right { width:260px; flex:none; border-left:1px solid var(--line); background:#fafbfd; overflow:auto; padding-bottom:12px; }
@@ -56,8 +56,8 @@ main { flex:1; position:relative; min-height:0; }
 .dot { width:8px; height:8px; border-radius:50%; background:#9bd; display:inline-block; } .dot.run { background:#5f5; box-shadow:0 0 6px #5f5; }
 
 /* ---- workspace visuals (original CT2 look) ---- */
-.node .frame { fill:#fff; stroke:#444; stroke-width:2; cursor:move; } .node .inner { fill:none; stroke-width:3; cursor:move; }
-.node .head { cursor:move; } .node .prog { fill:#2b9a3a; }
+.node .frame { fill:#cfe6c4; stroke:#4b5a49; stroke-width:2.5; cursor:move; }
+.node .head { cursor:move; fill:#8da58a; }
 .node.selected .frame { stroke:#1565d8; stroke-width:3; filter:drop-shadow(0 0 4px #1565d899); } .node.err .frame { stroke:#c00; }
 .title { font-size:11px; font-weight:600; fill:#111; pointer-events:none; } .mintxt { font-size:10px; fill:#333; cursor:pointer; } .min { cursor:pointer; }
 .cicon { opacity:.9; }
@@ -115,3 +115,10 @@ main { flex:1; position:relative; min-height:0; }
 .vobj { border-collapse:collapse; } .vobj th { text-align:left; vertical-align:top; padding:2px 10px 2px 0; font:11px ui-monospace, Menlo, monospace; color:#556; font-weight:500; } .vobj td { padding:2px 0; }
 .vlist .vitem { display:flex; gap:8px; padding:2px 0; } .vidx { color:#99a; font-size:10px; width:18px; flex:none; }
 .viewbtn { cursor:pointer; } .viewbtn text { fill:#1565d8; }
+
+/* ---- component chrome ---- */
+.title { font-family:ui-monospace, Menlo, monospace; fill:#2d3a2c; font-weight:600; }
+.tbt { font-size:12px; fill:#1d2b1c; cursor:pointer; } .tbt.x { fill:#d22; font-size:11px; } .tbb:hover .tbt { fill:#fff; }
+.cnt { fill:#a9b3a6; } .cnttxt { font-size:11px; fill:#111; pointer-events:none; }
+.pbg { fill:#e2f1db; stroke:#9bb393; stroke-width:.5; } .pfill { fill:#6fbf5d; } .ptxt { font-size:10.5px; font-weight:600; fill:#111; pointer-events:none; }
+.uname { font-size:12px; fill:#2a3d5c; pointer-events:none; }
