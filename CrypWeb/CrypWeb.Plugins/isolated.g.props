@@ -1,0 +1,5 @@
+<Project>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\StringEncoder\CrypWeb.Plugin.StringEncoder.csproj" />
+  </ItemGroup>
+</Project>

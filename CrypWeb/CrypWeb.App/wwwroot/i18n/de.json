@@ -1,0 +1,23 @@
+{
+  "app.edition": "Web-Edition · Prototyp",
+  "tab.home": "Start", "tab.view": "Ansicht",
+  "group.file": "Datei", "group.exec": "Ausführung", "group.edit": "Bearbeiten", "group.workspace": "Arbeitsbereich", "group.view": "Ansicht", "group.language": "Sprache",
+  "file.new": "Neu", "file.open": "Öffnen", "file.save": "Speichern",
+  "exec.play": "Start", "exec.stop": "Stopp",
+  "edit.paste": "Einfügen", "edit.cut": "Ausschneiden", "edit.copy": "Kopieren", "edit.delete": "Löschen",
+  "ws.undo": "Zurück", "ws.redo": "Vor", "ws.addText": "Text hinzufügen",
+  "view.fit": "Einpassen", "view.snap": "Am Raster einrasten",
+  "panel.components": "Komponenten", "panel.templates": "Vorlagen", "panel.search": "Suchen…",
+  "doc.untitled": "Unbenannt",
+  "right.presentation": "Darstellungsdaten", "right.presentationHint": "Was die Komponente an ihre Visualisierung sendet (das Original zeichnet das mit WPF; die Web-Version zeigt vorerst die Rohdaten).", "view.open": "Ansicht öffnen", "view.title": "Ansicht (Live-Daten der Komponente)", "view.empty": "Starte den Arbeitsbereich, um zu sehen, was diese Komponente anzeigt.", "view.hint": "Die Desktop-Version zeichnet das mit der eigenen WPF-Visualisierung der Komponente; hier werden die gesendeten Daten als Tabellen, Listen und Diagramme gezeigt.", "view.close": "Schließen", "right.settings": "Einstellungen", "right.noSettings": "Keine gespeicherten Einstellungen.", "right.connectors": "Anschlüsse",
+  "conn.in": "Ein", "conn.out": "Aus", "conn.input": "Eingang", "conn.output": "Ausgang", "conn.required": "erforderlich",
+  "log.title": "Protokoll", "log.clear": "Leeren",
+  "log.started": "Ausführung gestartet.", "log.stopped": "Ausführung gestoppt.", "log.finished": "Ausführung beendet.", "log.engine": "Engine", "log.workspace": "Arbeitsbereich",
+  "status.ready": "Bereit", "status.running": "Läuft · {0} Ausführungen", "status.counts": "{0} Komponenten · {1} Verbindungen",
+  "warn.notRunnable": "Diese Komponente ist in der Browser-Version noch nicht verfügbar – sie wird angezeigt, kann aber nicht laufen.",
+  "tip.notRunnable": "(im Browser noch nicht verfügbar)",
+  "cat.CiphersClassic": "Verschlüsselung – Klassisch", "cat.CiphersModernSymmetric": "Verschlüsselung – Modern symmetrisch", "cat.CiphersModernAsymmetric": "Verschlüsselung – Modern asymmetrisch",
+  "cat.Steganography": "Steganographie", "cat.HashFunctions": "Hashfunktionen", "cat.CryptanalysisSpecific": "Kryptoanalyse – Spezifisch", "cat.CryptanalysisGeneric": "Kryptoanalyse – Generisch",
+  "cat.Protocols": "Protokolle", "cat.ToolsBoolean": "Werkzeuge – Boolesch", "cat.ToolsDataflow": "Werkzeuge – Datenfluss", "cat.ToolsDataInputOutput": "Werkzeuge – Datenein-/ausgabe",
+  "cat.ToolsRandomNumbers": "Werkzeuge – Zufallszahlen", "cat.ToolsCodes": "Werkzeuge – Codes", "cat.ToolsMisc": "Werkzeuge – Verschiedenes", "cat.Undefined": "Sonstige"
+}

@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- No pdb files: the browser runtimes would try to download them and the dev server does not serve that extension. -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+  </PropertyGroup>
+</Project>

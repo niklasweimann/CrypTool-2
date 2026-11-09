@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- The original CT2 plugin sources, compiled for the browser against the portable plugin base. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <NoWarn>$(NoWarn);CS0108;CS0109;CS0114;CS0168;CS0169;CS0219;CS0414;CS0649;CS0618;CS1591;CS8981;CA1416;CS0067;CS0105;SYSLIB0011;SYSLIB0021;SYSLIB0022;SYSLIB0023;SYSLIB0045;SYSLIB0050;SYSLIB0051</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>$(DefineConstants);CT2_PORTABLE</DefineConstants>
+      <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <Import Project="plugins.g.props" />
+  <ItemGroup>
+    <Compile Include="NativeCryptoShim.cs" />
+    <Compile Include="ManagedCrypto.cs" />
+    <Compile Include="stubs.g.cs" Condition="Exists('stubs.g.cs')" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
+    <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <ProjectReference Include="..\LanguageStatistics.Portable\LanguageStatistics.Portable.csproj" />
+    <ProjectReference Include="..\CrypPluginBase.Portable\CrypPluginBase.Portable.csproj" />
+    <ProjectReference Include="..\CrypWeb.Drawing\CrypWeb.Drawing.csproj" />
+  </ItemGroup>
+</Project>

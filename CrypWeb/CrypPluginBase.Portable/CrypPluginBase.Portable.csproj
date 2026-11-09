@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Platform-independent build of CrypPluginBase: the original sources are linked, WPF types are shimmed. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>CrypTool.PluginBase</RootNamespace>
+    <AssemblyName>CrypPluginBase</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS1591;CS0618;CS8981;CA1416</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DefineConstants>$(DefineConstants);CT2_PORTABLE</DefineConstants>
+      <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+    <Compile Include="..\..\CrypPluginBase\**\*.cs" Exclude="..\..\CrypPluginBase\obj\**;..\..\CrypPluginBase\bin\**;..\..\CrypPluginBase\**\*.xaml.cs;..\..\CrypPluginBase\Miscellaneous\SuperTooltip.cs;..\..\CrypPluginBase\Miscellaneous\LocExtension.cs;..\..\CrypPluginBase\Miscellaneous\SelectableTextBlock.cs;..\..\CrypPluginBase\Miscellaneous\DescriptionHyperlink.cs;..\..\CrypPluginBase\Validation\*.cs;..\..\CrypPluginBase\Properties\Settings.cs;..\..\CrypPluginBase\Properties\Settings.Designer.cs;..\..\CrypPluginBase\Miscellaneous\XMLHelper.cs;..\..\CrypPluginBase\TabInfo.cs;..\..\CrypPluginBase\Miscellaneous\ApplicationSettingsHelper.cs;..\..\CrypPluginBase\Editor\IEditor.cs;..\..\CrypPluginBase\Properties\AssemblyInfo.cs" />
+    <Compile Include="Shims\*.cs" />
+    <Compile Include="..\..\LibSource\CrypAnalysisViewControl\ICrypAnalysisResultListEntry.cs" Link="Shims\ICrypAnalysisResultListEntry.cs" />
+    <EmbeddedResource Include="..\..\CrypPluginBase\Properties\Resources.resx" LogicalName="CrypTool.PluginBase.Properties.Resources.resources" Link="Properties\Resources.resx" />
+  </ItemGroup>
+</Project>

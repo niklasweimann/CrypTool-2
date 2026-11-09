@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>LanguageStatisticsLib</AssemblyName>
+    <RootNamespace>LanguageStatisticsLib</RootNamespace>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>$(NoWarn);CS0168;CS0169;CS0219;CS0414;CS0649;CS0618;CS1591;CA1416;SYSLIB0011;SYSLIB0051</NoWarn>
+      <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\LibSource\LanguageStatisticsLib\**\*.cs" Exclude="..\..\LibSource\LanguageStatisticsLib\obj\**;..\..\LibSource\LanguageStatisticsLib\bin\**;..\..\LibSource\LanguageStatisticsLib\Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\..\LibSource\LanguageStatisticsLib\Properties\Resources.resx" LogicalName="LanguageStatisticsLib.Properties.Resources.resources" Link="Properties\Resources.resx" />
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+    <ProjectReference Include="..\CrypPluginBase.Portable\CrypPluginBase.Portable.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,70 @@
+@using System.Text.Json
+@* Shows JSON data the way its shape suggests: grids as tables, number series as bar charts, lists as chips, objects as key/value tables. *@
+
+@switch (Value.ValueKind)
+{
+  case JsonValueKind.Null:
+  case JsonValueKind.Undefined:
+    <span class="vnull">–</span>
+    break;
+  case JsonValueKind.True:
+  case JsonValueKind.False:
+    <span class="vbool @(Value.GetBoolean() ? "t" : "f")">@(Value.GetBoolean() ? "true" : "false")</span>
+    break;
+  case JsonValueKind.Number:
+    <span class="vnum">@Value.ToString()</span>
+    break;
+  case JsonValueKind.String:
+    var text = Value.GetString() ?? "";
+    @if (text.Length <= 60 && !text.Contains('\n')) { <span class="vtxt">@text</span> }
+    else { <pre class="vstr">@(text.Length > 4000 ? text[..4000] + "…" : text)</pre> }
+    break;
+  case JsonValueKind.Array:
+    @if (IsGrid)
+    {
+      <div class="vgrid"><table>
+        @foreach (var row in Value.EnumerateArray().Take(100))
+        {
+          <tr>@foreach (var cell in row.EnumerateArray().Take(60)) { <td class="@CellClass(cell)">@Scalar(cell)</td> }</tr>
+        }
+      </table></div>
+    }
+    else if (IsNumberSeries)
+    {
+      var nums = Value.EnumerateArray().Take(400).Select(e => e.GetDouble()).ToList();
+      double mx = Math.Max(1e-9, nums.Max(Math.Abs)), w = Math.Max(2, Math.Min(14, 520.0 / nums.Count));
+      <svg class="vbars" width="@F(nums.Count * w + 4)" height="70">
+        @for (int i = 0; i < nums.Count; i++)
+        {
+          var h = Math.Max(1, Math.Abs(nums[i]) / mx * 60);
+          <rect x="@F(2 + i * w)" y="@F(66 - h)" width="@F(Math.Max(1, w - 1))" height="@F(h)" class="@(nums[i] < 0 ? "neg" : "")"><title>@nums[i]</title></rect>
+        }
+      </svg>
+      <div class="vsmall">@nums.Count values · min @nums.Min() · max @nums.Max()</div>
+    }
+    else if (AllScalars)
+    {
+      <div class="vchips">@foreach (var e in Value.EnumerateArray().Take(200)) { <span class="chip @CellClass(e)">@Scalar(e)</span> }@if (Value.GetArrayLength() > 200) { <span class="vsmall">… +@(Value.GetArrayLength() - 200)</span> }</div>
+    }
+    else
+    {
+      <div class="vlist">@foreach (var (e, i) in Value.EnumerateArray().Take(30).Select((e, i) => (e, i))) { <div class="vitem"><span class="vidx">@i</span><ValueView Value="e" /></div> }</div>
+    }
+    break;
+  case JsonValueKind.Object:
+    <table class="vobj">
+      @foreach (var p in Value.EnumerateObject().Take(60)) { <tr><th>@p.Name</th><td><ValueView Value="p.Value" /></td></tr> }
+    </table>
+    break;
+}
+
+@code {
+  [Parameter, EditorRequired] public JsonElement Value { get; set; }
+
+  bool AllScalars => Value.EnumerateArray().All(e => e.ValueKind is not (JsonValueKind.Array or JsonValueKind.Object));
+  bool IsGrid => Value.GetArrayLength() > 0 && Value.EnumerateArray().Take(100).All(r => r.ValueKind == JsonValueKind.Array && r.EnumerateArray().All(c => c.ValueKind is not (JsonValueKind.Array or JsonValueKind.Object)));
+  bool IsNumberSeries => Value.GetArrayLength() >= 4 && Value.EnumerateArray().All(e => e.ValueKind == JsonValueKind.Number);
+  static string F(double d) => d.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture);
+  static string Scalar(JsonElement e) => e.ValueKind switch { JsonValueKind.Null => "", JsonValueKind.True => "1", JsonValueKind.False => "0", JsonValueKind.String => e.GetString() ?? "", _ => e.ToString() };
+  static string CellClass(JsonElement e) => e.ValueKind switch { JsonValueKind.True => "on", JsonValueKind.False => "off", JsonValueKind.Number => "num", _ => "" };
+}

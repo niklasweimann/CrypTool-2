@@ -1,0 +1,23 @@
+{
+  "app.edition": "Web edition · prototype",
+  "tab.home": "Home", "tab.view": "View",
+  "group.file": "File", "group.exec": "Execution", "group.edit": "Edit", "group.workspace": "Workspace", "group.view": "View", "group.language": "Language",
+  "file.new": "New", "file.open": "Open", "file.save": "Save",
+  "exec.play": "Play", "exec.stop": "Stop",
+  "edit.paste": "Paste", "edit.cut": "Cut", "edit.copy": "Copy", "edit.delete": "Delete",
+  "ws.undo": "Undo", "ws.redo": "Redo", "ws.addText": "Add text",
+  "view.fit": "Fit", "view.snap": "Snap to grid",
+  "panel.components": "Components", "panel.templates": "Templates", "panel.search": "Search…",
+  "doc.untitled": "Untitled",
+  "right.presentation": "Presentation data", "right.presentationHint": "What the component sends to its visualization (the original draws this with WPF; the web version shows the raw data for now).", "view.open": "Open view", "view.title": "View (live data from the component)", "view.empty": "Run the workspace to see what this component shows.", "view.hint": "The desktop version draws this with the component's own WPF visualization; here the data it sends is shown as tables, lists and charts.", "view.close": "Close", "right.settings": "Settings", "right.noSettings": "No stored settings.", "right.connectors": "Connectors",
+  "conn.in": "in", "conn.out": "out", "conn.input": "input", "conn.output": "output", "conn.required": "required",
+  "log.title": "Log", "log.clear": "Clear",
+  "log.started": "Execution started.", "log.stopped": "Execution stopped.", "log.finished": "Execution finished.", "log.engine": "Engine", "log.workspace": "Workspace",
+  "status.ready": "Ready", "status.running": "Running · {0} executions", "status.counts": "{0} components · {1} connections",
+  "warn.notRunnable": "This component is not available in the browser build yet – it is shown, but cannot run.",
+  "tip.notRunnable": "(not yet available in the browser)",
+  "cat.CiphersClassic": "Ciphers – Classic", "cat.CiphersModernSymmetric": "Ciphers – Modern Symmetric", "cat.CiphersModernAsymmetric": "Ciphers – Modern Asymmetric",
+  "cat.Steganography": "Steganography", "cat.HashFunctions": "Hash Functions", "cat.CryptanalysisSpecific": "Cryptanalysis – Specific", "cat.CryptanalysisGeneric": "Cryptanalysis – Generic",
+  "cat.Protocols": "Protocols", "cat.ToolsBoolean": "Tools – Boolean", "cat.ToolsDataflow": "Tools – Dataflow", "cat.ToolsDataInputOutput": "Tools – Data input/output",
+  "cat.ToolsRandomNumbers": "Tools – Random numbers", "cat.ToolsCodes": "Tools – Codes", "cat.ToolsMisc": "Tools – Miscellaneous", "cat.Undefined": "Other"
+}

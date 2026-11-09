@@ -1,0 +1,5 @@
+bin/
+obj/
+CrypWeb.App/wwwroot/templates/
+CrypWeb.App/wwwroot/worker/
+CrypWeb.App/wwwroot/vfs/

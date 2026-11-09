@@ -1,0 +1,235 @@
+@page "/"
+@using CrypTool.Web.Core
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>CrypTool 2</PageTitle>
+
+<div class="shell">
+  <!-- ===== Ribbon ===== -->
+  <div class="ribbon">
+    <div class="rtabs"><span class="app-btn">CrypTool 2</span><span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span><span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span><span class="rtab-r"><LanguagePicker /><span>@Loc["app.edition"]</span></span></div>
+    @if (ribbonTab == 0)
+    {
+    <div class="rbody">
+      <div class="rgroup"><div class="rbtns">
+        <label class="rbtn big"><span class="ico">🗋</span>@Loc["file.new"]<input type="button" @onclick="New" /></label>
+        <label class="rbtn big"><span class="ico">📂</span>@Loc["file.open"]<InputFile OnChange="OpenFile" accept=".cwm,.json" /></label>
+        <button class="rbtn big" @onclick="Save"><span class="ico">💾</span>@Loc["file.save"]</button>
+      </div><div class="rname">@Loc["group.file"]</div></div>
+      <div class="rgroup"><div class="rbtns">
+        <button class="rbtn big play @(engine.Running ? "dis" : "")" @onclick="Play" disabled="@engine.Running"><span class="ico g">▶</span>@Loc["exec.play"]</button>
+        <button class="rbtn big" @onclick="StopRun" disabled="@(!engine.Running)"><span class="ico r">■</span>@Loc["exec.stop"]</button>
+      </div><div class="rname">@Loc["group.exec"]</div></div>
+      <div class="rgroup"><div class="rbtns">
+        <button class="rbtn big" @onclick="PasteClip" disabled="@(!ed.HasClipboard)"><span class="ico">📋</span>@Loc["edit.paste"]</button>
+        <div class="rcol">
+          <button class="rbtn small" @onclick="CutSel" disabled="@(!HasSelection)">✂ @Loc["edit.cut"]</button>
+          <button class="rbtn small" @onclick="CopySel" disabled="@(!HasSelection)">⧉ @Loc["edit.copy"]</button>
+          <button class="rbtn small" @onclick="DeleteSel" disabled="@(!HasSelection)">✖ @Loc["edit.delete"]</button>
+        </div>
+      </div><div class="rname">@Loc["group.edit"]</div></div>
+      <div class="rgroup"><div class="rbtns">
+        <button class="rbtn big" @onclick="Undo" disabled="@(!ed.CanUndo)"><span class="ico">↶</span>@Loc["ws.undo"]</button>
+        <button class="rbtn big" @onclick="Redo" disabled="@(!ed.CanRedo)"><span class="ico">↷</span>@Loc["ws.redo"]</button>
+        <button class="rbtn big" @onclick="AddNote"><span class="ico">🗒</span>@Loc["ws.addText"]</button>
+      </div><div class="rname">@Loc["group.workspace"]</div></div>
+    </div>
+    }
+    else
+    {
+    <div class="rbody">
+      <div class="rgroup"><div class="rbtns">
+        <button class="rbtn big" @onclick="FitAsync"><span class="ico">⤢</span>@Loc["view.fit"]</button>
+        <div class="rcol">
+          <div class="zoomrow"><button class="rbtn small" @onclick="() => ZoomBy(1 / 1.25)">−</button><span class="zoomv">@((int)Math.Round(zoom * 100))%</span><button class="rbtn small" @onclick="() => ZoomBy(1.25)">+</button></div>
+          <button class="rbtn small" @onclick="Zoom100">100%</button>
+          <label class="rbtn small chk"><input type="checkbox" @bind="snap" /> @Loc["view.snap"]</label>
+        </div>
+      </div><div class="rname">@Loc["group.view"]</div></div>
+      <div class="rgroup"><div class="rbtns">
+        @foreach (var l in Localizer.Languages)
+        {
+          var code = l.Code;
+          <button class="rbtn big @(Loc.Lang == code ? "on" : "")" title="@l.Name" @onclick="() => SetLanguage(code)"><span class="ico langico">@(code.ToUpperInvariant())</span>@l.Name</button>
+        }
+      </div><div class="rname">@Loc["group.language"]</div></div>
+    </div>
+    }
+  </div>
+
+  <div class="work">
+    <!-- ===== Left panel ===== -->
+    <aside class="left">
+      <div class="ptabs">
+        <button class="@(tab == 1 ? "on" : "")" @onclick="() => tab = 1">@Loc["panel.components"]</button>
+        <button class="@(tab == 0 ? "on" : "")" @onclick="() => tab = 0">@Loc["panel.templates"]</button>
+      </div>
+      <input class="pfilter" placeholder="@Loc["panel.search"]" @bind="filter" @bind:event="oninput" />
+      <div class="plist">
+        @if (tab == 0)
+        {
+          @foreach (var grp in FilteredTemplates.GroupBy(t => Path.GetDirectoryName(t) ?? ""))
+          {
+            <div class="cat">@grp.Key.Replace("/", " › ")</div>
+            @foreach (var t in grp)
+            {
+              <div class="pitem @(t == current ? "sel" : "")" @onclick="() => OpenTemplate(t)" title="@t"><span class="pic tpl">▤</span>@Path.GetFileNameWithoutExtension(t)</div>
+            }
+          }
+        }
+        else
+        {
+          @foreach (var grp in FilteredMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
+          {
+            <div class="cat" style="border-left:6px solid @Theme.CategoryColor(grp.Key)">@CatLabel(grp.Key)</div>
+            @foreach (var m in grp.OrderBy(m => m.NameFor(Loc.Lang)))
+            {
+              <div class="pitem @(m.Supported ? "" : "unsup")" draggable="true" @ondragstart="() => dragEntry = m.ToPalette()" @ondblclick="() => AddAtCenter(m.ToPalette())" title="@ItemTip(m)">
+                @if (m.Icon != null) { <img class="pic" src="@m.Icon" /> } else { <span class="pic"></span> }@m.NameFor(Loc.Lang)
+              </div>
+            }
+          }
+        }
+      </div>
+    </aside>
+
+    <!-- ===== Canvas ===== -->
+    <section class="center">
+      <div class="doctabs"><div class="doctab">@(current == null ? Loc["doc.untitled"] : Path.GetFileNameWithoutExtension(current))@(ed.Dirty ? " *" : "")</div></div>
+      <main @ondragover:preventDefault @ondrop="Drop">
+        @if (error != null) { <div class="msg err">@error</div> }
+        <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
+          <g transform="translate(@F(panX) @F(panY)) scale(@F(zoom))">
+            @foreach (var t in ed.Ws.Texts.OrderBy(t => t.ZIndex))
+            {
+              var sel = ed.Selection.Contains(t.Id);
+              <g class="note-g @(sel ? "selected" : "")" @onpointerdown="e => NodeDown(e, t)" @onpointerdown:stopPropagation @ondblclick="() => EditText(t)">
+                <rect x="@F(t.X)" y="@F(t.Y)" width="@F(t.Width)" height="@F(t.Height)" class="note-bg" rx="3"/>
+                @foreach (var (line, i) in Wrap(t.Text, t.Width - 16).Select((l, i) => (l, i))) { @Txt(t.X + 8, t.Y + 20 + i * 16, "note", "start", line) }
+                @if (sel) { <rect x="@F(t.X + t.Width - 10)" y="@F(t.Y + t.Height - 10)" width="10" height="10" class="handle" @onpointerdown="e => ResizeDown(e, t)" @onpointerdown:stopPropagation/> }
+              </g>
+            }
+            @foreach (var w in ed.Ws.Wires.Where(w => w.From != null && w.To != null))
+            {
+              var d = WirePath(w); var col = Theme.TypeColor(w.From!.DataTypeName);
+              var act = engine.Running && engine.ActiveWires.Contains(w.Id); var ws_ = ed.SelectedWire == w.Id;
+              <path d="@d" class="wire-under"/>
+              <path d="@d" class="wire @(act ? "active" : "") @(ws_ ? "sel" : "")" style="stroke:@col"/>
+              <path d="@d" class="wire-hit" @onpointerdown="e => WireDown(e, w)" @onpointerdown:stopPropagation/>
+            }
+            @foreach (var p in ed.Ws.Plugins.OrderBy(p => p.ZIndex))
+            {
+              var (nw, nh) = Size(p); var meta = Meta(p); var col = Theme.CategoryColor(meta?.Category ?? "Undefined");
+              var sel = ed.Selection.Contains(p.Id); engine.Nodes.TryGetValue(p.Id, out var rn);
+              var native = NativeComponent.TryCreate(p.TypeName)?.Which;
+              <g class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "")">
+                <rect x="@F(p.X)" y="@F(p.Y)" width="@F(nw)" height="@F(nh)" rx="5" class="frame" @onpointerdown="e => NodeDown(e, p)" @onpointerdown:stopPropagation/>
+                <rect x="@F(p.X + 2)" y="@F(p.Y + 2)" width="@F(nw - 4)" height="@F(nh - 4)" rx="3" class="inner" style="stroke:@col" @onpointerdown="e => NodeDown(e, p)" @onpointerdown:stopPropagation/>
+                <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="16" class="head" style="fill:@col" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
+                @if (rn != null && engine.Running && rn.State == RunState.Running) { <rect x="@F(p.X + 3)" y="@F(p.Y + 17)" width="@F(Math.Max(0, (nw - 6) * rn.Progress))" height="2" class="prog"/> }
+                @Txt(p.X + 8, p.Y + 15, "title", "start", Title(p, meta))
+                @if (rn != null && rn.Pres.Count > 0) { <g class="viewbtn" @onpointerdown="() => OpenView(p)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + nw - 26, p.Y + 15, "mintxt", "middle", "▤")</g> }
+                <g class="min" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation>@Txt(p.X + nw - 10, p.Y + 15, "mintxt", "middle", p.Minimized ? "▾" : "▴")</g>
+                @if (!p.Minimized)
+                {
+                  @if (native != null)
+                  {
+                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 22)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 28))" @onpointerdown:stopPropagation>
+                      @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
+                      {
+                        <textarea class="nat" spellcheck="false" value="@NativeText(p)" @oninput="e => SetNativeText(p, e.Value?.ToString() ?? string.Empty)" @onpointerdown:stopPropagation></textarea>
+                      }
+                      else if (native == NativeComponent.Kind.PictureOutput) { <div class="nat out pic">@if (rn?.Image != null) { <img src="@rn.Image" /> }</div> }
+                      else { <div class="nat out">@(rn?.Display)</div> }
+                    </foreignObject>
+                  }
+                  else if (meta?.Icon != null)
+                  {
+                    <image href="@meta.Icon" x="@F(p.X + nw / 2 - 24)" y="@F(p.Y + 22 + (nh - 28) / 2 - 24)" width="48" height="48" class="cicon" style="pointer-events:none"/>
+                  }
+                  @if (!Runnable(p))
+                  {
+                    <g class="warn"><title>@Loc["warn.notRunnable"]</title><path d="@WarnPath(p.X + 14, p.Y + nh - 12)"/>@Txt(p.X + 14, p.Y + nh - 8, "wtxt", "middle", "!")</g>
+                  }
+                  else if (rn?.State == RunState.Error) { <g class="warn err"><title>@(rn.LastError)</title><path d="@WarnPath(p.X + 14, p.Y + nh - 12)"/>@Txt(p.X + 14, p.Y + nh - 8, "wtxt", "middle", "!")</g> }
+                }
+                @foreach (var c in p.Inputs.Concat(p.Outputs))
+                {
+                  var pp = PortPos(c);
+                  var ok = connecting != null && ed.CanConnect(connecting, c);
+                  var dim = connecting != null && !ok && c != connecting;
+                  @if (ok) { <circle cx="@F(pp.x)" cy="@F(pp.y)" r="13" class="ring"/> }
+                  <path d="@Tri(c, pp.x, pp.y, ok)" class="port @(c.IsMandatory ? "mand" : "") @(ok ? "ok" : "") @(dim ? "dim" : "")" style="fill:@Theme.TypeColor(c.DataTypeName)"
+                        @onpointerenter="() => hoverPort = c" @onpointerleave="() => hoverPort = null"
+                        @onpointerdown="e => PortDown(e, c)" @onpointerdown:stopPropagation @onpointerup="() => PortUp(c)" @onpointerup:stopPropagation><title>@PortTip(c, meta)</title></path>
+                }
+                }
+                @if (sel && !p.Minimized) { <rect x="@F(p.X + nw - 10)" y="@F(p.Y + nh - 10)" width="10" height="10" class="handle" @onpointerdown="e => ResizeDown(e, p)" @onpointerdown:stopPropagation/> }
+              </g>
+            }
+            @foreach (var (bp, kind) in BubblePorts())
+            {
+              var bpos = PortPos(bp); var bmeta = Meta(bp.Plugin!);
+              @Bubble(bp, bpos.x, bpos.y, kind, bmeta)
+            }
+            @if (connecting != null) { var a = PortPos(connecting); <path d="M @F(a.x) @F(a.y) L @F(cx) @F(cy)" class="wire temp"/> }
+            @if (mode == Mode.Marquee) { <rect x="@F(Math.Min(mx0, cx))" y="@F(Math.Min(my0, cy))" width="@F(Math.Abs(cx - mx0))" height="@F(Math.Abs(cy - my0))" class="marquee"/> }
+          </g>
+        </svg>
+        @if (editing != null) { <input class="inline" style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px" @bind="editText" @bind:event="oninput" @onkeydown="EditKey" @onblur="CommitEdit" id="inline-edit" /> }
+      </main>
+    </section>
+
+    <!-- ===== Right panel: settings ===== -->
+    @if (SelectedPlugin is { } sp)
+    {
+      <aside class="right">
+        <div class="rhead">@Title(sp, Meta(sp))</div>
+        <div class="rsub">@(Meta(sp)?.TooltipFor(Loc.Lang))</div>
+        <div class="hint"><button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button> @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && vn0.Pres.Count > 0) { <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button> }</div>
+        <div class="sec">@Loc["right.connectors"]</div>
+        @foreach (var c in sp.Inputs.Concat(sp.Outputs))
+        {
+          <div class="crow"><svg width="14" height="14"><path d="M1,1 L13,7 L1,13 z" style="fill:@Theme.TypeColor(c.DataTypeName)" class="port @(c.IsMandatory ? "mand" : "")"/></svg><b>@Loc[c.Outgoing ? "conn.out" : "conn.in"]</b> @c.PropertyName<div class="tip">@PortTip(c, Meta(sp))</div></div>
+        }
+        @if (engine.Nodes.TryGetValue(sp.Id, out var nview) && nview.Pres.Count > 0)
+        {
+          <div class="sec">@Loc["right.presentation"]</div>
+          <div class="hint">@Loc["right.presentationHint"]</div>
+          @foreach (var kv in nview.Pres)
+          {
+            <div class="prow"><b>@kv.Key</b><pre>@kv.Value</pre></div>
+          }
+        }
+      </aside>
+    }
+  </div>
+
+  <!-- ===== Log + status ===== -->
+  <div class="logpane @(logOpen ? "open" : "")">
+    <div class="loghead" @onclick="() => logOpen = !logOpen">@Loc["log.title"] <span class="cnt">@log.Count</span><button @onclick="ClearLog" @onclick:stopPropagation>@Loc["log.clear"]</button><span class="tog">@(logOpen ? "▾" : "▴")</span></div>
+    @if (logOpen)
+    {
+      <div class="logbody">
+        @foreach (var l in log.AsEnumerable().Reverse().Take(200)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span><span class="ls">@l.Source</span>@l.Message</div> }
+      </div>
+    }
+  </div>
+  <div class="status">
+    <span class="dot @(engine.Running ? "run" : "")"></span>@(engine.Running ? Loc.T("status.running", engine.ExecutionCount) : Loc["status.ready"])
+    <span class="sp"></span>@Loc.T("status.counts", ed.Ws.Plugins.Count, ed.Ws.Wires.Count) · @((int)Math.Round(zoom * 100))%
+  </div>
+  @if (viewFor != null)
+  {
+    <PresentationModal Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
+  }
+  @if (settingsFor != null)
+  {
+    <ErrorBoundary>
+      <ChildContent>
+            <SettingsModal Node="settingsFor" Meta="Meta(settingsFor)" Title="@Title(settingsFor, Meta(settingsFor))" Running="engine.Running" OnChange="OnSettingChanged" OnClose="CloseSettings" />
+      </ChildContent>
+      <ErrorContent Context="ex"><div class="sm-back" @onclick="CloseSettings"><div class="sm-dialog"><div class="mhint err">Settings dialog failed: @ex.Message<pre style="white-space:pre-wrap;font-size:10px">@ex.StackTrace</pre></div></div></div></ErrorContent>
+    </ErrorBoundary>
+  }
+</div>

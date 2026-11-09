@@ -1,0 +1,12 @@
+@inject Localizer Loc
+
+<select class="langpick" value="@Loc.Lang" @onchange="Changed" title="Language / Sprache">
+  @foreach (var l in Localizer.Languages)
+  {
+    <option value="@l.Code">@l.Name</option>
+  }
+</select>
+
+@code {
+  async Task Changed(ChangeEventArgs e) => await Loc.SetLanguageAsync(e.Value?.ToString() ?? "en");
+}

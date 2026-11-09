@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/StringEncoder/StringEncoderSettings.cs" Link="StringEncoder/StringEncoderSettings.cs" />
+    <Compile Include="../../../CrypPlugins/StringEncoder/StringEncoder.cs" Link="StringEncoder/StringEncoder.cs" />
+    <Compile Include="../../../CrypPlugins/StringEncoder/Properties/Resources.Designer.cs" Link="StringEncoder/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/StringEncoder/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Convertor.Properties.Resources.resources" Link="StringEncoder/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/StringEncoder/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Convertor.Properties.Resources.de.resources" Link="StringEncoder/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

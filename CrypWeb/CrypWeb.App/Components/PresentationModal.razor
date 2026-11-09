@@ -1,0 +1,46 @@
+@using System.Text.Json
+@using CrypTool.Web.Core
+
+<div class="sm-back" @onclick="Close">
+  <div class="sm-dialog wide" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
+    <div class="mhead" style="background:@HeadColor">
+      @if (Meta?.Icon != null) { <img src="@Meta.Icon" /> }
+      <div class="mtitle">@Title<small>@Subtitle</small></div>
+      <button class="mx" @onclick="Close" title="Close">✕</button>
+    </div>
+    <div class="mbody pv">
+      @if (View == null || View.Pres.Count == 0) { <div class="mhint">@Empty</div> }
+      else
+      {
+        @foreach (var kv in View.Pres.OrderBy(k => k.Key))
+        {
+          var json = Parse(kv.Value);
+          <div class="pcall @(IsEmpty(json) ? "dim" : "")">
+            <div class="pname">@Label(kv.Key)</div>
+            <div class="pval"><ValueView Value="json" /></div>
+          </div>
+        }
+      }
+    </div>
+    <div class="mfoot">@Hint<button class="mdone" @onclick="Close">@CloseText</button></div>
+  </div>
+</div>
+
+@code {
+  [Parameter] public PluginMeta? Meta { get; set; }
+  [Parameter] public NodeView? View { get; set; }
+  [Parameter] public string Title { get; set; } = "";
+  [Parameter] public string Subtitle { get; set; } = "";
+  [Parameter] public string Empty { get; set; } = "Run the workspace to see what this component shows.";
+  [Parameter] public string Hint { get; set; } = "";
+  [Parameter] public string CloseText { get; set; } = "Close";
+  [Parameter] public EventCallback OnClose { get; set; }
+
+  string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
+  static JsonElement Parse(string s) { try { return JsonDocument.Parse(s).RootElement.Clone(); } catch { return JsonDocument.Parse("\"" + s.Replace("\"", "'") + "\"").RootElement.Clone(); } }
+  static bool IsEmpty(JsonElement e) => e.ValueKind is JsonValueKind.Null || (e.ValueKind == JsonValueKind.Array && e.GetArrayLength() == 0) || (e.ValueKind == JsonValueKind.String && string.IsNullOrEmpty(e.GetString()));
+  // "Name=" is a property the plugin set, "Name" a method it called
+  static string Label(string n) => n.EndsWith('=') ? n[..^1] : n + "()";
+  Task Close() => OnClose.InvokeAsync();
+  async Task OnKey(KeyboardEventArgs e) { if (e.Key == "Escape") await Close(); }
+}
