@@ -19,7 +19,7 @@ public static partial class WorkerApi
     [JSExport]
     public static void Start(string json, string culture)
     {
-        Stop();
+        Stop(); sentIo.Clear();
         try { var c = new System.Globalization.CultureInfo(string.IsNullOrEmpty(culture) ? "en" : culture); System.Globalization.CultureInfo.CurrentUICulture = c; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = c; } catch { }
         ws = WorkspaceEditor.FromJson(json);
         var eng = engine = new ExecutionEngine();
@@ -71,6 +71,28 @@ public static partial class WorkerApi
         sentImage[n.Model.Id] = n.ImageVersion; return n.ImageUri;
     }
 
+    static readonly Dictionary<int, string> sentIo = new();
+    static string Fmt(object? v)
+    {
+        string t = v switch
+        {
+            null => "",
+            string str => str,
+            byte[] b => $"[{b.Length} bytes] " + Convert.ToHexString(b.Take(48).ToArray()),
+            System.Collections.IEnumerable e => "[" + string.Join(", ", e.Cast<object?>().Take(24).Select(x => x?.ToString())) + "]",
+            _ => v.ToString() ?? ""
+        };
+        return t.Length > 400 ? t[..400] + "…" : t;
+    }
+    static object[]? TakeIo(RunNode n)
+    {
+        object[] r;
+        try { r = n.Last.Select(kv => (object)new { name = kv.Key.PropertyName, @out = kv.Key.Outgoing, value = Fmt(kv.Value) }).ToArray(); } catch { return null; }
+        var key = JsonSerializer.Serialize(r);
+        if (sentIo.GetValueOrDefault(n.Model.Id) == key) return null;
+        sentIo[n.Model.Id] = key; return r;
+    }
+
     static object[]? TakePres(RunNode n)
     {
         lock (n.Pres)
@@ -87,7 +109,7 @@ public static partial class WorkerApi
         long now = Environment.TickCount64;
         if (!force && now - lastSent < 80) return;
         lastSent = now;
-        var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n) });
+        var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n), io = TakeIo(n) });
         Post(JsonSerializer.Serialize(new { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes }));
     }
 }

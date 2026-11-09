@@ -122,3 +122,5 @@ main { flex:1; position:relative; min-height:0; }
 .cnt { fill:#a9b3a6; } .cnttxt { font-size:11px; fill:#111; pointer-events:none; }
 .pbg { fill:#e2f1db; stroke:#9bb393; stroke-width:.5; } .pfill { fill:#6fbf5d; } .ptxt { font-size:10.5px; font-weight:600; fill:#111; pointer-events:none; }
 .uname { font-size:12px; fill:#2a3d5c; pointer-events:none; }
+.nview { width:100%; height:100%; overflow:auto; background:#fff; border:1px solid #9bb393; box-sizing:border-box; font-size:11px; }
+.tbb.on .tbt { fill:#fff; }

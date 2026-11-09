@@ -10,7 +10,7 @@ namespace CrypWeb.App.Pages;
 public partial class Home : IDisposable
 {
     enum Mode { None, Pan, Drag, Marquee, Connect, Resize }
-    record LogEntry(DateTime Time, string Source, CrypTool.Web.Core.LogLevel Level, string Message);
+    record LogEntry(DateTime Time, int NodeId, string Source, CrypTool.Web.Core.LogLevel Level, string Message);
 
     [Inject] HttpClient Http { get; set; } = default!;
     [Inject] IJSRuntime Js { get; set; } = default!;
@@ -71,7 +71,7 @@ public partial class Home : IDisposable
         StartAutosave();
     }
 
-    void AddLog(string src, CrypTool.Web.Core.LogLevel l, string msg) { log.Add(new(DateTime.Now, src, l, msg)); if (log.Count > 500) log.RemoveAt(0); }
+    void AddLog(string src, CrypTool.Web.Core.LogLevel l, string msg, int nodeId = 0) { log.Add(new(DateTime.Now, nodeId, src, l, msg)); if (log.Count > 500) log.RemoveAt(0); }
     void ClearLog() => log.Clear();
 
     [JSInvokable] public void OnRect(double l, double t, double w, double h) { rl = l; rt = t; rw = w; rh = h; }
@@ -239,6 +239,8 @@ public partial class Home : IDisposable
                 v.Ms = n.GetProperty("ms").GetInt64();
                 if (n.TryGetProperty("image", out var im) && im.ValueKind == System.Text.Json.JsonValueKind.String) v.Image = im.GetString();
                 v.LastError = n.TryGetProperty("err", out var e) && e.ValueKind == System.Text.Json.JsonValueKind.String ? e.GetString() : null;
+                if (n.TryGetProperty("io", out var io) && io.ValueKind == System.Text.Json.JsonValueKind.Array)
+                    foreach (var c in io.EnumerateArray()) v.Io[(c.GetProperty("name").GetString()!, c.GetProperty("out").GetBoolean())] = c.GetProperty("value").GetString() ?? "";
                 if (n.TryGetProperty("pres", out var pr) && pr.ValueKind == System.Text.Json.JsonValueKind.Array)
                     foreach (var c in pr.EnumerateArray()) v.Pres[c.GetProperty("name").GetString()!] = c.GetProperty("value").GetString() ?? "";
             }
@@ -247,7 +249,7 @@ public partial class Home : IDisposable
         {
             var id = r.GetProperty("id").GetInt32(); var p = ed.Ws.Plugins.FirstOrDefault(x => x.Id == id);
             Enum.TryParse<CrypTool.Web.Core.LogLevel>(r.GetProperty("level").GetString(), out var lvl);
-            AddLog(p == null ? Loc["log.engine"] : Title(p, Meta(p)), lvl, r.GetProperty("message").GetString() ?? "");
+            AddLog(p == null ? Loc["log.engine"] : Title(p, Meta(p)), lvl, r.GetProperty("message").GetString() ?? "", id);
         }
         else if (type == "stopped") { engine.Running = false; engine.ActiveWires.Clear(); AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.finished"]); }
         StateHasChanged();
@@ -524,6 +526,16 @@ public partial class Home : IDisposable
 
     void CloseSettings() => settingsFor = null;
     void OpenView(PluginNode p) { viewFor = p; }
+    // PluginViewState (CT2): 0 Min, 1 Presentation, 2 Data, 3 Log, 4 Setting, 5 Description, 7 Default
+    void SetView(PluginNode p, int v)
+    {
+        ed.Checkpoint();
+        if (p.Minimized) p.Minimized = false;
+        if (p.ViewState == v) { p.ViewState = 7; return; }
+        var (w, h) = Size(p); p.Width = Math.Max(w, 260); p.Height = Math.Max(h, 190); p.ViewState = v;
+    }
+    IEnumerable<LogEntry> NodeLog(PluginNode p) => log.Where(l => l.NodeId == p.Id).TakeLast(60);
+    string PortCap(PluginNode p, string name) => Meta(p) is { } m ? m.PortCaptionFor(name, Loc.Lang) : name;
     async Task OnSettingChanged((string Name, string Value, string Type) c)
     {
         if (settingsFor == null) return;

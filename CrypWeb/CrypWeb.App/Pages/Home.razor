@@ -127,15 +127,40 @@
                 <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="17" class="head" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
                 @Txt(p.X + nw / 2 + 8, p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
                 <g class="tb">
-                  <g class="tbb" @onpointerdown="() => OpenView(p)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")</g>
+                  <g class="tbb @(p.ViewState == 1 ? "on" : "")" @onpointerdown="() => SetView(p, 1)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")</g>
                   <g class="tbb" @onpointerdown="() => OpenSettings(p)" @onpointerdown:stopPropagation><title>@Loc["right.settings"]</title>@Txt(p.X + 27, p.Y + 15, "tbt", "middle", "⚙")</g>
-                  <g class="tbb" @onpointerdown="() => logOpen = true" @onpointerdown:stopPropagation><title>@Loc["log.title"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
+                  <g class="tbb @(p.ViewState == 3 ? "on" : "")" @onpointerdown="() => SetView(p, 3)" @onpointerdown:stopPropagation><title>@Loc["log.title"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
+                  <g class="tbb @(p.ViewState == 2 ? "on" : "")" @onpointerdown="() => SetView(p, 2)" @onpointerdown:stopPropagation><title>Data</title>@Txt(p.X + 57, p.Y + 15, "tbt", "middle", "▦")</g>
                 </g>
                 <g class="tbb" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation>@Txt(p.X + nw - 30, p.Y + 15, "tbt", "middle", p.Minimized ? "▢" : "▁")</g>
                 <g class="tbb close" @onpointerdown="() => RemoveNode(p)" @onpointerdown:stopPropagation><title>@Loc["edit.delete"]</title>@Txt(p.X + nw - 12, p.Y + 16, "tbt x", "middle", "✖")</g>
                 @if (!p.Minimized)
                 {
-                  @if (native != null)
+                  @if (p.ViewState is 1 or 2 or 3 && native == null)
+                  {
+                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 44))" @onpointerdown:stopPropagation @onwheel:stopPropagation>
+                      <div class="nview">
+                      @if (p.ViewState == 1)
+                      {
+                        @if (rn == null || rn.Pres.Count == 0) { <div class="mhint">@Loc["view.empty"]</div> }
+                        else foreach (var kv in rn.Pres.OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><pre>@kv.Value</pre></div> }
+                      }
+                      else if (p.ViewState == 2)
+                      {
+                        @foreach (var c in p.Inputs.Concat(p.Outputs))
+                        {
+                          var val = rn != null && rn.Io.TryGetValue((c.PropertyName, c.Outgoing), out var iv) ? iv : null;
+                          <div class="prow"><b>@(c.Outgoing ? "▶ " : "◀ ")@PortCap(p, c.PropertyName)</b><pre>@(val ?? "–")</pre></div>
+                        }
+                      }
+                      else
+                      {
+                        @foreach (var l in NodeLog(p)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span>@l.Message</div> }
+                      }
+                      </div>
+                    </foreignObject>
+                  }
+                  else if (native != null)
                   {
                     <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36)))" @onpointerdown:stopPropagation>
                       @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
