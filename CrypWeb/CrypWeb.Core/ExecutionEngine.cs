@@ -26,6 +26,7 @@ public sealed class RunNode
 /// </summary>
 public sealed class ExecutionEngine
 {
+    static ExecutionEngine() { try { System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); } catch { } } // iso-8859-x / windows-125x used by plugins
     public Dictionary<int, RunNode> Nodes { get; } = new();
     public HashSet<int> ActiveWires { get; } = new();
     public bool Running { get; private set; }
@@ -124,6 +125,12 @@ public sealed class ExecutionEngine
                     }
                     return rows;
                 }
+            case System.Data.DataTable dt:
+                return new Dictionary<string, object?>
+                {
+                    ["columns"] = dt.Columns.Cast<System.Data.DataColumn>().Select(c => c.ColumnName).ToList(),
+                    ["rows"] = dt.Rows.Cast<System.Data.DataRow>().Take(200).Select(r => r.ItemArray.Select(x => ToPlain(x is DBNull ? null : x, depth + 1)).ToList()).ToList(),
+                };
             case System.Collections.IDictionary dict:
                 {
                     var r = new Dictionary<string, object?>(); int n = 0;

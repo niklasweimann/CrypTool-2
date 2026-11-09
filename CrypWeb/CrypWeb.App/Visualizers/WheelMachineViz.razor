@@ -1,0 +1,31 @@
+@namespace CrypTool.Web.App.Visualizers
+@inherits VizBase
+@attribute [Visualizer("M209", "HagelinMachine")]
+@* Pin-and-lug wheel machines: window of letters per wheel, active pin and pin activity. *@
+@{
+  var window = Items("ShowWheelPositionsinGrid").Select(w => w.ValueKind == System.Text.Json.JsonValueKind.Array ? w.EnumerateArray().Select(Str).ToList() : new List<string>()).ToList();
+  var shown = Items("ShowDisplayedPositionsInGrid").Select(w => w.ValueKind == System.Text.Json.JsonValueKind.Array ? w.EnumerateArray().Select(Str).ToList() : new List<string>()).ToList();
+  var wheels = Math.Max(window.Count, shown.Count);
+  var active = Items("ShowActivePositionsInGrid").Select(Str).ToList();
+  var pins = Items("ShowWheelPinActivityInGrid").Select(e => e.ValueKind == System.Text.Json.JsonValueKind.True).ToList();
+}
+@if (wheels == 0) { <div class="mhint">…</div> }
+else
+{
+  <div class="wm">
+    @for (int w = 0; w < wheels; w++)
+    {
+      var col = window.Count > w ? window[w] : shown[w];
+      var isActive = pins.Count > w && pins[w];
+      <div class="wm-wheel">
+        <div class="wm-n">@(w + 1)</div>
+        <div class="wm-win">
+          @for (int r = 0; r < col.Count; r++) { <div class="wm-c @(r == col.Count / 2 ? "mid" : "")">@col[r]</div> }
+        </div>
+        <div class="wm-a" title="active position">@(active.Count > w ? active[w] : "")</div>
+        <div class="wm-pin @(isActive ? "on" : "")" title="pin activity">@(isActive ? "+" : "")</div>
+      </div>
+    }
+  </div>
+  <div class="vsmall">window = letters visible on the wheel · highlighted row = displayed to the user · A = active position · + = wheel has an active pin</div>
+}

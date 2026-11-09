@@ -76,3 +76,19 @@ npm run deploy           # build + wrangler deploy
 
 Limits: 25 MiB per file / 20,000 files per version (currently ~1,700 files, largest ~9 MB). `.github/workflows/crypweb-deploy.yml` deploys manually
 (needs the repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`).
+
+
+## Plugin visualizers (original-style drawings)
+
+The desktop version draws each plugin with its own WPF control. The web app replaces these drawings with Blazor components in
+`CrypWeb.App/Visualizers/`, **without touching any plugin source**, so `CrypPlugins/` can keep being synced from the upstream fork:
+
+- A visualizer only reads the calls a plugin already makes against its presentation (`NodeView.Pres`: call name -> last JSON arguments).
+- A component inherits `VizBase` and declares which plugin types it draws: `@attribute [Visualizer("M209", "HagelinMachine")]`
+  (short or full type name). `VisualizerRegistry` finds them by reflection; the component window on the canvas and the view dialog use them
+  automatically (the dialog offers "Raw data" as fallback), so plugins without a visualizer keep the generic data view.
+- To add one: create `Visualizers/<Name>Viz.razor`, look at the plugin's call names with `dotnet run --project CrypWeb.Tests -- <templates> prescalls`,
+  and render those. If the plugin's arguments are a type `ExecutionEngine.ToPlain` does not know yet, extend that once (generic, not per plugin).
+- If upstream renames a presentation call, the visualizer shows nothing instead of breaking the plugin.
+
+Available: wheel machines (M209, Hagelin), Huffman, NLFSR, tables (StraddlingCheckerboard, SyllabaryCipher).

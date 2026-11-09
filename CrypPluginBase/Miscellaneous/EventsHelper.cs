@@ -23,9 +23,21 @@ namespace CrypTool.PluginBase.Miscellaneous
     {
         //to allow undo/redo of settings, we forse everything to synchronous property changed events
         public static bool AsynchronousPropertyChanged { get; set; } = false;
+#if CT2_PORTABLE
+        public static bool AsynchronousGuiLogMessage { get; set; } = false; // BeginInvoke is not supported in the browser (WASM)
+#else
         public static bool AsynchronousGuiLogMessage { get; set; } = true;
+#endif
+#if CT2_PORTABLE
+        public static bool AsynchronousProgressChanged { get; set; } = false; // BeginInvoke is not supported in the browser (WASM)
+#else
         public static bool AsynchronousProgressChanged { get; set; } = true;
+#endif
+#if CT2_PORTABLE
+        public static bool AsynchronousStatusChanged { get; set; } = false; // BeginInvoke is not supported in the browser (WASM)
+#else
         public static bool AsynchronousStatusChanged { get; set; } = true;
+#endif
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void GuiLogMessage(GuiLogNotificationEventHandler handler, IPlugin plugin, string message)

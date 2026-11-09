@@ -1,5 +1,6 @@
 @using System.Text.Json
 @using CrypTool.Web.Core
+@using CrypTool.Web.App.Visualizers
 
 <div class="sm-back" @onclick="Close">
   <div class="sm-dialog wide" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
@@ -10,8 +11,14 @@
     </div>
     <div class="mbody pv">
       @if (View == null || View.Pres.Count == 0) { <div class="mhint">@Empty</div> }
+      else if (VizType != null && !raw)
+      {
+        <DynamicComponent Type="VizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = View.Pres })" />
+        <div class="vtoggle"><a href="#" @onclick:preventDefault @onclick="() => raw = true">Raw data</a></div>
+      }
       else
       {
+        @if (VizType != null) { <div class="vtoggle"><a href="#" @onclick:preventDefault @onclick="() => raw = false">Visualization</a></div> }
         @foreach (var kv in View.Pres.OrderBy(k => k.Key))
         {
           var json = Parse(kv.Value);
@@ -27,6 +34,7 @@
 </div>
 
 @code {
+  [Parameter] public string TypeName { get; set; } = "";
   [Parameter] public PluginMeta? Meta { get; set; }
   [Parameter] public NodeView? View { get; set; }
   [Parameter] public string Title { get; set; } = "";
@@ -36,6 +44,8 @@
   [Parameter] public string CloseText { get; set; } = "Close";
   [Parameter] public EventCallback OnClose { get; set; }
 
+  bool raw;
+  Type? VizType => string.IsNullOrEmpty(TypeName) ? null : VisualizerRegistry.Find(TypeName);
   string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
   static JsonElement Parse(string s) { try { return JsonDocument.Parse(s).RootElement.Clone(); } catch { return JsonDocument.Parse("\"" + s.Replace("\"", "'") + "\"").RootElement.Clone(); } }
   static bool IsEmpty(JsonElement e) => e.ValueKind is JsonValueKind.Null || (e.ValueKind == JsonValueKind.Array && e.GetArrayLength() == 0) || (e.ValueKind == JsonValueKind.String && string.IsNullOrEmpty(e.GetString()));
