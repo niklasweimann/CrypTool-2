@@ -19,5 +19,13 @@
   "cat.CiphersClassic": "Verschlüsselung – Klassisch", "cat.CiphersModernSymmetric": "Verschlüsselung – Modern symmetrisch", "cat.CiphersModernAsymmetric": "Verschlüsselung – Modern asymmetrisch",
   "cat.Steganography": "Steganographie", "cat.HashFunctions": "Hashfunktionen", "cat.CryptanalysisSpecific": "Kryptoanalyse – Spezifisch", "cat.CryptanalysisGeneric": "Kryptoanalyse – Generisch",
   "cat.Protocols": "Protokolle", "cat.ToolsBoolean": "Werkzeuge – Boolesch", "cat.ToolsDataflow": "Werkzeuge – Datenfluss", "cat.ToolsDataInputOutput": "Werkzeuge – Datenein-/ausgabe",
-  "cat.ToolsRandomNumbers": "Werkzeuge – Zufallszahlen", "cat.ToolsCodes": "Werkzeuge – Codes", "cat.ToolsMisc": "Werkzeuge – Verschiedenes", "cat.Undefined": "Sonstige"
+  "cat.ToolsRandomNumbers": "Werkzeuge – Zufallszahlen", "cat.ToolsCodes": "Werkzeuge – Codes", "cat.ToolsMisc": "Werkzeuge – Verschiedenes", "cat.Undefined": "Sonstige",
+  "tab.edit": "Bearbeiten",
+  "group.extras": "Extras",
+  "doc.start": "Startcenter",
+  "doc.settings": "Einstellungen",
+  "doc.confirmClose": "\"{0}\" hat ungespeicherte Änderungen. Trotzdem schließen?",
+  "ws.addImage": "Bild",
+  "start.title": "Willkommen bei CrypTool 2 (Web)",
+  "start.intro": "Öffne eine Vorlage, starte mit einem leeren Arbeitsbereich oder öffne eine vorhandene .cwm-Datei."
 }

@@ -16,22 +16,34 @@ public partial class Home : IDisposable
     [Inject] IJSRuntime Js { get; set; } = default!;
     [Inject] NavigationManager Nav { get; set; } = default!;
 
-    readonly WorkspaceEditor ed = new();
-    readonly RunView engine = new();
-    readonly List<LogEntry> log = new();
+    enum DocKind { Workspace, Start, Settings }
+    sealed class Doc
+    {
+        public DocKind Kind; public WorkspaceEditor Ed = new(); public RunView Engine = new(); public List<LogEntry> Log = new();
+        public string? Name; public double PanX = 40, PanY = 40, Zoom = 1;
+    }
+    readonly List<Doc> docs = new();
+    Doc active = new();
+    Doc? runDoc;
+    WorkspaceEditor ed => active.Ed;
+    RunView engine => active.Engine;
+    List<LogEntry> log => active.Log;
+    string? current { get => active.Name; set => active.Name = value; }
+    double panX { get => active.PanX; set => active.PanX = value; }
+    double panY { get => active.PanY; set => active.PanY = value; }
+    double zoom { get => active.Zoom; set => active.Zoom = value; }
     List<string> templates = new();
     Dictionary<string, PluginMeta> meta = new(StringComparer.OrdinalIgnoreCase);
     readonly Dictionary<string, bool> runnable = new(StringComparer.OrdinalIgnoreCase);
     PaletteEntry? dragEntry;
     string filter = "", editText = "";
     int tab = 1;
-    string? current, error;
+    string? error;
     bool snap = true, logOpen = true;
     ConnectorPort? hoverPort;
     PluginNode? settingsFor, viewFor;
     VisualNode? downNode; bool downHeader; DateTime downAt;
 
-    double panX = 40, panY = 40, zoom = 1;
     double rl, rt, rw = 1000, rh = 650;
     Mode mode;
     double lx, ly, cx, cy, mx0, my0, dragWx, dragWy;
@@ -49,6 +61,7 @@ public partial class Home : IDisposable
 
     protected override async Task OnInitializedAsync()
     {
+        docs.Add(active);
         templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new();
         try
         {
@@ -71,7 +84,7 @@ public partial class Home : IDisposable
         StartAutosave();
     }
 
-    void AddLog(string src, CrypTool.Web.Core.LogLevel l, string msg, int nodeId = 0) { log.Add(new(DateTime.Now, nodeId, src, l, msg)); if (log.Count > 500) log.RemoveAt(0); }
+    void AddLog(string src, CrypTool.Web.Core.LogLevel l, string msg, int nodeId = 0, Doc? d = null) { var lg = (d ?? active).Log; lg.Add(new(DateTime.Now, nodeId, src, l, msg)); if (lg.Count > 500) lg.RemoveAt(0); }
     void ClearLog() => log.Clear();
 
     [JSInvokable] public void OnRect(double l, double t, double w, double h) { rl = l; rt = t; rw = w; rh = h; }
@@ -202,25 +215,29 @@ public partial class Home : IDisposable
     // ---------- execution (runs in a Web Worker) ----------
     async Task Play()
     {
-        if (engine.Running) return;
-        CommitEdit(); logOpen = true; engine.Reset(); engine.Running = true;
+        if (engine.Running || active.Kind != DocKind.Workspace) return;
+        if (runDoc != null && runDoc.Engine.Running) StopRun();
+        CommitEdit(); logOpen = true; engine.Reset(); engine.Running = true; runDoc = active;
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.started"]);
         await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson());
     }
 
     void StopRun()
     {
-        if (!engine.Running) return;
+        var d = runDoc; if (d == null || !d.Engine.Running) return;
         _ = Js.InvokeVoidAsync("ct2engine.stop");
-        engine.Running = false; engine.ActiveWires.Clear();
-        foreach (var n in engine.Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Idle;
-        AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.stopped"]);
+        d.Engine.Running = false; d.Engine.ActiveWires.Clear();
+        foreach (var n in d.Engine.Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Idle;
+        AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.stopped"], 0, d);
+        runDoc = null;
         _ = Js.InvokeVoidAsync("ct2engine.prewarm");
     }
 
     [JSInvokable]
     public void OnWorkerMessage(string json)
     {
+        if (runDoc == null) return;
+        var engine = runDoc.Engine; var ed = runDoc.Ed; var rd = runDoc;
         using var doc = System.Text.Json.JsonDocument.Parse(json);
         var r = doc.RootElement; var type = r.GetProperty("type").GetString();
         if (type == "state")
@@ -249,16 +266,31 @@ public partial class Home : IDisposable
         {
             var id = r.GetProperty("id").GetInt32(); var p = ed.Ws.Plugins.FirstOrDefault(x => x.Id == id);
             Enum.TryParse<CrypTool.Web.Core.LogLevel>(r.GetProperty("level").GetString(), out var lvl);
-            AddLog(p == null ? Loc["log.engine"] : Title(p, Meta(p)), lvl, r.GetProperty("message").GetString() ?? "", id);
+            AddLog(p == null ? Loc["log.engine"] : Title(p, Meta(p)), lvl, r.GetProperty("message").GetString() ?? "", id, rd);
         }
-        else if (type == "stopped") { engine.Running = false; engine.ActiveWires.Clear(); AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.finished"]); }
+        else if (type == "stopped") { engine.Running = false; engine.ActiveWires.Clear(); AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.finished"], 0, rd); }
         StateHasChanged();
     }
 
     // ---------- loading / saving ----------
-    async Task OpenTemplate(string t)
+    bool ActiveIsBlank => active.Kind == DocKind.Workspace && current == null && !ed.Dirty && ed.Ws.Plugins.Count + ed.Ws.Texts.Count + ed.Ws.Images.Count == 0;
+
+    /// <summary>Makes sure there is a workspace tab to load into: reuses an empty untitled one, otherwise opens a new tab.</summary>
+    void EnsureTarget()
     {
-        current = t; error = null; editing = null; StopRun();
+        if (ActiveIsBlank) return;
+        var d = new Doc(); docs.Add(d); active = d; ed.Load(new Workspace());
+    }
+
+    async Task OpenTemplate(string t, bool inPlace = false)
+    {
+        if (!inPlace)
+        {
+            var open = docs.FirstOrDefault(d => d.Kind == DocKind.Workspace && d.Name == t && !d.Ed.Dirty);
+            if (open != null) { await Activate(open); return; }
+            EnsureTarget();
+        }
+        current = t; error = null; editing = null; if (runDoc == active) StopRun();
         try
         {
             var bytes = await Http.GetByteArrayAsync("templates/" + string.Join("/", t.Split('/').Select(Uri.EscapeDataString)));
@@ -282,18 +314,54 @@ public partial class Home : IDisposable
             using var ms = new MemoryStream();
             await e.File.OpenReadStream(50_000_000).CopyToAsync(ms);
             var b = ms.ToArray();
-            StopRun();
             var ws = e.File.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase) ? WorkspaceEditor.FromJson(System.Text.Encoding.UTF8.GetString(b)) : CwmReader.Read(b);
+            EnsureTarget();
             ed.Load(ws); current = e.File.Name; error = null;
             await FitAsync();
         }
         catch (Exception ex) { error = "Could not open file: " + ex.Message; }
     }
 
-    void New() { StopRun(); ed.Load(new Workspace()); current = null; panX = panY = 40; zoom = 1; }
+    async Task AddImageFile(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            using var ms = new MemoryStream();
+            await e.File.OpenReadStream(20_000_000).CopyToAsync(ms);
+            var data = ms.ToArray();
+            var size = await Js.InvokeAsync<double[]>("ct2.imageSize", "data:" + e.File.ContentType + ";base64," + Convert.ToBase64String(data));
+            double w = Math.Min(size[0], 400), h = size[0] > 0 ? size[1] * w / size[0] : 200; var (cx0, cy0) = Center();
+            ed.Checkpoint(); var im = ed.AddImage(data, cx0 - w / 2, cy0 - h / 2, w, h); ed.Selection.Clear(); ed.Selection.Add(im.Id);
+        }
+        catch (Exception ex) { error = "Could not add image: " + ex.Message; }
+    }
+
+    static string ImageUri(ImageNode im)
+    {
+        var d = im.Data; string mime = d.Length > 3 && d[0] == 0x89 ? "image/png" : d.Length > 2 && d[0] == 0xFF ? "image/jpeg" : d.Length > 2 && d[0] == 0x47 ? "image/gif" : d.Length > 1 && d[0] == 0x42 ? "image/bmp" : "image/png";
+        return $"data:{mime};base64,{Convert.ToBase64String(d)}";
+    }
+
+    // ---------- documents (tabs) ----------
+    async Task Activate(Doc d) { active = d; editing = null; error = null; await Task.Delay(20); try { var r = await Js.InvokeAsync<double[]>("ct2.rect", "main svg"); rl = r[0]; rt = r[1]; rw = r[2]; rh = r[3]; } catch { } }
+    void NewDoc() { var d = new Doc(); docs.Add(d); active = d; }
+    void ShowSingleton(DocKind k) { var d = docs.FirstOrDefault(x => x.Kind == k); if (d == null) { d = new Doc { Kind = k }; docs.Add(d); } active = d; }
+    async Task CloseDoc(Doc d)
+    {
+        if (d.Kind == DocKind.Workspace && d.Ed.Dirty && d.Ed.Ws.Plugins.Count + d.Ed.Ws.Texts.Count > 0
+            && !await Js.InvokeAsync<bool>("confirm", Loc.T("doc.confirmClose", DocTitle(d)))) return;
+        if (runDoc == d) { var keep = active; active = d; StopRun(); active = keep; }
+        int i = docs.IndexOf(d); docs.Remove(d);
+        if (docs.Count == 0) docs.Add(new Doc());
+        if (active == d) active = docs[Math.Min(i, docs.Count - 1)];
+    }
+    string DocTitle(Doc d) => d.Kind switch { DocKind.Start => Loc["doc.start"], DocKind.Settings => Loc["doc.settings"], _ => d.Name == null ? Loc["doc.untitled"] : Path.GetFileNameWithoutExtension(d.Name) } + (d.Kind == DocKind.Workspace && d.Ed.Dirty ? " *" : "");
+
+    void New() => NewDoc();
     /// <summary>Saves a CrypTool 2 compatible .cwm file (opens in the desktop version).</summary>
     async void Save()
     {
+        if (active.Kind != DocKind.Workspace) return;
         var name = current == null ? "workspace" : Path.GetFileNameWithoutExtension(current);
         try { await Js.InvokeVoidAsync("ct2.downloadBytes", name + ".cwm", Convert.ToBase64String(CwmWriter.Write(ed.Ws))); }
         catch (Exception e) { AddLog("Workspace", CrypTool.Web.Core.LogLevel.Error, "Could not save: " + e.Message); }
@@ -502,7 +570,7 @@ public partial class Home : IDisposable
                     (cx, cy) = ToWorld(e.ClientX, e.ClientY);
                     double x0 = Math.Min(mx0, cx), x1 = Math.Max(mx0, cx), y0 = Math.Min(my0, cy), y1 = Math.Max(my0, cy);
                     foreach (var p in ed.Ws.Plugins) { var (w, h) = Size(p); if (p.X < x1 && p.X + w > x0 && p.Y < y1 && p.Y + h > y0) ed.Selection.Add(p.Id); }
-                    foreach (var t in ed.Ws.Texts) if (t.X < x1 && t.X + t.Width > x0 && t.Y < y1 && t.Y + t.Height > y0) ed.Selection.Add(t.Id);
+                    foreach (var t in ed.Ws.Texts.Cast<VisualNode>().Concat(ed.Ws.Images)) if (t.X < x1 && t.X + t.Width > x0 && t.Y < y1 && t.Y + t.Height > y0) ed.Selection.Add(t.Id);
                     break;
                 }
             case Mode.Connect: (cx, cy) = ToWorld(e.ClientX, e.ClientY); break;

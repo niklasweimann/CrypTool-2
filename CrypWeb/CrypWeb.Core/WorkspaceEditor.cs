@@ -23,9 +23,9 @@ public sealed class WorkspaceEditor
     public void Checkpoint() { undo.Push(Ws.Clone()); redo.Clear(); if (undo.Count > 200) { var l = undo.Reverse().Skip(1).ToArray(); undo.Clear(); foreach (var x in l) undo.Push(x); } Dirty = true; }
     public void Undo() { if (undo.Count == 0) return; redo.Push(Ws.Clone()); Ws = undo.Pop(); Prune(); }
     public void Redo() { if (redo.Count == 0) return; undo.Push(Ws.Clone()); Ws = redo.Pop(); Prune(); }
-    void Prune() { var ids = Ws.Plugins.Select(p => p.Id).Concat(Ws.Texts.Select(t => t.Id)).ToHashSet(); Selection.IntersectWith(ids); SelectedWire = null; }
+    void Prune() { var ids = Ws.Plugins.Select(p => p.Id).Concat(Ws.Texts.Select(t => t.Id)).Concat(Ws.Images.Select(t => t.Id)).ToHashSet(); Selection.IntersectWith(ids); SelectedWire = null; }
 
-    public IEnumerable<VisualNode> Movable => Ws.Plugins.Cast<VisualNode>().Concat(Ws.Texts);
+    public IEnumerable<VisualNode> Movable => Ws.Plugins.Cast<VisualNode>().Concat(Ws.Texts).Concat(Ws.Images);
     public VisualNode? Find(int id) => Movable.FirstOrDefault(n => n.Id == id);
 
     public void BringToFront(VisualNode n) { n.ZIndex = Movable.Max(m => m.ZIndex) + 1; }
@@ -53,6 +53,12 @@ public sealed class WorkspaceEditor
     {
         var t = new TextNode { Id = Ws.NextId(), X = x, Y = y, Width = 220, Height = 80, Text = "Note" };
         Ws.Texts.Add(t); BringToFront(t); return t;
+    }
+
+    public ImageNode AddImage(byte[] data, double x, double y, double w, double h)
+    {
+        var im = new ImageNode { Id = Ws.NextId(), X = x, Y = y, Width = w, Height = h, Data = data };
+        Ws.Images.Add(im); BringToFront(im); return im;
     }
 
     public bool CanConnect(ConnectorPort a, ConnectorPort b)
@@ -109,11 +115,12 @@ public sealed class WorkspaceEditor
             Ws.Plugins.Remove(p);
         }
         Ws.Texts.RemoveAll(t => Selection.Contains(t.Id));
+        Ws.Images.RemoveAll(t => Selection.Contains(t.Id));
         Selection.Clear();
     }
 
     public void Copy() => clipboard = Ws.Clone(n => Selection.Contains(n.Id));
-    public bool HasClipboard => clipboard != null && (clipboard.Plugins.Count + clipboard.Texts.Count) > 0;
+    public bool HasClipboard => clipboard != null && (clipboard.Plugins.Count + clipboard.Texts.Count + clipboard.Images.Count) > 0;
 
     public void Paste()
     {
@@ -125,10 +132,11 @@ public sealed class WorkspaceEditor
         int Next(int old) => map.TryGetValue(old, out var v) ? v : map[old] = baseId++;
         foreach (var p in c.Plugins) { p.Id = Next(p.Id); p.X += 30 * pasteCount; p.Y += 30 * pasteCount; }
         foreach (var t in c.Texts) { t.Id = Next(t.Id); t.X += 30 * pasteCount; t.Y += 30 * pasteCount; }
+        foreach (var t in c.Images) { t.Id = Next(t.Id); t.X += 30 * pasteCount; t.Y += 30 * pasteCount; }
         foreach (var k in c.Connectors) k.Id = Next(k.Id);
         foreach (var w in c.Wires) w.Id = Next(w.Id);
-        Ws.Plugins.AddRange(c.Plugins); Ws.Connectors.AddRange(c.Connectors); Ws.Wires.AddRange(c.Wires); Ws.Texts.AddRange(c.Texts);
-        Selection.Clear(); foreach (var n in c.Plugins.Cast<VisualNode>().Concat(c.Texts)) { Selection.Add(n.Id); BringToFront(n); }
+        Ws.Plugins.AddRange(c.Plugins); Ws.Connectors.AddRange(c.Connectors); Ws.Wires.AddRange(c.Wires); Ws.Texts.AddRange(c.Texts); Ws.Images.AddRange(c.Images);
+        Selection.Clear(); foreach (var n in c.Plugins.Cast<VisualNode>().Concat(c.Texts).Concat(c.Images)) { Selection.Add(n.Id); BringToFront(n); }
     }
 
     public void SelectAll() { Selection.Clear(); foreach (var n in Movable) Selection.Add(n.Id); }

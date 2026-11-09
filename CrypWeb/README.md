@@ -61,3 +61,18 @@ Status (headless smoke test over all templates, `dotnet run --project CrypWeb.Te
 with custom WPF controls, Emgu/NAudio-based ones, the cloud components).
 Plugin visualizations: the calls a component makes on its (browser-less) presentation are recorded in the engine worker (`RunNode.Pres`), converted to plain data (`ToPlain`: 2D arrays, lists, dictionaries, numbers, text) and shown by the generic **Open view** dialog (`PresentationModal`/`ValueView`: grids as tables, 0/1 series as cells, number series as bar charts, objects as key/value tables). This is a data view, not the component's original WPF drawing. Per-plugin renderers (e.g. an Enigma machine, histograms) would be added on top of the same data.
 Not done: original-style drawings of plugin visualizations, text drawing in `CrypWeb.Drawing`, webcam/audio via browser APIs.
+
+## Hosting on Cloudflare Workers
+
+The app is static (Blazor WASM + engine worker), so it is deployed as Workers *static assets* (`wrangler.jsonc`, SPA fallback to `index.html`).
+
+```sh
+npm install
+npm run build            # ./tools-build-web.sh: templates + engine worker + dotnet publish -> dist/
+npm run dev              # local Workers runtime at http://localhost:8787
+npx wrangler login       # once
+npm run deploy           # build + wrangler deploy
+```
+
+Limits: 25 MiB per file / 20,000 files per version (currently ~1,700 files, largest ~9 MB). `.github/workflows/crypweb-deploy.yml` deploys manually
+(needs the repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`).

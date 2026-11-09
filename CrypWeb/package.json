@@ -1,0 +1,13 @@
+{
+  "name": "crypweb",
+  "private": true,
+  "scripts": {
+    "build": "./tools-build-web.sh",
+    "dev": "wrangler dev",
+    "deploy": "./tools-build-web.sh && wrangler deploy",
+    "deploy:preview": "./tools-build-web.sh && wrangler versions upload"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

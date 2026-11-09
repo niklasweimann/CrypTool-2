@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "crypweb",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    // Output of ./tools-build-web.sh
+    "directory": "./dist",
+    // Unknown paths fall back to index.html (Blazor client-side routing)
+    "not_found_handling": "single-page-application"
+  }
+}

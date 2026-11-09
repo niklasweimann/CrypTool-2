@@ -3,3 +3,6 @@ obj/
 CrypWeb.App/wwwroot/templates/
 CrypWeb.App/wwwroot/worker/
 CrypWeb.App/wwwroot/vfs/
+dist/
+node_modules/
+.wrangler/

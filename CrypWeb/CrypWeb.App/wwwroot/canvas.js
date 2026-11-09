@@ -28,3 +28,6 @@ window.ct2 = {
     const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type: 'application/json' })); a.download = name; a.click();
   }
 };
+
+window.ct2 = window.ct2 || {};
+window.ct2.imageSize = (uri) => new Promise(res => { const i = new Image(); i.onload = () => res([i.naturalWidth, i.naturalHeight]); i.onerror = () => res([200, 150]); i.src = uri; });

@@ -44,7 +44,7 @@ public sealed class Workspace
         }
         foreach (var t in Texts.Where(t => include?.Invoke(t) ?? true))
             c.Texts.Add(new TextNode { Id = t.Id, X = t.X, Y = t.Y, Width = t.Width, Height = t.Height, ZIndex = t.ZIndex, Text = t.Text, BackgroundColor = t.BackgroundColor, OriginalData = t.OriginalData, OriginalText = t.OriginalText, Extra = new(t.Extra) });
-        foreach (var im in Images) c.Images.Add(new ImageNode { Id = im.Id, X = im.X, Y = im.Y, Width = im.Width, Height = im.Height, ZIndex = im.ZIndex, Data = im.Data, Extra = new(im.Extra) });
+        foreach (var im in Images.Where(i => include?.Invoke(i) ?? true)) c.Images.Add(new ImageNode { Id = im.Id, X = im.X, Y = im.Y, Width = im.Width, Height = im.Height, ZIndex = im.ZIndex, Data = im.Data, Extra = new(im.Extra) });
         return c;
     }
 }

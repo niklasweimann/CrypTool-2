@@ -34,7 +34,8 @@ html, body { margin:0; height:100%; font-family:"Segoe UI", system-ui, -apple-sy
 .pic { width:20px; height:20px; object-fit:contain; flex:none; } .pic.tpl { color:#678; text-align:center; font-size:14px; }
 .center { flex:1; display:flex; flex-direction:column; min-width:0; }
 .doctabs { background:#e3eaf5; border-bottom:1px solid var(--line); display:flex; height:24px; align-items:flex-end; }
-.doctab { background:#fff; border:1px solid var(--line); border-bottom:none; padding:3px 14px; border-radius:3px 3px 0 0; margin-left:4px; }
+.doctab { background:#dbe5f5; border:1px solid var(--line); border-bottom:none; padding:3px 10px; border-radius:3px 3px 0 0; margin-left:4px; cursor:pointer; display:flex; align-items:center; gap:6px; max-width:220px; white-space:nowrap; }
+.doctab.on { background:#fff; font-weight:600; } .doctab .dk { color:#2b579a; } .doctab .dx { color:#889; padding:0 2px; border-radius:3px; } .doctab .dx:hover { background:#e9b3b3; color:#fff; } .doctab.add { padding:3px 9px; color:#2b579a; font-weight:700; }
 main { flex:1; position:relative; min-height:0; }
 .canvas { width:100%; height:100%; display:block; background:linear-gradient(180deg,#c9ddf8 0%,#a9c8f2 100%); cursor:default; user-select:none; touch-action:none; outline:none; }
 .canvas.grabbing { cursor:grabbing; }
@@ -124,3 +125,8 @@ main { flex:1; position:relative; min-height:0; }
 .uname { font-size:12px; fill:#2a3d5c; pointer-events:none; }
 .nview { width:100%; height:100%; overflow:auto; background:#fff; border:1px solid #9bb393; box-sizing:border-box; font-size:11px; }
 .tbb.on .tbt { fill:#fff; }
+
+.page { flex:1; overflow:auto; background:#fff; padding:18px 28px; } .page h1 { font-size:22px; color:var(--blue); margin:0 0 6px; } .page h2 { font-size:16px; margin:20px 0 4px; } .page h3 { font-size:12px; color:#556; margin:10px 0 4px; text-transform:uppercase; letter-spacing:.04em; }
+.startbtns { display:flex; gap:8px; margin:12px 0; } .tplgrid { display:flex; flex-wrap:wrap; gap:6px; } .tplcard { border:1px solid #c5cfdf; background:#f6f9fe; border-radius:4px; padding:5px 10px; cursor:pointer; font:inherit; } .tplcard:hover { background:#dde8fb; }
+.img-frame { fill:none; stroke:transparent; } .img-g { cursor:move; } .img-g.selected .img-frame { stroke:#1565d8; stroke-width:2; }
+.rgroup.extras { margin-left:auto; border-right:none; }

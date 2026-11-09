@@ -7,7 +7,7 @@
 <div class="shell">
   <!-- ===== Ribbon ===== -->
   <div class="ribbon">
-    <div class="rtabs"><span class="app-btn">CrypTool 2</span><span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span><span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span><span class="rtab-r"><LanguagePicker /><span>@Loc["app.edition"]</span></span></div>
+    <div class="rtabs"><span class="app-btn">CrypTool 2</span><span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span><span class="rtab @(ribbonTab == 2 ? "on" : "")" @onclick="() => ribbonTab = 2">@Loc["tab.edit"]</span><span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span><span class="rtab-r"><LanguagePicker /><span>@Loc["app.edition"]</span></span></div>
     @if (ribbonTab == 0)
     {
     <div class="rbody">
@@ -21,6 +21,18 @@
         <button class="rbtn big" @onclick="StopRun" disabled="@(!engine.Running)"><span class="ico r">■</span>@Loc["exec.stop"]</button>
       </div><div class="rname">@Loc["group.exec"]</div></div>
       <div class="rgroup"><div class="rbtns">
+        <button class="rbtn big @(logOpen ? "on" : "")" @onclick="() => logOpen = !logOpen"><span class="ico">📖</span>@Loc["log.title"]</button>
+      </div><div class="rname">@Loc["group.view"]</div></div>
+      <div class="rgroup extras"><div class="rbtns">
+        <button class="rbtn big" @onclick="() => ShowSingleton(DocKind.Start)"><span class="ico g">★</span>@Loc["doc.start"]</button>
+        <button class="rbtn big" @onclick="() => ShowSingleton(DocKind.Settings)"><span class="ico">⚙</span>@Loc["doc.settings"]</button>
+      </div><div class="rname">@Loc["group.extras"]</div></div>
+    </div>
+    }
+    else if (ribbonTab == 2)
+    {
+    <div class="rbody">
+      <div class="rgroup"><div class="rbtns">
         <button class="rbtn big" @onclick="PasteClip" disabled="@(!ed.HasClipboard)"><span class="ico">📋</span>@Loc["edit.paste"]</button>
         <div class="rcol">
           <button class="rbtn small" @onclick="CutSel" disabled="@(!HasSelection)">✂ @Loc["edit.cut"]</button>
@@ -31,6 +43,7 @@
       <div class="rgroup"><div class="rbtns">
         <button class="rbtn big" @onclick="Undo" disabled="@(!ed.CanUndo)"><span class="ico">↶</span>@Loc["ws.undo"]</button>
         <button class="rbtn big" @onclick="Redo" disabled="@(!ed.CanRedo)"><span class="ico">↷</span>@Loc["ws.redo"]</button>
+        <label class="rbtn big"><span class="ico">🖼</span>@Loc["ws.addImage"]<InputFile OnChange="AddImageFile" accept="image/*" /></label>
         <button class="rbtn big" @onclick="AddNote"><span class="ico">🗒</span>@Loc["ws.addText"]</button>
       </div><div class="rname">@Loc["group.workspace"]</div></div>
     </div>
@@ -95,11 +108,47 @@
 
     <!-- ===== Canvas ===== -->
     <section class="center">
-      <div class="doctabs"><div class="doctab">@(current == null ? Loc["doc.untitled"] : Path.GetFileNameWithoutExtension(current))@(ed.Dirty ? " *" : "")</div></div>
-      <main @ondragover:preventDefault @ondrop="Drop">
+      <div class="doctabs">
+        @foreach (var d in docs.ToList())
+        {
+          var dd = d;
+          <div class="doctab @(dd == active ? "on" : "")" @onclick="() => Activate(dd)"><span class="dk">@(dd.Kind == DocKind.Start ? "★" : dd.Kind == DocKind.Settings ? "⚙" : dd.Engine.Running ? "▶" : "▤")</span>@DocTitle(dd)<span class="dx" @onclick="() => CloseDoc(dd)" @onclick:stopPropagation>✕</span></div>
+        }
+        <div class="doctab add" @onclick="NewDoc" title="@Loc["file.new"]">＋</div>
+      </div>
+      @if (active.Kind == DocKind.Start)
+      {
+        <div class="page start">
+          <h1>@Loc["start.title"]</h1><p>@Loc["start.intro"]</p>
+          <div class="startbtns">
+            <button class="rbtn big" @onclick="NewDoc"><span class="ico">🗋</span>@Loc["file.new"]</button>
+            <label class="rbtn big"><span class="ico">📂</span>@Loc["file.open"]<InputFile OnChange="OpenFile" accept=".cwm,.json" /></label>
+          </div>
+          <h2>@Loc["panel.templates"]</h2>
+          @foreach (var grp in templates.GroupBy(t => Path.GetDirectoryName(t) ?? ""))
+          {
+            <h3>@grp.Key.Replace("/", " › ")</h3>
+            <div class="tplgrid">@foreach (var t in grp) { var tt = t; <button class="tplcard" @onclick="() => OpenTemplate(tt)">▤ @Path.GetFileNameWithoutExtension(t)</button> }</div>
+          }
+        </div>
+      }
+      else if (active.Kind == DocKind.Settings)
+      {
+        <div class="page"><h1>@Loc["doc.settings"]</h1></div>
+      }
+      <main style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault @ondrop="Drop">
         @if (error != null) { <div class="msg err">@error</div> }
         <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
           <g transform="translate(@F(panX) @F(panY)) scale(@F(zoom))">
+            @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
+            {
+              var isel = ed.Selection.Contains(im.Id);
+              <g class="img-g @(isel ? "selected" : "")" @onpointerdown="e => NodeDown(e, im)" @onpointerdown:stopPropagation>
+                <image href="@ImageUri(im)" x="@F(im.X)" y="@F(im.Y)" width="@F(im.Width)" height="@F(im.Height)" preserveAspectRatio="none"/>
+                <rect x="@F(im.X)" y="@F(im.Y)" width="@F(im.Width)" height="@F(im.Height)" class="img-frame"/>
+                @if (isel) { <rect x="@F(im.X + im.Width - 10)" y="@F(im.Y + im.Height - 10)" width="10" height="10" class="handle" @onpointerdown="e => ResizeDown(e, im)" @onpointerdown:stopPropagation/> }
+              </g>
+            }
             @foreach (var t in ed.Ws.Texts.OrderBy(t => t.ZIndex))
             {
               var sel = ed.Selection.Contains(t.Id);

@@ -12,10 +12,10 @@ public partial class Home
     void OnLanguageChanged() => _ = InvokeAsync(async () =>
     {
         // Template texts ($placeholders$) are resolved when a template is loaded: reload an unmodified template in the new language.
-        if (current != null && !ed.Dirty && templates.Contains(current))
+        if (active.Kind == DocKind.Workspace && current != null && !ed.Dirty && templates.Contains(current))
         {
             double px = panX, py = panY, z = zoom;
-            await OpenTemplate(current);
+            await OpenTemplate(current, inPlace: true);
             panX = px; panY = py; zoom = z;
         }
         StateHasChanged();
