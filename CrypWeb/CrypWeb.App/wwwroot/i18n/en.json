@@ -59,5 +59,6 @@
   "set.placeholders": "Replace template placeholders",
   "set.typeColors": "Data type colors",
   "set.catColors": "Function colors",
-  "set.resetColors": "Reset colors to defaults"
+  "set.resetColors": "Reset colors to defaults",
+  "view.export": "Export as image"
 }

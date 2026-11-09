@@ -39,6 +39,20 @@ public partial class Home : IDisposable
     string filter = "", editText = "";
     AppSettings settings = new();
     async Task SettingsChanged() { await settings.SaveAsync(Js); }
+    readonly HashSet<CrypTool.Web.Core.LogLevel> hiddenLevels = new() { CrypTool.Web.Core.LogLevel.Debug };
+    void ToggleLevel(CrypTool.Web.Core.LogLevel l) { if (!hiddenLevels.Remove(l)) hiddenLevels.Add(l); }
+    // zoom slider: logarithmic, 5% .. 400%
+    int ZoomSlider => (int)Math.Round(100 * Math.Log(zoom / 0.05) / Math.Log(80));
+    void SetZoomSlider(string? v) { if (!double.TryParse(v, out var t)) return; ZoomAt(0.05 * Math.Pow(80, t / 100) / zoom, rw / 2, rh / 2); }
+    async Task ExportImage()
+    {
+        var ws = ed.Ws; var nodes = ws.Plugins.Select(p => (p.X, p.Y, p.X + Size(p).w, p.Y + Size(p).h + 20)).Concat(ws.Texts.Select(t => (t.X, t.Y, t.X + t.Width, t.Y + t.Height))).Concat(ws.Images.Select(t => (t.X, t.Y, t.X + t.Width, t.Y + t.Height))).ToList();
+        if (nodes.Count == 0) return;
+        double x0 = nodes.Min(n => n.Item1) - 20, y0 = nodes.Min(n => n.Item2) - 20, x1 = nodes.Max(n => n.Item3) + 20, y1 = nodes.Max(n => n.Item4) + 20;
+        // the SVG root group is translated/scaled by pan/zoom: exportPng re-bases it, so pass world bounds and reset the scale
+        try { await Js.InvokeVoidAsync("ct2.exportPng", "main svg", (current == null ? "workspace" : Path.GetFileNameWithoutExtension(current)) + ".png", x0, y0, x1 - x0, y1 - y0); }
+        catch (Exception e) { AddLog("Workspace", CrypTool.Web.Core.LogLevel.Error, "Could not export image: " + e.Message); }
+    }
     string? openCat;
     void PickCat(string k) { openCat = k; filter = ""; }
     string OpenCat { get => openCat ?? (meta.Values.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? ""); set => openCat = value; }

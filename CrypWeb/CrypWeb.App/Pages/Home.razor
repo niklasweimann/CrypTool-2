@@ -149,6 +149,12 @@
       }
       <main style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault @ondrop="Drop">
         @if (error != null) { <div class="msg err">@error</div> }
+        <div class="cvtools">
+          <button title="@Loc["view.fit"]" @onclick="FitAsync">⤢</button>
+          <button title="@Loc["view.export"]" @onclick="ExportImage">📷</button>
+          <button title="@Loc["ws.addText"]" @onclick="AddNote">💬</button>
+        </div>
+        <div class="zoombar"><span>@((int)Math.Round(zoom * 100))%</span><button @onclick="() => ZoomBy(1 / 1.25)">−</button><input type="range" min="0" max="100" value="@ZoomSlider" @oninput="e => SetZoomSlider(e.Value?.ToString())" /><button @onclick="() => ZoomBy(1.25)">+</button></div>
         <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @oncontextmenu="BgMenu" @oncontextmenu:preventDefault @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
           <g transform="translate(@F(panX) @F(panY)) scale(@F(zoom))">
             @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
@@ -350,11 +356,11 @@
 
   <!-- ===== Log + status ===== -->
   <div class="logpane @(logOpen ? "open" : "")">
-    <div class="loghead" @onclick="() => logOpen = !logOpen">@Loc["log.title"] <span class="cnt">@log.Count</span><button @onclick="ClearLog" @onclick:stopPropagation>@Loc["log.clear"]</button><span class="tog">@(logOpen ? "▾" : "▴")</span></div>
+    <div class="loghead" @onclick="() => logOpen = !logOpen">@Loc["log.title"] <span class="cnt">@log.Count</span><button @onclick="ClearLog" @onclick:stopPropagation>@Loc["log.clear"]</button>@foreach (var lv in new[] { CrypTool.Web.Core.LogLevel.Debug, CrypTool.Web.Core.LogLevel.Info, CrypTool.Web.Core.LogLevel.Warning, CrypTool.Web.Core.LogLevel.Error }) { var l2 = lv; <label class="lf @l2.ToString().ToLower()" @onclick:stopPropagation><input type="checkbox" checked="@(!hiddenLevels.Contains(l2))" @onchange="() => ToggleLevel(l2)" />@l2</label> }<span class="tog">@(logOpen ? "▾" : "▴")</span></div>
     @if (logOpen)
     {
       <div class="logbody">
-        @foreach (var l in log.AsEnumerable().Reverse().Take(200)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span><span class="ls">@l.Source</span>@l.Message</div> }
+        @foreach (var l in log.Where(x => !hiddenLevels.Contains(x.Level)).Reverse().Take(200)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span><span class="ls">@l.Source</span>@l.Message</div> }
       </div>
     }
   </div>

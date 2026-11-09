@@ -31,3 +31,25 @@ window.ct2 = {
 
 window.ct2 = window.ct2 || {};
 window.ct2.imageSize = (uri) => new Promise(res => { const i = new Image(); i.onload = () => res([i.naturalWidth, i.naturalHeight]); i.onerror = () => res([200, 150]); i.src = uri; });
+
+// Renders the workspace (content bounds given in world coordinates) to a PNG and downloads it.
+window.ct2.exportPng = async (sel, name, x, y, w, h) => {
+  const svg = document.querySelector(sel); if (!svg) return false;
+  const root = svg.firstElementChild; const clone = svg.cloneNode(true);
+  const src = [svg, ...svg.querySelectorAll('*')], dst = [clone, ...clone.querySelectorAll('*')];
+  const props = ['fill', 'stroke', 'stroke-width', 'stroke-dasharray', 'stroke-linejoin', 'font-size', 'font-weight', 'font-family', 'text-anchor', 'opacity', 'paint-order', 'fill-opacity', 'background-color', 'color', 'border', 'white-space', 'overflow', 'display'];
+  src.forEach((s, i) => { const cs = getComputedStyle(s), st = dst[i].style; for (const p of props) st.setProperty(p, cs.getPropertyValue(p)); });
+  clone.querySelectorAll('.bub, .ring').forEach(e => e.remove());
+  clone.querySelectorAll('textarea').forEach(t => { const d = document.createElement('div'); d.style.cssText = 'white-space:pre-wrap;font:12px monospace;padding:3px;background:#fff;border:1px solid #bbb;height:100%;box-sizing:border-box;'; d.textContent = t.value || t.textContent; t.replaceWith(d); });
+  clone.firstElementChild.setAttribute('transform', 'translate(' + (-x) + ' ' + (-y) + ')');
+  const W = Math.ceil(w + 40), H = Math.ceil(h + 40);
+  clone.setAttribute('width', W); clone.setAttribute('height', H); clone.setAttribute('viewBox', '0 0 ' + W + ' ' + H); clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  clone.style.background = 'linear-gradient(180deg,#c9ddf8,#a9c8f2)';
+  const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect'); bg.setAttribute('width', W); bg.setAttribute('height', H); bg.setAttribute('fill', '#b9d2f4'); clone.insertBefore(bg, clone.firstChild);
+  const xml = new XMLSerializer().serializeToString(clone);
+  const img = new Image(); img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(xml);
+  await new Promise((res, rej) => { img.onload = res; img.onerror = rej; });
+  const c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2; const g = c.getContext('2d'); g.scale(2, 2); g.drawImage(img, 0, 0);
+  const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); return true;
+};

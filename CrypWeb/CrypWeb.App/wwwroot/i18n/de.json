@@ -59,5 +59,6 @@
   "set.placeholders": "Platzhalter in Vorlagen ersetzen",
   "set.typeColors": "Farben der Datentypen",
   "set.catColors": "Farben der Funktionen",
-  "set.resetColors": "Farben zurücksetzen"
+  "set.resetColors": "Farben zurücksetzen",
+  "view.export": "Als Bild exportieren"
 }
