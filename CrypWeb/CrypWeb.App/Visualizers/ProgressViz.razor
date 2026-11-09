@@ -1,0 +1,9 @@
+@namespace CrypTool.Web.App.Visualizers
+@inherits VizBase
+@attribute [Visualizer("Progress")]
+@{
+  double v = 0, m = 100;
+  if (Get("Set") is { ValueKind: System.Text.Json.JsonValueKind.Array } a && a.GetArrayLength() >= 2) { v = a[0].GetDouble(); m = a[1].GetDouble(); if (m <= 0) m = 100; }
+  var pct = Math.Clamp(v / m * 100, 0, 100);
+}
+<div class="pbar"><div style="width:@(pct.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture))%"></div><span>@((int)pct) %</span></div>

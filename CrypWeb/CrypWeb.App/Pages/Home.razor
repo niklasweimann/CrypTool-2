@@ -225,13 +225,13 @@
                 <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="17" class="head" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
                 @Txt(p.X + nw / 2 + 8, p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
                 <g class="tb">
-                  <g class="tbb @(p.ViewState == 1 ? "on" : "")" @onpointerdown="() => SetView(p, 1)" @onpointerdown:stopPropagation><title>@Loc["view.open"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")</g>
-                  <g class="tbb" @onpointerdown="() => OpenSettings(p)" @onpointerdown:stopPropagation><title>@Loc["right.settings"]</title>@Txt(p.X + 27, p.Y + 15, "tbt", "middle", "⚙")</g>
-                  <g class="tbb @(p.ViewState == 3 ? "on" : "")" @onpointerdown="() => SetView(p, 3)" @onpointerdown:stopPropagation><title>@Loc["log.title"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
-                  <g class="tbb @(p.ViewState == 2 ? "on" : "")" @onpointerdown="() => SetView(p, 2)" @onpointerdown:stopPropagation><title>Data</title>@Txt(p.X + 57, p.Y + 15, "tbt", "middle", "▦")</g>
+                  <g class="tbb @(p.ViewState == 1 ? "on" : "")" @onpointerdown="() => SetView(p, 1)" @onpointerdown:stopPropagation><title>@Loc["tip.presentation"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")</g>
+                  <g class="tbb" @onpointerdown="() => OpenSettings(p)" @onpointerdown:stopPropagation><title>@Loc["tip.settings"]</title>@Txt(p.X + 27, p.Y + 15, "tbt", "middle", "⚙")</g>
+                  <g class="tbb @(p.ViewState == 3 ? "on" : "")" @onpointerdown="() => SetView(p, 3)" @onpointerdown:stopPropagation><title>@Loc["tip.log"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
+                  <g class="tbb @(p.ViewState == 2 ? "on" : "")" @onpointerdown="() => SetView(p, 2)" @onpointerdown:stopPropagation><title>@Loc["tip.data"]</title>@Txt(p.X + 57, p.Y + 15, "tbt", "middle", "▦")</g>
                 </g>
-                <g class="tbb" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation>@Txt(p.X + nw - 30, p.Y + 15, "tbt", "middle", p.Minimized ? "▢" : "▁")</g>
-                <g class="tbb close" @onpointerdown="() => RemoveNode(p)" @onpointerdown:stopPropagation><title>@Loc["edit.delete"]</title>@Txt(p.X + nw - 12, p.Y + 16, "tbt x", "middle", "✖")</g>
+                <g class="tbb" @onpointerdown="() => ToggleMin(p)" @onpointerdown:stopPropagation><title>@Loc[p.Minimized ? "tip.restore" : "tip.minimize"]</title>@Txt(p.X + nw - 30, p.Y + 15, "tbt", "middle", p.Minimized ? "▢" : "▁")</g>
+                <g class="tbb close" @onpointerdown="() => RemoveNode(p)" @onpointerdown:stopPropagation><title>@Loc["tip.remove"]</title>@Txt(p.X + nw - 12, p.Y + 16, "tbt x", "middle", "✖")</g>
                 @if (!p.Minimized)
                 {
                   @if (p.ViewState is 1 or 2 or 3 && native == null)
@@ -240,10 +240,10 @@
                       <div class="nview">
                       @if (p.ViewState == 1)
                       {
-                        @if (rn == null || rn.Pres.Count == 0) { <div class="mhint">@Loc["view.empty"]</div> }
+                        @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
                         else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName) is { } vizType)
                         {
-                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = rn.Pres, ["Inline"] = true })" />
+                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName })" />
                         }
                         else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null").OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
                       }
@@ -319,6 +319,18 @@
             @if (mode == Mode.Marquee) { <rect x="@F(Math.Min(mx0, cx))" y="@F(Math.Min(my0, cy))" width="@F(Math.Abs(cx - mx0))" height="@F(Math.Abs(cy - my0))" class="marquee"/> }
           </g>
         </svg>
+        @if (ed.Ws.Plugins.Count == 0 && ed.Ws.Texts.Count == 0 && ed.Ws.Images.Count == 0)
+        {
+          <div class="empty-hint">
+            <div class="eh-title">@Loc["empty.title"]</div>
+            <ol>
+              <li>@Loc["empty.step1"]</li>
+              <li>@Loc["empty.step2"]</li>
+              <li>@Loc["empty.step3"]</li>
+            </ol>
+            <div class="eh-more">@Loc["empty.more"] <a href="#" @onclick:preventDefault @onclick="() => ShowSingleton(DocKind.Start)">@Loc["doc.start"]</a></div>
+          </div>
+        }
         @if (ctx != Ctx.None)
         {
           <div class="ctx-back" @onpointerdown="CloseCtx" @oncontextmenu="CloseCtx" @oncontextmenu:preventDefault></div>
@@ -371,13 +383,13 @@
       <aside class="right">
         <div class="rhead">@Title(sp, Meta(sp))</div>
         <div class="rsub">@(Meta(sp)?.TooltipFor(Loc.Lang))</div>
-        <div class="hint"><button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button> @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && vn0.Pres.Count > 0) { <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button> }</div>
+        <div class="hint"><button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button> @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && (vn0.Pres.Count > 0 || CrypTool.Web.App.Visualizers.XamlRegistry.Has(sp.TypeName))) { <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button> }</div>
         <div class="sec">@Loc["right.connectors"]</div>
         @foreach (var c in sp.Inputs.Concat(sp.Outputs))
         {
           <div class="crow"><svg width="14" height="14"><path d="M1,1 L13,7 L1,13 z" style="fill:@Theme.TypeColor(c.DataTypeName)" class="port @(c.IsMandatory ? "mand" : "")"/></svg><b>@Loc[c.Outgoing ? "conn.out" : "conn.in"]</b> @c.PropertyName<div class="tip">@PortTip(c, Meta(sp))</div></div>
         }
-        @if (engine.Nodes.TryGetValue(sp.Id, out var nview) && nview.Pres.Count > 0)
+        @if (engine.Nodes.TryGetValue(sp.Id, out var nview) && (nview.Pres.Count > 0 || CrypTool.Web.App.Visualizers.XamlRegistry.Has(sp.TypeName)))
         {
           <div class="sec">@Loc["right.presentation"]</div>
           <div class="hint">@Loc["right.presentationHint"]</div>

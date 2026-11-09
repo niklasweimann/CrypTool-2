@@ -5,6 +5,7 @@ set -e
 cd "$(dirname "$0")"
 if [ "$1" != "--skip-worker" ]; then
   ./tools-copy-templates.sh
+  python3 tools-gen-xaml.py
   ./tools-build-worker.sh
 fi
 rm -rf dist

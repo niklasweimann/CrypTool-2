@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/SDES/SDES.cs" Link="SDES/SDES.cs" />
+    <Compile Include="../../../CrypPlugins/SDES/SDESSettings.cs" Link="SDES/SDESSettings.cs" />
+    <Compile Include="../../../CrypPlugins/SDES/Properties/Resources.Designer.cs" Link="SDES/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/SDES/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.resources" Link="SDES/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/SDES/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.de.resources" Link="SDES/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

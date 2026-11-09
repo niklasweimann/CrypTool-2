@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/DES/DES.cs" Link="DES/DES.cs" />
+    <Compile Include="../../../CrypPlugins/DES/DESSettings.cs" Link="DES/DESSettings.cs" />
+    <Compile Include="../../../CrypPlugins/DES/Properties/Resources.Designer.cs" Link="DES/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/DES/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.resources" Link="DES/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/DES/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.de.resources" Link="DES/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

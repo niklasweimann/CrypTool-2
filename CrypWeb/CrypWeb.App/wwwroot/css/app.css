@@ -200,3 +200,24 @@ main { flex:1; position:relative; min-height:0; }
 .sc-videos { max-height:520px; overflow:auto; padding:0; } .sc-video { display:flex; gap:10px; padding:8px 10px; text-decoration:none; color:#1038b8; align-items:center; } .sc-video:nth-child(odd) { background:#cfe6fb; } .sc-video:hover { background:#e2f1ff; } .sc-video img { width:100px; height:56px; object-fit:cover; flex:none; background:#789; } .sc-video small { display:block; color:#556; }
 @media (max-width:1000px) { .sc-grid { grid-template-columns:1fr; } }
 .sc-vconsent { padding:16px; text-align:center; color:#334; } .sc-yt { width:100%; height:min(520px, 60vh); border:0; display:block; border-radius:3px; background:#000; }
+.bm{display:grid;grid-template-columns:auto;justify-content:center;align-content:center;min-height:100px;padding:8px}.bm-l{margin-top:6px;font-weight:600}.bm-t{font-family:ui-monospace,Menlo,monospace;word-break:break-all}
+.tabs{display:flex;gap:2px}.tabs button{border:1px solid #bbb;border-bottom:0;background:#eee;padding:3px 10px;border-radius:3px 3px 0 0}.tabs button.on{background:#fff;font-weight:600}
+.ct-h{font-weight:600;padding:4px 0}.ct-b{margin:0;border:1px solid #bbb;background:#fff;padding:4px;max-height:300px;overflow:auto;font:12px ui-monospace,Menlo,monospace}
+.pbar{position:relative;height:22px;border:1px solid #bbb;background:#e6e6e6;border-radius:2px;overflow:hidden;margin:8px 0}.pbar div{height:100%;background:#06b025}.pbar span{position:absolute;inset:0;text-align:center;line-height:22px;font-size:12px}
+/* generic XAML rendering */
+.xamlhost{position:relative;width:100%;font:12px "Segoe UI",system-ui,sans-serif;color:#000}
+.xr{position:relative;display:grid;transform-origin:0 0}.xamlhost *{box-sizing:border-box}
+.xg{display:grid;position:relative;min-width:0;min-height:0}.xs{display:flex;position:relative}.xc{position:relative}.xb{display:grid;position:relative;min-width:0;min-height:0}
+.xt{min-width:0}.xt,.xbtn,.xbox{font:inherit}.vb{position:relative;overflow:hidden;margin:0 auto}.vbi{position:absolute;left:0;top:0}
+.xsvg{position:absolute;overflow:visible;pointer-events:none}.xi{display:block}
+.xbtn{background:#ddd;border:1px solid #707070;padding:1px 6px;display:inline-flex;align-items:center;gap:4px;color:inherit;border-radius:2px}.xbtn.CheckBox,.xbtn.RadioButton{background:none;border:0}
+.xbox{background:#fff;border:1px solid #abadb3;overflow:hidden;white-space:pre-wrap;padding:1px 2px}.xbox p{margin:0}.xcols{display:flex;background:#f3f3f3;border-bottom:1px solid #ddd}.xcols span{flex:1;padding:2px 6px}
+.xtab .xth{display:flex}.xtab .xth span{border:1px solid #bbb;border-bottom:0;background:#eee;padding:2px 8px}.xtab .xth span.on{background:#fff}.xtab>.xb{border:1px solid #bbb}
+.xamlhost fieldset{border:1px solid #bbb}
+
+/* hint on an empty workspace (lets clicks and drops pass through to the canvas) */
+.empty-hint{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);max-width:460px;padding:18px 24px;border-radius:8px;background:rgba(255,255,255,.82);border:1px dashed #8aa0cf;color:#2b3f6b;pointer-events:none;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.empty-hint .eh-title{font-size:18px;font-weight:600;margin-bottom:8px}
+.empty-hint ol{margin:0 0 10px;padding-left:20px;line-height:1.5;font-size:14px}
+.empty-hint .eh-more{font-size:13px;color:#4a5f8a}
+.empty-hint .eh-more a{pointer-events:auto;color:#1a5fb4}

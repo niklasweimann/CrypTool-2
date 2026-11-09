@@ -1,0 +1,12 @@
+@namespace CrypTool.Web.App.Visualizers
+@inherits VizBase
+@attribute [Visualizer("BerlekampMassey")]
+@* Original: centred StackPanel with two Label/TextBlock pairs. *@
+@{
+  var poly = Get("setPolynomial") is { } p ? Str(p) : "";
+  var len = Get("setLength") is { } l ? Str(l) : "";
+}
+<div class="bm">
+  <div class="bm-l">Feedback polynomial C(D):</div><div class="bm-t">@poly</div>
+  <div class="bm-l">Minimal length L:</div><div class="bm-t">@len</div>
+</div>

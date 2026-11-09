@@ -1,5 +1,8 @@
 <Project>
   <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\DES\CrypWeb.Plugin.DES.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\RC2\CrypWeb.Plugin.RC2.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\SDES\CrypWeb.Plugin.SDES.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\StringEncoder\CrypWeb.Plugin.StringEncoder.csproj" />
   </ItemGroup>
 </Project>

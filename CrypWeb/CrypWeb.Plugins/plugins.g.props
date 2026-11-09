@@ -48,6 +48,11 @@
     <Compile Include="../../CrypPlugins/BB84ErrorDetector/Properties/Resources.Designer.cs" Link="BB84ErrorDetector/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/BB84ErrorDetector/Properties/Resources.resx" LogicalName="CrypTool.Plugins.BB84ErrorDetector.Properties.Resources.resources" Link="BB84ErrorDetector/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/BB84ErrorDetector/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.BB84ErrorDetector.Properties.Resources.de.resources" Link="BB84ErrorDetector/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/BB84PhotonEncoder/BB84PhotonEncoder.cs" Link="BB84PhotonEncoder/BB84PhotonEncoder.cs" />
+    <Compile Include="../../CrypPlugins/BB84PhotonEncoder/BB84PhotonEncoderSettings.cs" Link="BB84PhotonEncoder/BB84PhotonEncoderSettings.cs" />
+    <Compile Include="../../CrypPlugins/BB84PhotonEncoder/Properties/Resources.Designer.cs" Link="BB84PhotonEncoder/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/BB84PhotonEncoder/Properties/Resources.resx" LogicalName="CrypTool.Plugins.BB84PhotonEncoder.Properties.Resources.resources" Link="BB84PhotonEncoder/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/BB84PhotonEncoder/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.BB84PhotonEncoder.Properties.Resources.de.resources" Link="BB84PhotonEncoder/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/BB84PhotonbaseGenerator/BB84PhotonbaseGeneratorSettings.cs" Link="BB84PhotonbaseGenerator/BB84PhotonbaseGeneratorSettings.cs" />
     <Compile Include="../../CrypPlugins/BB84PhotonbaseGenerator/BB84PhotonbaseGenerator.cs" Link="BB84PhotonbaseGenerator/BB84PhotonbaseGenerator.cs" />
     <Compile Include="../../CrypPlugins/BB84PhotonbaseGenerator/Properties/Resources.Designer.cs" Link="BB84PhotonbaseGenerator/Properties/Resources.Designer.cs" />
@@ -207,6 +212,46 @@
     <Compile Include="../../CrypPlugins/CylinderCipher/Properties/Resources.Designer.cs" Link="CylinderCipher/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/CylinderCipher/Properties/Resources.resx" LogicalName="CrypTool.CylinderCipher.Properties.Resources.resources" Link="CylinderCipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/CylinderCipher/Properties/Resources.de.resx" LogicalName="CrypTool.CylinderCipher.Properties.Resources.de.resources" Link="CylinderCipher/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/DCAKeyRecovery.cs" Link="DCAKeyRecovery/DCAKeyRecovery.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/DCAKeyRecoverySettings.cs" Link="DCAKeyRecovery/DCAKeyRecoverySettings.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/SettingsErrorMessagsEventArgs.cs" Link="DCAKeyRecovery/SettingsErrorMessagsEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Algorithms.cs" Link="DCAKeyRecovery/Algorithms.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/UI/Models/KeyResult.cs" Link="DCAKeyRecovery/UI/Models/KeyResult.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ResultViewLastRoundRoundResultEventArgs.cs" Link="DCAKeyRecovery/Logic/ResultViewLastRoundRoundResultEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/DifferentialAttackLastRoundResult.cs" Link="DCAKeyRecovery/Logic/DifferentialAttackLastRoundResult.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/KeyProbability.cs" Link="DCAKeyRecovery/Logic/KeyProbability.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Characteristic.cs" Link="DCAKeyRecovery/Logic/Characteristic.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ProgressEventArgs.cs" Link="DCAKeyRecovery/Logic/ProgressEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/SummaryLastRound.cs" Link="DCAKeyRecovery/Logic/SummaryLastRound.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/SearchPolicy.cs" Link="DCAKeyRecovery/Logic/SearchPolicy.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ResultViewLastRoundEventArgs.cs" Link="DCAKeyRecovery/Logic/ResultViewLastRoundEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/DifferentialAttackRoundConfiguration.cs" Link="DCAKeyRecovery/Logic/DifferentialAttackRoundConfiguration.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/AbortingPolicy.cs" Link="DCAKeyRecovery/Logic/AbortingPolicy.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ResultViewAnyRoundEventArgs.cs" Link="DCAKeyRecovery/Logic/ResultViewAnyRoundEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/IKeyRecovery.cs" Link="DCAKeyRecovery/Logic/IKeyRecovery.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/CipherViewLastRoundEventArgs.cs" Link="DCAKeyRecovery/Logic/CipherViewLastRoundEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Differential.cs" Link="DCAKeyRecovery/Logic/Differential.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Pair.cs" Link="DCAKeyRecovery/Logic/Pair.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/DifferentialKeyRecoveryAttack.cs" Link="DCAKeyRecovery/Logic/DifferentialKeyRecoveryAttack.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/DifferentialAttackRoundResult.cs" Link="DCAKeyRecovery/Logic/DifferentialAttackRoundResult.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ResultViewAnyRoundKeyResultEventArgs.cs" Link="DCAKeyRecovery/Logic/ResultViewAnyRoundKeyResultEventArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/SummaryViewRefreshArgs.cs" Link="DCAKeyRecovery/Logic/SummaryViewRefreshArgs.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/SummaryAnyRound.cs" Link="DCAKeyRecovery/Logic/SummaryAnyRound.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/RoundResult.cs" Link="DCAKeyRecovery/Logic/RoundResult.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher2/Cipher2DifferentialKeyRecoveryAttack.cs" Link="DCAKeyRecovery/Logic/Cipher2/Cipher2DifferentialKeyRecoveryAttack.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher2/Cipher2Characteristic.cs" Link="DCAKeyRecovery/Logic/Cipher2/Cipher2Characteristic.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher2/Cipher2Configuration.cs" Link="DCAKeyRecovery/Logic/Cipher2/Cipher2Configuration.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher2/Cipher2KeyRecovery.cs" Link="DCAKeyRecovery/Logic/Cipher2/Cipher2KeyRecovery.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher3/Cipher3KeyRecovery.cs" Link="DCAKeyRecovery/Logic/Cipher3/Cipher3KeyRecovery.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher3/Cipher3Configuration.cs" Link="DCAKeyRecovery/Logic/Cipher3/Cipher3Configuration.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher3/Cipher3Characteristic.cs" Link="DCAKeyRecovery/Logic/Cipher3/Cipher3Characteristic.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher3/Cipher3DifferentialKeyRecoveryAttack.cs" Link="DCAKeyRecovery/Logic/Cipher3/Cipher3DifferentialKeyRecoveryAttack.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher1/Cipher1Configuration.cs" Link="DCAKeyRecovery/Logic/Cipher1/Cipher1Configuration.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher1/Cipher1DifferentialKeyRecoveryAttack.cs" Link="DCAKeyRecovery/Logic/Cipher1/Cipher1DifferentialKeyRecoveryAttack.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Cipher1/Cipher1KeyRecovery.cs" Link="DCAKeyRecovery/Logic/Cipher1/Cipher1KeyRecovery.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Properties/Resources.Designer.cs" Link="DCAKeyRecovery/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAKeyRecovery/Properties/Resources.resx" LogicalName="DCAKeyRecovery.Properties.Resources.resources" Link="DCAKeyRecovery/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAKeyRecovery/Properties/Resources.de.resx" LogicalName="DCAKeyRecovery.Properties.Resources.de.resources" Link="DCAKeyRecovery/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/DCAOracle/DCAOracle.cs" Link="DCAOracle/DCAOracle.cs" />
     <Compile Include="../../CrypPlugins/DCAOracle/DCAOracleSettings.cs" Link="DCAOracle/DCAOracleSettings.cs" />
     <Compile Include="../../CrypPlugins/DCAOracle/Pair.cs" Link="DCAOracle/Pair.cs" />
@@ -474,6 +519,16 @@
     <Compile Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.Designer.cs" Link="ObliviousTransfer2/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.resx" LogicalName="ObliviousTransfer2.Properties.Resources.resources" Link="ObliviousTransfer2/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.de.resx" LogicalName="ObliviousTransfer2.Properties.Resources.de.resources" Link="ObliviousTransfer2/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PaddingOracle/PaddingOracleSettings.cs" Link="PaddingOracle/PaddingOracleSettings.cs" />
+    <Compile Include="../../CrypPlugins/PaddingOracle/PaddingOracle.cs" Link="PaddingOracle/PaddingOracle.cs" />
+    <Compile Include="../../CrypPlugins/PaddingOracle/Properties/Resources.Designer.cs" Link="PaddingOracle/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PaddingOracle/Properties/Resources.resx" LogicalName="PaddingOracle.Properties.Resources.resources" Link="PaddingOracle/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PaddingOracle/Properties/Resources.de.resx" LogicalName="PaddingOracle.Properties.Resources.de.resources" Link="PaddingOracle/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PaddingOracleAttack/PaddingOracleAttackSettings.cs" Link="PaddingOracleAttack/PaddingOracleAttackSettings.cs" />
+    <Compile Include="../../CrypPlugins/PaddingOracleAttack/PaddingOracleAttack.cs" Link="PaddingOracleAttack/PaddingOracleAttack.cs" />
+    <Compile Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.Designer.cs" Link="PaddingOracleAttack/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.resx" LogicalName="PaddingOracleAttack.Properties.Resources.resources" Link="PaddingOracleAttack/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.de.resx" LogicalName="PaddingOracleAttack.Properties.Resources.de.resources" Link="PaddingOracleAttack/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierKeyGenerator.cs" Link="Paillier/PaillierKeyGenerator.cs" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierKeyGeneratorSettings.cs" Link="Paillier/PaillierKeyGeneratorSettings.cs" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierSettings.cs" Link="Paillier/PaillierSettings.cs" />
@@ -481,6 +536,12 @@
     <Compile Include="../../CrypPlugins/Paillier/Properties/Resources.Designer.cs" Link="Paillier/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Paillier/Properties/Resources.resx" LogicalName="Paillier.Properties.Resources.resources" Link="Paillier/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Paillier/Properties/Resources.de.resx" LogicalName="Paillier.Properties.Resources.de.resources" Link="Paillier/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PasswordStrength/PasswordStrength.cs" Link="PasswordStrength/PasswordStrength.cs" />
+    <Compile Include="../../CrypPlugins/PasswordStrength/KeePassQualityEstimation.cs" Link="PasswordStrength/KeePassQualityEstimation.cs" />
+    <Compile Include="../../CrypPlugins/PasswordStrength/PasswordStrengthSettings.cs" Link="PasswordStrength/PasswordStrengthSettings.cs" />
+    <Compile Include="../../CrypPlugins/PasswordStrength/Properties/Resources.Designer.cs" Link="PasswordStrength/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PasswordStrength/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Tools.Properties.Resources.resources" Link="PasswordStrength/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PasswordStrength/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Tools.Properties.Resources.de.resources" Link="PasswordStrength/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Playfair/PlayfairSettings.cs" Link="Playfair/PlayfairSettings.cs" />
     <Compile Include="../../CrypPlugins/Playfair/Playfair.cs" Link="Playfair/Playfair.cs" />
     <Compile Include="../../CrypPlugins/Playfair/PlayfairKey.cs" Link="Playfair/PlayfairKey.cs" />
@@ -514,6 +575,11 @@
     <Compile Include="../../CrypPlugins/QuadraticSieve/Properties/Resources.Designer.cs" Link="QuadraticSieve/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/QuadraticSieve/Properties/Resources.resx" LogicalName="QuadraticSieve.Properties.Resources.resources" Link="QuadraticSieve/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/QuadraticSieve/Properties/Resources.de.resx" LogicalName="QuadraticSieve.Properties.Resources.de.resources" Link="QuadraticSieve/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/RC4/RC4Settings.cs" Link="RC4/RC4Settings.cs" />
+    <Compile Include="../../CrypPlugins/RC4/RC4.cs" Link="RC4/RC4.cs" />
+    <Compile Include="../../CrypPlugins/RC4/Properties/Resources.Designer.cs" Link="RC4/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RC4/Properties/Resources.resx" LogicalName="CrypTool.RC4.Properties.Resources.resources" Link="RC4/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/RC4/Properties/Resources.de.resx" LogicalName="CrypTool.RC4.Properties.Resources.de.resources" Link="RC4/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/RSA/RSA.cs" Link="RSA/RSA.cs" />
     <Compile Include="../../CrypPlugins/RSA/RSAKeyGeneratorSettings.cs" Link="RSA/RSAKeyGeneratorSettings.cs" />
     <Compile Include="../../CrypPlugins/RSA/RSAKeyGenerator.cs" Link="RSA/RSAKeyGenerator.cs" />
@@ -628,6 +694,11 @@
     <Compile Include="../../CrypPlugins/StringOperations/Properties/Resources.Designer.cs" Link="StringOperations/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/StringOperations/Properties/Resources.resx" LogicalName="StringOperations.Properties.Resources.resources" Link="StringOperations/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/StringOperations/Properties/Resources.de.resx" LogicalName="StringOperations.Properties.Resources.de.resources" Link="StringOperations/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Substitution/SubstitutionSettings.cs" Link="Substitution/SubstitutionSettings.cs" />
+    <Compile Include="../../CrypPlugins/Substitution/Substitution.cs" Link="Substitution/Substitution.cs" />
+    <Compile Include="../../CrypPlugins/Substitution/Properties/Resources.Designer.cs" Link="Substitution/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Substitution/Properties/Resources.resx" LogicalName="CrypTool.Substitution.Properties.Resources.resources" Link="Substitution/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Substitution/Properties/Resources.de.resx" LogicalName="CrypTool.Substitution.Properties.Resources.de.resources" Link="Substitution/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryCipherSettings.cs" Link="SyllabaryCipher/SyllabaryCipherSettings.cs" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryCipher.cs" Link="SyllabaryCipher/SyllabaryCipher.cs" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryTables.cs" Link="SyllabaryCipher/SyllabaryTables.cs" />
@@ -666,6 +737,11 @@
     <Compile Include="../../CrypPlugins/TextSteganography/Properties/Resources.Designer.cs" Link="TextSteganography/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/TextSteganography/Properties/Resources.resx" LogicalName="TextSteganography.Properties.Resources.resources" Link="TextSteganography/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/TextSteganography/Properties/Resources.de.resx" LogicalName="TextSteganography.Properties.Resources.de.resources" Link="TextSteganography/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Transposition/TranspositionSettings.cs" Link="Transposition/TranspositionSettings.cs" />
+    <Compile Include="../../CrypPlugins/Transposition/Transposition.cs" Link="Transposition/Transposition.cs" />
+    <Compile Include="../../CrypPlugins/Transposition/Properties/Resources.Designer.cs" Link="Transposition/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Transposition/Properties/Resources.resx" LogicalName="Transposition.Properties.Resources.resources" Link="Transposition/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Transposition/Properties/Resources.de.resx" LogicalName="Transposition.Properties.Resources.de.resources" Link="Transposition/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/TrifidCipher/TrifidCipherSettings.cs" Link="TrifidCipher/TrifidCipherSettings.cs" />
     <Compile Include="../../CrypPlugins/TrifidCipher/TrifidCipher.cs" Link="TrifidCipher/TrifidCipher.cs" />
     <Compile Include="../../CrypPlugins/TrifidCipher/Properties/Resources.Designer.cs" Link="TrifidCipher/Properties/Resources.Designer.cs" />

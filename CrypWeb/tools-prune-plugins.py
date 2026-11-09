@@ -20,7 +20,7 @@ KNOWN.update(names('System.Windows.Controls', 'RowDefinition ColumnDefinition'))
 KNOWN.update(names('System.Windows.Controls.Primitives', 'Thumb DragDeltaEventArgs ScrollBar'))
 KNOWN.update(names('System.Windows.Shapes', 'Shape Line Path Ellipse Polygon Polyline Rectangle'))
 KNOWN.update(names('System.Windows.Media', 'Geometry PathGeometry PathFigure PolyLineSegment StreamGeometry StreamGeometryContext PointCollection Transform GeneralTransform Visual Pen DrawingContext Freezable HitTestResult HitTestResultBehavior TranslateTransform ScaleTransform RotateTransform TransformGroup LineGeometry RectangleGeometry EllipseGeometry GradientStopCollection GradientStop LinearGradientBrush RadialGradientBrush VisualTreeHelper FontFamily Typeface FormattedText'))
-KNOWN.update(names('System.Windows.Media', 'SolidColorBrush ImageBrush'))
+KNOWN.update(names('System.Windows.Media', 'ImageBrush'))
 KNOWN.update(names('System.Windows.Media.Imaging', 'BitmapSource WriteableBitmap BitmapFrame RenderTargetBitmap'))
 KNOWN.update(names('System.Windows.Media.Animation', 'DoubleAnimation DoubleAnimationBase ColorAnimation Storyboard AnimationClock PointAnimation'))
 KNOWN.update(names('System.Windows.Media.Media3D', 'GeometryModel3D Point3D Model3DGroup Model3DCollection Material Transform3DCollection MeshGeometry3D Vector3D DiffuseMaterial PerspectiveCamera Viewport3D ModelVisual3D Point3DCollection'))
@@ -43,7 +43,7 @@ def base_for(name, ns):
     if name in ENUMS: return None
     if name in PANELS: return 'System.Windows.Controls.Panel'
     if name.endswith('EventArgs'): return 'System.Windows.StubEventArgs'
-    if name in ('SolidColorBrush', 'ImageBrush'): return 'System.Windows.Media.Brush'
+    if name in ('ImageBrush',): return 'System.Windows.Media.Brush'
     if name == 'BitmapSource': return 'System.Windows.Media.ImageSource'
     if ns in ('System.Windows.Shapes',): return 'System.Windows.FrameworkElement'
     if ns == 'System.Windows.Controls' or ns == 'System.Windows.Controls.Primitives': return 'System.Windows.Controls.Control'

@@ -10,16 +10,16 @@
       <button class="mx" @onclick="Close" title="Close">✕</button>
     </div>
     <div class="mbody pv">
-      @if (View == null || View.Pres.Count == 0) { <div class="mhint">@Empty</div> }
+      @if ((View == null || View.Pres.Count == 0) && !XamlRegistry.Has(TypeName)) { <div class="mhint">@Empty</div> }
       else if (VizType != null && !raw)
       {
-        <DynamicComponent Type="VizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = View.Pres })" />
+        <DynamicComponent Type="VizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(View?.Pres ?? new Dictionary<string, string>()), ["TypeName"] = TypeName })" />
         <div class="vtoggle"><a href="#" @onclick:preventDefault @onclick="() => raw = true">Raw data</a></div>
       }
       else
       {
         @if (VizType != null) { <div class="vtoggle"><a href="#" @onclick:preventDefault @onclick="() => raw = false">Visualization</a></div> }
-        @foreach (var kv in View.Pres.OrderBy(k => k.Key))
+        @foreach (var kv in (View?.Pres ?? new()).OrderBy(k => k.Key))
         {
           var json = Parse(kv.Value);
           <div class="pcall @(IsEmpty(json) ? "dim" : "")">

@@ -122,9 +122,18 @@ namespace System.Windows
     public sealed class StubValue : System.Dynamic.DynamicObject
     {
         public static readonly StubValue Instance = new StubValue();
-        public override bool TryGetMember(System.Dynamic.GetMemberBinder b, out object r) { r = Instance; return true; }
-        public override bool TrySetMember(System.Dynamic.SetMemberBinder b, object v) => true;
-        public override bool TryInvokeMember(System.Dynamic.InvokeMemberBinder b, object[] a, out object r) { r = Instance; return true; }
+        readonly DependencyObject owner; readonly string path;
+        StubValue() { }
+        /// <summary>Named element of a UI stand-in: property writes / calls on it are recorded as "name.Property=" / "name.Method()" so the web view can apply them to the drawn XAML.</summary>
+        public StubValue(DependencyObject owner, string path) { this.owner = owner; this.path = path; }
+        public override bool TryGetMember(System.Dynamic.GetMemberBinder b, out object r)
+        {
+            if (owner == null || path.Split('.').Length >= 4) { r = Instance; return true; }
+            var p = path + "." + b.Name;
+            r = owner.__Props.TryGetValue(p, out var stored) ? stored : new StubValue(owner, p); return true; // reads return what the plugin wrote before
+        }
+        public override bool TrySetMember(System.Dynamic.SetMemberBinder b, object v) { if (owner != null) { owner.__Props[path + "." + b.Name] = v; owner.__Record(path + "." + b.Name + "=", new[] { v }); } return true; }
+        public override bool TryInvokeMember(System.Dynamic.InvokeMemberBinder b, object[] a, out object r) { owner?.__Record(path + "." + b.Name + "()", a); r = Instance; return true; }
         public override bool TryInvoke(System.Dynamic.InvokeBinder b, object[] a, out object r) { r = Instance; return true; }
         public override bool TryGetIndex(System.Dynamic.GetIndexBinder b, object[] i, out object r) { r = Instance; return true; }
         public override bool TrySetIndex(System.Dynamic.SetIndexBinder b, object[] i, object v) => true;
@@ -147,8 +156,9 @@ namespace System.Windows
 
     public class DependencyObject
     {
+        public readonly Dictionary<string, object> __Props = new Dictionary<string, object>();
         readonly Dictionary<string, object> __bag = new Dictionary<string, object>();
-        public object __Get(string n) => __bag.TryGetValue(n, out var v) ? v : StubValue.Instance;
+        public object __Get(string n) => __bag.TryGetValue(n, out var v) ? v : new StubValue(this, n);
         public void __Set(string n, object v) { __bag[n] = v; __Record(n + "=", new[] { v }); }
         readonly Dictionary<DependencyProperty, object> values = new Dictionary<DependencyProperty, object>();
         public System.Windows.Threading.Dispatcher Dispatcher => System.Windows.Threading.Dispatcher.CurrentDispatcher;
@@ -246,7 +256,7 @@ namespace System.Windows.Shapes { public abstract class ShapeBase : System.Windo
 namespace System.Windows.Media.Animation { public abstract class Timeline : System.Windows.DependencyObject { } }
 namespace System.Windows.Media.Media3D { public abstract class Visual3D : System.Windows.DependencyObject { } }
 namespace System.Windows.Controls.Primitives { public abstract class PrimitiveBase : System.Windows.Controls.Control { } }
-namespace System.Windows.Input { public static class Keyboard { } }
+namespace System.Windows.Input { public static class Keyboard { public static bool IsKeyDown(object key) => false; } }
 
 // .NET Remoting leftovers used by a few plugins (synchronization contexts); there is only one thread here, so they do nothing.
 namespace System.Runtime.Remoting.Contexts
@@ -260,3 +270,22 @@ namespace System.Runtime.Remoting.Contexts
         public SynchronizationAttribute(int flag, bool reEntrant) { }
     }
 }
+
+namespace System.Windows { public enum TextAlignment { Left, Right, Center, Justify } }
+namespace System.Windows.Documents { public class Underline : System.Windows.DependencyObject { public Underline() { } public Underline(params object[] a) { } } }
+namespace System.Windows.Controls.Primitives { public class RangeBase { public static readonly object ValueChangedEvent = new object(); } }
+namespace CrypTool.PluginBase.Properties
+{
+    /// <summary>Application settings of the desktop host; the web host keeps the defaults.</summary>
+    public sealed class Settings : System.ComponentModel.INotifyPropertyChanged
+    {
+        public static Settings Default { get; } = new Settings();
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        public string FontFamily { get; set; } = "Courier New";
+        public int FontSize { get; set; } = 12;
+        public double BB84_AnimationSpeed { get; set; } = 1.0;
+        public void Save() { }
+    }
+}
+namespace System.Windows.Controls { public enum ScrollBarVisibility { Disabled, Auto, Hidden, Visible } }
+namespace System.Windows { public enum TextWrapping { WrapWithOverflow, NoWrap, Wrap } }

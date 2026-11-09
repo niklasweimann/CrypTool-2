@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "crypweb", "runtimeExecutable": "dotnet", "runtimeArgs": ["run", "--project", "CrypWeb/CrypWeb.App", "--urls", "http://localhost:5301"], "port": 5301 }
+  ]
+}

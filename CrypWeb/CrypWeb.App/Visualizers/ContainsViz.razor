@@ -1,0 +1,15 @@
+@namespace CrypTool.Web.App.Visualizers
+@inherits VizBase
+@attribute [Visualizer("Contains")]
+@* Original: "Hits: n (Target: m)" label above a text box listing "- [keyword], [index]". *@
+@{
+  var hits = Items("SetData").ToList();
+  var target = Get("TargetHits=") is { } t ? Str(t) : "";
+}
+@if (Get("SetData") == null) { <div class="mhint">Hits: </div> }
+else
+{
+  <div class="ct-h">Hits: @hits.Count@(target != "" ? $" (Target: {target})" : "")</div>
+  <pre class="ct-b">@string.Join("\n", hits.Select(h => h.ValueKind == System.Text.Json.JsonValueKind.Object ? $"- [{Prop(h, "Keyword")}], [{Prop(h, "Index")}]" : "- " + Str(h)))</pre>
+}
+@code { static string Prop(System.Text.Json.JsonElement e, string n) => e.TryGetProperty(n, out var v) ? Str(v) : ""; }

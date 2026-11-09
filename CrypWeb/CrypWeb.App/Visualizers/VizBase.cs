@@ -23,6 +23,9 @@ public abstract class VizBase : ComponentBase
     /// <summary>True when drawn inside the component on the canvas (fill the space), false in the dialog.</summary>
     [Parameter] public bool Inline { get; set; }
 
+    /// <summary>Plugin type name the visualization is drawn for.</summary>
+    [Parameter] public string TypeName { get; set; } = "";
+
     protected JsonElement? Get(string call)
     {
         if (!Pres.TryGetValue(call, out var s)) return null;
@@ -51,6 +54,10 @@ public static class VisualizerRegistry
         .SelectMany(t => t.GetCustomAttributes(typeof(VisualizerAttribute), false).Cast<VisualizerAttribute>().SelectMany(a => a.Plugins).Select(p => (p, t)))
         .ToDictionary(x => x.p, x => x.t);
 
+    /// <summary>Custom visualizer, else the generic drawing of the plugin's original XAML when one was exported.</summary>
     public static Type? Find(string pluginTypeName)
+        => FindCustom(pluginTypeName) ?? (XamlRegistry.Has(pluginTypeName) ? typeof(XamlViz) : null);
+
+    public static Type? FindCustom(string pluginTypeName)
         => Map.TryGetValue(pluginTypeName, out var t) ? t : Map.TryGetValue(pluginTypeName.Split('.').Last(), out t) ? t : null;
 }

@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/RC2/RC2.cs" Link="RC2/RC2.cs" />
+    <Compile Include="../../../CrypPlugins/RC2/RC2Settings.cs" Link="RC2/RC2Settings.cs" />
+    <Compile Include="../../../CrypPlugins/RC2/Properties/Resources.Designer.cs" Link="RC2/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/RC2/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.resources" Link="RC2/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/RC2/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Cryptography.Encryption.Properties.Resources.de.resources" Link="RC2/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

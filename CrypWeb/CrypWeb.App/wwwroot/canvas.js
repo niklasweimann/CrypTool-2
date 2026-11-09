@@ -55,3 +55,35 @@ window.ct2.exportPng = async (sel, name, x, y, w, h) => {
 };
 
 window.ct2.clampCtx = () => { const m = document.querySelector('.ctx'); if (!m) return; const r = m.getBoundingClientRect(); const dx = r.right - innerWidth + 4, dy = r.bottom - innerHeight + 4; if (dx > 0) m.style.left = (r.left - dx) + 'px'; if (dy > 0) m.style.top = Math.max(0, r.top - dy) + 'px'; };
+
+// Scales the content of generic XAML visualizations (Viewbox / design-size roots) to the space of their host.
+window.ctXamlFit = function (host) {
+  if (!host) return;
+  const fit = () => {
+    const availW = host.clientWidth || host.parentElement?.clientWidth || 600;
+    const nv = host.closest('.nview'); const availH = nv ? nv.clientHeight - 8 : Math.max(200, window.innerHeight * 0.65);
+    host.querySelectorAll('.vb').forEach(vb => {
+      const inner = vb.firstElementChild; if (!inner) return;
+      let w = parseFloat(vb.dataset.w), h = parseFloat(vb.dataset.h);
+      inner.style.transform = 'none'; inner.style.width = w > 0 ? w + 'px' : ''; inner.style.height = h > 0 ? h + 'px' : '';
+      if (!(w > 0)) w = inner.scrollWidth;
+      inner.style.width = w + 'px';
+      if (!(h > 0)) h = inner.scrollHeight;
+      if (!(w > 0 && h > 0)) return;
+      inner.style.height = h + 'px';
+      const pw = vb.parentElement ? Math.min(availW, vb.parentElement.clientWidth || availW) : availW;
+      const s = Math.min(pw / w, availH / h);
+      inner.style.transformOrigin = '0 0'; inner.style.transform = `scale(${s})`;
+      vb.style.width = (w * s) + 'px'; vb.style.height = (h * s) + 'px';
+    });
+    const xr = host.querySelector(':scope > .xr');
+    if (xr && xr.style.width) {
+      const w = parseFloat(xr.style.width), h = parseFloat(xr.style.height);
+      xr.style.transform = 'none'; const s = Math.min(1e6, availW / w, availH / h);
+      xr.style.transformOrigin = '0 0'; xr.style.transform = `scale(${s})`;
+      host.style.height = (h * s) + 'px';
+    }
+  };
+  fit();
+  if (!host._ro) { host._ro = new ResizeObserver(() => { if (!host._busy) { host._busy = true; requestAnimationFrame(() => { fit(); host._busy = false; }); } }); host._ro.observe(host.closest('.nview') || host.parentElement || host); }
+};
