@@ -29,6 +29,9 @@ public static class CwmWriter
         return ms.ToArray();
     }
 
+    /// <summary>Signature of the geometry a stored wire route is valid for (see Wire.RouteSig).</summary>
+    public static string RouteSig(Wire w) => Emitter.RouteSig(w);
+
     sealed class Emitter
     {
         readonly StringBuilder o; readonly Workspace ws;

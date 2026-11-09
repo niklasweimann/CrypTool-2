@@ -174,13 +174,25 @@
                 @if (sel) { <rect x="@F(t.X + t.Width - 10)" y="@F(t.Y + t.Height - 10)" width="10" height="10" class="handle" @onpointerdown="e => ResizeDown(e, t)" @onpointerdown:stopPropagation/> }
               </g>
             }
-            @foreach (var w in ed.Ws.Wires.Where(w => w.From != null && w.To != null))
+            @{
+              var liveWires = ed.Ws.Wires.Where(w => w.From != null && w.To != null).ToList();
+              var routes = liveWires.ToDictionary(w => w, w => WirePts(w));
+              var verticals = VerticalSegs(routes); var focus = FocusWires();
+            }
+            @foreach (var w in liveWires)
             {
-              var d = WirePath(w); var col = Theme.TypeColor(w.From!.DataTypeName);
-              var act = engine.Running && engine.ActiveWires.Contains(w.Id); var ws_ = ed.SelectedWire == w.Id;
-              <path d="@d" class="wire-under"/>
-              <path d="@d" class="wire @(act ? "active" : "") @(ws_ ? "sel" : "")" style="stroke:@col"/>
-              <path d="@d" class="wire-hit" @onpointerdown="e => WireDown(e, w)" @onpointerdown:stopPropagation/>
+              var pts = routes[w]; var d = WirePath(w, pts, verticals); var col = Theme.TypeColor(w.From!.DataTypeName);
+              var act = engine.Running && engine.ActiveWires.Contains(w.Id); var ws_ = ed.SelectedWire == w.Id; var faded = focus != null && !focus.Contains(w);
+              <g class="wiregrp @(faded ? "faded" : "")">
+                <path d="@d" class="wire-under"/>
+                <path d="@d" class="wire @(act ? "active" : "") @(ws_ ? "sel" : "")" style="stroke:@col"/>
+                <path d="@d" class="wire-hit" @onpointerenter="() => hoverWire = w" @onpointerleave="() => hoverWire = null" @onpointerdown="e => WireDown(e, w)" @onpointerdown:stopPropagation/>
+                @for (int si = 1; si <= pts.Count - 3; si++)
+                {
+                  var i = si; var horiz = IsHoriz(pts[i], pts[i + 1]);
+                  <line x1="@F(pts[i].x)" y1="@F(pts[i].y)" x2="@F(pts[i + 1].x)" y2="@F(pts[i + 1].y)" class="wire-seg @(horiz ? "h" : "v")" @onpointerenter="() => hoverWire = w" @onpointerleave="() => hoverWire = null" @onpointerdown="e => WireSegDown(e, w, pts, i)" @onpointerdown:stopPropagation/>
+                }
+              </g>
             }
             @foreach (var p in ed.Ws.Plugins.OrderBy(p => p.ZIndex))
             {
@@ -269,7 +281,7 @@
                   var ok = connecting != null && ed.CanConnect(connecting, c);
                   var dim = connecting != null && !ok && c != connecting;
                   @if (ok) { <circle cx="@F(pp.x)" cy="@F(pp.y)" r="13" class="ring"/> }
-                  <path d="@Tri(c, pp.x, pp.y, ok)" class="port @(c.IsMandatory ? "mand" : "") @(ok ? "ok" : "") @(dim ? "dim" : "")" style="fill:@Theme.TypeColor(c.DataTypeName)"
+                  <path d="@Tri(c, pp.x, pp.y, ok)" class="port @(c.IsMandatory ? "mand" : "") @(ok ? "ok" : "") @(dim ? "dim" : "") @(focus != null && !PortFocused(c) ? "faded" : "")" style="fill:@Theme.TypeColor(c.DataTypeName)"
                         @onpointerenter="() => hoverPort = c" @onpointerleave="() => hoverPort = null"
                         @onpointerdown="e => PortDown(e, c)" @onpointerdown:stopPropagation @onpointerup="() => PortUp(c)" @onpointerup:stopPropagation><title>@PortTip(c, meta)</title></path>
                 }

@@ -9,7 +9,7 @@ namespace CrypWeb.App.Pages;
 
 public partial class Home : IDisposable
 {
-    enum Mode { None, Pan, Drag, Marquee, Connect, Resize }
+    enum Mode { None, Pan, Drag, Marquee, Connect, Resize, WireSeg }
     record LogEntry(DateTime Time, int NodeId, string Source, CrypTool.Web.Core.LogLevel Level, string Message);
 
     [Inject] HttpClient Http { get; set; } = default!;
@@ -575,6 +575,7 @@ public partial class Home : IDisposable
         if (mode != Mode.None && e.Buttons == 0) { Up(e); return; }
         switch (mode)
         {
+            case Mode.WireSeg: WireSegMove(e); break;
             case Mode.Pan: panDist += Math.Abs(e.ClientX - lx) + Math.Abs(e.ClientY - ly); panX += e.ClientX - lx; panY += e.ClientY - ly; lx = e.ClientX; ly = e.ClientY; break;
             case Mode.Drag:
                 {
@@ -610,7 +611,7 @@ public partial class Home : IDisposable
 
     void Up(PointerEventArgs e)
     {
-        mode = Mode.None; connecting = null; resizing = null;
+        mode = Mode.None; connecting = null; resizing = null; segWire = null;
     }
 
     /// <summary>A plain click (no drag) on the body of a component opens its settings dialog.</summary>

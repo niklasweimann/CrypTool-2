@@ -187,3 +187,5 @@ main { flex:1; position:relative; min-height:0; }
 .zin { width:48px; border:1px solid #b7c3d8; border-radius:3px; font:inherit; font-size:11px; padding:1px 2px; text-align:right; } .zoomrow .zin { width:42px; } .zoombar input.zin { width:44px; }
 .tplfilter { width:100%; max-width:360px; margin:8px 0; box-sizing:border-box; } .tpltree { max-width:760px; border:1px solid var(--line); border-radius:4px; padding:4px 0; background:#fbfcfe; }
 .tpldir, .tplfile { padding:3px 10px; cursor:pointer; display:flex; align-items:center; gap:6px; } .tpldir { font-weight:600; color:#334; } .tpldir:hover, .tplfile:hover { background:#dde8fb; } .tpldir i { font-style:normal; font-weight:400; font-size:10px; color:#778; background:#e5ecf8; border-radius:8px; padding:0 6px; } .tpltw { width:10px; color:#667; }
+.wiregrp { transition:opacity .12s; } .wiregrp.faded { opacity:.15; } .port.faded { opacity:.25; }
+.wire-seg { stroke:transparent; stroke-width:9; stroke-linecap:round; } .wire-seg.h { cursor:ns-resize; } .wire-seg.v { cursor:ew-resize; }
