@@ -170,7 +170,15 @@ public sealed class PluginMeta
 /// <summary>Colors taken from the original CT2 workspace (WorkspaceManagerModel/Properties/Settings.settings).</summary>
 public static class Theme
 {
-    public static string CategoryColor(string category) => category switch
+    /// <summary>User overrides from the global settings (category key / data type name -> #rrggbb).</summary>
+    public static Dictionary<string, string> CategoryOverrides { get; } = new();
+    public static Dictionary<string, string> TypeOverrides { get; } = new();
+    public static readonly string[] DataTypeKeys = { "System.Int32", "System.Byte", "System.Double", "System.Boolean", "System.String", "System.Object", "System.Numerics.BigInteger", "Stream" };
+    public static readonly string[] CategoryKeys = { "CiphersClassic", "CiphersModernSymmetric", "CiphersModernAsymmetric", "Steganography", "HashFunctions", "CryptanalysisSpecific", "CryptanalysisGeneric", "Protocols", "ToolsMisc" };
+
+    public static string CategoryColor(string category) => CategoryOverrides.TryGetValue(category.StartsWith("Tools") ? "ToolsMisc" : category, out var o) ? o : DefaultCategoryColor(category);
+    public static string TypeColor(string dataType) { var t = dataType.Replace("[]", ""); if (t.EndsWith("Stream")) t = "Stream"; return TypeOverrides.TryGetValue(t, out var o) ? o : DefaultTypeColor(dataType); }
+    public static string DefaultCategoryColor(string category) => category switch
     {
         "CiphersClassic" => "#b8c881", "CiphersModernSymmetric" => "#d49090", "CiphersModernAsymmetric" => "#6789a2",
         "Steganography" => "#9acd32", "HashFunctions" => "#8abbbc", "CryptanalysisSpecific" => "#bc8aac", "CryptanalysisGeneric" => "#8c8abc",
@@ -178,7 +186,7 @@ public static class Theme
         _ => "#a3d090"
     };
 
-    public static string TypeColor(string dataType)
+    public static string DefaultTypeColor(string dataType)
     {
         var t = dataType.Replace("[]", "");
         return t switch

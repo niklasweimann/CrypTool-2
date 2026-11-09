@@ -1,0 +1,43 @@
+@using CrypTool.Web.Core
+
+<div class="page settings">
+  <h1>@Loc["doc.settings"]</h1>
+  <div class="sgrp">@Loc["set.workspace"]</div>
+  <div class="mrow"><div class="mlabel">@Loc["set.defaultView"]</div><div class="mctl mradios">
+    <label><input type="radio" name="dv" checked="@(S.DefaultView == 0)" @onchange="() => Set(() => S.DefaultView = 0)" /> @Loc["set.view.plugin"]</label>
+    <label><input type="radio" name="dv" checked="@(S.DefaultView == 1)" @onchange="() => Set(() => S.DefaultView = 1)" /> @Loc["set.view.open"]</label>
+    <label><input type="radio" name="dv" checked="@(S.DefaultView == 2)" @onchange="() => Set(() => S.DefaultView = 2)" /> @Loc["set.view.closed"]</label>
+  </div></div>
+  <div class="mrow"><div class="mlabel">@Loc["set.guiUpdate"]</div><div class="mctl mslider"><input type="range" min="10" max="1000" step="10" value="@S.GuiUpdateMs" @onchange="e => Set(() => S.GuiUpdateMs = Num(e, 80))" /><span>@S.GuiUpdateMs ms</span></div></div>
+  <div class="mrow"><div class="mlabel">@Loc["set.sleep"]</div><div class="mctl mslider"><input type="range" min="1" max="500" step="1" value="@S.SleepMs" @onchange="e => Set(() => S.SleepMs = Num(e, 1))" /><span>@S.SleepMs ms</span></div></div>
+  <div class="mrow"><div class="mlabel">@Loc["set.placeholders"]</div><div class="mctl"><input type="checkbox" checked="@S.ReplacePlaceholders" @onchange="e => Set(() => S.ReplacePlaceholders = (bool)(e.Value ?? false))" /></div></div>
+
+  <div class="sgrp">@Loc["set.typeColors"]</div>
+  <div class="colgrid">
+    @foreach (var k in Theme.DataTypeKeys)
+    {
+      var key = k;
+      <label class="colrow"><input type="color" value="@(S.TypeColors.GetValueOrDefault(key) ?? Theme.DefaultTypeColor(key))" @onchange="e => Color(S.TypeColors, key, e.Value?.ToString())" />@key.Split('.').Last()</label>
+    }
+  </div>
+  <div class="sgrp">@Loc["set.catColors"]</div>
+  <div class="colgrid">
+    @foreach (var k in Theme.CategoryKeys)
+    {
+      var key = k;
+      <label class="colrow"><input type="color" value="@(S.CategoryColors.GetValueOrDefault(key) ?? Theme.DefaultCategoryColor(key))" @onchange="e => Color(S.CategoryColors, key, e.Value?.ToString())" />@Loc["cat." + key]</label>
+    }
+  </div>
+  <div class="mrow"><button class="rbtn small" @onclick="ResetColors">@Loc["set.resetColors"]</button></div>
+</div>
+
+@code {
+  [Parameter] public AppSettings S { get; set; } = default!;
+  [Parameter] public Localizer Loc { get; set; } = default!;
+  [Parameter] public EventCallback OnChanged { get; set; }
+
+  static int Num(ChangeEventArgs e, int d) => int.TryParse(e.Value?.ToString(), out var v) ? v : d;
+  Task Set(Action a) { a(); return OnChanged.InvokeAsync(); }
+  Task Color(Dictionary<string, string> d, string key, string? v) { if (!string.IsNullOrEmpty(v)) d[key] = v; return OnChanged.InvokeAsync(); }
+  Task ResetColors() { S.TypeColors.Clear(); S.CategoryColors.Clear(); return OnChanged.InvokeAsync(); }
+}

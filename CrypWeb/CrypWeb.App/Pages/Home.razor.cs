@@ -37,6 +37,11 @@ public partial class Home : IDisposable
     readonly Dictionary<string, bool> runnable = new(StringComparer.OrdinalIgnoreCase);
     PaletteEntry? dragEntry;
     string filter = "", editText = "";
+    AppSettings settings = new();
+    async Task SettingsChanged() { await settings.SaveAsync(Js); }
+    string? openCat;
+    void PickCat(string k) { openCat = k; filter = ""; }
+    string OpenCat { get => openCat ?? (meta.Values.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? ""); set => openCat = value; }
     int tab = 1;
     string? error;
     bool snap = true, logOpen = true;
@@ -62,6 +67,7 @@ public partial class Home : IDisposable
     protected override async Task OnInitializedAsync()
     {
         docs.Add(active);
+        settings = await AppSettings.LoadAsync(Js);
         templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new();
         try
         {
@@ -94,15 +100,23 @@ public partial class Home : IDisposable
     public void OnKey(string key, bool mod, bool shift)
     {
         if (editing != null) return;
+        ctx = Ctx.None;
         var k = key.ToLowerInvariant();
         if (mod)
         {
             switch (k)
             {
                 case "z": if (shift) Redo(); else Undo(); break;
-                case "y": Redo(); break;
+                case "y": if (shift) Spread(false); else Redo(); break;
+                case "w": SizeAll(true, shift); break;
+                case "h": SizeAll(false, shift); break;
+                case "r": Rearrange(); break;
+                case "arrowleft": if (shift) MoveSel(-10, 0); else Align("left"); break;
+                case "arrowright": if (shift) MoveSel(10, 0); else Align("right"); break;
+                case "arrowup": if (shift) MoveSel(0, -10); else Align("top"); break;
+                case "arrowdown": if (shift) MoveSel(0, 10); else Align("bottom"); break;
                 case "c": ed.Copy(); break;
-                case "x": CutSel(); break;
+                case "x": if (shift) Spread(true); else CutSel(); break;
                 case "v": PasteClip(); break;
                 case "a": ed.SelectAll(); break;
                 case "s": Save(); break;
@@ -219,7 +233,7 @@ public partial class Home : IDisposable
         if (runDoc != null && runDoc.Engine.Running) StopRun();
         CommitEdit(); logOpen = true; engine.Reset(); engine.Running = true; runDoc = active;
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.started"]);
-        await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson());
+        await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson(), settings.GuiUpdateMs, settings.SleepMs);
     }
 
     void StopRun()
@@ -298,7 +312,7 @@ public partial class Home : IDisposable
             try
             {
                 var xml = await Http.GetByteArrayAsync("templates/" + string.Join("/", (t[..^4] + ".xml").Split('/').Select(Uri.EscapeDataString)));
-                TemplateStrings.Apply(ws, TemplateStrings.Load(xml, Loc.Lang));
+                if (settings.ReplacePlaceholders) TemplateStrings.Apply(ws, TemplateStrings.Load(xml, Loc.Lang));
             }
             catch { }
             ed.Load(ws);
@@ -375,7 +389,7 @@ public partial class Home : IDisposable
     void PasteClip() { ed.Checkpoint(); ed.Paste(); }
     void AddNote() { ed.Checkpoint(); var (x, y) = Center(); var t = ed.AddText(x - 110, y - 40); ed.Selection.Clear(); ed.Selection.Add(t.Id); }
     void AddAtCenter(PaletteEntry e) { var (x, y) = Center(); AddAt(e, x - 60, y - 40); }
-    void AddAt(PaletteEntry e, double x, double y) { ed.Checkpoint(); var p = ed.AddPlugin(e, Snap(x), Snap(y)); ed.Selection.Clear(); ed.Selection.Add(p.Id); }
+    void AddAt(PaletteEntry e, double x, double y) { ed.Checkpoint(); var p = ed.AddPlugin(e, Snap(x), Snap(y)); if (settings.DefaultView == 2) p.ViewState = 7; else if (settings.DefaultView == 1) SetView(p, 1); ed.Selection.Clear(); ed.Selection.Add(p.Id); }
     (double, double) Center() => ((rw / 2 - panX) / zoom, (rh / 2 - panY) / zoom);
     void Drop(DragEventArgs e) { if (dragEntry == null) return; var (wx, wy) = ToWorld(e.ClientX, e.ClientY); AddAt(dragEntry, wx, wy); dragEntry = null; }
 
@@ -493,7 +507,7 @@ public partial class Home : IDisposable
     // ---------- pointer interaction ----------
     void BgDown(PointerEventArgs e)
     {
-        downNode = null;
+        downNode = null; panDist = 0; ctx = Ctx.None;
         CommitEdit();
         lx = e.ClientX; ly = e.ClientY;
         if (e.Button is 1 or 2 || (e.Button == 0 && spaceDown)) { mode = Mode.Pan; return; }
@@ -504,7 +518,7 @@ public partial class Home : IDisposable
 
     void NodeDown(PointerEventArgs e, VisualNode n, bool header = false)
     {
-        downNode = n; downHeader = header; downAt = DateTime.UtcNow;
+        downNode = n; downHeader = header; downAt = DateTime.UtcNow; panDist = 0; ctx = Ctx.None;
         CommitEdit();
         if (e.Button is 1 or 2) { lx = e.ClientX; ly = e.ClientY; mode = Mode.Pan; return; }
         if (e.Button != 0) return;
@@ -544,7 +558,7 @@ public partial class Home : IDisposable
         if (mode != Mode.None && e.Buttons == 0) { Up(e); return; }
         switch (mode)
         {
-            case Mode.Pan: panX += e.ClientX - lx; panY += e.ClientY - ly; lx = e.ClientX; ly = e.ClientY; break;
+            case Mode.Pan: panDist += Math.Abs(e.ClientX - lx) + Math.Abs(e.ClientY - ly); panX += e.ClientX - lx; panY += e.ClientY - ly; lx = e.ClientX; ly = e.ClientY; break;
             case Mode.Drag:
                 {
                     var (wx, wy) = ToWorld(e.ClientX, e.ClientY);

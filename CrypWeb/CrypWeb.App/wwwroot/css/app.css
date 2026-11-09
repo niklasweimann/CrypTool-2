@@ -130,3 +130,20 @@ main { flex:1; position:relative; min-height:0; }
 .startbtns { display:flex; gap:8px; margin:12px 0; } .tplgrid { display:flex; flex-wrap:wrap; gap:6px; } .tplcard { border:1px solid #c5cfdf; background:#f6f9fe; border-radius:4px; padding:5px 10px; cursor:pointer; font:inherit; } .tplcard:hover { background:#dde8fb; }
 .img-frame { fill:none; stroke:transparent; } .img-g { cursor:move; } .img-g.selected .img-frame { stroke:#1565d8; stroke-width:2; }
 .rgroup.extras { margin-left:auto; border-right:none; }
+
+.catstack { border-top:1px solid var(--line); max-height:38%; overflow:auto; background:#e9f0fb; flex:none; }
+.catbtn { display:flex; align-items:center; gap:7px; padding:5px 8px; border-left:5px solid #888; border-bottom:1px solid #fff; background:linear-gradient(180deg,#f2f7ff,#d5e3f8); color:#1f3a68; font-weight:600; cursor:pointer; }
+.catbtn:hover { background:linear-gradient(180deg,#fff,#e2edfd); } .catbtn.on { background:linear-gradient(180deg,#ffe3a8,#ffbf55); color:#3a2300; }
+.catbtn img { width:20px; height:20px; object-fit:contain; } .catbtn i { margin-left:auto; font-style:normal; font-weight:400; font-size:10px; color:#678; }
+
+/* context menus (component + workspace), look of the original WPF menus */
+.ctx-back { position:absolute; inset:0; z-index:20; }
+.ctx { position:absolute; z-index:21; background:#f4f4f4; border:1px solid #999; box-shadow:2px 2px 4px #0006; padding:2px 0 2px 28px; min-width:230px; font:13px "Segoe UI", sans-serif; color:#111; }
+.ctx::before { content:""; position:absolute; left:0; top:0; bottom:0; width:28px; background:#f4f4f4; border-right:1px solid #e0e0e0; }
+.ctx-item { position:relative; display:flex; align-items:center; gap:24px; padding:3px 14px 3px 10px; cursor:default; white-space:nowrap; }
+.ctx-item:hover { background:#dbe8fa; } .ctx-item.dis { color:#999; pointer-events:none; }
+.ctx-item .ci { position:absolute; left:-28px; width:28px; text-align:center; font-size:16px; line-height:18px; color:#111; z-index:1; } .ctx-item .ci.z { color:#2aa3c4; font-weight:700; } .ctx-item.dis .ci { color:#999; }
+.ctx-item .cl { flex:1; } .ctx-item .ck { color:#888; font-size:12px; }
+.ctx-sep { height:1px; background:#d8d8d8; margin:3px 0 3px 0; }
+.sgrp { font-weight:600; color:var(--blue); border-bottom:1px solid var(--line); margin:18px 0 6px; padding-bottom:2px; max-width:640px; } .settings .mrow { max-width:640px; }
+.colgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:6px 14px; max-width:640px; } .colrow { display:flex; align-items:center; gap:8px; } .colrow input { width:34px; height:22px; padding:0; border:1px solid #b7c3d8; }

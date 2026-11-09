@@ -11,7 +11,7 @@ window.ct2 = {
     document.addEventListener('keydown', e => {
       const t = e.target; if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
       const mod = e.ctrlKey || e.metaKey, k = e.key.toLowerCase();
-      const handled = k === 'delete' || k === 'backspace' || k === 'escape' || k.startsWith('arrow') || (mod && 'zyxcvas'.includes(k) && k.length === 1);
+      const handled = k === 'delete' || k === 'backspace' || k === 'escape' || k.startsWith('arrow') || (mod && 'zyxcvaswhr'.includes(k) && k.length === 1);
       if (!handled) return;
       e.preventDefault();
       ref.invokeMethodAsync('OnKey', e.key, mod, e.shiftKey);

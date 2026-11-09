@@ -12,10 +12,10 @@ window.ct2engine = {
     this.worker = w;
   },
   prewarm() { if (!this.worker && this.ref) this._spawn(); },
-  async start(json) {
+  async start(json, guiMs, sleepMs) {
     if (!this.worker) this._spawn();
     await this.ready;
-    this.worker.postMessage({ cmd: 'start', json, lang: window.ct2lang || 'en' });
+    this.worker.postMessage({ cmd: 'start', json, lang: window.ct2lang || 'en', guiMs, sleepMs });
   },
   text(id, text) { if (this.worker) this.worker.postMessage({ cmd: 'text', id, text }); },
   // Settings forms are computed by a second, long-lived worker so they work while the run worker is busy.

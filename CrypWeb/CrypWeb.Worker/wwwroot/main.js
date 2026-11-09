@@ -24,7 +24,7 @@ self.postMessage('{"type":"ready"}');
 self.onmessage = (e) => {
   const m = e.data;
   try {
-    if (m.cmd === 'start') api.Start(m.json, m.lang || 'en');
+    if (m.cmd === 'start') api.Start(m.json, m.lang || 'en', m.guiMs || 80, m.sleepMs || 1);
     else if (m.cmd === 'stop') api.Stop();
     else if (m.cmd === 'text') api.SetText(m.id, m.text);
     else if (m.cmd === 'setting') api.SetSetting(m.id, m.name, m.value);

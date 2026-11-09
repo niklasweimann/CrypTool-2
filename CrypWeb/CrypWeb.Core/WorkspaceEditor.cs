@@ -30,6 +30,17 @@ public sealed class WorkspaceEditor
 
     public void BringToFront(VisualNode n) { n.ZIndex = Movable.Max(m => m.ZIndex) + 1; }
 
+    public void SendToBack(VisualNode n) { n.ZIndex = Movable.Min(m => m.ZIndex) - 1; }
+
+    /// <summary>Moves a node one step up (+1) or down (-1) in the z-order.</summary>
+    public void Elevate(VisualNode n, int dir)
+    {
+        var l = Movable.OrderBy(m => m.ZIndex).ToList();
+        for (int i = 0; i < l.Count; i++) l[i].ZIndex = i + 1;
+        int idx = l.IndexOf(n), j = idx + dir; if (idx < 0 || j < 0 || j >= l.Count) return;
+        (l[idx].ZIndex, l[j].ZIndex) = (l[j].ZIndex, l[idx].ZIndex);
+    }
+
     public PluginNode AddPlugin(PaletteEntry e, double x, double y)
     {
         var p = new PluginNode { Id = Ws.NextId(), X = x, Y = y, Width = e.Width, Height = e.Height, Name = e.Name, TypeName = e.TypeName, AssemblyName = e.AssemblyName };

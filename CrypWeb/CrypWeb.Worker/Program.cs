@@ -10,19 +10,19 @@ public static partial class WorkerApi
     static ExecutionEngine? engine;
     static Workspace? ws;
     static bool dirty;
-    static long lastSent;
+    static long lastSent; static int guiInterval = 80;
 
     [JSImport("post", "worker")]
     static partial void Post(string json);
 
     /// <summary>Starts the workspace (JSON from WorkspaceEditor.ToJson). Returns immediately; the engine runs cooperatively.</summary>
     [JSExport]
-    public static void Start(string json, string culture)
+    public static void Start(string json, string culture, int guiMs, int sleepMs)
     {
         Stop(); sentIo.Clear();
         try { var c = new System.Globalization.CultureInfo(string.IsNullOrEmpty(culture) ? "en" : culture); System.Globalization.CultureInfo.CurrentUICulture = c; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = c; } catch { }
         ws = WorkspaceEditor.FromJson(json);
-        var eng = engine = new ExecutionEngine();
+        var eng = engine = new ExecutionEngine { SleepMs = sleepMs }; guiInterval = Math.Max(10, guiMs);
         eng.Changed += () => Flush(false);
         eng.Log += (n, l, m) => Post(JsonSerializer.Serialize(new { type = "log", id = n.Model.Id, level = l.ToString(), message = m }));
         _ = Run(eng);
@@ -107,7 +107,7 @@ public static partial class WorkerApi
     {
         var eng = engine; if (eng == null) return;
         long now = Environment.TickCount64;
-        if (!force && now - lastSent < 80) return;
+        if (!force && now - lastSent < guiInterval) return;
         lastSent = now;
         var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n), io = TakeIo(n) });
         Post(JsonSerializer.Serialize(new { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes }));

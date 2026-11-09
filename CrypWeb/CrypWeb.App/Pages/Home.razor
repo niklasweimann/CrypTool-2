@@ -92,9 +92,8 @@
         }
         else
         {
-          @foreach (var grp in FilteredMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
+          @foreach (var grp in FilteredMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)).Where(g => filter.Length > 0 || g.Key == OpenCat))
           {
-            <div class="cat" style="border-left:6px solid @Theme.CategoryColor(grp.Key)">@CatLabel(grp.Key)</div>
             @foreach (var m in grp.OrderBy(m => m.NameFor(Loc.Lang)))
             {
               <div class="pitem @(m.Supported ? "" : "unsup")" draggable="true" @ondragstart="() => dragEntry = m.ToPalette()" @ondblclick="() => AddAtCenter(m.ToPalette())" title="@ItemTip(m)">
@@ -104,6 +103,18 @@
           }
         }
       </div>
+      @if (tab == 1)
+      {
+        <div class="catstack">
+          @foreach (var g in meta.Values.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
+          {
+            var key = g.Key; var ic = g.FirstOrDefault(m => m.Icon != null)?.Icon;
+            <div class="catbtn @(OpenCat == key && filter.Length == 0 ? "on" : "")" style="border-left-color:@Theme.CategoryColor(key)" @onclick="() => PickCat(key)">
+              @if (ic != null) { <img src="@ic" /> }<span>@CatLabel(key)</span><i>@g.Count()</i>
+            </div>
+          }
+        </div>
+      }
     </aside>
 
     <!-- ===== Canvas ===== -->
@@ -134,11 +145,11 @@
       }
       else if (active.Kind == DocKind.Settings)
       {
-        <div class="page"><h1>@Loc["doc.settings"]</h1></div>
+        <SettingsPage S="settings" Loc="Loc" OnChanged="SettingsChanged" />
       }
       <main style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault @ondrop="Drop">
         @if (error != null) { <div class="msg err">@error</div> }
-        <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
+        <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @oncontextmenu="BgMenu" @oncontextmenu:preventDefault @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
           <g transform="translate(@F(panX) @F(panY)) scale(@F(zoom))">
             @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
             {
@@ -171,7 +182,7 @@
               var (nw, nh) = Size(p); var meta = Meta(p); var col = Theme.CategoryColor(meta?.Category ?? "Undefined");
               var sel = ed.Selection.Contains(p.Id); engine.Nodes.TryGetValue(p.Id, out var rn);
               var native = NativeComponent.TryCreate(p.TypeName)?.Which;
-              <g class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "")">
+              <g class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "")" @oncontextmenu="e => NodeMenu(e, p)" @oncontextmenu:preventDefault @oncontextmenu:stopPropagation>
                 <rect x="@F(p.X)" y="@F(p.Y)" width="@F(nw)" height="@F(nh)" rx="5" class="frame" @onpointerdown="e => NodeDown(e, p)" @onpointerdown:stopPropagation/>
                 <rect x="@F(p.X + 3)" y="@F(p.Y + 3)" width="@F(nw - 6)" height="17" class="head" @onpointerdown="e => NodeDown(e, p, true)" @onpointerdown:stopPropagation @ondblclick="() => EditName(p)"/>
                 @Txt(p.X + nw / 2 + 8, p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
@@ -266,6 +277,48 @@
             @if (mode == Mode.Marquee) { <rect x="@F(Math.Min(mx0, cx))" y="@F(Math.Min(my0, cy))" width="@F(Math.Abs(cx - mx0))" height="@F(Math.Abs(cy - my0))" class="marquee"/> }
           </g>
         </svg>
+        @if (ctx != Ctx.None)
+        {
+          <div class="ctx-back" @onpointerdown="CloseCtx" @oncontextmenu="CloseCtx" @oncontextmenu:preventDefault></div>
+          <div class="ctx" style="left:@(F(ctxX))px;top:@(F(ctxY))px" @onpointerdown:stopPropagation>
+            @if (ctx == Ctx.Node && ctxNode is { } cp)
+            {
+              @CtxItem("▤", Loc["ctx.presentation"], "", () => SetView(cp, 1))
+              @CtxItem("⚙", Loc["right.settings"], "", () => OpenSettings(cp))
+              @CtxItem("≡", Loc["log.title"], "", () => SetView(cp, 3))
+              @CtxItem("▦", "Data", "", () => SetView(cp, 2))
+              @CtxItem("?", Loc["ctx.help"], "", () => ShowHelp(cp))
+              <div class="ctx-sep"></div>
+              @CtxItem("⤒", Loc["ctx.front"], "", () => ZFront(cp), true, "z")
+              @CtxItem("↑", Loc["ctx.elevate"], "", () => ZUp(cp), true, "z")
+              @CtxItem("↓", Loc["ctx.reduce"], "", () => ZDown(cp), true, "z")
+              @CtxItem("⤓", Loc["ctx.back"], "", () => ZBack(cp), true, "z")
+            }
+            else
+            {
+              var n2 = SelNodes.Count; var n1 = n2 > 0; var multi = n2 > 1;
+              @CtxItem("⇤", Loc["ctx.alignLeft"], "Ctrl+Left", () => Align("left"), multi)
+              @CtxItem("⇥", Loc["ctx.alignRight"], "Ctrl+Right", () => Align("right"), multi)
+              @CtxItem("⤒", Loc["ctx.alignTop"], "Ctrl+Up", () => Align("top"), multi)
+              @CtxItem("⤓", Loc["ctx.alignBottom"], "Ctrl+Down", () => Align("bottom"), multi)
+              <div class="ctx-sep"></div>
+              @CtxItem("←", Loc["ctx.moveLeft"], "Ctrl+Shift+Left", () => MoveSel(-10, 0), n1)
+              @CtxItem("→", Loc["ctx.moveRight"], "Ctrl+Shift+Right", () => MoveSel(10, 0), n1)
+              @CtxItem("↑", Loc["ctx.moveUp"], "Ctrl+Shift+Up", () => MoveSel(0, -10), n1)
+              @CtxItem("↓", Loc["ctx.moveDown"], "Ctrl+Shift+Down", () => MoveSel(0, 10), n1)
+              <div class="ctx-sep"></div>
+              @CtxItem("⇔", Loc["ctx.spreadH"], "Ctrl+Shift+X", () => Spread(true), n2 > 2)
+              @CtxItem("⇕", Loc["ctx.spreadV"], "Ctrl+Shift+Y", () => Spread(false), n2 > 2)
+              <div class="ctx-sep"></div>
+              @CtxItem("↔", Loc["ctx.bigW"], "Ctrl+Shift+W", () => SizeAll(true, true), multi)
+              @CtxItem("↔", Loc["ctx.smallW"], "Ctrl+W", () => SizeAll(true, false), multi)
+              @CtxItem("↕", Loc["ctx.bigH"], "Ctrl+Shift+H", () => SizeAll(false, true), multi)
+              @CtxItem("↕", Loc["ctx.smallH"], "Ctrl+H", () => SizeAll(false, false), multi)
+              <div class="ctx-sep"></div>
+              @CtxItem("▤", Loc["ctx.rearrange"], "Ctrl+R", Rearrange)
+            }
+          </div>
+        }
         @if (editing != null) { <input class="inline" style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px" @bind="editText" @bind:event="oninput" @onkeydown="EditKey" @onblur="CommitEdit" id="inline-edit" /> }
       </main>
     </section>
@@ -323,3 +376,7 @@
     </ErrorBoundary>
   }
 </div>
+
+@code {
+    RenderFragment CtxItem(string icon, string label, string key, Action act, bool enabled = true, string cls = "") => @<div class="ctx-item @(enabled ? "" : "dis")" @onclick="() => { if (enabled) Run(act); }"><span class="ci @cls">@icon</span><span class="cl">@label</span><span class="ck">@key</span></div>;
+}

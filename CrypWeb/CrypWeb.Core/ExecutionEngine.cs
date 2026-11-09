@@ -29,6 +29,8 @@ public sealed class ExecutionEngine
     public Dictionary<int, RunNode> Nodes { get; } = new();
     public HashSet<int> ActiveWires { get; } = new();
     public bool Running { get; private set; }
+    /// <summary>Pause between executions in ms (global setting "sleep time").</summary>
+    public int SleepMs { get; set; } = 1;
     public event Action? Changed;
     public event Action<RunNode, LogLevel, string>? Log;
     public int ExecutionCount { get; private set; }
@@ -80,7 +82,7 @@ public sealed class ExecutionEngine
                     if (n.Comp == null || n.State == RunState.Error) continue;
                     if (TryFire(n)) { progressed = true; Changed?.Invoke(); await Task.Yield(); }
                 }
-                if (progressed) { idle = 0; await Task.Delay(1, CancellationToken.None); }
+                if (progressed) { idle = 0; await Task.Delay(Math.Max(1, SleepMs), CancellationToken.None); }
                 else { idle++; await Task.Delay(idle > 20 ? 100 : 20, CancellationToken.None); }
                 if (idle == 5) { foreach (var n in Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Done; ActiveWires.Clear(); Changed?.Invoke(); }
             }
