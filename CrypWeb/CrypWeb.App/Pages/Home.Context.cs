@@ -7,7 +7,7 @@ namespace CrypWeb.App.Pages;
 public partial class Home
 {
     enum Ctx { None, Node, Bg }
-    Ctx ctx; double ctxX, ctxY, panDist; PluginNode? ctxNode;
+    bool ctxFresh; Ctx ctx; double ctxX, ctxY, panDist; PluginNode? ctxNode;
 
     List<VisualNode> SelNodes => ed.Movable.Where(n => ed.Selection.Contains(n.Id)).ToList();
     static (double w, double h) Dim(VisualNode n) => n is PluginNode p ? Size(p) : (n.Width, n.Height);
@@ -17,8 +17,8 @@ public partial class Home
         if (panDist > 5) return; // right-drag was a pan, not a click
         CommitEdit();
         ctx = kind; ctxNode = node;
-        ctxX = Math.Max(0, Math.Min(e.ClientX - rl, rw - 300));
-        ctxY = Math.Max(0, Math.Min(e.ClientY - rt, rh - (kind == Ctx.Bg ? 420 : 260)));
+        // viewport coordinates (position:fixed): independent of the cached canvas rectangle; ct2.clampCtx keeps the menu on screen
+        ctxX = e.ClientX; ctxY = e.ClientY; ctxFresh = true;
     }
     void NodeMenu(MouseEventArgs e, PluginNode p)
     {

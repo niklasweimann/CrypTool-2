@@ -53,3 +53,5 @@ window.ct2.exportPng = async (sel, name, x, y, w, h) => {
   const blob = await new Promise(r => c.toBlob(r, 'image/png'));
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; a.click(); return true;
 };
+
+window.ct2.clampCtx = () => { const m = document.querySelector('.ctx'); if (!m) return; const r = m.getBoundingClientRect(); const dx = r.right - innerWidth + 4, dy = r.bottom - innerHeight + 4; if (dx > 0) m.style.left = (r.left - dx) + 'px'; if (dy > 0) m.style.top = Math.max(0, r.top - dy) + 'px'; };

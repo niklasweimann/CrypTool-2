@@ -53,6 +53,8 @@ public partial class Home : IDisposable
         try { await Js.InvokeVoidAsync("ct2.exportPng", "main svg", (current == null ? "workspace" : Path.GetFileNameWithoutExtension(current)) + ".png", x0, y0, x1 - x0, y1 - y0); }
         catch (Exception e) { AddLog("Workspace", CrypTool.Web.Core.LogLevel.Error, "Could not export image: " + e.Message); }
     }
+    void SetZoomPct(string? v) { if (double.TryParse(v, out var p)) ZoomAt(Math.Clamp(p, 5, 400) / 100.0 / zoom, rw / 2, rh / 2); }
+    void PickAll() => PickCat("*");
     string? openCat;
     void PickCat(string k) { openCat = k; filter = ""; }
     string OpenCat { get => openCat ?? (meta.Values.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? ""); set => openCat = value; }
@@ -82,7 +84,8 @@ public partial class Home : IDisposable
     {
         docs.Add(active);
         settings = await AppSettings.LoadAsync(Js);
-        templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new();
+        try { templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new(); }
+        catch (Exception e) { AddLog("Startup", CrypTool.Web.Core.LogLevel.Error, "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh"); }
         try
         {
             var list = await Http.GetFromJsonAsync<List<PluginMeta>>("plugins.json") ?? new();
@@ -91,12 +94,12 @@ public partial class Home : IDisposable
         catch { }
         var q = System.Text.RegularExpressions.Regex.Match(new Uri(Nav.Uri).Query, "t=([^&]+)");
         if (q.Success) await OpenTemplate(Uri.UnescapeDataString(q.Groups[1].Value));
-        else await RestoreAutosave();
+        else { try { await RestoreAutosave(); } catch (Exception e) { AddLog("Startup", CrypTool.Web.Core.LogLevel.Warning, "The last session could not be restored: " + e.Message); } }
     }
 
     protected override async Task OnAfterRenderAsync(bool first)
     {
-        if (!first) return;
+        if (!first) { if (ctxFresh) { ctxFresh = false; try { await Js.InvokeVoidAsync("ct2.clampCtx"); } catch { } } return; }
         self = DotNetObjectReference.Create(this);
         await Js.InvokeVoidAsync("ct2.init", self, "main svg");
         await Js.InvokeVoidAsync("ct2engine.create", self);
@@ -621,6 +624,7 @@ public partial class Home : IDisposable
     void OpenSettings(PluginNode p) { settingsFor = p; AddLog("UI", CrypTool.Web.Core.LogLevel.Debug, "Opening settings of " + p.TypeName); StateHasChanged(); }
 
     void CloseSettings() => settingsFor = null;
+    static System.Text.Json.JsonElement ParseJson(string s) { try { return System.Text.Json.JsonDocument.Parse(s).RootElement.Clone(); } catch { return System.Text.Json.JsonDocument.Parse(System.Text.Json.JsonSerializer.Serialize(s)).RootElement.Clone(); } }
     void OpenView(PluginNode p) { viewFor = p; }
     // PluginViewState (CT2): 0 Min, 1 Presentation, 2 Data, 3 Log, 4 Setting, 5 Description, 7 Default
     void SetView(PluginNode p, int v)

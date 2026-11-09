@@ -54,7 +54,7 @@
       <div class="rgroup"><div class="rbtns">
         <button class="rbtn big" @onclick="FitAsync"><span class="ico">⤢</span>@Loc["view.fit"]</button>
         <div class="rcol">
-          <div class="zoomrow"><button class="rbtn small" @onclick="() => ZoomBy(1 / 1.25)">−</button><span class="zoomv">@((int)Math.Round(zoom * 100))%</span><button class="rbtn small" @onclick="() => ZoomBy(1.25)">+</button></div>
+          <div class="zoomrow"><button class="rbtn small" @onclick="() => ZoomBy(1 / 1.25)">−</button><input type="number" class="zin" min="5" max="400" value="@((int)Math.Round(zoom * 100))" @onchange="e => SetZoomPct(e.Value?.ToString())" />%<button class="rbtn small" @onclick="() => ZoomBy(1.25)">+</button></div>
           <button class="rbtn small" @onclick="Zoom100">100%</button>
           <label class="rbtn small chk"><input type="checkbox" @bind="snap" /> @Loc["view.snap"]</label>
         </div>
@@ -92,8 +92,9 @@
         }
         else
         {
-          @foreach (var grp in FilteredMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)).Where(g => filter.Length > 0 || g.Key == OpenCat))
+          @foreach (var grp in FilteredMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)).Where(g => filter.Length > 0 || OpenCat == "*" || g.Key == OpenCat))
           {
+            @if (filter.Length > 0 || OpenCat == "*") { <div class="cat" style="border-left:6px solid @Theme.CategoryColor(grp.Key)">@CatLabel(grp.Key)</div> }
             @foreach (var m in grp.OrderBy(m => m.NameFor(Loc.Lang)))
             {
               <div class="pitem @(m.Supported ? "" : "unsup")" draggable="true" @ondragstart="() => dragEntry = m.ToPalette()" @ondblclick="() => AddAtCenter(m.ToPalette())" title="@ItemTip(m)">
@@ -106,6 +107,7 @@
       @if (tab == 1)
       {
         <div class="catstack">
+          <div class="catbtn @(OpenCat == "*" && filter.Length == 0 ? "on" : "")" style="border-left-color:#888" @onclick="PickAll"><span>@Loc["cat.all"]</span><i>@meta.Count</i></div>
           @foreach (var g in meta.Values.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
           {
             var key = g.Key; var ic = g.FirstOrDefault(m => m.Icon != null)?.Icon;
@@ -136,11 +138,8 @@
             <label class="rbtn big"><span class="ico">📂</span>@Loc["file.open"]<InputFile OnChange="OpenFile" accept=".cwm,.json" /></label>
           </div>
           <h2>@Loc["panel.templates"]</h2>
-          @foreach (var grp in templates.GroupBy(t => Path.GetDirectoryName(t) ?? ""))
-          {
-            <h3>@grp.Key.Replace("/", " › ")</h3>
-            <div class="tplgrid">@foreach (var t in grp) { var tt = t; <button class="tplcard" @onclick="() => OpenTemplate(tt)">▤ @Path.GetFileNameWithoutExtension(t)</button> }</div>
-          }
+          <input class="pfilter tplfilter" placeholder="@Loc["panel.search"]" @bind="tplFilter" @bind:event="oninput" />
+          <div class="tpltree">@TplTree(TplRoot(), 0)</div>
         </div>
       }
       else if (active.Kind == DocKind.Settings)
@@ -154,7 +153,7 @@
           <button title="@Loc["view.export"]" @onclick="ExportImage">📷</button>
           <button title="@Loc["ws.addText"]" @onclick="AddNote">💬</button>
         </div>
-        <div class="zoombar"><span>@((int)Math.Round(zoom * 100))%</span><button @onclick="() => ZoomBy(1 / 1.25)">−</button><input type="range" min="0" max="100" value="@ZoomSlider" @oninput="e => SetZoomSlider(e.Value?.ToString())" /><button @onclick="() => ZoomBy(1.25)">+</button></div>
+        <div class="zoombar"><input type="number" class="zin" min="5" max="400" value="@((int)Math.Round(zoom * 100))" @onchange="e => SetZoomPct(e.Value?.ToString())" />%<button @onclick="() => ZoomBy(1 / 1.25)">−</button><input type="range" min="0" max="100" value="@ZoomSlider" @oninput="e => SetZoomSlider(e.Value?.ToString())" /><button @onclick="() => ZoomBy(1.25)">+</button></div>
         <svg class="canvas @(mode == Mode.Pan ? "grabbing" : "")" @oncontextmenu="BgMenu" @oncontextmenu:preventDefault @onpointerdown="BgDown" @onpointermove="Move" @onpointerup="Up" @onpointerleave="Up" @onwheel="Wheel" @onwheel:preventDefault @onclick="SvgClick">
           <g transform="translate(@F(panX) @F(panY)) scale(@F(zoom))">
             @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
@@ -209,7 +208,11 @@
                       @if (p.ViewState == 1)
                       {
                         @if (rn == null || rn.Pres.Count == 0) { <div class="mhint">@Loc["view.empty"]</div> }
-                        else foreach (var kv in rn.Pres.OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><pre>@kv.Value</pre></div> }
+                        else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName) is { } vizType)
+                        {
+                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = rn.Pres, ["Inline"] = true })" />
+                        }
+                        else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null").OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
                       }
                       else if (p.ViewState == 2)
                       {
@@ -370,7 +373,7 @@
   </div>
   @if (viewFor != null)
   {
-    <PresentationModal Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
+    <PresentationModal TypeName="@viewFor.TypeName" Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
   }
   @if (settingsFor != null)
   {
@@ -384,5 +387,39 @@
 </div>
 
 @code {
+    sealed class TplNode { public string Name = "", Path = ""; public List<TplNode> Dirs = new(); public List<string> Files = new(); }
+    string tplFilter = ""; readonly HashSet<string> tplOpen = new() { "Codes" };
+    TplNode TplRoot()
+    {
+        var root = new TplNode();
+        foreach (var t in templates.Where(t => tplFilter.Length == 0 || t.Contains(tplFilter, StringComparison.OrdinalIgnoreCase)).OrderBy(t => t, StringComparer.OrdinalIgnoreCase))
+        {
+            var parts = t.Split('/'); var n = root;
+            for (int i = 0; i < parts.Length - 1; i++)
+            {
+                var c = n.Dirs.FirstOrDefault(d => d.Name == parts[i]);
+                if (c == null) n.Dirs.Add(c = new TplNode { Name = parts[i], Path = string.Join("/", parts.Take(i + 1)) });
+                n = c;
+            }
+            n.Files.Add(t);
+        }
+        return root;
+    }
+    int TplCount(TplNode n) => n.Files.Count + n.Dirs.Sum(TplCount);
+    void ToggleTpl(string p) { if (!tplOpen.Remove(p)) tplOpen.Add(p); }
+    RenderFragment TplTree(TplNode n, int depth) => @<div class="tplnode">
+      @foreach (var d in n.Dirs)
+      {
+        var dd = d; bool open = tplFilter.Length > 0 || tplOpen.Contains(dd.Path);
+        <div class="tpldir" style="padding-left:@(depth * 18)px" @onclick="() => ToggleTpl(dd.Path)"><span class="tpltw">@(open ? "▾" : "▸")</span>📁 @dd.Name<i>@TplCount(dd)</i></div>
+        @if (open) { @TplTree(dd, depth + 1) }
+      }
+      @foreach (var t in n.Files)
+      {
+        var tt = t;
+        <div class="tplfile" style="padding-left:@(depth * 18 + 18)px" @onclick="() => OpenTemplate(tt)">▤ @Path.GetFileNameWithoutExtension(tt)</div>
+      }
+    </div>;
+
     RenderFragment CtxItem(string icon, string label, string key, Action act, bool enabled = true, string cls = "") => @<div class="ctx-item @(enabled ? "" : "dis")" @onclick="() => { if (enabled) Run(act); }"><span class="ci @cls">@icon</span><span class="cl">@label</span><span class="ck">@key</span></div>;
 }

@@ -60,5 +60,6 @@
   "set.typeColors": "Data type colors",
   "set.catColors": "Function colors",
   "set.resetColors": "Reset colors to defaults",
-  "view.export": "Export as image"
+  "view.export": "Export as image",
+  "cat.all": "All"
 }
