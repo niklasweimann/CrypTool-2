@@ -524,11 +524,6 @@
     <Compile Include="../../CrypPlugins/PaddingOracle/Properties/Resources.Designer.cs" Link="PaddingOracle/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/PaddingOracle/Properties/Resources.resx" LogicalName="PaddingOracle.Properties.Resources.resources" Link="PaddingOracle/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/PaddingOracle/Properties/Resources.de.resx" LogicalName="PaddingOracle.Properties.Resources.de.resources" Link="PaddingOracle/Properties/Resources.de.resx" />
-    <Compile Include="../../CrypPlugins/PaddingOracleAttack/PaddingOracleAttackSettings.cs" Link="PaddingOracleAttack/PaddingOracleAttackSettings.cs" />
-    <Compile Include="../../CrypPlugins/PaddingOracleAttack/PaddingOracleAttack.cs" Link="PaddingOracleAttack/PaddingOracleAttack.cs" />
-    <Compile Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.Designer.cs" Link="PaddingOracleAttack/Properties/Resources.Designer.cs" />
-    <EmbeddedResource Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.resx" LogicalName="PaddingOracleAttack.Properties.Resources.resources" Link="PaddingOracleAttack/Properties/Resources.resx" />
-    <EmbeddedResource Include="../../CrypPlugins/PaddingOracleAttack/Properties/Resources.de.resx" LogicalName="PaddingOracleAttack.Properties.Resources.de.resources" Link="PaddingOracleAttack/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierKeyGenerator.cs" Link="Paillier/PaillierKeyGenerator.cs" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierKeyGeneratorSettings.cs" Link="Paillier/PaillierKeyGeneratorSettings.cs" />
     <Compile Include="../../CrypPlugins/Paillier/PaillierSettings.cs" Link="Paillier/PaillierSettings.cs" />

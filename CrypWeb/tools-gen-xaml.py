@@ -29,6 +29,12 @@ for d in sorted(os.listdir(PL)):
             for cand in (os.path.join(os.path.dirname(f), s), os.path.join(base, s)):
                 if os.path.isfile(cand):
                     t = os.path.join(OUT, d, os.path.relpath(cand, base)); os.makedirs(os.path.dirname(t), exist_ok=True); shutil.copy(cand, t); nimg += 1; ent['images'].append(os.path.relpath(cand, base).replace(os.sep, '/')); break
+    # images the code-behind sets at runtime (not named in the XAML): every small image in the plugin's image folders
+    for img in glob.glob(base + '/**/*', recursive=True):
+        if re.search(r'/(images?|Images?|icons?)/', img) and img.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg')) and '/obj/' not in img and os.path.getsize(img) < 200000:
+            rel = os.path.relpath(img, base).replace(os.sep, '/')
+            if rel not in ent['images']:
+                t = os.path.join(OUT, d, rel); os.makedirs(os.path.dirname(t), exist_ok=True); shutil.copy(img, t); ent['images'].append(rel); nimg += 1
     for rx in glob.glob(base + '/**/Properties/Resources*.resx', recursive=True):
         m = re.match(r'^Resources(?:\.([a-z]{2})(?:-\w+)?)?\.resx$', os.path.basename(rx))
         if m: ent['res'].setdefault(m.group(1) or 'en', {}).update(resx(rx))
