@@ -7,7 +7,7 @@
 <div class="shell">
   <!-- ===== Ribbon ===== -->
   <div class="ribbon">
-    <div class="rtabs"><span class="app-btn">CrypTool 2</span><span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span><span class="rtab @(ribbonTab == 2 ? "on" : "")" @onclick="() => ribbonTab = 2">@Loc["tab.edit"]</span><span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span><span class="rtab-r"><LanguagePicker /><span>@Loc["app.edition"]</span></span></div>
+    <div class="rtabs"><span class="app-btn">CrypTool 2</span><span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span><span class="rtab @(ribbonTab == 2 ? "on" : "")" @onclick="() => ribbonTab = 2">@Loc["tab.edit"]</span><span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span><span class="rtab-r"><span>@Loc["app.edition"]</span></span></div>
     @if (ribbonTab == 0)
     {
     <div class="rbody">
