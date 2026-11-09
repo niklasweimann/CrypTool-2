@@ -27,12 +27,12 @@ KNOWN.update(names('System.Windows.Media.Media3D', 'GeometryModel3D Point3D Mode
 KNOWN.update(names('System.Windows.Input', 'MouseButtonEventArgs KeyEventArgs MouseEventArgs MouseWheelEventArgs TextCompositionEventArgs ExecutedRoutedEventArgs CanExecuteRoutedEventArgs RoutedUICommand Cursor Key MouseButtonEventHandler KeyEventHandler MouseEventHandler MouseWheelEventHandler Cursors ICommand RoutedCommand CommandBinding'))
 KNOWN.update(names('System.Windows', 'DataTemplate Style DragEventArgs SizeChangedEventArgs DataObjectPastingEventArgs DataFormats GridUnitType LengthConverter GridLength DragEventHandler SizeChangedEventHandler Window Clipboard DataObject DataFormat TextAlignment FontWeights FontStyles ResourceDictionary'))
 KNOWN.update(names('System.Windows.Data', 'Binding MultiBinding BindingOperations'))
-KNOWN.update(names('System.Windows.Documents', 'TextRange FlowDocument Paragraph Run Inline Block Adorner AdornerLayer Hyperlink Span Bold LineBreak TextPointer'))
+KNOWN.update(names('System.Windows.Documents', 'TextRange FlowDocument Paragraph Run Inline Block AdornerLayer Hyperlink Span Bold LineBreak TextPointer'))
 KNOWN.update(names('System.Windows.Threading', 'DispatcherOperation DispatcherTimer'))
 KNOWN.update(names('CrypTool.CrypAnalysisViewControl', 'CrypAnalysisViewControl'))
 ENUMS = {'Key', 'GridUnitType', 'HitTestResultBehavior', 'TextAlignment'}
 PANELS = {'Canvas', 'Grid', 'StackPanel', 'DockPanel', 'WrapPanel', 'UniformGrid'}
-PRES = re.compile(r'(Presentation|Pres|Visualization|Visualisation)$')
+PRES = re.compile(r'(Presentation|Pres|Visualization|Visualisation|PresentationFrame)$')
 
 stubs = {}   # (namespace, name) -> {'kind','base','m','p','s','e','ev'}
 if os.path.exists(STATE):
@@ -74,7 +74,8 @@ def write_stubs():
                 base = v['base'] or 'object'
                 body = ' public %s() { } public %s(params object[] a) { }' % (n, n)
                 body += ''.join(' public dynamic %s(params object[] a) { __Record("%s", a); return System.Windows.StubValue.Instance; }' % (m, m) for m in sorted(v['m'] - v['p']))  # a member used as property wins over one used as call
-                body += ''.join(' public dynamic %s { get => __Get("%s"); set => __Set("%s", value); }' % (q, q, q) for q in sorted(v['p']))
+                body += ''.join(' public dynamic %s { get => __Get("%s"); set => __Set("%s", value); }' % (q, q, q) for q in sorted(v['p'] - v['ev']))
+                body += ''.join(' public System.Windows.StubEvent %s { get; set; } = new System.Windows.StubEvent();' % q for q in sorted(v['ev']))
                 for q in sorted(v['s']):
                     if (q[2:] if q.startswith('()') else q) in (v['m'] | v['p']): continue  # an instance member of that name wins over a static one
                     if q.startswith('()'): body += ' public static dynamic %s(params object[] a) => System.Windows.StubValue.Instance;' % q[2:]
@@ -120,6 +121,13 @@ for it in range(40):
                 else:
                     kind = 'm' if re.search(r'\.' + re.escape(mem) + r'\s*\(', text) else 'p'
                     if mem not in v[kind]: v[kind].add(mem); new += 1
+    # `presentation.Member += handler` on a dynamic stand-in member: make the member an event stand-in
+    for path, d, line, code, msg in errs:
+        if code == 'CS0019' and "'+='" in msg or code == 'CS0019' and "'-='" in msg:
+            mm = re.search(r'(\w+)\s*(\+=|-=)', src_line(path, line))
+            if mm:
+                for key, v in stubs.items():
+                    if mm.group(1) in v['p'] and mm.group(1) not in v['ev']: v['ev'].add(mm.group(1)); new += 1
     # identical type names in two plugin directories cannot share an assembly: give those directories their own
     dup = set(d for _, d, _, code, _ in errs if code in ('CS0101', 'CS0102', 'CS0111', 'CS0579') and d not in iso)
     if dup:

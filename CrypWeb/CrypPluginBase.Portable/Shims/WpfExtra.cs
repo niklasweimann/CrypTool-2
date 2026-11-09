@@ -289,3 +289,5 @@ namespace CrypTool.PluginBase.Properties
 }
 namespace System.Windows.Controls { public enum ScrollBarVisibility { Disabled, Auto, Hidden, Visible } }
 namespace System.Windows { public enum TextWrapping { WrapWithOverflow, NoWrap, Wrap } }
+namespace System.Windows { /// <summary>Event member of a UI stand-in: subscriptions are accepted and ignored.</summary>
+    public sealed class StubEvent { public static StubEvent operator +(StubEvent e, System.Delegate d) => e; public static StubEvent operator -(StubEvent e, System.Delegate d) => e; } }

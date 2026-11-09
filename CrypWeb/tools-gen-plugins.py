@@ -57,7 +57,7 @@ for d in sorted(os.listdir(PL)):
     for r, ds, fs in os.walk(pd):
         ds[:] = [x for x in ds if x not in ('obj', 'bin')]
         for f in fs:
-            if f.endswith('.cs') and not f.endswith('.xaml.cs') and f != 'AssemblyInfo.cs' and not re.search(r'\.[a-z]{2}(-[A-Za-z]+)?\.Designer\.cs$', f): srcs.append(os.path.join(r, f))
+            if f.endswith('.cs') and not f.endswith('.xaml.cs') and f not in ('AssemblyInfo.cs', 'DragAdorner.cs') and not re.search(r'\.[a-z]{2}(-[A-Za-z]+)?\.Designer\.cs$', f): srcs.append(os.path.join(r, f))
     # resources
     res_files = {}
     loc_files = {}   # lang -> {path: values}  (Resources.<lang>.resx next to Resources.resx)
