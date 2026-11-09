@@ -14,7 +14,7 @@
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <Compile Include="..\..\CrypPluginBase\**\*.cs" Exclude="..\..\CrypPluginBase\obj\**;..\..\CrypPluginBase\bin\**;..\..\CrypPluginBase\**\*.xaml.cs;..\..\CrypPluginBase\Miscellaneous\SuperTooltip.cs;..\..\CrypPluginBase\Miscellaneous\LocExtension.cs;..\..\CrypPluginBase\Miscellaneous\SelectableTextBlock.cs;..\..\CrypPluginBase\Miscellaneous\DescriptionHyperlink.cs;..\..\CrypPluginBase\Validation\*.cs;..\..\CrypPluginBase\Properties\Settings.cs;..\..\CrypPluginBase\Properties\Settings.Designer.cs;..\..\CrypPluginBase\Miscellaneous\XMLHelper.cs;..\..\CrypPluginBase\TabInfo.cs;..\..\CrypPluginBase\Miscellaneous\ApplicationSettingsHelper.cs;..\..\CrypPluginBase\Editor\IEditor.cs;..\..\CrypPluginBase\Properties\AssemblyInfo.cs" />
     <Compile Include="Shims\*.cs" />
     <Compile Include="..\..\LibSource\CrypAnalysisViewControl\ICrypAnalysisResultListEntry.cs" Link="Shims\ICrypAnalysisResultListEntry.cs" />

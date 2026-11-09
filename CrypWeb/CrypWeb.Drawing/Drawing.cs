@@ -4,10 +4,8 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using ISImage = SixLabors.ImageSharp.Image;
+using StbImageSharp;
+using StbImageWriteSharp;
 
 namespace System.Drawing
 {
@@ -58,17 +56,18 @@ namespace System.Drawing
 
         void Decode(Stream s)
         {
-            using var img = ISImage.Load<Bgra32>(s);
-            w = img.Width; h = img.Height; Data = new byte[w * h * 4];
-            img.CopyPixelDataTo(Data);
+            var img = ImageResult.FromStream(s, StbImageSharp.ColorComponents.RedGreenBlueAlpha);
+            w = img.Width; h = img.Height; Data = img.Data; // RGBA -> BGRA
+            for (int i = 0; i < Data.Length; i += 4) (Data[i], Data[i + 2]) = (Data[i + 2], Data[i]);
         }
         public override void Save(Stream stream, ImageFormat format)
         {
-            using var img = ISImage.LoadPixelData<Bgra32>(Data, w, h);
-            if (format == ImageFormat.Jpeg) img.SaveAsJpeg(stream);
-            else if (format == ImageFormat.Bmp) img.SaveAsBmp(stream);
-            else if (format == ImageFormat.Gif) img.SaveAsGif(stream);
-            else img.SaveAsPng(stream);
+            var rgba = new byte[Data.Length]; Array.Copy(Data, rgba, Data.Length);
+            for (int i = 0; i < rgba.Length; i += 4) (rgba[i], rgba[i + 2]) = (rgba[i + 2], rgba[i]); // BGRA -> RGBA
+            var wr = new ImageWriter();
+            if (format == ImageFormat.Jpeg) wr.WriteJpg(rgba, w, h, StbImageWriteSharp.ColorComponents.RedGreenBlueAlpha, stream, 90);
+            else if (format == ImageFormat.Bmp) wr.WriteBmp(rgba, w, h, StbImageWriteSharp.ColorComponents.RedGreenBlueAlpha, stream);
+            else wr.WritePng(rgba, w, h, StbImageWriteSharp.ColorComponents.RedGreenBlueAlpha, stream); // GIF/TIFF/others are written as PNG
         }
         public override object Clone() => new Bitmap((Image)this);
         public Bitmap Clone(Rectangle r, PixelFormat f)
@@ -80,16 +79,38 @@ namespace System.Drawing
         public Bitmap Clone(Rectangle r, PixelFormat f, int _) => Clone(r, f);
         internal static Bitmap Resize(Bitmap b, int nw, int nh)
         {
-            using var img = ISImage.LoadPixelData<Bgra32>(b.Data, b.w, b.h);
-            img.Mutate(c => c.Resize(nw, nh));
-            var r = new Bitmap(nw, nh); img.CopyPixelDataTo(r.Data); return r;
+            var r = new Bitmap(nw, nh);
+            // bilinear sampling
+            for (int y = 0; y < nh; y++)
+            {
+                double fy = Math.Max(0, (y + .5) * b.h / nh - .5); int y0 = Math.Min(b.h - 1, (int)fy), y1 = Math.Min(b.h - 1, y0 + 1); double ty = fy - y0;
+                for (int x = 0; x < nw; x++)
+                {
+                    double fx = Math.Max(0, (x + .5) * b.w / nw - .5); int x0 = Math.Min(b.w - 1, (int)fx), x1 = Math.Min(b.w - 1, x0 + 1); double tx = fx - x0;
+                    for (int c = 0; c < 4; c++)
+                    {
+                        double top = b.Data[(y0 * b.w + x0) * 4 + c] * (1 - tx) + b.Data[(y0 * b.w + x1) * 4 + c] * tx;
+                        double bot = b.Data[(y1 * b.w + x0) * 4 + c] * (1 - tx) + b.Data[(y1 * b.w + x1) * 4 + c] * tx;
+                        r.Data[(y * nw + x) * 4 + c] = (byte)Math.Round(top * (1 - ty) + bot * ty);
+                    }
+                }
+            }
+            return r;
         }
         internal void RotateFlipCore(RotateFlipType t)
         {
-            using var img = ISImage.LoadPixelData<Bgra32>(Data, w, h);
             int rot = (int)t % 4; bool flipX = ((int)t & 4) != 0;
-            img.Mutate(c => { if (rot == 1) c.Rotate(RotateMode.Rotate90); else if (rot == 2) c.Rotate(RotateMode.Rotate180); else if (rot == 3) c.Rotate(RotateMode.Rotate270); if (flipX) c.Flip(FlipMode.Horizontal); });
-            w = img.Width; h = img.Height; Data = new byte[w * h * 4]; img.CopyPixelDataTo(Data);
+            int nw = rot % 2 == 1 ? h : w, nh = rot % 2 == 1 ? w : h;
+            var nd = new byte[nw * nh * 4];
+            for (int y = 0; y < h; y++)
+                for (int x = 0; x < w; x++)
+                {
+                    int dx, dy;
+                    switch (rot) { case 1: dx = h - 1 - y; dy = x; break; case 2: dx = w - 1 - x; dy = h - 1 - y; break; case 3: dx = y; dy = w - 1 - x; break; default: dx = x; dy = y; break; }
+                    if (flipX) dx = nw - 1 - dx; // flip after rotation, like ImageSharp's Mutate order
+                    Array.Copy(Data, (y * w + x) * 4, nd, (dy * nw + dx) * 4, 4);
+                }
+            w = nw; h = nh; Data = nd;
         }
         public Color GetPixel(int x, int y)
         {

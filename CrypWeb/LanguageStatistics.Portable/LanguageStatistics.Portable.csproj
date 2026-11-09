@@ -14,7 +14,7 @@
   <ItemGroup>
     <Compile Include="..\..\LibSource\LanguageStatisticsLib\**\*.cs" Exclude="..\..\LibSource\LanguageStatisticsLib\obj\**;..\..\LibSource\LanguageStatisticsLib\bin\**;..\..\LibSource\LanguageStatisticsLib\Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="..\..\LibSource\LanguageStatisticsLib\Properties\Resources.resx" LogicalName="LanguageStatisticsLib.Properties.Resources.resources" Link="Properties\Resources.resx" />
-    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <ProjectReference Include="..\CrypPluginBase.Portable\CrypPluginBase.Portable.csproj" />
   </ItemGroup>
 </Project>

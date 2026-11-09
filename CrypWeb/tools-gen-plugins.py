@@ -36,10 +36,10 @@ ISO_CSPROJ = '''<Project Sdk="Microsoft.NET.Sdk">
   </PropertyGroup>
   <Import Project="plugins.g.props" />
   <ItemGroup>
-    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
-    <PackageReference Include="BouncyCastle.Cryptography" Version="2.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <ProjectReference Include="..\\..\\CrypWeb.Plugins\\CrypWeb.Plugins.csproj" />
   </ItemGroup>
 </Project>
