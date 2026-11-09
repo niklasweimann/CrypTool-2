@@ -1,22 +1,19 @@
-using System.Net.Http.Json;
 using System.Text.Json;
 using CrypTool.Web.Core;
 using Microsoft.JSInterop;
 
 namespace CrypWeb.App.Pages;
 
-// Startcenter data: recently opened workspaces (kept in localStorage) and the YouTube video list (snapshot in wwwroot/youtube.json).
+// Startcenter data: recently opened workspaces (kept in localStorage).
 public partial class Home
 {
     const string RecentKey = "ct2web.recent.v1";
     sealed record Recent(string Name, string Kind, string? Data);
-    sealed record Video(string Id, string Title, string Published);
     List<Recent> recents = new();
-    List<Video> videos = new();
+    bool videosOn; // the YouTube player is only loaded after a click (privacy: no Google request on startup)
 
     async Task LoadStartData()
     {
-        try { videos = await Http.GetFromJsonAsync<List<Video>>("youtube.json", new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new(); } catch { }
         try
         {
             var raw = await Js.InvokeAsync<string?>("ct2.store.get", RecentKey);

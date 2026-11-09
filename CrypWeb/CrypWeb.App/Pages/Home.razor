@@ -163,10 +163,13 @@
             <div class="sc-col">
               <h3 class="sc-h"><span class="ytb">▶</span> @Loc["start.videos"]</h3>
               <div class="sc-box sc-videos">
-                @if (videos.Count == 0) { <div class="mhint">@Loc["start.noVideos"]</div> }
-                @foreach (var v in videos)
+                @if (!videosOn)
                 {
-                  <a class="sc-video" href="https://www.youtube.com/watch?v=@v.Id" target="_blank" rel="noopener"><img loading="lazy" src="https://i.ytimg.com/vi/@v.Id/mqdefault.jpg" alt="" /><span>@v.Title<small>@v.Published</small></span></a>
+                  <div class="sc-vconsent"><p>@Loc["start.videosConsent"]</p><button class="rbtn small" @onclick="() => videosOn = true">▶ @Loc["start.videosLoad"]</button></div>
+                }
+                else
+                {
+                  <iframe class="sc-yt" src="https://www.youtube-nocookie.com/embed/videoseries?list=UU8_FqvQWJfZYxcSoEJ5ob-Q" title="YouTube" loading="lazy" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 }
               </div>
             </div>

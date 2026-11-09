@@ -76,5 +76,6 @@
   "start.noRecent": "No workspaces opened yet.",
   "start.noRecentData": "This file was too large to keep; open it again from disk.",
   "start.videos": "YouTube videos",
-  "start.noVideos": "No video list available."
+  "start.videosConsent": "The videos are played by YouTube (privacy-enhanced mode). Nothing is loaded from YouTube until you click.",
+  "start.videosLoad": "Load the YouTube playlist"
 }

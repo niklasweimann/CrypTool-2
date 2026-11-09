@@ -199,3 +199,4 @@ main { flex:1; position:relative; min-height:0; }
 .sc-trash { margin-left:auto; border:none; background:transparent; cursor:pointer; font-size:16px; } .ytb { background:#e62117; color:#fff; border-radius:4px; font-size:10px; padding:2px 5px; }
 .sc-videos { max-height:520px; overflow:auto; padding:0; } .sc-video { display:flex; gap:10px; padding:8px 10px; text-decoration:none; color:#1038b8; align-items:center; } .sc-video:nth-child(odd) { background:#cfe6fb; } .sc-video:hover { background:#e2f1ff; } .sc-video img { width:100px; height:56px; object-fit:cover; flex:none; background:#789; } .sc-video small { display:block; color:#556; }
 @media (max-width:1000px) { .sc-grid { grid-template-columns:1fr; } }
+.sc-vconsent { padding:16px; text-align:center; color:#334; } .sc-yt { width:100%; height:min(520px, 60vh); border:0; display:block; border-radius:3px; background:#000; }

@@ -76,5 +76,6 @@
   "start.noRecent": "Noch keine Arbeitsbereiche geöffnet.",
   "start.noRecentData": "Die Datei war zu groß zum Speichern; bitte erneut von der Festplatte öffnen.",
   "start.videos": "YouTube-Videos",
-  "start.noVideos": "Keine Videoliste verfügbar."
+  "start.videosConsent": "Die Videos werden von YouTube abgespielt (erweiterter Datenschutzmodus). Bis zum Klick wird nichts von YouTube geladen.",
+  "start.videosLoad": "YouTube-Playlist laden"
 }
