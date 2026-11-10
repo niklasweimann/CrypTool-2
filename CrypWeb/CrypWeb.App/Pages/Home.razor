@@ -241,6 +241,7 @@
                       @if (p.ViewState == 1)
                       {
                         @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
+                        else if (HasWpfView(p)) { }
                         else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName, rn?.Pres) is { } vizType)
                         {
                           <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName, ["NodeId"] = p.Id })" />
@@ -319,6 +320,17 @@
             @if (mode == Mode.Marquee) { <rect x="@F(Math.Min(mx0, cx))" y="@F(Math.Min(my0, cy))" width="@F(Math.Abs(cx - mx0))" height="@F(Math.Abs(cy - my0))" class="marquee"/> }
           </g>
         </svg>
+        @* Real WPF presentations are plain HTML above the canvas: scaled content inside an SVG foreignObject is misplaced by WebKit. *@
+        <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
+          @foreach (var p in ed.Ws.Plugins.Where(HasWpfView))
+          {
+            var (vw, vh) = Size(p);
+            <div class="nview over" @key="p.Id" style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px"
+                 @onpointerdown:stopPropagation @onwheel:stopPropagation>
+              <CrypTool.Web.App.Visualizers.WpfViz Pres="engine.Nodes[p.Id].Pres" Inline="true" TypeName="@p.TypeName" NodeId="p.Id" />
+            </div>
+          }
+        </div>
         @if (ed.Ws.Plugins.Count == 0 && ed.Ws.Texts.Count == 0 && ed.Ws.Images.Count == 0)
         {
           <div class="empty-hint">
@@ -430,6 +442,13 @@
     </ErrorBoundary>
   }
 </div>
+
+@code {
+  /// <summary>True when the component currently shows its real WPF presentation on the canvas.</summary>
+  bool HasWpfView(PluginNode p)
+    => p.ViewState == 1 && !p.Minimized && NativeComponent.TryCreate(p.TypeName) == null
+       && engine.Nodes.TryGetValue(p.Id, out var view) && view.Pres.ContainsKey(CrypTool.Web.App.Visualizers.WpfViz.HtmlKey);
+}
 
 @code {
     sealed class TplNode { public string Name = "", Path = ""; public List<TplNode> Dirs = new(); public List<string> Files = new(); }

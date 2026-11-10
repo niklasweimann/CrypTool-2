@@ -221,3 +221,6 @@ main { flex:1; position:relative; min-height:0; }
 .empty-hint ol{margin:0 0 10px;padding-left:20px;line-height:1.5;font-size:14px}
 .empty-hint .eh-more{font-size:13px;color:#4a5f8a}
 .empty-hint .eh-more a{pointer-events:auto;color:#1a5fb4}
+/* HTML layer above the canvas for real WPF presentations (same pan/zoom as the SVG) */
+.nviews { position:absolute; left:0; top:0; width:0; height:0; transform-origin:0 0; pointer-events:none; }
+.nviews .nview.over { position:absolute; pointer-events:auto; overflow:hidden; }

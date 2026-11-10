@@ -21,7 +21,10 @@
 /* text, shapes, pictures */
 .wpf .wt, .wpf .wtx { cursor: default; }
 .wpf .wlabel { padding: 5px; }
-.wpf .wsh { display: block; overflow: visible; }
+.wpf .wsh { display: block; overflow: visible; pointer-events: none; }
+/* only the drawn figure reacts to the mouse, not the rectangular svg box around it (boxes of neighbours overlap) */
+.wpf .wsh > * { pointer-events: visiblePainted; }
+.wpf .wsh[style*="pointer-events:none"] > * { pointer-events: none; }
 .wpf .wdraw { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
 .wpf .wi { display: block; max-width: 100%; max-height: 100%; }
 .wpf .off { opacity: .55; }
