@@ -110,7 +110,21 @@ window.ctWpf = (() => {
     svg.setAttribute('style', style + extra);
   }
 
+  // A presentation with a fixed design size (Width and Height on its root) is scaled to the box it is shown in.
+  function fitRoot(host) {
+    const frame = host.firstElementChild, root = frame && frame.firstElementChild;
+    if (!root) return;
+    const width = parseFloat(root.style.width), height = parseFloat(root.style.height);
+    frame.style.cssText = '';
+    if (!(width > 0 && height > 0) || !host.clientWidth || !host.clientHeight) return;
+    const scale = Math.min(host.clientWidth / width, host.clientHeight / height);
+    const left = (host.clientWidth - width * scale) / 2, top = (host.clientHeight - height * scale) / 2;
+    frame.style.cssText = `width:${width}px;height:${height}px;transform-origin:0 0;transform:translate(${left}px,${top}px) scale(${scale});`;
+    host.style.overflow = 'hidden';
+  }
+
   function layout(host) {
+    fitRoot(host);
     host.querySelectorAll('svg.wsh').forEach(sizeShape);
     // inner view boxes first: their size is input for the outer ones
     [...host.querySelectorAll('.wvb')].reverse().forEach(box => {
@@ -179,7 +193,10 @@ window.ctWpf = (() => {
       template.innerHTML = html;
       const next = template.content.firstElementChild;
       if (!next) { host.replaceChildren(); return; }
-      if (host.firstElementChild && host.firstElementChild.tagName === next.tagName) merge(host.firstElementChild, next);
+      if (host.firstElementChild && host.firstElementChild.tagName === next.tagName) {
+        next.setAttribute('style', host.firstElementChild.getAttribute('style') || '');   // set by fitRoot
+        merge(host.firstElementChild, next);
+      }
       else host.replaceChildren(next);
       layout(host);
     },

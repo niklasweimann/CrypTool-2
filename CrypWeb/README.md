@@ -62,24 +62,30 @@ with custom WPF controls, Emgu/NAudio-based ones, the cloud components).
 Plugin visualizations: the calls a component makes on its (browser-less) presentation are recorded in the engine worker (`RunNode.Pres`), converted to plain data (`ToPlain`: 2D arrays, lists, dictionaries, numbers, text) and shown by the generic **Open view** dialog (`PresentationModal`/`ValueView`: grids as tables, 0/1 series as cells, number series as bar charts, objects as key/value tables). This is a data view, not the component's original WPF drawing. Per-plugin renderers (e.g. an Enigma machine, histograms) would be added on top of the same data.
 Not done: text drawing in `CrypWeb.Drawing`, webcam/audio via browser APIs.
 
-### Plugin visualizations that look like the WPF originals
+### Plugin presentations: WPF for the web (`CrypWeb.Wpf`)
 
-Three layers, picked in this order by `VisualizerRegistry.Find` (`CrypWeb.App/Visualizers/`):
+The original presentations run unchanged: their `.xaml` is loaded at run time and their `.xaml.cs` code-behind is compiled
+against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use. See `CrypWeb.Wpf/README.md`.
 
-1. **Custom visualizers** (`*Viz.razor`, `[Visualizer("PluginType")]`): hand-written Razor for presentations whose look is data-driven
-   (Huffman, NLFSR, M209/Hagelin, StraddlingCheckerboard, SyllabaryCipher, JosseCipher, Contains, BerlekampMassey, Progress ...).
-2. **Generic XAML drawing** (`XamlViz` + `XamlRenderer`): `tools-gen-xaml.py` copies every plugin's presentation `.xaml`, the images it references
-   and the plugin string resources (`{Loc Key}`) to `wwwroot/xaml/` (index: `xaml/index.json`). `XamlRenderer` draws the *original* XAML as
-   HTML/SVG: Grid (row/column definitions, spans), StackPanel/WrapPanel/Canvas/Border/Viewbox/TabControl, TextBlock/Label (+ inlines), Button/CheckBox,
-   Rectangle/Ellipse/Line/Polygon/Path (path mini-language, `PathGeometry` figures, geometry groups), Image, gradients and the
-   Render/Layout transforms (translate/scale/rotate/skew/matrix, groups). Roots with a design size and Viewboxes are scaled to the available space (`ctXamlFit` in `canvas.js`).
-3. **Live state**: the stand-in presentation objects (`stubs.g.cs`) return a recording proxy for every named element
-   (`StubValue(owner, path)`): `presentation.ScoreValue.Text = "42"` is recorded as `ScoreValue.Text=` (and read back later, as the plugin may
-   `int.Parse` it). `XamlAdapters.Generic` applies `Text/Content/Header`, `Visibility` and `Fill/Background/Foreground` writes to the drawn elements;
-   `XamlAdapters.byPlugin` holds plugin specific mappings (e.g. T9Code: `SetNumbersToDisplay` -> `Display.Text`).
+- **Runtime** (`CrypWeb.Wpf`): dependency properties, elements/panels/controls/shapes, brushes, transforms, geometries, bindings,
+  styles, resources, animations and timers (`AnimationScheduler`), XAML loader (`Markup/`), HTML/SVG renderer (`Rendering/`),
+  `PresentationHost` (change detection, input events).
+- **Build**: `presentations.include` lists the plugin folders whose presentation is compiled for real;
+  `python3 tools-gen-presentations.py` embeds the XAML, adds the code-behind, generates `InitializeComponent()` and copies pictures
+  to `wwwroot/wpf-res/`. A missing WPF type or member shows up as a compile error: add it to `CrypWeb.Wpf`.
+- **Run**: the engine worker renders a presentation to HTML whenever it changed (`$html` presentation value); `wpf.js` merges it
+  into the DOM, scales view boxes and shapes, and sends clicks/text/selection back (`WorkerApi.PresEvent`). Component views are
+  plain HTML above the canvas (`.nviews`), not SVG `foreignObject` (WebKit misplaces scaled content there).
+- **Single thread**: plugins that loop while their presentation is visible would block the worker; they are listed in
+  `PluginComponent.BlockingPresentations` and told the view is hidden. `CrypWeb.Tests ... runall` reports such plugins
+  ("still executing") and renders every presentation.
 
-Limits: code-behind of the presentation (animations, slide logic, data templates, bindings) is not executed, so views that build their content in C#
-(Enigma rotors, AES/Keccak slide shows) show their static XAML only.
+Plugins not in `presentations.include` still use the older fallbacks: generated stand-in classes (`stubs.g.cs`) whose calls are
+recorded, shown by custom visualizers (`CrypWeb.App/Visualizers/*Viz.razor`) or by the static XAML drawing (`XamlViz`).
+These fallbacks are to be removed as plugins move to the runtime.
+
+Not supported yet: control templates and triggers, 3D, `VisualBrush`/`DrawingBrush`, editing in `RichTextBox`, hover events,
+custom layout (`MeasureOverride`/`ArrangeOverride`), the `CrypAnalysisViewControl` library (used by the analyzers).
 
 ## Hosting on Cloudflare Workers
 

@@ -55,7 +55,7 @@ public sealed class PluginComponent : RunComponent
     /// On the desktop that loop runs on a worker thread; here it would block the only thread, so these plugins are
     /// told that their presentation is hidden. Found with `CrypWeb.Tests ... runall` ("still executing").
     /// </summary>
-    public static readonly HashSet<string> BlockingPresentations = new(StringComparer.Ordinal) { "DESVisualization" };
+    public static readonly HashSet<string> BlockingPresentations = new(StringComparer.Ordinal) { "DESVisualization", "Keccak" };
 
     /// <summary>Draws the plugin's presentation when it is a real element tree (null for generated stand-ins).</summary>
     public System.Windows.Hosting.PresentationHost? Host { get; }
