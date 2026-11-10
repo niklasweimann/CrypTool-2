@@ -47,7 +47,11 @@ public sealed class PluginComponent : RunComponent
         p.OnPluginProgressChanged += (s, e) => { if (e.Max > 0) RaiseProgress(e.Value / e.Max); };
         try { p.Initialize(); } catch { }
         try { if (p.Presentation is System.Windows.DependencyObject d) d.BridgeSink = (n, a) => RaisePresentation(n, a); } catch { }
+        // a presentation compiled from its original XAML/code-behind is drawn as HTML by the WPF runtime
+        try { if (p.Presentation is System.Windows.UIElement view && System.Windows.Hosting.PresentationHost.HasContent(view)) Host = new System.Windows.Hosting.PresentationHost(view); } catch { }
     }
+    /// <summary>Draws the plugin's presentation when it is a real element tree (null for generated stand-ins).</summary>
+    public System.Windows.Hosting.PresentationHost? Host { get; }
     public override Type? TypeOf(string prop) => props.TryGetValue(prop, out var p) ? p.PropertyType : null;
     public override void Set(string prop, object? value) { if (props.TryGetValue(prop, out var p) && p.CanWrite) p.SetValue(plugin, value); }
     public override object? Get(string prop) => props.TryGetValue(prop, out var p) && p.CanRead ? p.GetValue(plugin) : null;

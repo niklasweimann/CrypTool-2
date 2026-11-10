@@ -17,6 +17,8 @@ window.ct2engine = {
     await this.ready;
     this.worker.postMessage({ cmd: 'start', json, lang: window.ct2lang || 'en', guiMs, sleepMs });
   },
+  // input on a drawn presentation (wpf.js): element number, kind (click/text/range/select/toggle) and value
+  presEvent(id, el, kind, value, x, y) { if (this.worker) this.worker.postMessage({ cmd: 'pres', id, el, kind, value, x, y }); },
   text(id, text) { if (this.worker) this.worker.postMessage({ cmd: 'text', id, text }); },
   // Settings forms are computed by a second, long-lived worker so they work while the run worker is busy.
   info: null, infoReady: null, reqId: 0, pending: {},

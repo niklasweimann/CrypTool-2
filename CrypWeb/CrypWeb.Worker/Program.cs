@@ -93,8 +93,40 @@ public static partial class WorkerApi
         sentIo[n.Model.Id] = key; return r;
     }
 
+    /// <summary>Renders the presentation of a component if it changed and queues the HTML like a presentation value.</summary>
+    static void RenderPresentation(RunNode n)
+    {
+        if (n.Comp is not PluginComponent { Host: { } host }) return;
+        try
+        {
+            var html = host.RenderIfChanged();
+            if (html != null) lock (n.Pres) { n.Pres[System.Windows.Hosting.PresentationHost.HtmlKey] = html; n.PresDirty.Add(System.Windows.Hosting.PresentationHost.HtmlKey); }
+        }
+        catch (Exception e) { Post(JsonSerializer.Serialize(new { type = "log", id = n.Model.Id, level = "Warning", message = "Presentation: " + e.Message })); }
+    }
+
+    /// <summary>An input event (click, text, ...) on an element of a component's presentation.</summary>
+    [JSExport]
+    public static void PresEvent(int pluginId, int elementId, string kind, string value, double x, double y)
+    {
+        if (engine == null || !engine.Nodes.TryGetValue(pluginId, out var n) || n.Comp is not PluginComponent { Host: { } host }) return;
+        try { host.Dispatch(elementId, kind, value, x, y); }
+        catch (Exception e) { Post(JsonSerializer.Serialize(new { type = "log", id = pluginId, level = "Warning", message = "Presentation: " + (e.InnerException?.Message ?? e.Message) })); }
+        Flush(true);
+    }
+
+    /// <summary>Called regularly by the worker script: advances animations/timers and reports redrawn presentations.</summary>
+    [JSExport]
+    public static void Tick()
+    {
+        if (engine == null) return;
+        try { System.Windows.Hosting.WpfRuntime.Tick(); } catch (Exception e) { Post(JsonSerializer.Serialize(new { type = "log", id = 0, level = "Warning", message = "Animation: " + e.Message })); }
+        Flush(false);
+    }
+
     static object[]? TakePres(RunNode n)
     {
+        RenderPresentation(n);
         lock (n.Pres)
         {
             if (n.PresDirty.Count == 0) return null;

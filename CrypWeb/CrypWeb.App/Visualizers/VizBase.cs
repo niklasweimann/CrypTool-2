@@ -26,6 +26,9 @@ public abstract class VizBase : ComponentBase
     /// <summary>Plugin type name the visualization is drawn for.</summary>
     [Parameter] public string TypeName { get; set; } = "";
 
+    /// <summary>Id of the workspace component (input on a drawn presentation is sent back for this id).</summary>
+    [Parameter] public int NodeId { get; set; }
+
     protected JsonElement? Get(string call)
     {
         if (!Pres.TryGetValue(call, out var s)) return null;
@@ -53,6 +56,13 @@ public static class VisualizerRegistry
         .Where(t => typeof(VizBase).IsAssignableFrom(t) && !t.IsAbstract)
         .SelectMany(t => t.GetCustomAttributes(typeof(VisualizerAttribute), false).Cast<VisualizerAttribute>().SelectMany(a => a.Plugins).Select(p => (p, t)))
         .ToDictionary(x => x.p, x => x.t);
+
+    /// <summary>
+    /// The view for a component: its real WPF presentation when the engine renders one (<paramref name="pres"/>
+    /// contains the HTML), otherwise a custom visualizer or the static drawing of the XAML.
+    /// </summary>
+    public static Type? Find(string pluginTypeName, IReadOnlyDictionary<string, string>? pres)
+        => pres != null && pres.ContainsKey(WpfViz.HtmlKey) ? typeof(WpfViz) : Find(pluginTypeName);
 
     /// <summary>Custom visualizer, else the generic drawing of the plugin's original XAML when one was exported.</summary>
     public static Type? Find(string pluginTypeName)

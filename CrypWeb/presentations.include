@@ -1,0 +1,3 @@
+# Plugin folders whose presentation is compiled from the original XAML + code-behind (see tools-gen-presentations.py).
+T9Code
+PasswordStrength

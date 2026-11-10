@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    WPF for the web: the part of the WPF API that the CrypTool plugins use, implemented as a real element tree
+    (dependency properties, XAML loading, events) that is rendered as HTML/SVG instead of DirectX.
+    See README.md in this folder.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>CrypWeb.Wpf</AssemblyName>
+    <RootNamespace>System.Windows</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS1591;CS0067</NoWarn>
+  </PropertyGroup>
+</Project>

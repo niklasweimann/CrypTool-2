@@ -21,12 +21,15 @@ const config = getConfig();
 await runtime.runMain();
 const api = (await getAssemblyExports(config.mainAssemblyName)).WorkerApi;
 self.postMessage('{"type":"ready"}');
+// Presentations: animations and timers of the WPF runtime advance on this tick.
+setInterval(() => { try { api.Tick(); } catch (err) { } }, 50);
 self.onmessage = (e) => {
   const m = e.data;
   try {
     if (m.cmd === 'start') api.Start(m.json, m.lang || 'en', m.guiMs || 80, m.sleepMs || 1);
     else if (m.cmd === 'stop') api.Stop();
     else if (m.cmd === 'text') api.SetText(m.id, m.text);
+    else if (m.cmd === 'pres') api.PresEvent(m.id, m.el, m.kind, m.value ?? '', m.x || 0, m.y || 0);
     else if (m.cmd === 'setting') api.SetSetting(m.id, m.name, m.value);
     else if (m.cmd === 'schema') self.postMessage(JSON.stringify({ type: 'schema', req: m.req, json: api.Schema(m.type, m.values) }));
   } catch (err) { self.postMessage(JSON.stringify({ type: 'log', id: 0, level: 'Error', message: String(err) })); }

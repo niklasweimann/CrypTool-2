@@ -154,49 +154,18 @@ namespace System.Windows
         public void __Set(string n, object v) { __bag[n] = v; __Record(n + "=", new[] { v }); }
     }
 
-    public class DependencyObject
+    /// <summary>Members used by the generated presentation stand-ins (stubs.g.cs); obsolete once all views are real.</summary>
+    public partial class DependencyObject
     {
         public readonly Dictionary<string, object> __Props = new Dictionary<string, object>();
         readonly Dictionary<string, object> __bag = new Dictionary<string, object>();
         public object __Get(string n) => __bag.TryGetValue(n, out var v) ? v : new StubValue(this, n);
         public void __Set(string n, object v) { __bag[n] = v; __Record(n + "=", new[] { v }); }
-        readonly Dictionary<DependencyProperty, object> values = new Dictionary<DependencyProperty, object>();
-        public System.Windows.Threading.Dispatcher Dispatcher => System.Windows.Threading.Dispatcher.CurrentDispatcher;
-        public bool CheckAccess() => true;
-        public void VerifyAccess() { }
         /// <summary>Receives every call/property write that plugin code makes on a generated UI stand-in (see tools-prune-plugins.py).</summary>
         public System.Action<string, object[]> BridgeSink { get; set; }
         public void __Record(string name, object[] args) { BridgeSink?.Invoke(name, args); }
-        public object GetValue(DependencyProperty dp) => values.TryGetValue(dp, out var v) ? v : dp.Metadata.DefaultValue;
-        public void SetValue(DependencyProperty dp, object value)
-        {
-            var old = GetValue(dp);
-            if (dp.Metadata.CoerceValueCallback != null) value = dp.Metadata.CoerceValueCallback(this, value);
-            values[dp] = value;
-            if (!Equals(old, value)) dp.Metadata.PropertyChangedCallback?.Invoke(this, new DependencyPropertyChangedEventArgs(dp, old, value));
-        }
-        public void SetValue(DependencyPropertyKey key, object value) => SetValue(key.DependencyProperty, value);
-        public void ClearValue(DependencyProperty dp) => values.Remove(dp);
-        public object ReadLocalValue(DependencyProperty dp) => values.TryGetValue(dp, out var v) ? v : DependencyProperty.UnsetValue;
-        public void InvalidateProperty(DependencyProperty dp) { }
     }
 
-    public class RoutedEventArgs : EventArgs
-    {
-        public RoutedEventArgs() { }
-        public object Source { get; set; }
-        public object OriginalSource { get; set; }
-        public bool Handled { get; set; }
-    }
-    public delegate void RoutedEventHandler(object sender, RoutedEventArgs e);
-    public sealed class RoutedEvent { public string Name { get; set; } public Type HandlerType { get; set; } public Type OwnerType { get; set; } }
-    public class RoutedPropertyChangedEventArgs<T> : RoutedEventArgs
-    {
-        public RoutedPropertyChangedEventArgs(T oldValue, T newValue) { OldValue = oldValue; NewValue = newValue; }
-        public T OldValue { get; }
-        public T NewValue { get; }
-    }
-    public delegate void RoutedPropertyChangedEventHandler<T>(object sender, RoutedPropertyChangedEventArgs<T> e);
 }
 
 namespace System.Windows.Data
@@ -238,25 +207,8 @@ namespace System.Windows.Controls
     }
 }
 
-namespace System.Windows.Markup
-{
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-    public sealed class ContentPropertyAttribute : Attribute
-    {
-        public ContentPropertyAttribute() { }
-        public ContentPropertyAttribute(string name) { Name = name; }
-        public string Name { get; }
-    }
-    public interface IAddChild { void AddChild(object value); void AddText(string text); }
-}
-
 // namespaces that exist in WPF; plugin code imports them even if it only needs a few types from them
-namespace System.Windows.Documents { public class TextElement : System.Windows.DependencyObject { } }
-namespace System.Windows.Shapes { public abstract class ShapeBase : System.Windows.FrameworkElement { } }
-namespace System.Windows.Media.Animation { public abstract class Timeline : System.Windows.DependencyObject { } }
 namespace System.Windows.Media.Media3D { public abstract class Visual3D : System.Windows.DependencyObject { } }
-namespace System.Windows.Controls.Primitives { public abstract class PrimitiveBase : System.Windows.Controls.Control { } }
-namespace System.Windows.Input { public static class Keyboard { public static bool IsKeyDown(object key) => false; } }
 
 // .NET Remoting leftovers used by a few plugins (synchronization contexts); there is only one thread here, so they do nothing.
 namespace System.Runtime.Remoting.Contexts
@@ -271,23 +223,5 @@ namespace System.Runtime.Remoting.Contexts
     }
 }
 
-namespace System.Windows { public enum TextAlignment { Left, Right, Center, Justify } }
-namespace System.Windows.Documents { public class Underline : System.Windows.DependencyObject { public Underline() { } public Underline(params object[] a) { } } }
-namespace System.Windows.Controls.Primitives { public class RangeBase { public static readonly object ValueChangedEvent = new object(); } }
-namespace CrypTool.PluginBase.Properties
-{
-    /// <summary>Application settings of the desktop host; the web host keeps the defaults.</summary>
-    public sealed class Settings : System.ComponentModel.INotifyPropertyChanged
-    {
-        public static Settings Default { get; } = new Settings();
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        public string FontFamily { get; set; } = "Courier New";
-        public int FontSize { get; set; } = 12;
-        public double BB84_AnimationSpeed { get; set; } = 1.0;
-        public void Save() { }
-    }
-}
-namespace System.Windows.Controls { public enum ScrollBarVisibility { Disabled, Auto, Hidden, Visible } }
-namespace System.Windows { public enum TextWrapping { WrapWithOverflow, NoWrap, Wrap } }
 namespace System.Windows { /// <summary>Event member of a UI stand-in: subscriptions are accepted and ignored.</summary>
     public sealed class StubEvent { public static StubEvent operator +(StubEvent e, System.Delegate d) => e; public static StubEvent operator -(StubEvent e, System.Delegate d) => e; } }

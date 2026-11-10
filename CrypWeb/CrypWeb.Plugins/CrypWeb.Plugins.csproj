@@ -14,6 +14,7 @@
       <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
   <Import Project="plugins.g.props" />
+  <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
   <ItemGroup>
     <Compile Include="NativeCryptoShim.cs" />
     <Compile Include="ManagedCrypto.cs" />

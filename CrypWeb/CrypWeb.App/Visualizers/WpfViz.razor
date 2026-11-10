@@ -1,0 +1,24 @@
+@namespace CrypTool.Web.App.Visualizers
+@inherits VizBase
+@inject IJSRuntime JS
+@*
+  Shows a plugin's real WPF presentation. The engine worker runs the original XAML + code-behind on the WPF runtime
+  (CrypWeb.Wpf) and sends the rendered HTML as the presentation value "$html"; wpf.js merges it into the DOM and
+  reports clicks and input back to the worker.
+*@
+<div class="wpfhost @(Inline ? "" : "dialog")" @ref="host"></div>
+
+@code {
+  /// <summary>Name of the presentation value that carries the rendered HTML (PresentationHost.HtmlKey).</summary>
+  public const string HtmlKey = "$html";
+
+  ElementReference host;
+  string? shown;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (!Pres.TryGetValue(HtmlKey, out var html) || ReferenceEquals(html, shown)) return;
+    shown = html;
+    try { await JS.InvokeVoidAsync("ctWpf.update", host, html, NodeId); } catch (JSException) { }
+  }
+}

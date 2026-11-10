@@ -241,11 +241,11 @@
                       @if (p.ViewState == 1)
                       {
                         @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
-                        else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName) is { } vizType)
+                        else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName, rn?.Pres) is { } vizType)
                         {
-                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName })" />
+                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName, ["NodeId"] = p.Id })" />
                         }
-                        else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null").OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
+                        else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null" && !k.Key.StartsWith('$')).OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
                       }
                       else if (p.ViewState == 2)
                       {
@@ -393,7 +393,7 @@
         {
           <div class="sec">@Loc["right.presentation"]</div>
           <div class="hint">@Loc["right.presentationHint"]</div>
-          @foreach (var kv in nview.Pres)
+          @foreach (var kv in nview.Pres.Where(k => !k.Key.StartsWith('$')))
           {
             <div class="prow"><b>@kv.Key</b><pre>@kv.Value</pre></div>
           }
@@ -418,7 +418,7 @@
   </div>
   @if (viewFor != null)
   {
-    <PresentationModal TypeName="@viewFor.TypeName" Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
+    <PresentationModal NodeId="viewFor.Id" TypeName="@viewFor.TypeName" Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
   }
   @if (settingsFor != null)
   {
