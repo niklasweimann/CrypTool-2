@@ -75,6 +75,8 @@ namespace System.Windows.Rendering
                 case UniformGrid uniform: WriteUniformGrid(uniform, slot); break;
                 case Panel panel: WriteContainer(panel, slot, "wb", "", LayoutSlot.GridCell); break;
                 case TextBox textBox: WriteTextBox(textBox, slot); break;
+                case RichTextBox richText: WriteFlowDocument(richText, richText.Document, slot); break;
+                case FlowDocumentScrollViewer viewer: WriteFlowDocument(viewer, viewer.Document, slot); break;
                 case PasswordBox passwordBox: WritePasswordBox(passwordBox, slot); break;
                 case ToggleButton toggle: WriteToggle(toggle, slot); break;
                 case ButtonBase button: WriteButton(button, slot); break;

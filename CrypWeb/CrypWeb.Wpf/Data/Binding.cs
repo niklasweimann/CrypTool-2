@@ -312,3 +312,20 @@ namespace System.Windows.Data
         }
     }
 }
+
+namespace System.Windows.Controls
+{
+    /// <summary>Binding converter: true -> Visible, false -> Collapsed.</summary>
+    public sealed class BooleanToVisibilityConverter : Data.IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, Globalization.CultureInfo culture)
+        {
+            return value is true ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, Globalization.CultureInfo culture)
+        {
+            return value is Visibility.Visible;
+        }
+    }
+}

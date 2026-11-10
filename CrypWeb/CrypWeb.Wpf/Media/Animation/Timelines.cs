@@ -44,11 +44,37 @@ namespace System.Windows.Media.Animation
     }
 
     /// <summary>State of a running animation as seen by custom animation classes.</summary>
-    public class AnimationClock
+    public class Clock
     {
         public double? CurrentProgress { get; internal set; }
         public TimeSpan? CurrentTime { get; internal set; }
+        public Timeline Timeline { get; internal set; }
+        public ClockController Controller { get; } = new ClockController();
+        public ClockState CurrentState => ClockState.Filling;
+
+        /// <summary>Clocks are not run separately; subscribe to the timeline's Completed instead. Never raised.</summary>
+        public event EventHandler Completed;
+        public event EventHandler CurrentTimeInvalidated;
     }
+
+    public class AnimationClock : Clock { }
+
+    /// <summary>Interactive control of a clock; clocks cannot be steered here, the calls are accepted and ignored.</summary>
+    public sealed class ClockController
+    {
+        public double SpeedRatio { get; set; } = 1;
+        public void Begin() { }
+        public void Stop() { }
+        public void Pause() { }
+        public void Resume() { }
+        public void Remove() { }
+        public void SkipToFill() { }
+        public void Seek(TimeSpan offset, TimeSeekOrigin origin) { }
+    }
+
+    public enum TimeSeekOrigin { BeginTime, Duration }
+
+    public enum ClockState { Active, Filling, Stopped }
 
     public abstract class Timeline : Animatable
     {
@@ -76,6 +102,8 @@ namespace System.Windows.Media.Animation
             }
         }
 
+        public Clock CreateClock() => new Clock { Timeline = this };
+
         internal double BeginMilliseconds => BeginTime?.TotalMilliseconds ?? 0;
 
         /// <summary>Time from the start until the timeline has finished (endless ones count as one run).</summary>
@@ -96,7 +124,7 @@ namespace System.Windows.Media.Animation
         /// <summary>Value at <paramref name="progress"/> (0..1); <paramref name="origin"/> is the value when the animation started.</summary>
         internal abstract object ValueAt(double progress, object origin);
 
-        public AnimationClock CreateClock() => new AnimationClock();
+        public new AnimationClock CreateClock() => new AnimationClock { Timeline = this };
     }
 
     public interface IEasingFunction

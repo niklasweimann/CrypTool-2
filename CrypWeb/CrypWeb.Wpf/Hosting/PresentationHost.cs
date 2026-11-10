@@ -31,6 +31,16 @@ namespace System.Windows.Hosting
 
         public UIElement Root { get; }
 
+        /// <summary>
+        /// Makes <c>IsVisible</c> of the presentation false for its plugin (it is still drawn). Needed for plugins
+        /// that block their execution while the presentation is visible, waiting for the user to step through it.
+        /// </summary>
+        public bool ReportsHidden
+        {
+            get => Root.ReportsHidden;
+            set => Root.ReportsHidden = value;
+        }
+
         /// <summary>Name under which the rendered HTML travels among the presentation values of a component.</summary>
         public const string HtmlKey = "$html";
 

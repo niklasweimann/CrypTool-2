@@ -235,34 +235,7 @@
                 @if (!p.Minimized)
                 {
                   @if (p.ViewState is 1 or 2 or 3 && native == null)
-                  {
-                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 44))" @onpointerdown:stopPropagation @onwheel:stopPropagation>
-                      <div class="nview">
-                      @if (p.ViewState == 1)
-                      {
-                        @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
-                        else if (HasWpfView(p)) { }
-                        else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName, rn?.Pres) is { } vizType)
-                        {
-                          <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName, ["NodeId"] = p.Id })" />
-                        }
-                        else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null" && !k.Key.StartsWith('$')).OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
-                      }
-                      else if (p.ViewState == 2)
-                      {
-                        @foreach (var c in p.Inputs.Concat(p.Outputs))
-                        {
-                          var val = rn != null && rn.Io.TryGetValue((c.PropertyName, c.Outgoing), out var iv) ? iv : null;
-                          <div class="prow"><b>@(c.Outgoing ? "▶ " : "◀ ")@PortCap(p, c.PropertyName)</b><pre>@(val ?? "–")</pre></div>
-                        }
-                      }
-                      else
-                      {
-                        @foreach (var l in NodeLog(p)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span>@l.Message</div> }
-                      }
-                      </div>
-                    </foreignObject>
-                  }
+                  { /* drawn in the HTML layer above the canvas (see .nviews below) */ }
                   else if (native != null)
                   {
                     <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36)))" @onpointerdown:stopPropagation>
@@ -320,14 +293,35 @@
             @if (mode == Mode.Marquee) { <rect x="@F(Math.Min(mx0, cx))" y="@F(Math.Min(my0, cy))" width="@F(Math.Abs(cx - mx0))" height="@F(Math.Abs(cy - my0))" class="marquee"/> }
           </g>
         </svg>
-        @* Real WPF presentations are plain HTML above the canvas: scaled content inside an SVG foreignObject is misplaced by WebKit. *@
+        @* The views of the components are plain HTML above the canvas (same pan/zoom): WebKit misplaces scaled or
+           positioned content inside an SVG foreignObject. *@
         <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
-          @foreach (var p in ed.Ws.Plugins.Where(HasWpfView))
+          @foreach (var p in ed.Ws.Plugins.Where(HasHtmlView))
           {
-            var (vw, vh) = Size(p);
+            var (vw, vh) = Size(p); engine.Nodes.TryGetValue(p.Id, out var rn);
             <div class="nview over" @key="p.Id" style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px"
                  @onpointerdown:stopPropagation @onwheel:stopPropagation>
-              <CrypTool.Web.App.Visualizers.WpfViz Pres="engine.Nodes[p.Id].Pres" Inline="true" TypeName="@p.TypeName" NodeId="p.Id" />
+              @if (p.ViewState == 1)
+              {
+                @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
+                else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName, rn?.Pres) is { } vizType)
+                {
+                  <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName, ["NodeId"] = p.Id })" />
+                }
+                else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null" && !k.Key.StartsWith('$')).OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
+              }
+              else if (p.ViewState == 2)
+              {
+                @foreach (var c in p.Inputs.Concat(p.Outputs))
+                {
+                  var val = rn != null && rn.Io.TryGetValue((c.PropertyName, c.Outgoing), out var iv) ? iv : null;
+                  <div class="prow"><b>@(c.Outgoing ? "▶ " : "◀ ")@PortCap(p, c.PropertyName)</b><pre>@(val ?? "–")</pre></div>
+                }
+              }
+              else
+              {
+                @foreach (var l in NodeLog(p)) { <div class="ll @l.Level.ToString().ToLower()"><span class="lt">@l.Time.ToString("HH:mm:ss")</span>@l.Message</div> }
+              }
             </div>
           }
         </div>
@@ -444,10 +438,8 @@
 </div>
 
 @code {
-  /// <summary>True when the component currently shows its real WPF presentation on the canvas.</summary>
-  bool HasWpfView(PluginNode p)
-    => p.ViewState == 1 && !p.Minimized && NativeComponent.TryCreate(p.TypeName) == null
-       && engine.Nodes.TryGetValue(p.Id, out var view) && view.Pres.ContainsKey(CrypTool.Web.App.Visualizers.WpfViz.HtmlKey);
+  /// <summary>True when the component shows one of its views (presentation, data, log) on the canvas.</summary>
+  bool HasHtmlView(PluginNode p) => !p.Minimized && p.ViewState is 1 or 2 or 3 && NativeComponent.TryCreate(p.TypeName) == null;
 }
 
 @code {

@@ -51,13 +51,20 @@ def read_include_list():
 
 
 def runtime_type_names():
-    """Simple names of all types that the WPF runtime implements."""
-    names = set()
+    """Maps the simple name of every type the WPF runtime implements to its full name."""
+    names = {}
     for path in glob.glob(os.path.join(RUNTIME_DIR, "**", "*.cs"), recursive=True):
         if os.sep + "obj" + os.sep in path or os.sep + "bin" + os.sep in path:
             continue
+        namespace = None
         with open(path, encoding="utf-8") as f:
-            names.update(re.findall(r"\b(?:class|struct|enum|interface)\s+(\w+)", f.read()))
+            for line in f:
+                declared = re.match(r"\s*namespace\s+([\w.]+)", line)
+                if declared:
+                    namespace = declared.group(1)
+                for name in re.findall(r"\b(?:class|struct|enum|interface)\s+(\w+)", line):
+                    if namespace:
+                        names.setdefault(name, "global::%s.%s" % (namespace, name))
     return names
 
 
@@ -76,7 +83,7 @@ def field_type(tag, known_types):
         clr_namespace = namespace[len("clr-namespace:"):].split(";")[0]
         return "global::" + clr_namespace + "." + local
     if PRESENTATION_NS_MARK in namespace:
-        return local if local in known_types else None
+        return known_types.get(local)
     return None
 
 

@@ -69,6 +69,7 @@ if (args.Length > 1 && args[1] == "runall")
 {
     var skip = new[] { "PrimesGenerator", "KeySearcher", "Analyzer", "Analyser" };
     var errs = new Dictionary<string, int>(); int tpls = 0, ranOk = 0, withRunnable = 0;
+    var blocked = new HashSet<string>(); var viewsOk = new HashSet<string>(); var viewErrs = new Dictionary<string, string>(); var viewChars = new Dictionary<string, int>();
     foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories))
     {
         var w = CwmReader.Read(File.ReadAllBytes(f));
@@ -78,9 +79,22 @@ if (args.Length > 1 && args[1] == "runall")
         var bad = e.Nodes.Values.Where(n => n.State == RunState.Error && n.Supported).ToList();
         if (e.Nodes.Values.Any(n => n.Supported && n.Comp is PluginComponent)) withRunnable++;
         if (bad.Count == 0) ranOk++;
+        foreach (var n in e.Nodes.Values.Where(n => n.State == RunState.Running)) blocked.Add(n.Model.TypeName.Split('.').Last());
+        // presentations that run on the WPF runtime must also render
+        foreach (var n in e.Nodes.Values)
+        {
+            if (n.Comp is not PluginComponent { Host: { } host }) continue;
+            var view = n.Model.TypeName.Split('.').Last();
+            try { var html = host.Render(); viewsOk.Add(view); viewChars[view] = html.Length; }
+            catch (Exception ex) { viewErrs[view] = (ex.InnerException ?? ex).GetType().Name + ": " + (ex.InnerException ?? ex).Message.Split('\n')[0]; }
+        }
         foreach (var n in bad) { var k = n.Model.TypeName.Split('.').Last() + ": " + (n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message ?? "?"); errs[k] = errs.GetValueOrDefault(k) + 1; }
     }
     Console.WriteLine($"templates run={tpls} withoutErrors={ranOk} usingRealPlugins={withRunnable}");
+    Console.WriteLine($"presentations rendered={viewsOk.Count} failed={viewErrs.Count}: " + string.Join(" ", viewsOk.OrderBy(v => v).Select(v => v + "(" + viewChars[v] + ")")));
+    Console.WriteLine("still executing when stopped (would block the browser worker): " + string.Join(" ", blocked.OrderBy(b => b)));
+    foreach (var kv in viewErrs) Console.WriteLine($"  VIEW {kv.Key}: {kv.Value}");
+    foreach (var d in System.Windows.Markup.XamlDiagnostics.Snapshot().Take(40)) Console.WriteLine($"  XAML {d.Value}x {d.Key}");
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");
     return;
 }

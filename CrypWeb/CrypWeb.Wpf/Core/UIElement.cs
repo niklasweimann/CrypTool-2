@@ -47,12 +47,22 @@ namespace System.Windows
         /// <summary>The element this one is a child of (logical and visual tree are the same here).</summary>
         internal UIElement ParentElement { get; private set; }
 
+        /// <summary>
+        /// Set on the root of a presentation whose plugin waits in a loop while its presentation is visible. Such a
+        /// loop never ends on the single thread of the browser worker, so the plugin is told the view is hidden.
+        /// </summary>
+        internal bool ReportsHidden { get; set; }
+
         public bool IsVisible
         {
             get
             {
                 for (UIElement e = this; e != null; e = e.ParentElement)
                 {
+                    if (e.ReportsHidden)
+                    {
+                        return false;
+                    }
                     if (e.Visibility != Visibility.Visible)
                     {
                         return false;

@@ -31,6 +31,9 @@ namespace System.Windows.Controls
 
         public InlineCollection Inlines { get; }
 
+        /// <summary>Colours for ranges of characters (drawn when the text is plain).</summary>
+        public TextEffectCollection TextEffects { get; set; } = new TextEffectCollection();
+
         /// <summary>The plain text. Setting it replaces all inlines; reading it joins them.</summary>
         public string Text
         {

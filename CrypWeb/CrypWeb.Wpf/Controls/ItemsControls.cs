@@ -425,6 +425,24 @@ namespace System.Windows.Controls
         public bool Cancel { get; set; }
     }
 
+    public class DataGridRow : Control
+    {
+        public object Item { get; set; }
+        public object Header { get; set; }
+        public int GetIndex() => 0;
+    }
+
+    public class DataGridRowEventArgs : EventArgs
+    {
+        public DataGridRowEventArgs(DataGridRow row) => Row = row;
+
+        public DataGridRow Row { get; }
+    }
+
+    public class SelectedCellsChangedEventArgs : EventArgs { }
+
+    public delegate void SelectedCellsChangedEventHandler(object sender, SelectedCellsChangedEventArgs e);
+
     /// <summary>A table of data. Columns are declared or generated from the items (data tables, object properties).</summary>
     public class DataGrid : Selector
     {
@@ -457,6 +475,8 @@ namespace System.Windows.Controls
         public ScrollBarVisibility VerticalScrollBarVisibility { get; set; }
 
         public event EventHandler<DataGridAutoGeneratingColumnEventArgs> AutoGeneratingColumn;
+        public event EventHandler<DataGridRowEventArgs> LoadingRow;
+        public event SelectedCellsChangedEventHandler SelectedCellsChanged;
 
         internal bool RaiseAutoGeneratingColumn(DataGridAutoGeneratingColumnEventArgs e)
         {

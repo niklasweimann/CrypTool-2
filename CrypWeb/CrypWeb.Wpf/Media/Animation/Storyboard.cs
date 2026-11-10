@@ -86,6 +86,14 @@ namespace System.Windows.Media.Animation
 
         public void Seek(TimeSpan offset) { }
 
+        public double? GetCurrentProgress() => 1;
+
+        public double? GetCurrentProgress(FrameworkElement containingObject) => 1;
+
+        public ClockState GetCurrentState() => ClockState.Filling;
+
+        public ClockState GetCurrentState(FrameworkElement containingObject) => ClockState.Filling;
+
         public void SetSpeedRatio(double speedRatio) => SpeedRatio = speedRatio;
 
         public void SetSpeedRatio(FrameworkElement containingObject, double speedRatio) => SpeedRatio = speedRatio;

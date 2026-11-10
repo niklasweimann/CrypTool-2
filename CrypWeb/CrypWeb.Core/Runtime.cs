@@ -48,8 +48,15 @@ public sealed class PluginComponent : RunComponent
         try { p.Initialize(); } catch { }
         try { if (p.Presentation is System.Windows.DependencyObject d) d.BridgeSink = (n, a) => RaisePresentation(n, a); } catch { }
         // a presentation compiled from its original XAML/code-behind is drawn as HTML by the WPF runtime
-        try { if (p.Presentation is System.Windows.UIElement view && System.Windows.Hosting.PresentationHost.HasContent(view)) Host = new System.Windows.Hosting.PresentationHost(view); } catch { }
+        try { if (p.Presentation is System.Windows.UIElement view && System.Windows.Hosting.PresentationHost.HasContent(view)) Host = new System.Windows.Hosting.PresentationHost(view) { ReportsHidden = BlockingPresentations.Contains(p.GetType().Name) }; } catch { }
     }
+    /// <summary>
+    /// Plugins whose Execute() loops while their presentation is visible (until the user has stepped through it).
+    /// On the desktop that loop runs on a worker thread; here it would block the only thread, so these plugins are
+    /// told that their presentation is hidden. Found with `CrypWeb.Tests ... runall` ("still executing").
+    /// </summary>
+    public static readonly HashSet<string> BlockingPresentations = new(StringComparer.Ordinal) { "DESVisualization" };
+
     /// <summary>Draws the plugin's presentation when it is a real element tree (null for generated stand-ins).</summary>
     public System.Windows.Hosting.PresentationHost? Host { get; }
     public override Type? TypeOf(string prop) => props.TryGetValue(prop, out var p) ? p.PropertyType : null;

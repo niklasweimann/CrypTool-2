@@ -36,7 +36,9 @@ namespace System.Windows.Documents
     /// <summary>A piece of formatted text inside a text block or paragraph.</summary>
     public abstract class Inline : TextElement
     {
-        public TextDecorationCollection TextDecorations { get; set; }
+        public static readonly DependencyProperty TextDecorationsProperty = Dp.Register<TextDecorationCollection, Inline>(nameof(TextDecorations));
+
+        public TextDecorationCollection TextDecorations { get => (TextDecorationCollection)GetValue(TextDecorationsProperty); set => SetValue(TextDecorationsProperty, value); }
 
         public string Name { get; set; }
 

@@ -147,7 +147,11 @@ namespace System.Windows.Rendering
             css.AddPixels("line-height", block.LineHeight);
 
             OpenTag("div", block, slot, "wt", css.ToString());
-            if (block.HasBoundText)
+            if (block.TextEffects != null && block.TextEffects.Count > 0)
+            {
+                WriteTextWithEffects(block.Text, block.TextEffects);
+            }
+            else if (block.HasBoundText)
             {
                 _html.Append(CssValues.Escape(block.Text));
             }
@@ -156,6 +160,65 @@ namespace System.Windows.Rendering
                 WriteInlines(block.Inlines);
             }
             _html.Append("</div>");
+        }
+
+        private void WriteFlowDocument(UIElement owner, FlowDocument document, LayoutSlot slot)
+        {
+            OpenTag("div", owner, slot, "wdoc", "");
+            if (document != null)
+            {
+                var documentCss = new StyleBuilder();
+                AddFont(documentCss, document);
+                _html.Append("<div style=\"").Append(documentCss).Append("\">");
+                foreach (Paragraph paragraph in document.Paragraphs)
+                {
+                    var css = new StyleBuilder();
+                    AddFont(css, paragraph);
+                    if (paragraph.TextAlignment != TextAlignment.Left)
+                    {
+                        css.Add("text-align", paragraph.TextAlignment.ToString().ToLowerInvariant());
+                    }
+                    _html.Append("<p style=\"").Append(css).Append("\">");
+                    WriteInlines(paragraph.Inlines);
+                    _html.Append("</p>");
+                }
+                _html.Append("</div>");
+            }
+            _html.Append("</div>");
+        }
+
+        /// <summary>Plain text in which character ranges have their own colour.</summary>
+        private void WriteTextWithEffects(string text, TextEffectCollection effects)
+        {
+            var colors = new string[text.Length];
+            foreach (TextEffect effect in effects)
+            {
+                string color = CssValues.SolidColor(effect.Foreground);
+                for (int i = Math.Max(0, effect.PositionStart); i < Math.Min(text.Length, effect.PositionStart + effect.PositionCount); i++)
+                {
+                    colors[i] = color;
+                }
+            }
+
+            int start = 0;
+            while (start < text.Length)
+            {
+                int end = start;
+                while (end < text.Length && colors[end] == colors[start])
+                {
+                    end++;
+                }
+                string part = CssValues.Escape(text.Substring(start, end - start));
+                if (colors[start] == null)
+                {
+                    _html.Append(part);
+                }
+                else
+                {
+                    _html.Append("<span style=\"color:").Append(colors[start]).Append("\">").Append(part).Append("</span>");
+                }
+                start = end;
+            }
         }
 
         private void WriteInlines(InlineCollection inlines)
