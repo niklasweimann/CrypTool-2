@@ -796,5 +796,10 @@
     <EmbeddedResource Include="../../CrypPlugins/PictureOutput/PictureOutputPresentation.xaml" LogicalName="xaml/PictureOutput/PictureOutputPresentation.xaml" Link="Presentations/PictureOutput/PictureOutputPresentation.xaml" />
     <Compile Include="../../CrypPlugins/PictureOutput/PictureOutputPresentation.xaml.cs" Link="Presentations/PictureOutput/PictureOutputPresentation.xaml.cs" />
     <Compile Include="Presentations/PictureOutput/PictureOutputPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/AutocorrelationFunction/AutocorrelationFunction.g.resources" LogicalName="AutocorrelationFunction.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationPresentation.xaml" LogicalName="xaml/AutocorrelationFunction/AutocorrelationPresentation.xaml" Link="Presentations/AutocorrelationFunction/AutocorrelationPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" Link="Presentations/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" />
+    <Compile Include="Presentations/AutocorrelationFunction/AutocorrelationPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/DetailedDescription/Description.xaml" LogicalName="xaml/AutocorrelationFunction/DetailedDescription/Description.xaml" Link="Presentations/AutocorrelationFunction/DetailedDescription/Description.xaml" />
   </ItemGroup>
 </Project>

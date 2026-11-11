@@ -216,12 +216,39 @@ def write_props(path, items):
                 "  <ItemGroup>\n%s\n  </ItemGroup>\n</Project>\n" % "\n".join(items))
 
 
+# Controls with XAML in CrypPluginBase (e.g. HistogramChart) that plugin presentations use: compiled into
+# CrypPluginBase.Portable the same way, their XAML embedded as xaml/CrypPluginBase/<path>.
+PLUGIN_BASE = os.path.normpath(os.path.join(HERE, "..", "CrypPluginBase"))
+PORTABLE_DIR = os.path.join(HERE, "CrypPluginBase.Portable")
+SHARED_XAML = ["Utils/Graphics/Diagrams/Histogram/HistogramChart.xaml"]
+
+
+def generate_shared_controls(known_types):
+    """Generates the partial classes of the CrypPluginBase controls in SHARED_XAML (CrypPluginBase.Portable)."""
+    out_dir = os.path.join(PORTABLE_DIR, "Generated")
+    shutil.rmtree(out_dir, ignore_errors=True)
+    items = []
+    for relative_path in SHARED_XAML:
+        xaml_path = os.path.join(PLUGIN_BASE, relative_path)
+        namespace, class_name, source = generate_partial_class(xaml_path, "CrypPluginBase", relative_path, known_types)
+        target = os.path.join(out_dir, relative_path[:-len(".xaml")] + ".g.cs")
+        os.makedirs(os.path.dirname(target), exist_ok=True)
+        with open(target, "w", encoding="utf-8") as f:
+            f.write(source)
+        source_base = os.path.relpath(xaml_path, PORTABLE_DIR).replace(os.sep, "/")
+        items.append('    <EmbeddedResource Include="%s" LogicalName="xaml/CrypPluginBase/%s" />' % (source_base, relative_path))
+        items.append('    <Compile Include="%s.cs" Link="Generated/%s.cs" />' % (source_base, relative_path))
+        items.append('    <Compile Include="Generated/%s.g.cs" />' % relative_path[:-len(".xaml")])
+    write_props(os.path.join(PORTABLE_DIR, "controls.g.props"), items)
+
+
 def main():
     plugins = read_include_list()
     isolated = read_isolated()
     known_types = runtime_type_names()
     shutil.rmtree(OUT_DIR, ignore_errors=True)
     shutil.rmtree(RESOURCE_DIR, ignore_errors=True)
+    generate_shared_controls(known_types)
 
     items = []                 # items of the shared plugin assembly
     isolated_items = {}        # plugin -> items of its own assembly

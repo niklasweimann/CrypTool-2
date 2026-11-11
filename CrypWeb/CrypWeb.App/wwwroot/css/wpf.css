@@ -65,8 +65,11 @@
 .wpf .wtabc { flex: 1; border: 1px solid #acacac; background: #fff; }
 
 /* lists and tables */
-.wpf .wlist, .wpf .wtable { overflow: auto; background: #fff; border: 1px solid #abadb3; }
-.wpf .wli { display: grid; padding: 1px 4px; }
+/* a plain ItemsControl has no frame; list boxes (selectable) and tables do */
+.wpf .wlist { overflow: auto; }
+.wpf .wlist.sel, .wpf .wtable { background: #fff; border: 1px solid #abadb3; }
+.wpf .wli { display: grid; }
+.wpf .sel > .wli { padding: 1px 4px; }
 .wpf .sel .wli:hover, .wpf .sel tbody tr:hover { background: #e5f3fb; }
 .wpf .sel .on { background: #cbe8f6; }
 .wpf .wtable table { border-collapse: collapse; }

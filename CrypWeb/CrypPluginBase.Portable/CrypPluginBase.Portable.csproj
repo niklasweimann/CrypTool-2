@@ -21,4 +21,6 @@
     <Compile Include="..\..\LibSource\CrypAnalysisViewControl\ICrypAnalysisResultListEntry.cs" Link="Shims\ICrypAnalysisResultListEntry.cs" />
     <EmbeddedResource Include="..\..\CrypPluginBase\Properties\Resources.resx" LogicalName="CrypTool.PluginBase.Properties.Resources.resources" Link="Properties\Resources.resx" />
   </ItemGroup>
+  <!-- XAML controls of CrypPluginBase used by presentations (tools-gen-presentations.py, SHARED_XAML) -->
+  <Import Project="controls.g.props" Condition="Exists('controls.g.props')" />
 </Project>

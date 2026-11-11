@@ -61,6 +61,24 @@ namespace System.Windows.Controls
         public IEnumerable ItemsSource { get => (IEnumerable)GetValue(ItemsSourceProperty); set => SetValue(ItemsSourceProperty, value); }
         public DataTemplate ItemTemplate { get => (DataTemplate)GetValue(ItemTemplateProperty); set => SetValue(ItemTemplateProperty, value); }
         public ItemsPanelTemplate ItemsPanel { get => (ItemsPanelTemplate)GetValue(ItemsPanelProperty); set => SetValue(ItemsPanelProperty, value); }
+
+        private ItemsPanelTemplate _prototypeFor;
+        private Panel _prototype;
+
+        /// <summary>One instance of the items panel, read by the renderer for its kind and settings (never drawn itself).</summary>
+        internal Panel ItemsPanelPrototype
+        {
+            get
+            {
+                ItemsPanelTemplate template = ItemsPanel;
+                if (!ReferenceEquals(template, _prototypeFor))
+                {
+                    _prototypeFor = template;
+                    _prototype = template?.LoadContent() as Panel;
+                }
+                return _prototype;
+            }
+        }
         public string DisplayMemberPath { get => (string)GetValue(DisplayMemberPathProperty); set => SetValue(DisplayMemberPathProperty, value); }
         public Style ItemContainerStyle { get => (Style)GetValue(ItemContainerStyleProperty); set => SetValue(ItemContainerStyleProperty, value); }
         public int AlternationCount { get => (int)GetValue(AlternationCountProperty); set => SetValue(AlternationCountProperty, value); }

@@ -121,6 +121,14 @@ if (args.Length > 2 && args[1] == "probe")
     }
     return;
 }
+if (args.Length > 2 && args[1] == "settings")
+{
+    // prints the stored settings of every component of a template (debugging)
+    var stored = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
+    foreach (var plugin in stored.Plugins)
+        Console.WriteLine(plugin.TypeName + ": " + string.Join(", ", plugin.Settings.Select(kv => kv.Key + "=" + kv.Value)));
+    return;
+}
 if (args.Length > 2 && args[1] == "snap")
 {
     // Runs one template briefly and writes every rendered WPF presentation as a standalone page to

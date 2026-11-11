@@ -183,7 +183,7 @@ namespace System.Windows.Rendering
         {
             bool selectable = items is Selector;
             int selected = (items as Selector)?.SelectedIndex ?? -1;
-            OpenTag("div", items, slot, selectable ? "wlist sel" : "wlist", "");
+            OpenTag("div", items, slot, selectable ? "wlist sel" : "wlist", ItemsPanelStyle(items));
             int index = 0;
             foreach (object item in items.EffectiveItems)
             {
@@ -201,6 +201,36 @@ namespace System.Windows.Rendering
                 index++;
             }
             _html.Append("</div>");
+        }
+
+        /// <summary>
+        /// The arrangement of the items given by <see cref="ItemsControl.ItemsPanel"/>: a horizontal StackPanel becomes a
+        /// row, a WrapPanel a wrapping row (or column), a UniformGrid a grid of equal cells. Without a panel the items
+        /// stack vertically (the default VirtualizingStackPanel).
+        /// </summary>
+        private static string ItemsPanelStyle(ItemsControl items)
+        {
+            Panel panel = items.ItemsPanelPrototype;
+            var css = new StyleBuilder();
+            switch (panel)
+            {
+                case StackPanel { Orientation: Orientation.Horizontal }:
+                    css.Add("display", "flex").Add("flex-direction", "row").Add("align-items", "stretch");
+                    break;
+                case WrapPanel wrap:
+                    css.Add("display", "flex").Add("flex-wrap", "wrap")
+                        .Add("flex-direction", wrap.Orientation == Orientation.Horizontal ? "row" : "column");
+                    break;
+                case UniformGrid grid:
+                    if (grid.Columns > 0) css.Add("display", "grid").Add("grid-template-columns", "repeat(" + grid.Columns + ",minmax(0,1fr))");
+                    else if (grid.Rows > 0) css.Add("display", "grid").Add("grid-auto-flow", "column").Add("grid-template-rows", "repeat(" + grid.Rows + ",minmax(0,1fr))");
+                    break;
+            }
+            if (panel?.HasValue(Panel.BackgroundProperty) == true)
+            {
+                css.Add("background", CssValues.SolidColor(panel.Background));
+            }
+            return css.ToString();
         }
 
         private void WriteComboBox(ComboBox combo, LayoutSlot slot)

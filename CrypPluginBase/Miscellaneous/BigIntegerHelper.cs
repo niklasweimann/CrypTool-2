@@ -1060,7 +1060,9 @@ namespace CrypTool.PluginBase.Miscellaneous
 
             // test small numbers
 
-            if (n < primesList.Length)
+            // numbers up to the largest listed prime are answered by the list (the trial division below would
+            // otherwise divide a listed prime by itself and report it as composite)
+            if (n <= primesList[primesList.Length - 1])
             {
                 return smallPrimesSet.Contains(n);
             }
