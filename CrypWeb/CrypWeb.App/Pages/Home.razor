@@ -286,6 +286,7 @@
         </svg>
         @* The views of the components are plain HTML above the canvas (same pan/zoom): WebKit misplaces scaled or
            positioned content inside an SVG foreignObject. *@
+        <div class="nclip">
         <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
           @foreach (var p in ed.Ws.Plugins.Where(n => !n.Minimized))
           {
@@ -329,6 +330,7 @@
               }
             </div>
           }
+        </div>
         </div>
         @if (ed.Ws.Plugins.Count == 0 && ed.Ws.Texts.Count == 0 && ed.Ws.Images.Count == 0)
         {

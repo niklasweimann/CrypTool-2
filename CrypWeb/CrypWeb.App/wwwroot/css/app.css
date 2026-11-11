@@ -222,6 +222,8 @@ main { flex:1; position:relative; min-height:0; }
 .empty-hint .eh-more{font-size:13px;color:#4a5f8a}
 .empty-hint .eh-more a{pointer-events:auto;color:#1a5fb4}
 /* HTML layer above the canvas for real WPF presentations (same pan/zoom as the SVG) */
+.nclip { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:1; }  /* views end at the edge of the canvas */
 .nviews { position:absolute; left:0; top:0; width:0; height:0; transform-origin:0 0; pointer-events:none; }
+.cvtools, .zoombar, .empty-hint { z-index:2; }  /* canvas tools stay above the component views */
 .nviews .nview.over { position:absolute; pointer-events:auto; overflow:hidden; }
 .nviews .nview.over.native { background:none; border:0; overflow:visible; }
