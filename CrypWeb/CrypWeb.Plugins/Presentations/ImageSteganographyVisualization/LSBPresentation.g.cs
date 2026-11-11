@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace ImageSteganographyVisualization
 {
-    public partial class LSBPresentation
+    public partial class LSBPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button B0;
         internal global::System.Windows.Controls.Button B1;

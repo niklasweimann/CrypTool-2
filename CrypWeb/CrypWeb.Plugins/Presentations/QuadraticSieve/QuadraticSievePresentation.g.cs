@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.QuadraticSieve
 {
-    public partial class QuadraticSievePresentation
+    public partial class QuadraticSievePresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel ActivePeers;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel CoresUsed;

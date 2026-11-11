@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace Huffman
 {
-    public partial class HuffmanPresentation
+    public partial class HuffmanPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid codeTable_DG;
         internal global::System.Windows.Controls.Label compressedSize_LB;

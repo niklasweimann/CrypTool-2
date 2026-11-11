@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.Displays
 {
-    public partial class HashAccumulatorDisplay
+    public partial class HashAccumulatorDisplay : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

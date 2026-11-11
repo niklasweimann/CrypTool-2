@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace TranspositionAnalyser
 {
-    public partial class TranspositionAnalyserQuickWatchPresentation
+    public partial class TranspositionAnalyserQuickWatchPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.CrypAnalysisResultListView CrypAnalysisResultListView;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel CurrentlyAnalyzedKeylength;

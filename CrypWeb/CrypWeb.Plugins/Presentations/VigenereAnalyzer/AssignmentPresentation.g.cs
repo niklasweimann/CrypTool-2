@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.VigenereAnalyzer
 {
-    public partial class AssignmentPresentation
+    public partial class AssignmentPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.CrypAnalysisResultListView CrypAnalysisResultListView;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel CurrentAnalysedKeylength;

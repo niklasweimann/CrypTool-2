@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI.Cipher1
 {
-    public partial class Cipher1Characteristic
+    public partial class Cipher1Characteristic : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

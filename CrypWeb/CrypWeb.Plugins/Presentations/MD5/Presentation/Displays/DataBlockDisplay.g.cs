@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.Displays
 {
-    public partial class DataBlockDisplay
+    public partial class DataBlockDisplay : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

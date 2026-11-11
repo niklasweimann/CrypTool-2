@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAToyCiphers.UI.Controls
 {
-    public partial class _4BitKeyRound
+    public partial class _4BitKeyRound : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

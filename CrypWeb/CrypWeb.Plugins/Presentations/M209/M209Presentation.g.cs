@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.M209
 {
-    public partial class M209Presentation
+    public partial class M209Presentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid DataGridDynamicInformation;
         internal global::System.Windows.Controls.Grid MainGrid;

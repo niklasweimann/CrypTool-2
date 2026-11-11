@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace ImageSteganographyVisualization
 {
-    public partial class ImageSteganographyPresentation
+    public partial class ImageSteganographyPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock BlueBitMask;
         internal global::System.Windows.Controls.Grid ExtractedHeader;

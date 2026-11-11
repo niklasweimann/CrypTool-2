@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAKeyRecovery.UI
 {
-    public partial class KeyRecoveryPres
+    public partial class KeyRecoveryPres : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button BtnStart;
         internal global::System.Windows.Controls.TabItem TabControlItemRound;

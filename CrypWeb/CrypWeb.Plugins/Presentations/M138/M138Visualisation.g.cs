@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.M138
 {
-    public partial class M138Visualisation
+    public partial class M138Visualisation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid lvwArray;
 

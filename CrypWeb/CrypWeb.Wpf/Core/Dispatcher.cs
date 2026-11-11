@@ -11,6 +11,9 @@ namespace System.Windows.Threading
     {
         public static Dispatcher CurrentDispatcher { get; } = new Dispatcher();
 
+        /// <summary>The thread the runtime runs on (there is only one in the browser worker).</summary>
+        public System.Threading.Thread Thread { get; } = System.Threading.Thread.CurrentThread;
+
         public bool CheckAccess() => true;
 
         public void VerifyAccess() { }
@@ -83,13 +86,24 @@ namespace System.Windows.Threading
     }
 
     public enum DispatcherOperationStatus { Pending, Aborted, Completed, Executing }
+
+    public delegate object DispatcherOperationCallback(object arg);
 }
 
 namespace System.Windows
 {
     public class Application
     {
-        public static Application Current => null;
+        /// <summary>There is no desktop application object; this stand-in has no window.</summary>
+        public static Application Current { get; } = new Application();
+
+        public Window MainWindow { get; set; }
+
+        public ResourceDictionary Resources { get; set; } = new ResourceDictionary();
+
+        public object FindResource(object key) => Resources[key];
+
+        public object TryFindResource(object key) => Resources[key];
 
         public Threading.Dispatcher Dispatcher => Threading.Dispatcher.CurrentDispatcher;
     }

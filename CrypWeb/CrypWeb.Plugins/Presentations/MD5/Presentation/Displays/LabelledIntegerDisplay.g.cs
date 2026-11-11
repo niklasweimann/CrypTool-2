@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.Displays
 {
-    public partial class LabelledIntegerDisplay
+    public partial class LabelledIntegerDisplay : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label littleEndianHexLabel;
 

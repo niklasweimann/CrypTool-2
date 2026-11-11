@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Progress
 {
-    public partial class ProgressPresentation
+    public partial class ProgressPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.ProgressBar Bar;
 

@@ -50,3 +50,16 @@ Anonymity
 MD5
 PaddingOracleAttack
 M138Analyzer
+Enigma
+BB84KeyGenerator
+BB84ManInTheMiddle
+BB84PhotonDecoder
+RAPPOR
+AvalancheVisualization
+Alphabets
+DCAPathFinder
+ChaCha
+TextInput
+TextOutput
+Numbers
+PictureOutput

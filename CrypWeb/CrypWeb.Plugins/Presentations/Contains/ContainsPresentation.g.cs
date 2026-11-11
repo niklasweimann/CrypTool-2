@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace Contains
 {
-    public partial class ContainsPresentation
+    public partial class ContainsPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label hits;
         internal global::System.Windows.Controls.TextBox textBox;

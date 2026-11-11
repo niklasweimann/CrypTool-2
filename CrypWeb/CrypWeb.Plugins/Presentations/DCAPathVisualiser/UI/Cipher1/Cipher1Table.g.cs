@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI.Cipher1
 {
-    public partial class Cipher1Table
+    public partial class Cipher1Table : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid DataGridCharacteristics;
 

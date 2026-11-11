@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Anonymity
 {
-    public partial class AnonymityPresentation
+    public partial class AnonymityPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.StackPanel categoricContainer;
         internal global::System.Windows.Controls.Grid datasetPresentation;

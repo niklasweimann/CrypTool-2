@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.KasiskiTest
 {
-    public partial class KasiskiTestPresentation
+    public partial class KasiskiTestPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Slider sli;
 

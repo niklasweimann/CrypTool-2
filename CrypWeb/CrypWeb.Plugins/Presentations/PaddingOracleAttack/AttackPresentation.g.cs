@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.PaddingOracleAttack
 {
-    public partial class AttackPresentation
+    public partial class AttackPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock attCorruptedBlock;
         internal global::System.Windows.Controls.TextBlock attDecBlock;

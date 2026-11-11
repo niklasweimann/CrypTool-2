@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAKeyRecovery.UI.Controls
 {
-    public partial class _16BitKeyRound
+    public partial class _16BitKeyRound : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

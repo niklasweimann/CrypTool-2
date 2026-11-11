@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Keccak
 {
-    public partial class KeccakPres
+    public partial class KeccakPres : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Canvas PicanvasCubeCoordinates;
         internal global::System.Windows.Controls.Label PixCoordinate_1;

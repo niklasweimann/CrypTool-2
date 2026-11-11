@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace IDPAnalyser
 {
-    public partial class IDPAnalyserQuickWatchPresentation
+    public partial class IDPAnalyserQuickWatchPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel ElapsedTime;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel EndTime;

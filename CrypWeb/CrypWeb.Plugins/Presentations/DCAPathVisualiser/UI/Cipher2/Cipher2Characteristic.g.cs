@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI.Cipher2
 {
-    public partial class Cipher2Characteristic
+    public partial class Cipher2Characteristic : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label InputBlock;
         internal global::DCAPathVisualiser.UI.Controls._16BitKeyRoundInOut KeyRound1;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.QuadraticSieve
 {
-    public partial class ProgressRelationPackages
+    public partial class ProgressRelationPackages : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Media.ScaleTransform Scale;
         internal global::System.Windows.Controls.WrapPanel root;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI.Controls
 {
-    public partial class _16BitKeyRoundOut
+    public partial class _16BitKeyRoundOut : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

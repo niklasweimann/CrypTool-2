@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace ImageSteganographyVisualization
 {
-    public partial class BPCSPresentation
+    public partial class BPCSPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button AllBlocksButton;
         internal global::System.Windows.Controls.Grid AllImageBlocksPanel;

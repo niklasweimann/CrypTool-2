@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI
 {
-    public partial class PathVisualiserPres
+    public partial class PathVisualiserPres : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TabItem TabItemCipher;
         internal global::System.Windows.Controls.Viewbox TabItemTable;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.HomophonicSubstitutionAnalyzer
 {
-    public partial class HomophoneSubstitutionAnalyzerPresentation
+    public partial class HomophoneSubstitutionAnalyzerPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button AnalyzeButton;
         internal global::CrypTool.CrypAnalysisViewControl.CrypAnalysisResultListView BestListView;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAToyCiphers.UI
 {
-    public partial class DCAToyCiphersPres
+    public partial class DCAToyCiphersPres : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Grid MainGrid;
 

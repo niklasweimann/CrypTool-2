@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.States
 {
-    public partial class RoundStepPresentation
+    public partial class RoundStepPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label label1;
         internal global::System.Windows.Controls.Label label2;

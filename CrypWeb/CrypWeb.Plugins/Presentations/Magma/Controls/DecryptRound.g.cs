@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Magma.Controls
 {
-    public partial class DecryptRound
+    public partial class DecryptRound : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

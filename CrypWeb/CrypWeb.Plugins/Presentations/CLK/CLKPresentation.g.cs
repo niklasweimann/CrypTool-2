@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.CLK
 {
-    public partial class CLKPresentation
+    public partial class CLKPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Image CLKButtonImage;
 

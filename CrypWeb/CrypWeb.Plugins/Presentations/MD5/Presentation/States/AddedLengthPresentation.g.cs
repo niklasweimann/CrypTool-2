@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.States
 {
-    public partial class AddedLengthPresentation
+    public partial class AddedLengthPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock textBlock1;
 

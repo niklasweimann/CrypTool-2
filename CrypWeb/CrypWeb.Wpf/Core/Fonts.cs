@@ -127,5 +127,13 @@ namespace System.Windows.Media
         }
 
         public override string ToString() => Source;
+
+        public override bool Equals(object obj) => obj is FontFamily other && string.Equals(Source, other.Source, StringComparison.OrdinalIgnoreCase);
+
+        public override int GetHashCode() => (Source ?? "").ToLowerInvariant().GetHashCode();
+
+        public static bool operator ==(FontFamily a, FontFamily b) => Equals(a, b);
+
+        public static bool operator !=(FontFamily a, FontFamily b) => !Equals(a, b);
     }
 }

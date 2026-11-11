@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation
 {
-    public partial class PresentationContainer
+    public partial class PresentationContainer : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button endOfCompressionButton;
         internal global::System.Windows.Controls.Button endOfRoundButton;

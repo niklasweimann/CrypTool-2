@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace TextSteganography
 {
-    public partial class TextSteganographyPresentation
+    public partial class TextSteganographyPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.StackPanel CBPanel;
         internal global::System.Windows.Controls.CheckBox CBShowBits;

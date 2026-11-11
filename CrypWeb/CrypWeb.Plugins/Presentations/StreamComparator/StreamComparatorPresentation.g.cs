@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.StreamComparator
 {
-    public partial class StreamComparatorPresentation
+    public partial class StreamComparatorPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.FlowDocumentReader documentReader;
 

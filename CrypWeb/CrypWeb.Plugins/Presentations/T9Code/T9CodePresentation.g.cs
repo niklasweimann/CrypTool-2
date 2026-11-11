@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.T9Code
 {
-    public partial class T9CodePresentation
+    public partial class T9CodePresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBox Display;
         internal global::System.Windows.Controls.Canvas Ebene_1;

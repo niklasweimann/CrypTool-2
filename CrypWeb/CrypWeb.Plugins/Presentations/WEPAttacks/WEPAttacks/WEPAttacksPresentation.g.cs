@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.WEPAttacks
 {
-    public partial class WEPAttacksPresentation
+    public partial class WEPAttacksPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label labelAttack;
         internal global::System.Windows.Controls.Label labelCollectedPackets;

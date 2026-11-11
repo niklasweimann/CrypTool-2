@@ -111,6 +111,23 @@ namespace System.Windows
         public event RoutedEventHandler LostFocus;
         public event DependencyPropertyChangedEventHandler IsVisibleChanged;
         public event DependencyPropertyChangedEventHandler IsEnabledChanged;
+        public event DragEventHandler DragEnter;
+        public event DragEventHandler DragOver;
+        public event DragEventHandler DragLeave;
+        public event DragEventHandler Drop;
+        public event DragEventHandler PreviewDragEnter;
+        public event DragEventHandler PreviewDragOver;
+        public event DragEventHandler PreviewDragLeave;
+        public event DragEventHandler PreviewDrop;
+        public event GiveFeedbackEventHandler GiveFeedback;
+        public event QueryContinueDragEventHandler QueryContinueDrag;
+
+        /// <summary>Free identifier string; plugins use it to store an index.</summary>
+        public string Uid { get; set; } = "";
+
+        public CommandBindingCollection CommandBindings { get; } = new CommandBindingCollection();
+
+        public InputBindingCollection InputBindings { get; } = new InputBindingCollection();
 
         /// <summary>True when the browser has to report clicks on this element.</summary>
         internal virtual bool WantsClicks =>

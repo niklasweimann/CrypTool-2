@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.FEAL.Controls
 {
-    public partial class KeyRound
+    public partial class KeyRound : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

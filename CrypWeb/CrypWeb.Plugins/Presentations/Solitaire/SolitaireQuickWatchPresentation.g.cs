@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace Solitaire
 {
-    public partial class SolitaireQuickWatchPresentation
+    public partial class SolitaireQuickWatchPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button button1;
         internal global::System.Windows.Controls.Button button2;

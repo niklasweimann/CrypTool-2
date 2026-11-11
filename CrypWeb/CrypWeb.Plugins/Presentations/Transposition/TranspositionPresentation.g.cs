@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace Transposition
 {
-    public partial class TranspositionPresentation
+    public partial class TranspositionPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.StackPanel Stack;
         internal global::System.Windows.Controls.Label label1;

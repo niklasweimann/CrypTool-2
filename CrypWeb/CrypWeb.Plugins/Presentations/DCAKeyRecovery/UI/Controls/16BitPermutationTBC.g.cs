@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAKeyRecovery.UI.Controls
 {
-    public partial class _16BitPermutationTBC
+    public partial class _16BitPermutationTBC : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

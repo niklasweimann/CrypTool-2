@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.BerlekampMassey
 {
-    public partial class BerlekampMasseyPresentation
+    public partial class BerlekampMasseyPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label cdLabel;
         internal global::System.Windows.Controls.TextBlock cdText;

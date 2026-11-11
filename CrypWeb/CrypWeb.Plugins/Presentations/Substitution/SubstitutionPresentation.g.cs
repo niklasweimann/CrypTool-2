@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Substitution
 {
-    public partial class SubstitutionPresentation
+    public partial class SubstitutionPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.StackPanel Stackpanel;
 

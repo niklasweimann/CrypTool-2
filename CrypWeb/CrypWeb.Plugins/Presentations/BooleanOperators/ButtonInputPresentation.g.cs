@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace BooleanOperators
 {
-    public partial class ButtonInputPresentation
+    public partial class ButtonInputPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button myButton;
 

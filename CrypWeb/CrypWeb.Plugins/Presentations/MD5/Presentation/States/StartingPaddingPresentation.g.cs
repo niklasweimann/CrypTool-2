@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.States
 {
-    public partial class StartingPaddingPresentation
+    public partial class StartingPaddingPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock label1;
         internal global::System.Windows.Controls.Label label2;

@@ -103,6 +103,23 @@ namespace System.Windows.Controls.Primitives
     }
 }
 
+namespace System.ComponentModel
+{
+    public struct SortDescription
+    {
+        public SortDescription(string propertyName, ListSortDirection direction)
+        {
+            PropertyName = propertyName;
+            Direction = direction;
+        }
+
+        public string PropertyName { get; set; }
+        public ListSortDirection Direction { get; set; }
+    }
+
+    public class SortDescriptionCollection : System.Collections.ObjectModel.Collection<SortDescription> { }
+}
+
 namespace System.Windows.Data
 {
     /// <summary>A view of a collection with a current item, sorting and filtering.</summary>
@@ -113,6 +130,8 @@ namespace System.Windows.Data
         int CurrentPosition { get; }
 
         Predicate<object> Filter { get; set; }
+
+        SortDescriptionCollection SortDescriptions { get; }
 
         void Refresh();
 
@@ -136,6 +155,8 @@ namespace System.Windows.Data
 
         public Predicate<object> Filter { get; set; }
 
+        public SortDescriptionCollection SortDescriptions { get; } = new SortDescriptionCollection();
+
         public int CurrentPosition { get; private set; }
 
         public object CurrentItem => CurrentPosition >= 0 && CurrentPosition < _list.Count ? _list[CurrentPosition] : null;
@@ -156,6 +177,21 @@ namespace System.Windows.Data
             return CurrentItem != null;
         }
 
+        private int CompareBySortDescriptions(object a, object b)
+        {
+            foreach (SortDescription sort in SortDescriptions)
+            {
+                var left = PropertyPathWalker.GetValue(a, sort.PropertyName, out _) as IComparable;
+                object right = PropertyPathWalker.GetValue(b, sort.PropertyName, out _);
+                int result = left == null ? (right == null ? 0 : -1) : left.CompareTo(right);
+                if (result != 0)
+                {
+                    return sort.Direction == ListSortDirection.Ascending ? result : -result;
+                }
+            }
+            return 0;
+        }
+
         public IEnumerator GetEnumerator()
         {
             var items = new List<object>();
@@ -169,6 +205,10 @@ namespace System.Windows.Data
             if (CustomSort != null)
             {
                 items.Sort((a, b) => CustomSort.Compare(a, b));
+            }
+            else if (SortDescriptions.Count > 0)
+            {
+                items.Sort(CompareBySortDescriptions);
             }
             return items.GetEnumerator();
         }

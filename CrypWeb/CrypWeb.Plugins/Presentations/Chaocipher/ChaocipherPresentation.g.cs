@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Chaocipher
 {
-    public partial class ChaocipherPresentation
+    public partial class ChaocipherPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button Back;
         internal global::System.Windows.Controls.Canvas CanvasLeft;

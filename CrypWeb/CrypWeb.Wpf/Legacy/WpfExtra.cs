@@ -10,6 +10,7 @@ namespace System.Windows
     {
         public double X, Y;
         public Point(double x, double y) { X = x; Y = y; }
+        public void Offset(double offsetX, double offsetY) { X += offsetX; Y += offsetY; }
         public static Point operator +(Point p, Vector v) => new Point(p.X + v.X, p.Y + v.Y);
         public static Vector operator -(Point a, Point b) => new Vector(a.X - b.X, a.Y - b.Y);
         public static bool operator ==(Point a, Point b) => a.X == b.X && a.Y == b.Y;

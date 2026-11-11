@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.PaddingOracle
 {
-    public partial class OraclePresentation
+    public partial class OraclePresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label descByte;
         internal global::System.Windows.Controls.Label descShownBytes;

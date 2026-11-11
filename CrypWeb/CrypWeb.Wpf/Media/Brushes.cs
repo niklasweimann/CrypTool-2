@@ -56,6 +56,12 @@ namespace System.Windows.Media
 
         public static Color FromRgb(byte r, byte g, byte b) => FromArgb(255, r, g, b);
 
+        /// <summary>Channels as 0..1 values (scRGB; treated as plain linear scaling here).</summary>
+        public float ScA { get => A / 255f; set => A = (byte)Math.Clamp(Math.Round(value * 255), 0, 255); }
+        public float ScR { get => R / 255f; set => R = (byte)Math.Clamp(Math.Round(value * 255), 0, 255); }
+        public float ScG { get => G / 255f; set => G = (byte)Math.Clamp(Math.Round(value * 255), 0, 255); }
+        public float ScB { get => B / 255f; set => B = (byte)Math.Clamp(Math.Round(value * 255), 0, 255); }
+
         public static Color FromScRgb(float a, float r, float g, float b)
         {
             static byte Channel(float value) => (byte)Math.Clamp(Math.Round(value * 255), 0, 255);
@@ -162,6 +168,18 @@ namespace System.Windows.Media
 
     public class GradientStopCollection : Collection<GradientStop>
     {
+        public GradientStopCollection() { }
+
+        public GradientStopCollection(System.Collections.Generic.IEnumerable<GradientStop> stops)
+        {
+            foreach (GradientStop stop in stops)
+            {
+                Add(stop);
+            }
+        }
+
+        public GradientStopCollection(int capacity) { }
+
         protected override void InsertItem(int index, GradientStop item)
         {
             base.InsertItem(index, item);

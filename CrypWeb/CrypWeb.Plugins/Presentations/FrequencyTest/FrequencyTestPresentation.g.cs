@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.FrequencyTest
 {
-    public partial class FrequencyTestPresentation
+    public partial class FrequencyTestPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Grid chart;
         internal global::System.Windows.Controls.ItemsControl chartBars;

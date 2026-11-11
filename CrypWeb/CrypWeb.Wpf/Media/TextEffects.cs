@@ -209,6 +209,27 @@ namespace System.Windows.Media.Imaging
         }
 
         public Collections.ObjectModel.ReadOnlyCollection<BitmapFrame> Frames { get; }
+
+        /// <summary>Any format: the browser decodes the picture.</summary>
+        public static BitmapDecoder Create(IO.Stream bitmapStream, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption)
+        {
+            return new PngBitmapDecoder(bitmapStream, createOptions, cacheOption);
+        }
+
+        public static BitmapDecoder Create(Uri bitmapUri, BitmapCreateOptions createOptions, BitmapCacheOption cacheOption)
+        {
+            return new UriDecoder(bitmapUri);
+        }
+
+        private sealed class UriDecoder : BitmapDecoder
+        {
+            public UriDecoder(Uri uri) : base(BitmapFrame.Create(uri)) { }
+        }
+
+        private protected BitmapDecoder(BitmapFrame frame)
+        {
+            Frames = new Collections.ObjectModel.ReadOnlyCollection<BitmapFrame>(new[] { frame });
+        }
     }
 
     public sealed class BmpBitmapDecoder : BitmapDecoder

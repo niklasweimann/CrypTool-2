@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.FEAL
 {
-    public partial class FEAL8Presentation
+    public partial class FEAL8Presentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.Plugins.FEAL.Controls.CryptRound CryptRound1;
         internal global::CrypTool.Plugins.FEAL.Controls.CryptRound CryptRound2;

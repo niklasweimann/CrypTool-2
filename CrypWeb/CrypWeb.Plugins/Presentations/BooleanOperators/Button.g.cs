@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace BooleanOperators
 {
-    public partial class Button
+    public partial class Button : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

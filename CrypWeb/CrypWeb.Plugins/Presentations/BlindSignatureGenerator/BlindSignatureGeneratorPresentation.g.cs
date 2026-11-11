@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace BlindSignatureGenerator
 {
-    public partial class BlindSignatureGeneratorPresentation
+    public partial class BlindSignatureGeneratorPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Button BtnNext;
         internal global::System.Windows.Controls.Button BtnPrevious;

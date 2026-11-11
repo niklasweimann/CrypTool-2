@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAToyCiphers.UI
 {
-    public partial class Cipher1Pres
+    public partial class Cipher1Pres : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label InputBlock;
         internal global::System.Windows.Controls.ScrollViewer LabelGrid;

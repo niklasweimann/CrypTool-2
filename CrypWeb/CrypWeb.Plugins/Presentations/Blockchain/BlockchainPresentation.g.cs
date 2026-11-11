@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Blockchain
 {
-    public partial class BlockchainPresentation
+    public partial class BlockchainPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel BlockHash;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel BlockId;

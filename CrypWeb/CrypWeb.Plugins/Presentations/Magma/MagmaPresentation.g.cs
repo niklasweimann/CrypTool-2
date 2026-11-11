@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Magma
 {
-    public partial class MagmaPresentation
+    public partial class MagmaPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Grid DecryptGrid;
         internal global::CrypTool.Plugins.Magma.Controls.DecryptRound DecryptRound1;

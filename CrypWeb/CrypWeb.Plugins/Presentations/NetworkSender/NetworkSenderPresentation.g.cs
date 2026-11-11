@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.NetworkSender
 {
-    public partial class NetworkSenderPresentation
+    public partial class NetworkSenderPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel Amount;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel LisPort;

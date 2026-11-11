@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.StraddlingCheckerboard
 {
-    public partial class StraddlingCheckerboardPresentation
+    public partial class StraddlingCheckerboardPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid DataGrid;
         internal global::System.Windows.Controls.Viewbox Viewbox;

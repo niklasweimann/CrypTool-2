@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAKeyRecovery.UI.Cipher3
 {
-    public partial class Cipher3SummaryResultView
+    public partial class Cipher3SummaryResultView : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

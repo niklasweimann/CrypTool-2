@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Internet_frame_generator
 {
-    public partial class Internet_frame_generator_Presentation
+    public partial class Internet_frame_generator_Presentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.ColumnDefinition columnARP1;
         internal global::System.Windows.Controls.ColumnDefinition columnARP2;

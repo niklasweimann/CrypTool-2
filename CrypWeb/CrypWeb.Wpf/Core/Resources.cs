@@ -146,6 +146,9 @@ namespace System.Windows
         internal Func<object> ContentFactory { get; set; }
 
         public object LoadContent() => ContentFactory?.Invoke();
+
+        /// <summary>Control templates are not instantiated, so a templated part is never found.</summary>
+        public object FindName(string name, FrameworkElement templatedParent) => null;
     }
 
     public class DataTemplate : FrameworkTemplate

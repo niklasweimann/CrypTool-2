@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace BooleanOperators
 {
-    public partial class ButtonOutputPresentation
+    public partial class ButtonOutputPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Image myimg;
 

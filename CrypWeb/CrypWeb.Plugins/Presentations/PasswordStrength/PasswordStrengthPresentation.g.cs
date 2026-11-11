@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.Tools
 {
-    public partial class PasswordStrengthPresentation
+    public partial class PasswordStrengthPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock BitStrengthTextBlock;
         internal global::System.Windows.Controls.TextBlock ComplexityTextBlock;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.SyllabaryCipher
 {
-    public partial class SyllabaryCipherPresentation
+    public partial class SyllabaryCipherPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Grid TableGrid;
 

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAKeyRecovery.UI.Cipher2
 {
-    public partial class Cipher2AnyRoundResultView
+    public partial class Cipher2AnyRoundResultView : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid Cipher2AnyRoundResultDatagrid;
 

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace AESVisualization
 {
-    public partial class AESPresentation
+    public partial class AESPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock CipherText;
         internal global::System.Windows.Controls.TextBlock InitialRoundTextBlock;

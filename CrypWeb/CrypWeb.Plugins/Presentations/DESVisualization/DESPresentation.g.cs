@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.DESVisualization
 {
-    public partial class DESPresentation
+    public partial class DESPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Shapes.Path ArrowRounds;
         internal global::System.Windows.Shapes.Path ArrowSubKeys;

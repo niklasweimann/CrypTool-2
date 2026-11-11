@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.States
 {
-    public partial class FinishedRoundPresentation
+    public partial class FinishedRoundPresentation : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

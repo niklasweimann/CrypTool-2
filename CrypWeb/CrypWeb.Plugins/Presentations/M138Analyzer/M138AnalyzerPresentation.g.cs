@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.M138Analyzer
 {
-    public partial class M138AnalyzerPresentation
+    public partial class M138AnalyzerPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::CrypTool.CrypAnalysisViewControl.CrypAnalysisResultListView CrypAnalysisResultListView;
         internal global::CrypTool.CrypAnalysisViewControl.ViewLabel CurrentAnalysedKeylength;

@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.States
 {
-    public partial class FinishingCompressionPresentation
+    public partial class FinishingCompressionPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.TextBlock label1;
         internal global::System.Windows.Controls.TextBlock label2;

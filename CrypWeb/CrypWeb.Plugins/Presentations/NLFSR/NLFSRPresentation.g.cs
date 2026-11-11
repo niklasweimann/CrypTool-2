@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.NLFSR
 {
-    public partial class NLFSRPresentation
+    public partial class NLFSRPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label infoText;
         internal global::System.Windows.Controls.Grid myGrid;

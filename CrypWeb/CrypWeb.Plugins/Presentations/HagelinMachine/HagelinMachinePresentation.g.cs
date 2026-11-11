@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.HagelinMachine
 {
-    public partial class HagelinMachinePresentation
+    public partial class HagelinMachinePresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid DataGridDynamicInformation;
         internal global::System.Windows.Controls.Label LabelModel;

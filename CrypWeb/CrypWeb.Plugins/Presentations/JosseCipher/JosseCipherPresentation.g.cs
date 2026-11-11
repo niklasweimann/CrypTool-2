@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.JosseCipher
 {
-    public partial class JosseCipherPresentation
+    public partial class JosseCipherPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.DataGrid CharacterMappingTable;
         internal global::System.Windows.Controls.TabItem CharacterMappingTableTap;

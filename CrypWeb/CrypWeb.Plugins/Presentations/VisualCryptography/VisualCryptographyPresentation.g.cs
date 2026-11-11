@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.VisualCryptography
 {
-    public partial class VisualCryptographyPresentation
+    public partial class VisualCryptographyPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Image Image;
         internal global::System.Windows.Controls.Primitives.ScrollBar ScrollBar;

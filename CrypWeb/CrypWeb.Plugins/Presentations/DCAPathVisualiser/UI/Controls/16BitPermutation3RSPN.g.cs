@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAPathVisualiser.UI.Controls
 {
-    public partial class _16BitPermutation3RSPN
+    public partial class _16BitPermutation3RSPN : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

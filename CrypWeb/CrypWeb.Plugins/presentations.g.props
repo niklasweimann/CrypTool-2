@@ -414,5 +414,381 @@
     <EmbeddedResource Include="../../CrypPlugins/M138Analyzer/M138AnalyzerPresentation.xaml" LogicalName="xaml/M138Analyzer/M138AnalyzerPresentation.xaml" Link="Presentations/M138Analyzer/M138AnalyzerPresentation.xaml" />
     <Compile Include="../../CrypPlugins/M138Analyzer/M138AnalyzerPresentation.xaml.cs" Link="Presentations/M138Analyzer/M138AnalyzerPresentation.xaml.cs" />
     <Compile Include="Presentations/M138Analyzer/M138AnalyzerPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/Enigma/Enigma.g.resources" LogicalName="Enigma.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Enigma/EnigmaPresentation.xaml" LogicalName="xaml/Enigma/EnigmaPresentation.xaml" Link="Presentations/Enigma/EnigmaPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/Enigma/EnigmaPresentation.xaml.cs" Link="Presentations/Enigma/EnigmaPresentation.xaml.cs" />
+    <Compile Include="Presentations/Enigma/EnigmaPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Enigma/EnigmaPresentationFrame.xaml" LogicalName="xaml/Enigma/EnigmaPresentationFrame.xaml" Link="Presentations/Enigma/EnigmaPresentationFrame.xaml" />
+    <Compile Include="../../CrypPlugins/Enigma/EnigmaPresentationFrame.xaml.cs" Link="Presentations/Enigma/EnigmaPresentationFrame.xaml.cs" />
+    <Compile Include="Presentations/Enigma/EnigmaPresentationFrame.g.cs" />
+    <EmbeddedResource Include="Presentations/BB84KeyGenerator/BB84KeyGenerator.g.resources" LogicalName="BB84KeyGenerator.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/BB84KeyGenerator/BB84KeyGeneratorPresentation.xaml" LogicalName="xaml/BB84KeyGenerator/BB84KeyGeneratorPresentation.xaml" Link="Presentations/BB84KeyGenerator/BB84KeyGeneratorPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/BB84KeyGenerator/BB84KeyGeneratorPresentation.xaml.cs" Link="Presentations/BB84KeyGenerator/BB84KeyGeneratorPresentation.xaml.cs" />
+    <Compile Include="Presentations/BB84KeyGenerator/BB84KeyGeneratorPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/BB84ManInTheMiddle/BB84ManInTheMiddle.g.resources" LogicalName="BB84ManInTheMiddle.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.xaml" LogicalName="xaml/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.xaml" Link="Presentations/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.xaml" />
+    <Compile Include="../../CrypPlugins/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.xaml.cs" Link="Presentations/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.xaml.cs" />
+    <Compile Include="Presentations/BB84ManInTheMiddle/BB84ManInTheMiddlePresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/BB84PhotonDecoder/BB84PhotonDecoder.g.resources" LogicalName="BB84PhotonDecoder.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/BB84PhotonDecoder/BB84PhotonDecoderPresentation.xaml" LogicalName="xaml/BB84PhotonDecoder/BB84PhotonDecoderPresentation.xaml" Link="Presentations/BB84PhotonDecoder/BB84PhotonDecoderPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/BB84PhotonDecoder/BB84PhotonDecoderPresentation.xaml.cs" Link="Presentations/BB84PhotonDecoder/BB84PhotonDecoderPresentation.xaml.cs" />
+    <Compile Include="Presentations/BB84PhotonDecoder/BB84PhotonDecoderPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/RAPPOR/RAPPOR.g.resources" LogicalName="RAPPOR.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/Style/Button.xaml" LogicalName="xaml/RAPPOR/Style/Button.xaml" Link="Presentations/RAPPOR/Style/Button.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/Style/Button.xaml.cs" Link="Presentations/RAPPOR/Style/Button.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/Style/Button.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/BloomFilter.xaml" LogicalName="xaml/RAPPOR/View/BloomFilter.xaml" Link="Presentations/RAPPOR/View/BloomFilter.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/BloomFilter.xaml.cs" Link="Presentations/RAPPOR/View/BloomFilter.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/BloomFilter.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/HeatMaps.xaml" LogicalName="xaml/RAPPOR/View/HeatMaps.xaml" Link="Presentations/RAPPOR/View/HeatMaps.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/HeatMaps.xaml.cs" Link="Presentations/RAPPOR/View/HeatMaps.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/HeatMaps.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/Overview.xaml" LogicalName="xaml/RAPPOR/View/Overview.xaml" Link="Presentations/RAPPOR/View/Overview.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/Overview.xaml.cs" Link="Presentations/RAPPOR/View/Overview.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/Overview.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/RAPPORPresentation.xaml" LogicalName="xaml/RAPPOR/View/RAPPORPresentation.xaml" Link="Presentations/RAPPOR/View/RAPPORPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/RAPPORPresentation.xaml.cs" Link="Presentations/RAPPOR/View/RAPPORPresentation.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/RAPPORPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/RandomizedResponses.xaml" LogicalName="xaml/RAPPOR/View/RandomizedResponses.xaml" Link="Presentations/RAPPOR/View/RandomizedResponses.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/RandomizedResponses.xaml.cs" Link="Presentations/RAPPOR/View/RandomizedResponses.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/RandomizedResponses.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RAPPOR/View/Start.xaml" LogicalName="xaml/RAPPOR/View/Start.xaml" Link="Presentations/RAPPOR/View/Start.xaml" />
+    <Compile Include="../../CrypPlugins/RAPPOR/View/Start.xaml.cs" Link="Presentations/RAPPOR/View/Start.xaml.cs" />
+    <Compile Include="Presentations/RAPPOR/View/Start.g.cs" />
+    <EmbeddedResource Include="Presentations/AvalancheVisualization/AvalancheVisualization.g.resources" LogicalName="AvalancheVisualization.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/AvalancheVisualization/AvalanchePresentation.xaml" LogicalName="xaml/AvalancheVisualization/AvalanchePresentation.xaml" Link="Presentations/AvalancheVisualization/AvalanchePresentation.xaml" />
+    <Compile Include="../../CrypPlugins/AvalancheVisualization/AvalanchePresentation.xaml.cs" Link="Presentations/AvalancheVisualization/AvalanchePresentation.xaml.cs" />
+    <Compile Include="Presentations/AvalancheVisualization/AvalanchePresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/Alphabets/Alphabets.g.resources" LogicalName="Alphabets.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Alphabets/AlphabetPresentation.xaml" LogicalName="xaml/Alphabets/AlphabetPresentation.xaml" Link="Presentations/Alphabets/AlphabetPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/Alphabets/AlphabetPresentation.xaml.cs" Link="Presentations/Alphabets/AlphabetPresentation.xaml.cs" />
+    <Compile Include="Presentations/Alphabets/AlphabetPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/DCAPathFinder/DCAPathFinder.g.resources" LogicalName="DCAPathFinder.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/AutomaticMode.xaml" LogicalName="xaml/DCAPathFinder/UI/AutomaticMode.xaml" Link="Presentations/DCAPathFinder/UI/AutomaticMode.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/AutomaticMode.xaml.cs" Link="Presentations/DCAPathFinder/UI/AutomaticMode.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/AutomaticMode.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRound.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/16BitKeyRound.xaml" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRound.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRound.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRound.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/16BitKeyRound.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.xaml" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundInOut.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRoundOut.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/16BitKeyRoundOut.xaml" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundOut.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitKeyRoundOut.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundOut.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/16BitKeyRoundOut.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.xaml" Link="Presentations/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/16BitPermutation3RSPN.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitPermutationTBC.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/16BitPermutationTBC.xaml" Link="Presentations/DCAPathFinder/UI/Controls/16BitPermutationTBC.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/16BitPermutationTBC.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/16BitPermutationTBC.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/16BitPermutationTBC.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/4BitKeyRound.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/4BitKeyRound.xaml" Link="Presentations/DCAPathFinder/UI/Controls/4BitKeyRound.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/4BitKeyRound.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/4BitKeyRound.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/4BitKeyRound.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Controls/4BitSBox.xaml" LogicalName="xaml/DCAPathFinder/UI/Controls/4BitSBox.xaml" Link="Presentations/DCAPathFinder/UI/Controls/4BitSBox.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Controls/4BitSBox.xaml.cs" Link="Presentations/DCAPathFinder/UI/Controls/4BitSBox.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Controls/4BitSBox.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/DCAPathFinderPres.xaml" LogicalName="xaml/DCAPathFinder/UI/DCAPathFinderPres.xaml" Link="Presentations/DCAPathFinder/UI/DCAPathFinderPres.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/DCAPathFinderPres.xaml.cs" Link="Presentations/DCAPathFinder/UI/DCAPathFinderPres.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/DCAPathFinderPres.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Overview.xaml" LogicalName="xaml/DCAPathFinder/UI/Overview.xaml" Link="Presentations/DCAPathFinder/UI/Overview.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Overview.xaml.cs" Link="Presentations/DCAPathFinder/UI/Overview.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Overview.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide10.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide4.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide5.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide6.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide7.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide8.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/DifferentialCryptanalysisSlide9b.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/IntroductionHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/IntroductionSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/LastSlide.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/LastSlide.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/LastSlide.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/LastSlide.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/LastSlide.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/LastSlide.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/PracticalDifferentialCryptanalysisSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/Title.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial1/Title.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial1/Title.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/Title.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial1/Title.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial1/Title.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisOfSBoxSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AnalysisSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackFinished.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackFinished.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackFinished.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackFinished.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackFinished.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackFinished.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackFirstRound.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackFirstRound.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackFirstRound.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackFirstRound.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackFirstRound.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackFirstRound.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackKeyRound3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackSearchResult.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/AttackSearchResult.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackSearchResult.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/AttackSearchResult.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/AttackSearchResult.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/AttackSearchResult.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/CharacteristicSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/DifferentialHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/DifferentialHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/DifferentialHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/DifferentialSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/IntroductionHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/IntroductionHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/IntroductionHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/IntroductionSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/RecoverKeyInformationSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/Title.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/Title.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/Title.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/Title.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/Title.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/Title.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/WaitingSlide.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial2/WaitingSlide.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial2/WaitingSlide.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial2/WaitingSlide.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial2/WaitingSlide.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial2/WaitingSlide.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackFinished.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackFinished.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackFinished.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackFinished.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackFinished.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackFinished.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackFirstRound.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackFirstRound.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackFirstRound.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackFirstRound.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackFirstRound.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackFirstRound.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound4.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackKeyRound5.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackSearchResult.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/AttackSearchResult.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackSearchResult.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/AttackSearchResult.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/AttackSearchResult.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/AttackSearchResult.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/FilterHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/FilterHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/FilterSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide2.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/FilterSlide2.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide2.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide2.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide2.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide2.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide3.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/FilterSlide3.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide3.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide3.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide3.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide3.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide4.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/FilterSlide4.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide4.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/FilterSlide4.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide4.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/FilterSlide4.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/IntroductionHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/IntroductionHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/IntroductionHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/IntroductionSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/NeededPairsSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseHeader.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/SignalToNoiseSlide1.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/Title.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/Title.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/Title.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/Title.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/Title.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/Title.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/WaitingSlide.xaml" LogicalName="xaml/DCAPathFinder/UI/Tutorial3/WaitingSlide.xaml" Link="Presentations/DCAPathFinder/UI/Tutorial3/WaitingSlide.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial3/WaitingSlide.xaml.cs" Link="Presentations/DCAPathFinder/UI/Tutorial3/WaitingSlide.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/Tutorial3/WaitingSlide.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DCAPathFinder/UI/TutorialDescriptions.xaml" LogicalName="xaml/DCAPathFinder/UI/TutorialDescriptions.xaml" Link="Presentations/DCAPathFinder/UI/TutorialDescriptions.xaml" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/UI/TutorialDescriptions.xaml.cs" Link="Presentations/DCAPathFinder/UI/TutorialDescriptions.xaml.cs" />
+    <Compile Include="Presentations/DCAPathFinder/UI/TutorialDescriptions.g.cs" />
+    <EmbeddedResource Include="Presentations/ChaCha/ChaCha.g.resources" LogicalName="ChaCha.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/ContentTemplate/PageContentTemplate.xaml" LogicalName="xaml/ChaCha/ContentTemplate/PageContentTemplate.xaml" Link="Presentations/ChaCha/ContentTemplate/PageContentTemplate.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/ContentTemplate/PageContentTemplate.xaml.cs" Link="Presentations/ChaCha/ContentTemplate/PageContentTemplate.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/ContentTemplate/PageContentTemplate.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/ContentTemplate/PageNavigationTemplate.xaml" LogicalName="xaml/ChaCha/ContentTemplate/PageNavigationTemplate.xaml" Link="Presentations/ChaCha/ContentTemplate/PageNavigationTemplate.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/ContentTemplate/PageNavigationTemplate.xaml.cs" Link="Presentations/ChaCha/ContentTemplate/PageNavigationTemplate.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/ContentTemplate/PageNavigationTemplate.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/ContentTemplate/ViewboxButton.xaml" LogicalName="xaml/ChaCha/ContentTemplate/ViewboxButton.xaml" Link="Presentations/ChaCha/ContentTemplate/ViewboxButton.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/ContentTemplate/ViewboxButton.xaml.cs" Link="Presentations/ChaCha/ContentTemplate/ViewboxButton.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/ContentTemplate/ViewboxButton.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Localization/de_DE.xaml" LogicalName="xaml/ChaCha/Localization/de_DE.xaml" Link="Presentations/ChaCha/Localization/de_DE.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Localization/de_DE.xaml.cs" Link="Presentations/ChaCha/Localization/de_DE.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Localization/de_DE.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Localization/en_US.xaml" LogicalName="xaml/ChaCha/Localization/en_US.xaml" Link="Presentations/ChaCha/Localization/en_US.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Localization/en_US.xaml.cs" Link="Presentations/ChaCha/Localization/en_US.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Localization/en_US.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Border.xaml" LogicalName="xaml/ChaCha/Styles/Border.xaml" Link="Presentations/ChaCha/Styles/Border.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Border.xaml.cs" Link="Presentations/ChaCha/Styles/Border.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Border.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Button.xaml" LogicalName="xaml/ChaCha/Styles/Button.xaml" Link="Presentations/ChaCha/Styles/Button.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Button.xaml.cs" Link="Presentations/ChaCha/Styles/Button.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Button.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/FrameworkElement.xaml" LogicalName="xaml/ChaCha/Styles/FrameworkElement.xaml" Link="Presentations/ChaCha/Styles/FrameworkElement.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/FrameworkElement.xaml.cs" Link="Presentations/ChaCha/Styles/FrameworkElement.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/FrameworkElement.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Index.xaml" LogicalName="xaml/ChaCha/Styles/Index.xaml" Link="Presentations/ChaCha/Styles/Index.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Index.xaml.cs" Link="Presentations/ChaCha/Styles/Index.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Index.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/ItemsControl.xaml" LogicalName="xaml/ChaCha/Styles/ItemsControl.xaml" Link="Presentations/ChaCha/Styles/ItemsControl.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/ItemsControl.xaml.cs" Link="Presentations/ChaCha/Styles/ItemsControl.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/ItemsControl.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Label.xaml" LogicalName="xaml/ChaCha/Styles/Label.xaml" Link="Presentations/ChaCha/Styles/Label.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Label.xaml.cs" Link="Presentations/ChaCha/Styles/Label.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Label.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Paragraph.xaml" LogicalName="xaml/ChaCha/Styles/Paragraph.xaml" Link="Presentations/ChaCha/Styles/Paragraph.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Paragraph.xaml.cs" Link="Presentations/ChaCha/Styles/Paragraph.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Paragraph.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Path.xaml" LogicalName="xaml/ChaCha/Styles/Path.xaml" Link="Presentations/ChaCha/Styles/Path.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Path.xaml.cs" Link="Presentations/ChaCha/Styles/Path.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Path.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/RichTextBox.xaml" LogicalName="xaml/ChaCha/Styles/RichTextBox.xaml" Link="Presentations/ChaCha/Styles/RichTextBox.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/RichTextBox.xaml.cs" Link="Presentations/ChaCha/Styles/RichTextBox.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/RichTextBox.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/TableCell.xaml" LogicalName="xaml/ChaCha/Styles/TableCell.xaml" Link="Presentations/ChaCha/Styles/TableCell.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/TableCell.xaml.cs" Link="Presentations/ChaCha/Styles/TableCell.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/TableCell.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/TextBlock.xaml" LogicalName="xaml/ChaCha/Styles/TextBlock.xaml" Link="Presentations/ChaCha/Styles/TextBlock.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/TextBlock.xaml.cs" Link="Presentations/ChaCha/Styles/TextBlock.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/TextBlock.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/TextBox.xaml" LogicalName="xaml/ChaCha/Styles/TextBox.xaml" Link="Presentations/ChaCha/Styles/TextBox.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/TextBox.xaml.cs" Link="Presentations/ChaCha/Styles/TextBox.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/TextBox.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/Styles/Viewbox.xaml" LogicalName="xaml/ChaCha/Styles/Viewbox.xaml" Link="Presentations/ChaCha/Styles/Viewbox.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/Styles/Viewbox.xaml.cs" Link="Presentations/ChaCha/Styles/Viewbox.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/Styles/Viewbox.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/ChaChaHash.xaml" LogicalName="xaml/ChaCha/View/ChaChaHash.xaml" Link="Presentations/ChaCha/View/ChaChaHash.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/ChaChaHash.xaml.cs" Link="Presentations/ChaCha/View/ChaChaHash.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/ChaChaHash.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/ChaChaPresentation.xaml" LogicalName="xaml/ChaCha/View/ChaChaPresentation.xaml" Link="Presentations/ChaCha/View/ChaChaPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/ChaChaPresentation.xaml.cs" Link="Presentations/ChaCha/View/ChaChaPresentation.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/ChaChaPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/Diffusion.xaml" LogicalName="xaml/ChaCha/View/Diffusion.xaml" Link="Presentations/ChaCha/View/Diffusion.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/Diffusion.xaml.cs" Link="Presentations/ChaCha/View/Diffusion.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/Diffusion.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/Overview.xaml" LogicalName="xaml/ChaCha/View/Overview.xaml" Link="Presentations/ChaCha/View/Overview.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/Overview.xaml.cs" Link="Presentations/ChaCha/View/Overview.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/Overview.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/Start.xaml" LogicalName="xaml/ChaCha/View/Start.xaml" Link="Presentations/ChaCha/View/Start.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/Start.xaml.cs" Link="Presentations/ChaCha/View/Start.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/Start.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/StateMatrixInit.xaml" LogicalName="xaml/ChaCha/View/StateMatrixInit.xaml" Link="Presentations/ChaCha/View/StateMatrixInit.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/StateMatrixInit.xaml.cs" Link="Presentations/ChaCha/View/StateMatrixInit.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/StateMatrixInit.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ChaCha/View/Xor.xaml" LogicalName="xaml/ChaCha/View/Xor.xaml" Link="Presentations/ChaCha/View/Xor.xaml" />
+    <Compile Include="../../CrypPlugins/ChaCha/View/Xor.xaml.cs" Link="Presentations/ChaCha/View/Xor.xaml.cs" />
+    <Compile Include="Presentations/ChaCha/View/Xor.g.cs" />
+    <EmbeddedResource Include="Presentations/TextInput/TextInput.g.resources" LogicalName="TextInput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/TextInput/TextInputPresentation.xaml" LogicalName="xaml/TextInput/TextInputPresentation.xaml" Link="Presentations/TextInput/TextInputPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/TextInput/TextInputPresentation.xaml.cs" Link="Presentations/TextInput/TextInputPresentation.xaml.cs" />
+    <Compile Include="Presentations/TextInput/TextInputPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/TextOutput/TextOutput.g.resources" LogicalName="TextOutput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/TextOutput/TextOutputPresentation.xaml" LogicalName="xaml/TextOutput/TextOutputPresentation.xaml" Link="Presentations/TextOutput/TextOutputPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/TextOutput/TextOutputPresentation.xaml.cs" Link="Presentations/TextOutput/TextOutputPresentation.xaml.cs" />
+    <Compile Include="Presentations/TextOutput/TextOutputPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/Numbers/Numbers.g.resources" LogicalName="Numbers.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Numbers/NumberInputPresentation.xaml" LogicalName="xaml/Numbers/NumberInputPresentation.xaml" Link="Presentations/Numbers/NumberInputPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/Numbers/NumberInputPresentation.xaml.cs" Link="Presentations/Numbers/NumberInputPresentation.xaml.cs" />
+    <Compile Include="Presentations/Numbers/NumberInputPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/PictureOutput/PictureOutput.g.resources" LogicalName="PictureOutput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/PictureOutput/PictureOutputPresentation.xaml" LogicalName="xaml/PictureOutput/PictureOutputPresentation.xaml" Link="Presentations/PictureOutput/PictureOutputPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/PictureOutput/PictureOutputPresentation.xaml.cs" Link="Presentations/PictureOutput/PictureOutputPresentation.xaml.cs" />
+    <Compile Include="Presentations/PictureOutput/PictureOutputPresentation.g.cs" />
   </ItemGroup>
 </Project>

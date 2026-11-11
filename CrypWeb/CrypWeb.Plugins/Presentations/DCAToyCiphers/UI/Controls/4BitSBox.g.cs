@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace DCAToyCiphers.UI.Controls
 {
-    public partial class _4BitSBox
+    public partial class _4BitSBox : global::System.Windows.Controls.UserControl
     {
 
         private bool _contentLoaded;

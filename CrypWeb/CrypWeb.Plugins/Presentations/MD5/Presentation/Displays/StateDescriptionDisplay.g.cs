@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.MD5.Presentation.Displays
 {
-    public partial class StateDescriptionDisplay
+    public partial class StateDescriptionDisplay : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Label label1;
         internal global::System.Windows.Controls.Label label2;

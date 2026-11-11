@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace SolitaireAnalyser
 {
-    public partial class SolitaireAnalyserQuickWatchPresentation
+    public partial class SolitaireAnalyserQuickWatchPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Border border1;
         internal global::System.Windows.Controls.Border border2;

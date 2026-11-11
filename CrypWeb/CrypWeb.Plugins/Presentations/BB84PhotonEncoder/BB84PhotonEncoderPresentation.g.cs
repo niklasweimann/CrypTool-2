@@ -12,7 +12,7 @@ using System.Windows.Data;
 
 namespace CrypTool.Plugins.BB84PhotonEncoder
 {
-    public partial class BB84PhotonEncoderPresentation
+    public partial class BB84PhotonEncoderPresentation : global::System.Windows.Controls.UserControl
     {
         internal global::System.Windows.Controls.Canvas allCanvas;
         internal global::System.Windows.Controls.Canvas baseQueueCross1;
