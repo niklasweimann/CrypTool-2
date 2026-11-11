@@ -25,11 +25,25 @@ namespace System.Windows
 
         public object GetValue(DependencyProperty dp)
         {
+            if (HasStyleTriggers && TryGetTriggerValue(dp, out object triggered))
+            {
+                return triggered;
+            }
             if (_values.TryGetValue(dp, out object value))
             {
                 return value is IDeferredValue deferred ? deferred.Evaluate(this, dp) : value;
             }
             return GetDefaultValue(dp);
+        }
+
+        /// <summary>True when a style with triggers applies (see <see cref="TryGetTriggerValue"/>).</summary>
+        internal virtual bool HasStyleTriggers => false;
+
+        /// <summary>The value an active style trigger gives the property, if any.</summary>
+        internal virtual bool TryGetTriggerValue(DependencyProperty dp, out object value)
+        {
+            value = null;
+            return false;
         }
 
         /// <summary>Value of a property that was never set. Elements override this for inherited properties.</summary>
@@ -82,6 +96,9 @@ namespace System.Windows
 
         /// <summary>True when the property has a local value (as opposed to its default).</summary>
         internal bool HasLocalValue(DependencyProperty dp) => _values.ContainsKey(dp);
+
+        /// <summary>True when the property was set on this object or an active style trigger sets it (drawing uses this).</summary>
+        internal bool HasValue(DependencyProperty dp) => _values.ContainsKey(dp) || (HasStyleTriggers && TryGetTriggerValue(dp, out _));
 
         /// <summary>The stored value without evaluating bindings (used to write a two-way binding back).</summary>
         internal object GetStoredValue(DependencyProperty dp) => _values.TryGetValue(dp, out object value) ? value : null;

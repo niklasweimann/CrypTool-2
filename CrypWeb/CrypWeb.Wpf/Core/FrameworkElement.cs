@@ -112,7 +112,69 @@ namespace System.Windows
 
         private static void OnStyleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (e.NewValue as Style)?.ApplyTo((FrameworkElement)d);
+            var element = (FrameworkElement)d;
+            var style = e.NewValue as Style;
+            style?.ApplyTo(element);
+            element._styleTriggers = style == null ? null : new List<TriggerBase>(style.AllTriggers());
+        }
+
+        // the triggers of the applied style (null or empty: none) and the properties the style has set
+        private List<TriggerBase> _styleTriggers;
+        private HashSet<DependencyProperty> _styledProperties;
+
+        /// <summary>Properties whose current value came from the style (a trigger may override those).</summary>
+        internal HashSet<DependencyProperty> StyledProperties => _styledProperties ??= new HashSet<DependencyProperty>();
+
+        internal override bool HasStyleTriggers => _styleTriggers is { Count: > 0 };
+
+        /// <summary>
+        /// The value that the last active trigger of the style sets for <paramref name="dp"/>; a value the element
+        /// set itself (not through the style) wins, as in WPF.
+        /// </summary>
+        internal override bool TryGetTriggerValue(DependencyProperty dp, out object value)
+        {
+            value = null;
+            if (HasLocalValue(dp) && !StyledProperties.Contains(dp))
+            {
+                return false;
+            }
+            bool found = false;
+            foreach (TriggerBase trigger in _styleTriggers)
+            {
+                if (!SetsProperty(trigger, dp, out object triggerValue) || !trigger.IsActive(this))
+                {
+                    continue;
+                }
+                value = triggerValue;
+                found = true;
+            }
+            return found;
+        }
+
+        /// <summary>Whether a trigger has a setter for the property, and its value converted to the property type.</summary>
+        private bool SetsProperty(TriggerBase trigger, DependencyProperty dp, out object value)
+        {
+            value = null;
+            foreach (SetterBase setterBase in trigger.ActiveSetters)
+            {
+                if (setterBase is not Setter setter || !string.IsNullOrEmpty(setter.TargetName))
+                {
+                    continue;
+                }
+                DependencyProperty property = setter.Property ?? Markup.DependencyPropertyLookup.Find(GetType(), setter.PropertyName);
+                if (property != dp)
+                {
+                    continue;
+                }
+                value = setter.Value;
+                if (value is string text && dp.PropertyType != typeof(string) && dp.PropertyType != typeof(object)
+                    && !Markup.XamlValueConverter.TryConvert(text, dp.PropertyType, out value))
+                {
+                    return false;
+                }
+                return true;
+            }
+            return false;
         }
 
         /// <summary>Raises <see cref="Loaded"/> once on this element and its descendants (called by the host before the first drawing).</summary>

@@ -132,7 +132,7 @@ namespace System.Windows.Rendering
             var css = new StyleBuilder();
             bool wraps = block.TextWrapping != TextWrapping.NoWrap;
             css.Add("white-space", wraps ? "pre-wrap" : "pre");
-            if (block.HasLocalValue(TextBlock.TextAlignmentProperty))
+            if (block.HasValue(TextBlock.TextAlignmentProperty))
             {
                 css.Add("text-align", block.TextAlignment.ToString().ToLowerInvariant());
             }
@@ -249,7 +249,7 @@ namespace System.Windows.Rendering
         {
             var css = new StyleBuilder();
             AddFont(css, inline);
-            if (inline.HasLocalValue(TextElement.BackgroundProperty))
+            if (inline.HasValue(TextElement.BackgroundProperty))
             {
                 css.Add("background", CssValues.SolidColor(inline.Background));
             }

@@ -84,7 +84,8 @@ namespace System.Windows
 
     /// <summary>
     /// A set of property values for elements of one type. Setters are applied once, when the style is assigned,
-    /// and never override values the element already has. Triggers are kept but not evaluated.
+    /// and never override values the element already has. Triggers are evaluated when properties are read
+    /// (<see cref="TriggerBase"/>).
     /// </summary>
     [Markup.ContentProperty(nameof(Setters))]
     public class Style
@@ -106,6 +107,19 @@ namespace System.Windows
         public Collection<SetterBase> Setters { get; } = new Collection<SetterBase>();
 
         public Collection<object> Triggers { get; } = new Collection<object>();
+
+        /// <summary>The triggers of this style and the styles it is based on, base styles first.</summary>
+        internal IEnumerable<TriggerBase> AllTriggers()
+        {
+            if (BasedOn != null)
+            {
+                foreach (TriggerBase inherited in BasedOn.AllTriggers()) yield return inherited;
+            }
+            foreach (object trigger in Triggers)
+            {
+                if (trigger is TriggerBase triggerBase) yield return triggerBase;
+            }
+        }
 
         public ResourceDictionary Resources { get; set; } = new ResourceDictionary();
 
@@ -133,6 +147,7 @@ namespace System.Windows
                     }
                 }
                 element.SetValue(property, value);
+                element.StyledProperties.Add(property);
             }
 
             BasedOn?.ApplyTo(element);

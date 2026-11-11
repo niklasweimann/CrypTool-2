@@ -199,8 +199,39 @@ namespace System.Windows.Controls
     public class HeaderedContentControl : ContentControl
     {
         public static readonly DependencyProperty HeaderProperty = Dp.Register<object, HeaderedContentControl>(nameof(Header));
+        public static readonly DependencyProperty HeaderTemplateProperty = Dp.Register<DataTemplate, HeaderedContentControl>(nameof(HeaderTemplate));
 
         public object Header { get => GetValue(HeaderProperty); set => SetValue(HeaderProperty, value); }
+
+        public DataTemplate HeaderTemplate { get => (DataTemplate)GetValue(HeaderTemplateProperty); set => SetValue(HeaderTemplateProperty, value); }
+
+        // the element built from HeaderTemplate, and the header it was built for
+        private object _templatedHeaderFor;
+        private UIElement _templatedHeader;
+
+        /// <summary>The header drawn through <see cref="HeaderTemplate"/> (with the header as DataContext), or null.</summary>
+        internal UIElement TemplatedHeader
+        {
+            get
+            {
+                if (HeaderTemplate == null || Header is UIElement)
+                {
+                    return null;
+                }
+                if (_templatedHeader == null || !ReferenceEquals(_templatedHeaderFor, Header))
+                {
+                    SetParent(_templatedHeader, null);
+                    _templatedHeaderFor = Header;
+                    _templatedHeader = HeaderTemplate.LoadContent() as UIElement;
+                    if (_templatedHeader is FrameworkElement element)
+                    {
+                        element.DataContext = Header;
+                    }
+                    SetParent(_templatedHeader, this);
+                }
+                return _templatedHeader;
+            }
+        }
     }
 
     public class GroupBox : HeaderedContentControl { }

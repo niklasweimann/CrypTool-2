@@ -63,7 +63,7 @@ namespace System.Windows.Rendering
             bool multiline = box.AcceptsReturn || box.TextWrapping != TextWrapping.NoWrap;
             string attributes = " data-k=\"text\"" + (box.IsReadOnly ? " readonly" : "") + (box.IsEnabled ? "" : " disabled")
                 + (box.MaxLength > 0 ? " maxlength=\"" + box.MaxLength + "\"" : "");
-            string style = box.HasLocalValue(TextBox.TextAlignmentProperty) ? "text-align:" + box.TextAlignment.ToString().ToLowerInvariant() + ";" : "";
+            string style = box.HasValue(TextBox.TextAlignmentProperty) ? "text-align:" + box.TextAlignment.ToString().ToLowerInvariant() + ";" : "";
             if (multiline)
             {
                 OpenTag("textarea", box, slot, "wtb", style, attributes);
@@ -86,7 +86,7 @@ namespace System.Windows.Rendering
         {
             double range = bar.Maximum - bar.Minimum;
             double percent = range <= 0 ? 0 : Math.Clamp((bar.Value - bar.Minimum) / range * 100, 0, 100);
-            string color = bar.HasLocalValue(Control.ForegroundProperty) ? CssValues.SolidColor(bar.Foreground) : null;
+            string color = bar.HasValue(Control.ForegroundProperty) ? CssValues.SolidColor(bar.Foreground) : null;
             OpenTag("div", bar, slot, bar.IsIndeterminate ? "wpb busy" : "wpb", "");
             _html.Append("<div style=\"width:").Append(CssValues.Number(percent)).Append("%;").Append(color == null ? "" : "background:" + color + ";").Append("\"></div></div>");
         }
@@ -159,7 +159,14 @@ namespace System.Windows.Rendering
                     continue;
                 }
                 _html.Append("<div class=\"").Append(ReferenceEquals(tab, current) ? "on" : "").Append("\" data-e=\"").Append(_idOf(tab)).Append("\">");
-                WriteContent(tab.Header);
+                if (tab.TemplatedHeader is { } header)
+                {
+                    WriteElement(header, LayoutSlot.GridCell);
+                }
+                else
+                {
+                    WriteContent(tab.Header);
+                }
                 _html.Append("</div>");
             }
             _html.Append("</div><div class=\"wb wtabc\">");
@@ -267,6 +274,16 @@ namespace System.Windows.Rendering
                 _html.Append("<tr class=\"").Append(index == grid.SelectedIndex ? "on" : "").Append("\" data-i=\"").Append(index).Append("\">");
                 foreach (DataGridColumn column in columns)
                 {
+                    Style cellStyle = column.CellStyle ?? grid.CellStyle;
+                    if (cellStyle != null && column.CellContentTemplate == null && column.CellBinding != null)
+                    {
+                        // a styled cell is a real DataGridCell, so the style's setters and triggers apply
+                        string text = Convert.ToString(BindingEvaluator.Evaluate(column.CellBinding, item), CultureInfo.CurrentCulture);
+                        _html.Append("<td class=\"wcell\">");
+                        WriteElement(grid.StyledCell(item, column, cellStyle, text), LayoutSlot.GridCell);
+                        _html.Append("</td>");
+                        continue;
+                    }
                     _html.Append("<td>");
                     WriteCell(grid, item, column, column.CellBinding, column.CellContentTemplate);
                     _html.Append("</td>");

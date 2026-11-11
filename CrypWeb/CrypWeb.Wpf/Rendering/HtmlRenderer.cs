@@ -266,11 +266,11 @@ namespace System.Windows.Rendering
                 return;
             }
 
-            if (element.HasLocalValue(Panel.BackgroundProperty))
+            if (element.HasValue(Panel.BackgroundProperty))
             {
                 css.Add("background", CssValues.Background(element.GetValue(Panel.BackgroundProperty) as Brush, address => ResolveImage(element, address)));
             }
-            if (element.HasLocalValue(Border.BorderThicknessProperty))
+            if (element.HasValue(Border.BorderThicknessProperty))
             {
                 var thickness = (Thickness)element.GetValue(Border.BorderThicknessProperty);
                 string color = CssValues.SolidColor(element.GetValue(Border.BorderBrushProperty) as Brush) ?? "transparent";
@@ -284,7 +284,7 @@ namespace System.Windows.Rendering
                     css.Add("border-radius", CssValues.Pixels(radius.TopLeft) + " " + CssValues.Pixels(radius.TopRight) + " " + CssValues.Pixels(radius.BottomRight) + " " + CssValues.Pixels(radius.BottomLeft));
                 }
             }
-            if (element.HasLocalValue(Border.PaddingProperty))
+            if (element.HasValue(Border.PaddingProperty))
             {
                 css.Add("padding", CssValues.Thickness((Thickness)element.GetValue(Border.PaddingProperty)));
             }
@@ -293,23 +293,23 @@ namespace System.Windows.Rendering
         /// <summary>Font properties that were set on this object; unset ones are inherited through CSS.</summary>
         private static void AddFont(StyleBuilder css, DependencyObject target)
         {
-            if (target.HasLocalValue(TextElement.FontSizeProperty))
+            if (target.HasValue(TextElement.FontSizeProperty))
             {
                 css.AddPixels("font-size", (double)target.GetValue(TextElement.FontSizeProperty));
             }
-            if (target.HasLocalValue(TextElement.FontFamilyProperty) && target.GetValue(TextElement.FontFamilyProperty) is FontFamily family)
+            if (target.HasValue(TextElement.FontFamilyProperty) && target.GetValue(TextElement.FontFamilyProperty) is FontFamily family)
             {
                 css.Add("font-family", "'" + CssValues.Escape(family.CssName) + "',sans-serif");
             }
-            if (target.HasLocalValue(TextElement.FontWeightProperty))
+            if (target.HasValue(TextElement.FontWeightProperty))
             {
                 css.Add("font-weight", ((FontWeight)target.GetValue(TextElement.FontWeightProperty)).ToOpenTypeWeight().ToString());
             }
-            if (target.HasLocalValue(TextElement.FontStyleProperty))
+            if (target.HasValue(TextElement.FontStyleProperty))
             {
                 css.Add("font-style", ((FontStyle)target.GetValue(TextElement.FontStyleProperty)).IsItalic ? "italic" : "normal");
             }
-            if (target.HasLocalValue(TextElement.ForegroundProperty))
+            if (target.HasValue(TextElement.ForegroundProperty))
             {
                 css.Add("color", CssValues.SolidColor(target.GetValue(TextElement.ForegroundProperty) as Brush));
             }

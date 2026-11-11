@@ -116,6 +116,28 @@ namespace System.Windows.Controls
         private readonly Dictionary<(object Item, object Column), UIElement> _cells = new Dictionary<(object, object), UIElement>();
 
         /// <summary>The element a column's cell template creates for <paramref name="item"/> (cached per cell).</summary>
+        // cells of a grid with a cell style: (item, column) -> the DataGridCell and its text
+        private readonly Dictionary<(object Item, object Column), (DataGridCell Cell, TextBlock Text)> _styledCells = new();
+
+        /// <summary>A DataGridCell showing <paramref name="text"/> with the grid's or column's cell style.</summary>
+        internal UIElement StyledCell(object item, DataGridColumn column, Style style, string text)
+        {
+            if (!_styledCells.TryGetValue((item, column), out var cell))
+            {
+                var textBlock = new TextBlock();
+                var created = new DataGridCell { Column = column, Content = textBlock, DataContext = item };
+                created.Style = style;
+                SetParent(created, this);
+                cell = (created, textBlock);
+                _styledCells[(item, column)] = cell;
+            }
+            if (cell.Text.Text != text)
+            {
+                cell.Text.Text = text ?? "";
+            }
+            return cell.Cell;
+        }
+
         internal UIElement CellElement(object item, object column, DataTemplate template)
         {
             if (item == null || template == null)

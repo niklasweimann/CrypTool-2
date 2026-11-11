@@ -216,6 +216,18 @@ namespace System.Windows.Markup
                 setter.Property = DependencyPropertyLookup.Find(_context.CurrentStyleTargetType, text);
                 return;
             }
+            if (instance is Trigger trigger && name == "Property")
+            {
+                trigger.PropertyName = text;
+                trigger.Property = DependencyPropertyLookup.Find(_context.CurrentStyleTargetType, text);
+                return;
+            }
+            if (instance is Condition condition && name == "Property")
+            {
+                condition.PropertyName = text;
+                condition.Property = DependencyPropertyLookup.Find(_context.CurrentStyleTargetType, text);
+                return;
+            }
 
             EventInfo eventInfo = type.GetEvent(name, InstanceMembers);
             if (eventInfo != null)
