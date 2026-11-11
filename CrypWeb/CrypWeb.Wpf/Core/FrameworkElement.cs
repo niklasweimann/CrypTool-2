@@ -130,6 +130,9 @@ namespace System.Windows
             }
         }
 
+        /// <summary>True when code listens for size changes, so the browser has to report the measured size.</summary>
+        internal bool WantsSize => SizeChanged != null;
+
         internal void ReportSize(Size size)
         {
             Size previous = RenderSize;
@@ -140,6 +143,11 @@ namespace System.Windows
             RenderSize = size;
             SizeChanged?.Invoke(this, new SizeChangedEventArgs { Source = this, PreviousSize = previous, NewSize = size });
         }
+
+        /// <summary>Makes an object a child for data context and resource lookup without drawing it.</summary>
+        protected internal void AddLogicalChild(object child) => SetParent(child, this);
+
+        protected internal void RemoveLogicalChild(object child) => SetParent(child, null);
 
         // ---- names and resources ------------------------------------------------------------------------------
 

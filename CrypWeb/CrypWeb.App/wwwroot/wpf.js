@@ -85,7 +85,7 @@ window.ctWpf = (() => {
 
   // Shapes are SVG; their size is the extent of the figure (or, with Stretch, the figure is scaled to the box).
   function sizeShape(svg) {
-    const figure = svg.querySelector('path');
+    const figure = svg.querySelector(':scope > path, :scope > text');
     if (!figure) return;
     let box;
     try { box = figure.getBBox(); } catch { return; }
@@ -123,6 +123,19 @@ window.ctWpf = (() => {
     host.style.overflow = 'hidden';
   }
 
+  // Tells the runtime the measured size of the elements that asked for it (ActualWidth/ActualHeight, SizeChanged).
+  // Children are reported before their parents, so a parent's handler already sees the sizes of its children.
+  function reportSizes(host) {
+    const id = parseInt(host.dataset.node);
+    if (!window.ct2engine || !(id > 0)) return;
+    for (const element of [...host.querySelectorAll('[data-s]')].reverse()) {
+      const size = element.offsetWidth + ',' + element.offsetHeight;
+      if (element.dataset.ctSize === size) continue;
+      element.dataset.ctSize = size;
+      window.ct2engine.presEvent(id, parseInt(element.dataset.s), 'size', size, 0, 0);
+    }
+  }
+
   function layout(host) {
     fitRoot(host);
     host.querySelectorAll('svg.wsh').forEach(sizeShape);
@@ -133,6 +146,7 @@ window.ctWpf = (() => {
       }
       fitViewbox(box);
     });
+    reportSizes(host);
   }
 
   // ---- input ------------------------------------------------------------------------------------------------
@@ -164,6 +178,12 @@ window.ctWpf = (() => {
       // the worker decides the new state of check boxes and radio buttons and sends it back
       if (event.target.matches('input[type=checkbox],input[type=radio]')) event.preventDefault();
       send(host, element, element.dataset.k === 'toggle' ? 'toggle' : 'click', event.detail || 1, event);
+    });
+
+    host.addEventListener('dblclick', event => {
+      const row = event.target.closest('[data-i]');
+      const list = row && row.closest('.sel[data-e]');
+      if (list && host.contains(list)) send(host, list, 'activate', row.dataset.i, event);
     });
 
     host.addEventListener('input', event => {

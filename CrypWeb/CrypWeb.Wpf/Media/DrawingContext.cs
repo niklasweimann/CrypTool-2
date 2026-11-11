@@ -50,9 +50,41 @@ namespace System.Windows.Media
 
         public double Baseline => EmSize;
 
+        /// <summary>The text as a geometry at <paramref name="origin"/> (drawn as SVG text, not as outlines).</summary>
+        public Geometry BuildGeometry(Point origin) => new TextGeometry(this, origin);
+
         public void SetFontWeight(FontWeight weight) { }
 
         public void SetFontSize(double emSize) { }
+    }
+
+    /// <summary>Text used as the outline of a shape. The browser draws it as text; there is no path data.</summary>
+    internal sealed class TextGeometry : Geometry
+    {
+        public TextGeometry(FormattedText text, Point origin)
+        {
+            Text = text;
+            Origin = origin;
+        }
+
+        public FormattedText Text { get; }
+
+        public Point Origin { get; }
+
+        internal override string ToSvgPathData() => "";
+    }
+
+    public struct DpiScale
+    {
+        public DpiScale(double dpiScaleX, double dpiScaleY)
+        {
+            DpiScaleX = dpiScaleX;
+            DpiScaleY = dpiScaleY;
+        }
+
+        public double DpiScaleX { get; }
+        public double DpiScaleY { get; }
+        public double PixelsPerDip => DpiScaleY;
     }
 
     /// <summary>What kind of step a recorded drawing command is.</summary>

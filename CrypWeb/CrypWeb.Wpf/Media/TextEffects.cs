@@ -186,6 +186,8 @@ namespace System.Windows.Media
         }
 
         public static DependencyObject GetParent(DependencyObject reference) => (reference as UIElement)?.ParentElement;
+
+        public static DpiScale GetDpi(Visual visual) => new DpiScale(1, 1);
     }
 }
 

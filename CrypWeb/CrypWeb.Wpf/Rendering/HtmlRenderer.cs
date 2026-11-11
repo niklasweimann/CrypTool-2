@@ -32,6 +32,7 @@ namespace System.Windows.Rendering
         private readonly Func<UIElement, int> _idOf;
         private readonly string _idPrefix;
         private int _gradientCount;
+        private UIElement _root;
 
         /// <param name="idOf">Gives an element the number under which the browser reports its events.</param>
         /// <param name="idPrefix">Makes the ids of SVG definitions unique on a page with several presentations.</param>
@@ -45,6 +46,7 @@ namespace System.Windows.Rendering
         {
             _html.Clear();
             _gradientCount = 0;
+            _root = root;
             _html.Append("<div class=\"wpf\">");
             WriteElement(root, LayoutSlot.GridCell);
             _html.Append("</div>");
@@ -91,6 +93,7 @@ namespace System.Windows.Rendering
                 case ComboBox comboBox: WriteComboBox(comboBox, slot); break;
                 case ItemsControl items: WriteItemsControl(items, slot); break;
                 case Separator separator: WriteSeparator(separator, slot); break;
+                case GridSplitter splitter: WriteContainer(splitter, slot, "wsep", "", LayoutSlot.GridCell); break;
                 case ContentControl content: WriteContentControl(content, slot); break;
                 default: WriteContainer(element, slot, "wb", "", LayoutSlot.GridCell); break;
             }
@@ -122,6 +125,12 @@ namespace System.Windows.Rendering
             if (IsInteractive(element))
             {
                 _html.Append(" data-e=\"").Append(_idOf(element)).Append('"');
+            }
+            // sizes are only known to the browser: it reports them for the root, for canvases (code positions their
+            // children by size) and wherever code listens to SizeChanged
+            if (ReferenceEquals(element, _root) || element is Canvas || element is FrameworkElement { WantsSize: true })
+            {
+                _html.Append(" data-s=\"").Append(_idOf(element)).Append('"');
             }
             if (element is FrameworkElement { ToolTip: string toolTip })
             {

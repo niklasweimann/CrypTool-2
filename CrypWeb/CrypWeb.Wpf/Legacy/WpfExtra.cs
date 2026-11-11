@@ -40,6 +40,8 @@ namespace System.Windows
         public double X, Y, Width, Height;
         public Rect(double x, double y, double w, double h) { X = x; Y = y; Width = w; Height = h; }
         public Rect(Point p, Size s) { X = p.X; Y = p.Y; Width = s.Width; Height = s.Height; }
+        public Rect(Size s) { X = 0; Y = 0; Width = s.Width; Height = s.Height; }
+        public Rect(Point a, Point b) { X = Math.Min(a.X, b.X); Y = Math.Min(a.Y, b.Y); Width = Math.Abs(a.X - b.X); Height = Math.Abs(a.Y - b.Y); }
         public double Left => X; public double Top => Y; public double Right => X + Width; public double Bottom => Y + Height;
         public Point Location => new Point(X, Y); public Size Size => new Size(Width, Height);
         public bool Contains(Point p) => p.X >= X && p.X <= Right && p.Y >= Y && p.Y <= Bottom;

@@ -129,6 +129,9 @@ namespace System.Windows
             };
             for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
             {
+                e.OnPreviewMouseDown(args);
+                e.OnMouseDown(args);
+                e.OnMouseLeftButtonDown(args);
                 e.PreviewMouseDown?.Invoke(e, args);
                 e.PreviewMouseLeftButtonDown?.Invoke(e, args);
                 e.MouseDown?.Invoke(e, args);
@@ -142,6 +145,8 @@ namespace System.Windows
             };
             for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
             {
+                e.OnMouseUp(args);
+                e.OnMouseLeftButtonUp(args);
                 e.PreviewMouseUp?.Invoke(e, args);
                 e.PreviewMouseLeftButtonUp?.Invoke(e, args);
                 e.MouseUp?.Invoke(e, args);
@@ -149,6 +154,24 @@ namespace System.Windows
                 e.OnClicked(args);
             }
         }
+
+        // Overridable input hooks, as in WPF. Keyboard hooks exist for source compatibility; key events are not delivered.
+        protected virtual void OnPreviewMouseDown(MouseButtonEventArgs e) { }
+        protected virtual void OnMouseDown(MouseButtonEventArgs e) { }
+        protected virtual void OnMouseUp(MouseButtonEventArgs e) { }
+        protected virtual void OnMouseLeftButtonDown(MouseButtonEventArgs e) { }
+        protected virtual void OnMouseLeftButtonUp(MouseButtonEventArgs e) { }
+        protected virtual void OnMouseMove(MouseEventArgs e) { }
+        protected virtual void OnMouseEnter(MouseEventArgs e) { }
+        protected virtual void OnMouseLeave(MouseEventArgs e) { }
+        protected virtual void OnMouseWheel(MouseWheelEventArgs e) { }
+        protected virtual void OnKeyDown(KeyEventArgs e) { }
+        protected virtual void OnKeyUp(KeyEventArgs e) { }
+        protected virtual void OnPreviewKeyDown(KeyEventArgs e) { }
+        protected virtual void OnPreviewTextInput(TextCompositionEventArgs e) { }
+        protected virtual void OnTextInput(TextCompositionEventArgs e) { }
+        protected virtual void OnGotFocus(RoutedEventArgs e) { }
+        protected virtual void OnLostFocus(RoutedEventArgs e) { }
 
         /// <summary>Called on the clicked element and its ancestors; buttons raise <c>Click</c> here.</summary>
         internal virtual void OnClicked(MouseButtonEventArgs e) { }

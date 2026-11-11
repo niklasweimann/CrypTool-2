@@ -75,6 +75,7 @@ if (args.Length > 1 && args[1] == "runall")
         var w = CwmReader.Read(File.ReadAllBytes(f));
         if (w.Plugins.Any(p => skip.Any(k => p.TypeName.Contains(k)))) continue;
         tpls++;
+        Console.Error.WriteLine("RUN " + Path.GetRelativePath(root, f));     // shows where a run hangs
         var e = new ExecutionEngine(); var t = e.RunAsync(w); await Task.WhenAny(t, Task.Delay(1500)); e.Stop(); await Task.WhenAny(t, Task.Delay(4000));
         var bad = e.Nodes.Values.Where(n => n.State == RunState.Error && n.Supported).ToList();
         if (e.Nodes.Values.Any(n => n.Supported && n.Comp is PluginComponent)) withRunnable++;

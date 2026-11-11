@@ -234,6 +234,20 @@ namespace System.Windows.Controls.Primitives
 
         /// <summary>A selection made in the browser.</summary>
         internal void SelectFromUser(int index) => SelectedIndex = index;
+
+        /// <summary>A double click on an item in the browser.</summary>
+        internal void ActivateFromUser(int index)
+        {
+            SelectedIndex = index;
+            object item = SelectedItem;
+            if (item != null)
+            {
+                OnItemActivated(item);
+            }
+        }
+
+        /// <summary>Called when the user double-clicks an item (WPF: MouseDoubleClick on the item container).</summary>
+        protected virtual void OnItemActivated(object item) { }
     }
 }
 
@@ -430,6 +444,13 @@ namespace System.Windows.Controls
         public object Item { get; set; }
         public object Header { get; set; }
         public int GetIndex() => 0;
+    }
+
+    public class DataGridCell : ContentControl
+    {
+        public DataGridColumn Column { get; set; }
+        public bool IsSelected { get; set; }
+        public bool IsEditing { get; set; }
     }
 
     public class DataGridRowEventArgs : EventArgs

@@ -15,7 +15,7 @@ namespace System.Windows.Threading
 
         public void VerifyAccess() { }
 
-        public void Invoke(Action action) => action();
+        public void Invoke(Action action) => GuardedContext.Run(action);
 
         public void Invoke(DispatcherPriority priority, Action action) => action();
 
@@ -65,7 +65,8 @@ namespace System.Windows.Threading
             {
                 Array.Copy(args, exact, Math.Min(count, args.Length));
             }
-            return method.DynamicInvoke(exact);
+            // async delegates continue on the guarded context: their exceptions are reported, not fatal
+            return GuardedContext.Run(() => method.DynamicInvoke(exact));
         }
     }
 

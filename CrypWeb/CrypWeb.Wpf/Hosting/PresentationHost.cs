@@ -76,10 +76,15 @@ namespace System.Windows.Hosting
         }
 
         /// <summary>
-        /// Delivers an input event from the browser. <paramref name="kind"/> is "click", "toggle", "text", "range" or
-        /// "select"; <paramref name="value"/> carries the text, number or index.
+        /// Delivers an input event from the browser. <paramref name="kind"/> is "click", "toggle", "text", "range",
+        /// "select", "activate" or "size"; <paramref name="value"/> carries the text, number or index.
         /// </summary>
         public void Dispatch(int elementId, string kind, string value, double x = 0, double y = 0)
+        {
+            System.Windows.Threading.GuardedContext.Run(() => DispatchCore(elementId, kind, value, x, y));
+        }
+
+        private void DispatchCore(int elementId, string kind, string value, double x, double y)
         {
             if (!_elements.TryGetValue(elementId, out WeakReference<UIElement> reference) || !reference.TryGetTarget(out UIElement element))
             {
@@ -113,6 +118,23 @@ namespace System.Windows.Hosting
                     if (element is RangeBase range && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double number))
                     {
                         range.SetValueFromUser(number);
+                    }
+                    break;
+
+                case "size":
+                    string[] parts = (value ?? "").Split(',');
+                    if (parts.Length == 2 && element is FrameworkElement sized
+                        && double.TryParse(parts[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double width)
+                        && double.TryParse(parts[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double height))
+                    {
+                        sized.ReportSize(new Size(width, height));
+                    }
+                    return;     // a size report alone changes nothing that would have to be drawn
+
+                case "activate":
+                    if (element is Selector activated && int.TryParse(value, out int activatedIndex))
+                    {
+                        activated.ActivateFromUser(activatedIndex);
                     }
                     break;
 
@@ -152,7 +174,14 @@ namespace System.Windows.Hosting
     public static class WpfRuntime
     {
         /// <summary>Advances animations and timers; call it regularly (about every 50 ms) while presentations are shown.</summary>
-        public static void Tick() => AnimationScheduler.Tick();
+        public static void Tick() => System.Windows.Threading.GuardedContext.Run(AnimationScheduler.Tick);
+
+        /// <summary>Exceptions that presentation code (event handlers, async work) did not handle.</summary>
+        public static event Action<Exception> UnhandledException
+        {
+            add => System.Windows.Threading.GuardedContext.UnhandledException += value;
+            remove => System.Windows.Threading.GuardedContext.UnhandledException -= value;
+        }
 
         /// <summary>True while animations or timers are running.</summary>
         public static bool HasPendingWork => AnimationScheduler.HasWork;

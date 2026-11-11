@@ -1,7 +1,5 @@
 ADFGVXAnalyzer
 Alphabets
-AnalysisMonoalphabeticSubstitution
-Anonymity
 AudioInput
 AudioOutput
 AvalancheVisualization
@@ -9,20 +7,15 @@ BB84KeyGenerator
 BB84ManInTheMiddle
 BB84PhotonDecoder
 BookCipher
-CLK
 ChaCha
-Chaocipher
 DCAPathFinder
 EllipticCurveCryptography
 Enigma
 EnigmaAnalyzer
 FileOutput
 FormatPreservingEncryption
-FrequencyTest
 HKDFSHA256
 HMAC
-HomophonicSubstitutionAnalyzer
-IDPAttack
 ISAPBitCommitmentScheme
 ImageHash
 ImageProcessor
@@ -32,10 +25,7 @@ KeySearcher
 LFSR
 LatticeCrypto
 LorenzSZ42
-M138
-M138Analyzer
 M209Analyzer
-MD5
 MD5Collider
 MexicanArmyCipherDisk
 MexicanArmyCipherDiskAnalyzer
@@ -45,7 +35,6 @@ PBKDF
 PKCS1
 PKCS5
 PRESENT
-PaddingOracleAttack
 PictureOutput
 PlayfairAnalyzer
 Primes
@@ -56,9 +45,6 @@ TextInput
 TextOutput
 Tiger
 Transcriptor
-TranspositionAnalyser
-Ubchi
-VigenereAnalyzer
 VisualDecoder
 VisualEncoder
 Webcam

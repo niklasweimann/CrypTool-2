@@ -10,6 +10,7 @@ public static partial class WorkerApi
     static ExecutionEngine? engine;
     static Workspace? ws;
     static bool dirty;
+    static bool presentationErrorsHooked;
     static long lastSent; static int guiInterval = 80;
 
     [JSImport("post", "worker")]
@@ -20,6 +21,11 @@ public static partial class WorkerApi
     public static void Start(string json, string culture, int guiMs, int sleepMs)
     {
         Stop(); sentIo.Clear();
+        if (!presentationErrorsHooked)
+        {
+            presentationErrorsHooked = true;
+            System.Windows.Hosting.WpfRuntime.UnhandledException += e => Post(JsonSerializer.Serialize(new { type = "log", id = 0, level = "Warning", message = "Presentation: " + e.GetType().Name + ": " + e.Message + " " + (e.StackTrace ?? "").Split('\n').FirstOrDefault()?.Trim() }));
+        }
         try { var c = new System.Globalization.CultureInfo(string.IsNullOrEmpty(culture) ? "en" : culture); System.Globalization.CultureInfo.CurrentUICulture = c; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = c; } catch { }
         ws = WorkspaceEditor.FromJson(json);
         var eng = engine = new ExecutionEngine { SleepMs = sleepMs }; guiInterval = Math.Max(10, guiMs);
@@ -112,7 +118,7 @@ public static partial class WorkerApi
         if (engine == null || !engine.Nodes.TryGetValue(pluginId, out var n) || n.Comp is not PluginComponent { Host: { } host }) return;
         try { host.Dispatch(elementId, kind, value, x, y); }
         catch (Exception e) { Post(JsonSerializer.Serialize(new { type = "log", id = pluginId, level = "Warning", message = "Presentation: " + (e.InnerException?.Message ?? e.Message) })); }
-        Flush(true);
+        if (kind != "size") Flush(true);      // size reports come in bursts; the next tick draws
     }
 
     /// <summary>Called regularly by the worker script: advances animations/timers and reports redrawn presentations.</summary>

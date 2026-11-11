@@ -237,16 +237,7 @@
                   @if (p.ViewState is 1 or 2 or 3 && native == null)
                   { /* drawn in the HTML layer above the canvas (see .nviews below) */ }
                   else if (native != null)
-                  {
-                    <foreignObject x="@F(p.X + 6)" y="@F(p.Y + 24)" width="@F(Math.Max(10, nw - 12))" height="@F(Math.Max(10, nh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36)))" @onpointerdown:stopPropagation>
-                      @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
-                      {
-                        <textarea class="nat" spellcheck="false" value="@NativeText(p)" @oninput="e => SetNativeText(p, e.Value?.ToString() ?? string.Empty)" @onpointerdown:stopPropagation></textarea>
-                      }
-                      else if (native == NativeComponent.Kind.PictureOutput) { <div class="nat out pic">@if (rn?.Image != null) { <img src="@rn.Image" /> }</div> }
-                      else { <div class="nat out">@(rn?.Display)</div> }
-                    </foreignObject>
-                  }
+                  { /* drawn in the HTML layer above the canvas (see .nviews below) */ }
                   else if (meta?.Icon != null)
                   {
                     <image href="@meta.Icon" x="@F(p.X + nw / 2 - 24)" y="@F(p.Y + 22 + (nh - 40) / 2 - 24)" width="48" height="48" class="cicon" style="pointer-events:none"/>
@@ -296,6 +287,20 @@
         @* The views of the components are plain HTML above the canvas (same pan/zoom): WebKit misplaces scaled or
            positioned content inside an SVG foreignObject. *@
         <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
+          @foreach (var p in ed.Ws.Plugins.Where(n => !n.Minimized))
+          {
+            var native = NativeComponent.TryCreate(p.TypeName)?.Which; if (native == null) continue;
+            var (vw, vh) = Size(p); engine.Nodes.TryGetValue(p.Id, out var rn);
+            <div class="nview over native" @key="p.Id" style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36))))px"
+                 @onpointerdown:stopPropagation>
+              @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
+              {
+                <textarea class="nat" spellcheck="false" value="@NativeText(p)" @oninput="e => SetNativeText(p, e.Value?.ToString() ?? string.Empty)" @onpointerdown:stopPropagation></textarea>
+              }
+              else if (native == NativeComponent.Kind.PictureOutput) { <div class="nat out pic">@if (rn?.Image != null) { <img src="@rn.Image" /> }</div> }
+              else { <div class="nat out">@(rn?.Display)</div> }
+            </div>
+          }
           @foreach (var p in ed.Ws.Plugins.Where(HasHtmlView))
           {
             var (vw, vh) = Size(p); engine.Nodes.TryGetValue(p.Id, out var rn);

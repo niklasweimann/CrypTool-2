@@ -16,8 +16,13 @@ namespace System.Windows.Rendering
             }
 
             Geometry outline = shape.Outline;
-            string data = outline?.ToSvgPathData() ?? "";
             var defs = new StringBuilder();
+            if (outline is TextGeometry textGeometry)
+            {
+                WriteTextShape(shape, slot, textGeometry, defs);
+                return;
+            }
+            string data = outline?.ToSvgPathData() ?? "";
             var path = new StringBuilder("<path d=\"").Append(CssValues.Escape(data)).Append('"');
             path.Append(" fill=\"").Append(shape is Line ? "none" : SvgPaint(shape.Fill, defs)).Append('"');
             if ((outline?.EffectiveFillRule ?? FillRule.Nonzero) == FillRule.EvenOdd)
@@ -43,6 +48,25 @@ namespace System.Windows.Rendering
                 _html.Append("<defs>").Append(defs).Append("</defs>");
             }
             _html.Append(path).Append("</svg>");
+        }
+
+        /// <summary>A shape whose outline is text (FormattedText.BuildGeometry).</summary>
+        private void WriteTextShape(Shape shape, LayoutSlot slot, TextGeometry geometry, StringBuilder defs)
+        {
+            FormattedText text = geometry.Text;
+            string fill = SvgPaint(shape.Fill ?? text.Foreground, defs);
+            OpenTag("svg", shape, slot, "wsh", "", " data-shape=\"None\"");
+            _html.Append("<text x=\"").Append(CssValues.Number(geometry.Origin.X)).Append("\" y=\"").Append(CssValues.Number(geometry.Origin.Y + text.Baseline))
+                .Append("\" font-size=\"").Append(CssValues.Number(text.EmSize)).Append("\" fill=\"").Append(fill).Append('"');
+            if (text.Typeface?.FontFamily != null)
+            {
+                _html.Append(" font-family=\"").Append(CssValues.Escape(text.Typeface.FontFamily.CssName)).Append('"');
+            }
+            if (geometry.Transform != null)
+            {
+                _html.Append(" transform=\"").Append(CssValues.Matrix(geometry.Transform.Value)).Append('"');
+            }
+            _html.Append('>').Append(CssValues.Escape(text.Text)).Append("</text></svg>");
         }
 
         /// <summary>Rectangles and ellipses are plain boxes: they stretch like any element and can carry gradients.</summary>

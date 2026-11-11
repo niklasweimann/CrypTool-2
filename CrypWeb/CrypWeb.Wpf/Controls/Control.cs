@@ -122,7 +122,7 @@ namespace System.Windows.Controls
         public double ExtentHeight => ActualHeight;
         public double ExtentWidth => ActualWidth;
 
-        public event EventHandler ScrollChanged;
+        public event ScrollChangedEventHandler ScrollChanged;
 
         public void ScrollToEnd() { }
         public void ScrollToBottom() { }

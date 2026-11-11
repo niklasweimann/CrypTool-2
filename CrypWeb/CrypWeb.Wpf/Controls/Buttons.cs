@@ -12,6 +12,9 @@ namespace System.Windows.Controls.Primitives
         public ClickMode ClickMode { get; set; }
         public bool IsPressed => false;
 
+        public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(
+            "Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ButtonBase));
+
         public event RoutedEventHandler Click;
 
         internal override bool WantsClicks => true;
@@ -29,6 +32,7 @@ namespace System.Windows.Controls.Primitives
         protected virtual void OnClick()
         {
             Click?.Invoke(this, new RoutedEventArgs { Source = this });
+            RaiseEvent(new RoutedEventArgs(ClickEvent, this));      // handlers added with AddHandler on an ancestor
             if (Command != null && Command.CanExecute(CommandParameter))
             {
                 Command.Execute(CommandParameter);
