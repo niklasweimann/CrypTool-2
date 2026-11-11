@@ -8,4 +8,9 @@
   <ItemGroup><ProjectReference Include="..\CrypWeb.Core\CrypWeb.Core.csproj" />
     <ProjectReference Include="..\CrypWeb.Plugins\CrypWeb.Plugins.csproj" /></ItemGroup>
   <Import Project="..\CrypWeb.Plugins\isolated.g.props" />
+  <!-- the data files the browser serves from its virtual file system (language statistics, ...),
+       placed next to the test binary where the plugins look for them -->
+  <ItemGroup>
+    <None Include="..\CrypWeb.App\wwwroot\vfs\**" Exclude="..\CrypWeb.App\wwwroot\vfs\manifest.json" LinkBase="" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

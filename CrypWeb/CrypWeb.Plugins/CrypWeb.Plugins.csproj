@@ -18,6 +18,7 @@
   <ItemGroup>
     <Compile Include="NativeCryptoShim.cs" />
     <Compile Include="ManagedCrypto.cs" />
+    <Compile Include="ThreadAlias.cs" />
     <Compile Include="stubs.g.cs" Condition="Exists('stubs.g.cs')" />
   </ItemGroup>
   <ItemGroup>

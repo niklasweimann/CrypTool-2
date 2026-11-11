@@ -18,6 +18,8 @@
   <!-- the plugin's presentation compiled from its XAML (tools-gen-presentations.py) -->
   <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
   <ItemGroup>
+    <!-- "Thread" means the cooperative stand-in, as in the shared plugin assembly -->
+    <Compile Include="..\..\CrypWeb.Plugins\ThreadAlias.cs" />
     <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
