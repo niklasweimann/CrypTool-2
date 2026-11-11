@@ -54,6 +54,10 @@ namespace System.Windows.Markup
             }
 
             Populate(instance, element);
+            if (instance is ResourceDictionary dictionary && dictionary.Source != null)
+            {
+                LoadDictionarySource(dictionary);
+            }
 
             if (instance is MarkupExtension extension)
             {
@@ -67,6 +71,26 @@ namespace System.Windows.Markup
         }
 
         /// <summary>Applies attributes, property elements and content of <paramref name="element"/> to <paramref name="instance"/>.</summary>
+        /// <summary>
+        /// Fills a dictionary declared as <c>&lt;ResourceDictionary Source="..."/&gt;</c> from the referenced XAML file
+        /// (embedded like the presentations). Its relative references resolve from that file.
+        /// </summary>
+        private void LoadDictionarySource(ResourceDictionary dictionary)
+        {
+            string reference = dictionary.Source.OriginalString;
+            string resourcePath = XamlLoader.ResolveReference(_context.ResourcePath, reference);
+            using IO.Stream stream = resourcePath == null ? null : _context.Assembly?.GetManifestResourceStream(XamlLoader.ResourcePrefix + resourcePath);
+            if (stream == null)
+            {
+                XamlDiagnostics.Report("Resource dictionary not found", reference);
+                return;
+            }
+            using var reader = new IO.StreamReader(stream);
+            XElement root = XDocument.Parse(reader.ReadToEnd(), LoadOptions.PreserveWhitespace).Root;
+            var context = new XamlContext(dictionary) { ResourcePath = resourcePath, Assembly = _context.Assembly };
+            new XamlObjectBuilder(context).Populate(dictionary, root);
+        }
+
         public void Populate(object instance, XElement element)
         {
             bool isScope = instance is FrameworkElement || instance is Style || instance is ResourceDictionary;
@@ -237,7 +261,7 @@ namespace System.Windows.Markup
             }
             else if (!XamlValueConverter.TryConvert(text, property.PropertyType, out value))
             {
-                XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ")");
+                XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
                 return;
             }
             SetProperty(instance, property, value);
@@ -251,25 +275,28 @@ namespace System.Windows.Markup
                 return;
             }
 
-            if (value is BindingBase binding && !typeof(BindingBase).IsAssignableFrom(property.PropertyType) && property.PropertyType != typeof(object))
+            if (value is BindingBase binding && !typeof(BindingBase).IsAssignableFrom(property.PropertyType))
             {
+                // as in WPF, a binding on a dependency property binds it, also when the property is of type object
+                // (Content="{Binding}"); a plain object property (e.g. Setter.Value) keeps the binding itself
                 DependencyProperty dp = DependencyPropertyLookup.Find(instance.GetType(), property.Name);
                 if (dp != null && instance is DependencyObject target)
                 {
                     target.SetValue(dp, binding.CreateExpression());
+                    return;
                 }
-                else
+                if (property.PropertyType != typeof(object))
                 {
                     XamlDiagnostics.Report("Binding on a plain property", instance.GetType().Name + "." + property.Name);
+                    return;
                 }
-                return;
             }
 
             if (value is string text && property.PropertyType != typeof(string) && property.PropertyType != typeof(object))
             {
                 if (!XamlValueConverter.TryConvert(text, property.PropertyType, out value))
                 {
-                    XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ")");
+                    XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
                     return;
                 }
             }

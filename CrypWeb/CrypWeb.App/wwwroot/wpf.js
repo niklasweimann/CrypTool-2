@@ -151,27 +151,97 @@ window.ctWpf = (() => {
 
   // ---- input ------------------------------------------------------------------------------------------------
 
+  /**
+   * How much the element is scaled on screen (view boxes, transforms of ancestors). A WPF Canvas often has no size
+   * of its own (its children overflow it), so the scale is measured on the nearest element that has a size.
+   */
+  function screenScale(element) {
+    let measured = element;
+    while (measured && !(measured.offsetWidth && measured.offsetHeight)) measured = measured.parentElement;
+    if (!measured) return { x: 1, y: 1 };
+    const rect = measured.getBoundingClientRect();
+    return { x: rect.width / measured.offsetWidth || 1, y: rect.height / measured.offsetHeight || 1 };
+  }
+
+  /** A point on the screen in the element's own (unscaled) coordinates; `rect` defaults to the current box. */
+  function localPoint(element, clientX, clientY, rect = element.getBoundingClientRect(), scale = screenScale(element)) {
+    return { x: (clientX - rect.left) / scale.x, y: (clientY - rect.top) / scale.y };
+  }
+
   function send(host, element, kind, value, event) {
     const id = parseInt(host.dataset.node), target = parseInt(element.dataset.e);
     if (!window.ct2engine || !(id > 0) || !(target > 0)) return;
     let x = 0, y = 0;
-    if (event && event.clientX !== undefined) {
-      // position in the element's own (unscaled) coordinates
-      const rect = element.getBoundingClientRect();
-      const scaleX = element.offsetWidth ? rect.width / element.offsetWidth : 1, scaleY = element.offsetHeight ? rect.height / element.offsetHeight : 1;
-      x = (event.clientX - rect.left) / (scaleX || 1); y = (event.clientY - rect.top) / (scaleY || 1);
-    }
+    if (event && event.clientX !== undefined) ({ x, y } = localPoint(element, event.clientX, event.clientY));
     window.ct2engine.presEvent(id, target, kind, String(value ?? ''), x, y);
+  }
+
+  // ---- drag and drop ------------------------------------------------------------------------------------------
+  // WPF's DoDragDrop blocks until the mouse is released; the worker cannot. So the browser performs the whole
+  // gesture (the element follows the pointer) and reports it once at the end: source, drop target and positions.
+  // The worker replays it so that DoDragDrop delivers the drop (CrypWeb.Wpf/Input/DragDrop.cs).
+
+  function attachDrag(host) {
+    let drag = null;
+
+    host.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      const source = event.target.closest('[data-d]');
+      if (!source || !host.contains(source)) return;
+      const rect = source.getBoundingClientRect(), scale = screenScale(source);
+      drag = {
+        source, rect, scale, clientX: event.clientX, clientY: event.clientY, moved: false,
+        start: localPoint(source, event.clientX, event.clientY, rect, scale),
+      };
+    });
+
+    window.addEventListener('pointermove', event => {
+      if (!drag) return;
+      const dx = event.clientX - drag.clientX, dy = event.clientY - drag.clientY;
+      if (!drag.moved && Math.hypot(dx, dy) < 5) return;
+      drag.moved = true;
+      drag.source.classList.add('wdragging');
+      // translate is in the element's own coordinates: undo the scaling of its ancestors
+      drag.source.style.translate = `${dx / drag.scale.x}px ${dy / drag.scale.y}px`;
+    });
+
+    window.addEventListener('pointerup', event => {
+      const finished = drag;
+      drag = null;
+      if (!finished || !finished.moved) return;
+      finished.source.classList.remove('wdragging');
+      finished.source.style.translate = '';
+      host.dataset.ctSkipClick = '1';     // the click event that follows belongs to the drag
+
+      // the element under the pointer that the worker knows (the dragged element itself does not count)
+      const target = document.elementsFromPoint(event.clientX, event.clientY)
+        .map(element => element.closest('[data-e]'))
+        .find(element => element && host.contains(element) && !finished.source.contains(element));
+      const move = localPoint(finished.source, event.clientX, event.clientY, finished.rect, finished.scale);
+      const drop = target ? localPoint(target, event.clientX, event.clientY) : { x: 0, y: 0 };
+      const targetId = target ? target.dataset.e : '0';
+      const id = parseInt(host.dataset.node);
+      if (!window.ct2engine || !(id > 0)) return;
+      const value = [targetId, move.x, move.y, drop.x, drop.y].join(';');
+      window.ct2engine.presEvent(id, parseInt(finished.source.dataset.e), 'drag', value, finished.start.x, finished.start.y);
+    });
   }
 
   function attach(host) {
     if (host.dataset.ctAttached) return;
     host.dataset.ctAttached = '1';
 
+    attachDrag(host);
+
     host.addEventListener('click', event => {
+      if (host.dataset.ctSkipClick) { delete host.dataset.ctSkipClick; return; }
       const row = event.target.closest('[data-i]');
       const list = row && row.closest('.sel[data-e]');
       if (list && host.contains(list)) send(host, list, 'select', row.dataset.i, event);
+
+      // a click on the text of a check box label is followed by the browser's own click on the box: count it once
+      const label = event.target.closest('label');
+      if (label && label.querySelector('input') && !event.target.matches('input')) return;
 
       const element = event.target.closest('[data-e]');
       if (!element || !host.contains(element) || element.dataset.k === 'text' || element.dataset.k === 'range' || element.dataset.k === 'select') return;

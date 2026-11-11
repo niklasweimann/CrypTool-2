@@ -26,6 +26,8 @@ public abstract class RunComponent
     public abstract void Set(string prop, object? value);
     public abstract object? Get(string prop);
     public virtual void ApplySettings(IReadOnlyDictionary<string, string> settings) { }
+    /// <summary>Settings the component changed by itself since the last call (name → stored text and .NET type).</summary>
+    public virtual IReadOnlyDictionary<string, (string Value, string Type)>? TakeChangedSettings() => null;
     public virtual void PreExecution() { }
     public abstract void Execute();
     public virtual void PostExecution() { }
@@ -65,11 +67,51 @@ public sealed class PluginComponent : RunComponent
     public override void ApplySettings(IReadOnlyDictionary<string, string> settings)
     {
         var s = plugin.Settings; if (s == null) return;
-        foreach (var kv in settings)
+        WatchSettings(s);
+        applyingSettings = true;
+        try
         {
-            var pi = s.GetType().GetProperty(kv.Key);
-            if (pi == null || !pi.CanWrite) continue;
-            try { pi.SetValue(s, DataConvert.FromString(kv.Value, pi.PropertyType)); } catch { }
+            foreach (var kv in settings)
+            {
+                var pi = s.GetType().GetProperty(kv.Key);
+                if (pi == null || !pi.CanWrite) continue;
+                try { pi.SetValue(s, DataConvert.FromString(kv.Value, pi.PropertyType)); } catch { }
+            }
+        }
+        finally { applyingSettings = false; }
+    }
+
+    // Settings the plugin changed itself (e.g. its presentation: Enigma's rotors are swapped by drag and drop).
+    // The app keeps the workspace's settings, so these are reported back (TakeChangedSettings).
+    readonly Dictionary<string, (string Value, string Type)> changedSettings = new(StringComparer.Ordinal);
+    bool applyingSettings, watchingSettings;
+
+    void WatchSettings(ISettings settings)
+    {
+        if (watchingSettings) return;
+        watchingSettings = true;
+        settings.PropertyChanged += (sender, e) =>
+        {
+            if (applyingSettings || e.PropertyName == null) return;
+            var pi = settings.GetType().GetProperty(e.PropertyName);
+            if (pi == null || !pi.CanWrite || !pi.CanRead) return;
+            try
+            {
+                var type = Nullable.GetUnderlyingType(pi.PropertyType) ?? pi.PropertyType;
+                lock (changedSettings) changedSettings[e.PropertyName] = (DataConvert.ToSettingString(pi.GetValue(settings)), type.FullName ?? "");
+            }
+            catch { }
+        };
+    }
+
+    public override IReadOnlyDictionary<string, (string Value, string Type)>? TakeChangedSettings()
+    {
+        lock (changedSettings)
+        {
+            if (changedSettings.Count == 0) return null;
+            var taken = new Dictionary<string, (string Value, string Type)>(changedSettings);
+            changedSettings.Clear();
+            return taken;
         }
     }
     public override void PreExecution() => plugin.PreExecution();
@@ -147,6 +189,16 @@ public sealed class NativeComponent : RunComponent
 
 public static class DataConvert
 {
+    /// <summary>A setting value in the text form stored in workspaces (the inverse of <see cref="FromString"/>).</summary>
+    public static string ToSettingString(object? value) => value switch
+    {
+        null => "",
+        bool b => b ? "True" : "False",
+        Enum e => Convert.ToInt64(e).ToString(System.Globalization.CultureInfo.InvariantCulture),
+        IFormattable f => f.ToString(null, System.Globalization.CultureInfo.InvariantCulture),
+        _ => value.ToString() ?? "",
+    };
+
     public static object? FromString(string s, Type t)
     {
         t = Nullable.GetUnderlyingType(t) ?? t;

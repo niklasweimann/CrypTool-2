@@ -131,6 +131,10 @@ namespace System.Windows.Hosting
                     }
                     return;     // a size report alone changes nothing that would have to be drawn
 
+                case "drag":
+                    ReplayDrag(element, value, new Point(x, y));
+                    break;
+
                 case "activate":
                     if (element is Selector activated && int.TryParse(value, out int activatedIndex))
                     {
@@ -146,6 +150,44 @@ namespace System.Windows.Hosting
                     break;
             }
             RenderVersion.Bump();
+        }
+
+        /// <summary>
+        /// A finished mouse drag reported by the browser (see <see cref="DragDrop"/>): pressed on
+        /// <paramref name="source"/> at <paramref name="start"/>, released over another element.
+        /// <paramref name="value"/> is "targetId;moveX;moveY;dropX;dropY": the release point relative to the source
+        /// and relative to the target, in unscaled element coordinates.
+        /// </summary>
+        private void ReplayDrag(UIElement source, string value, Point start)
+        {
+            string[] parts = (value ?? "").Split(';');
+            if (parts.Length != 5 || !int.TryParse(parts[0], out int targetId))
+            {
+                return;
+            }
+            double Number(int index) => double.TryParse(parts[index], NumberStyles.Float, CultureInfo.InvariantCulture, out double n) ? n : 0;
+            var move = new Point(Number(1), Number(2));
+            var drop = new Point(Number(3), Number(4));
+            UIElement target = _elements.TryGetValue(targetId, out WeakReference<UIElement> reference)
+                && reference.TryGetTarget(out UIElement found) ? found : null;
+
+            source.RaiseMouseDown(start);
+            DragDrop.PendingDrop = target == null ? null : (target, drop);
+            DragDrop.Dropped = false;
+            try
+            {
+                // a mouse-move handler of the source starts DoDragDrop, which delivers the drop to the target
+                source.RaiseMouseMove(move, leftPressed: true);
+            }
+            finally
+            {
+                DragDrop.PendingDrop = null;
+            }
+            if (!DragDrop.Dropped)
+            {
+                // no drag operation started: an ordinary press, move and release
+                (target ?? source).RaiseMouseUp(target == null ? move : drop);
+            }
         }
 
         /// <summary>Sizes measured by the browser, so that ActualWidth/ActualHeight and SizeChanged work.</summary>

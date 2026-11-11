@@ -9,6 +9,7 @@ public static partial class WorkerApi
 {
     static ExecutionEngine? engine;
     static Workspace? ws;
+    static string? engineDoc;
     static bool dirty;
     static bool presentationErrorsHooked;
     static long lastSent; static int guiInterval = 80;
@@ -16,22 +17,62 @@ public static partial class WorkerApi
     [JSImport("post", "worker")]
     static partial void Post(string json);
 
+    /// <summary>
+    /// Opens a workspace without running it: creates the components so that their presentations are shown and
+    /// can be used before the first run, as in CT2. Called again whenever the workspace changes; components of
+    /// unchanged plugins are kept (ExecutionEngine.Prepare).
+    /// </summary>
+    [JSExport]
+    public static void Open(string json, string doc, string culture)
+    {
+        if (engine?.Running == true) return;
+        SetCulture(culture);
+        ws = WorkspaceEditor.FromJson(json);
+        EnsureEngine(doc).Prepare(ws);
+        Flush(true);
+    }
+
     /// <summary>Starts the workspace (JSON from WorkspaceEditor.ToJson). Returns immediately; the engine runs cooperatively.</summary>
     [JSExport]
-    public static void Start(string json, string culture, int guiMs, int sleepMs)
+    public static void Start(string json, string doc, string culture, int guiMs, int sleepMs)
     {
-        Stop(); sentIo.Clear();
+        if (engine?.Running == true) return;
+        sentIo.Clear();
+        SetCulture(culture);
+        ws = WorkspaceEditor.FromJson(json);
+        var eng = EnsureEngine(doc);
+        eng.SleepMs = sleepMs; guiInterval = Math.Max(10, guiMs);
+        _ = Run(eng);
+    }
+
+    static void SetCulture(string culture)
+    {
+        try
+        {
+            var c = new System.Globalization.CultureInfo(string.IsNullOrEmpty(culture) ? "en" : culture);
+            System.Globalization.CultureInfo.CurrentUICulture = c;
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = c;
+        }
+        catch { }
+    }
+
+    /// <summary>
+    /// The engine of the workspace document <paramref name="doc"/>; it keeps the components (and presentations)
+    /// between runs. Another document gets a fresh engine, so no component of one workspace shows up in another.
+    /// </summary>
+    static ExecutionEngine EnsureEngine(string doc)
+    {
+        if (doc != engineDoc) { engine = null; engineDoc = doc; sentIo.Clear(); sentImage.Clear(); }
         if (!presentationErrorsHooked)
         {
             presentationErrorsHooked = true;
             System.Windows.Hosting.WpfRuntime.UnhandledException += e => Post(JsonSerializer.Serialize(new { type = "log", id = 0, level = "Warning", message = "Presentation: " + e.GetType().Name + ": " + e.Message + " " + (e.StackTrace ?? "").Split('\n').FirstOrDefault()?.Trim() }));
         }
-        try { var c = new System.Globalization.CultureInfo(string.IsNullOrEmpty(culture) ? "en" : culture); System.Globalization.CultureInfo.CurrentUICulture = c; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = c; } catch { }
-        ws = WorkspaceEditor.FromJson(json);
-        var eng = engine = new ExecutionEngine { SleepMs = sleepMs }; guiInterval = Math.Max(10, guiMs);
+        if (engine != null) return engine;
+        var eng = engine = new ExecutionEngine();
         eng.Changed += () => Flush(false);
         eng.Log += (n, l, m) => Post(JsonSerializer.Serialize(new { type = "log", id = n.Model.Id, level = l.ToString(), message = m }));
-        _ = Run(eng);
+        return eng;
     }
 
     static async Task Run(ExecutionEngine eng)
@@ -130,6 +171,10 @@ public static partial class WorkerApi
         Flush(false);
     }
 
+    /// <summary>Settings a component changed itself (from its presentation), for the app to store in the workspace.</summary>
+    static object[]? TakeSettings(RunNode n) =>
+        n.Comp?.TakeChangedSettings()?.Select(kv => (object)new { name = kv.Key, value = kv.Value.Value, type = kv.Value.Type }).ToArray();
+
     static object[]? TakePres(RunNode n)
     {
         RenderPresentation(n);
@@ -147,7 +192,7 @@ public static partial class WorkerApi
         long now = Environment.TickCount64;
         if (!force && now - lastSent < guiInterval) return;
         lastSent = now;
-        var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n), io = TakeIo(n) });
+        var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n), io = TakeIo(n), settings = TakeSettings(n) });
         Post(JsonSerializer.Serialize(new { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes }));
     }
 }

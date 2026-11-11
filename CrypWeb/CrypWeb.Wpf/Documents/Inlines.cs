@@ -37,6 +37,10 @@ namespace System.Windows.Documents
     public abstract class Inline : TextElement
     {
         public static readonly DependencyProperty TextDecorationsProperty = Dp.Register<TextDecorationCollection, Inline>(nameof(TextDecorations));
+        public static readonly DependencyProperty BaselineAlignmentProperty = Dp.Register<BaselineAlignment, Inline>(nameof(BaselineAlignment), BaselineAlignment.Baseline);
+
+        /// <summary>Vertical position of the text, e.g. Superscript for exponents (rendered as CSS vertical-align).</summary>
+        public BaselineAlignment BaselineAlignment { get => (BaselineAlignment)GetValue(BaselineAlignmentProperty); set => SetValue(BaselineAlignmentProperty, value); }
 
         public TextDecorationCollection TextDecorations { get => (TextDecorationCollection)GetValue(TextDecorationsProperty); set => SetValue(TextDecorationsProperty, value); }
 
@@ -185,4 +189,9 @@ namespace System.Windows.Documents
 
         internal override void AppendText(StringBuilder text) { }
     }
+}
+
+namespace System.Windows
+{
+    public enum BaselineAlignment { Top, Center, Bottom, Baseline, TextTop, TextBottom, Subscript, Superscript }
 }

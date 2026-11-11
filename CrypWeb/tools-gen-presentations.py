@@ -243,8 +243,12 @@ def main():
             if os.sep + "obj" + os.sep in xaml_path:
                 continue
             relative_path = os.path.relpath(xaml_path, plugin_dir).replace(os.sep, "/")
+            source_base = os.path.relpath(xaml_path, project_dir).replace(os.sep, "/")
             generated = generate_partial_class(xaml_path, plugin, relative_path, known_types)
             if generated is None:
+                # XAML without a class (a resource dictionary that others merge with Source="..."): embed it only
+                plugin_items.append('    <EmbeddedResource Include="%s" LogicalName="xaml/%s/%s" Link="Presentations/%s/%s" />'
+                                    % (source_base, plugin, relative_path, plugin, relative_path))
                 continue
             namespace, class_name, source = generated
             real_classes.add((namespace, class_name))
@@ -254,7 +258,6 @@ def main():
             with open(target, "w", encoding="utf-8") as f:
                 f.write(source)
 
-            source_base = os.path.relpath(xaml_path, project_dir).replace(os.sep, "/")
             plugin_items.append('    <EmbeddedResource Include="%s" LogicalName="xaml/%s/%s" Link="Presentations/%s/%s" />'
                                 % (source_base, plugin, relative_path, plugin, relative_path))
             if os.path.exists(xaml_path + ".cs"):

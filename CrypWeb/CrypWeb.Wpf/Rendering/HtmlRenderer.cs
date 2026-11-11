@@ -125,6 +125,10 @@ namespace System.Windows.Rendering
             if (IsInteractive(element))
             {
                 _html.Append(" data-e=\"").Append(_idOf(element)).Append('"');
+                if (element.WantsDrag)
+                {
+                    _html.Append(" data-d=\"1\"");    // the browser lets the user drag this element (wpf.js)
+                }
             }
             // sizes are only known to the browser: it reports them for the root, for canvases (code positions their
             // children by size) and wherever code listens to SizeChanged
@@ -142,8 +146,8 @@ namespace System.Windows.Rendering
 
         private static bool IsInteractive(UIElement element)
         {
-            return element.WantsClicks || element is TextBoxBase || element is PasswordBox || element is RangeBase
-                || element is Selector;
+            return element.WantsClicks || element.WantsDrag || element.AcceptsDrops
+                || element is TextBoxBase || element is PasswordBox || element is RangeBase || element is Selector;
         }
 
         /// <summary>Size, placement in the parent, transforms, colours, border and font of an element.</summary>
@@ -194,6 +198,7 @@ namespace System.Windows.Rendering
 
             if (element.Visibility == Visibility.Hidden) css.Add("visibility", "hidden");
             if (element.Opacity < 1) css.Add("opacity", CssValues.Number(Math.Max(0, element.Opacity)));
+            if (element.Effect is Media.Effects.Effect effect) css.Add("filter", effect.CssFilter);
             if (!element.IsHitTestVisible) css.Add("pointer-events", "none");
             if (element.ClipToBounds) css.Add("overflow", "hidden");
             if (element.Clip != null) css.Add("clip-path", "path('" + element.Clip.ToSvgPathData() + "')");

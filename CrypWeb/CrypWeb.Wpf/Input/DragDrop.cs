@@ -100,6 +100,9 @@ namespace System.Windows
 
     public delegate void DragEventHandler(object sender, DragEventArgs e);
 
+    /// <summary>The steps of a drop that <see cref="DragDrop.DoDragDrop"/> delivers to the target.</summary>
+    internal enum DragEventKind { Enter, Over, Drop }
+
     public class GiveFeedbackEventArgs : RoutedEventArgs
     {
         public DragDropEffects Effects { get; internal set; }
@@ -120,12 +123,68 @@ namespace System.Windows
     public delegate void QueryContinueDragEventHandler(object sender, QueryContinueDragEventArgs e);
 
     /// <summary>
-    /// Dragging between elements is not available in the browser host: a drag operation ends at once without a drop.
-    /// The events exist so that drag-and-drop code compiles; the rest of such a presentation works normally.
+    /// Drag and drop in the browser host.
+    ///
+    /// In WPF, <see cref="DoDragDrop"/> blocks until the user releases the mouse, and plugins rely on that: the
+    /// code after the call checks what the Drop handler did. The browser cannot block, so it does the whole
+    /// gesture itself (the dragged element follows the pointer) and reports it once, when the mouse is released:
+    /// source, drop target and positions (<see cref="Hosting.PresentationHost"/>, kind "drag"). The host then
+    /// replays the gesture — mouse down and mouse move on the source — with the drop target prepared in
+    /// <see cref="PendingDrop"/>. When a mouse-move handler starts <see cref="DoDragDrop"/>, the drop is
+    /// delivered right there, so DoDragDrop returns after the Drop handlers ran, as in WPF.
     /// </summary>
     public static class DragDrop
     {
-        public static DragDropEffects DoDragDrop(DependencyObject dragSource, object data, DragDropEffects allowedEffects) => DragDropEffects.None;
+        /// <summary>Where the replayed gesture ends; set by the host only while it replays a drag.</summary>
+        internal static (UIElement Target, Point Position)? PendingDrop { get; set; }
+
+        /// <summary>True once DoDragDrop consumed <see cref="PendingDrop"/> during the replay.</summary>
+        internal static bool Dropped { get; set; }
+
+        public static DragDropEffects DoDragDrop(DependencyObject dragSource, object data, DragDropEffects allowedEffects)
+        {
+            if (PendingDrop is not { } drop || Dropped)
+            {
+                return DragDropEffects.None;
+            }
+            Dropped = true;
+
+            IDataObject dataObject = data as IDataObject ?? new DataObject(data);
+            UIElement target = FindDropTarget(drop.Target);
+            if (target == null)
+            {
+                return DragDropEffects.None;
+            }
+
+            var args = new DragEventArgs
+            {
+                Source = drop.Target, OriginalSource = drop.Target, Data = dataObject, Position = drop.Position,
+                AllowedEffects = allowedEffects, Effects = allowedEffects, KeyStates = DragDropKeyStates.LeftMouseButton,
+            };
+            drop.Target.RaiseDragEvent(DragEventKind.Enter, args);
+            args.Handled = false;
+            drop.Target.RaiseDragEvent(DragEventKind.Over, args);
+            if (args.Effects == DragDropEffects.None)
+            {
+                return DragDropEffects.None;    // the target refused the data in DragOver
+            }
+            args.Handled = false;
+            drop.Target.RaiseDragEvent(DragEventKind.Drop, args);
+            return args.Effects;
+        }
+
+        /// <summary>The element under the pointer, or its nearest ancestor, that accepts drops (AllowDrop).</summary>
+        private static UIElement FindDropTarget(UIElement hit)
+        {
+            for (UIElement element = hit; element != null; element = element.ParentElement)
+            {
+                if (element.AllowDrop)
+                {
+                    return element;
+                }
+            }
+            return null;
+        }
     }
 
     /// <summary>System metrics as on a default Windows desktop.</summary>

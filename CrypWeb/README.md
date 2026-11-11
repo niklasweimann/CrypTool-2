@@ -76,9 +76,20 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
 - **Run**: the engine worker renders a presentation to HTML whenever it changed (`$html` presentation value); `wpf.js` merges it
   into the DOM, scales view boxes and shapes, and sends clicks/text/selection back (`WorkerApi.PresEvent`). Component views are
   plain HTML above the canvas (`.nviews`), not SVG `foreignObject` (WebKit misplaces scaled content there).
+- **Live before and after a run**: when a workspace is opened or changed, the app sends it to the worker (`open`,
+  `ExecutionEngine.Prepare`), which creates the components, so presentations are shown and usable before Play, as in CT2.
+  Components are kept between runs; Stop asks the engine to stop and only kills the worker if a plugin does not return.
+  Settings a component changes itself (e.g. in its presentation) are reported back and stored in the workspace.
+- **Drag and drop**: `wpf.js` performs the gesture and reports it once (`drag`); the host replays mouse down/move on the
+  source, and `DragDrop.DoDragDrop` delivers the drop synchronously (`CrypWeb.Wpf/Input/DragDrop.cs`).
 - **Single thread**: plugins that loop while their presentation is visible would block the worker; they are listed in
   `PluginComponent.BlockingPresentations` and told the view is hidden. `CrypWeb.Tests ... runall` reports such plugins
-  ("still executing") and renders every presentation.
+  ("still executing") and renders every presentation. Plugin code that starts threads gets `CooperativeThread`
+  (`CrypPluginBase.Portable/Shims`), which runs the thread body inside `Start()`.
+- **Checking a view**: `dotnet run --project CrypWeb.Tests -- ../Templates snap <template.cwm> [Element.Property=value]
+  [size:id=WxH] [event:id:kind:value:x:y]` writes each rendered presentation to `CrypWeb.App/wwwroot/_snap/<Plugin>.html`
+  (open it via the dev server). The page collects the sizes the browser measures in `window.snapSizes`; pass them back as
+  `size:` arguments for views that scale themselves (SizeChanged).
 
 Plugins not in `presentations.include` still use the older fallbacks: generated stand-in classes (`stubs.g.cs`) whose calls are
 recorded, shown by custom visualizers (`CrypWeb.App/Visualizers/*Viz.razor`) or by the static XAML drawing (`XamlViz`).

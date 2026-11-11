@@ -114,7 +114,7 @@ namespace System.Windows.Data
             object value;
             try
             {
-                object source = ResolveSource(target);
+                object source = ResolveSource(target, property);
                 value = PropertyPathWalker.GetValue(source, _binding.Path?.Path, out bool found);
                 if (!found)
                 {
@@ -181,7 +181,7 @@ namespace System.Windows.Data
             return type.IsInstanceOfType(coerced) ? coerced : property.Metadata.DefaultValue;
         }
 
-        private object ResolveSource(DependencyObject target)
+        private object ResolveSource(DependencyObject target, DependencyProperty property = null)
         {
             if (_binding.Source != null)
             {
@@ -195,7 +195,23 @@ namespace System.Windows.Data
             {
                 return ResolveRelativeSource(target, _binding.RelativeSource);
             }
+            if (property == FrameworkElement.DataContextProperty)
+            {
+                // DataContext="{Binding ...}" is evaluated against the parent's data context (as in WPF), not its own
+                return InheritedDataContext(target as UIElement);
+            }
             return (target as FrameworkElement)?.DataContext;
+        }
+
+        /// <summary>The data context an element gets from above: from its parent, or the content it shows as a template.</summary>
+        private static object InheritedDataContext(UIElement element)
+        {
+            UIElement parent = element?.ParentElement;
+            if (parent is Controls.ContentControl owner && ReferenceEquals(owner.TemplatedContent, element))
+            {
+                return owner.Content;
+            }
+            return (parent as FrameworkElement)?.DataContext;
         }
 
         private static object ResolveRelativeSource(DependencyObject target, RelativeSource relative)

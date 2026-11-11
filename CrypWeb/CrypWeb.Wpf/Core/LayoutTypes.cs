@@ -104,7 +104,21 @@ namespace System.Windows
                 string factor = text.Substring(0, text.Length - 1);
                 return new GridLength(factor.Length == 0 ? 1 : double.Parse(factor, CultureInfo.InvariantCulture), GridUnitType.Star);
             }
-            return new GridLength(double.Parse(text, CultureInfo.InvariantCulture));
+            return new GridLength(ParseLength(text));
+        }
+
+        /// <summary>A XAML length: pixels, optionally with a unit (px, in, cm, pt) as WPF accepts them.</summary>
+        internal static double ParseLength(string text)
+        {
+            (string Unit, double Pixels)[] units = { ("px", 1), ("in", 96), ("cm", 96 / 2.54), ("pt", 96 / 72.0) };
+            foreach ((string unit, double pixels) in units)
+            {
+                if (text.EndsWith(unit, StringComparison.OrdinalIgnoreCase))
+                {
+                    return double.Parse(text.Substring(0, text.Length - unit.Length).Trim(), CultureInfo.InvariantCulture) * pixels;
+                }
+            }
+            return double.Parse(text, CultureInfo.InvariantCulture);
         }
     }
 

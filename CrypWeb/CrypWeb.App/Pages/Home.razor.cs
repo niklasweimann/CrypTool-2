@@ -21,6 +21,28 @@ public partial class Home : IDisposable
     {
         public DocKind Kind; public WorkspaceEditor Ed = new(); public RunView Engine = new(); public List<LogEntry> Log = new();
         public string? Name; public double PanX = 40, PanY = 40, Zoom = 1;
+        /// <summary>Identifies the document in the engine worker (it keeps the components of one document).</summary>
+        public readonly string Key = Guid.NewGuid().ToString("N");
+    }
+
+    // The engine worker holds the components of one workspace, also when it is not running, so that presentations
+    // are shown and usable before the first run and after a stop (as in CT2). previewDoc is that workspace;
+    // previewSignature describes what the worker was last given, to send it again only after a change.
+    Doc? previewDoc;
+    string? previewSignature;
+
+    static string PreviewSignature(Doc d) =>
+        d.Key + "|" + string.Join(";", d.Ed.Ws.Plugins.Select(p =>
+            p.Id + ":" + p.TypeName + "{" + string.Join(",", p.Settings.OrderBy(s => s.Key).Select(s => s.Key + "=" + s.Value)) + "}"));
+
+    /// <summary>Gives the active workspace to the engine worker when it changed (not while a run is going on).</summary>
+    async Task SyncPreviewAsync()
+    {
+        if (active.Kind != DocKind.Workspace || runDoc != null) return;
+        var signature = PreviewSignature(active);
+        if (ReferenceEquals(previewDoc, active) && signature == previewSignature) return;
+        previewDoc = active; previewSignature = signature;
+        try { await Js.InvokeVoidAsync("ct2engine.open", ed.ToJson(), active.Key); } catch (JSException) { }
     }
     readonly List<Doc> docs = new();
     Doc active = new();
@@ -100,7 +122,12 @@ public partial class Home : IDisposable
 
     protected override async Task OnAfterRenderAsync(bool first)
     {
-        if (!first) { if (ctxFresh) { ctxFresh = false; try { await Js.InvokeVoidAsync("ct2.clampCtx"); } catch { } } return; }
+        if (!first)
+        {
+            if (ctxFresh) { ctxFresh = false; try { await Js.InvokeVoidAsync("ct2.clampCtx"); } catch { } }
+            await SyncPreviewAsync();
+            return;
+        }
         self = DotNetObjectReference.Create(this);
         await Js.InvokeVoidAsync("ct2.init", self, "main svg");
         await Js.InvokeVoidAsync("ct2engine.create", self);
@@ -250,31 +277,62 @@ public partial class Home : IDisposable
         if (engine.Running || active.Kind != DocKind.Workspace) return;
         if (runDoc != null && runDoc.Engine.Running) StopRun();
         CommitEdit(); logOpen = true; engine.Reset(); engine.Running = true; runDoc = active;
+        // the worker reuses the components it prepared for this workspace (presentations keep their state)
+        previewDoc = active; previewSignature = PreviewSignature(active);
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.started"]);
-        await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson(), settings.GuiUpdateMs, settings.SleepMs);
+        await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson(), settings.GuiUpdateMs, settings.SleepMs, active.Key);
     }
 
     void StopRun()
     {
         var d = runDoc; if (d == null || !d.Engine.Running) return;
-        _ = Js.InvokeVoidAsync("ct2engine.stop");
         d.Engine.Running = false; d.Engine.ActiveWires.Clear();
         foreach (var n in d.Engine.Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Idle;
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.stopped"], 0, d);
         runDoc = null;
-        _ = Js.InvokeVoidAsync("ct2engine.prewarm");
+        _ = StopWorkerAsync();
+    }
+
+    /// <summary>Stops the run in the worker; if a plugin did not give control back, the worker was replaced.</summary>
+    async Task StopWorkerAsync()
+    {
+        bool killed = await Js.InvokeAsync<bool>("ct2engine.stop");
+        if (!killed) return;
+        previewSignature = null;        // a fresh worker: give it the workspace again
+        await InvokeAsync(StateHasChanged);
+    }
+
+    /// <summary>
+    /// Stores settings that a component changed itself (e.g. Enigma's rotors, swapped by drag and drop in its
+    /// presentation) in the workspace, so they are saved and used by the next run, as in CT2.
+    /// </summary>
+    void ApplyChangedSettings(Doc d, int pluginId, System.Text.Json.JsonElement changed)
+    {
+        var plugin = d.Ed.Ws.Plugins.FirstOrDefault(p => p.Id == pluginId);
+        if (plugin == null) return;
+        foreach (var setting in changed.EnumerateArray())
+        {
+            var name = setting.GetProperty("name").GetString()!;
+            plugin.Settings[name] = setting.GetProperty("value").GetString() ?? "";
+            if (!plugin.SettingTypes.ContainsKey(name)) plugin.SettingTypes[name] = setting.GetProperty("type").GetString() ?? "System.String";
+        }
+        d.Ed.MarkDirty();
+        // the worker already has these values: no need to give it the workspace again
+        if (ReferenceEquals(d, previewDoc)) previewSignature = PreviewSignature(d);
     }
 
     [JSInvokable]
     public void OnWorkerMessage(string json)
     {
-        if (runDoc == null) return;
-        var engine = runDoc.Engine; var ed = runDoc.Ed; var rd = runDoc;
+        // messages belong to the running workspace, or else to the one the worker prepared
+        var rd = runDoc ?? previewDoc;
+        if (rd == null) return;
+        var engine = rd.Engine; var ed = rd.Ed;
         using var doc = System.Text.Json.JsonDocument.Parse(json);
         var r = doc.RootElement; var type = r.GetProperty("type").GetString();
         if (type == "state")
         {
-            if (!engine.Running) return;
+            if (!engine.Running && !ReferenceEquals(rd, previewDoc)) return;
             engine.ExecutionCount = r.GetProperty("count").GetInt32();
             engine.ActiveWires.Clear();
             foreach (var w in r.GetProperty("wires").EnumerateArray()) engine.ActiveWires.Add(w.GetInt32());
@@ -292,6 +350,8 @@ public partial class Home : IDisposable
                     foreach (var c in io.EnumerateArray()) v.Io[(c.GetProperty("name").GetString()!, c.GetProperty("out").GetBoolean())] = c.GetProperty("value").GetString() ?? "";
                 if (n.TryGetProperty("pres", out var pr) && pr.ValueKind == System.Text.Json.JsonValueKind.Array)
                     foreach (var c in pr.EnumerateArray()) v.Pres[c.GetProperty("name").GetString()!] = c.GetProperty("value").GetString() ?? "";
+                if (n.TryGetProperty("settings", out var changed) && changed.ValueKind == System.Text.Json.JsonValueKind.Array)
+                    ApplyChangedSettings(rd, id, changed);
             }
         }
         else if (type == "log")
@@ -300,7 +360,13 @@ public partial class Home : IDisposable
             Enum.TryParse<CrypTool.Web.Core.LogLevel>(r.GetProperty("level").GetString(), out var lvl);
             AddLog(p == null ? Loc["log.engine"] : Title(p, Meta(p)), lvl, r.GetProperty("message").GetString() ?? "", id, rd);
         }
-        else if (type == "stopped") { engine.Running = false; engine.ActiveWires.Clear(); AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.finished"], 0, rd); }
+        else if (type == "stopped")
+        {
+            // after the user pressed Stop the log already says so
+            if (engine.Running) AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.finished"], 0, rd);
+            engine.Running = false; engine.ActiveWires.Clear();
+            if (ReferenceEquals(runDoc, rd)) runDoc = null;
+        }
         StateHasChanged();
     }
 

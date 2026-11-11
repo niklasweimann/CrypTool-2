@@ -27,7 +27,13 @@
 .wpf .wsh[style*="pointer-events:none"] > * { pointer-events: none; }
 .wpf .wdraw { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
 .wpf .wi { display: block; max-width: 100%; max-height: 100%; }
+/* a Canvas measures its children with unlimited space, and canvases often have no size of their own */
+.wpf .wc > .wi { max-width: none; max-height: none; }
 .wpf .off { opacity: .55; }
+/* elements the user can drag (wpf.js): no native image dragging or touch scrolling; while dragged, on top and
+   transparent for hit testing so that the drop target under the pointer can be found */
+.wpf [data-d] { -webkit-user-drag: none; user-select: none; touch-action: none; }
+.wpf .wdragging { z-index: 1000; pointer-events: none; opacity: .8; }
 
 /* controls */
 .wpf .wbtn {
@@ -40,6 +46,7 @@
 .wpf .wchk { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
 .wpf .wchk input { margin: 0; }
 .wpf .wtb { font: inherit; color: inherit; background: #fff; border: 1px solid #abadb3; padding: 1px 3px; resize: none; }
+.wpf input.wtb { field-sizing: content; min-width: 2ch; }
 .wpf .wcb { font: inherit; }
 .wpf .wsl { margin: 0; }
 .wpf .wpb { background: #e6e6e6; border: 1px solid #bcbcbc; min-height: 4px; overflow: hidden; }

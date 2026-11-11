@@ -257,6 +257,19 @@ namespace System.Windows.Rendering
             {
                 css.Add("text-decoration", inline.TextDecorations.Css);
             }
+            string verticalAlign = inline.BaselineAlignment switch
+            {
+                BaselineAlignment.Superscript => "super",
+                BaselineAlignment.Subscript => "sub",
+                BaselineAlignment.Top or BaselineAlignment.TextTop => "text-top",
+                BaselineAlignment.Bottom or BaselineAlignment.TextBottom => "text-bottom",
+                BaselineAlignment.Center => "middle",
+                _ => null,
+            };
+            if (verticalAlign != null)
+            {
+                css.Add("vertical-align", verticalAlign);
+            }
 
             string style = css.ToString();
             if (style.Length == 0)

@@ -97,7 +97,11 @@ namespace System.Windows
         /// <summary>There is no desktop application object; this stand-in has no window.</summary>
         public static Application Current { get; } = new Application();
 
-        public Window MainWindow { get; set; }
+        /// <summary>
+        /// CT2's main window. Plugins use its content as the scope of a drag operation (AllowDrop, DragOver handlers
+        /// for the drag adorner), so it exists with an (empty, never drawn) panel as content.
+        /// </summary>
+        public Window MainWindow { get; set; } = new Window { Content = new Controls.Grid() };
 
         public ResourceDictionary Resources { get; set; } = new ResourceDictionary();
 

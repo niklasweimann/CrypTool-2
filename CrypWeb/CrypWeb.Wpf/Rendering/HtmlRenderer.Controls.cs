@@ -23,7 +23,14 @@ namespace System.Windows.Rendering
             }
             OpenTag("div", control, slot, control is Label ? "wb wlabel" : "wb", css.ToString());
             WriteCustomDrawing(control);
-            WriteContent(control.Content, control.ContentStringFormat);
+            if (control.TemplatedContent is { } templated)
+            {
+                WriteElement(templated, LayoutSlot.GridCell);     // content shown through a data template
+            }
+            else
+            {
+                WriteContent(control.Content, control.ContentStringFormat);
+            }
             _html.Append("</div>");
         }
 
@@ -64,7 +71,9 @@ namespace System.Windows.Rendering
             }
             else
             {
-                OpenTag("input", box, slot, "wtb", style, attributes + " type=\"text\" value=\"" + CssValues.Escape(box.Text) + "\"");
+                // without a width, a WPF text box is as wide as its text (size= for browsers without field-sizing)
+                string size = " size=\"" + Math.Max(1, (box.Text ?? "").Length) + "\"";
+                OpenTag("input", box, slot, "wtb", style, attributes + size + " type=\"text\" value=\"" + CssValues.Escape(box.Text) + "\"");
             }
         }
 

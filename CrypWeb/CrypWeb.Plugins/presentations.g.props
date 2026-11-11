@@ -17,6 +17,7 @@
     <EmbeddedResource Include="../../CrypPlugins/BerlekampMassey/BerlekampMasseyPresentation.xaml" LogicalName="xaml/BerlekampMassey/BerlekampMasseyPresentation.xaml" Link="Presentations/BerlekampMassey/BerlekampMasseyPresentation.xaml" />
     <Compile Include="../../CrypPlugins/BerlekampMassey/BerlekampMasseyPresentation.xaml.cs" Link="Presentations/BerlekampMassey/BerlekampMasseyPresentation.xaml.cs" />
     <Compile Include="Presentations/BerlekampMassey/BerlekampMasseyPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/BerlekampMassey/DetailedDescription/Description.xaml" LogicalName="xaml/BerlekampMassey/DetailedDescription/Description.xaml" Link="Presentations/BerlekampMassey/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="Presentations/BlindSignatureGenerator/BlindSignatureGenerator.g.resources" LogicalName="BlindSignatureGenerator.g.resources" Type="Non-Resx" WithCulture="false" />
     <EmbeddedResource Include="../../CrypPlugins/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" LogicalName="xaml/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" Link="Presentations/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" />
     <Compile Include="../../CrypPlugins/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml.cs" Link="Presentations/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="../../CrypPlugins/ImageSteganographyVisualization/LSBPresentation.xaml.cs" Link="Presentations/ImageSteganographyVisualization/LSBPresentation.xaml.cs" />
     <Compile Include="Presentations/ImageSteganographyVisualization/LSBPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/Internet_frame_generator/Internet_frame_generator.g.resources" LogicalName="Internet_frame_generator.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Internet_frame_generator/Internet_frame_generator/DetailedDescription/Description.xaml" LogicalName="xaml/Internet_frame_generator/Internet_frame_generator/DetailedDescription/Description.xaml" Link="Presentations/Internet_frame_generator/Internet_frame_generator/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.xaml" LogicalName="xaml/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.xaml" Link="Presentations/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.xaml" />
     <Compile Include="../../CrypPlugins/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.xaml.cs" Link="Presentations/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.xaml.cs" />
     <Compile Include="Presentations/Internet_frame_generator/Internet_frame_generator/Presentation/Internet_frame_generator_Presentation.g.cs" />
@@ -208,6 +210,7 @@
     <Compile Include="../../CrypPlugins/JosseCipher/JosseCipherPresentation.xaml.cs" Link="Presentations/JosseCipher/JosseCipherPresentation.xaml.cs" />
     <Compile Include="Presentations/JosseCipher/JosseCipherPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/KasiskiTest/KasiskiTest.g.resources" LogicalName="KasiskiTest.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/KasiskiTest/DetailedDescription/Description.xaml" LogicalName="xaml/KasiskiTest/DetailedDescription/Description.xaml" Link="Presentations/KasiskiTest/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/KasiskiTest/KasiskiTestPresentation.xaml" LogicalName="xaml/KasiskiTest/KasiskiTestPresentation.xaml" Link="Presentations/KasiskiTest/KasiskiTestPresentation.xaml" />
     <Compile Include="../../CrypPlugins/KasiskiTest/KasiskiTestPresentation.xaml.cs" Link="Presentations/KasiskiTest/KasiskiTestPresentation.xaml.cs" />
     <Compile Include="Presentations/KasiskiTest/KasiskiTestPresentation.g.cs" />
@@ -278,6 +281,7 @@
     <Compile Include="../../CrypPlugins/TextSteganography/TextSteganographyPresentation.xaml.cs" Link="Presentations/TextSteganography/TextSteganographyPresentation.xaml.cs" />
     <Compile Include="Presentations/TextSteganography/TextSteganographyPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/Transposition/Transposition.g.resources" LogicalName="Transposition.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Transposition/TranspositionDescript.xaml" LogicalName="xaml/Transposition/TranspositionDescript.xaml" Link="Presentations/Transposition/TranspositionDescript.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/Transposition/TranspositionPresentation.xaml" LogicalName="xaml/Transposition/TranspositionPresentation.xaml" Link="Presentations/Transposition/TranspositionPresentation.xaml" />
     <Compile Include="../../CrypPlugins/Transposition/TranspositionPresentation.xaml.cs" Link="Presentations/Transposition/TranspositionPresentation.xaml.cs" />
     <Compile Include="Presentations/Transposition/TranspositionPresentation.g.cs" />
@@ -294,6 +298,7 @@
     <Compile Include="../../CrypPlugins/VisualCryptography/VisualCryptographyPresentation.xaml.cs" Link="Presentations/VisualCryptography/VisualCryptographyPresentation.xaml.cs" />
     <Compile Include="Presentations/VisualCryptography/VisualCryptographyPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/WEPAttacks/WEPAttacks.g.resources" LogicalName="WEPAttacks.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/WEPAttacks/WEPAttacks/DetailedDescription/Description.xaml" LogicalName="xaml/WEPAttacks/WEPAttacks/DetailedDescription/Description.xaml" Link="Presentations/WEPAttacks/WEPAttacks/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/WEPAttacks/WEPAttacks/WEPAttacksPresentation.xaml" LogicalName="xaml/WEPAttacks/WEPAttacks/WEPAttacksPresentation.xaml" Link="Presentations/WEPAttacks/WEPAttacks/WEPAttacksPresentation.xaml" />
     <Compile Include="../../CrypPlugins/WEPAttacks/WEPAttacks/WEPAttacksPresentation.xaml.cs" Link="Presentations/WEPAttacks/WEPAttacks/WEPAttacksPresentation.xaml.cs" />
     <Compile Include="Presentations/WEPAttacks/WEPAttacks/WEPAttacksPresentation.g.cs" />
@@ -403,6 +408,7 @@
     <EmbeddedResource Include="../../CrypPlugins/MD5/Presentation/States/StartingRoundPresentation.xaml" LogicalName="xaml/MD5/Presentation/States/StartingRoundPresentation.xaml" Link="Presentations/MD5/Presentation/States/StartingRoundPresentation.xaml" />
     <Compile Include="../../CrypPlugins/MD5/Presentation/States/StartingRoundPresentation.xaml.cs" Link="Presentations/MD5/Presentation/States/StartingRoundPresentation.xaml.cs" />
     <Compile Include="Presentations/MD5/Presentation/States/StartingRoundPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/MD5/Presentation/States/StyleDictionary.xaml" LogicalName="xaml/MD5/Presentation/States/StyleDictionary.xaml" Link="Presentations/MD5/Presentation/States/StyleDictionary.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/MD5/Presentation/States/UninitializedPresentation.xaml" LogicalName="xaml/MD5/Presentation/States/UninitializedPresentation.xaml" Link="Presentations/MD5/Presentation/States/UninitializedPresentation.xaml" />
     <Compile Include="../../CrypPlugins/MD5/Presentation/States/UninitializedPresentation.xaml.cs" Link="Presentations/MD5/Presentation/States/UninitializedPresentation.xaml.cs" />
     <Compile Include="Presentations/MD5/Presentation/States/UninitializedPresentation.g.cs" />

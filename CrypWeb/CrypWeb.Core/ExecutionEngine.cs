@@ -42,29 +42,85 @@ public sealed class ExecutionEngine
     /// <summary>Re-runs a source component (e.g. after its text was edited while running).</summary>
     public void Retrigger(int pluginId) { if (Nodes.TryGetValue(pluginId, out var n) && n.Model.Inputs.Count == 0) n.FirstRun = true; }
 
+    /// <summary>
+    /// Creates the components of a workspace (with their presentations) without running it, like CT2 does when a
+    /// workspace is opened. Components that already exist for the same plugin id and type are kept, so a
+    /// presentation keeps its state between runs; their settings are applied again.
+    /// </summary>
+    public void Prepare(Workspace ws)
+    {
+        if (Running) return;
+        var wanted = ws.Plugins.Select(p => p.Id).ToHashSet();
+        foreach (var gone in Nodes.Keys.Where(id => !wanted.Contains(id)).ToList()) Nodes.Remove(gone);
+        foreach (var p in ws.Plugins)
+        {
+            if (Nodes.TryGetValue(p.Id, out var existing) && existing.Model.TypeName == p.TypeName && existing.Comp != null)
+            {
+                var kept = new RunNode { Model = p, Comp = existing.Comp };
+                CopyPresentation(existing, kept);
+                Nodes[p.Id] = kept;
+                try { kept.Comp.ApplySettings(p.Settings); } catch (Exception e) { kept.Logs.Add((LogLevel.Warning, e.Message)); }
+                continue;
+            }
+            Nodes[p.Id] = CreateNode(p);
+        }
+        // the event handlers of a kept component still point to its previous node
+        foreach (var n in Nodes.Values) WireEvents(n);
+        Changed?.Invoke();
+    }
+
+    RunNode CreateNode(PluginNode p)
+    {
+        var rn = new RunNode { Model = p };
+        try
+        {
+            rn.Comp = PluginRegistry.Create(p.TypeName);
+            rn.Comp?.ApplySettings(p.Settings);
+        }
+        catch (Exception e) { rn.State = RunState.Error; rn.Logs.Add((LogLevel.Error, e.Message)); }
+        return rn;
+    }
+
+    static void CopyPresentation(RunNode from, RunNode to)
+    {
+        lock (from.Pres) foreach (var kv in from.Pres) { to.Pres[kv.Key] = kv.Value; to.PresDirty.Add(kv.Key); }
+    }
+
+    // Component events are routed to the node that currently owns the component (nodes are replaced on Prepare).
+    readonly Dictionary<RunComponent, RunNode> owners = new();
+
+    void WireEvents(RunNode rn)
+    {
+        if (rn.Comp == null) return;
+        bool wired = owners.ContainsKey(rn.Comp);
+        owners[rn.Comp] = rn;
+        if (wired) return;
+        var comp = rn.Comp;
+        comp.OutputChanged += prop => OnOutput(owners[comp], prop);
+        comp.Log += (l, m) =>
+        {
+            var node = owners[comp];
+            node.Logs.Add((l, m));
+            if (node.Logs.Count > 200) node.Logs.RemoveAt(0);
+            Log?.Invoke(node, l, m);
+        };
+        comp.Progress += d => owners[comp].Progress = d;
+        comp.Presentation += (name, args) => RecordPresentation(owners[comp], name, args);
+    }
+
     public async Task RunAsync(Workspace ws)
     {
         if (Running) return;
+        Prepare(ws);
         cts = new CancellationTokenSource(); var ct = cts.Token;
-        Running = true; Nodes.Clear(); ActiveWires.Clear(); ExecutionCount = 0;
-        foreach (var p in ws.Plugins)
+        Running = true; ActiveWires.Clear(); ExecutionCount = 0;
+        foreach (var rn in Nodes.Values)
         {
-            var rn = new RunNode { Model = p };
-            try
-            {
-                rn.Comp = PluginRegistry.Create(p.TypeName);
-                if (rn.Comp != null)
-                {
-                    rn.Comp.ApplySettings(p.Settings);
-                    rn.Comp.OutputChanged += prop => OnOutput(rn, prop);
-                    rn.Comp.Log += (l, m) => { rn.Logs.Add((l, m)); if (rn.Logs.Count > 200) rn.Logs.RemoveAt(0); Log?.Invoke(rn, l, m); };
-                    rn.Comp.Progress += d => rn.Progress = d;
-                    rn.Comp.Presentation += (name, args) => RecordPresentation(rn, name, args);
-                }
-            }
-            catch (Exception e) { rn.State = RunState.Error; rn.Logs.Add((LogLevel.Error, e.Message)); }
-            foreach (var c in p.Inputs) rn.Queues[c] = new();
-            Nodes[p.Id] = rn;
+            // a fresh run: per-run state only; component, presentation and logs stay
+            if (rn.Comp != null && rn.State != RunState.Error) rn.State = RunState.Idle;
+            rn.FirstRun = true; rn.Progress = 0;
+            rn.Queues.Clear(); rn.Last.Clear();
+            foreach (var c in rn.Model.Inputs) rn.Queues[c] = new();
         }
         foreach (var n in Nodes.Values.Where(n => n.Comp != null))
         {
@@ -204,6 +260,8 @@ public sealed class ExecutionEngine
 
     void OnOutput(RunNode n, string prop)
     {
+        // outside a run (prepared or stopped workspace) nothing flows along the wires, as in CT2
+        if (!Running) return;
         var port = n.Model.Outputs.FirstOrDefault(o => o.PropertyName == prop);
         if (port == null) return;
         object? data; try { data = n.Comp!.Get(prop); } catch { return; }

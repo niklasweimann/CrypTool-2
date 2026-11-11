@@ -32,6 +32,12 @@ namespace System.Windows.Markup
 
         public object TargetProperty { get; set; }
 
+        /// <summary>The XAML file being loaded ("PluginFolder/Relative/Path.xaml"); relative Source URIs start here.</summary>
+        public string ResourcePath { get; set; }
+
+        /// <summary>The assembly that embeds the XAML files of the plugin.</summary>
+        public Reflection.Assembly Assembly { get; set; }
+
         public object GetService(Type serviceType) => serviceType != null && serviceType.IsInstanceOfType(this) ? this : null;
 
         /// <summary>A context for instantiating a template later: same resources in scope, its own names.</summary>
@@ -43,6 +49,8 @@ namespace System.Windows.Markup
                 AssignsRootFields = false,
                 Scopes = new List<object>(Scopes),
                 CurrentElement = CurrentElement,
+                ResourcePath = ResourcePath,
+                Assembly = Assembly,
             };
         }
 

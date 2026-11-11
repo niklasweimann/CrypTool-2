@@ -31,6 +31,11 @@ namespace System.Windows.Controls
 
         public InlineCollection Inlines { get; }
 
+        public FontStretch FontStretch { get => (FontStretch)GetValue(FontStretchProperty); set => SetValue(FontStretchProperty, value); }
+
+        /// <summary>Automatic hyphenation; browsers hyphenate only with a known language, so it has no effect here.</summary>
+        public bool IsHyphenationEnabled { get; set; }
+
         /// <summary>Colours for ranges of characters (drawn when the text is plain).</summary>
         public TextEffectCollection TextEffects { get; set; } = new TextEffectCollection();
 

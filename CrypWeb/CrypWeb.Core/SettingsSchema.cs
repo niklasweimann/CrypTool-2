@@ -41,6 +41,24 @@ public static class SettingsSchema
         return new();
     }
 
+    /// <summary>
+    /// A DynamicComboBox does not list its entries in the attribute: ControlValues[0] names a property of the
+    /// settings object (usually an ObservableCollection&lt;string&gt;) that holds the current entries.
+    /// </summary>
+    static List<string> DynamicOptions(ISettings settings, string[]? controlValues)
+    {
+        var listProperty = controlValues?.FirstOrDefault();
+        if (string.IsNullOrEmpty(listProperty)) return new();
+        try
+        {
+            var value = settings.GetType().GetProperty(listProperty)?.GetValue(settings);
+            if (value is System.Collections.IEnumerable entries and not string)
+                return entries.Cast<object?>().Select(e => e?.ToString() ?? "").ToList();
+        }
+        catch { }
+        return new();
+    }
+
     public static List<SettingField> Build(string typeName, IReadOnlyDictionary<string, string> values)
     {
         var type = PluginRegistry.FindType(typeName);
@@ -73,7 +91,10 @@ public static class SettingsSchema
                 _ => val.ToString() ?? ""
             };
             var cv = attr.ControlValues;
-            if (cv != null) f.Options = cv.Select(x => x ?? "").ToList();
+            if (attr.ControlType == ControlType.DynamicComboBox)
+                f.Options = DynamicOptions(settings, cv);
+            else if (cv != null)
+                f.Options = cv.Select(x => x ?? "").ToList();
             if (f.Options.Count == 0 && attr.ControlType == ControlType.LanguageSelector) f.Options = SupportedLanguages();
             if (attr.ControlType == ControlType.Slider || attr.ControlType == ControlType.NumericUpDown || attr.ValidationType == ValidationType.RangeInteger || attr.ValidationType == ValidationType.RangeDouble)
             {

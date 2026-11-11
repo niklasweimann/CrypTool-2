@@ -379,6 +379,8 @@ namespace System.Windows.Controls
     {
         public object Header { get; set; }
         public DataGridLength Width { get; set; }
+        public double MinWidth { get; set; }
+        public double MaxWidth { get; set; } = double.PositiveInfinity;
         public bool IsReadOnly { get; set; }
         public Visibility Visibility { get; set; }
         public int DisplayIndex { get; set; }
@@ -469,6 +471,8 @@ namespace System.Windows.Controls
     {
         public ObservableCollection<DataGridColumn> Columns { get; } = new ObservableCollection<DataGridColumn>();
         public bool AutoGenerateColumns { get; set; } = true;
+        public double ColumnHeaderHeight { get; set; } = double.NaN;
+        public bool AreRowDetailsFrozen { get; set; }
         public bool IsReadOnly { get; set; }
         public bool CanUserAddRows { get; set; }
         public bool CanUserDeleteRows { get; set; }

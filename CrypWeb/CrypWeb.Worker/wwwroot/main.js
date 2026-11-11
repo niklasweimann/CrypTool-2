@@ -26,7 +26,8 @@ setInterval(() => { try { api.Tick(); } catch (err) { } }, 50);
 self.onmessage = (e) => {
   const m = e.data;
   try {
-    if (m.cmd === 'start') api.Start(m.json, m.lang || 'en', m.guiMs || 80, m.sleepMs || 1);
+    if (m.cmd === 'start') api.Start(m.json, m.doc || '', m.lang || 'en', m.guiMs || 80, m.sleepMs || 1);
+    else if (m.cmd === 'open') api.Open(m.json, m.doc || '', m.lang || 'en');
     else if (m.cmd === 'stop') api.Stop();
     else if (m.cmd === 'text') api.SetText(m.id, m.text);
     else if (m.cmd === 'pres') api.PresEvent(m.id, m.el, m.kind, m.value ?? '', m.x || 0, m.y || 0);

@@ -44,6 +44,9 @@ namespace System.Windows
         public bool AllowDrop { get => (bool)GetValue(AllowDropProperty); set => SetValue(AllowDropProperty, value); }
         public object Effect { get => GetValue(EffectProperty); set => SetValue(EffectProperty, value); }
 
+        /// <summary>The effects of .NET 3.0 (obsolete in WPF and no longer drawn there either).</summary>
+        public object BitmapEffect { get; set; }
+
         /// <summary>The element this one is a child of (logical and visual tree are the same here).</summary>
         internal UIElement ParentElement { get; private set; }
 
@@ -135,6 +138,118 @@ namespace System.Windows
             || PreviewMouseDown != null || PreviewMouseUp != null || PreviewMouseLeftButtonDown != null || PreviewMouseLeftButtonUp != null;
 
         internal bool WantsHover => MouseEnter != null || MouseLeave != null;
+
+        /// <summary>True when dragging this element with the mouse may start a drag (it handles mouse moves).</summary>
+        internal bool WantsDrag => MouseMove != null || PreviewMouseMove != null;
+
+        /// <summary>True when the browser has to report this element as the target of a drop.</summary>
+        internal bool AcceptsDrops =>
+            AllowDrop || Drop != null || PreviewDrop != null || DragOver != null || PreviewDragOver != null;
+
+        /// <summary>The ancestors from the root down to this element (the route of a tunneling "Preview" event).</summary>
+        private List<UIElement> RouteFromRoot()
+        {
+            var route = new List<UIElement>();
+            for (UIElement e = this; e != null; e = e.ParentElement)
+            {
+                route.Insert(0, e);
+            }
+            return route;
+        }
+
+        /// <summary>
+        /// Mouse button pressed on this element, without the release (the first part of a drag reported by the browser).
+        /// </summary>
+        internal void RaiseMouseDown(Point position)
+        {
+            var args = new MouseButtonEventArgs
+            {
+                Source = this, OriginalSource = this, Position = position, ClickCount = 1,
+                ChangedButton = MouseButton.Left, ButtonState = MouseButtonState.Pressed, LeftButton = MouseButtonState.Pressed,
+            };
+            foreach (UIElement e in RouteFromRoot())
+            {
+                if (args.Handled) break;
+                e.PreviewMouseDown?.Invoke(e, args);
+                e.PreviewMouseLeftButtonDown?.Invoke(e, args);
+            }
+            for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
+            {
+                e.OnMouseDown(args);
+                e.OnMouseLeftButtonDown(args);
+                e.MouseDown?.Invoke(e, args);
+                e.MouseLeftButtonDown?.Invoke(e, args);
+            }
+        }
+
+        /// <summary>The mouse moved over this element (with the left button held when <paramref name="leftPressed"/>).</summary>
+        internal void RaiseMouseMove(Point position, bool leftPressed)
+        {
+            var args = new MouseEventArgs
+            {
+                Source = this, OriginalSource = this, Position = position,
+                LeftButton = leftPressed ? MouseButtonState.Pressed : MouseButtonState.Released,
+            };
+            foreach (UIElement e in RouteFromRoot())
+            {
+                if (args.Handled) break;
+                e.PreviewMouseMove?.Invoke(e, args);
+            }
+            for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
+            {
+                e.OnMouseMove(args);
+                e.MouseMove?.Invoke(e, args);
+            }
+        }
+
+        /// <summary>The mouse button was released over this element (the end of a drag that did not drop anything).</summary>
+        internal void RaiseMouseUp(Point position)
+        {
+            var args = new MouseButtonEventArgs
+            {
+                Source = this, OriginalSource = this, Position = position, ClickCount = 1,
+                ChangedButton = MouseButton.Left, ButtonState = MouseButtonState.Released,
+            };
+            foreach (UIElement e in RouteFromRoot())
+            {
+                if (args.Handled) break;
+                e.PreviewMouseUp?.Invoke(e, args);
+                e.PreviewMouseLeftButtonUp?.Invoke(e, args);
+            }
+            for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
+            {
+                e.OnMouseUp(args);
+                e.OnMouseLeftButtonUp(args);
+                e.MouseUp?.Invoke(e, args);
+                e.MouseLeftButtonUp?.Invoke(e, args);
+            }
+        }
+
+        /// <summary>One step of a drop on this element: the Preview event from the root down, then the event bubbling up.</summary>
+        internal void RaiseDragEvent(DragEventKind kind, DragEventArgs args)
+        {
+            foreach (UIElement e in RouteFromRoot())
+            {
+                if (args.Handled) break;
+                DragEventHandler preview = kind switch
+                {
+                    DragEventKind.Enter => e.PreviewDragEnter,
+                    DragEventKind.Over => e.PreviewDragOver,
+                    _ => e.PreviewDrop,
+                };
+                preview?.Invoke(e, args);
+            }
+            for (UIElement e = this; e != null && !args.Handled; e = e.ParentElement)
+            {
+                DragEventHandler handler = kind switch
+                {
+                    DragEventKind.Enter => e.DragEnter,
+                    DragEventKind.Over => e.DragOver,
+                    _ => e.Drop,
+                };
+                handler?.Invoke(e, args);
+            }
+        }
 
         /// <summary>A click reported by the browser: press and release, bubbling to the ancestors until handled.</summary>
         internal void RaiseClick(Point position, int clickCount)

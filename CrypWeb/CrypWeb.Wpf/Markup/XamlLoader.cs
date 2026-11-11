@@ -35,7 +35,7 @@ namespace System.Windows.Markup
         public static void Load(object root, string xaml, string resourcePath = null)
         {
             XElement element = XDocument.Parse(xaml, LoadOptions.PreserveWhitespace).Root;
-            var context = new XamlContext(root);
+            var context = new XamlContext(root) { ResourcePath = resourcePath, Assembly = root.GetType().Assembly };
 
             if (root is FrameworkElement frameworkElement)
             {
@@ -50,6 +50,50 @@ namespace System.Windows.Markup
             }
 
             new XamlObjectBuilder(context).Populate(root, element);
+        }
+
+        /// <summary>
+        /// The embedded resource name of a XAML file that another one refers to (ResourceDictionary Source):
+        /// relative to the referring file, or a pack URI / absolute path within the plugin folder. Windows
+        /// separators and "." / ".." segments are allowed. Null when it cannot be resolved.
+        /// </summary>
+        internal static string ResolveReference(string fromResourcePath, string reference)
+        {
+            if (string.IsNullOrEmpty(fromResourcePath) || string.IsNullOrEmpty(reference))
+            {
+                return null;
+            }
+            string path = reference.Replace('\\', '/');
+            int firstSlash = fromResourcePath.IndexOf('/');
+            string pluginFolder = firstSlash < 0 ? fromResourcePath : fromResourcePath.Substring(0, firstSlash);
+
+            var segments = new List<string>();
+            int component = path.IndexOf(";component/", StringComparison.OrdinalIgnoreCase);
+            if (component >= 0)
+            {
+                path = path.Substring(component + ";component/".Length);      // "/Assembly;component/Folder/File.xaml"
+            }
+            else if (!path.StartsWith("/"))
+            {
+                // relative to the folder of the referring file
+                int lastSlash = fromResourcePath.LastIndexOf('/');
+                segments.AddRange(fromResourcePath.Substring(firstSlash + 1, Math.Max(0, lastSlash - firstSlash - 1)).Split('/', StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            foreach (string segment in path.Split('/', StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (segment == ".")
+                {
+                    continue;
+                }
+                if (segment == "..")
+                {
+                    if (segments.Count > 0) segments.RemoveAt(segments.Count - 1);
+                    continue;
+                }
+                segments.Add(segment);
+            }
+            return pluginFolder + "/" + string.Join("/", segments);
         }
 
         /// <summary>Creates the object described by the root element of <paramref name="xaml"/>.</summary>
