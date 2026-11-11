@@ -117,7 +117,6 @@
     <Compile Include="../../CrypPlugins/BaconCipher/BaconCipherSettings.cs" Link="BaconCipher/BaconCipherSettings.cs" />
     <Compile Include="../../CrypPlugins/BaconCipher/BaconCipher.cs" Link="BaconCipher/BaconCipher.cs" />
     <Compile Include="../../CrypPlugins/BaconCipher/Properties/Resources.Designer.cs" Link="BaconCipher/Properties/Resources.Designer.cs" />
-    <Compile Include="../../CrypPlugins/BaconCipher/Properties/Ressources.Designer.cs" Link="BaconCipher/Properties/Ressources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Resources.resx" LogicalName="CrypTool.BaconCipher.Properties.Resources.resources" Link="BaconCipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Resources.de.resx" LogicalName="CrypTool.BaconCipher.Properties.Resources.de.resources" Link="BaconCipher/Properties/Resources.de.resx" />
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Ressources.resx" LogicalName="BaconianCipher.Properties.Ressources.resources" Link="BaconCipher/Properties/Ressources.resx" />
@@ -197,7 +196,6 @@
     <EmbeddedResource Include="../../CrypPlugins/CSVReader/Properties/Resources.de.resx" LogicalName="CSVReader.Properties.Resources.de.resources" Link="CSVReader/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Caesar/CaesarSettings.cs" Link="Caesar/CaesarSettings.cs" />
     <Compile Include="../../CrypPlugins/Caesar/Caesar.cs" Link="Caesar/Caesar.cs" />
-    <Compile Include="../../CrypPlugins/Caesar/Properties/Resources.Designer.cs" Link="Caesar/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Caesar/Properties/Resources.resx" LogicalName="CrypTool.Caesar.Properties.Resources.resources" Link="Caesar/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Caesar/Properties/Resources.de.resx" LogicalName="CrypTool.Caesar.Properties.Resources.de.resources" Link="Caesar/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/CaesarAnalysisHelper/CaesarAnalysisHelperSettings.cs" Link="CaesarAnalysisHelper/CaesarAnalysisHelperSettings.cs" />
@@ -207,7 +205,6 @@
     <EmbeddedResource Include="../../CrypPlugins/CaesarAnalysisHelper/Properties/Resources.de.resx" LogicalName="CaesarAnalysisHelper.Properties.Resources.de.resources" Link="CaesarAnalysisHelper/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Camellia/CamelliaSettings.cs" Link="Camellia/CamelliaSettings.cs" />
     <Compile Include="../../CrypPlugins/Camellia/Camellia.cs" Link="Camellia/Camellia.cs" />
-    <Compile Include="../../CrypPlugins/Camellia/Properties/Resources.Designer.cs" Link="Camellia/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Camellia/Properties/Resources.resx" LogicalName="Camellia.Properties.Resources.resources" Link="Camellia/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Camellia/Properties/Resources.de.resx" LogicalName="Camellia.Properties.Resources.de.resources" Link="Camellia/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ChaCha/ChaChaSettings.cs" Link="ChaCha/ChaChaSettings.cs" />
@@ -329,7 +326,6 @@
     <Compile Include="../../CrypPlugins/CostFunction/CostFunction.cs" Link="CostFunction/CostFunction.cs" />
     <Compile Include="../../CrypPlugins/CostFunction/RegEx.cs" Link="CostFunction/RegEx.cs" />
     <Compile Include="../../CrypPlugins/CostFunction/CostFunctionSettings.cs" Link="CostFunction/CostFunctionSettings.cs" />
-    <Compile Include="../../CrypPlugins/CostFunction/Properties/Resources.Designer.cs" Link="CostFunction/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/CostFunction/Properties/Resources.resx" LogicalName="CostFunction.Properties.Resources.resources" Link="CostFunction/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/CostFunction/Properties/Resources.de.resx" LogicalName="CostFunction.Properties.Resources.de.resources" Link="CostFunction/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/CramerShoup/CramerShoup.cs" Link="CramerShoup/CramerShoup.cs" />
@@ -511,6 +507,11 @@
     <Compile Include="../../CrypPlugins/Enigma/Properties/Resources.Designer.cs" Link="Enigma/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Enigma/Properties/Resources.resx" LogicalName="CrypTool.Enigma.Properties.Resources.resources" Link="Enigma/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Enigma/Properties/Resources.de.resx" LogicalName="CrypTool.Enigma.Properties.Resources.de.resources" Link="Enigma/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/EnigmaAnalyzer/EnigmaAnalyzerSettings.cs" Link="EnigmaAnalyzer/EnigmaAnalyzerSettings.cs" />
+    <Compile Include="../../CrypPlugins/EnigmaAnalyzer/EnigmaAnalyzer.cs" Link="EnigmaAnalyzer/EnigmaAnalyzer.cs" />
+    <Compile Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.Designer.cs" Link="EnigmaAnalyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.resx" LogicalName="CrypTool.EnigmaAnalyzer.Properties.Resources.resources" Link="EnigmaAnalyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.de.resx" LogicalName="CrypTool.EnigmaAnalyzer.Properties.Resources.de.resources" Link="EnigmaAnalyzer/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL_Algorithms.cs" Link="FEAL/FEAL_Algorithms.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL.cs" Link="FEAL/FEAL.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEALSettings.cs" Link="FEAL/FEALSettings.cs" />
@@ -591,6 +592,12 @@
     <Compile Include="../../CrypPlugins/HIGHT/Properties/Resources.Designer.cs" Link="HIGHT/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/HIGHT/Properties/Resources.resx" LogicalName="CrypTool.Plugins.HIGHT.Properties.Resources.resources" Link="HIGHT/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/HIGHT/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.HIGHT.Properties.Resources.de.resources" Link="HIGHT/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/HKDFSHA256/TooMuchOutputRequestedException.cs" Link="HKDFSHA256/TooMuchOutputRequestedException.cs" />
+    <Compile Include="../../CrypPlugins/HKDFSHA256/HKDFSHA256.cs" Link="HKDFSHA256/HKDFSHA256.cs" />
+    <Compile Include="../../CrypPlugins/HKDFSHA256/HKDFSHA256Settings.cs" Link="HKDFSHA256/HKDFSHA256Settings.cs" />
+    <Compile Include="../../CrypPlugins/HKDFSHA256/Properties/Resources.Designer.cs" Link="HKDFSHA256/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/HKDFSHA256/Properties/Resources.resx" LogicalName="HKDFSHA256.Properties.Resources.resources" Link="HKDFSHA256/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/HKDFSHA256/Properties/Resources.de.resx" LogicalName="HKDFSHA256.Properties.Resources.de.resources" Link="HKDFSHA256/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/HagelinMachine/HagelinImplementation.cs" Link="HagelinMachine/HagelinImplementation.cs" />
     <Compile Include="../../CrypPlugins/HagelinMachine/HagelinMachine.cs" Link="HagelinMachine/HagelinMachine.cs" />
     <Compile Include="../../CrypPlugins/HagelinMachine/HagelinConstants.cs" Link="HagelinMachine/HagelinConstants.cs" />
@@ -660,6 +667,12 @@
     <Compile Include="../../CrypPlugins/JosseCipher/Properties/Resources.Designer.cs" Link="JosseCipher/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/JosseCipher/Properties/Resources.resx" LogicalName="CrypTool.JosseCipher.Properties.Resources.resources" Link="JosseCipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/JosseCipher/Properties/Resources.de.resx" LogicalName="CrypTool.JosseCipher.Properties.Resources.de.resources" Link="JosseCipher/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/KKDFSHA256/TooMuchOutputRequestedException.cs" Link="KKDFSHA256/TooMuchOutputRequestedException.cs" />
+    <Compile Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256.cs" Link="KKDFSHA256/KKDFSHA256.cs" />
+    <Compile Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256Settings.cs" Link="KKDFSHA256/KKDFSHA256Settings.cs" />
+    <Compile Include="../../CrypPlugins/KKDFSHA256/Properties/Resources.Designer.cs" Link="KKDFSHA256/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/KKDFSHA256/Properties/Resources.resx" LogicalName="KKDFSHA256.Properties.Resources.resources" Link="KKDFSHA256/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/KKDFSHA256/Properties/Resources.de.resx" LogicalName="KKDFSHA256.Properties.Resources.de.resources" Link="KKDFSHA256/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/KasiskiTest/CollectionElement.cs" Link="KasiskiTest/CollectionElement.cs" />
     <Compile Include="../../CrypPlugins/KasiskiTest/KasiskiTestSettings.cs" Link="KasiskiTest/KasiskiTestSettings.cs" />
     <Compile Include="../../CrypPlugins/KasiskiTest/DataSource.cs" Link="KasiskiTest/DataSource.cs" />
@@ -701,6 +714,11 @@
     <Compile Include="../../CrypPlugins/M209/Properties/Resources.Designer.cs" Link="M209/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/M209/Properties/Resources.resx" LogicalName="CrypTool.M209.Properties.Resources.resources" Link="M209/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/M209/Properties/Resources.de.resx" LogicalName="CrypTool.M209.Properties.Resources.de.resources" Link="M209/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/M209Analyzer/M209Analyzer.cs" Link="M209Analyzer/M209Analyzer.cs" />
+    <Compile Include="../../CrypPlugins/M209Analyzer/M209AnalyzerSettings.cs" Link="M209Analyzer/M209AnalyzerSettings.cs" />
+    <Compile Include="../../CrypPlugins/M209Analyzer/Properties/Resources.Designer.cs" Link="M209Analyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/M209Analyzer/Properties/Resources.resx" LogicalName="CrypTool.Plugins.M209Analyzer.Properties.Resources.resources" Link="M209Analyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/M209Analyzer/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.M209Analyzer.Properties.Resources.de.resources" Link="M209Analyzer/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/MD5/MD5.cs" Link="MD5/MD5.cs" />
     <Compile Include="../../CrypPlugins/MD5/Algorithm/PresentableMD5State.cs" Link="MD5/Algorithm/PresentableMD5State.cs" />
     <Compile Include="../../CrypPlugins/MD5/Algorithm/MD5StateDescription.cs" Link="MD5/Algorithm/MD5StateDescription.cs" />
@@ -932,7 +950,6 @@
     <EmbeddedResource Include="../../CrypPlugins/Sosemanuk/Properties/Resources.de.resx" LogicalName="Sosemanuk.Properties.Resources.de.resources" Link="Sosemanuk/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/SpanishStripCipher/SpanishStripCipher.cs" Link="SpanishStripCipher/SpanishStripCipher.cs" />
     <Compile Include="../../CrypPlugins/SpanishStripCipher/SpanishStripCipherSettings.cs" Link="SpanishStripCipher/SpanishStripCipherSettings.cs" />
-    <Compile Include="../../CrypPlugins/SpanishStripCipher/Properties/Resources.Designer.cs" Link="SpanishStripCipher/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/SpanishStripCipher/Properties/Resources.resx" LogicalName="SpanishStripCipher.Properties.Resources.resources" Link="SpanishStripCipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/SpanishStripCipher/Properties/Resources.de.resx" LogicalName="SpanishStripCipher.Properties.Resources.de.resources" Link="SpanishStripCipher/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Speck/SpeckCiphers.cs" Link="Speck/SpeckCiphers.cs" />
@@ -1158,5 +1175,61 @@
     <Compile Include="../../CrypPlugins/KeySearcher/KeyPattern/ListKeyMovement.cs" Link="KeySearcher/KeyPattern/ListKeyMovement.cs" />
     <Compile Include="../../CrypPlugins/KeySearcher/KeyPattern/Wildcard.cs" Link="KeySearcher/KeyPattern/Wildcard.cs" />
     <Compile Include="../../CrypPlugins/KeySearcher/KeyTranslators/ByteArrayKeyTranslator.cs" Link="KeySearcher/KeyTranslators/ByteArrayKeyTranslator.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeCrib.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeCrib.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeMenu.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeMenu.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeSearch.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeSearch.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/CommandLine.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/CommandLine.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Extensions.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Extensions.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Flag.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Flag.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Language.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Language.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/NGrams.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/NGrams.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Permutations.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Permutations.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Runnables.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Runnables.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/SimulatedAnnealing.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/SimulatedAnnealing.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Stats.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Stats.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Utils.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Common/Utils.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaMain.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaMain.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaStats.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaStats.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaUtils.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/EnigmaUtils.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/GilloglyAttack.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/GilloglyAttack.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/HcSaRunnable.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/HcSaRunnable.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/HillClimb.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/HillClimb.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Key.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Key.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/MRingScope.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/MRingScope.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Properties/Resources.Designer.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/Properties/Resources.Designer.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/RandomChallenges.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/RandomChallenges.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/ResultReporter.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/ResultReporter.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/SearchAction.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/SearchAction.cs" />
+    <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/TrigramICSearch.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/TrigramICSearch.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/Enums/EvalType.cs" Link="LibSource/M209Analyzer/M209Analyzer/Enums/EvalType.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/Enums/Flag.cs" Link="LibSource/M209Analyzer/M209Analyzer/Enums/Flag.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/Enums/Language.cs" Link="LibSource/M209Analyzer/M209Analyzer/Enums/Language.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/Enums/MachineVersion.cs" Link="LibSource/M209Analyzer/M209Analyzer/Enums/MachineVersion.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/M209AttackManager.cs" Link="LibSource/M209Analyzer/M209Analyzer/M209AttackManager.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/Properties/Resources.Designer.cs" Link="LibSource/M209Analyzer/M209Analyzer/Properties/Resources.Designer.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/BestListResult.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/BestListResult.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/CommandLine.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/CommandLine.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/CtBestList.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/CtBestList.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/LimitedConcurrencyLevelTaskScheduler.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/LimitedConcurrencyLevelTaskScheduler.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/Logger.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/Logger.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/RandomGen.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/RandomGen.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/SimulatedAnnealing.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/SimulatedAnnealing.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/Stats.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/Stats.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/common/Utils.cs" Link="LibSource/M209Analyzer/M209Analyzer/common/Utils.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/CiphertextOnlyAttack.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/CiphertextOnlyAttack.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/Global.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/Global.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/HillClimbLugs.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/HillClimbLugs.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/HillClimbPins.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/HillClimbPins.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/IScoring.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/IScoring.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/Key.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/Key.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/KnownPlaintextAttack.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/KnownPlaintextAttack.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/LocalState.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/LocalState.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/Lugs.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/Lugs.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/LugsRules.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/LugsRules.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/M209Scoring.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/M209Scoring.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/Pins.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/Pins.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/SimulatedAnnealingParameters.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/SimulatedAnnealingParameters.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/SimulatedAnnealingPins.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/SimulatedAnnealingPins.cs" />
+    <Compile Include="../../LibSource/M209Analyzer/M209Analyzer/m209/Simulation.cs" Link="LibSource/M209Analyzer/M209Analyzer/m209/Simulation.cs" />
   </ItemGroup>
 </Project>

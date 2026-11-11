@@ -34,6 +34,24 @@ namespace System.Windows.Rendering
             _html.Append("</div>");
         }
 
+        /// <summary>
+        /// A hosted Windows Forms web browser: its HTML text is shown in a sandboxed iframe (no scripts, no access to
+        /// the app), an address is loaded as the iframe's source.
+        /// </summary>
+        private void WriteFormsHost(System.Windows.Forms.Integration.WindowsFormsHost host, LayoutSlot slot)
+        {
+            if (host.Child is not System.Windows.Forms.WebBrowser browser)
+            {
+                WriteContainer(host, slot, "wb", "", LayoutSlot.GridCell);
+                return;
+            }
+            string source = browser.DocumentText != null
+                ? " srcdoc=\"" + CssValues.Escape(browser.DocumentText) + "\""
+                : browser.Url != null ? " src=\"" + CssValues.Escape(browser.Url.ToString()) + "\"" : "";
+            OpenTag("iframe", host, slot, "wweb", "", " sandbox=\"allow-popups\"" + source);
+            _html.Append("</iframe>");
+        }
+
         private void WriteButton(ButtonBase button, LayoutSlot slot)
         {
             OpenTag("button", button, slot, "wbtn", "", button.IsEnabled ? " type=\"button\"" : " type=\"button\" disabled");

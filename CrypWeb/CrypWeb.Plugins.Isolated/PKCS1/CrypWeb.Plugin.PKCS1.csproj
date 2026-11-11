@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- generated: one plugin directory in its own assembly (its type names collide with another plugin's in a shared assembly) -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>CrypWeb.Plugin.PKCS1</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+    <DefineConstants>$(DefineConstants);CT2_PORTABLE</DefineConstants>
+    <NoWarn>$(NoWarn);CS0108;CS0109;CS0114;CS0168;CS0169;CS0219;CS0414;CS0649;CS0618;CS1591;CS8981;CA1416;CS0067;CS0105;SYSLIB0011;SYSLIB0021;SYSLIB0022;SYSLIB0023;SYSLIB0045;SYSLIB0050;SYSLIB0051</NoWarn>
+  </PropertyGroup>
+  <Import Project="plugins.g.props" />
+  <!-- the plugin's presentation compiled from its XAML (tools-gen-presentations.py) -->
+  <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
+  <ItemGroup>
+    <!-- "Thread" means the cooperative stand-in, as in the shared plugin assembly -->
+    <Compile Include="..\..\CrypWeb.Plugins\ThreadAlias.cs" />
+    <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
+    <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <ProjectReference Include="..\..\CrypWeb.Plugins\CrypWeb.Plugins.csproj" />
+  </ItemGroup>
+</Project>

@@ -22,6 +22,9 @@ namespace System.Windows
         public static readonly DependencyProperty TagProperty = Dp.Register<object, FrameworkElement>(nameof(Tag));
         public static readonly DependencyProperty DataContextProperty = Dp.Register<object, FrameworkElement>(nameof(DataContext), null, OnDataContextChanged);
         public static readonly DependencyProperty StyleProperty = Dp.Register<Style, FrameworkElement>(nameof(Style), null, OnStyleChanged);
+
+        /// <summary>Key of a control's default (theme) style; controls override its metadata, the value is not used here.</summary>
+        protected internal static readonly DependencyProperty DefaultStyleKeyProperty = Dp.Register<object, FrameworkElement>("DefaultStyleKey");
         public static readonly DependencyProperty CursorProperty = Dp.Register<Cursor, FrameworkElement>(nameof(Cursor));
         public static readonly DependencyProperty ToolTipProperty = Dp.Register<object, FrameworkElement>(nameof(ToolTip));
         public static readonly DependencyProperty LayoutTransformProperty = Dp.Register<Transform, FrameworkElement>(nameof(LayoutTransform));
@@ -124,6 +127,9 @@ namespace System.Windows
 
         /// <summary>Properties whose current value came from the style (a trigger may override those).</summary>
         internal HashSet<DependencyProperty> StyledProperties => _styledProperties ??= new HashSet<DependencyProperty>();
+
+        /// <summary>A named part of the control template; control templates are not instantiated, so there is none.</summary>
+        protected DependencyObject GetTemplateChild(string childName) => null;
 
         internal override bool HasStyleTriggers => _styleTriggers is { Count: > 0 };
 

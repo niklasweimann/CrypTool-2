@@ -81,3 +81,5 @@
 /* a table cell drawn by a DataGridCell (cell style): the cell element fills it */
 .wpf td.wcell { padding: 0; }
 .wpf td.wcell > * { width: 100%; min-height: calc(1lh + 2px); padding: 1px 4px; box-sizing: border-box; }
+/* a hosted Windows Forms web browser (WindowsFormsHost) */
+.wpf .wweb { border: 0; width: 100%; height: 100%; background: #fff; }

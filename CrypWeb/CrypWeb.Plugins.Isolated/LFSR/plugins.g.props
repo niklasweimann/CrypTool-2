@@ -1,0 +1,14 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/LFSR/LFSRPlugin.cs" Link="LFSR/LFSRPlugin.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Core/LFSRImplementation.cs" Link="LFSR/Core/LFSRImplementation.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Utils/Logging.cs" Link="LFSR/Utils/Logging.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Utils/StandaloneComponentCompat.cs" Link="LFSR/Utils/StandaloneComponentCompat.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Utils/ObjectDeconstruct.cs" Link="LFSR/Utils/ObjectDeconstruct.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Utils/Datatypes.cs" Link="LFSR/Utils/Datatypes.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Utils/StandaloneComponents.cs" Link="LFSR/Utils/StandaloneComponents.cs" />
+    <Compile Include="../../../CrypPlugins/LFSR/Properties/Resources.Designer.cs" Link="LFSR/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/LFSR/Properties/Resources.resx" LogicalName="CrypTool.LFSR.Properties.Resources.resources" Link="LFSR/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/LFSR/Properties/Resources.de.resx" LogicalName="CrypTool.LFSR.Properties.Resources.de.resources" Link="LFSR/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

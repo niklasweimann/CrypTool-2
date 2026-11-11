@@ -68,6 +68,14 @@ for d in sorted(os.listdir(PL)):
         ds[:] = [x for x in ds if x not in ('obj', 'bin')]
         for f in fs:
             if f.endswith('.cs') and not f.endswith('.xaml.cs') and f != 'AssemblyInfo.cs' and not re.search(r'\.[a-z]{2}(-[A-Za-z]+)?\.Designer\.cs$', f): srcs.append(os.path.join(r, f))
+    # An old-style project lists its sources (<Compile Include="...">); files it does not list are not part of the
+    # plugin (leftovers) and are left out here too.
+    listed = set()
+    for cp in [f for f in os.listdir(pd) if f.endswith('.csproj')]:
+        for inc in re.findall(r'<Compile\s+Include="([^"*]+)"', open(os.path.join(pd, cp), encoding='utf-8-sig', errors='ignore').read()):
+            listed.add(os.path.normpath(os.path.join(pd, inc.replace('\\', os.sep))).lower())
+    if listed:
+        srcs = [x for x in srcs if os.path.normpath(x).lower() in listed]
     # resources
     res_files = {}
     loc_files = {}   # lang -> {path: values}  (Resources.<lang>.resx next to Resources.resx)
@@ -194,6 +202,17 @@ if 'KeySearcher' not in items_by_dir:
     for sub in ('KeyPattern', 'KeyTranslators'):
         for f in sorted(glob.glob(os.path.join(PL, 'KeySearcher', sub, '*.cs'))):
             main_lines += lines([('Compile', f, 'KeySearcher/' + sub + '/' + os.path.basename(f), None)], PLUG)
+# Libraries from LibSource that plugins compile against (pure .NET): their sources join the plugin assembly when a
+# plugin that needs them is built. plugin folder -> library folder below LibSource
+LIBRARIES = {'EnigmaAnalyzer': 'EnigmaAnalyzerLib', 'M209Analyzer': 'M209Analyzer/M209Analyzer'}
+for plugin, library in sorted(LIBRARIES.items()):
+    if plugin not in items_by_dir:
+        continue
+    lib_dir = os.path.join(ROOT, 'LibSource', library)
+    for f in sorted(glob.glob(os.path.join(lib_dir, '**', '*.cs'), recursive=True)):
+        if os.sep + 'obj' + os.sep in f or os.sep + 'bin' + os.sep in f or f.endswith('AssemblyInfo.cs'):
+            continue
+        main_lines += lines([('Compile', f, 'LibSource/' + library + '/' + os.path.relpath(f, lib_dir), None)], PLUG)
 os.makedirs(PLUG, exist_ok=True)
 open(os.path.join(PLUG, 'plugins.g.props'), 'w').write('<Project>\n  <ItemGroup>\n' + '\n'.join(main_lines) + '\n  </ItemGroup>\n</Project>\n')
 open(os.path.join(PLUG, 'isolated.g.props'), 'w').write('<Project>\n  <ItemGroup>\n' + '\n'.join(iso_refs) + '\n  </ItemGroup>\n</Project>\n')

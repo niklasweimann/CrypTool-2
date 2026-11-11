@@ -95,6 +95,7 @@ namespace System.Windows.Rendering
                 case Separator separator: WriteSeparator(separator, slot); break;
                 case GridSplitter splitter: WriteContainer(splitter, slot, "wsep", "", LayoutSlot.GridCell); break;
                 case ContentControl content: WriteContentControl(content, slot); break;
+                case Forms.Integration.WindowsFormsHost formsHost: WriteFormsHost(formsHost, slot); break;
                 default: WriteContainer(element, slot, "wb", "", LayoutSlot.GridCell); break;
             }
         }

@@ -56,7 +56,8 @@ def read_include_list():
 def runtime_type_names():
     """Maps the simple name of every type the WPF runtime implements to its full name."""
     names = {}
-    for path in glob.glob(os.path.join(RUNTIME_DIR, "**", "*.cs"), recursive=True):
+    shim_files = glob.glob(os.path.join(HERE, "CrypPluginBase.Portable", "Shims", "*.cs"))
+    for path in glob.glob(os.path.join(RUNTIME_DIR, "**", "*.cs"), recursive=True) + shim_files:
         if os.sep + "obj" + os.sep in path or os.sep + "bin" + os.sep in path:
             continue
         namespace = None

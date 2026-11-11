@@ -69,3 +69,11 @@ PlayfairAnalyzer
 MD5Collider
 AutocorrelationFunction
 SDES
+LFSR
+PKCS1
+KKDFSHAKE256
+KKDFSHA256
+HKDFSHA256
+M209Analyzer
+EnigmaAnalyzer
+MexicanArmyCipherDiskAnalyzer

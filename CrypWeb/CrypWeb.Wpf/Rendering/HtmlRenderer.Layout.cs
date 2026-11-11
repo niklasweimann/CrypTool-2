@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -231,7 +232,7 @@ namespace System.Windows.Rendering
                         _html.Append("<br/>");
                         break;
                     case Run run:
-                        WriteSpan(run, () => _html.Append(CssValues.Escape(run.Text)));
+                        WriteSpan(run, () => WriteRunText(run));
                         break;
                     case Span span:
                         WriteSpan(span, () => WriteInlines(span.Inlines));
@@ -242,6 +243,73 @@ namespace System.Windows.Rendering
                         _html.Append("</span>");
                         break;
                 }
+            }
+        }
+
+        /// <summary>The text of a run; character ranges formatted through a TextRange get their own spans.</summary>
+        private void WriteRunText(Run run)
+        {
+            string text = run.Text ?? "";
+            if (run.Formats.Count == 0)
+            {
+                _html.Append(CssValues.Escape(text));
+                return;
+            }
+
+            // cut the text at every range boundary; each piece gets the formats that cover it (later ones win)
+            var cuts = new SortedSet<int> { 0, text.Length };
+            foreach (var format in run.Formats)
+            {
+                cuts.Add(Math.Clamp(format.From, 0, text.Length));
+                cuts.Add(Math.Clamp(format.To, 0, text.Length));
+            }
+            int start = 0;
+            foreach (int end in cuts)
+            {
+                if (end <= start)
+                {
+                    continue;
+                }
+                var css = new StyleBuilder();
+                foreach (var format in run.Formats)
+                {
+                    if (format.From <= start && format.To >= end)
+                    {
+                        AddRangeFormat(css, format.Property, format.Value);
+                    }
+                }
+                string piece = CssValues.Escape(text.Substring(start, end - start));
+                string style = css.ToString();
+                if (style.Length == 0)
+                {
+                    _html.Append(piece);
+                }
+                else
+                {
+                    _html.Append("<span style=\"").Append(style).Append("\">").Append(piece).Append("</span>");
+                }
+                start = end;
+            }
+        }
+
+        /// <summary>CSS for one formatting property applied to a character range.</summary>
+        private static void AddRangeFormat(StyleBuilder css, DependencyProperty property, object value)
+        {
+            if (property == TextElement.ForegroundProperty && value is Brush foreground)
+            {
+                css.Add("color", CssValues.SolidColor(foreground));
+            }
+            else if (property == TextElement.BackgroundProperty && value is Brush background)
+            {
+                css.Add("background", CssValues.SolidColor(background));
+            }
+            else if (property == TextElement.FontWeightProperty && value is FontWeight weight)
+            {
+                css.Add("font-weight", weight.ToOpenTypeWeight().ToString(CultureInfo.InvariantCulture));
+            }
+            else if (property == TextElement.FontStyleProperty && value is FontStyle style)
+            {
+                css.Add("font-style", style.IsItalic ? "italic" : "normal");
             }
         }
 

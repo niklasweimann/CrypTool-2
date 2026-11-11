@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
@@ -121,6 +122,19 @@ namespace System.Windows.Documents
         public Run(string text) => Text = text;
 
         public string Text { get => (string)GetValue(TextProperty); set => SetValue(TextProperty, value); }
+
+        public TextPointer ContentStart => new TextPointer(this, 0);
+
+        public TextPointer ContentEnd => new TextPointer(this, (Text ?? "").Length);
+
+        /// <summary>Formatting of character ranges of this run (TextRange.ApplyPropertyValue on part of the run).</summary>
+        internal List<(int From, int To, DependencyProperty Property, object Value)> Formats { get; } = new();
+
+        internal void Format(int from, int to, DependencyProperty property, object value)
+        {
+            Formats.Add((from, to, property, value));
+            RenderVersion.Bump();
+        }
 
         internal override void AppendText(StringBuilder text) => text.Append(Text);
     }

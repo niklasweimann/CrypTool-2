@@ -275,10 +275,14 @@ namespace System.Windows
         public void Hide() { }
         public bool Activate() => true;
 
+        protected virtual void OnClosing(ComponentModel.CancelEventArgs e) => Closing?.Invoke(this, e);
+
+        protected virtual void OnClosed(EventArgs e) => Closed?.Invoke(this, e);
+
         public void Close()
         {
-            Closing?.Invoke(this, new ComponentModel.CancelEventArgs());
-            Closed?.Invoke(this, EventArgs.Empty);
+            OnClosing(new ComponentModel.CancelEventArgs());
+            OnClosed(EventArgs.Empty);
         }
 
         public static Window GetWindow(DependencyObject element) => null;

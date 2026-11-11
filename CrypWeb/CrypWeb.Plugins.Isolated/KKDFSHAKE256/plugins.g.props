@@ -1,0 +1,10 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/KKDFSHAKE256/KKDFSHAKE256.cs" Link="KKDFSHAKE256/KKDFSHAKE256.cs" />
+    <Compile Include="../../../CrypPlugins/KKDFSHAKE256/TooMuchOutputRequestedException.cs" Link="KKDFSHAKE256/TooMuchOutputRequestedException.cs" />
+    <Compile Include="../../../CrypPlugins/KKDFSHAKE256/KKDFSHAKE256Settings.cs" Link="KKDFSHAKE256/KKDFSHAKE256Settings.cs" />
+    <Compile Include="../../../CrypPlugins/KKDFSHAKE256/Properties/Resources.Designer.cs" Link="KKDFSHAKE256/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/KKDFSHAKE256/Properties/Resources.resx" LogicalName="KKDFSHAKE256.Properties.Resources.resources" Link="KKDFSHAKE256/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/KKDFSHAKE256/Properties/Resources.de.resx" LogicalName="KKDFSHAKE256.Properties.Resources.de.resources" Link="KKDFSHAKE256/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

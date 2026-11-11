@@ -2,7 +2,11 @@
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\ADFGVXAnalyzer\CrypWeb.Plugin.ADFGVXAnalyzer.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\DES\CrypWeb.Plugin.DES.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\KKDFSHAKE256\CrypWeb.Plugin.KKDFSHAKE256.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\LFSR\CrypWeb.Plugin.LFSR.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\MD5Collider\CrypWeb.Plugin.MD5Collider.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\MexicanArmyCipherDiskAnalyzer\CrypWeb.Plugin.MexicanArmyCipherDiskAnalyzer.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\PKCS1\CrypWeb.Plugin.PKCS1.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\PlayfairAnalyzer\CrypWeb.Plugin.PlayfairAnalyzer.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\RC2\CrypWeb.Plugin.RC2.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\SDES\CrypWeb.Plugin.SDES.csproj" />

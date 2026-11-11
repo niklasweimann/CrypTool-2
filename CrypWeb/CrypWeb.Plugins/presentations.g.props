@@ -801,5 +801,21 @@
     <Compile Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" Link="Presentations/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" />
     <Compile Include="Presentations/AutocorrelationFunction/AutocorrelationPresentation.g.cs" />
     <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/DetailedDescription/Description.xaml" LogicalName="xaml/AutocorrelationFunction/DetailedDescription/Description.xaml" Link="Presentations/AutocorrelationFunction/DetailedDescription/Description.xaml" />
+    <EmbeddedResource Include="Presentations/KKDFSHA256/KKDFSHA256.g.resources" LogicalName="KKDFSHA256.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256Pres.xaml" LogicalName="xaml/KKDFSHA256/KKDFSHA256Pres.xaml" Link="Presentations/KKDFSHA256/KKDFSHA256Pres.xaml" />
+    <Compile Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256Pres.xaml.cs" Link="Presentations/KKDFSHA256/KKDFSHA256Pres.xaml.cs" />
+    <Compile Include="Presentations/KKDFSHA256/KKDFSHA256Pres.g.cs" />
+    <EmbeddedResource Include="Presentations/HKDFSHA256/HKDFSHA256.g.resources" LogicalName="HKDFSHA256.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/HKDFSHA256/HKDFSHA256Pres.xaml" LogicalName="xaml/HKDFSHA256/HKDFSHA256Pres.xaml" Link="Presentations/HKDFSHA256/HKDFSHA256Pres.xaml" />
+    <Compile Include="../../CrypPlugins/HKDFSHA256/HKDFSHA256Pres.xaml.cs" Link="Presentations/HKDFSHA256/HKDFSHA256Pres.xaml.cs" />
+    <Compile Include="Presentations/HKDFSHA256/HKDFSHA256Pres.g.cs" />
+    <EmbeddedResource Include="Presentations/M209Analyzer/M209Analyzer.g.resources" LogicalName="M209Analyzer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/M209Analyzer/M209AnalyzerPresentation.xaml" LogicalName="xaml/M209Analyzer/M209AnalyzerPresentation.xaml" Link="Presentations/M209Analyzer/M209AnalyzerPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/M209Analyzer/M209AnalyzerPresentation.xaml.cs" Link="Presentations/M209Analyzer/M209AnalyzerPresentation.xaml.cs" />
+    <Compile Include="Presentations/M209Analyzer/M209AnalyzerPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/EnigmaAnalyzer/EnigmaAnalyzer.g.resources" LogicalName="EnigmaAnalyzer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/AssignmentPresentation.xaml" LogicalName="xaml/EnigmaAnalyzer/AssignmentPresentation.xaml" Link="Presentations/EnigmaAnalyzer/AssignmentPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/EnigmaAnalyzer/AssignmentPresentation.xaml.cs" Link="Presentations/EnigmaAnalyzer/AssignmentPresentation.xaml.cs" />
+    <Compile Include="Presentations/EnigmaAnalyzer/AssignmentPresentation.g.cs" />
   </ItemGroup>
 </Project>

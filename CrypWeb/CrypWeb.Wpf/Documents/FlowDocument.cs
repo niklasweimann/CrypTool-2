@@ -147,7 +147,10 @@ namespace System.Windows.Documents
         }
     }
 
-    /// <summary>A position in a flow document. Only the start and the end of the document are distinguished.</summary>
+    /// <summary>
+    /// A position in a flow document: the start or the end of the document, or a character position inside a
+    /// <see cref="Run"/> (Run.ContentStart plus an offset), which is how plugins colour parts of a text.
+    /// </summary>
     public class TextPointer
     {
         internal TextPointer(FlowDocument document, bool atEnd)
@@ -156,9 +159,21 @@ namespace System.Windows.Documents
             AtEnd = atEnd;
         }
 
+        internal TextPointer(Run run, int offset)
+        {
+            Run = run;
+            Offset = Math.Clamp(offset, 0, (run.Text ?? "").Length);
+            AtEnd = Offset == (run.Text ?? "").Length;
+        }
+
         internal FlowDocument Document { get; }
 
         internal bool AtEnd { get; }
+
+        /// <summary>The run this position is in (null for document positions), and the character offset in it.</summary>
+        internal Run Run { get; }
+
+        internal int Offset { get; }
 
         public Paragraph Paragraph => Document.Blocks.LastBlock as Paragraph;
 
@@ -166,13 +181,16 @@ namespace System.Windows.Documents
 
         public TextPointer DocumentEnd => Document.ContentEnd;
 
-        public TextPointer GetPositionAtOffset(int offset) => this;
+        public TextPointer GetPositionAtOffset(int offset) => Run != null ? new TextPointer(Run, Offset + offset) : this;
+
+        public TextPointer GetPositionAtOffset(int offset, LogicalDirection direction) => GetPositionAtOffset(offset);
 
         public TextPointer GetNextInsertionPosition(LogicalDirection direction) => this;
 
         public TextPointer GetInsertionPosition(LogicalDirection direction) => this;
 
-        public int GetOffsetToPosition(TextPointer position) => 0;
+        public int GetOffsetToPosition(TextPointer position) =>
+            Run != null && ReferenceEquals(position.Run, Run) ? position.Offset - Offset : 0;
 
         public int CompareTo(TextPointer position) => AtEnd == position.AtEnd ? 0 : AtEnd ? 1 : -1;
     }
@@ -189,8 +207,18 @@ namespace System.Windows.Documents
         private readonly bool _wholeDocument;
         private List<Run> _runs = new List<Run>();
 
+        // a range inside one run (from Run.ContentStart offsets): formatting is stored on the run for its characters
+        private readonly Run _run;
+
         public TextRange(TextPointer position1, TextPointer position2)
         {
+            if (position1.Run != null && ReferenceEquals(position1.Run, position2.Run))
+            {
+                _run = position1.Run;
+                Start = position1;
+                End = position2;
+                return;
+            }
             _document = position1.Document;
             _wholeDocument = !position1.AtEnd && position2.AtEnd;
             Start = position1;
@@ -207,6 +235,11 @@ namespace System.Windows.Documents
         {
             get
             {
+                if (_run != null)
+                {
+                    int from = Math.Min(Start.Offset, End.Offset);
+                    return (_run.Text ?? "").Substring(from, Math.Abs(End.Offset - Start.Offset));
+                }
                 if (_wholeDocument)
                 {
                     return _document.PlainText;
@@ -231,6 +264,11 @@ namespace System.Windows.Documents
         /// <summary>Formats the text of this range (font and colour properties of <see cref="TextElement"/>).</summary>
         public void ApplyPropertyValue(DependencyProperty formattingProperty, object value)
         {
+            if (_run != null)
+            {
+                _run.Format(Math.Min(Start.Offset, End.Offset), Math.Max(Start.Offset, End.Offset), formattingProperty, value);
+                return;
+            }
             IEnumerable<Inline> targets = _runs;
             if (_wholeDocument)
             {

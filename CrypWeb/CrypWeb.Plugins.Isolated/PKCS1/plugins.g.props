@@ -1,0 +1,66 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/PKCS1/PKCS1Plugin.cs" Link="PKCS1/PKCS1Plugin.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Navigation/Navigation.Designer.cs" Link="PKCS1/Resources/lang/Navigation/Navigation.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/Common.Designer.cs" Link="PKCS1/Resources/lang/Gui/Common.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/DatablockCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/DatablockCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenRsaCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/SigGenRsaCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigValCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/SigValCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.Designer.cs" Link="PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/OnlineHelp/OnlineHelpActions.cs" Link="PKCS1/OnlineHelp/OnlineHelpActions.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/OnlineHelp/OnlineHelpAccess.cs" Link="PKCS1/OnlineHelp/OnlineHelpAccess.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/OnlineHelp/HelpFiles/Help.Designer.cs" Link="PKCS1/OnlineHelp/HelpFiles/Help.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/IGuiLogMsg.cs" Link="PKCS1/Library/IGuiLogMsg.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/KuehnSig.cs" Link="PKCS1/Library/KuehnSig.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/SignatureType.cs" Link="PKCS1/Library/SignatureType.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/Hashfunction.cs" Link="PKCS1/Library/Hashfunction.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/RsaKey.cs" Link="PKCS1/Library/RsaKey.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/SigValidator.cs" Link="PKCS1/Library/SigValidator.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/Datablock.cs" Link="PKCS1/Library/Datablock.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/SignatureHandler.cs" Link="PKCS1/Library/SignatureHandler.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/ParameterChangeType.cs" Link="PKCS1/Library/ParameterChangeType.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/RsaSig.cs" Link="PKCS1/Library/RsaSig.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/Signature.cs" Link="PKCS1/Library/Signature.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/NavigationCommandType.cs" Link="PKCS1/Library/NavigationCommandType.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/BleichenbacherSig.cs" Link="PKCS1/Library/BleichenbacherSig.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/GuiLogMsgHandOff.cs" Link="PKCS1/Library/GuiLogMsgHandOff.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/myFloat.cs" Link="PKCS1/Library/myFloat.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/MathFunctions.cs" Link="PKCS1/Library/MathFunctions.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/Delegates.cs" Link="PKCS1/Library/Delegates.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Library/HashFuncIdentHandler.cs" Link="PKCS1/Library/HashFuncIdentHandler.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Properties/Settings.Designer.cs" Link="PKCS1/Properties/Settings.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/Properties/Resources.Designer.cs" Link="PKCS1/Properties/Resources.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfResources/ErrorsToMessageConverter.cs" Link="PKCS1/WpfResources/ErrorsToMessageConverter.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfResources/NumberValidationRule.cs" Link="PKCS1/WpfResources/NumberValidationRule.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfResources/NumberFormatRule.cs" Link="PKCS1/WpfResources/NumberFormatRule.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfControls/IPkcs1UserControl.cs" Link="PKCS1/WpfControls/IPkcs1UserControl.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfControls/Components/ResettableTabItem.cs" Link="PKCS1/WpfControls/Components/ResettableTabItem.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfControls/Components/HelpTabItem.cs" Link="PKCS1/WpfControls/Components/HelpTabItem.cs" />
+    <Compile Include="../../../CrypPlugins/PKCS1/WpfControls/Components/UserControlHelper.cs" Link="PKCS1/WpfControls/Components/UserControlHelper.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Navigation/Navigation.resx" LogicalName="PKCS1.Resources.lang.Navigation.Navigation.resources" Link="PKCS1/Resources/lang/Navigation/Navigation.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Navigation/Navigation.de.resx" LogicalName="PKCS1.Resources.lang.Navigation.Navigation.de.resources" Link="PKCS1/Resources/lang/Navigation/Navigation.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenKuehnCtrl.resources" Link="PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenKuehnCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/SigGenKuehnCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.RsaKeyGenCtrl.resources" Link="PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.RsaKeyGenCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/RsaKeyGenCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenBleichenbCtrl.resources" Link="PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenBleichenbCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/SigGenBleichenbCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.RsaKeyInputCtrl.resources" Link="PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.RsaKeyInputCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/RsaKeyInputCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/Common.resx" LogicalName="PKCS1.Resources.lang.Gui.Common.resources" Link="PKCS1/Resources/lang/Gui/Common.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/Common.de.resx" LogicalName="PKCS1.Resources.lang.Gui.Common.de.resources" Link="PKCS1/Resources/lang/Gui/Common.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigValCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.SigValCtrl.resources" Link="PKCS1/Resources/lang/Gui/SigValCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigValCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.SigValCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/SigValCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenRsaCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenRsaCtrl.resources" Link="PKCS1/Resources/lang/Gui/SigGenRsaCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/SigGenRsaCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.SigGenRsaCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/SigGenRsaCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/DatablockCtrl.resx" LogicalName="PKCS1.Resources.lang.Gui.DatablockCtrl.resources" Link="PKCS1/Resources/lang/Gui/DatablockCtrl.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Resources/lang/Gui/DatablockCtrl.de.resx" LogicalName="PKCS1.Resources.lang.Gui.DatablockCtrl.de.resources" Link="PKCS1/Resources/lang/Gui/DatablockCtrl.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/OnlineHelp/HelpFiles/Help.resx" LogicalName="PKCS1.OnlineHelp.HelpFiles.Help.resources" Link="PKCS1/OnlineHelp/HelpFiles/Help.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/OnlineHelp/HelpFiles/Help.de.resx" LogicalName="PKCS1.OnlineHelp.HelpFiles.Help.de.resources" Link="PKCS1/OnlineHelp/HelpFiles/Help.de.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Properties/Resources.resx" LogicalName="PKCS1.Properties.Resources.resources" Link="PKCS1/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PKCS1/Properties/Resources.de.resx" LogicalName="PKCS1.Properties.Resources.de.resources" Link="PKCS1/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>
