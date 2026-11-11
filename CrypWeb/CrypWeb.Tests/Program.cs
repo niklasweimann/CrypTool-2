@@ -99,6 +99,26 @@ if (args.Length > 1 && args[1] == "runall")
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");
     return;
 }
+if (args.Length > 2 && args[1] == "probe")
+{
+    // runs one template and prints the last value on every connector (debugging a single workspace)
+    var ws0 = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
+    var eng0 = new ExecutionEngine(); var r0 = eng0.RunAsync(ws0);
+    // like the browser worker: render the presentations and tick animations while the workspace runs
+    for (int i = 0; i < 60; i++)
+    {
+        await Task.Delay(50);
+        foreach (var n in eng0.Nodes.Values) if (n.Comp is PluginComponent { Host: { } host }) try { host.RenderIfChanged(); } catch (Exception e) { Console.WriteLine("RENDER " + e.Message); }
+        System.Windows.Hosting.WpfRuntime.Tick();
+    }
+    eng0.Stop(); await r0;
+    foreach (var n in eng0.Nodes.Values)
+    {
+        Console.WriteLine(n.Model.TypeName.Split('.').Last() + " " + n.State + " " + string.Join(" | ", n.Logs.Select(l => l.Level + ": " + l.Message)));
+        foreach (var kv in n.Last) Console.WriteLine("   " + (kv.Key.Outgoing ? "out " : "in  ") + kv.Key.PropertyName + " = " + Convert.ToString(kv.Value)?.Replace("\n", " ")[..Math.Min(80, Convert.ToString(kv.Value)?.Length ?? 0)]);
+    }
+    return;
+}
 if (args.Length > 2 && args[1] == "runtype")
 {
     foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories))

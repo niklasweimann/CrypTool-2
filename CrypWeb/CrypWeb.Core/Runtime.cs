@@ -198,7 +198,10 @@ public static class PluginRegistry
     public static RunComponent? Create(string typeName)
     {
         if (map == null) Build();
+        // the browser-native input/output components win over the plugins of the same name: the app draws them
+        // as its own text fields (the plugins are compiled too, but their presentation would not be shown)
+        if (NativeComponent.TryCreate(typeName) is { } native) return native;
         if (map!.TryGetValue(typeName, out var t)) return new PluginComponent((ICrypComponent)Activator.CreateInstance(t)!);
-        return NativeComponent.TryCreate(typeName);
+        return null;
     }
 }
