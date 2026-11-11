@@ -63,3 +63,7 @@ TextInput
 TextOutput
 Numbers
 PictureOutput
+
+ADFGVXAnalyzer
+PlayfairAnalyzer
+MD5Collider

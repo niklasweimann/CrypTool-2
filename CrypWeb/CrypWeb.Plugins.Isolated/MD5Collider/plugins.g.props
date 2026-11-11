@@ -1,0 +1,19 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/MD5Collider/MD5Collider.cs" Link="MD5Collider/MD5Collider.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/MultiThreadedMD5Collider.cs" Link="MD5Collider/Algorithm/MultiThreadedMD5Collider.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/KlimaTunnelsCollider.cs" Link="MD5Collider/Algorithm/KlimaTunnelsCollider.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/ColliderWorkerAdapter.cs" Link="MD5Collider/Algorithm/ColliderWorkerAdapter.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/StatusConstants.cs" Link="MD5Collider/Algorithm/StatusConstants.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/MD5ColliderBase.cs" Link="MD5Collider/Algorithm/MD5ColliderBase.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/IMD5ColliderAlgorithm.cs" Link="MD5Collider/Algorithm/IMD5ColliderAlgorithm.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/IHVCalculator.cs" Link="MD5Collider/Algorithm/IHVCalculator.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Algorithm/StevensCollider.cs" Link="MD5Collider/Algorithm/StevensCollider.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Properties/Settings.Designer.cs" Link="MD5Collider/Properties/Settings.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Properties/Resources.Designer.cs" Link="MD5Collider/Properties/Resources.Designer.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Presentation/Converters/LongToStringWithDecimalSeparatorConverter.cs" Link="MD5Collider/Presentation/Converters/LongToStringWithDecimalSeparatorConverter.cs" />
+    <Compile Include="../../../CrypPlugins/MD5Collider/Presentation/Converters/TimeSpanConverter.cs" Link="MD5Collider/Presentation/Converters/TimeSpanConverter.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/MD5Collider/Properties/Resources.resx" LogicalName="CrypTool.Plugins.MD5Collider.Properties.Resources.resources" Link="MD5Collider/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/MD5Collider/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.MD5Collider.Properties.Resources.de.resources" Link="MD5Collider/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

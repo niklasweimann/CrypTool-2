@@ -1,0 +1,22 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/PlayfairAnalyzer.cs" Link="PlayfairAnalyzer/PlayfairAnalyzer.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/PlayfairAnalyzerSettings.cs" Link="PlayfairAnalyzer/PlayfairAnalyzerSettings.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Key.cs" Link="PlayfairAnalyzer/Analysis/Key.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Arrays.cs" Link="PlayfairAnalyzer/Analysis/Arrays.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Transformations.cs" Link="PlayfairAnalyzer/Analysis/Transformations.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Playfair.cs" Link="PlayfairAnalyzer/Analysis/Playfair.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/SolvePlayfair.cs" Link="PlayfairAnalyzer/Analysis/SolvePlayfair.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/CtBestList.cs" Link="PlayfairAnalyzer/Analysis/Common/CtBestList.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/Permutations.cs" Link="PlayfairAnalyzer/Analysis/Common/Permutations.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/CtAPI.cs" Link="PlayfairAnalyzer/Analysis/Common/CtAPI.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/SimulatedAnnealing.cs" Link="PlayfairAnalyzer/Analysis/Common/SimulatedAnnealing.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/AnalysisInstance.cs" Link="PlayfairAnalyzer/Analysis/Common/AnalysisInstance.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/Utils.cs" Link="PlayfairAnalyzer/Analysis/Common/Utils.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Analysis/Common/Stats.cs" Link="PlayfairAnalyzer/Analysis/Common/Stats.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Converters/GridViewColumnVisibilityConverter.cs" Link="PlayfairAnalyzer/Converters/GridViewColumnVisibilityConverter.cs" />
+    <Compile Include="../../../CrypPlugins/PlayfairAnalyzer/Properties/Resources.Designer.cs" Link="PlayfairAnalyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/PlayfairAnalyzer/Properties/Resources.resx" LogicalName="CrypTool.PlayfairAnalyzer.Properties.Resources.resources" Link="PlayfairAnalyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PlayfairAnalyzer/Properties/Resources.de.resx" LogicalName="CrypTool.PlayfairAnalyzer.Properties.Resources.de.resources" Link="PlayfairAnalyzer/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

@@ -15,6 +15,8 @@
     <NoWarn>$(NoWarn);CS0108;CS0109;CS0114;CS0168;CS0169;CS0219;CS0414;CS0649;CS0618;CS1591;CS8981;CA1416;CS0067;CS0105;SYSLIB0011;SYSLIB0021;SYSLIB0022;SYSLIB0023;SYSLIB0045;SYSLIB0050;SYSLIB0051</NoWarn>
   </PropertyGroup>
   <Import Project="plugins.g.props" />
+  <!-- the plugin's presentation compiled from its XAML (tools-gen-presentations.py) -->
+  <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />

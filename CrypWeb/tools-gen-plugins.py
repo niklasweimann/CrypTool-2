@@ -16,8 +16,14 @@ def resx(path):
     except Exception: pass
     return d
 
-ISOLATE = set(l.strip() for l in open(os.path.join(ROOT, 'CrypWeb', 'plugins.isolate')) if l.strip() and not l.startswith('#')) if os.path.exists(os.path.join(ROOT, 'CrypWeb', 'plugins.isolate')) else set()
+# plugins.isolate: one plugin folder per line, optionally followed by "private" (see ISO_CSPROJ)
+_ISOLATE_LINES = [l.split() for l in open(os.path.join(ROOT, 'CrypWeb', 'plugins.isolate')) if l.strip() and not l.startswith('#')] if os.path.exists(os.path.join(ROOT, 'CrypWeb', 'plugins.isolate')) else []
+ISOLATE = set(parts[0] for parts in _ISOLATE_LINES)
+ISOLATE_PRIVATE = set(parts[0] for parts in _ISOLATE_LINES if 'private' in parts[1:])
 items_by_dir = {}
+# "private" plugins see the shared plugin assembly only under an alias, so that the namespaces of the other plugins
+# (e.g. "Transposition") do not hide the plugin's own types of the same name.
+PRIVATE_ALIAS = ' Aliases="plugins"'
 ISO_CSPROJ = '''<Project Sdk="Microsoft.NET.Sdk">
   <!-- generated: one plugin directory in its own assembly (its type names collide with another plugin's in a shared assembly) -->
   <PropertyGroup>
@@ -35,12 +41,14 @@ ISO_CSPROJ = '''<Project Sdk="Microsoft.NET.Sdk">
     <NoWarn>$(NoWarn);CS0108;CS0109;CS0114;CS0168;CS0169;CS0219;CS0414;CS0649;CS0618;CS1591;CS8981;CA1416;CS0067;CS0105;SYSLIB0011;SYSLIB0021;SYSLIB0022;SYSLIB0023;SYSLIB0045;SYSLIB0050;SYSLIB0051</NoWarn>
   </PropertyGroup>
   <Import Project="plugins.g.props" />
+  <!-- the plugin's presentation compiled from its XAML (tools-gen-presentations.py) -->
+  <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <ProjectReference Include="..\\..\\CrypWeb.Plugins\\CrypWeb.Plugins.csproj" />
+    <ProjectReference Include="..\\..\\CrypWeb.Plugins\\CrypWeb.Plugins.csproj"@ALIAS@ />
   </ItemGroup>
 </Project>
 '''
@@ -175,7 +183,7 @@ for d, its in items_by_dir.items():
     if d in ISOLATE:
         pdir = os.path.join(ISO, d); os.makedirs(pdir, exist_ok=True)
         open(os.path.join(pdir, 'plugins.g.props'), 'w').write('<Project>\n  <ItemGroup>\n' + '\n'.join(lines(its, pdir)) + '\n  </ItemGroup>\n</Project>\n')
-        open(os.path.join(pdir, 'CrypWeb.Plugin.%s.csproj' % d), 'w').write(ISO_CSPROJ.replace('@ASM@', 'CrypWeb.Plugin.' + d))
+        open(os.path.join(pdir, 'CrypWeb.Plugin.%s.csproj' % d), 'w').write(ISO_CSPROJ.replace('@ASM@', 'CrypWeb.Plugin.' + d).replace('@ALIAS@', PRIVATE_ALIAS if d in ISOLATE_PRIVATE else ''))
         iso_refs.append('    <ProjectReference Include="$(MSBuildThisFileDirectory)..\\CrypWeb.Plugins.Isolated\\%s\\CrypWeb.Plugin.%s.csproj" />' % (d, d)); iso_names.append('CrypWeb.Plugin.' + d)
     else:
         main_lines += lines(its, PLUG)

@@ -1,0 +1,19 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/adfgvx.cs" Link="ADFGVXAnalyzer/adfgvx.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/Algorithm.cs" Link="ADFGVXAnalyzer/Algorithm.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/ADFGVXAnalyzer.cs" Link="ADFGVXAnalyzer/ADFGVXAnalyzer.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/Alphabet36Vector.cs" Link="ADFGVXAnalyzer/Alphabet36Vector.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/SimulatedAnnealing.cs" Link="ADFGVXAnalyzer/SimulatedAnnealing.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/ADFGVXAnalyzerSettings.cs" Link="ADFGVXAnalyzer/ADFGVXAnalyzerSettings.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/ADFGVXVector.cs" Link="ADFGVXAnalyzer/ADFGVXVector.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/common/Logger.cs" Link="ADFGVXAnalyzer/common/Logger.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/common/Vector.cs" Link="ADFGVXAnalyzer/common/Vector.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/common/AlphabetVector.cs" Link="ADFGVXAnalyzer/common/AlphabetVector.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/common/Transposition.cs" Link="ADFGVXAnalyzer/common/Transposition.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/common/TranspositionTransformations.cs" Link="ADFGVXAnalyzer/common/TranspositionTransformations.cs" />
+    <Compile Include="../../../CrypPlugins/ADFGVXAnalyzer/Properties/Resources.Designer.cs" Link="ADFGVXAnalyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/ADFGVXAnalyzer/Properties/Resources.resx" LogicalName="ADFGVXAnalyzer.Properties.Resources.resources" Link="ADFGVXAnalyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/ADFGVXAnalyzer/Properties/Resources.de.resx" LogicalName="ADFGVXAnalyzer.Properties.Resources.de.resources" Link="ADFGVXAnalyzer/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,3 @@
-ADFGVXAnalyzer
 AudioInput
 AudioOutput
 BookCipher
@@ -18,7 +17,6 @@ LFSR
 LatticeCrypto
 LorenzSZ42
 M209Analyzer
-MD5Collider
 MexicanArmyCipherDisk
 MexicanArmyCipherDiskAnalyzer
 NetworkReceiver
@@ -26,7 +24,6 @@ PBKDF
 PKCS1
 PKCS5
 PRESENT
-PlayfairAnalyzer
 Primes
 RIPEMD160
 T310

@@ -1,10 +1,14 @@
+# plugin folders built in their own assembly; "private": shared plugin assembly only under an alias
+ADFGVXAnalyzer private
 BookCipher
 DES
 KKDFSHAKE256
 LFSR
+MD5Collider private
 MexicanArmyCipherDisk
 MexicanArmyCipherDiskAnalyzer
 PKCS1
+PlayfairAnalyzer private
 RC2
 SDES
 StringEncoder

@@ -1,6 +1,9 @@
 <Project>
   <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\ADFGVXAnalyzer\CrypWeb.Plugin.ADFGVXAnalyzer.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\DES\CrypWeb.Plugin.DES.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\MD5Collider\CrypWeb.Plugin.MD5Collider.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\PlayfairAnalyzer\CrypWeb.Plugin.PlayfairAnalyzer.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\RC2\CrypWeb.Plugin.RC2.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\SDES\CrypWeb.Plugin.SDES.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\CrypWeb.Plugins.Isolated\StringEncoder\CrypWeb.Plugin.StringEncoder.csproj" />

@@ -10,7 +10,7 @@ stubs_path = os.path.join(here, 'CrypWeb.Plugins', 'stubs.g.cs')
 STATE = os.path.join(here, 'stubs.state.json')
 excl = set(l.strip() for l in open(ex)) if os.path.exists(ex) else set()
 iso_path = os.path.join(here, 'plugins.isolate')
-iso = set(l.strip() for l in open(iso_path) if l.strip()) if os.path.exists(iso_path) else set()
+iso = set(l.split()[0] for l in open(iso_path) if l.strip() and not l.startswith('#')) if os.path.exists(iso_path) else set()
 
 def names(ns, s): return {n: ns for n in s.split()}
 KNOWN = {}
@@ -131,7 +131,9 @@ for it in range(40):
     # identical type names in two plugin directories cannot share an assembly: give those directories their own
     dup = set(d for _, d, _, code, _ in errs if code in ('CS0101', 'CS0102', 'CS0111', 'CS0579') and d not in iso)
     if dup:
-        iso |= dup; open(iso_path, 'w').write('\n'.join(sorted(iso)) + '\n'); new += len(dup)
+        iso |= dup
+        private = set(l.split()[0] for l in open(iso_path) if 'private' in l.split()[1:]) if os.path.exists(iso_path) else set()
+        open(iso_path, 'w').write('\n'.join(d + (' private' if d in private else '') for d in sorted(iso)) + '\n'); new += len(dup)
     print('iteration', it, 'errors', len(errs), 'stub/isolation changes', new, 'stubs', len(stubs), 'isolated', len(iso), flush=True)
     if new: write_stubs(); continue
     bad = set(d for _, d, _, _, _ in errs)

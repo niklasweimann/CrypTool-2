@@ -111,9 +111,11 @@ if (args.Length > 2 && args[1] == "probe")
         foreach (var n in eng0.Nodes.Values) if (n.Comp is PluginComponent { Host: { } host }) try { host.RenderIfChanged(); } catch (Exception e) { Console.WriteLine("RENDER " + e.Message); }
         System.Windows.Hosting.WpfRuntime.Tick();
     }
-    eng0.Stop(); await r0;
+    // long-running plugins (analyzers) may ignore Stop for a while: do not wait forever
+    eng0.Stop(); await Task.WhenAny(r0, Task.Delay(4000));
     foreach (var n in eng0.Nodes.Values)
     {
+        if (n.Comp is PluginComponent { Host: { } h }) Console.WriteLine("VIEW " + n.Model.TypeName.Split('.').Last() + " " + h.Render().Length + " chars");
         Console.WriteLine(n.Model.TypeName.Split('.').Last() + " " + n.State + " " + string.Join(" | ", n.Logs.Select(l => l.Level + ": " + l.Message)));
         foreach (var kv in n.Last) Console.WriteLine("   " + (kv.Key.Outgoing ? "out " : "in  ") + kv.Key.PropertyName + " = " + Convert.ToString(kv.Value)?.Replace("\n", " ")[..Math.Min(80, Convert.ToString(kv.Value)?.Length ?? 0)]);
     }
