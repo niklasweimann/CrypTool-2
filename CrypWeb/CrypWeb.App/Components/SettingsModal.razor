@@ -91,7 +91,9 @@
     loadedFor = Node.Id; loading = true; error = null; fields = new(); cur.Clear();
     try
     {
-      var json = await Js.InvokeAsync<string>("ct2engine.schema", Node.TypeName, JsonSerializer.Serialize(Node.Settings));
+      // computed in the app; yields first so the dialog shows its "loading" state
+      await Task.Yield();
+      var json = CrypWeb.App.Engine.EngineHost.Schema(Node.TypeName, JsonSerializer.Serialize(Node.Settings));
       using var doc = JsonDocument.Parse(json);
       if (doc.RootElement.TryGetProperty("error", out var err)) error = err.GetString();
       else fields = JsonSerializer.Deserialize<List<SettingField>>(doc.RootElement.GetProperty("fields").GetRawText(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();

@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+    <!-- the engine runs in the app: plugin code on background threads (needs cross-origin isolation, see README) -->
+    <WasmEnableThreads>true</WasmEnableThreads>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +17,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CrypWeb.Core\CrypWeb.Core.csproj" />
+    <ProjectReference Include="..\CrypWeb.Plugins\CrypWeb.Plugins.csproj" />
   </ItemGroup>
+  <Import Project="..\CrypWeb.Plugins\isolated.g.props" />
 
 </Project>

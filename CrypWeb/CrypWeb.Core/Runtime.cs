@@ -53,11 +53,13 @@ public sealed class PluginComponent : RunComponent
         try { if (p.Presentation is System.Windows.UIElement view && System.Windows.Hosting.PresentationHost.HasContent(view)) Host = new System.Windows.Hosting.PresentationHost(view) { ReportsHidden = BlockingPresentations.Contains(p.GetType().Name) }; } catch { }
     }
     /// <summary>
-    /// Plugins whose Execute() loops while their presentation is visible (until the user has stepped through it).
-    /// On the desktop that loop runs on a worker thread; here it would block the only thread, so these plugins are
-    /// told that their presentation is hidden. Found with `CrypWeb.Tests ... runall` ("still executing").
+    /// Plugins to tell that their presentation is hidden. Some plugins (DES, AES, Keccak, ...) wait in Execute()
+    /// until the user has stepped through their presentation; the browser app runs Execute on a background thread
+    /// (ExecutionEngine.ExecuteInBackground), so that works as on the desktop and the list is empty. A host that
+    /// runs plugin code on its UI thread would list them here (`CrypWeb.Tests ... runall` reports them as
+    /// "still executing").
     /// </summary>
-    public static readonly HashSet<string> BlockingPresentations = new(StringComparer.Ordinal) { "AESVisualization", "BB84PhotonDecoder", "DCAPathFinder", "DESVisualization", "Keccak", "KKDFSHA256" };
+    public static readonly HashSet<string> BlockingPresentations = new(StringComparer.Ordinal);
 
     /// <summary>Draws the plugin's presentation when it is a real element tree (null for generated stand-ins).</summary>
     public System.Windows.Hosting.PresentationHost? Host { get; }
@@ -151,7 +153,8 @@ public sealed class NativeComponent : RunComponent
     public override Type? TypeOf(string prop) => Which switch
     {
         Kind.PictureOutput => prop == "PictureStream" ? typeof(ICrypToolStream) : typeof(byte[]),
-        Kind.TextInput => typeof(string), Kind.TextOutput => typeof(string),
+        // the text output takes anything (CT2's TextOutput input is "object"): bytes are shown as hex, see OutputText
+        Kind.TextInput => typeof(string), Kind.TextOutput => typeof(object),
         Kind.NumberInput => typeof(BigInteger), _ => typeof(bool)
     };
     static string? Mime(byte[] b) =>
@@ -169,7 +172,23 @@ public sealed class NativeComponent : RunComponent
             else if (bytes != null) RaiseLog(LogLevel.Warning, "The data is not a picture the browser can show (PNG, JPEG, GIF, BMP, WebP).");
             return;
         }
-        v[prop] = value; if (Which is Kind.TextOutput or Kind.BooleanOutput && value != null) { Text = value.ToString() ?? ""; if (value is bool b) Text = b ? "True" : "False"; } }
+        v[prop] = value;
+        if (Which is Kind.TextOutput or Kind.BooleanOutput && value != null) Text = OutputText(value);
+    }
+
+    /// <summary>How CT2's TextOutput shows a value: bytes (arrays and streams) as hex pairs separated by spaces.</summary>
+    static string OutputText(object value)
+    {
+        byte[]? bytes = value switch
+        {
+            byte[] array => array,
+            ICrypToolStream => DataConvert.To(value, typeof(byte[])) as byte[],
+            _ => null,
+        };
+        if (bytes != null) return BitConverter.ToString(bytes).Replace("-", " ");
+        if (value is bool b) return b ? "True" : "False";
+        return value.ToString() ?? "";
+    }
     public override object? Get(string prop) => v.GetValueOrDefault(prop);
     public override string? Display => Text;
     public override void ApplySettings(IReadOnlyDictionary<string, string> s)

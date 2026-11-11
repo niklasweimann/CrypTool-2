@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using CrypTool.Web.Core;
+using CrypWeb.App.Engine;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -42,7 +43,9 @@ public partial class Home : IDisposable
         var signature = PreviewSignature(active);
         if (ReferenceEquals(previewDoc, active) && signature == previewSignature) return;
         previewDoc = active; previewSignature = signature;
-        try { await Js.InvokeVoidAsync("ct2engine.open", ed.ToJson(), active.Key); } catch (JSException) { }
+        EngineHost.SetCulture(Loc.Lang);
+        EngineHost.Open(ed.ToJson(), active.Key);
+        await Task.CompletedTask;
     }
     readonly List<Doc> docs = new();
     Doc active = new();
@@ -107,8 +110,17 @@ public partial class Home : IDisposable
         docs.Add(active);
         _ = LoadStartData();
         settings = await AppSettings.LoadAsync(Js);
-        try { templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new(); }
-        catch (Exception e) { AddLog("Startup", CrypTool.Web.Core.LogLevel.Error, "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh"); }
+        // the first requests of the page are sometimes aborted while the runtime starts its threads: try again
+        for (int attempt = 1; attempt <= 3 && templates.Count == 0; attempt++)
+        {
+            try { templates = await Http.GetFromJsonAsync<List<string>>("templates/index.json") ?? new(); }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine("Template list (attempt " + attempt + "): " + e.Message);
+                if (attempt == 3) AddLog("Startup", CrypTool.Web.Core.LogLevel.Error, "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh");
+                else await Task.Delay(300);
+            }
+        }
         try
         {
             var list = await Http.GetFromJsonAsync<List<PluginMeta>>("plugins.json") ?? new();
@@ -130,8 +142,10 @@ public partial class Home : IDisposable
         }
         self = DotNetObjectReference.Create(this);
         await Js.InvokeVoidAsync("ct2.init", self, "main svg");
-        await Js.InvokeVoidAsync("ct2engine.create", self);
-        await Js.InvokeVoidAsync("ct2engine.prewarm");
+        // the engine runs in this app: plugin code on background threads, presentations on this (UI) thread
+        EngineHost.Initialize();
+        EngineHost.Message += OnWorkerMessage;
+        await Js.InvokeVoidAsync("ct2engine.start");
         StartAutosave();
     }
 
@@ -260,6 +274,12 @@ public partial class Home : IDisposable
         if (line.Length > 0) yield return line;
     }
 
+    /// <summary>False for components without a visualization (Presentation is null in the original): no presentation view.</summary>
+    bool HasPresentation(PluginNode p) => IsNative(p) || (Meta(p)?.Presentation ?? true);
+
+    /// <summary>The view a component shows: a stored "presentation" view of a component without one shows its data.</summary>
+    int ViewOf(PluginNode p) => p.ViewState == 1 && !HasPresentation(p) ? 2 : p.ViewState;
+
     bool Runnable(PluginNode p) { if (!runnable.TryGetValue(p.TypeName, out var r)) runnable[p.TypeName] = r = IsNative(p) || (Meta(p)?.Supported ?? false); return r; }
 
     static string NativeKey(PluginNode p) => p.TypeName.EndsWith("NumberInput", StringComparison.OrdinalIgnoreCase) ? "Number" : p.TypeName.EndsWith("BooleanInput", StringComparison.OrdinalIgnoreCase) ? "Value" : "Text";
@@ -267,7 +287,7 @@ public partial class Home : IDisposable
     void SetNativeText(PluginNode p, string v)
     {
         p.Settings[NativeKey(p)] = v; p.SettingTypes[NativeKey(p)] = NativeKey(p) == "Value" ? "System.Int32" : "System.String"; ed.MarkDirty();
-        if (engine.Running) _ = Js.InvokeVoidAsync("ct2engine.text", p.Id, v);
+        if (engine.Running) EngineHost.SetText(p.Id, v);
     }
     void SetSetting(PluginNode p, string key, string v) { ed.Checkpoint(); p.Settings[key] = v; }
 
@@ -280,7 +300,9 @@ public partial class Home : IDisposable
         // the worker reuses the components it prepared for this workspace (presentations keep their state)
         previewDoc = active; previewSignature = PreviewSignature(active);
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.started"]);
-        await Js.InvokeVoidAsync("ct2engine.start", ed.ToJson(), settings.GuiUpdateMs, settings.SleepMs, active.Key);
+        EngineHost.SetCulture(Loc.Lang);
+        EngineHost.Start(ed.ToJson(), active.Key, settings.GuiUpdateMs, settings.SleepMs);
+        await Task.CompletedTask;
     }
 
     void StopRun()
@@ -290,16 +312,8 @@ public partial class Home : IDisposable
         foreach (var n in d.Engine.Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Idle;
         AddLog(Loc["log.workspace"], CrypTool.Web.Core.LogLevel.Info, Loc["log.stopped"], 0, d);
         runDoc = null;
-        _ = StopWorkerAsync();
-    }
-
-    /// <summary>Stops the run in the worker; if a plugin did not give control back, the worker was replaced.</summary>
-    async Task StopWorkerAsync()
-    {
-        bool killed = await Js.InvokeAsync<bool>("ct2engine.stop");
-        if (!killed) return;
-        previewSignature = null;        // a fresh worker: give it the workspace again
-        await InvokeAsync(StateHasChanged);
+        // the components are told to stop; one that ignores it keeps computing in the background, the page stays usable
+        EngineHost.Stop();
     }
 
     /// <summary>
@@ -708,7 +722,7 @@ public partial class Home : IDisposable
     {
         if (settingsFor == null) return;
         ed.Checkpoint(); settingsFor.Settings[c.Name] = c.Value; if (!string.IsNullOrEmpty(c.Type)) settingsFor.SettingTypes[c.Name] = c.Type;
-        if (engine.Running) await Js.InvokeVoidAsync("ct2engine.setting", settingsFor.Id, c.Name, c.Value);
+        if (engine.Running) EngineHost.SetSetting(settingsFor.Id, c.Name, c.Value);
     }
 
     // ---------- inline editing ----------

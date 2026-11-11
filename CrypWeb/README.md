@@ -27,7 +27,7 @@ Not yet: control (IControl) connectors, plugin presentations, settings UI beyond
 - **UI strings:** `CrypWeb.App/Localizer.cs` + `wwwroot/i18n/<lang>.json` (English is the fallback). Add a language by adding a JSON file and listing it in `Localizer.Languages`. The picker is in the ribbon, the choice is stored in `localStorage` (default: browser language).
 - **Plugin metadata:** `tools-gen-plugins.py` reads `Resources.<lang>.resx` next to each `Resources.resx` and writes the differences into `plugins.json` (`loc.<lang>`: name, tooltip, port captions/tooltips). Use `PluginMeta.NameFor/TooltipFor/PortCaptionFor/PortTooltipFor(lang)` (`CrypWeb.Core/Localization.cs`), English is the fallback.
 - **Templates:** `$placeholders$` and note texts come from the template's `.xml` (`TemplateStrings.Load(xml, lang)`). They are resolved when a template is loaded, so an unmodified template is reloaded when the language changes.
-- **Engine worker:** `ct2engine.start` passes the selected culture; the worker sets `CurrentUICulture`. Localized plugin resources (`Resources.<lang>.resx`) are embedded as satellite resources of `CrypWeb.Plugins` and loaded with `loadAllSatelliteResources`, so plugin log messages and exceptions use the selected language.
+- **Engine:** `EngineHost.SetCulture` sets `CurrentUICulture` (and the default for background threads) to the selected language before a workspace is opened or run. Localized plugin resources (`Resources.<lang>.resx`) are embedded as satellite resources of `CrypWeb.Plugins` and loaded with `loadAllSatelliteResources` (`Blazor.start` in `index.html`), so plugin log messages and exceptions use the selected language.
 - **Not localized yet:** component names given in a saved workspace (user-chosen), tooltips of the ribbon buttons, error messages of the app itself, plugin setting captions (the settings modal reuses the same lookup).
 
 ## File compatibility with CrypTool 2
@@ -51,10 +51,10 @@ The plugin sources in `CrypPlugins/` are never edited. Everything the browser la
 | `System.Drawing.Common` (Windows only) | `CrypWeb.Drawing`: managed `Bitmap/Graphics/Pen/Brush/Font/...` on a pixel buffer, codecs by ImageSharp. Text is laid out but not drawn. |
 | OS crypto (`Aes`, `RijndaelManaged`, DES, 3DES, RC2) | `CrypWeb.Plugins/ManagedCrypto.cs`: same names in the global namespace (found before `using System.Security.Cryptography`), BouncyCastle inside; verified against .NET (`CrypWeb.Tests`) |
 | `NativeCryptography` (C++/CLI) | `CrypWeb.Plugins/NativeCryptoShim.cs` |
-| Data files read from disk | lazy files in the worker's virtual file system (`tools-gen-vfs.py`) |
+| Data files read from disk | lazy files in the runtime's file system, downloaded on first open (`tools-gen-vfs.py`, `wwwroot/vfs.js`) |
 | WPF-only input/output components | browser-native components (`NativeComponent`: text/number/boolean in-/output, picture output) |
 
-Workflow after changing shims or plugin sources: `python3 tools-prune-plugins.py` (finds what compiles, writes `plugins.exclude`/`plugins.isolate`/stubs state), then `./tools-build-worker.sh`.
+Workflow after changing shims or plugin sources: `python3 tools-prune-plugins.py` (finds what compiles, writes `plugins.exclude`/`plugins.isolate`/stubs state), then build the app.
 
 Status (headless smoke test over all templates, `dotnet run --project CrypWeb.Tests -- ../Templates runall`): 226 of 241 templates run without errors,
 213 of them with real plugins; the rest are components that still need their own web view or libraries (Enigma, KeySearcher and the other analyzers
@@ -73,19 +73,29 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
 - **Build**: `presentations.include` lists the plugin folders whose presentation is compiled for real;
   `python3 tools-gen-presentations.py` embeds the XAML, adds the code-behind, generates `InitializeComponent()` and copies pictures
   to `wwwroot/wpf-res/`. A missing WPF type or member shows up as a compile error: add it to `CrypWeb.Wpf`.
-- **Run**: the engine worker renders a presentation to HTML whenever it changed (`$html` presentation value); `wpf.js` merges it
-  into the DOM, scales view boxes and shapes, and sends clicks/text/selection back (`WorkerApi.PresEvent`). Component views are
+- **Threads, as on the desktop**: the app runs on the multi-threaded .NET runtime (`WasmEnableThreads`). The engine and the
+  presentations live on the UI thread (`CrypWeb.App/Engine/EngineHost.cs`); plugin code (`Execute`) runs on background threads
+  (`ExecutionEngine.ExecuteInBackground`), several components at once, as in CT2. So presentations stay live while a component
+  computes (analyzers update their views, DES/AES/Keccak wait in `Execute` for the user to step through their visualization),
+  and Stop reaches a running component (`Stop()` is called at once). `Dispatcher.Invoke` from a plugin thread runs on the UI
+  thread and waits (`CrypWeb.Wpf/Core/Dispatcher.cs`). Plugins that never check their stop flag (they relied on `Thread.Abort`)
+  finish in the background while the page stays usable.
+- **Hosting requirement**: threads need `SharedArrayBuffer`, i.e. cross-origin isolation (`Cross-Origin-Opener-Policy:
+  same-origin`, `Cross-Origin-Embedder-Policy: require-corp`). Cloudflare gets them from `wwwroot/_headers`; the dev server from
+  `--ApplyCopHeaders true` (`.claude/launch.json`: `dotnet run --project CrypWeb/CrypWeb.App --no-launch-profile --
+  --ApplyCopHeaders true`). Data files are downloaded synchronously on first open on the UI thread, which serves the file
+  system for all threads (`wwwroot/vfs.js`).
+- **Run**: the engine renders a presentation to HTML whenever it changed (`$html` presentation value); `wpf.js` merges it
+  into the DOM, scales view boxes and shapes, and sends clicks/text/selection back (`EngineHost.PresEvent`). Component views are
   plain HTML above the canvas (`.nviews`), not SVG `foreignObject` (WebKit misplaces scaled content there).
-- **Live before and after a run**: when a workspace is opened or changed, the app sends it to the worker (`open`,
+- **Live before and after a run**: when a workspace is opened or changed, the app gives it to the engine (`EngineHost.Open`,
   `ExecutionEngine.Prepare`), which creates the components, so presentations are shown and usable before Play, as in CT2.
-  Components are kept between runs; Stop asks the engine to stop and only kills the worker if a plugin does not return.
-  Settings a component changes itself (e.g. in its presentation) are reported back and stored in the workspace.
+  Components are kept between runs. Settings a component changes itself (e.g. in its presentation) are reported back and
+  stored in the workspace.
 - **Drag and drop**: `wpf.js` performs the gesture and reports it once (`drag`); the host replays mouse down/move on the
   source, and `DragDrop.DoDragDrop` delivers the drop synchronously (`CrypWeb.Wpf/Input/DragDrop.cs`).
-- **Single thread**: plugins that loop while their presentation is visible would block the worker; they are listed in
-  `PluginComponent.BlockingPresentations` and told the view is hidden. `CrypWeb.Tests ... runall` reports such plugins
-  ("still executing") and renders every presentation. Plugin code that starts threads gets `CooperativeThread`
-  (`CrypPluginBase.Portable/Shims`), which runs the thread body inside `Start()`.
+- **Tests**: `CrypWeb.Tests ... runall` runs plugin code on the calling thread; it reports plugins that wait for their
+  presentation as "still executing" and renders every presentation.
 - **Checking a view**: `dotnet run --project CrypWeb.Tests -- ../Templates snap <template.cwm> [Element.Property=value]
   [size:id=WxH] [event:id:kind:value:x:y]` writes each rendered presentation to `CrypWeb.App/wwwroot/_snap/<Plugin>.html`
   (open it via the dev server). The page collects the sizes the browser measures in `window.snapSizes`; pass them back as
@@ -95,16 +105,17 @@ Plugins not in `presentations.include` still use the older fallbacks: generated 
 recorded, shown by custom visualizers (`CrypWeb.App/Visualizers/*Viz.razor`) or by the static XAML drawing (`XamlViz`).
 These fallbacks are to be removed as plugins move to the runtime.
 
-Not supported yet: control templates and triggers, 3D, `VisualBrush`/`DrawingBrush`, editing in `RichTextBox`, hover events,
+Not supported yet: control templates (and their triggers), 3D, `VisualBrush`/`DrawingBrush`, editing in `RichTextBox`, hover events,
 custom layout (`MeasureOverride`/`ArrangeOverride`), the `CrypAnalysisViewControl` library (used by the analyzers).
 
 ## Hosting on Cloudflare Workers
 
-The app is static (Blazor WASM + engine worker), so it is deployed as Workers *static assets* (`wrangler.jsonc`, SPA fallback to `index.html`).
+The app is static (Blazor WASM, multi-threaded), so it is deployed as Workers *static assets* (`wrangler.jsonc`, SPA fallback to
+`index.html`); `wwwroot/_headers` adds the cross-origin isolation headers the threads need.
 
 ```sh
 npm install
-npm run build            # ./tools-build-web.sh: templates + engine worker + dotnet publish -> dist/
+npm run build            # ./tools-build-web.sh: templates + dotnet publish -> dist/
 npm run dev              # local Workers runtime at http://localhost:8787
 npx wrangler login       # once
 npm run deploy           # build + wrangler deploy

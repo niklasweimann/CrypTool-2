@@ -46,8 +46,13 @@
     </div>
     <script src="canvas.js"></script>
     <script src="wpf.js"></script>
+    <script src="vfs.js"></script>
     <script src="engine.js"></script>
-    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js" autostart="false"></script>
+    <script>
+      // plugin texts come in every language the app offers: load all satellite resource assemblies
+      Blazor.start({ configureRuntime: runtime => runtime.withConfig({ loadAllSatelliteResources: true }) });
+    </script>
 </body>
 
 </html>

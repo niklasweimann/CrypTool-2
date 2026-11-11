@@ -36,9 +36,16 @@ namespace System.Windows.Threading
             return result;
         }
 
+        /// <summary>Reports an exception of presentation code (instead of letting it end the runtime).</summary>
+        internal static void Report(Exception exception) => UnhandledException?.Invoke(exception);
+
+        /// <summary>Continuations of presentation code run on the UI thread (the thread pool when there is none).</summary>
         public override void Post(SendOrPostCallback d, object state)
         {
-            base.Post(_ => Invoke(d, state), null);
+            if (!Dispatcher.TryPostToUi(_ => Invoke(d, state), null))
+            {
+                base.Post(_ => Invoke(d, state), null);
+            }
         }
 
         public override void Send(SendOrPostCallback d, object state) => Invoke(d, state);

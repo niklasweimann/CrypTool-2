@@ -34,10 +34,28 @@ public sealed class ExecutionEngine
     public int SleepMs { get; set; } = 1;
     public event Action? Changed;
     public event Action<RunNode, LogLevel, string>? Log;
-    public int ExecutionCount { get; private set; }
+    int executionCount;
+    public int ExecutionCount { get => executionCount; private set => executionCount = value; }
     CancellationTokenSource? cts;
 
-    public void Stop() { cts?.Cancel(); }
+    /// <summary>
+    /// Run plugin code (Execute) on a thread-pool thread, so the calling (UI) thread stays free to draw presentations
+    /// and handle input while a component computes, as on the desktop. The browser app sets this; tests do not.
+    /// </summary>
+    public bool ExecuteInBackground { get; set; }
+
+    /// <summary>Lock for the engine state that components change from their own thread (outputs, wires).</summary>
+    public object Gate { get; } = new();
+
+    /// <summary>Stops the run: the components are told at once (a running Execute sees its stop flag), the loop ends.</summary>
+    public void Stop()
+    {
+        cts?.Cancel();
+        foreach (var n in Nodes.Values.ToList())
+        {
+            try { n.Comp?.Stop(); } catch { }
+        }
+    }
 
     /// <summary>Re-runs a source component (e.g. after its text was edited while running).</summary>
     public void Retrigger(int pluginId) { if (Nodes.TryGetValue(pluginId, out var n) && n.Model.Inputs.Count == 0) n.FirstRun = true; }
@@ -127,6 +145,9 @@ public sealed class ExecutionEngine
             try { n.Comp!.PreExecution(); } catch (Exception e) { Fail(n, "PreExecution: " + e.Message + (Environment.GetEnvironmentVariable("CT2_TRACE") == "1" ? "\n" + e : "")); }
         }
         Changed?.Invoke();
+        // components executing right now (background mode): as in CT2, other components keep running meanwhile,
+        // e.g. while the DES visualization waits for the user, the components after it process its result
+        var executing = new Dictionary<RunNode, Task>();
         try
         {
             int idle = 0;
@@ -137,15 +158,41 @@ public sealed class ExecutionEngine
                 {
                     if (ct.IsCancellationRequested) break;
                     if (n.Comp == null || n.State == RunState.Error) continue;
-                    if (TryFire(n)) { progressed = true; Changed?.Invoke(); await Task.Yield(); }
+                    lock (executing) if (executing.ContainsKey(n)) continue;
+                    bool fire;
+                    lock (Gate) fire = TryFire(n);
+                    if (!fire) continue;
+                    progressed = true;
+                    if (n.State == RunState.Error) { Changed?.Invoke(); continue; }
+                    if (!ExecuteInBackground)
+                    {
+                        await RunNodeAsync(n);
+                        Changed?.Invoke();
+                        await Task.Yield();
+                        continue;
+                    }
+                    var node = n;
+                    var execution = RunNodeAsync(node).ContinueWith(_ =>
+                    {
+                        lock (executing) executing.Remove(node);
+                        Changed?.Invoke();
+                    }, TaskScheduler.Default);
+                    lock (executing) executing[node] = execution;
+                    Changed?.Invoke();
                 }
-                if (progressed) { idle = 0; await Task.Delay(Math.Max(1, SleepMs), CancellationToken.None); }
+                bool busy;
+                lock (executing) busy = executing.Count > 0;
+                if (progressed || busy) { idle = 0; await Task.Delay(Math.Max(1, progressed ? SleepMs : 20), CancellationToken.None); }
                 else { idle++; await Task.Delay(idle > 20 ? 100 : 20, CancellationToken.None); }
-                if (idle == 5) { foreach (var n in Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Done; ActiveWires.Clear(); Changed?.Invoke(); }
+                if (idle == 5) { foreach (var n in Nodes.Values) if (n.State == RunState.Running) n.State = RunState.Done; lock (Gate) ActiveWires.Clear(); Changed?.Invoke(); }
             }
         }
         finally
         {
+            // components that are still executing were told to stop (Stop); give them a moment to return, as CT2 does
+            Task[] pending;
+            lock (executing) pending = executing.Values.ToArray();
+            if (pending.Length > 0) await Task.WhenAny(Task.WhenAll(pending), Task.Delay(3000));
             foreach (var n in Nodes.Values.Where(n => n.Comp != null))
             {
                 try { n.Comp!.Stop(); } catch { }
@@ -221,7 +268,7 @@ public sealed class ExecutionEngine
         if (n.FirstRun && (p.Inputs.Count == 0 || onlyOptionalUnconnected))
         {
             n.FirstRun = false;
-            Run(n); return true;
+            return true;
         }
         bool blocked = false, atLeastOneNew = false;
         foreach (var c in p.Inputs)
@@ -244,17 +291,28 @@ public sealed class ExecutionEngine
             var val = q.Dequeue();
             try { n.Comp!.Set(c.PropertyName, DataConvert.To(val, n.Comp.TypeOf(c.PropertyName))); }
             catch (Exception e) { Fail(n, $"Setting '{c.PropertyName}': {e.Message}"); return true; }
-            n.Last[c] = val;
-            foreach (var w in c.Wires) ActiveWires.Remove(w.Id);
+            lock (Gate)
+            {
+                n.Last[c] = val;
+                foreach (var w in c.Wires) ActiveWires.Remove(w.Id);
+            }
         }
-        Run(n); return true;
+        return true;
     }
 
-    void Run(RunNode n)
+    /// <summary>Executes one component (on a background thread when <see cref="ExecuteInBackground"/>).</summary>
+    async Task RunNodeAsync(RunNode n)
     {
         n.State = RunState.Running; n.Progress = 0;
         var sw = System.Diagnostics.Stopwatch.StartNew();
-        try { n.Comp!.Execute(); n.LastMs = sw.ElapsedMilliseconds; ExecutionCount++; n.Progress = 1; if (n.State == RunState.Running) n.State = RunState.Done; }
+        try
+        {
+            var comp = n.Comp!;
+            if (ExecuteInBackground) await Task.Run(comp.Execute);
+            else comp.Execute();
+            n.LastMs = sw.ElapsedMilliseconds; Interlocked.Increment(ref executionCount); n.Progress = 1;
+            if (n.State == RunState.Running) n.State = RunState.Done;
+        }
         catch (Exception e) { Fail(n, (e.InnerException?.Message ?? e.Message) + (Environment.GetEnvironmentVariable("CT2_TRACE") == "1" ? "\n" + e : "")); }
     }
 
@@ -266,9 +324,13 @@ public sealed class ExecutionEngine
         if (port == null) return;
         object? data; try { data = n.Comp!.Get(prop); } catch { return; }
         if (data == null) return;
-        n.Last[port] = data;
-        foreach (var w in port.Wires)
-            if (w.To?.Plugin != null && Nodes.TryGetValue(w.To.Plugin.Id, out var tn))
-            { tn.Queues[w.To].Enqueue(data); ActiveWires.Add(w.Id); }
+        // components report outputs from their own thread while the UI thread reads the state: under the gate
+        lock (Gate)
+        {
+            n.Last[port] = data;
+            foreach (var w in port.Wires)
+                if (w.To?.Plugin != null && Nodes.TryGetValue(w.To.Plugin.Id, out var tn))
+                { tn.Queues[w.To].Enqueue(data); ActiveWires.Add(w.Id); }
+        }
     }
 }

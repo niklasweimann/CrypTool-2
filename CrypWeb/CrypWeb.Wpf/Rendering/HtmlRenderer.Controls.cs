@@ -342,17 +342,19 @@ namespace System.Windows.Rendering
             _html.Append("</tbody></table></div>");
         }
 
+        /// <summary>A table cell: the bound value as text, else the cell template (in WPF a GridViewColumn's
+        /// DisplayMemberBinding wins over its CellTemplate when both are set).</summary>
         private void WriteCell(ItemsControl owner, object item, object column, BindingBase binding, DataTemplate template)
         {
-            if (template != null)
+            if (binding != null)
+            {
+                _html.Append(CssValues.Escape(Convert.ToString(BindingEvaluator.Evaluate(binding, item), CultureInfo.CurrentCulture)));
+            }
+            else if (template != null)
             {
                 _html.Append("<div class=\"wb\">");
                 WriteElement(owner.CellElement(item, column, template), LayoutSlot.GridCell);
                 _html.Append("</div>");
-            }
-            else if (binding != null)
-            {
-                _html.Append(CssValues.Escape(Convert.ToString(BindingEvaluator.Evaluate(binding, item), CultureInfo.CurrentCulture)));
             }
         }
 

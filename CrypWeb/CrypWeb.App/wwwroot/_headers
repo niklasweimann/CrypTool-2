@@ -1,0 +1,6 @@
+# Cloudflare static assets: response headers for every file.
+# Cross-origin isolation (COOP + COEP) makes SharedArrayBuffer available, which the multi-threaded .NET runtime
+# needs (plugin code runs on background threads). All resources of the app are same-origin.
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp

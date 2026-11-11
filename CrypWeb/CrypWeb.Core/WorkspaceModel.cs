@@ -144,6 +144,8 @@ public sealed class PluginMeta
     public string Type { get; set; } = ""; public string Dir { get; set; } = ""; public string Assembly { get; set; } = ""; public string Name { get; set; } = "";
     public string Tooltip { get; set; } = ""; public string Category { get; set; } = "Undefined"; public string? Icon { get; set; }
     public List<PortMeta> Ports { get; set; } = new(); public bool Supported { get; set; }
+    /// <summary>False for components without a visualization (their Presentation is null): no presentation view.</summary>
+    public bool Presentation { get; set; } = true;
     /// <summary>Localized overrides per language code ("de"); anything missing falls back to the English values above.</summary>
     public Dictionary<string, PluginLoc> Loc { get; set; } = new();
 

@@ -44,8 +44,6 @@ ISO_CSPROJ = '''<Project Sdk="Microsoft.NET.Sdk">
   <!-- the plugin's presentation compiled from its XAML (tools-gen-presentations.py) -->
   <Import Project="presentations.g.props" Condition="Exists('presentations.g.props')" />
   <ItemGroup>
-    <!-- "Thread" means the cooperative stand-in, as in the shared plugin assembly -->
-    <Compile Include="..\\..\\CrypWeb.Plugins\\ThreadAlias.cs" />
     <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.14" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
@@ -109,6 +107,10 @@ for d in sorted(os.listdir(PL)):
             if len(g) == 5: resname, ck, tk, doc, icons = g
             else: ck, tk, doc, icons = g; resname = ''
             icons = icons or ''
+            if not icons:
+                # icons may also follow as plain arguments: PluginInfo(..., "doc.xml", "Plugin/icon.png", ...)
+                info = re.search(r'PluginInfo\((.*?)\)\s*\]', attrs, re.S)
+                icons = ','.join('"%s"' % x for x in re.findall(r'"([^"]+\.(?:png|jpg|jpeg|gif|ico|bmp))"', info.group(1) if info else '', re.I))
             ns = re.findall(r'namespace\s+([\w.]+)', text[:cm.start()])
             full = (ns[-1] + '.' if ns else '') + cls
             cat = re.search(r'ComponentCategory\(ComponentCategory\.(\w+)\)', attrs)
@@ -159,7 +161,9 @@ for d in sorted(os.listdir(PL)):
                     if e2: lp[pt['name']] = e2
                 if lp: entry['ports'] = lp
                 if entry: loc[lang] = entry
-            meta[full] = dict(loc=loc, type=full, dir=d, name=res.get(ck, cls), tooltip=res.get(tk, ''), category=cat.group(1) if cat else 'Undefined', icon=icon, ports=ports, supported=d not in EXCL)
+            # a component without a visualization returns null as its Presentation (CT2 then offers no presentation view)
+            no_view = re.search(r'Presentation\s*(?:=>\s*null|\{\s*get\s*(?:=>\s*null|\{\s*return\s+null\s*;))', body)
+            meta[full] = dict(loc=loc, type=full, dir=d, name=res.get(ck, cls), tooltip=res.get(tk, ''), category=cat.group(1) if cat else 'Undefined', icon=icon, ports=ports, supported=d not in EXCL, presentation=not no_view)
     if d not in EXCL and srcs:
         its = []
         for s_ in srcs: its.append(('Compile', s_, d + '/' + os.path.relpath(s_, pd).replace(os.sep, '/'), None))

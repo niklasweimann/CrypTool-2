@@ -1,6 +1,14 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "crypweb", "runtimeExecutable": "dotnet", "runtimeArgs": ["run", "--project", "CrypWeb/CrypWeb.App", "--urls", "http://localhost:5301"], "port": 5301 }
+    {
+      "name": "crypweb",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "ASPNETCORE_URLS=http://localhost:5301 ASPNETCORE_ENVIRONMENT=Development dotnet run --project CrypWeb/CrypWeb.App --no-launch-profile -- --ApplyCopHeaders true"
+      ],
+      "port": 5301
+    }
   ]
 }
