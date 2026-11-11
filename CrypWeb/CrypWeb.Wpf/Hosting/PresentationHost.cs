@@ -59,8 +59,28 @@ namespace System.Windows.Hosting
         {
             (Root as FrameworkElement)?.RaiseLoaded();
             _renderedVersion = RenderVersion.Current;
-            _renderedHtml = _renderer.Render(Root);
+            string html = _renderer.Render(Root);
+            // the size generation tells the browser when to report all sizes again (RequestSizes)
+            const string rootTag = "<div class=\"wpf\"";
+            if (html.StartsWith(rootTag, StringComparison.Ordinal))
+            {
+                html = rootTag + " data-gen=\"" + _sizeGeneration + "\"" + html.Substring(rootTag.Length);
+            }
+            _renderedHtml = html;
             return _renderedHtml;
+        }
+
+        private int _sizeGeneration;
+
+        /// <summary>
+        /// Asks the browser to report the sizes of all elements again, even those it reported before. Called when
+        /// a run starts: presentations often lay themselves out from their sizes then (SizeChanged handlers), and a
+        /// size that reached the worker at a bad moment would otherwise never be sent again.
+        /// </summary>
+        public void RequestSizes()
+        {
+            _sizeGeneration++;
+            RenderVersion.Bump();
         }
 
         /// <summary>The HTML if it differs from what the last call returned; otherwise null.</summary>

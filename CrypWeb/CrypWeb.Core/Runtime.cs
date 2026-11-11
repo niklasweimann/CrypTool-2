@@ -114,7 +114,11 @@ public sealed class PluginComponent : RunComponent
             return taken;
         }
     }
-    public override void PreExecution() => plugin.PreExecution();
+    public override void PreExecution()
+    {
+        Host?.RequestSizes();       // the presentation gets its sizes again at the start of every run
+        plugin.PreExecution();
+    }
     public override void Execute() => plugin.Execute();
     public override void PostExecution() => plugin.PostExecution();
     public override void Stop() => plugin.Stop();

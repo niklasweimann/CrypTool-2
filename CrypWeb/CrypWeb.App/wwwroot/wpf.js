@@ -128,6 +128,12 @@ window.ctWpf = (() => {
   function reportSizes(host) {
     const id = parseInt(host.dataset.node);
     if (!window.ct2engine || !(id > 0)) return;
+    // a new size generation (the worker asks for all sizes again): forget what was reported
+    const generation = host.firstElementChild?.dataset.gen ?? '';
+    if (host.dataset.ctGen !== generation) {
+      host.dataset.ctGen = generation;
+      host.querySelectorAll('[data-ct-size]').forEach(element => delete element.dataset.ctSize);
+    }
     for (const element of [...host.querySelectorAll('[data-s]')].reverse()) {
       const size = element.offsetWidth + ',' + element.offsetHeight;
       if (element.dataset.ctSize === size) continue;
