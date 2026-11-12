@@ -15,14 +15,18 @@ namespace System.Windows.Rendering
     {
         private void WriteGrid(Grid grid, LayoutSlot slot)
         {
-            string rows = grid.RowDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.RowDefinitions.Select(r => Track(r.Height, r.MinHeight)));
-            string columns = grid.ColumnDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.ColumnDefinitions.Select(c => Track(c.Width, c.MinWidth)));
+            // WPF measures a grid with unlimited space inside a scrolling ScrollViewer, a Canvas or along a
+            // StackPanel; there its star rows and columns size to their content like Auto ones
+            bool unboundedWidth = IsUnbounded(grid, horizontal: true);
+            bool unboundedHeight = IsUnbounded(grid, horizontal: false);
+            string rows = grid.RowDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.RowDefinitions.Select(r => Track(r.Height, r.MinHeight, unboundedHeight)));
+            string columns = grid.ColumnDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.ColumnDefinitions.Select(c => Track(c.Width, c.MinWidth, unboundedWidth)));
             WriteContainer(grid, slot, "wg", "grid-template-rows:" + rows + ";grid-template-columns:" + columns + ";", LayoutSlot.GridCell);
         }
 
-        private static string Track(GridLength length, double minimum)
+        private static string Track(GridLength length, double minimum, bool unbounded)
         {
-            if (length.IsAuto)
+            if (length.IsAuto || (length.IsStar && unbounded))
             {
                 return minimum > 0 ? "minmax(" + CssValues.Pixels(minimum) + ",auto)" : "auto";
             }
@@ -31,6 +35,49 @@ namespace System.Windows.Rendering
                 return "minmax(" + CssValues.Pixels(minimum) + "," + CssValues.Number(length.Value) + "fr)";
             }
             return CssValues.Pixels(length.Value);
+        }
+
+        /// <summary>
+        /// True when WPF would measure <paramref name="element"/> with unlimited width (or height): it has no size
+        /// of its own in that direction, and the containers above it up to a scrolling ScrollViewer, a Canvas or a
+        /// StackPanel along that direction pass the unlimited space on (borders, content controls, auto rows and
+        /// columns of a grid).
+        /// </summary>
+        private static bool IsUnbounded(UIElement element, bool horizontal)
+        {
+            for (UIElement current = element; current != null; current = current.ParentElement)
+            {
+                if (current is FrameworkElement sized && !double.IsNaN(horizontal ? sized.Width : sized.Height))
+                {
+                    return false;
+                }
+                switch (current.ParentElement)
+                {
+                    case ScrollViewer viewer:
+                        return (horizontal ? viewer.HorizontalScrollBarVisibility : viewer.VerticalScrollBarVisibility) != ScrollBarVisibility.Disabled;
+                    case Canvas:
+                        return true;
+                    case StackPanel stack:
+                        return (stack.Orientation == Orientation.Horizontal) == horizontal;
+                    case Grid parentGrid:
+                        // only an auto row/column passes unlimited space on
+                        var tracks = horizontal
+                            ? parentGrid.ColumnDefinitions.Select(c => c.Width).ToList()
+                            : parentGrid.RowDefinitions.Select(r => r.Height).ToList();
+                        int index = horizontal ? Grid.GetColumn(current) : Grid.GetRow(current);
+                        if (tracks.Count == 0 || index >= tracks.Count || !tracks[index].IsAuto)
+                        {
+                            return false;
+                        }
+                        break;
+                    case Border:
+                    case ContentControl:    // includes ContentPresenter
+                        break;
+                    default:
+                        return false;
+                }
+            }
+            return false;
         }
 
         private void WriteStack(Panel panel, LayoutSlot slot, Orientation orientation, bool wrap)

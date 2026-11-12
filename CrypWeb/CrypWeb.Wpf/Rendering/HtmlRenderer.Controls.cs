@@ -79,12 +79,25 @@ namespace System.Windows.Rendering
 
         private void WriteTextBox(TextBox box, LayoutSlot slot)
         {
-            bool multiline = box.AcceptsReturn || box.TextWrapping != TextWrapping.NoWrap;
+            // a box that can scroll or holds several lines shows its text from the top left (a browser input
+            // centres one line vertically); without wrapping, long lines scroll sideways as in WPF
+            var verticalBar = (ScrollBarVisibility)box.GetValue(ScrollViewer.VerticalScrollBarVisibilityProperty);
+            bool scrolls = box.HasValue(ScrollViewer.VerticalScrollBarVisibilityProperty)
+                && (verticalBar == ScrollBarVisibility.Visible || verticalBar == ScrollBarVisibility.Auto);
+            bool multiline = box.AcceptsReturn || box.TextWrapping != TextWrapping.NoWrap || scrolls || (box.Text ?? "").Contains('\n');
             string attributes = " data-k=\"text\"" + (box.IsReadOnly ? " readonly" : "") + (box.IsEnabled ? "" : " disabled")
                 + (box.MaxLength > 0 ? " maxlength=\"" + box.MaxLength + "\"" : "");
             string style = box.HasValue(TextBox.TextAlignmentProperty) ? "text-align:" + box.TextAlignment.ToString().ToLowerInvariant() + ";" : "";
             if (multiline)
             {
+                if (box.TextWrapping == TextWrapping.NoWrap)
+                {
+                    attributes += " wrap=\"off\"";
+                }
+                if (scrolls && verticalBar == ScrollBarVisibility.Visible)
+                {
+                    style += "overflow-y:scroll;";
+                }
                 OpenTag("textarea", box, slot, "wtb", style, attributes);
                 _html.Append(CssValues.Escape(box.Text)).Append("</textarea>");
             }
