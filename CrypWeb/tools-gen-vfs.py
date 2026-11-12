@@ -21,5 +21,14 @@ for proj in glob.glob(os.path.join(ROOT, 'CrypPlugins', '*', '*.csproj')):
         rel = m.group(1).replace('\\', '/')
         src = os.path.join(d, rel)
         if os.path.isfile(src) and not skip.search(rel): add('/CrypPlugins/' + rel, src)
+# data files of the templates (pictures, examples) that template settings name as "Templates\\<folder>\\<file>";
+# the template files themselves and their preview pictures/descriptions (<name>.png/.xml next to <name>.cwm) are not
+# needed here
+TEMPLATES = os.path.join(ROOT, 'Templates')
+for f in glob.glob(os.path.join(TEMPLATES, '**', '*'), recursive=True):
+    base, ext = os.path.splitext(f)
+    if not os.path.isfile(f) or ext.lower() == '.cwm' or os.path.exists(base + '.cwm') or os.path.basename(base) == 'dir':
+        continue
+    add('/Templates/' + os.path.relpath(f, TEMPLATES).replace(os.sep, '/'), f)
 json.dump([{'p': k, 's': v} for k, v in sorted(entries.items())], open(os.path.join(OUT, 'manifest.json'), 'w'))
 print(len(entries), 'files,', round(sum(entries.values()) / 1e6), 'MB')

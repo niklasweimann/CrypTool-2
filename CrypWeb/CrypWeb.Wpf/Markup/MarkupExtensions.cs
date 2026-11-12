@@ -19,6 +19,10 @@ namespace System.Windows
             {
                 return value;
             }
+            if (ResourceKey is SystemResourceKey systemKey)
+            {
+                return systemKey.Value;     // a system colour or brush that the XAML did not redefine
+            }
             Markup.XamlDiagnostics.Report("Resource not found", Convert.ToString(ResourceKey));
             return null;
         }

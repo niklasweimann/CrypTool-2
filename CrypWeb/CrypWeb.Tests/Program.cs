@@ -1,6 +1,7 @@
 using System.Text.Json;
 using CrypTool.Web.Core;
 var root = args.Length > 0 ? args[0] : "../Templates";
+CrypTool.Web.Core.TemplateFiles.Root = Path.GetFullPath(root);     // template data files (pictures, examples) are read from the template folder
 if (args.Length > 1 && args[1] == "culture")
 {
     var t = typeof(CrypTool.PluginBase.IPlugin).Assembly; // force load of plugins assembly
@@ -67,16 +68,22 @@ if (args.Length > 1 && args[1] == "prescalls")
 }
 if (args.Length > 1 && args[1] == "runall")
 {
-    var skip = new[] { "PrimesGenerator", "KeySearcher", "Analyzer", "Analyser" };
+    // every template, analyzers included; plugin code runs on background threads as in the app, so a long
+    // computation is stopped after the time limit instead of holding up the run
+    var unsupported = new Dictionary<string, int>(); int complete = 0;
     var errs = new Dictionary<string, int>(); int tpls = 0, ranOk = 0, withRunnable = 0;
     var blocked = new HashSet<string>(); var viewsOk = new HashSet<string>(); var viewErrs = new Dictionary<string, string>(); var viewChars = new Dictionary<string, int>();
     foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories))
     {
         var w = CwmReader.Read(File.ReadAllBytes(f));
-        if (w.Plugins.Any(p => skip.Any(k => p.TypeName.Contains(k)))) continue;
+        var missing = w.Plugins.Where(p => !PluginRegistry.IsSupported(p.TypeName)).Select(p => p.TypeName.Split('.').Last()).Distinct().ToList();
+        foreach (var m in missing) unsupported[m] = unsupported.GetValueOrDefault(m) + 1;
+        if (missing.Count == 0) complete++;
         tpls++;
         Console.Error.WriteLine("RUN " + Path.GetRelativePath(root, f));     // shows where a run hangs
-        var e = new ExecutionEngine(); var t = e.RunAsync(w); await Task.WhenAny(t, Task.Delay(1500)); e.Stop(); await Task.WhenAny(t, Task.Delay(4000));
+        var clock = System.Diagnostics.Stopwatch.StartNew();
+        var e = new ExecutionEngine { ExecuteInBackground = true }; var t = e.RunAsync(w); await Task.WhenAny(t, Task.Delay(1500)); e.Stop(); await Task.WhenAny(t, Task.Delay(4000));
+        Console.Error.WriteLine($"  took {clock.ElapsedMilliseconds} ms, {System.Diagnostics.Process.GetCurrentProcess().Threads.Count} threads");
         var bad = e.Nodes.Values.Where(n => n.State == RunState.Error && n.Supported).ToList();
         if (e.Nodes.Values.Any(n => n.Supported && n.Comp is PluginComponent)) withRunnable++;
         if (bad.Count == 0) ranOk++;
@@ -91,10 +98,33 @@ if (args.Length > 1 && args[1] == "runall")
         }
         foreach (var n in bad) { var k = n.Model.TypeName.Split('.').Last() + ": " + (n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message ?? "?"); errs[k] = errs.GetValueOrDefault(k) + 1; }
     }
-    Console.WriteLine($"templates run={tpls} withoutErrors={ranOk} usingRealPlugins={withRunnable}");
+    Console.WriteLine($"templates run={tpls} withoutErrors={ranOk} usingRealPlugins={withRunnable} allComponentsSupported={complete}");
+    Console.WriteLine("unsupported components (templates): " + string.Join(", ", unsupported.OrderByDescending(kv => kv.Value).Select(kv => kv.Key + "(" + kv.Value + ")")));
     Console.WriteLine($"presentations rendered={viewsOk.Count} failed={viewErrs.Count}: " + string.Join(" ", viewsOk.OrderBy(v => v).Select(v => v + "(" + viewChars[v] + ")")));
     Console.WriteLine("still executing when stopped (would block the browser worker): " + string.Join(" ", blocked.OrderBy(b => b)));
     foreach (var kv in viewErrs) Console.WriteLine($"  VIEW {kv.Key}: {kv.Value}");
+
+    // every component with a visualization, independent of the templates (analyzers are skipped above, some
+    // components are in no template): create it alone and render its presentation
+    var metaFile = Path.Combine(AppContext.BaseDirectory, "../../../../CrypWeb.App/wwwroot/plugins.json");
+    var withView = System.Text.Json.JsonDocument.Parse(File.ReadAllText(metaFile)).RootElement.EnumerateArray()
+        .Where(m => m.TryGetProperty("presentation", out var pr) && pr.GetBoolean() && m.GetProperty("supported").GetBoolean())
+        .Select(m => m.GetProperty("type").GetString()!).ToList();
+    var alone = new List<string>(); var noHost = new List<string>(); var aloneErrs = new List<string>();
+    foreach (var type in withView)
+    {
+        string name = type.Split('.').Last();
+        try
+        {
+            var comp = PluginRegistry.Create(type);
+            if (comp is NativeComponent) { alone.Add(name + "(native)"); continue; }
+            if (comp is not PluginComponent { Host: { } host }) { noHost.Add(name); continue; }
+            host.Render(); alone.Add(name);
+        }
+        catch (Exception ex) { aloneErrs.Add(name + ": " + (ex.InnerException ?? ex).Message.Split('\n')[0]); }
+    }
+    Console.WriteLine($"components with a visualization: {withView.Count}; rendered alone: {alone.Count}; no WPF view (stand-in): {noHost.Count} [{string.Join(" ", noHost)}]; failed: {aloneErrs.Count}");
+    foreach (var e in aloneErrs) Console.WriteLine("  ALONE " + e);
     foreach (var d in System.Windows.Markup.XamlDiagnostics.Snapshot().Take(40)) Console.WriteLine($"  XAML {d.Value}x {d.Key}");
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");
     return;
@@ -103,7 +133,7 @@ if (args.Length > 2 && args[1] == "probe")
 {
     // runs one template and prints the last value on every connector (debugging a single workspace)
     var ws0 = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
-    var eng0 = new ExecutionEngine(); var r0 = eng0.RunAsync(ws0);
+    var eng0 = new ExecutionEngine { ExecuteInBackground = true }; var r0 = eng0.RunAsync(ws0);
     // like the browser worker: render the presentations and tick animations while the workspace runs
     for (int i = 0; i < 60; i++)
     {
@@ -173,7 +203,7 @@ if (args.Length > 2 && args[1] == "runtype")
     {
         var ws0 = CwmReader.Read(File.ReadAllBytes(f));
         if (!ws0.Plugins.Any(p => p.TypeName.Contains(args[2], StringComparison.OrdinalIgnoreCase))) continue;
-        var eng0 = new ExecutionEngine(); var r0 = eng0.RunAsync(ws0); await Task.Delay(2000); eng0.Stop(); await r0;
+        var eng0 = new ExecutionEngine { ExecuteInBackground = true }; var r0 = eng0.RunAsync(ws0); await Task.Delay(2000); eng0.Stop(); await r0;
         Console.WriteLine(Path.GetRelativePath(root, f) + "  executions=" + eng0.ExecutionCount + "  slowest=" + string.Join(", ", eng0.Nodes.Values.OrderByDescending(n => n.LastMs).Take(3).Select(n => n.Model.TypeName.Split('.').Last() + ":" + n.LastMs + "ms")));
         foreach (var n in eng0.Nodes.Values.Where(n => n.State == RunState.Error || n.Logs.Any(l => l.Level == LogLevel.Error))) Console.WriteLine("   ERR " + n.Model.TypeName + ": " + string.Join(" | ", n.Logs.Select(l => l.Message)));
     }

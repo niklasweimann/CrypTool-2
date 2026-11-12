@@ -193,6 +193,22 @@ namespace System.Windows.Documents
             Run != null && ReferenceEquals(position.Run, Run) ? position.Offset - Offset : 0;
 
         public int CompareTo(TextPointer position) => AtEnd == position.AtEnd ? 0 : AtEnd ? 1 : -1;
+
+        /// <summary>The element the position is in: its run, or the document.</summary>
+        public DependencyObject Parent => (DependencyObject)Run ?? Document;
+
+        /// <summary>Characters from the position to the start (Backward) or end (Forward) of its run.</summary>
+        public int GetTextRunLength(LogicalDirection direction)
+        {
+            if (Run == null) return 0;
+            return direction == LogicalDirection.Backward ? Offset : (Run.Text ?? "").Length - Offset;
+        }
+
+        /// <summary>
+        /// The box of the character at the position. Positions are not measured in the browser (the text is laid
+        /// out there), so this is an empty box at the origin.
+        /// </summary>
+        public Rect GetCharacterRect(LogicalDirection direction) => new Rect(0, 0, 0, 0);
     }
 
     public enum LogicalDirection { Backward, Forward }

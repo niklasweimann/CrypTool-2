@@ -40,7 +40,10 @@ namespace System.Windows.Markup
             if (type == typeof(double)) return ParseLength(trimmed);
             if (type == typeof(bool)) return bool.Parse(trimmed);
             if (type == typeof(char)) return trimmed.Length > 0 ? trimmed[0] : '\0';
+            if (type == typeof(Input.ModifierKeys)) return ParseModifierKeys(trimmed);
             if (type.IsEnum) return ParseEnum(type, trimmed);
+            if (type == typeof(RoutedEvent)) return new RoutedEvent { Name = trimmed };
+            if (type == typeof(Input.ICommand)) return Input.CommandLookup.Find(trimmed);
             if (type.IsPrimitive || type == typeof(decimal)) return System.Convert.ChangeType(trimmed, type, CultureInfo.InvariantCulture);
 
             if (type == typeof(Thickness)) return ParseThickness(trimmed);
@@ -127,6 +130,18 @@ namespace System.Windows.Markup
                 numbers[i] = ParseLength(parts[i]);
             }
             return numbers;
+        }
+
+        /// <summary>"Ctrl+Shift" style key modifiers (Ctrl is the XAML short form of Control).</summary>
+        private static Input.ModifierKeys ParseModifierKeys(string text)
+        {
+            Input.ModifierKeys keys = Input.ModifierKeys.None;
+            foreach (string part in text.Split(new[] { '+', ',', ' ' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                string name = part.Equals("Ctrl", StringComparison.OrdinalIgnoreCase) ? "Control" : part;
+                keys |= (Input.ModifierKeys)Enum.Parse(typeof(Input.ModifierKeys), name, ignoreCase: true);
+            }
+            return keys;
         }
 
         private static object ParseEnum(Type type, string text)

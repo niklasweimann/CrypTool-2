@@ -143,3 +143,79 @@ namespace System.Windows
         }
     }
 }
+
+namespace System.Windows
+{
+    using System.Reflection;
+    using System.Windows.Media.Animation;
+
+    /// <summary>Something a trigger does when it fires (begin a storyboard, ...).</summary>
+    public abstract class TriggerAction : DependencyObject
+    {
+        /// <summary>Carries out the action for the element the trigger belongs to.</summary>
+        internal abstract void Invoke(FrameworkElement element);
+    }
+
+    public class TriggerActionCollection : Collection<TriggerAction> { }
+
+    /// <summary>
+    /// Runs its actions when the element raises an event (Loaded, Click, LostFocus, ...), in a style or in an
+    /// element's <c>Triggers</c>. The event is found by name as a .NET event of the element ("Button.Click" and
+    /// "Click" are the same), so the trigger fires whenever the element's code raises that event.
+    /// </summary>
+    [Markup.ContentProperty(nameof(Actions))]
+    public class EventTrigger : TriggerBase
+    {
+        public RoutedEvent RoutedEvent { get; set; }
+
+        public string SourceName { get; set; }
+
+        public TriggerActionCollection Actions { get; } = new TriggerActionCollection();
+
+        internal override IEnumerable<SetterBase> ActiveSetters => Array.Empty<SetterBase>();
+
+        /// <summary>Never "active": an event trigger has no setters, it acts when the event happens.</summary>
+        internal override bool IsActive(FrameworkElement element) => false;
+
+        /// <summary>Subscribes to the event on <paramref name="element"/>; returns false when it has no such event.</summary>
+        internal bool Attach(FrameworkElement element)
+        {
+            string name = RoutedEvent?.Name;
+            if (string.IsNullOrEmpty(name))
+            {
+                return false;
+            }
+            name = name.Substring(name.LastIndexOf('.') + 1);
+            EventInfo clrEvent = element.GetType().GetEvent(name, BindingFlags.Public | BindingFlags.Instance);
+            if (clrEvent?.EventHandlerType == null)
+            {
+                return false;
+            }
+            var listener = new Listener(this, element);
+            MethodInfo fire = typeof(Listener).GetMethod(nameof(Listener.Fire));
+            // (object, EventArgs) accepts the arguments of every event handler type
+            clrEvent.AddEventHandler(element, Delegate.CreateDelegate(clrEvent.EventHandlerType, listener, fire));
+            return true;
+        }
+
+        private sealed class Listener
+        {
+            private readonly EventTrigger _trigger;
+            private readonly FrameworkElement _element;
+
+            public Listener(EventTrigger trigger, FrameworkElement element)
+            {
+                _trigger = trigger;
+                _element = element;
+            }
+
+            public void Fire(object sender, EventArgs e)
+            {
+                foreach (TriggerAction action in _trigger.Actions)
+                {
+                    action.Invoke(_element);
+                }
+            }
+        }
+    }
+}

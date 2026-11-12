@@ -78,6 +78,8 @@ namespace Microsoft.Win32
 
     public sealed class SaveFileDialog : FileDialog
     {
+        public System.IO.Stream OpenFile() => throw new System.IO.IOException("No file was chosen.");
+
         public bool OverwritePrompt { get; set; } = true;
     }
 }

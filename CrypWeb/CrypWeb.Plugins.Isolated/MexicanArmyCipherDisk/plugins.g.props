@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/MexicanArmyCipherDisk/MexicanArmyCipherDiskSettings.cs" Link="MexicanArmyCipherDisk/MexicanArmyCipherDiskSettings.cs" />
+    <Compile Include="../../../CrypPlugins/MexicanArmyCipherDisk/MexicanArmyCipherDisk.cs" Link="MexicanArmyCipherDisk/MexicanArmyCipherDisk.cs" />
+    <Compile Include="../../../CrypPlugins/MexicanArmyCipherDisk/Properties/Resources.Designer.cs" Link="MexicanArmyCipherDisk/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/MexicanArmyCipherDisk/Properties/Resources.resx" LogicalName="CrypTool.MexicanArmyCipherDisk.Properties.Resources.resources" Link="MexicanArmyCipherDisk/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/MexicanArmyCipherDisk/Properties/Resources.de.resx" LogicalName="CrypTool.MexicanArmyCipherDisk.Properties.Resources.de.resources" Link="MexicanArmyCipherDisk/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

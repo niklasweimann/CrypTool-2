@@ -1,5 +1,6 @@
 using System.Text;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace System.Windows.Rendering
@@ -178,6 +179,39 @@ namespace System.Windows.Rendering
 
             var defs = new StringBuilder();
             var body = new StringBuilder();
+            AppendDrawing(element, context, defs, body);
+
+            _html.Append("<svg class=\"wdraw\" width=\"1\" height=\"1\">");
+            if (defs.Length > 0)
+            {
+                _html.Append("<defs>").Append(defs).Append("</defs>");
+            }
+            _html.Append(body).Append("</svg>");
+        }
+
+        /// <summary>
+        /// A bitmap that was drawn into (RenderTargetBitmap, WriteableBitmap) as an SVG picture of its size, for the
+        /// <c>src</c> of an image.
+        /// </summary>
+        private string DrawnBitmapUrl(UIElement element, DrawnBitmap bitmap)
+        {
+            var defs = new StringBuilder();
+            var body = new StringBuilder();
+            AppendDrawing(element, bitmap.Drawing, defs, body);
+            var svg = new StringBuilder();
+            svg.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"").Append(bitmap.DrawnWidth).Append("\" height=\"").Append(bitmap.DrawnHeight)
+                .Append("\" viewBox=\"0 0 ").Append(bitmap.DrawnWidth).Append(' ').Append(bitmap.DrawnHeight).Append("\">");
+            if (defs.Length > 0)
+            {
+                svg.Append("<defs>").Append(defs).Append("</defs>");
+            }
+            svg.Append(body).Append("</svg>");
+            return "data:image/svg+xml;charset=utf-8," + Uri.EscapeDataString(svg.ToString());
+        }
+
+        /// <summary>Writes recorded drawing commands as SVG elements (gradients go to <paramref name="defs"/>).</summary>
+        private void AppendDrawing(UIElement element, DrawingContext context, StringBuilder defs, StringBuilder body)
+        {
             int open = 0;
             foreach (DrawingCommand command in context.Commands)
             {
@@ -241,13 +275,6 @@ namespace System.Windows.Rendering
             {
                 body.Append("</g>");
             }
-
-            _html.Append("<svg class=\"wdraw\" width=\"1\" height=\"1\">");
-            if (defs.Length > 0)
-            {
-                _html.Append("<defs>").Append(defs).Append("</defs>");
-            }
-            _html.Append(body).Append("</svg>");
         }
     }
 }

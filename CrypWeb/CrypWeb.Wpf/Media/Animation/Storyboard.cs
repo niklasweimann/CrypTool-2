@@ -101,13 +101,28 @@ namespace System.Windows.Media.Animation
         public new Storyboard Clone() => (Storyboard)MemberwiseClone();
     }
 
-    /// <summary>XAML trigger action that starts a storyboard; kept so that the XAML loads, never fired.</summary>
+    /// <summary>Trigger action: starts its storyboard on the trigger's element.</summary>
     [Markup.ContentProperty(nameof(Storyboard))]
-    public class BeginStoryboard
+    public class BeginStoryboard : TriggerAction
     {
         public Storyboard Storyboard { get; set; }
         public string Name { get; set; }
+        public HandoffBehavior HandoffBehavior { get; set; }
+
+        internal override void Invoke(FrameworkElement element) => Storyboard?.Begin(element);
     }
+
+    /// <summary>Trigger action: stops the storyboard started by the named BeginStoryboard (not tracked: no-op).</summary>
+    public class StopStoryboard : TriggerAction
+    {
+        public string BeginStoryboardName { get; set; }
+
+        internal override void Invoke(FrameworkElement element) { }
+    }
+
+    public class PauseStoryboard : StopStoryboard { }
+
+    public class ResumeStoryboard : StopStoryboard { }
 }
 
 namespace System.Windows.Threading

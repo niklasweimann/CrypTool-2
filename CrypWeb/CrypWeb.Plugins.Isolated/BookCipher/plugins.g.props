@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/BookCipher/BookCipherSettings.cs" Link="BookCipher/BookCipherSettings.cs" />
+    <Compile Include="../../../CrypPlugins/BookCipher/BookCipher.cs" Link="BookCipher/BookCipher.cs" />
+    <Compile Include="../../../CrypPlugins/BookCipher/Properties/Resources.Designer.cs" Link="BookCipher/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/BookCipher/Properties/Resources.resx" LogicalName="CrypTool.BookCipher.Properties.Resources.resources" Link="BookCipher/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/BookCipher/Properties/Resources.de.resx" LogicalName="CrypTool.BookCipher.Properties.Resources.de.resources" Link="BookCipher/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

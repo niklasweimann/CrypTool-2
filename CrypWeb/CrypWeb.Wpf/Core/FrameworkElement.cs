@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -87,7 +88,7 @@ namespace System.Windows
         /// <summary>Folder of the XAML file inside <see cref="ResourceRoot"/> ("View/"), for paths relative to the file.</summary>
         internal string ResourceDirectory { get; set; }
 
-        /// <summary>Storyboards and triggers declared in XAML; triggers are not evaluated.</summary>
+        /// <summary>Triggers declared in XAML; event triggers start working when the element is loaded.</summary>
         public List<object> Triggers { get; } = new List<object>();
 
         public event RoutedEventHandler Loaded;
@@ -119,6 +120,10 @@ namespace System.Windows
             var style = e.NewValue as Style;
             style?.ApplyTo(element);
             element._styleTriggers = style == null ? null : new List<TriggerBase>(style.AllTriggers());
+            foreach (EventTrigger trigger in element._styleTriggers?.OfType<EventTrigger>() ?? Enumerable.Empty<EventTrigger>())
+            {
+                trigger.Attach(element);
+            }
         }
 
         // the triggers of the applied style (null or empty: none) and the properties the style has set
@@ -189,6 +194,10 @@ namespace System.Windows
             if (!_loadedRaised)
             {
                 _loadedRaised = true;
+                foreach (EventTrigger trigger in Triggers.OfType<EventTrigger>())
+                {
+                    trigger.Attach(this);
+                }
                 Initialized?.Invoke(this, EventArgs.Empty);
                 Loaded?.Invoke(this, new RoutedEventArgs { Source = this });
             }

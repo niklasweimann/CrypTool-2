@@ -77,7 +77,8 @@ public sealed class PluginComponent : RunComponent
             {
                 var pi = s.GetType().GetProperty(kv.Key);
                 if (pi == null || !pi.CanWrite) continue;
-                try { pi.SetValue(s, DataConvert.FromString(kv.Value, pi.PropertyType)); } catch { }
+                string value = pi.PropertyType == typeof(string) ? TemplateFiles.Resolve(kv.Value) : kv.Value;
+                try { pi.SetValue(s, DataConvert.FromString(value, pi.PropertyType)); } catch { }
             }
         }
         finally { applyingSettings = false; }

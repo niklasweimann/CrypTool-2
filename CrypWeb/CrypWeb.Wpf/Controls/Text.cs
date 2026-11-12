@@ -115,6 +115,12 @@ namespace System.Windows.Controls.Primitives
 
         public void ScrollToEnd() { }
         public void ScrollToHome() { }
+
+        // the browser scrolls text fields itself; programmatic scrolling is not passed on
+        public double HorizontalOffset => 0;
+        public double VerticalOffset => 0;
+        public void ScrollToHorizontalOffset(double offset) { }
+        public void ScrollToVerticalOffset(double offset) { }
         public void SelectAll() { }
         public void Copy() { }
         public void Cut() { }

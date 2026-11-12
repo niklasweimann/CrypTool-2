@@ -151,6 +151,34 @@ namespace System.Windows.Input
         public static RoutedUICommand Paste { get; } = new RoutedUICommand("Paste", "Paste", typeof(ApplicationCommands));
         public static RoutedUICommand Undo { get; } = new RoutedUICommand("Undo", "Undo", typeof(ApplicationCommands));
         public static RoutedUICommand SelectAll { get; } = new RoutedUICommand("Select All", "SelectAll", typeof(ApplicationCommands));
+        public static RoutedUICommand Redo { get; } = new RoutedUICommand("Redo", "Redo", typeof(ApplicationCommands));
+        public static RoutedUICommand Delete { get; } = new RoutedUICommand("Delete", "Delete", typeof(ApplicationCommands));
+        public static RoutedUICommand Find { get; } = new RoutedUICommand("Find", "Find", typeof(ApplicationCommands));
+        public static RoutedUICommand Help { get; } = new RoutedUICommand("Help", "Help", typeof(ApplicationCommands));
+        public static RoutedUICommand New { get; } = new RoutedUICommand("New", "New", typeof(ApplicationCommands));
+        public static RoutedUICommand Open { get; } = new RoutedUICommand("Open", "Open", typeof(ApplicationCommands));
+        public static RoutedUICommand Save { get; } = new RoutedUICommand("Save", "Save", typeof(ApplicationCommands));
+        public static RoutedUICommand Close { get; } = new RoutedUICommand("Close", "Close", typeof(ApplicationCommands));
+        public static RoutedUICommand Print { get; } = new RoutedUICommand("Print", "Print", typeof(ApplicationCommands));
+        public static RoutedUICommand Properties { get; } = new RoutedUICommand("Properties", "Properties", typeof(ApplicationCommands));
+        public static RoutedUICommand Stop { get; } = new RoutedUICommand("Stop", "Stop", typeof(ApplicationCommands));
+    }
+
+    /// <summary>Commands named in XAML ("Help", "ApplicationCommands.Copy"): the built-in command of that name.</summary>
+    internal static class CommandLookup
+    {
+        internal static ICommand Find(string text)
+        {
+            string name = text.Substring(text.LastIndexOf('.') + 1);
+            foreach (Type owner in new[] { typeof(ApplicationCommands), typeof(Documents.EditingCommands) })
+            {
+                if (owner.GetProperty(name, Reflection.BindingFlags.Public | Reflection.BindingFlags.Static)?.GetValue(null) is ICommand command)
+                {
+                    return command;
+                }
+            }
+            return new RoutedUICommand(name, name, typeof(ApplicationCommands));
+        }
     }
 }
 

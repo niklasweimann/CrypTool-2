@@ -170,6 +170,7 @@ namespace ADFGVXAnalyzer
             ClearDisplay();
 
             UpdateDisplayStart();
+            StopRequested = false;
 
             try
             {
@@ -377,11 +378,25 @@ namespace ADFGVXAnalyzer
         /// </summary>
         public void Stop()
         {
+            // the analysis threads check this flag; Thread.Abort is not available on .NET (Core) and in the browser
+            StopRequested = true;
             foreach (Thread t in ThreadList)
             {
-                t.Abort();
+                try
+                {
+                    t.Abort();
+                }
+                catch (PlatformNotSupportedException)
+                {
+                    // the thread ends at its next check of StopRequested
+                }
             }
         }
+
+        /// <summary>
+        /// Set by Stop(); the analysis threads (Algorithm) end when they see it.
+        /// </summary>
+        internal volatile bool StopRequested;
 
         /// <summary>
         /// Called once when plugin is loaded into editor workspace.

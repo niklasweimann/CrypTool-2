@@ -77,3 +77,13 @@ HKDFSHA256
 M209Analyzer
 EnigmaAnalyzer
 MexicanArmyCipherDiskAnalyzer
+FileInput
+NetworkReceiver
+KeySearcher
+EllipticCurveCryptography
+FileOutput
+VisualEncoder
+VisualDecoder
+ImageProcessor
+ImageHash
+Transcriptor

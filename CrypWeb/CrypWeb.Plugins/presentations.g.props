@@ -17,14 +17,11 @@
     <EmbeddedResource Include="../../CrypPlugins/BerlekampMassey/BerlekampMasseyPresentation.xaml" LogicalName="xaml/BerlekampMassey/BerlekampMasseyPresentation.xaml" Link="Presentations/BerlekampMassey/BerlekampMasseyPresentation.xaml" />
     <Compile Include="../../CrypPlugins/BerlekampMassey/BerlekampMasseyPresentation.xaml.cs" Link="Presentations/BerlekampMassey/BerlekampMasseyPresentation.xaml.cs" />
     <Compile Include="Presentations/BerlekampMassey/BerlekampMasseyPresentation.g.cs" />
-    <EmbeddedResource Include="../../CrypPlugins/BerlekampMassey/DetailedDescription/Description.xaml" LogicalName="xaml/BerlekampMassey/DetailedDescription/Description.xaml" Link="Presentations/BerlekampMassey/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="Presentations/BlindSignatureGenerator/BlindSignatureGenerator.g.resources" LogicalName="BlindSignatureGenerator.g.resources" Type="Non-Resx" WithCulture="false" />
     <EmbeddedResource Include="../../CrypPlugins/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" LogicalName="xaml/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" Link="Presentations/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml" />
     <Compile Include="../../CrypPlugins/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml.cs" Link="Presentations/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.xaml.cs" />
     <Compile Include="Presentations/BlindSignatureGenerator/BlindSignatureGeneratorPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/BooleanOperators/BooleanOperators.g.resources" LogicalName="BooleanOperators.g.resources" Type="Non-Resx" WithCulture="false" />
-    <EmbeddedResource Include="../../CrypPlugins/BooleanOperators/Button.xaml" LogicalName="xaml/BooleanOperators/Button.xaml" Link="Presentations/BooleanOperators/Button.xaml" />
-    <Compile Include="Presentations/BooleanOperators/Button.g.cs" />
     <EmbeddedResource Include="../../CrypPlugins/BooleanOperators/ButtonInputPresentation.xaml" LogicalName="xaml/BooleanOperators/ButtonInputPresentation.xaml" Link="Presentations/BooleanOperators/ButtonInputPresentation.xaml" />
     <Compile Include="../../CrypPlugins/BooleanOperators/ButtonInputPresentation.xaml.cs" Link="Presentations/BooleanOperators/ButtonInputPresentation.xaml.cs" />
     <Compile Include="Presentations/BooleanOperators/ButtonInputPresentation.g.cs" />
@@ -210,7 +207,6 @@
     <Compile Include="../../CrypPlugins/JosseCipher/JosseCipherPresentation.xaml.cs" Link="Presentations/JosseCipher/JosseCipherPresentation.xaml.cs" />
     <Compile Include="Presentations/JosseCipher/JosseCipherPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/KasiskiTest/KasiskiTest.g.resources" LogicalName="KasiskiTest.g.resources" Type="Non-Resx" WithCulture="false" />
-    <EmbeddedResource Include="../../CrypPlugins/KasiskiTest/DetailedDescription/Description.xaml" LogicalName="xaml/KasiskiTest/DetailedDescription/Description.xaml" Link="Presentations/KasiskiTest/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/KasiskiTest/KasiskiTestPresentation.xaml" LogicalName="xaml/KasiskiTest/KasiskiTestPresentation.xaml" Link="Presentations/KasiskiTest/KasiskiTestPresentation.xaml" />
     <Compile Include="../../CrypPlugins/KasiskiTest/KasiskiTestPresentation.xaml.cs" Link="Presentations/KasiskiTest/KasiskiTestPresentation.xaml.cs" />
     <Compile Include="Presentations/KasiskiTest/KasiskiTestPresentation.g.cs" />
@@ -281,7 +277,6 @@
     <Compile Include="../../CrypPlugins/TextSteganography/TextSteganographyPresentation.xaml.cs" Link="Presentations/TextSteganography/TextSteganographyPresentation.xaml.cs" />
     <Compile Include="Presentations/TextSteganography/TextSteganographyPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/Transposition/Transposition.g.resources" LogicalName="Transposition.g.resources" Type="Non-Resx" WithCulture="false" />
-    <EmbeddedResource Include="../../CrypPlugins/Transposition/TranspositionDescript.xaml" LogicalName="xaml/Transposition/TranspositionDescript.xaml" Link="Presentations/Transposition/TranspositionDescript.xaml" />
     <EmbeddedResource Include="../../CrypPlugins/Transposition/TranspositionPresentation.xaml" LogicalName="xaml/Transposition/TranspositionPresentation.xaml" Link="Presentations/Transposition/TranspositionPresentation.xaml" />
     <Compile Include="../../CrypPlugins/Transposition/TranspositionPresentation.xaml.cs" Link="Presentations/Transposition/TranspositionPresentation.xaml.cs" />
     <Compile Include="Presentations/Transposition/TranspositionPresentation.g.cs" />
@@ -800,7 +795,6 @@
     <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationPresentation.xaml" LogicalName="xaml/AutocorrelationFunction/AutocorrelationPresentation.xaml" Link="Presentations/AutocorrelationFunction/AutocorrelationPresentation.xaml" />
     <Compile Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" Link="Presentations/AutocorrelationFunction/AutocorrelationPresentation.xaml.cs" />
     <Compile Include="Presentations/AutocorrelationFunction/AutocorrelationPresentation.g.cs" />
-    <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/DetailedDescription/Description.xaml" LogicalName="xaml/AutocorrelationFunction/DetailedDescription/Description.xaml" Link="Presentations/AutocorrelationFunction/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="Presentations/KKDFSHA256/KKDFSHA256.g.resources" LogicalName="KKDFSHA256.g.resources" Type="Non-Resx" WithCulture="false" />
     <EmbeddedResource Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256Pres.xaml" LogicalName="xaml/KKDFSHA256/KKDFSHA256Pres.xaml" Link="Presentations/KKDFSHA256/KKDFSHA256Pres.xaml" />
     <Compile Include="../../CrypPlugins/KKDFSHA256/KKDFSHA256Pres.xaml.cs" Link="Presentations/KKDFSHA256/KKDFSHA256Pres.xaml.cs" />
@@ -817,5 +811,54 @@
     <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/AssignmentPresentation.xaml" LogicalName="xaml/EnigmaAnalyzer/AssignmentPresentation.xaml" Link="Presentations/EnigmaAnalyzer/AssignmentPresentation.xaml" />
     <Compile Include="../../CrypPlugins/EnigmaAnalyzer/AssignmentPresentation.xaml.cs" Link="Presentations/EnigmaAnalyzer/AssignmentPresentation.xaml.cs" />
     <Compile Include="Presentations/EnigmaAnalyzer/AssignmentPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/FileInput/FileInput.g.resources" LogicalName="FileInput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/FileInput/FileInputWPFPresentation.xaml" LogicalName="xaml/FileInput/FileInputWPFPresentation.xaml" Link="Presentations/FileInput/FileInputWPFPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/FileInput/FileInputWPFPresentation.xaml.cs" Link="Presentations/FileInput/FileInputWPFPresentation.xaml.cs" />
+    <Compile Include="Presentations/FileInput/FileInputWPFPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/NetworkReceiver/NetworkReceiver.g.resources" LogicalName="NetworkReceiver.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/NetworkReceiver/NetworkReceiverPresentation.xaml" LogicalName="xaml/NetworkReceiver/NetworkReceiverPresentation.xaml" Link="Presentations/NetworkReceiver/NetworkReceiverPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/NetworkReceiver/NetworkReceiverPresentation.xaml.cs" Link="Presentations/NetworkReceiver/NetworkReceiverPresentation.xaml.cs" />
+    <Compile Include="Presentations/NetworkReceiver/NetworkReceiverPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/KeySearcher/KeySearcher.g.resources" LogicalName="KeySearcher.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.xaml" LogicalName="xaml/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.xaml" Link="Presentations/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.xaml.cs" Link="Presentations/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.xaml.cs" />
+    <Compile Include="Presentations/KeySearcher/Presentation/Controls/LocalQuickWatchPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Presentation/Controls/OrgChartTreeViewItemStyle.xaml" LogicalName="xaml/KeySearcher/Presentation/Controls/OrgChartTreeViewItemStyle.xaml" Link="Presentations/KeySearcher/Presentation/Controls/OrgChartTreeViewItemStyle.xaml" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.xaml" LogicalName="xaml/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.xaml" Link="Presentations/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.xaml.cs" Link="Presentations/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.xaml.cs" />
+    <Compile Include="Presentations/KeySearcher/Presentation/Controls/P2PQuickWatchPresentation.g.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Presentation/QuickWatch.xaml" LogicalName="xaml/KeySearcher/Presentation/QuickWatch.xaml" Link="Presentations/KeySearcher/Presentation/QuickWatch.xaml" />
+    <Compile Include="../../CrypPlugins/KeySearcher/Presentation/QuickWatch.xaml.cs" Link="Presentations/KeySearcher/Presentation/QuickWatch.xaml.cs" />
+    <Compile Include="Presentations/KeySearcher/Presentation/QuickWatch.g.cs" />
+    <EmbeddedResource Include="Presentations/EllipticCurveCryptography/EllipticCurveCryptography.g.resources" LogicalName="EllipticCurveCryptography.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/EllipticCurveCryptography/ECCCurveVisualizer.xaml" LogicalName="xaml/EllipticCurveCryptography/ECCCurveVisualizer.xaml" Link="Presentations/EllipticCurveCryptography/ECCCurveVisualizer.xaml" />
+    <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCCurveVisualizer.xaml.cs" Link="Presentations/EllipticCurveCryptography/ECCCurveVisualizer.xaml.cs" />
+    <Compile Include="Presentations/EllipticCurveCryptography/ECCCurveVisualizer.g.cs" />
+    <EmbeddedResource Include="Presentations/FileOutput/FileOutput.g.resources" LogicalName="FileOutput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/FileOutput/FileOutputWPFPresentation.xaml" LogicalName="xaml/FileOutput/FileOutputWPFPresentation.xaml" Link="Presentations/FileOutput/FileOutputWPFPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/FileOutput/FileOutputWPFPresentation.xaml.cs" Link="Presentations/FileOutput/FileOutputWPFPresentation.xaml.cs" />
+    <Compile Include="Presentations/FileOutput/FileOutputWPFPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/VisualEncoder/VisualEncoder.g.resources" LogicalName="VisualEncoder.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/VisualEncoder/VisualEncoderPresentation.xaml" LogicalName="xaml/VisualEncoder/VisualEncoderPresentation.xaml" Link="Presentations/VisualEncoder/VisualEncoderPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/VisualEncoder/VisualEncoderPresentation.xaml.cs" Link="Presentations/VisualEncoder/VisualEncoderPresentation.xaml.cs" />
+    <Compile Include="Presentations/VisualEncoder/VisualEncoderPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/VisualDecoder/VisualDecoder.g.resources" LogicalName="VisualDecoder.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/VisualDecoder/VisualDecoderPresentation.xaml" LogicalName="xaml/VisualDecoder/VisualDecoderPresentation.xaml" Link="Presentations/VisualDecoder/VisualDecoderPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/VisualDecoder/VisualDecoderPresentation.xaml.cs" Link="Presentations/VisualDecoder/VisualDecoderPresentation.xaml.cs" />
+    <Compile Include="Presentations/VisualDecoder/VisualDecoderPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/ImageProcessor/ImageProcessor.g.resources" LogicalName="ImageProcessor.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="Presentations/ImageHash/ImageHash.g.resources" LogicalName="ImageHash.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="Presentations/Transcriptor/Transcriptor.g.resources" LogicalName="Transcriptor.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Transcriptor/TranscriptorPresentation.xaml" LogicalName="xaml/Transcriptor/TranscriptorPresentation.xaml" Link="Presentations/Transcriptor/TranscriptorPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/Transcriptor/TranscriptorPresentation.xaml.cs" Link="Presentations/Transcriptor/TranscriptorPresentation.xaml.cs" />
+    <Compile Include="Presentations/Transcriptor/TranscriptorPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/HexBox/HexBox.g.resources" LogicalName="HexBox.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../LibSource/HexBox/HexBox.xaml" LogicalName="xaml/HexBox/HexBox.xaml" Link="Presentations/HexBox/HexBox.xaml" />
+    <Compile Include="../../LibSource/HexBox/HexBox.xaml.cs" Link="Presentations/HexBox/HexBox.xaml.cs" />
+    <Compile Include="Presentations/HexBox/HexBox.g.cs" />
+    <EmbeddedResource Include="../../LibSource/HexBox/Themes/Generic.xaml" LogicalName="xaml/HexBox/Themes/Generic.xaml" Link="Presentations/HexBox/Themes/Generic.xaml" />
+    <EmbeddedResource Include="../../LibSource/KeyTextBox/KeyTextBox.xaml" LogicalName="xaml/KeyTextBox/KeyTextBox.xaml" Link="Presentations/KeyTextBox/KeyTextBox.xaml" />
+    <Compile Include="../../LibSource/KeyTextBox/KeyTextBox.xaml.cs" Link="Presentations/KeyTextBox/KeyTextBox.xaml.cs" />
+    <Compile Include="Presentations/KeyTextBox/KeyTextBox.g.cs" />
   </ItemGroup>
 </Project>

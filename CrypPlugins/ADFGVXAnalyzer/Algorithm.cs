@@ -151,6 +151,10 @@ namespace ADFGVXAnalyzer
                 double temp = startTemp;
                 for (int step = 0; temp >= endTemp; step++, temp -= delta)
                 {
+                    if (analyzer.StopRequested)
+                    {
+                        return;
+                    }
                     transforms.randomize();
                     int size = transforms.size();
 

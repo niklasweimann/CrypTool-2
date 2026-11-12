@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace System.Windows.Rendering
 {
@@ -121,7 +122,8 @@ namespace System.Windows.Rendering
                 style += "width:100%;height:100%;";      // an unsized picture fills its cell, as in WPF
             }
 
-            string address = image.Source?.Address;
+            // a bitmap drawn by code shows its drawing as SVG; other pictures are loaded from their address
+            string address = image.Source is DrawnBitmap { Drawing: not null } drawn ? DrawnBitmapUrl(image, drawn) : image.Source?.Address;
             string source = string.IsNullOrEmpty(address) ? "" : " src=\"" + CssValues.Escape(ResolveImage(image, address)) + "\"";
             OpenTag("img", image, slot, "wi", style, source + " alt=\"\"");
         }

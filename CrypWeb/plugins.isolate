@@ -12,3 +12,5 @@ PlayfairAnalyzer private
 RC2
 SDES
 StringEncoder
+T310 private
+PBKDF private

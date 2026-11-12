@@ -27,6 +27,13 @@ namespace System.Windows
 
         public static string GetText() => _text;
 
+        /// <summary>The clipboard holds text only; other formats read as nothing.</summary>
+        public static object GetData(string format) => format == DataFormats.Text || format == DataFormats.UnicodeText || format == DataFormats.StringFormat ? _text : null;
+
+        public static bool ContainsData(string format) => GetData(format) is string text && text.Length > 0;
+
+        public static void SetData(string format, object data) => SetDataObject(data);
+
         public static bool ContainsText() => _text.Length > 0;
 
         public static void Clear() => _text = "";
@@ -117,7 +124,27 @@ namespace System.ComponentModel
         public ListSortDirection Direction { get; set; }
     }
 
-    public class SortDescriptionCollection : System.Collections.ObjectModel.Collection<SortDescription> { }
+    /// <summary>The sort order of a list view; a change shows the list in the new order.</summary>
+    public class SortDescriptionCollection : System.Collections.ObjectModel.Collection<SortDescription>
+    {
+        protected override void InsertItem(int index, SortDescription item)
+        {
+            base.InsertItem(index, item);
+            System.Windows.RenderVersion.Bump();
+        }
+
+        protected override void RemoveItem(int index)
+        {
+            base.RemoveItem(index);
+            System.Windows.RenderVersion.Bump();
+        }
+
+        protected override void ClearItems()
+        {
+            base.ClearItems();
+            System.Windows.RenderVersion.Bump();
+        }
+    }
 }
 
 namespace System.Windows.Data

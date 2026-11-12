@@ -1,0 +1,13 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/T310/T310Settings.cs" Link="T310/T310Settings.cs" />
+    <Compile Include="../../../CrypPlugins/T310/ComplexUnit.cs" Link="T310/ComplexUnit.cs" />
+    <Compile Include="../../../CrypPlugins/T310/EncryptionUnit.cs" Link="T310/EncryptionUnit.cs" />
+    <Compile Include="../../../CrypPlugins/T310/ControlUnit.cs" Link="T310/ControlUnit.cs" />
+    <Compile Include="../../../CrypPlugins/T310/SynchronizationUnit.cs" Link="T310/SynchronizationUnit.cs" />
+    <Compile Include="../../../CrypPlugins/T310/T310.cs" Link="T310/T310.cs" />
+    <Compile Include="../../../CrypPlugins/T310/Properties/Resources.Designer.cs" Link="T310/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/T310/Properties/Resources.resx" LogicalName="T_310.Properties.Resources.resources" Link="T310/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/T310/Properties/Resources.de.resx" LogicalName="T_310.Properties.Resources.de.resources" Link="T310/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

@@ -13,4 +13,8 @@
     <LangVersion>latest</LangVersion>
     <NoWarn>$(NoWarn);CS1591;CS0067</NoWarn>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- decodes PNG/JPEG/BMP/GIF pictures when a plugin reads a bitmap's pixels (BitmapSource.CopyPixels) -->
+    <PackageReference Include="StbImageSharp" Version="2.30.16" />
+  </ItemGroup>
 </Project>

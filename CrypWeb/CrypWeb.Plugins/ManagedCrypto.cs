@@ -130,3 +130,75 @@ public class RC2CryptoServiceProvider : ManagedBlockCipher
     public RC2CryptoServiceProvider() : base(64, 128, new[] { new KeySizes(40, 128, 8) }) { }
     protected override IBlockCipher NewEngine() => new RC2Engine();
 }
+
+namespace System.Security.Cryptography
+{
+    /// <summary>
+    /// RIPEMD-160, which .NET Framework had and modern .NET dropped. Plugins name it fully qualified
+    /// (System.Security.Cryptography.RIPEMD160), so it is defined in that namespace; BouncyCastle computes it.
+    /// </summary>
+    public abstract class RIPEMD160 : HashAlgorithm
+    {
+        protected RIPEMD160() => HashSizeValue = 160;
+
+        public static new RIPEMD160 Create() => new RIPEMD160Managed();
+
+        public static new RIPEMD160 Create(string hashName) => new RIPEMD160Managed();
+    }
+
+    public class RIPEMD160Managed : RIPEMD160
+    {
+        private readonly Org.BouncyCastle.Crypto.Digests.RipeMD160Digest _digest = new Org.BouncyCastle.Crypto.Digests.RipeMD160Digest();
+
+        public override void Initialize() => _digest.Reset();
+
+        protected override void HashCore(byte[] array, int ibStart, int cbSize) => _digest.BlockUpdate(array, ibStart, cbSize);
+
+        protected override byte[] HashFinal()
+        {
+            byte[] result = new byte[_digest.GetDigestSize()];
+            _digest.DoFinal(result, 0);
+            return result;
+        }
+    }
+
+    /// <summary>HMAC with RIPEMD-160 (also dropped from modern .NET), computed by BouncyCastle.</summary>
+    public class HMACRIPEMD160 : HMAC
+    {
+        private Org.BouncyCastle.Crypto.Macs.HMac _mac;
+
+        public HMACRIPEMD160() : this(new byte[64]) { }
+
+        public HMACRIPEMD160(byte[] key)
+        {
+            HashSizeValue = 160;
+            Key = key;
+        }
+
+        public override byte[] Key
+        {
+            get => (byte[])KeyValue.Clone();
+            set
+            {
+                KeyValue = (byte[])value.Clone();
+                Initialize();
+            }
+        }
+
+        public override void Initialize()
+        {
+            _mac = new Org.BouncyCastle.Crypto.Macs.HMac(new Org.BouncyCastle.Crypto.Digests.RipeMD160Digest());
+            _mac.Init(new Org.BouncyCastle.Crypto.Parameters.KeyParameter(KeyValue ?? Array.Empty<byte>()));
+        }
+
+        protected override void HashCore(byte[] array, int ibStart, int cbSize) => _mac.BlockUpdate(array, ibStart, cbSize);
+
+        protected override byte[] HashFinal()
+        {
+            byte[] result = new byte[_mac.GetMacSize()];
+            _mac.DoFinal(result, 0);
+            Initialize();
+            return result;
+        }
+    }
+}

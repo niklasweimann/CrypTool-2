@@ -33,6 +33,16 @@ namespace System.Windows.Media
         public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, double pixelsPerDip)
             : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
 
+        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, NumberSubstitution numberSubstitution, TextFormattingMode textFormattingMode)
+            : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
+
+        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, NumberSubstitution numberSubstitution, TextFormattingMode textFormattingMode, double pixelsPerDip)
+            : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
+
+        public TextTrimming Trimming { get; set; }
+
+        public double LineHeight { get; set; } = double.NaN;
+
         public string Text { get; }
         public Typeface Typeface { get; }
         public double EmSize { get; }

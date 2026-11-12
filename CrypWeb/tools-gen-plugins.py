@@ -52,6 +52,16 @@ ISO_CSPROJ = '''<Project Sdk="Microsoft.NET.Sdk">
   </ItemGroup>
 </Project>
 '''
+# Sources of a plugin that are replaced in the browser build: 'drop' lists files of the plugin folder that are left
+# out, 'add' lists files (relative to the repository) that are compiled with the plugin instead.
+SOURCE_SUBSTITUTES = {
+    # the distributed key search (CrypCloud, VoluntLib2) is not needed in the browser; the local search stays
+    'KeySearcher': {
+        'drop': ['CrypCloud/CloudKeySearcher.cs', 'CrypCloud/calculation/Worker.cs', 'CrypCloud/calculation/CalculationTemplate.cs'],
+        'add': ['CrypCloud/CrypCloudCore/CloudComponent/ACloudCompatible.cs', 'CrypWeb/StandIns/KeySearcher/CloudStandIns.cs'],
+    },
+}
+
 meta = {}; props = []
 os.makedirs(os.path.join(OUT, 'icons'), exist_ok=True)
 for d in sorted(os.listdir(PL)):
@@ -74,6 +84,12 @@ for d in sorted(os.listdir(PL)):
             listed.add(os.path.normpath(os.path.join(pd, inc.replace('\\', os.sep))).lower())
     if listed:
         srcs = [x for x in srcs if os.path.normpath(x).lower() in listed]
+    # Plugins whose sources depend on parts the browser does not have get stand-ins (see SOURCE_SUBSTITUTES)
+    if d in SOURCE_SUBSTITUTES:
+        sub = SOURCE_SUBSTITUTES[d]
+        dropped = set(os.path.normpath(os.path.join(pd, x)) for x in sub.get('drop', []))
+        srcs = [x for x in srcs if os.path.normpath(x) not in dropped]
+        srcs += [os.path.normpath(os.path.join(ROOT, x)) for x in sub.get('add', [])]
     # resources
     res_files = {}
     loc_files = {}   # lang -> {path: values}  (Resources.<lang>.resx next to Resources.resx)
@@ -87,7 +103,7 @@ for d in sorted(os.listdir(PL)):
     for f in list(srcs):
         try: text = open(f, encoding='utf-8-sig', errors='ignore').read()
         except Exception: continue
-        for cm in re.finditer(r'^[ \t]*(?:public\s+)?(?:sealed\s+|partial\s+|static\s+)*class\s+(\w+)\s*(?::[^{]*ICrypComponent\b|:[^{]*\bICrypComponent)', text, re.M):
+        for cm in re.finditer(r'^[ \t]*(?:public\s+)?(?:sealed\s+|partial\s+|static\s+)*class\s+(\w+)\s*(?::[^{]*\bICrypComponent\b|:[^{]*\bACloudCompatible\b)', text, re.M):
             cls = cm.group(1)
             # walk back over the attribute block
             lines = text[:cm.start()].split('\n')
@@ -163,15 +179,22 @@ for d in sorted(os.listdir(PL)):
                 if entry: loc[lang] = entry
             # a component without a visualization returns null as its Presentation (CT2 then offers no presentation view)
             no_view = re.search(r'Presentation\s*(?:=>\s*null|\{\s*get\s*(?:=>\s*null|\{\s*return\s+null\s*;))', body)
+            # an auto-property that is never assigned stays null too: Presentation { get; private set; }
+            if not no_view and re.search(r'Presentation\s*\{\s*get\s*;\s*(?:private\s+)?set\s*;\s*\}', body) \
+                    and not re.search(r'\bPresentation\s*=\s*(?!null\b)', body):
+                no_view = True
             meta[full] = dict(loc=loc, type=full, dir=d, name=res.get(ck, cls), tooltip=res.get(tk, ''), category=cat.group(1) if cat else 'Undefined', icon=icon, ports=ports, supported=d not in EXCL, presentation=not no_view)
     if d not in EXCL and srcs:
         its = []
-        for s_ in srcs: its.append(('Compile', s_, d + '/' + os.path.relpath(s_, pd).replace(os.sep, '/'), None))
+        for s_ in srcs:
+            inside = os.path.normpath(s_).startswith(os.path.normpath(pd) + os.sep)
+            link = os.path.relpath(s_, pd) if inside else os.path.join('StandIns', os.path.basename(s_))
+            its.append(('Compile', s_, d + '/' + link.replace(os.sep, '/'), None))
         for rf in res_files:
             des = rf[:-5] + '.Designer.cs'
             ln = None
             if os.path.exists(des):
-                mm = re.search(r'new\s+(?:global::)?System\.Resources\.ResourceManager\("([^"]+)"', open(des, encoding='utf-8-sig', errors='ignore').read())
+                mm = re.search(r'new\s+(?:global::)?(?:System\.Resources\.)?ResourceManager\("([^"]+)"', open(des, encoding='utf-8-sig', errors='ignore').read())
                 if mm: ln = mm.group(1)
             if ln:
                 its.append(('EmbeddedResource', rf, d + '/' + os.path.relpath(rf, pd).replace(os.sep, '/'), ln + '.resources'))
@@ -208,15 +231,47 @@ if 'KeySearcher' not in items_by_dir:
             main_lines += lines([('Compile', f, 'KeySearcher/' + sub + '/' + os.path.basename(f), None)], PLUG)
 # Libraries from LibSource that plugins compile against (pure .NET): their sources join the plugin assembly when a
 # plugin that needs them is built. plugin folder -> library folder below LibSource
-LIBRARIES = {'EnigmaAnalyzer': 'EnigmaAnalyzerLib', 'M209Analyzer': 'M209Analyzer/M209Analyzer'}
-for plugin, library in sorted(LIBRARIES.items()):
-    if plugin not in items_by_dir:
-        continue
-    lib_dir = os.path.join(ROOT, 'LibSource', library)
-    for f in sorted(glob.glob(os.path.join(lib_dir, '**', '*.cs'), recursive=True)):
-        if os.sep + 'obj' + os.sep in f or os.sep + 'bin' + os.sep in f or f.endswith('AssemblyInfo.cs'):
-            continue
-        main_lines += lines([('Compile', f, 'LibSource/' + library + '/' + os.path.relpath(f, lib_dir), None)], PLUG)
+# Libraries from LibSource that plugins reference (<ProjectReference ..\..\LibSource\...>) are compiled into the
+# plugin assembly, with their resources. Libraries the web build covers otherwise are skipped.
+LIBRARY_SKIP = {
+    'CrypAnalysisViewControl',      # CrypPluginBase.Portable/Shims/CrypAnalysisViewControl.cs
+    'LanguageStatisticsLib',        # LanguageStatistics.Portable
+    'VoluntLib2', 'CrypCloud',      # distributed / cloud key search (not needed in the browser)
+}
+
+def library_sources(lib_dir, csproj):
+    """The .cs files of a library: the ones its project lists (old-style), else all of them."""
+    text = open(csproj, encoding='utf-8-sig', errors='ignore').read()
+    listed = [os.path.normpath(os.path.join(lib_dir, inc.replace('\\', os.sep)))
+              for inc in re.findall(r'<Compile\s+Include="([^"*]+)"', text)]
+    files = listed if listed else glob.glob(os.path.join(lib_dir, '**', '*.cs'), recursive=True)
+    return sorted(f for f in files if os.path.exists(f) and os.sep + 'obj' + os.sep not in f
+                  and os.sep + 'bin' + os.sep not in f and not f.endswith('AssemblyInfo.cs'))
+
+libraries = {}      # library project -> its folder
+for d in sorted(items_by_dir):
+    if d in ISOLATE:
+        continue    # isolated plugins would need the library in their own assembly
+    for cp in glob.glob(os.path.join(PL, d, '*.csproj')):
+        for ref in re.findall(r'<ProjectReference\s+Include="([^"]*LibSource[^"]*\.csproj)"', open(cp, encoding='utf-8-sig', errors='ignore').read()):
+            proj = os.path.normpath(os.path.join(PL, d, ref.replace('\\', os.sep)))
+            name = os.path.relpath(os.path.dirname(proj), os.path.join(ROOT, 'LibSource')).split(os.sep)[0]
+            if name not in LIBRARY_SKIP and os.path.exists(proj):
+                libraries[proj] = os.path.dirname(proj)
+for proj, lib_dir in sorted(libraries.items()):
+    rel = os.path.relpath(lib_dir, os.path.join(ROOT, 'LibSource')).replace(os.sep, '/')
+    for f in library_sources(lib_dir, proj):
+        main_lines += lines([('Compile', f, 'LibSource/' + rel + '/' + os.path.relpath(f, lib_dir), None)], PLUG)
+    # the library's resources, under the name its Resources.Designer.cs asks for
+    for rf in sorted(glob.glob(os.path.join(lib_dir, '**', 'Resources.resx'), recursive=True)):
+        des = rf[:-5] + '.Designer.cs'
+        mm = re.search(r'ResourceManager\("([^"]+)"', open(des, encoding='utf-8-sig', errors='ignore').read()) if os.path.exists(des) else None
+        if mm:
+            main_lines += lines([('EmbeddedResource', rf, 'LibSource/' + rel + '/' + os.path.relpath(rf, lib_dir), mm.group(1) + '.resources')], PLUG)
+print('libraries:', ', '.join(os.path.basename(p)[:-7] for p in sorted(libraries)))
+# the presentations generator processes the XAML of these libraries too (name -> folder)
+json.dump({os.path.basename(proj)[:-len('.csproj')]: lib_dir for proj, lib_dir in sorted(libraries.items())},
+          open(os.path.join(PLUG, 'libraries.g.json'), 'w'), indent=1)
 os.makedirs(PLUG, exist_ok=True)
 open(os.path.join(PLUG, 'plugins.g.props'), 'w').write('<Project>\n  <ItemGroup>\n' + '\n'.join(main_lines) + '\n  </ItemGroup>\n</Project>\n')
 open(os.path.join(PLUG, 'isolated.g.props'), 'w').write('<Project>\n  <ItemGroup>\n' + '\n'.join(iso_refs) + '\n  </ItemGroup>\n</Project>\n')

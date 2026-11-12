@@ -46,6 +46,27 @@ USINGS = ["System.Windows", "System.Windows.Controls", "System.Windows.Controls.
           "System.Windows.Documents", "System.Windows.Data"]
 
 
+# Libraries from LibSource that are compiled into the plugin assembly (tools-gen-plugins.py writes the list):
+# their XAML controls (e.g. HexBox) are generated like presentations, under the library's folder name.
+LIBRARY_LIST = os.path.join(HERE, "CrypWeb.Plugins", "libraries.g.json")
+LIBRARY_DIRS = json.load(open(LIBRARY_LIST)) if os.path.exists(LIBRARY_LIST) else {}
+
+
+def listed_pages(plugin_dir):
+    """The XAML files an old-style project lists (<Page Include="...">); empty when it lists none."""
+    pages = set()
+    for project in glob.glob(os.path.join(plugin_dir, "*.csproj")):
+        text = open(project, encoding="utf-8-sig", errors="ignore").read()
+        for include in re.findall(r'<Page\s+Include="([^"*]+)"', text):
+            pages.add(os.path.normpath(os.path.join(plugin_dir, include.replace("\\", os.sep))).lower())
+    return pages
+
+
+def source_dir(name):
+    """The source folder of a plugin (CrypPlugins/<name>) or of a library compiled with the plugins."""
+    return LIBRARY_DIRS.get(name) or os.path.join(PLUGINS, name)
+
+
 def read_include_list():
     if not os.path.exists(INCLUDE_FILE):
         return []
@@ -145,7 +166,7 @@ def generate_partial_class(xaml_path, plugin, relative_path, known_types):
 
 def copy_images(plugin):
     """Copies the pictures of a plugin to wwwroot/wpf-res/<plugin>/ with lower-case paths. Returns the count."""
-    plugin_dir = os.path.join(PLUGINS, plugin)
+    plugin_dir = source_dir(plugin)
     count = 0
     for folder, subfolders, files in os.walk(plugin_dir):
         subfolders[:] = [d for d in subfolders if d not in ("obj", "bin", "DetailedDescription")]
@@ -161,7 +182,7 @@ def copy_images(plugin):
 
 def assembly_name(plugin):
     """Assembly name of the desktop plugin (its WPF resources are called '<AssemblyName>.g')."""
-    for project in glob.glob(os.path.join(PLUGINS, plugin, "*.csproj")):
+    for project in glob.glob(os.path.join(source_dir(plugin), "*.csproj")):
         with open(project, encoding="utf-8-sig", errors="ignore") as f:
             declared = re.search(r"<AssemblyName>([^<]+)</AssemblyName>", f.read())
         return declared.group(1) if declared else os.path.splitext(os.path.basename(project))[0]
@@ -174,7 +195,7 @@ def collect_wpf_resources(plugin, resource_list, out_dir):
     WPF builds from the <Resource> items and code-behind reads with a ResourceManager. Appends the entries to
     resource_list ("output|name|source") and returns the MSBuild item, or None when the plugin has no pictures.
     """
-    plugin_dir = os.path.join(PLUGINS, plugin)
+    plugin_dir = source_dir(plugin)
     name = assembly_name(plugin)
     output = os.path.join(out_dir, plugin, name + ".g.resources")
     found = False
@@ -255,8 +276,8 @@ def main():
     isolated_items = {}        # plugin -> items of its own assembly
     resource_list = []
     real_classes = set()
-    for plugin in plugins:
-        plugin_dir = os.path.join(PLUGINS, plugin)
+    for plugin in plugins + sorted(LIBRARY_DIRS):
+        plugin_dir = source_dir(plugin)
         if not os.path.isdir(plugin_dir):
             sys.exit("presentations.include: no such plugin folder: " + plugin)
         print("%s (%d pictures)" % (plugin, copy_images(plugin)))
@@ -267,9 +288,12 @@ def main():
         resources = collect_wpf_resources(plugin, resource_list, out_dir)
         if resources:
             plugin_items.append(resources)
+        pages = listed_pages(plugin_dir)
         for xaml_path in sorted(glob.glob(os.path.join(plugin_dir, "**", "*.xaml"), recursive=True)):
             if os.sep + "obj" + os.sep in xaml_path:
                 continue
+            if pages and os.path.normpath(xaml_path).lower() not in pages:
+                continue    # a leftover the project does not build (e.g. KeySearcher's old P2P views)
             relative_path = os.path.relpath(xaml_path, plugin_dir).replace(os.sep, "/")
             source_base = os.path.relpath(xaml_path, project_dir).replace(os.sep, "/")
             generated = generate_partial_class(xaml_path, plugin, relative_path, known_types)

@@ -1,0 +1,8 @@
+{
+ "EnigmaAnalyzerLib": "/Users/niklasweimann/dev/CrypTool-2/LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer",
+ "FormatPreservingEncryptionWeydstone": "/Users/niklasweimann/dev/CrypTool-2/LibSource/FormatPreservingEncryptionWeydstone",
+ "HexBox": "/Users/niklasweimann/dev/CrypTool-2/LibSource/HexBox",
+ "KeyTextBox": "/Users/niklasweimann/dev/CrypTool-2/LibSource/KeyTextBox",
+ "M209AnalyzerLib": "/Users/niklasweimann/dev/CrypTool-2/LibSource/M209Analyzer/M209Analyzer",
+ "SSCext": "/Users/niklasweimann/dev/CrypTool-2/LibSource/SSCext"
+}

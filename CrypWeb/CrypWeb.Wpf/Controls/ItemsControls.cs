@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Data;
 
 namespace System.Windows.Controls
@@ -39,6 +40,57 @@ namespace System.Windows.Controls
         public void Refresh() => RenderVersion.Bump();
 
         public object CurrentItem => Count > 0 ? this[0] : null;
+
+        /// <summary>The order in which the items are shown (by property values).</summary>
+        public System.ComponentModel.SortDescriptionCollection SortDescriptions { get; } = new System.ComponentModel.SortDescriptionCollection();
+
+        // As in WPF, Items is the view of what the control shows: with an ItemsSource it lists the source's items,
+        // in the order of SortDescriptions.
+
+        /// <summary>The shown item at a position.</summary>
+        public new object this[int index]
+        {
+            get => View[index];
+            set => base[index] = value;
+        }
+
+        /// <summary>The number of shown items.</summary>
+        public new int Count => View.Count;
+
+        public new int IndexOf(object item) => View.IndexOf(item);
+
+        public new bool Contains(object item) => View.Contains(item);
+
+        private IList<object> View => (_owner as ItemsControl)?.EffectiveItems ?? this;
+
+        /// <summary>The items in the order of <see cref="SortDescriptions"/> (unchanged when there are none).</summary>
+        internal IList<object> Sort(IList<object> items)
+        {
+            if (SortDescriptions.Count == 0)
+            {
+                return items;
+            }
+            IEnumerable<object> sorted = items;
+            IOrderedEnumerable<object> ordered = null;
+            foreach (System.ComponentModel.SortDescription description in SortDescriptions)
+            {
+                Func<object, object> key = item => SortKey(item, description.PropertyName);
+                bool descending = description.Direction == System.ComponentModel.ListSortDirection.Descending;
+                ordered = ordered == null
+                    ? (descending ? sorted.OrderByDescending(key, Comparer<object>.Default) : sorted.OrderBy(key, Comparer<object>.Default))
+                    : (descending ? ordered.ThenByDescending(key, Comparer<object>.Default) : ordered.ThenBy(key, Comparer<object>.Default));
+            }
+            return ordered.ToList();
+        }
+
+        private static object SortKey(object item, string propertyName)
+        {
+            if (string.IsNullOrEmpty(propertyName) || item == null)
+            {
+                return item;
+            }
+            return item.GetType().GetProperty(propertyName)?.GetValue(item);
+        }
     }
 
     /// <summary>Shows a list of items, either its own <see cref="Items"/> or those of <see cref="ItemsSource"/>.</summary>
@@ -92,7 +144,7 @@ namespace System.Windows.Controls
                 IEnumerable source = ItemsSource;
                 if (source == null)
                 {
-                    return Items;
+                    return Items.SortDescriptions.Count == 0 ? Items : Items.Sort(new List<object>(Items.AsEnumerable()));
                 }
                 PropertyPathWalker.Watch(source);
                 var list = new List<object>();
@@ -100,7 +152,7 @@ namespace System.Windows.Controls
                 {
                     list.Add(item);
                 }
-                return list;
+                return Items.Sort(list);
             }
         }
 
@@ -377,8 +429,11 @@ namespace System.Windows.Controls
 
     public class GridViewColumn : DependencyObject
     {
+        public static readonly DependencyProperty WidthProperty = Dp.Register<double, GridViewColumn>(nameof(Width), double.NaN);
+
         public object Header { get; set; }
-        public double Width { get; set; } = double.NaN;
+        public double Width { get => (double)GetValue(WidthProperty); set => SetValue(WidthProperty, value); }
+        public Style HeaderContainerStyle { get; set; }
         public BindingBase DisplayMemberBinding { get; set; }
         public DataTemplate CellTemplate { get; set; }
         public DataTemplate HeaderTemplate { get; set; }

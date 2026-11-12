@@ -17,6 +17,9 @@ namespace System.Drawing
         public SizeF PhysicalDimension => new SizeF(Width, Height);
         public ImageFormat RawFormat { get; protected set; } = ImageFormat.Png;
         public PixelFormat PixelFormat { get; protected set; } = PixelFormat.Format32bppArgb;
+
+        /// <summary>Bits per pixel of a format (bits 8-15 of its value, as in System.Drawing).</summary>
+        public static int GetPixelFormatSize(PixelFormat pixfmt) => ((int)pixfmt >> 8) & 0xFF;
         public float HorizontalResolution { get; protected set; } = 96f;
         public float VerticalResolution { get; protected set; } = 96f;
         public object Tag { get; set; }
@@ -218,6 +221,7 @@ namespace System.Drawing
         public void DrawImage(Image img, int x, int y) => DrawImage(img, new Rectangle(x, y, img.Width, img.Height));
         public void DrawImage(Image img, Point p) => DrawImage(img, p.X, p.Y);
         public void DrawImage(Image img, int x, int y, int w, int h) => DrawImage(img, new Rectangle(x, y, w, h));
+        public void DrawImage(Image img, RectangleF dest) => DrawImage(img, Rectangle.Round(dest));
         public void DrawImage(Image img, Rectangle dest) { var s = (Bitmap)img; DrawImage(img, dest, new Rectangle(0, 0, s.Width, s.Height), GraphicsUnit.Pixel); }
         public void DrawImage(Image img, Rectangle dest, Rectangle src, GraphicsUnit unit)
         {

@@ -210,8 +210,6 @@ namespace System.Windows.Controls
     }
 }
 
-// namespaces that exist in WPF; plugin code imports them even if it only needs a few types from them
-namespace System.Windows.Media.Media3D { public abstract class Visual3D : System.Windows.DependencyObject { } }
 
 // .NET Remoting leftovers used by a few plugins (synchronization contexts); there is only one thread here, so they do nothing.
 namespace System.Runtime.Remoting.Contexts

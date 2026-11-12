@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../CrypPlugins/PBKDF/PBKDF.cs" Link="PBKDF/PBKDF.cs" />
+    <Compile Include="../../../CrypPlugins/PBKDF/PBKDFSettings.cs" Link="PBKDF/PBKDFSettings.cs" />
+    <Compile Include="../../../CrypPlugins/PBKDF/Properties/Resources.Designer.cs" Link="PBKDF/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../../CrypPlugins/PBKDF/Properties/Resources.resx" LogicalName="CrypTool.PBKDF.Properties.Resources.resources" Link="PBKDF/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../../CrypPlugins/PBKDF/Properties/Resources.de.resx" LogicalName="CrypTool.PBKDF.Properties.Resources.de.resources" Link="PBKDF/Properties/Resources.de.resx" />
+  </ItemGroup>
+</Project>

@@ -47,6 +47,9 @@ namespace System.Windows
         /// <summary>The effects of .NET 3.0 (obsolete in WPF and no longer drawn there either).</summary>
         public object BitmapEffect { get; set; }
 
+        /// <summary>Touch manipulation (pinch, rotate); the browser does not deliver manipulation events.</summary>
+        public bool IsManipulationEnabled { get; set; }
+
         /// <summary>The element this one is a child of (logical and visual tree are the same here).</summary>
         internal UIElement ParentElement { get; private set; }
 
