@@ -67,9 +67,36 @@ namespace System.Windows
         public bool IsInitialized => true;
 
         /// <summary>The explicit size if there is one, otherwise what the browser measured (0 before the first drawing).</summary>
-        public double ActualWidth => double.IsNaN(Width) ? RenderSize.Width : Width;
+        public double ActualWidth
+        {
+            get
+            {
+                NoteSizeRead();
+                return double.IsNaN(Width) ? RenderSize.Width : Width;
+            }
+        }
 
-        public double ActualHeight => double.IsNaN(Height) ? RenderSize.Height : Height;
+        public double ActualHeight
+        {
+            get
+            {
+                NoteSizeRead();
+                return double.IsNaN(Height) ? RenderSize.Height : Height;
+            }
+        }
+
+        // code that reads ActualWidth/ActualHeight needs the size the browser lays the element out with: from then on
+        // the element reports it (see WantsSize)
+        private bool _sizeRead;
+
+        private void NoteSizeRead()
+        {
+            if (!_sizeRead && RenderSize.Width == 0 && RenderSize.Height == 0)
+            {
+                _sizeRead = true;
+                RenderVersion.Bump();
+            }
+        }
 
         public ResourceDictionary Resources
         {
@@ -212,7 +239,11 @@ namespace System.Windows
         }
 
         /// <summary>True when code listens for size changes, so the browser has to report the measured size.</summary>
-        internal bool WantsSize => SizeChanged != null;
+        /// <summary>
+        /// True when the browser should report this element's size: code handles SizeChanged, has read its actual
+        /// size, or may read it (the element has a name, so the code-behind can reach it).
+        /// </summary>
+        internal bool WantsSize => SizeChanged != null || _sizeRead || !string.IsNullOrEmpty(Name);
 
         internal void ReportSize(Size size)
         {

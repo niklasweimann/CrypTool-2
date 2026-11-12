@@ -49,8 +49,31 @@ namespace System.Windows
         /// <summary>Value of a property that was never set. Elements override this for inherited properties.</summary>
         protected virtual object GetDefaultValue(DependencyProperty dp) => dp.Metadata.DefaultValue;
 
+        /// <summary>
+        /// The object this one belongs to when it is not an element itself (a brush of a rectangle, a gradient stop of a
+        /// brush): bindings on it use that owner's data context, as WPF's "inheritance context" does.
+        /// </summary>
+        internal DependencyObject InheritanceContext { get; set; }
+
+        /// <summary>The data context of this object: its own for elements, else the one of the element it belongs to.</summary>
+        internal object InheritedDataContext()
+        {
+            for (DependencyObject current = this; current != null; current = current.InheritanceContext)
+            {
+                if (current is FrameworkElement element)
+                {
+                    return element.DataContext;
+                }
+            }
+            return null;
+        }
+
         public void SetValue(DependencyProperty dp, object value)
         {
+            if (value is DependencyObject owned && !(owned is UIElement) && !ReferenceEquals(owned, this))
+            {
+                owned.InheritanceContext = this;
+            }
             if (value is IDeferredValue)
             {
                 _values[dp] = value;

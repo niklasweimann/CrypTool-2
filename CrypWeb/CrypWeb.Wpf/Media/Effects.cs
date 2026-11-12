@@ -41,19 +41,37 @@ namespace System.Windows.Media.Effects
 namespace System.Windows.Media.Effects
 {
     /// <summary>
-    /// The bitmap effects of .NET 3.0 (UIElement.BitmapEffect). WPF has not drawn them since .NET 4, so neither
-    /// does the browser; the types exist so that the XAML loads.
+    /// The bitmap effects of .NET 3.0 (UIElement.BitmapEffect). Since .NET 4 WPF still draws the drop shadow and the
+    /// blur (as the corresponding Effect) and ignores the others; the same here.
     /// </summary>
-    public abstract class BitmapEffect : DependencyObject { }
+    public abstract class BitmapEffect : DependencyObject
+    {
+        /// <summary>The effect WPF draws instead, or null when this one is not drawn.</summary>
+        internal virtual Effect AsEffect => null;
+    }
 
+    /// <summary>Defaults as in WPF: black, 5 pixels deep, softness 0.5, down to the right.</summary>
     public sealed class DropShadowBitmapEffect : BitmapEffect
     {
-        public Color Color { get; set; }
-        public double ShadowDepth { get; set; }
-        public double Softness { get; set; }
-        public double Direction { get; set; }
-        public double Opacity { get; set; }
+        public Color Color { get; set; } = Colors.Black;
+        public double ShadowDepth { get; set; } = 5;
+        public double Softness { get; set; } = 0.5;
+        public double Direction { get; set; } = 315;
+        public double Opacity { get; set; } = 1;
         public double Noise { get; set; }
+
+        // WPF maps Softness (0..1) to the blur radius of a DropShadowEffect (0..10 pixels)
+        internal override Effect AsEffect => new DropShadowEffect
+        {
+            Color = Color, ShadowDepth = ShadowDepth, Direction = Direction, Opacity = Opacity, BlurRadius = Softness * 10,
+        };
+    }
+
+    public sealed class BlurBitmapEffect : BitmapEffect
+    {
+        public double Radius { get; set; } = 5;
+
+        internal override Effect AsEffect => new BlurEffect { Radius = Radius };
     }
 
     public sealed class OuterGlowBitmapEffect : BitmapEffect

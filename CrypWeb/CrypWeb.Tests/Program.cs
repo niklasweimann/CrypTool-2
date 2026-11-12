@@ -129,6 +129,24 @@ if (args.Length > 1 && args[1] == "runall")
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");
     return;
 }
+if (args.Length > 1 && args[1] == "bindtest")
+{
+    // a binding on a gradient stop inside a data template: the stop takes the data context of its element
+    var control = (System.Windows.Controls.UserControl)System.Windows.Markup.XamlReader.Parse(@"<UserControl xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
+      <UserControl.Resources><DataTemplate x:Key='template'><StackPanel><Rectangle Width='10' Height='10' Stroke='Beige' RadiusX='5' RadiusY='5'>
+        <Rectangle.BitmapEffect><DropShadowBitmapEffect /></Rectangle.BitmapEffect>
+        <Rectangle.Fill><RadialGradientBrush>
+        <GradientStop Color='{Binding Path=A}' Offset='0'/><GradientStop Color='{Binding Path=B}' Offset='1'/>
+      </RadialGradientBrush></Rectangle.Fill></Rectangle></StackPanel></DataTemplate></UserControl.Resources>
+      <ItemsControl x:Name='bars' ItemTemplate='{StaticResource template}'/></UserControl>");
+    var list = (System.Windows.Controls.ItemsControl)control.FindName("bars");
+    list.ItemsSource = new[] { new BindItem() };
+    var host = new System.Windows.Hosting.PresentationHost(control);
+    string html = host.Render();
+    int i = html.IndexOf("radial-gradient");
+    Console.WriteLine(i < 0 ? "no gradient: " + html : html.Substring(i, Math.Min(120, html.Length - i)));
+    return;
+}
 if (args.Length > 1 && args[1] == "present3d")
 {
     // the PRESENT 3D animation: one "next step" on the encryption tab, then animation ticks; prints how the
@@ -445,4 +463,12 @@ static void SnapEvent(System.Windows.Hosting.PresentationHost host, string argum
     host.Dispatch(int.Parse(parts[0]), parts[1], parts[2], double.Parse(parts[3], culture), double.Parse(parts[4], culture));
     host.Render();
     Console.WriteLine($"event {parts[1]} on {parts[0]}");
+}
+
+
+/// <summary>Item for the bindtest command.</summary>
+public class BindItem
+{
+    public System.Windows.Media.Color A => System.Windows.Media.Colors.Blue;
+    public System.Windows.Media.Color B => System.Windows.Media.Colors.Red;
 }

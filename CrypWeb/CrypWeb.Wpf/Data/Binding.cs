@@ -200,7 +200,7 @@ namespace System.Windows.Data
                 // DataContext="{Binding ...}" is evaluated against the parent's data context (as in WPF), not its own
                 return InheritedDataContext(target as UIElement);
             }
-            return (target as FrameworkElement)?.DataContext;
+            return target?.InheritedDataContext();
         }
 
         /// <summary>The data context an element gets from above: from its parent, or the content it shows as a template.</summary>

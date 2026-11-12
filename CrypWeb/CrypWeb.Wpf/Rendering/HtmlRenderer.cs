@@ -201,6 +201,7 @@ namespace System.Windows.Rendering
             if (element.Visibility == Visibility.Hidden) css.Add("visibility", "hidden");
             if (element.Opacity < 1) css.Add("opacity", CssValues.Number(Math.Max(0, element.Opacity)));
             if (element.Effect is Media.Effects.Effect effect) css.Add("filter", effect.CssFilter);
+            else if ((element.BitmapEffect as Media.Effects.BitmapEffect)?.AsEffect is { } bitmapEffect) css.Add("filter", bitmapEffect.CssFilter);
             if (!element.IsHitTestVisible) css.Add("pointer-events", "none");
             if (element.ClipToBounds) css.Add("overflow", "hidden");
             if (element.Clip != null) css.Add("clip-path", "path('" + element.Clip.ToSvgPathData() + "')");
@@ -244,7 +245,20 @@ namespace System.Windows.Rendering
             Matrix? matrix = null;
             if (fe?.LayoutTransform != null)
             {
-                matrix = fe.LayoutTransform.Value;
+                Matrix layout = fe.LayoutTransform.Value;
+                if (layout.M12 == 0 && layout.M21 == 0 && layout.M11 == layout.M22 && layout.M11 > 0)
+                {
+                    // a uniform scale: CSS zoom has the same layout meaning (the element is laid out in the space it
+                    // gets divided by the factor and then scaled to fill it), a CSS transform would only scale the picture
+                    if (layout.M11 != 1)
+                    {
+                        css.Add("zoom", CssValues.Number(layout.M11));
+                    }
+                }
+                else
+                {
+                    matrix = layout;
+                }
             }
             if (element.RenderTransform != null)
             {

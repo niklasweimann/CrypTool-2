@@ -180,9 +180,16 @@ namespace System.Windows.Media
 
         public GradientStopCollection(int capacity) { }
 
+        /// <summary>The brush the stops belong to (their bindings use its data context).</summary>
+        internal DependencyObject Owner { get; set; }
+
         protected override void InsertItem(int index, GradientStop item)
         {
             base.InsertItem(index, item);
+            if (item != null && Owner != null)
+            {
+                item.InheritanceContext = Owner;
+            }
             RenderVersion.Bump();
         }
     }
@@ -190,7 +197,23 @@ namespace System.Windows.Media
     [Markup.ContentProperty(nameof(GradientStops))]
     public abstract class GradientBrush : Brush
     {
-        public GradientStopCollection GradientStops { get; set; } = new GradientStopCollection();
+        private GradientStopCollection _gradientStops;
+
+        protected GradientBrush() => GradientStops = new GradientStopCollection();
+
+        public GradientStopCollection GradientStops
+        {
+            get => _gradientStops;
+            set
+            {
+                _gradientStops = value ?? new GradientStopCollection();
+                _gradientStops.Owner = this;
+                foreach (GradientStop stop in _gradientStops)
+                {
+                    if (stop != null) stop.InheritanceContext = this;
+                }
+            }
+        }
         public GradientSpreadMethod SpreadMethod { get; set; }
         public BrushMappingMode MappingMode { get; set; } = BrushMappingMode.RelativeToBoundingBox;
     }
