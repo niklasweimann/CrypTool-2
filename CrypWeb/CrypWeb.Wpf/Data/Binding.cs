@@ -77,6 +77,7 @@ namespace System.Windows.Data
         internal override BindingExpressionBase CreateExpression() => new BindingExpression(this);
     }
 
+    [Markup.ContentProperty(nameof(Bindings))]
     public class MultiBinding : BindingBase
     {
         public Collection<BindingBase> Bindings { get; } = new Collection<BindingBase>();

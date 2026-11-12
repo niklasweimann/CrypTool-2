@@ -16,7 +16,7 @@
 .wpf .ws { display: flex; position: relative; }
 .wpf .wc { position: relative; }
 .wpf .wvb { position: relative; overflow: hidden; }
-.wpf .wvbi { position: absolute; left: 0; top: 0; display: flex; transform-origin: 0 0; }
+.wpf .wvbi { position: absolute; left: 0; top: 0; display: flex; transform-origin: 0 0; width: max-content; height: max-content; } /* a Viewbox measures its child without limits (WPF) */
 
 /* text, shapes, pictures */
 .wpf .wt, .wpf .wtx { cursor: default; }

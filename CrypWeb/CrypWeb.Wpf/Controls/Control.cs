@@ -42,6 +42,93 @@ namespace System.Windows.Controls
         public event Input.MouseButtonEventHandler MouseDoubleClick;
         public event Input.MouseButtonEventHandler PreviewMouseDoubleClick;
 
+        // ---- control templates ---------------------------------------------------------------------------------
+
+        // the element tree built from the current Template, and the template it was built from
+        private ControlTemplate _templateFor;
+        private UIElement _templateRoot;
+
+        /// <summary>
+        /// The element tree of the control's <see cref="Template"/>, built once per template; null without one (the
+        /// control is then drawn in its standard look). As in WPF, the tree's elements know the control as their
+        /// TemplatedParent ({TemplateBinding}), a ContentPresenter in it shows the control's Content, and its
+        /// bindings see the control's DataContext.
+        /// </summary>
+        internal UIElement TemplateRoot
+        {
+            get
+            {
+                ControlTemplate template = SupportsTemplate ? Template : null;
+                if (ReferenceEquals(template, _templateFor))
+                {
+                    return _templateRoot;
+                }
+                SetParent(_templateRoot, null);
+                _templateFor = template;
+                _templateRoot = template?.LoadContent() as UIElement;
+                if (_templateRoot != null)
+                {
+                    AdoptTemplateTree(_templateRoot);
+                    SetParent(_templateRoot, this);
+                }
+                return _templateRoot;
+            }
+        }
+
+        /// <summary>Controls the renderer draws itself (text boxes, sliders, lists) keep their standard look.</summary>
+        private protected virtual bool SupportsTemplate => false;
+
+        /// <summary>Marks the template's elements as created for this control and connects content presenters.</summary>
+        private void AdoptTemplateTree(UIElement element)
+        {
+            if (element is FrameworkElement fe)
+            {
+                fe.TemplatedParent = this;
+            }
+            if (element is ContentPresenter presenter && this is ContentControl
+                && !presenter.HasLocalValue(ContentControl.ContentProperty))
+            {
+                // the presenter shows what the control shows (its children are the control's content, not template parts)
+                presenter.SetValue(ContentControl.ContentProperty, new TemplateBindingExpression(nameof(ContentControl.Content)));
+                if (!presenter.HasLocalValue(ContentControl.ContentTemplateProperty))
+                {
+                    presenter.SetValue(ContentControl.ContentTemplateProperty, new TemplateBindingExpression(nameof(ContentControl.ContentTemplate)));
+                }
+                return;
+            }
+            foreach (UIElement child in new List<UIElement>(element.ChildElements))
+            {
+                AdoptTemplateTree(child);
+            }
+        }
+
+        /// <summary>A named element in the template tree (GetTemplateChild).</summary>
+        internal DependencyObject FindTemplatePart(string name)
+        {
+            return TemplateRoot == null ? null : Find(TemplateRoot);
+
+            DependencyObject Find(UIElement element)
+            {
+                if (element is FrameworkElement fe && fe.Name == name && ReferenceEquals(fe.TemplatedParent, this))
+                {
+                    return fe;
+                }
+                foreach (UIElement child in element.ChildElements)
+                {
+                    if (child is FrameworkElement { TemplatedParent: var owner } && !ReferenceEquals(owner, this))
+                    {
+                        continue;   // content shown by a presenter is not part of the template
+                    }
+                    DependencyObject found = Find(child);
+                    if (found != null)
+                    {
+                        return found;
+                    }
+                }
+                return null;
+            }
+        }
+
         internal override void OnClicked(Input.MouseButtonEventArgs e)
         {
             base.OnClicked(e);
@@ -71,10 +158,17 @@ namespace System.Windows.Controls
             SetParent(e.NewValue, (UIElement)d);
         }
 
+        private protected override bool SupportsTemplate => true;
+
         internal override IEnumerable<UIElement> ChildElements
         {
             get
             {
+                if (TemplateRoot is { } templateRoot)
+                {
+                    yield return templateRoot;
+                    yield break;
+                }
                 if (Content is UIElement element)
                 {
                     yield return element;
@@ -155,11 +249,20 @@ namespace System.Windows.Controls
 
     public class ToolTip : ContentControl { }
 
-    public class ContentPresenter : ContentControl { }
+    /// <summary>The place in a control template where the control's content is shown (see Control.TemplateRoot).</summary>
+    public class ContentPresenter : ContentControl
+    {
+        private protected override bool SupportsTemplate => false;
+
+        public string ContentSource { get; set; }
+    }
 
     /// <summary>A scrollable area around its content.</summary>
     public class ScrollViewer : ContentControl
     {
+        // the browser draws scrolling itself (native scroll bars); a template with its own scroll bars is not used
+        private protected override bool SupportsTemplate => false;
+
         public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("HorizontalScrollBarVisibility", ScrollBarVisibility.Disabled);
         public static readonly DependencyProperty VerticalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("VerticalScrollBarVisibility", ScrollBarVisibility.Visible);
         public static readonly DependencyProperty CanContentScrollProperty = Dp.Attached<bool, ScrollViewer>("CanContentScroll");

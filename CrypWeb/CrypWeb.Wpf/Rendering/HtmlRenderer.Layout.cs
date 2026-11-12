@@ -165,7 +165,36 @@ namespace System.Windows.Rendering
             _html.Append("</div>");
         }
 
+        // the element showing the flow document being written (RichTextBox, viewer)
+        private UIElement _documentOwner;
+
+        /// <summary>
+        /// Elements embedded in a flow document belong to the element that shows the document: as in WPF they get
+        /// its data context and resources from there.
+        /// </summary>
+        private void AdoptIntoDocumentOwner(UIElement child)
+        {
+            if (child != null && child.ParentElement == null && _documentOwner != null)
+            {
+                UIElement.SetParent(child, _documentOwner);
+            }
+        }
+
         private void WriteFlowDocument(UIElement owner, FlowDocument document, LayoutSlot slot)
+        {
+            UIElement previousOwner = _documentOwner;
+            _documentOwner = owner;
+            try
+            {
+                WriteFlowDocumentContent(owner, document, slot);
+            }
+            finally
+            {
+                _documentOwner = previousOwner;
+            }
+        }
+
+        private void WriteFlowDocumentContent(UIElement owner, FlowDocument document, LayoutSlot slot)
         {
             OpenTag("div", owner, slot, "wdoc", "");
             if (document != null)
@@ -173,21 +202,134 @@ namespace System.Windows.Rendering
                 var documentCss = new StyleBuilder();
                 AddFont(documentCss, document);
                 _html.Append("<div style=\"").Append(documentCss).Append("\">");
-                foreach (Paragraph paragraph in document.Paragraphs)
-                {
-                    var css = new StyleBuilder();
-                    AddFont(css, paragraph);
-                    if (paragraph.TextAlignment != TextAlignment.Left)
-                    {
-                        css.Add("text-align", paragraph.TextAlignment.ToString().ToLowerInvariant());
-                    }
-                    _html.Append("<p style=\"").Append(css).Append("\">");
-                    WriteInlines(paragraph.Inlines);
-                    _html.Append("</p>");
-                }
+                WriteBlocks(document.Blocks);
                 _html.Append("</div>");
             }
             _html.Append("</div>");
+        }
+
+        /// <summary>The blocks of a flow document: paragraphs, sections, lists and tables as HTML.</summary>
+        private void WriteBlocks(BlockCollection blocks)
+        {
+            foreach (Block block in blocks)
+            {
+                var css = new StyleBuilder();
+                AddFont(css, block);
+                if (block.TextAlignment != TextAlignment.Left)
+                {
+                    css.Add("text-align", block.TextAlignment.ToString().ToLowerInvariant());
+                }
+                if (block.GetValue(TextElement.BackgroundProperty) is Brush background)
+                {
+                    css.Add("background", CssValues.Background(background, address => address));
+                }
+                switch (block)
+                {
+                    case Paragraph paragraph:
+                        _html.Append("<p style=\"").Append(css).Append("\">");
+                        WriteInlines(paragraph.Inlines);
+                        _html.Append("</p>");
+                        break;
+                    case Section section:
+                        _html.Append("<div style=\"").Append(css).Append("\">");
+                        WriteBlocks(section.Blocks);
+                        _html.Append("</div>");
+                        break;
+                    case List list:
+                        WriteList(list, css);
+                        break;
+                    case Table table:
+                        WriteTable(table, css);
+                        break;
+                    case BlockUIContainer container when container.Child != null:
+                        AdoptIntoDocumentOwner(container.Child);
+                        _html.Append("<div style=\"").Append(css).Append("\">");
+                        WriteElement(container.Child, LayoutSlot.Flow);
+                        _html.Append("</div>");
+                        break;
+                }
+            }
+        }
+
+        private void WriteList(List list, StyleBuilder css)
+        {
+            string marker = list.MarkerStyle switch
+            {
+                TextMarkerStyle.None => "none",
+                TextMarkerStyle.Circle => "circle",
+                TextMarkerStyle.Square or TextMarkerStyle.Box => "square",
+                TextMarkerStyle.LowerRoman => "lower-roman",
+                TextMarkerStyle.UpperRoman => "upper-roman",
+                TextMarkerStyle.LowerLatin => "lower-latin",
+                TextMarkerStyle.UpperLatin => "upper-latin",
+                TextMarkerStyle.Decimal => "decimal",
+                _ => "disc",
+            };
+            css.Add("list-style-type", marker);
+            bool ordered = marker != "disc" && marker != "circle" && marker != "square" && marker != "none";
+            string tag = ordered ? "ol" : "ul";
+            _html.Append('<').Append(tag).Append(ordered && list.StartIndex != 1 ? " start=\"" + list.StartIndex + "\"" : "")
+                .Append(" style=\"").Append(css).Append("\">");
+            foreach (ListItem item in list.ListItems)
+            {
+                var itemCss = new StyleBuilder();
+                AddFont(itemCss, item);
+                if (item.GetValue(TextElement.BackgroundProperty) is Brush background)
+                {
+                    itemCss.Add("background", CssValues.Background(background, address => address));
+                }
+                _html.Append("<li style=\"").Append(itemCss).Append("\">");
+                WriteBlocks(item.Blocks);
+                _html.Append("</li>");
+            }
+            _html.Append("</").Append(tag).Append('>');
+        }
+
+        private void WriteTable(Table table, StyleBuilder css)
+        {
+            css.Add("border-spacing", CssValues.Pixels(table.CellSpacing)).Add("border-collapse", "separate");
+            _html.Append("<table style=\"").Append(css).Append("\">");
+            if (table.Columns.Count > 0)
+            {
+                _html.Append("<colgroup>");
+                foreach (TableColumn column in table.Columns)
+                {
+                    string width = column.Width.IsAbsolute ? CssValues.Pixels(column.Width.Value)
+                        : column.Width.IsStar ? CssValues.Number(column.Width.Value * 100) + "*" : "";
+                    _html.Append(column.Width.IsAbsolute ? "<col style=\"width:" + width + "\"/>" : "<col/>");
+                }
+                _html.Append("</colgroup>");
+            }
+            foreach (TableRowGroup group in table.RowGroups)
+            {
+                _html.Append("<tbody>");
+                foreach (TableRow row in group.Rows)
+                {
+                    _html.Append("<tr>");
+                    foreach (TableCell cell in row.Cells)
+                    {
+                        var cellCss = new StyleBuilder();
+                        AddFont(cellCss, cell);
+                        cellCss.Add("vertical-align", "top");
+                        if (cell.GetValue(TextElement.BackgroundProperty) is Brush background)
+                        {
+                            cellCss.Add("background", CssValues.Background(background, address => address));
+                        }
+                        if (cell.TextAlignment != TextAlignment.Left)
+                        {
+                            cellCss.Add("text-align", cell.TextAlignment.ToString().ToLowerInvariant());
+                        }
+                        _html.Append("<td").Append(cell.ColumnSpan > 1 ? " colspan=\"" + cell.ColumnSpan + "\"" : "")
+                            .Append(cell.RowSpan > 1 ? " rowspan=\"" + cell.RowSpan + "\"" : "")
+                            .Append(" style=\"").Append(cellCss).Append("\">");
+                        WriteBlocks(cell.Blocks);
+                        _html.Append("</td>");
+                    }
+                    _html.Append("</tr>");
+                }
+                _html.Append("</tbody>");
+            }
+            _html.Append("</table>");
         }
 
         /// <summary>Plain text in which character ranges have their own colour.</summary>
@@ -240,6 +382,7 @@ namespace System.Windows.Rendering
                         WriteSpan(span, () => WriteInlines(span.Inlines));
                         break;
                     case InlineUIContainer container:
+                        AdoptIntoDocumentOwner(container.Child);
                         _html.Append("<span class=\"wb\" style=\"display:inline-grid;vertical-align:baseline;\">");
                         WriteElement(container.Child, LayoutSlot.GridCell);
                         _html.Append("</span>");

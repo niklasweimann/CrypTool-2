@@ -64,6 +64,8 @@ namespace System.Windows.Rendering
 
             switch (element)
             {
+                // a control with a ControlTemplate is drawn as its template's elements (Control.TemplateRoot)
+                case Control templated when templated.TemplateRoot != null: WriteContainer(templated, slot, "wb", "", LayoutSlot.GridCell); break;
                 case Shape shape: WriteShape(shape, slot); break;
                 case TextBlock textBlock: WriteTextBlock(textBlock, slot); break;
                 case Image image: WriteImage(image, slot); break;

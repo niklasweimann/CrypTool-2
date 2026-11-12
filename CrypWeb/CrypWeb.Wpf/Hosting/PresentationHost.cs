@@ -149,7 +149,7 @@ namespace System.Windows.Hosting
                     {
                         sized.ReportSize(new Size(width, height));
                     }
-                    return;     // a size report alone changes nothing that would have to be drawn
+                    return;     // drawn again on the next tick if a size someone reads has changed (ReportSize)
 
                 case "drag":
                     ReplayDrag(element, value, new Point(x, y));

@@ -123,7 +123,15 @@ Plugins not in `presentations.include` still use the older fallbacks: generated 
 recorded, shown by custom visualizers (`CrypWeb.App/Visualizers/*Viz.razor`) or by the static XAML drawing (`XamlViz`).
 These fallbacks are to be removed as plugins move to the runtime.
 
-Not supported yet: control templates (and their triggers), `VisualBrush`/`DrawingBrush` outside 3D faces, editing in `RichTextBox`, hover events,
+- **Control templates**: a control with a `Template` is drawn as the template's elements (`Control.TemplateRoot`);
+  `ContentPresenter` shows the control's content, `{TemplateBinding}` reads the control's properties. Controls the browser
+  draws natively (ScrollViewer, text boxes, sliders, lists) keep their standard look.
+- **Closer to WPF** (found by comparing with screenshots in the plugin documentation): bindings on brushes and gradient
+  stops use the owning element's data context; `DropShadowBitmapEffect` is drawn; named elements and elements whose
+  `ActualWidth`/`ActualHeight` is read report their size (and are drawn again when it changes); a uniform
+  `LayoutTransform` is CSS `zoom`; a Viewbox measures its child without limits; flow documents have tables and lists.
+
+Not supported yet: triggers of control templates, `VisualBrush`/`DrawingBrush` outside 3D faces, editing in `RichTextBox`, hover events,
 custom layout (`MeasureOverride`/`ArrangeOverride`), the `CrypAnalysisViewControl` library (used by the analyzers).
 
 ## Hosting on Cloudflare Workers

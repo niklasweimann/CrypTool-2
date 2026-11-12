@@ -109,6 +109,32 @@ namespace System.Windows.Documents
                         yield return nested;
                     }
                 }
+                else if (block is List list)
+                {
+                    foreach (ListItem item in list.ListItems)
+                    {
+                        foreach (Paragraph nested in Flatten(item.Blocks))
+                        {
+                            yield return nested;
+                        }
+                    }
+                }
+                else if (block is Table table)
+                {
+                    foreach (TableRowGroup group in table.RowGroups)
+                    {
+                        foreach (TableRow row in group.Rows)
+                        {
+                            foreach (TableCell cell in row.Cells)
+                            {
+                                foreach (Paragraph nested in Flatten(cell.Blocks))
+                                {
+                                    yield return nested;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

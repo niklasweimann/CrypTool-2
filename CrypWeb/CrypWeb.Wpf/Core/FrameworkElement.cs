@@ -60,7 +60,8 @@ namespace System.Windows
 
         public DependencyObject Parent => ParentElement;
 
-        public DependencyObject TemplatedParent => null;
+        /// <summary>The control whose template created this element (null outside control templates).</summary>
+        public DependencyObject TemplatedParent { get; internal set; }
 
         public bool IsLoaded => _loadedRaised;
 
@@ -165,7 +166,9 @@ namespace System.Windows
         internal HashSet<DependencyProperty> StyledProperties => _styledProperties ??= new HashSet<DependencyProperty>();
 
         /// <summary>A named part of the control template; control templates are not instantiated, so there is none.</summary>
-        protected DependencyObject GetTemplateChild(string childName) => null;
+        /// <summary>A named element of the control template's tree (see Control.TemplateRoot).</summary>
+        protected DependencyObject GetTemplateChild(string childName) =>
+            (this as Controls.Control)?.FindTemplatePart(childName);
 
         internal override bool HasStyleTriggers => _styleTriggers is { Count: > 0 };
 
@@ -253,6 +256,10 @@ namespace System.Windows
                 return;
             }
             RenderSize = size;
+            if (_sizeRead)
+            {
+                RenderVersion.Bump();   // something depends on this size (code, or a binding to ActualWidth/ActualHeight)
+            }
             SizeChanged?.Invoke(this, new SizeChangedEventArgs { Source = this, PreviousSize = previous, NewSize = size });
         }
 

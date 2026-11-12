@@ -312,6 +312,17 @@ namespace System.Windows.Markup
                 }
             }
 
+            if (value is IDeferredValue deferred && !(value is BindingBase))
+            {
+                // {TemplateBinding}: evaluated on the dependency property when read
+                DependencyProperty dp = DependencyPropertyLookup.Find(instance.GetType(), property.Name);
+                if (dp != null && instance is DependencyObject target)
+                {
+                    target.SetValue(dp, deferred);
+                }
+                return;
+            }
+
             if (value is string text && property.PropertyType != typeof(string) && property.PropertyType != typeof(object))
             {
                 if (!XamlValueConverter.TryConvert(text, property.PropertyType, out value))
