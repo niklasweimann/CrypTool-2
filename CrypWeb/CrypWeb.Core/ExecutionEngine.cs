@@ -300,6 +300,14 @@ public sealed class ExecutionEngine
         return true;
     }
 
+    /// <summary>
+    /// Runs plugin code on a thread of its own, as CT2 does. Plugins block in Execute (network receivers wait for
+    /// packets, visualizations wait for the user), which must not use up the thread pool: the runtime's own work
+    /// (timers, task continuations) runs there, and the browser runtime cannot always add threads in time.
+    /// </summary>
+    static Task OnOwnThread(Action action) =>
+        Task.Factory.StartNew(action, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
     /// <summary>Executes one component (on a background thread when <see cref="ExecuteInBackground"/>).</summary>
     async Task RunNodeAsync(RunNode n)
     {
@@ -308,7 +316,7 @@ public sealed class ExecutionEngine
         try
         {
             var comp = n.Comp!;
-            if (ExecuteInBackground) await Task.Run(comp.Execute);
+            if (ExecuteInBackground) await OnOwnThread(comp.Execute);
             else comp.Execute();
             n.LastMs = sw.ElapsedMilliseconds; Interlocked.Increment(ref executionCount); n.Progress = 1;
             if (n.State == RunState.Running) n.State = RunState.Done;

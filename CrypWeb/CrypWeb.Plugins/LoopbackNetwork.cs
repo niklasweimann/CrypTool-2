@@ -28,6 +28,10 @@ internal static class LoopbackNetwork
 
     internal static int NextEphemeralPort() => Interlocked.Increment(ref _nextEphemeralPort);
 
+    /// <summary>Runs a blocking wait (for data or a connection) on a thread of its own, not on the thread pool.</summary>
+    internal static void WaitOnOwnThread(Action wait) =>
+        Task.Factory.StartNew(wait, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+
     internal static void BindUdp(int port, UdpClient client)
     {
         lock (Gate)
@@ -237,7 +241,7 @@ public class Socket : IDisposable
     public IAsyncResult BeginReceive(byte[] buffer, int offset, int size, SocketFlags socketFlags, AsyncCallback callback, object state)
     {
         var result = new LoopbackAsyncResult(state);
-        Task.Run(() =>
+        LoopbackNetwork.WaitOnOwnThread(() =>
         {
             try { result.Complete(Receive(buffer, offset, size, socketFlags), null, callback); }
             catch (Exception error) { result.Complete(0, error, callback); }
@@ -398,7 +402,7 @@ public class TcpListener
     public IAsyncResult BeginAcceptTcpClient(AsyncCallback callback, object state)
     {
         var result = new LoopbackAsyncResult(state);
-        Task.Run(() =>
+        LoopbackNetwork.WaitOnOwnThread(() =>
         {
             try { result.Complete(AcceptTcpClient(), null, callback); }
             catch (Exception error) { result.Complete(null, error, callback); }
