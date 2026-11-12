@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -48,7 +50,17 @@ namespace System.Windows.Rendering
             {
                 _html.Append("<defs>").Append(defs).Append("</defs>");
             }
-            _html.Append(path).Append("</svg>");
+            _html.Append(path);
+            if (CssValues.Simplify(shape.Fill) is VisualBrush { Visual: UIElement visual } visualBrush && outline != null && outline.Transform == null)
+            {
+                // the brush's element, clipped to the outline and stretched over its bounds
+                string clipId = _idPrefix + "c" + (++_gradientCount);
+                _html.Append("<clipPath id=\"").Append(clipId).Append("\"><path d=\"").Append(CssValues.Escape(data)).Append("\"/></clipPath>");
+                _html.Append("<g clip-path=\"url(#").Append(clipId).Append(")\">");
+                AppendVisualBrush(visualBrush, visual, outline.Bounds);
+                _html.Append("</g>");
+            }
+            _html.Append("</svg>");
         }
 
         /// <summary>A shape whose outline is text (FormattedText.BuildGeometry).</summary>
@@ -89,8 +101,95 @@ namespace System.Windows.Rendering
             {
                 css.Add("border-radius", CssValues.Pixels(rectangle.RadiusX) + "/" + CssValues.Pixels(rectangle.RadiusY > 0 ? rectangle.RadiusY : rectangle.RadiusX));
             }
+            if (CssValues.Simplify(shape.Fill) is VisualBrush { Visual: UIElement visual } visualBrush)
+            {
+                // the brush's element stretched over the shape (clipped to its rounded corners)
+                css.Add("overflow", "hidden");
+                OpenTag("div", shape, slot, "wr wvbrush", css.ToString());
+                _html.Append("<svg class=\"wbrush\">");
+                AppendVisualBrush(visualBrush, visual, new Rect(0, 0, 1, 1), relative: true);
+                _html.Append("</svg></div>");
+                return;
+            }
             OpenTag("div", shape, slot, "wr", css.ToString());
             _html.Append("</div>");
+        }
+
+        /// <summary>
+        /// The element of a visual brush as HTML inside SVG (foreignObject), stretched over <paramref name="area"/>
+        /// as the brush's Stretch says. The element has no size of its own in a brush, so its natural size is
+        /// estimated (<see cref="EstimateSize"/>). With <paramref name="relative"/>, the area is the whole SVG.
+        /// </summary>
+        private void AppendVisualBrush(VisualBrush brush, UIElement visual, Rect area, bool relative = false)
+        {
+            Size natural = EstimateSize(visual);
+            string aspect = brush.Stretch switch
+            {
+                Stretch.Uniform => "xMidYMid meet",
+                Stretch.UniformToFill => "xMidYMid slice",
+                Stretch.None => "xMidYMid meet",
+                _ => "none",
+            };
+            string size = relative
+                ? " width=\"100%\" height=\"100%\""
+                : " x=\"" + CssValues.Number(area.X) + "\" y=\"" + CssValues.Number(area.Y) + "\" width=\"" + CssValues.Number(area.Width)
+                    + "\" height=\"" + CssValues.Number(area.Height) + "\"";
+            _html.Append("<svg").Append(size).Append(" viewBox=\"0 0 ").Append(CssValues.Number(natural.Width)).Append(' ')
+                .Append(CssValues.Number(natural.Height)).Append("\" preserveAspectRatio=\"").Append(aspect).Append("\">");
+            _html.Append("<foreignObject width=\"").Append(CssValues.Number(natural.Width)).Append("\" height=\"")
+                .Append(CssValues.Number(natural.Height)).Append("\"><div class=\"wvisual\">");
+            WriteElement(visual, LayoutSlot.Flow);
+            _html.Append("</div></foreignObject></svg>");
+        }
+
+        /// <summary>
+        /// The size an element would take without limits, estimated from its own size, text (about 0.55 em per
+        /// character, 1.33 em per line) and the panels and borders around it. Only used where the browser cannot
+        /// measure first (the content of a visual brush).
+        /// </summary>
+        private static Size EstimateSize(UIElement element)
+        {
+            if (element is not FrameworkElement fe)
+            {
+                return new Size(100, 30);
+            }
+            Size content;
+            switch (element)
+            {
+                case TextBlock text:
+                    string[] lines = (text.Text ?? "").Split('\n');
+                    double fontSize = text.FontSize > 0 ? text.FontSize : 12;
+                    content = new Size(lines.Max(line => line.Length) * fontSize * 0.55, lines.Length * fontSize * 1.33);
+                    break;
+                case StackPanel stack:
+                    {
+                        var sizes = stack.Children.Cast<UIElement>().Select(EstimateSize).ToList();
+                        content = stack.Orientation == Orientation.Vertical
+                            ? new Size(sizes.Select(s => s.Width).DefaultIfEmpty().Max(), sizes.Sum(s => s.Height))
+                            : new Size(sizes.Sum(s => s.Width), sizes.Select(s => s.Height).DefaultIfEmpty().Max());
+                        break;
+                    }
+                case Panel panel:
+                    {
+                        var sizes = panel.Children.Cast<UIElement>().Select(EstimateSize).ToList();
+                        content = new Size(sizes.Select(s => s.Width).DefaultIfEmpty().Max(), sizes.Select(s => s.Height).DefaultIfEmpty().Max());
+                        break;
+                    }
+                case Border border when border.Child != null:
+                    {
+                        Size child = EstimateSize(border.Child);
+                        Thickness padding = border.Padding, line = border.BorderThickness;
+                        content = new Size(child.Width + padding.Left + padding.Right + line.Left + line.Right,
+                            child.Height + padding.Top + padding.Bottom + line.Top + line.Bottom);
+                        break;
+                    }
+                default:
+                    content = new Size(100, 30);
+                    break;
+            }
+            double width = double.IsNaN(fe.Width) ? content.Width : fe.Width;
+            double height = double.IsNaN(fe.Height) ? content.Height : fe.Height;
+            return new Size(Math.Max(1, width + fe.Margin.Left + fe.Margin.Right), Math.Max(1, height + fe.Margin.Top + fe.Margin.Bottom));
         }
 
         private void AppendStroke(StringBuilder svg, Brush stroke, double thickness, DoubleCollection dashes, PenLineCap cap, PenLineJoin join, StringBuilder defs)
@@ -123,7 +222,7 @@ namespace System.Windows.Rendering
         /// <summary>A brush as SVG paint; gradients are added to <paramref name="defs"/> and referenced by id.</summary>
         private string SvgPaint(Brush brush, StringBuilder defs)
         {
-            switch (brush)
+            switch (CssValues.Simplify(brush))
             {
                 case null:
                     return "none";

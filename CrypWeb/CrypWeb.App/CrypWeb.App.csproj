@@ -8,6 +8,9 @@
     <!-- the engine runs in the app: plugin code on background threads (needs cross-origin isolation, see README) -->
     <WasmEnableThreads>true</WasmEnableThreads>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- some plugins keep pictures in their Resources.resx (Keccak, PKCS1); Blazor turns such resource types off,
+         and then every string lookup in that file fails ({Loc Key} would show the key) -->
+    <CustomResourceTypesSupport>true</CustomResourceTypesSupport>
   </PropertyGroup>
 
   <ItemGroup>

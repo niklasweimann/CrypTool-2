@@ -98,7 +98,7 @@ namespace System.Windows.Markup
             return RootObject is FrameworkElement root && (value = root.TryFindResource(key)) != null;
         }
 
-        /// <summary>Target type of the innermost style being built (resolves <c>Setter.Property</c>).</summary>
+        /// <summary>Target type of the innermost style or control template being built (resolves <c>Setter.Property</c>).</summary>
         public Type CurrentStyleTargetType
         {
             get
@@ -108,6 +108,10 @@ namespace System.Windows.Markup
                     if (Scopes[i] is Style style)
                     {
                         return style.TargetType;
+                    }
+                    if (Scopes[i] is Controls.ControlTemplate template)
+                    {
+                        return template.TargetType;
                     }
                 }
                 return null;

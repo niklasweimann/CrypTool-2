@@ -160,6 +160,29 @@ namespace System.Windows.Markup
                 XamlContext captured = _context.ForkForTemplate();
                 template.ContentFactory = () => new XamlObjectBuilder(captured.ForkForTemplate()).Create(content);
             }
+
+            // <ControlTemplate.Triggers>: created now (they hold no elements), with the template as the scope that
+            // resolves Trigger.Property and Setter.Property against its TargetType
+            XElement triggers = element.Elements().FirstOrDefault(e => e.Name.LocalName.EndsWith(".Triggers", StringComparison.Ordinal));
+            if (triggers != null)
+            {
+                _context.Scopes.Add(template);
+                try
+                {
+                    foreach (XElement triggerElement in triggers.Elements())
+                    {
+                        object trigger = Create(triggerElement);
+                        if (trigger != null)
+                        {
+                            template.Triggers.Add(trigger);
+                        }
+                    }
+                }
+                finally
+                {
+                    _context.Scopes.RemoveAt(_context.Scopes.Count - 1);
+                }
+            }
             return template;
         }
 
@@ -179,6 +202,11 @@ namespace System.Windows.Markup
                 if (name == "Name")
                 {
                     RegisterName(attribute.Value, instance);
+                    // as in WPF, x:Name is also the element's Name (code reads it, template triggers find parts by it)
+                    if (instance is FrameworkElement named)
+                    {
+                        named.Name = attribute.Value;
+                    }
                 }
                 return;     // x:Class, x:Key, x:FieldModifier, ... are handled elsewhere or irrelevant
             }

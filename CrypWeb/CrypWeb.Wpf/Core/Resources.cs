@@ -213,8 +213,15 @@ namespace System.Windows
 
         public object LoadContent() => ContentFactory?.Invoke();
 
-        /// <summary>Control templates are not instantiated, so a templated part is never found.</summary>
-        public object FindName(string name, FrameworkElement templatedParent) => null;
+        /// <summary>
+        /// Triggers of the template. In a control template they change the control (setters without TargetName) or
+        /// named elements of the template tree (TargetName); see <see cref="FrameworkElement.TryGetTriggerValue"/>.
+        /// </summary>
+        public Collection<object> Triggers { get; } = new Collection<object>();
+
+        /// <summary>A named element of the template tree built for <paramref name="templatedParent"/>.</summary>
+        public object FindName(string name, FrameworkElement templatedParent) =>
+            (templatedParent as Controls.Control)?.FindTemplatePart(name);
     }
 
     public class DataTemplate : FrameworkTemplate

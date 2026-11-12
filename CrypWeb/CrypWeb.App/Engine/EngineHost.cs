@@ -95,6 +95,8 @@ public static class EngineHost
         {
             presentationErrorsHooked = true;
             System.Windows.Hosting.WpfRuntime.UnhandledException += e => Log(0, "Warning", "Presentation: " + e.GetType().Name + ": " + e.Message + " " + (e.StackTrace ?? "").Split('\n').FirstOrDefault()?.Trim());
+            // a {Loc Key} in a presentation whose text cannot be found (the key is shown instead)
+            CrypTool.PluginBase.Miscellaneous.LocExtension.OnGuiLogMessageOccured += (message, level) => Log(0, "Warning", "Presentation: " + message);
         }
         if (engine != null) return engine;
         var eng = engine = new ExecutionEngine { ExecuteInBackground = true };

@@ -29,6 +29,15 @@ namespace System.Windows
             {
                 return triggered;
             }
+            return GetValueIgnoringTriggers(dp);
+        }
+
+        /// <summary>
+        /// The set (or default) value without asking triggers; for code that decides whether triggers apply (the
+        /// control template, which may have triggers itself).
+        /// </summary>
+        internal object GetValueIgnoringTriggers(DependencyProperty dp)
+        {
             if (_values.TryGetValue(dp, out object value))
             {
                 return value is IDeferredValue deferred ? deferred.Evaluate(this, dp) : value;

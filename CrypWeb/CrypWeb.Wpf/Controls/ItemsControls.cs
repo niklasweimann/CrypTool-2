@@ -490,17 +490,50 @@ namespace System.Windows.Controls
         internal virtual DataTemplate CellContentTemplate => null;
     }
 
+    public enum DataGridLengthUnitType { Auto, Pixel, SizeToCells, SizeToHeader, Star }
+
+    /// <summary>Width of a data grid column: pixels, a share of the free width ("2*") or sized to its content.</summary>
     public struct DataGridLength
     {
-        public DataGridLength(double pixels) => Value = pixels;
+        public DataGridLength(double pixels) : this(pixels, DataGridLengthUnitType.Pixel) { }
+
+        public DataGridLength(double value, DataGridLengthUnitType type)
+        {
+            Value = value;
+            UnitType = type;
+        }
 
         public double Value { get; }
 
-        public static DataGridLength Auto => default;
-        public static DataGridLength SizeToCells => default;
-        public static DataGridLength SizeToHeader => default;
+        public DataGridLengthUnitType UnitType { get; }
+
+        public bool IsAbsolute => UnitType == DataGridLengthUnitType.Pixel;
+
+        public bool IsStar => UnitType == DataGridLengthUnitType.Star;
+
+        public bool IsAuto => UnitType == DataGridLengthUnitType.Auto;
+
+        public static DataGridLength Auto => new DataGridLength(1, DataGridLengthUnitType.Auto);
+        public static DataGridLength SizeToCells => new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
+        public static DataGridLength SizeToHeader => new DataGridLength(1, DataGridLengthUnitType.SizeToHeader);
 
         public static implicit operator DataGridLength(double pixels) => new DataGridLength(pixels);
+
+        /// <summary>XAML text: "Auto", "SizeToCells", "SizeToHeader", "120" or "2*".</summary>
+        public static DataGridLength Parse(string text)
+        {
+            text = text.Trim();
+            if (Enum.TryParse(text, true, out DataGridLengthUnitType named) && named != DataGridLengthUnitType.Pixel && named != DataGridLengthUnitType.Star)
+            {
+                return new DataGridLength(1, named);
+            }
+            if (text.EndsWith("*", StringComparison.Ordinal))
+            {
+                string factor = text.Substring(0, text.Length - 1);
+                return new DataGridLength(factor.Length == 0 ? 1 : double.Parse(factor, System.Globalization.CultureInfo.InvariantCulture), DataGridLengthUnitType.Star);
+            }
+            return new DataGridLength(double.Parse(text, System.Globalization.CultureInfo.InvariantCulture));
+        }
     }
 
     public class DataGridBoundColumn : DataGridColumn

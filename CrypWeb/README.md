@@ -125,14 +125,28 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
 
 - **Control templates**: a control with a `Template` is drawn as the template's elements (`Control.TemplateRoot`);
   `ContentPresenter` shows the control's content, `{TemplateBinding}` reads the control's properties. Controls the browser
-  draws natively (ScrollViewer, text boxes, sliders, lists) keep their standard look.
+  draws natively (ScrollViewer, text boxes, sliders, lists) keep their standard look. The template's triggers work:
+  setters with `TargetName` change named parts of the template, conditions read the control (`IsMouseOver`,
+  `IsPressed`, `IsSelected`, `IsEnabled`, data triggers on its data context).
+- **Hover and press**: elements with `MouseEnter`/`MouseLeave` handlers or `IsMouseOver`/`IsPressed` triggers are
+  marked (`data-h`, `data-p`); `wpf.js` reports the mouse entering, leaving and pressing (`hover`/`press` events).
+  `CrypWeb.Tests ... triggertest` checks the trigger states.
+- **Data grids** look as in WPF: black grid lines in the directions of `GridLinesVisibility`, column widths in pixels
+  or shares (`2*`), row and header heights, row backgrounds, alignment from the columns' `ElementStyle`/`HeaderStyle`.
+- **Rotated layout**: a `LayoutTransform` that turns by 90 or 270 degrees uses CSS vertical writing, so the parent
+  makes room for the rotated size (DCA side bars).
+- **Visual and drawing brushes**: a `VisualBrush` fills a shape with its element (HTML in an SVG `foreignObject`,
+  clipped to the outline and stretched; the element's size is estimated); a `DrawingBrush` with one
+  `GeometryDrawing` paints with that drawing's brush.
+- **All views at once**: `CrypWeb.Tests ... snapall` writes every presentation and an overview page
+  `CrypWeb.App/wwwroot/_snap/index.html` (open it via the dev server) to look through them side by side.
 - **Closer to WPF** (found by comparing with screenshots in the plugin documentation): bindings on brushes and gradient
   stops use the owning element's data context; `DropShadowBitmapEffect` is drawn; named elements and elements whose
   `ActualWidth`/`ActualHeight` is read report their size (and are drawn again when it changes); a uniform
   `LayoutTransform` is CSS `zoom`; a Viewbox measures its child without limits; flow documents have tables and lists.
 
-Not supported yet: triggers of control templates, `VisualBrush`/`DrawingBrush` outside 3D faces, editing in `RichTextBox`, hover events,
-custom layout (`MeasureOverride`/`ArrangeOverride`).
+Not supported yet: `VisualBrush` as the background of panels and controls (only shapes), other `DrawingBrush`
+drawings, editing in `RichTextBox`, custom layout (`MeasureOverride`/`ArrangeOverride`), keyboard focus states.
 
 ## Hosting on Cloudflare Workers
 

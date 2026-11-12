@@ -75,6 +75,26 @@ namespace System.Windows.Controls
             }
         }
 
+        /// <summary>The triggers of the template the control is drawn with (empty without a template).</summary>
+        internal IEnumerable<TriggerBase> TemplateTriggers
+        {
+            get
+            {
+                if (!SupportsTemplate || GetValueIgnoringTriggers(TemplateProperty) is not ControlTemplate template)
+                {
+                    yield break;
+                }
+                foreach (object trigger in template.Triggers)
+                {
+                    if (trigger is TriggerBase triggerBase) yield return triggerBase;
+                }
+            }
+        }
+
+        /// <summary>True when the control is drawn with a template that has triggers.</summary>
+        internal bool HasTemplateTriggers =>
+            SupportsTemplate && GetValueIgnoringTriggers(TemplateProperty) is ControlTemplate { Triggers.Count: > 0 };
+
         /// <summary>Controls the renderer draws itself (text boxes, sliders, lists) keep their standard look.</summary>
         private protected virtual bool SupportsTemplate => false;
 

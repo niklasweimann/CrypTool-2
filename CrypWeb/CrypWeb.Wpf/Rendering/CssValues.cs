@@ -33,8 +33,33 @@ namespace System.Windows.Rendering
         }
 
         /// <summary>A brush as CSS <c>background</c> value; null when the brush draws nothing.</summary>
+        /// <summary>
+        /// The brush a drawing or visual brush stands for when it only paints one area with one brush: a
+        /// DrawingBrush with a single GeometryDrawing, a VisualBrush of a shape that is stretched over the whole
+        /// area. Other brushes are returned as they are.
+        /// </summary>
+        public static Brush Simplify(Brush brush)
+        {
+            for (int depth = 0; depth < 4; depth++)
+            {
+                switch (brush)
+                {
+                    case DrawingBrush { Drawing: GeometryDrawing { Brush: { } inner } }:
+                        brush = inner;
+                        continue;
+                    case VisualBrush { Visual: Shapes.Shape { Fill: { } fill } shape, Stretch: Stretch.Fill }
+                        when shape.Stroke == null || shape.StrokeThickness <= 0:
+                        brush = fill;
+                        continue;
+                }
+                break;
+            }
+            return brush;
+        }
+
         public static string Background(Brush brush, Func<string, string> resolveImage)
         {
+            brush = Simplify(brush);
             switch (brush)
             {
                 case SolidColorBrush solid:
@@ -68,7 +93,7 @@ namespace System.Windows.Rendering
         /// <summary>The single colour that stands for a brush where gradients are not possible (text, borders).</summary>
         public static string SolidColor(Brush brush)
         {
-            switch (brush)
+            switch (Simplify(brush))
             {
                 case SolidColorBrush solid:
                     return Color(solid.Color, solid.Opacity);

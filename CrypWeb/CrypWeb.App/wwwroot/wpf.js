@@ -305,11 +305,55 @@ window.ctWpf = (() => {
     });
   }
 
+  // ---- hover and press ---------------------------------------------------------------------------------------
+  // Elements marked data-h want MouseEnter/MouseLeave (or have IsMouseOver triggers), buttons marked data-p have
+  // IsPressed triggers. As in WPF, every marked element under the pointer counts as "over", not only the innermost.
+
+  function attachHover(host) {
+    let over = new Set();
+
+    function hoveredElements(target) {
+      const found = new Set();
+      for (let element = target; element && element !== host; element = element.parentElement) {
+        if (element.dataset && element.dataset.h) found.add(element);
+      }
+      return found;
+    }
+
+    function update(target) {
+      const now = target ? hoveredElements(target) : new Set();
+      // the HTML is replaced on every drawing: compare by element id, not by DOM node
+      const ids = set => new Set([...set].map(element => element.dataset.e));
+      const before = ids(over), after = ids(now);
+      for (const element of over) if (!after.has(element.dataset.e)) send(host, element, 'hover', '0');
+      for (const element of now) if (!before.has(element.dataset.e)) send(host, element, 'hover', '1');
+      over = now;
+    }
+
+    host.addEventListener('pointerover', event => update(event.target));
+    host.addEventListener('pointerleave', () => update(null));
+
+    let pressed = null;
+    host.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      const button = event.target.closest('[data-p]');
+      if (!button || !host.contains(button)) return;
+      pressed = button;
+      send(host, button, 'press', '1');
+    });
+    window.addEventListener('pointerup', () => {
+      if (!pressed) return;
+      send(host, pressed, 'press', '0');
+      pressed = null;
+    });
+  }
+
   function attach(host) {
     if (host.dataset.ctAttached) return;
     host.dataset.ctAttached = '1';
 
     attachDrag(host);
+    attachHover(host);
 
     host.addEventListener('click', event => {
       if (host.dataset.ctSkipClick) { delete host.dataset.ctSkipClick; return; }

@@ -10,8 +10,8 @@ namespace System.Windows
     /// (<see cref="DependencyObject.GetValue"/> asks <see cref="FrameworkElement.TryGetTriggerValue"/>), so they
     /// follow the element's state without change tracking. A trigger value wins over the style's own setters but
     /// not over a value the element sets itself, as in WPF.
-    /// States the browser does not report (IsMouseOver, IsPressed, IsFocused) are false, so such triggers show the
-    /// idle look.
+    /// The browser reports IsMouseOver and IsPressed for elements whose triggers depend on them (see
+    /// FrameworkElement.HasTriggerOn); IsFocused is always false.
     /// </summary>
     public abstract class TriggerBase : DependencyObject
     {
@@ -110,14 +110,36 @@ namespace System.Windows
         // triggers can depend on properties that other triggers set: do not evaluate them recursively
         [ThreadStatic] private static int _depth;
 
+        /// <summary>
+        /// True when the element's property has the expected value. The CLR property is read when there is one,
+        /// because some states are computed rather than stored (TabItem.IsSelected, IsMouseOver, IsPressed).
+        /// </summary>
         internal static bool PropertyMatches(FrameworkElement element, DependencyProperty property, string propertyName, object expected)
         {
-            property ??= Markup.DependencyPropertyLookup.Find(element.GetType(), propertyName);
-            if (property == null || _depth > 0) return false;
+            if (_depth > 0) return false;
+            string name = ShortName(property?.Name ?? propertyName);
+            if (string.IsNullOrEmpty(name)) return false;
             _depth++;
-            try { return ValuesMatch(element.GetValue(property), expected); }
+            try
+            {
+                System.Reflection.PropertyInfo clrProperty = element.GetType().GetProperty(name);
+                if (clrProperty != null && clrProperty.GetIndexParameters().Length == 0)
+                {
+                    return ValuesMatch(clrProperty.GetValue(element), expected);
+                }
+                property ??= Markup.DependencyPropertyLookup.Find(element.GetType(), propertyName);
+                return property != null && ValuesMatch(element.GetValue(property), expected);
+            }
             finally { _depth--; }
         }
+
+        /// <summary>True when a trigger condition (a property or its XAML name) is about <paramref name="name"/>.</summary>
+        internal static bool NamesProperty(DependencyProperty property, string propertyName, string name) =>
+            ShortName(property?.Name ?? propertyName) == name;
+
+        // "Button.IsPressed" -> "IsPressed"
+        private static string ShortName(string name) =>
+            name == null ? null : name.Substring(name.LastIndexOf('.') + 1);
 
         internal static bool BindingMatches(FrameworkElement element, BindingBase binding, object expected)
         {

@@ -78,7 +78,10 @@ namespace System.Windows
             }
         }
 
-        public bool IsMouseOver => false;
+        private bool _isMouseOver;
+
+        /// <summary>True while the mouse is over the element (reported by the browser for elements that need it, see <see cref="WantsHover"/>).</summary>
+        public bool IsMouseOver => _isMouseOver;
         public bool IsFocused => false;
         public bool IsKeyboardFocused => false;
         public bool IsMouseCaptured => false;
@@ -140,7 +143,12 @@ namespace System.Windows
             MouseDown != null || MouseUp != null || MouseLeftButtonDown != null || MouseLeftButtonUp != null
             || PreviewMouseDown != null || PreviewMouseUp != null || PreviewMouseLeftButtonDown != null || PreviewMouseLeftButtonUp != null;
 
-        internal bool WantsHover => MouseEnter != null || MouseLeave != null;
+        /// <summary>
+        /// True when the browser has to report the mouse entering and leaving this element: code listens to
+        /// MouseEnter/MouseLeave, or a trigger of its style or control template depends on IsMouseOver.
+        /// </summary>
+        internal bool WantsHover =>
+            MouseEnter != null || MouseLeave != null || (this as FrameworkElement)?.HasTriggerOn(nameof(IsMouseOver)) == true;
 
         /// <summary>True when dragging this element with the mouse may start a drag (it handles mouse moves).</summary>
         internal bool WantsDrag => MouseMove != null || PreviewMouseMove != null;
@@ -311,10 +319,26 @@ namespace System.Windows
         /// <summary>Called on the clicked element and its ancestors; buttons raise <c>Click</c> here.</summary>
         internal virtual void OnClicked(MouseButtonEventArgs e) { }
 
+        /// <summary>The mouse entered or left the element (reported by the browser).</summary>
         internal void RaiseHover(bool entered)
         {
+            if (_isMouseOver == entered)
+            {
+                return;
+            }
+            _isMouseOver = entered;
+            RenderVersion.Bump();   // triggers on IsMouseOver change the look
             var args = new MouseEventArgs { Source = this, OriginalSource = this };
-            (entered ? MouseEnter : MouseLeave)?.Invoke(this, args);
+            if (entered)
+            {
+                OnMouseEnter(args);
+                MouseEnter?.Invoke(this, args);
+            }
+            else
+            {
+                OnMouseLeave(args);
+                MouseLeave?.Invoke(this, args);
+            }
         }
 
         private static void OnVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

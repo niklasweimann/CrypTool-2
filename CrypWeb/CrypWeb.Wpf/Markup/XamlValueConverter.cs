@@ -49,6 +49,7 @@ namespace System.Windows.Markup
             if (type == typeof(Thickness)) return ParseThickness(trimmed);
             if (type == typeof(CornerRadius)) return ParseCornerRadius(trimmed);
             if (type == typeof(GridLength)) return GridLength.Parse(trimmed);
+            if (type == typeof(Controls.DataGridLength)) return Controls.DataGridLength.Parse(trimmed);
             if (type == typeof(Point)) { double[] n = Numbers(trimmed, 2); return new Point(n[0], n[1]); }
             if (type == typeof(Vector)) { double[] n = Numbers(trimmed, 2); return new Vector(n[0], n[1]); }
             if (type == typeof(Size)) { double[] n = Numbers(trimmed, 2); return new Size(n[0], n[1]); }

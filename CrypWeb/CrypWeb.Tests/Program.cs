@@ -125,6 +125,34 @@ if (args.Length > 1 && args[1] == "bindtest")
     Console.WriteLine(i < 0 ? "no gradient: " + html : html.Substring(i, Math.Min(120, html.Length - i)));
     return;
 }
+if (args.Length > 1 && args[1] == "triggertest")
+{
+    // control-template triggers: IsMouseOver / IsPressed (reported by the browser as hover / press events), a
+    // data trigger on the control's data context, and a TabItem's computed IsSelected
+    var control = (System.Windows.Controls.UserControl)System.Windows.Markup.XamlReader.Parse(@"<UserControl xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
+      <UserControl.Resources><ControlTemplate x:Key='t' TargetType='Button'>
+        <Border x:Name='border' Background='#111111' BorderBrush='Red'><ContentPresenter/></Border>
+        <ControlTemplate.Triggers>
+          <Trigger Property='IsMouseOver' Value='True'><Setter TargetName='border' Property='Background' Value='#222222'/></Trigger>
+          <Trigger Property='IsPressed' Value='True'><Setter TargetName='border' Property='Background' Value='#333333'/></Trigger>
+          <DataTrigger Binding='{Binding Flag}' Value='True'><Setter TargetName='border' Property='BorderThickness' Value='0,7,0,0'/></DataTrigger>
+        </ControlTemplate.Triggers></ControlTemplate></UserControl.Resources>
+      <StackPanel><Button x:Name='b' Template='{StaticResource t}' Content='x'/></StackPanel></UserControl>");
+    control.DataContext = new TriggerItem();
+    var host = new System.Windows.Hosting.PresentationHost(control);
+    string html = host.Render();
+    int id = int.Parse(System.Text.RegularExpressions.Regex.Match(html, "data-e=\"(\\d+)\" data-h=\"1\" data-p=\"1\"").Groups[1].Value);
+    string Look(string h) => string.Join(" ", System.Text.RegularExpressions.Regex.Matches(h, "rgb\\((17|34|51),[^)]*\\)|border-width:[^;]*").Select(m => m.Value).Distinct());
+    Console.WriteLine("idle:    " + Look(html));
+    host.Dispatch(id, "hover", "1");
+    Console.WriteLine("hover:   " + Look(host.Render()));
+    host.Dispatch(id, "press", "1");
+    Console.WriteLine("pressed: " + Look(host.Render()));
+    host.Dispatch(id, "press", "0");
+    host.Dispatch(id, "hover", "0");
+    Console.WriteLine("left:    " + Look(host.Render()));
+    return;
+}
 if (args.Length > 1 && args[1] == "present3d")
 {
     // the PRESENT 3D animation: one "next step" on the encryption tab, then animation ticks; prints how the
@@ -188,6 +216,55 @@ if (args.Length > 2 && args[1] == "settings")
     var stored = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
     foreach (var plugin in stored.Plugins)
         Console.WriteLine(plugin.TypeName + ": " + string.Join(", ", plugin.Settings.Select(kv => kv.Key + "=" + kv.Value)));
+    return;
+}
+if (args.Length > 1 && args[1] == "snapall")
+{
+    // every presentation once: runs a template whenever it contains a component type not seen yet, writes the
+    // views to CrypWeb.App/wwwroot/_snap/ and an overview page _snap/index.html that shows them side by side
+    var outDir = Path.Combine(AppContext.BaseDirectory, "../../../../CrypWeb.App/wwwroot/_snap");
+    Directory.CreateDirectory(outDir);
+    var seenTypes = new HashSet<string>();
+    var written = new SortedDictionary<string, string>();   // view name -> template it came from
+    foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories).OrderBy(f => f, StringComparer.Ordinal))
+    {
+        var ws = CwmReader.Read(File.ReadAllBytes(f));
+        if (ws.Plugins.All(p => seenTypes.Contains(p.TypeName))) continue;
+        var engine = new ExecutionEngine { ExecuteInBackground = true };
+        var run = engine.RunAsync(ws);
+        for (int i = 0; i < 40; i++)
+        {
+            await Task.Delay(50);
+            System.Windows.Hosting.WpfRuntime.Tick();
+        }
+        engine.Stop();
+        await Task.WhenAny(run, Task.Delay(4000));
+        foreach (var node in engine.Nodes.Values)
+        {
+            seenTypes.Add(node.Model.TypeName);
+            var name = node.Model.TypeName.Split('.').Last();
+            if (written.ContainsKey(name) || node.Comp is not PluginComponent { Host: { } host }) continue;
+            try
+            {
+                File.WriteAllText(Path.Combine(outDir, name + ".html"), SnapPage(name, host.Render()));
+                written[name] = Path.GetRelativePath(root, f);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"FAILED {name}: {e.Message}");
+            }
+        }
+    }
+    var index = new System.Text.StringBuilder("<!doctype html><meta charset=utf-8><title>All views</title><style>"
+        + "body{font:12px sans-serif;margin:8px;background:#ddd}div.t{display:inline-block;margin:4px;background:#fff;vertical-align:top}"
+        + "div.f{width:400px;height:300px;overflow:hidden}iframe{width:800px;height:600px;border:0;transform:scale(.5);transform-origin:0 0}"
+        + "</style>");
+    foreach (var (name, template) in written)
+    {
+        index.Append($"<div class=t><b>{name}</b> <small>{System.Net.WebUtility.HtmlEncode(template)}</small><div class=f><iframe loading=lazy src=\"{name}.html\"></iframe></div></div>");
+    }
+    File.WriteAllText(Path.Combine(outDir, "index.html"), index.ToString());
+    Console.WriteLine($"wrote {written.Count} views and _snap/index.html");
     return;
 }
 if (args.Length > 2 && args[1] == "snap")
@@ -443,6 +520,12 @@ static void SnapEvent(System.Windows.Hosting.PresentationHost host, string argum
     Console.WriteLine($"event {parts[1]} on {parts[0]}");
 }
 
+
+/// <summary>Item for the triggertest command.</summary>
+public class TriggerItem
+{
+    public bool Flag => true;
+}
 
 /// <summary>Item for the bindtest command.</summary>
 public class BindItem

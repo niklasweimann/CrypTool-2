@@ -133,6 +133,14 @@ namespace System.Windows.Rendering
                 {
                     _html.Append(" data-d=\"1\"");    // the browser lets the user drag this element (wpf.js)
                 }
+                if (element.WantsHover)
+                {
+                    _html.Append(" data-h=\"1\"");    // the browser reports the mouse entering and leaving
+                }
+                if (element is ButtonBase { WantsPress: true })
+                {
+                    _html.Append(" data-p=\"1\"");    // the browser reports the mouse button going down and up
+                }
             }
             // sizes are only known to the browser: it reports them for the root, for canvases (code positions their
             // children by size) and wherever code listens to SizeChanged
@@ -150,7 +158,7 @@ namespace System.Windows.Rendering
 
         private static bool IsInteractive(UIElement element)
         {
-            return element.WantsClicks || element.WantsDrag || element.AcceptsDrops
+            return element.WantsClicks || element.WantsDrag || element.AcceptsDrops || element.WantsHover
                 || element is TextBoxBase || element is PasswordBox || element is RangeBase || element is Selector;
         }
 
@@ -257,6 +265,29 @@ namespace System.Windows.Rendering
                         css.Add("zoom", CssValues.Number(layout.M11));
                     }
                 }
+                else if (QuarterTurn(layout) is int turn)
+                {
+                    // a rotation by 90 or 270 degrees: CSS vertical writing lays the element out with its axes
+                    // swapped, as WPF does for a rotated LayoutTransform (the parent makes room for the rotated
+                    // size); vertical-rl turns the content clockwise, a further half turn makes it counter-clockwise
+                    css.Add("writing-mode", "vertical-rl");
+                    if (fe != null)
+                    {
+                        // WPF's Width and Height are the element's own, before the rotation
+                        css.Add("width", double.IsNaN(fe.Height) ? "auto" : CssValues.Pixels(fe.Height));
+                        css.Add("height", double.IsNaN(fe.Width) ? "auto" : CssValues.Pixels(fe.Width));
+                    }
+                    if (turn == 270 && element.RenderTransform == null)
+                    {
+                        css.Add("transform", "rotate(180deg)");
+                        css.Add("transform-origin", "50% 50%");
+                        return;
+                    }
+                    if (turn == 270)
+                    {
+                        matrix = new Matrix(-1, 0, 0, -1, 0, 0);    // combined with the render transform below
+                    }
+                }
                 else
                 {
                     matrix = layout;
@@ -274,6 +305,25 @@ namespace System.Windows.Rendering
             Point origin = element.RenderTransformOrigin;
             css.Add("transform", CssValues.Matrix(matrix.Value));
             css.Add("transform-origin", CssValues.Number(origin.X * 100) + "% " + CssValues.Number(origin.Y * 100) + "%");
+        }
+
+        /// <summary>90 or 270 when the matrix is a pure rotation by a quarter turn (clockwise, as WPF angles), else null.</summary>
+        private static int? QuarterTurn(Matrix m)
+        {
+            const double tolerance = 1e-9;
+            if (Math.Abs(m.M11) > tolerance || Math.Abs(m.M22) > tolerance || Math.Abs(m.OffsetX) > tolerance || Math.Abs(m.OffsetY) > tolerance)
+            {
+                return null;
+            }
+            if (Math.Abs(m.M12 - 1) < tolerance && Math.Abs(m.M21 + 1) < tolerance)
+            {
+                return 90;
+            }
+            if (Math.Abs(m.M12 + 1) < tolerance && Math.Abs(m.M21 - 1) < tolerance)
+            {
+                return 270;
+            }
+            return null;
         }
 
         /// <summary>Background, border, corner radius and padding (the same properties on panels, borders and controls).</summary>

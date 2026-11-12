@@ -165,48 +165,113 @@ namespace System.Windows
         /// <summary>Properties whose current value came from the style (a trigger may override those).</summary>
         internal HashSet<DependencyProperty> StyledProperties => _styledProperties ??= new HashSet<DependencyProperty>();
 
-        /// <summary>A named part of the control template; control templates are not instantiated, so there is none.</summary>
         /// <summary>A named element of the control template's tree (see Control.TemplateRoot).</summary>
         protected DependencyObject GetTemplateChild(string childName) =>
             (this as Controls.Control)?.FindTemplatePart(childName);
 
-        internal override bool HasStyleTriggers => _styleTriggers is { Count: > 0 };
+        /// <summary>True when a style trigger or a control-template trigger may set properties of this element.</summary>
+        internal override bool HasStyleTriggers =>
+            _styleTriggers is { Count: > 0 }
+            || (this is Controls.Control { HasTemplateTriggers: true })
+            || (TemplatedParent is Controls.Control { HasTemplateTriggers: true } && !string.IsNullOrEmpty(TemplatePartName));
+
+        // the name without asking triggers (Name is a dependency property itself)
+        private string TemplatePartName => GetValueIgnoringTriggers(NameProperty) as string;
 
         /// <summary>
-        /// The value that the last active trigger of the style sets for <paramref name="dp"/>; a value the element
-        /// set itself (not through the style) wins, as in WPF.
+        /// The value that active triggers set for <paramref name="dp"/>, in WPF's order of precedence:
+        /// <list type="number">
+        /// <item>triggers of the control template this element is part of that name it (TargetName); they win over
+        ///   the values written on the element in the template,</item>
+        /// <item>otherwise, unless the element set a value itself (not through its style): the triggers of its
+        ///   style, then the triggers of its own control template.</item>
+        /// </list>
+        /// Within one list the last active trigger wins.
         /// </summary>
         internal override bool TryGetTriggerValue(DependencyProperty dp, out object value)
         {
+            // 1. the template this element belongs to changes it by name
+            if (TemplatedParent is Controls.Control owner && owner.HasTemplateTriggers && TemplatePartName is { Length: > 0 } partName
+                && TryGetActiveSetterValue(owner.TemplateTriggers, owner, dp, partName, out value))
+            {
+                return true;
+            }
+
             value = null;
             if (HasLocalValue(dp) && !StyledProperties.Contains(dp))
             {
                 return false;
             }
-            bool found = false;
-            foreach (TriggerBase trigger in _styleTriggers)
+
+            // 2. the element's style, then its own template (setters without TargetName)
+            if (_styleTriggers != null && TryGetActiveSetterValue(_styleTriggers, this, dp, null, out value))
             {
-                if (!SetsProperty(trigger, dp, out object triggerValue) || !trigger.IsActive(this))
+                return true;
+            }
+            if (this is Controls.Control { HasTemplateTriggers: true } control
+                && TryGetActiveSetterValue(control.TemplateTriggers, control, dp, null, out value))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// The value of the last active trigger in <paramref name="triggers"/> that sets <paramref name="dp"/> on the
+        /// element named <paramref name="targetName"/> (null: the element the triggers belong to). Conditions are
+        /// evaluated on <paramref name="conditionElement"/> (the styled element or the templated control), or on
+        /// the template part a trigger names in SourceName.
+        /// </summary>
+        private bool TryGetActiveSetterValue(IEnumerable<TriggerBase> triggers, FrameworkElement conditionElement,
+            DependencyProperty dp, string targetName, out object value)
+        {
+            value = null;
+            bool found = false;
+            foreach (TriggerBase trigger in triggers)
+            {
+                if (!SetsProperty(trigger, dp, targetName, out object triggerValue))
                 {
                     continue;
                 }
-                value = triggerValue;
-                found = true;
+                FrameworkElement source = conditionElement;
+                if (trigger is Trigger { SourceName: { Length: > 0 } sourceName } && conditionElement is Controls.Control templated)
+                {
+                    source = templated.FindTemplatePart(sourceName) as FrameworkElement ?? conditionElement;
+                }
+                if (trigger.IsActive(source))
+                {
+                    value = triggerValue;
+                    found = true;
+                }
             }
             return found;
         }
 
-        /// <summary>Whether a trigger has a setter for the property, and its value converted to the property type.</summary>
-        private bool SetsProperty(TriggerBase trigger, DependencyProperty dp, out object value)
+        /// <summary>
+        /// Whether a trigger has a setter for the property on the element named <paramref name="targetName"/> (null:
+        /// setters without TargetName), and its value converted to the property type.
+        /// </summary>
+        private bool SetsProperty(TriggerBase trigger, DependencyProperty dp, string targetName, out object value)
         {
             value = null;
             foreach (SetterBase setterBase in trigger.ActiveSetters)
             {
-                if (setterBase is not Setter setter || !string.IsNullOrEmpty(setter.TargetName))
+                if (setterBase is not Setter setter)
                 {
                     continue;
                 }
-                DependencyProperty property = setter.Property ?? Markup.DependencyPropertyLookup.Find(GetType(), setter.PropertyName);
+                bool targetsThis = string.IsNullOrEmpty(targetName)
+                    ? string.IsNullOrEmpty(setter.TargetName)
+                    : setter.TargetName == targetName;
+                if (!targetsThis)
+                {
+                    continue;
+                }
+                // the loader resolved the property against the style's or template's target type; a setter for a
+                // named template part means the property of that part's type (Border.Background, not Control.Background)
+                DependencyProperty property = string.IsNullOrEmpty(setter.TargetName)
+                    ? setter.Property ?? Markup.DependencyPropertyLookup.Find(GetType(), setter.PropertyName)
+                    : Markup.DependencyPropertyLookup.Find(GetType(), setter.PropertyName) ?? setter.Property;
                 if (property != dp)
                 {
                     continue;
@@ -218,6 +283,32 @@ namespace System.Windows
                     return false;
                 }
                 return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// True when a trigger of the element's style or control template has a condition on the property named
+        /// <paramref name="propertyName"/> (IsMouseOver, IsPressed): the browser then reports that state.
+        /// </summary>
+        internal bool HasTriggerOn(string propertyName)
+        {
+            IEnumerable<TriggerBase> triggers = _styleTriggers ?? Enumerable.Empty<TriggerBase>();
+            if (this is Controls.Control { HasTemplateTriggers: true } control)
+            {
+                triggers = triggers.Concat(control.TemplateTriggers);
+            }
+            foreach (TriggerBase trigger in triggers)
+            {
+                if (trigger is Trigger single && TriggerCondition.NamesProperty(single.Property, single.PropertyName, propertyName))
+                {
+                    return true;
+                }
+                if (trigger is MultiTrigger multi
+                    && multi.Conditions.Any(c => c.Binding == null && TriggerCondition.NamesProperty(c.Property, c.PropertyName, propertyName)))
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -241,7 +332,6 @@ namespace System.Windows
             }
         }
 
-        /// <summary>True when code listens for size changes, so the browser has to report the measured size.</summary>
         /// <summary>
         /// True when the browser should report this element's size: code handles SizeChanged, has read its actual
         /// size, or may read it (the element has a name, so the code-behind can reach it).

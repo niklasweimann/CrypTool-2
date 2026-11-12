@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -294,21 +295,34 @@ namespace System.Windows.Rendering
             _html.Append("</tbody></table></div>");
         }
 
+        /// <summary>
+        /// A data grid as an HTML table, with the look WPF gives it: black grid lines (in the directions of
+        /// GridLinesVisibility, coloured by the grid-line brushes), row and alternating row backgrounds, row and header
+        /// heights, column widths (pixels, shares of the free width "2*", minimum widths) and the alignment, colour
+        /// and weight that the columns' ElementStyle and HeaderStyle set.
+        /// </summary>
         private void WriteDataGrid(DataGrid grid, LayoutSlot slot)
         {
             IList<object> items = grid.EffectiveItems;
             List<DataGridColumn> columns = grid.Columns.Count > 0 || !grid.AutoGenerateColumns ? grid.Columns.ToList() : GenerateColumns(grid, items);
+            columns = columns.Where(column => column.Visibility == Visibility.Visible).ToList();
             bool headers = grid.HeadersVisibility == DataGridHeadersVisibility.All || grid.HeadersVisibility == DataGridHeadersVisibility.Column;
-            bool lines = grid.GridLinesVisibility != DataGridGridLinesVisibility.None;
+            bool anyStar = columns.Any(column => column.Width.IsStar);
 
-            OpenTag("div", grid, slot, lines ? "wtable sel lines" : "wtable sel", "");
-            _html.Append("<table>");
+            OpenTag("div", grid, slot, "wtable sel", "");
+            _html.Append(anyStar ? "<table style=\"width:100%\">" : "<table>");
+            WriteColumnWidths(columns);
+
+            string cellLines = GridLineCss(grid);
             if (headers)
             {
                 _html.Append("<thead><tr>");
                 foreach (DataGridColumn column in columns)
                 {
-                    _html.Append("<th>");
+                    var css = new StyleBuilder();
+                    if (!double.IsNaN(grid.ColumnHeaderHeight)) css.AddPixels("height", grid.ColumnHeaderHeight);
+                    AddTextStyle(css, column.HeaderStyle ?? grid.ColumnHeaderStyle, nameof(Control.HorizontalContentAlignment));
+                    _html.Append("<th style=\"").Append(css).Append(cellLines).Append("\">");
                     WriteContent(column.Header);
                     _html.Append("</th>");
                 }
@@ -319,20 +333,37 @@ namespace System.Windows.Rendering
             int index = 0;
             foreach (object item in items)
             {
-                _html.Append("<tr class=\"").Append(index == grid.SelectedIndex ? "on" : "").Append("\" data-i=\"").Append(index).Append("\">");
+                Brush rowBrush = index % 2 == 1 && grid.AlternatingRowBackground != null ? grid.AlternatingRowBackground : grid.RowBackground;
+                string rowBackground = rowBrush == null ? null : CssValues.Background(rowBrush, address => address);
+                _html.Append("<tr class=\"").Append(index == grid.SelectedIndex ? "on" : "").Append("\" data-i=\"").Append(index).Append('"');
+                if (rowBackground != null)
+                {
+                    _html.Append(" style=\"background:").Append(rowBackground).Append('"');
+                }
+                _html.Append('>');
                 foreach (DataGridColumn column in columns)
                 {
+                    var css = new StyleBuilder();
+                    if (!double.IsNaN(grid.RowHeight)) css.AddPixels("height", grid.RowHeight);
+                    if (column is DataGridBoundColumn bound) AddTextStyle(css, bound.ElementStyle, nameof(HorizontalAlignment));
+                    if (column is DataGridTextColumn text)
+                    {
+                        if (text.FontSize > 0) css.AddPixels("font-size", text.FontSize);
+                        if (text.Foreground != null) css.Add("color", CssValues.SolidColor(text.Foreground));
+                    }
+                    string cellCss = css.ToString() + cellLines;
+
                     Style cellStyle = column.CellStyle ?? grid.CellStyle;
                     if (cellStyle != null && column.CellContentTemplate == null && column.CellBinding != null)
                     {
                         // a styled cell is a real DataGridCell, so the style's setters and triggers apply
-                        string text = Convert.ToString(BindingEvaluator.Evaluate(column.CellBinding, item), CultureInfo.CurrentCulture);
-                        _html.Append("<td class=\"wcell\">");
-                        WriteElement(grid.StyledCell(item, column, cellStyle, text), LayoutSlot.GridCell);
+                        string value = Convert.ToString(BindingEvaluator.Evaluate(column.CellBinding, item), CultureInfo.CurrentCulture);
+                        _html.Append("<td class=\"wcell\" style=\"").Append(cellCss).Append("\">");
+                        WriteElement(grid.StyledCell(item, column, cellStyle, value), LayoutSlot.GridCell);
                         _html.Append("</td>");
                         continue;
                     }
-                    _html.Append("<td>");
+                    _html.Append("<td style=\"").Append(cellCss).Append("\">");
                     WriteCell(grid, item, column, column.CellBinding, column.CellContentTemplate);
                     _html.Append("</td>");
                 }
@@ -340,6 +371,117 @@ namespace System.Windows.Rendering
                 index++;
             }
             _html.Append("</tbody></table></div>");
+        }
+
+        /// <summary>
+        /// The columns' widths as a colgroup: pixel widths as they are, star widths as their share of the table
+        /// (the table then fills the grid), minimum widths as min-width.
+        /// </summary>
+        private void WriteColumnWidths(List<DataGridColumn> columns)
+        {
+            double stars = columns.Where(column => column.Width.IsStar).Sum(column => column.Width.Value);
+            _html.Append("<colgroup>");
+            foreach (DataGridColumn column in columns)
+            {
+                var css = new StyleBuilder();
+                if (column.Width.IsAbsolute)
+                {
+                    css.AddPixels("width", column.Width.Value);
+                }
+                else if (column.Width.IsStar && stars > 0)
+                {
+                    css.Add("width", CssValues.Number(100 * column.Width.Value / stars) + "%");
+                }
+                if (column.MinWidth > 0)
+                {
+                    css.AddPixels("min-width", column.MinWidth);
+                }
+                _html.Append("<col style=\"").Append(css).Append("\">");
+            }
+            _html.Append("</colgroup>");
+        }
+
+        /// <summary>Borders of a cell for the grid lines WPF draws (black by default).</summary>
+        private static string GridLineCss(DataGrid grid)
+        {
+            DataGridGridLinesVisibility lines = grid.GridLinesVisibility;
+            bool horizontal = lines == DataGridGridLinesVisibility.All || lines == DataGridGridLinesVisibility.Horizontal;
+            bool vertical = lines == DataGridGridLinesVisibility.All || lines == DataGridGridLinesVisibility.Vertical;
+            var css = new StringBuilder();
+            if (horizontal)
+            {
+                css.Append("border-bottom:1px solid ").Append(CssValues.SolidColor(grid.HorizontalGridLinesBrush) ?? "#000").Append(';');
+            }
+            if (vertical)
+            {
+                css.Append("border-right:1px solid ").Append(CssValues.SolidColor(grid.VerticalGridLinesBrush) ?? "#000").Append(';');
+            }
+            return css.ToString();
+        }
+
+        /// <summary>
+        /// Text alignment, colour, background and weight from the setters of a cell's element style or a column's
+        /// header style; <paramref name="alignmentProperty"/> names the setter that aligns the content.
+        /// </summary>
+        private static void AddTextStyle(StyleBuilder css, Style style, string alignmentProperty)
+        {
+            if (style == null)
+            {
+                return;
+            }
+            if (StyleSetterValue(style, alignmentProperty) is HorizontalAlignment alignment)
+            {
+                css.Add("text-align", alignment switch
+                {
+                    HorizontalAlignment.Center => "center",
+                    HorizontalAlignment.Right => "right",
+                    _ => "left",
+                });
+            }
+            if (StyleSetterValue(style, nameof(TextBlock.TextAlignment)) is TextAlignment textAlignment)
+            {
+                css.Add("text-align", textAlignment.ToString().ToLowerInvariant());
+            }
+            if (StyleSetterValue(style, nameof(Control.Foreground)) is Brush foreground)
+            {
+                css.Add("color", CssValues.SolidColor(foreground));
+            }
+            if (StyleSetterValue(style, nameof(Control.Background)) is Brush background)
+            {
+                css.Add("background", CssValues.Background(background, address => address));
+            }
+            if (StyleSetterValue(style, nameof(Control.FontWeight)) is FontWeight weight)
+            {
+                css.Add("font-weight", weight.ToOpenTypeWeight().ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+        /// <summary>The value a style (or a style it is based on) sets for the named property, converted to the property's type.</summary>
+        private static object StyleSetterValue(Style style, string propertyName)
+        {
+            for (Style current = style; current != null; current = current.BasedOn)
+            {
+                foreach (SetterBase setterBase in current.Setters)
+                {
+                    if (setterBase is not Setter setter || !string.IsNullOrEmpty(setter.TargetName))
+                    {
+                        continue;
+                    }
+                    string name = setter.Property?.Name ?? setter.PropertyName;
+                    if (name == null || name.Substring(name.LastIndexOf('.') + 1) != propertyName)
+                    {
+                        continue;
+                    }
+                    Type type = setter.Property?.PropertyType;
+                    object value = setter.Value;
+                    if (value is string text && type != null && type != typeof(string) && type != typeof(object))
+                    {
+                        return Markup.XamlValueConverter.TryConvert(text, type, out object converted) ? converted : null;
+                    }
+                    return value;
+                }
+            }
+            return null;
         }
 
         /// <summary>A table cell: the bound value as text, else the cell template (in WPF a GridViewColumn's

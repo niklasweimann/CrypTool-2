@@ -10,7 +10,21 @@ namespace System.Windows.Controls.Primitives
         public ICommand Command { get => (ICommand)GetValue(CommandProperty); set => SetValue(CommandProperty, value); }
         public object CommandParameter { get => GetValue(CommandParameterProperty); set => SetValue(CommandParameterProperty, value); }
         public ClickMode ClickMode { get; set; }
-        public bool IsPressed => false;
+        /// <summary>True while the mouse button is held down on the button (reported by the browser when a trigger needs it).</summary>
+        public bool IsPressed { get; private set; }
+
+        /// <summary>True when a trigger of the style or template depends on <see cref="IsPressed"/>.</summary>
+        internal bool WantsPress => HasTriggerOn(nameof(IsPressed));
+
+        /// <summary>The mouse button went down on (true) or was released over/outside (false) the button.</summary>
+        internal void SetPressedFromUser(bool pressed)
+        {
+            if (IsPressed != pressed)
+            {
+                IsPressed = pressed;
+                RenderVersion.Bump();
+            }
+        }
 
         public static readonly RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent(
             "Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ButtonBase));

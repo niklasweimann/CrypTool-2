@@ -94,7 +94,8 @@ namespace System.Windows.Hosting
 
         /// <summary>
         /// Delivers an input event from the browser. <paramref name="kind"/> is "click", "toggle", "text", "range",
-        /// "select", "activate" or "size"; <paramref name="value"/> carries the text, number or index.
+        /// "select", "activate", "size", "drag", "hover" or "press"; <paramref name="value"/> carries the text,
+        /// number or index ("1"/"0" for entering/leaving and pressing/releasing).
         /// </summary>
         public void Dispatch(int elementId, string kind, string value, double x = 0, double y = 0)
         {
@@ -151,6 +152,14 @@ namespace System.Windows.Hosting
                 case "drag":
                     ReplayDrag(element, value, new Point(x, y));
                     break;
+
+                case "hover":
+                    element.RaiseHover(value == "1");
+                    return;     // RaiseHover asks for a new drawing only when the state changed
+
+                case "press":
+                    (element as ButtonBase)?.SetPressedFromUser(value == "1");
+                    return;
 
                 case "activate":
                     if (element is Selector activated && int.TryParse(value, out int activatedIndex))
