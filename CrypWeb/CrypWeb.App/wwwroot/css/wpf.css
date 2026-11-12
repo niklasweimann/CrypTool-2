@@ -52,7 +52,14 @@
 .wpf .wtb { font: inherit; color: inherit; background: #fff; border: 1px solid #abadb3; padding: 1px 3px; resize: none; }
 .wpf input.wtb { field-sizing: content; min-width: 2ch; }
 .wpf .wcb { font: inherit; }
-.wpf .wsl { margin: 0; }
+/* Slider in WPF's standard look (Aero2): thin grey track, light grey rectangular thumb */
+.wpf .wsl { margin: 0; -webkit-appearance: none; appearance: none; background: transparent; min-height: 18px; }
+.wpf .wsl::-webkit-slider-runnable-track { height: 4px; background: #e7eaea; border: 1px solid #d6d6d6; }
+.wpf .wsl::-moz-range-track { height: 4px; background: #e7eaea; border: 1px solid #d6d6d6; }
+.wpf .wsl::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 18px; margin-top: -8px; background: #f0f0f0; border: 1px solid #acacac; border-radius: 0; }
+.wpf .wsl::-moz-range-thumb { width: 11px; height: 18px; background: #f0f0f0; border: 1px solid #acacac; border-radius: 0; }
+.wpf .wsl:hover::-webkit-slider-thumb { background: #dcecfc; border-color: #7eb4ea; }
+.wpf .wsl:hover::-moz-range-thumb { background: #dcecfc; border-color: #7eb4ea; }
 .wpf .wpb { background: #e6e6e6; border: 1px solid #bcbcbc; min-height: 4px; overflow: hidden; }
 .wpf .wpb > div { height: 100%; background: #06b025; }
 .wpf .wsep { background: #a0a0a0; min-height: 1px; min-width: 1px; }

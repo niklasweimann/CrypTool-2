@@ -259,9 +259,21 @@ if (args.Length > 1 && args[1] == "snapall")
         + "body{font:12px sans-serif;margin:8px;background:#ddd}div.t{display:inline-block;margin:4px;background:#fff;vertical-align:top}"
         + "div.f{width:400px;height:300px;overflow:hidden}iframe{width:800px;height:600px;border:0;transform:scale(.5);transform-origin:0 0}"
         + "</style>");
+    // reference pictures of the original views (CrypWeb/reference/<View>.png|jpg) are shown next to the rendering
+    var referenceDir = Path.Combine(AppContext.BaseDirectory, "../../../../reference");
+    var referenceOut = Path.Combine(outDir, "ref");
+    Directory.CreateDirectory(referenceOut);
     foreach (var (name, template) in written)
     {
+        string? picture = Directory.Exists(referenceDir)
+            ? Directory.EnumerateFiles(referenceDir, name + ".*").FirstOrDefault(p => !p.EndsWith(".md"))
+            : null;
         index.Append($"<div class=t><b>{name}</b> <small>{System.Net.WebUtility.HtmlEncode(template)}</small><div class=f><iframe loading=lazy src=\"{name}.html\"></iframe></div></div>");
+        if (picture != null)
+        {
+            File.Copy(picture, Path.Combine(referenceOut, Path.GetFileName(picture)), overwrite: true);
+            index.Append($"<div class=t><b>{name}</b> <small>original (WPF)</small><div class=f><img style=\"max-width:400px;max-height:300px\" src=\"ref/{Path.GetFileName(picture)}\"></div></div>");
+        }
     }
     File.WriteAllText(Path.Combine(outDir, "index.html"), index.ToString());
     Console.WriteLine($"wrote {written.Count} views and _snap/index.html");

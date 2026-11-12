@@ -15,8 +15,8 @@ namespace System.Windows.Rendering
     {
         private void WriteGrid(Grid grid, LayoutSlot slot)
         {
-            // WPF measures a grid with unlimited space inside a scrolling ScrollViewer, a Canvas or along a
-            // StackPanel; there its star rows and columns size to their content like Auto ones
+            // WPF measures a grid with unlimited space inside a scrolling ScrollViewer, a Viewbox, a Canvas or
+            // along a StackPanel; there its star rows and columns size to their content like Auto ones
             bool unboundedWidth = IsUnbounded(grid, horizontal: true);
             bool unboundedHeight = IsUnbounded(grid, horizontal: false);
             string rows = grid.RowDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.RowDefinitions.Select(r => Track(r.Height, r.MinHeight, unboundedHeight)));
@@ -56,6 +56,7 @@ namespace System.Windows.Rendering
                     case ScrollViewer viewer:
                         return (horizontal ? viewer.HorizontalScrollBarVisibility : viewer.VerticalScrollBarVisibility) != ScrollBarVisibility.Disabled;
                     case Canvas:
+                    case Viewbox:   // measures its child without limits, then scales it
                         return true;
                     case StackPanel stack:
                         return (stack.Orientation == Orientation.Horizontal) == horizontal;

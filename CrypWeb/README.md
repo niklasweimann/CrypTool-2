@@ -138,8 +138,8 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
 - **Visual and drawing brushes**: a `VisualBrush` fills a shape with its element (HTML in an SVG `foreignObject`,
   clipped to the outline and stretched; the element's size is estimated); a `DrawingBrush` with one
   `GeometryDrawing` paints with that drawing's brush.
-- **Unlimited space**: inside a scrolling `ScrollViewer`, a `Canvas` or along a `StackPanel` WPF measures a grid
-  without limits, so its star rows/columns size like `Auto` (HomophonicSubstitutionAnalyzer's symbol grid);
+- **Unlimited space**: inside a scrolling `ScrollViewer`, a `Viewbox`, a `Canvas` or along a `StackPanel` WPF measures a grid
+  without limits, so its star rows/columns size like `Auto` (HomophonicSubstitutionAnalyzer's symbol grid, the autocorrelation chart);
   a text box that can scroll or has several lines shows its text from the top left (a `textarea`).
 - **All views at once**: `CrypWeb.Tests ... snapall` writes every presentation and an overview page
   `CrypWeb.App/wwwroot/_snap/index.html` (open it via the dev server) to look through them side by side.
