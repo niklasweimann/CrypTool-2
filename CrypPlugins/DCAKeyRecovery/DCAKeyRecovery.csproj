@@ -90,6 +90,7 @@
     <Compile Include="DCAKeyRecoverySettings.cs" />
     <Compile Include="Logic\AbortingPolicy.cs" />
     <Compile Include="Logic\Characteristic.cs" />
+    <Compile Include="Logic\CharacteristicSerializationBinder.cs" />
     <Compile Include="Logic\Cipher1\Cipher1Configuration.cs" />
     <Compile Include="Logic\Cipher1\Cipher1DifferentialKeyRecoveryAttack.cs" />
     <Compile Include="Logic\Cipher1\Cipher1KeyRecovery.cs" />

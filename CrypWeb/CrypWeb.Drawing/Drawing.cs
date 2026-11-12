@@ -25,6 +25,9 @@ namespace System.Drawing
         public object Tag { get; set; }
         public abstract void Save(Stream stream, ImageFormat format);
         public void Save(Stream stream) => Save(stream, ImageFormat.Png);
+
+        /// <summary>Saves with an encoder chosen by <see cref="ImageCodecInfo"/> (its parameters, such as the JPEG quality, are not used).</summary>
+        public void Save(Stream stream, ImageCodecInfo encoder, EncoderParameters encoderParams) => Save(stream, encoder?.Format ?? ImageFormat.Png);
         public void Save(string filename) => Save(filename, ImageFormat.FromExtension(Path.GetExtension(filename)));
         public void Save(string filename, ImageFormat format) { using var fs = File.Create(filename); Save(fs, format); }
         public abstract object Clone();
@@ -312,9 +315,73 @@ namespace System.Drawing
 
 namespace System.Drawing.Imaging
 {
+    /// <summary>An image encoder or decoder, as listed by <see cref="GetImageEncoders"/>; one per format this System.Drawing writes.</summary>
+    public sealed class ImageCodecInfo
+    {
+        internal ImageCodecInfo(ImageFormat format, string mimeType)
+        {
+            Format = format;
+            FormatID = format.Guid;
+            MimeType = mimeType;
+        }
+
+        internal ImageFormat Format { get; }
+        public Guid FormatID { get; }
+        public string MimeType { get; }
+
+        private static readonly ImageCodecInfo[] Codecs =
+        {
+            new ImageCodecInfo(ImageFormat.Png, "image/png"),
+            new ImageCodecInfo(ImageFormat.Jpeg, "image/jpeg"),
+            new ImageCodecInfo(ImageFormat.Bmp, "image/bmp"),
+        };
+
+        public static ImageCodecInfo[] GetImageEncoders() => (ImageCodecInfo[])Codecs.Clone();
+
+        public static ImageCodecInfo[] GetImageDecoders() => (ImageCodecInfo[])Codecs.Clone();
+    }
+
+    public sealed class Encoder
+    {
+        public Encoder(Guid guid) => Guid = guid;
+
+        public Guid Guid { get; }
+
+        public static readonly Encoder Quality = new Encoder(new Guid("1d5be4b5-fa4a-452d-9cdd-5db35105e7eb"));
+        public static readonly Encoder ColorDepth = new Encoder(new Guid("66087055-ad66-4c7c-9a18-38a2310b8337"));
+        public static readonly Encoder Compression = new Encoder(new Guid("e09d739d-ccd4-44ee-8eba-3fbf8be4fc58"));
+    }
+
+    public sealed class EncoderParameter : IDisposable
+    {
+        public EncoderParameter(Encoder encoder, long value) { Encoder = encoder; Value = value; }
+
+        public EncoderParameter(Encoder encoder, int value) : this(encoder, (long)value) { }
+
+        public Encoder Encoder { get; }
+
+        internal long Value { get; }
+
+        public void Dispose() { }
+    }
+
+    public sealed class EncoderParameters : IDisposable
+    {
+        public EncoderParameters() : this(1) { }
+
+        public EncoderParameters(int count) => Param = new EncoderParameter[count];
+
+        public EncoderParameter[] Param { get; set; }
+
+        public void Dispose() { }
+    }
+
     public sealed class ImageFormat
     {
-        readonly string name; ImageFormat(string n) { name = n; }
+        readonly string name; ImageFormat(string n) { name = n; Guid = new Guid(System.Text.Encoding.ASCII.GetBytes(n.PadRight(16, '_').Substring(0, 16))); }   // a fixed id per format name
+
+        /// <summary>Identifies the format (ImageCodecInfo.FormatID compares with it).</summary>
+        public Guid Guid { get; }
         public static readonly ImageFormat Png = new ImageFormat("png"), Jpeg = new ImageFormat("jpeg"), Bmp = new ImageFormat("bmp"), Gif = new ImageFormat("gif"), Tiff = new ImageFormat("tiff"), Icon = new ImageFormat("icon"), MemoryBmp = new ImageFormat("membmp");
         public static ImageFormat FromExtension(string ext) => ext.ToLowerInvariant() switch { ".jpg" or ".jpeg" => Jpeg, ".bmp" => Bmp, ".gif" => Gif, _ => Png };
         public override string ToString() => name;

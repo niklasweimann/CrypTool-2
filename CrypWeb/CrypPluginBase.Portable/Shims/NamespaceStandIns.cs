@@ -4,3 +4,9 @@ namespace CrypTool.Core.Properties
 {
     internal static class NamespaceStandIn { }
 }
+
+// Windows Management Instrumentation (Webcam: unused import)
+namespace System.Management
+{
+    internal static class NamespaceStandIn { }
+}

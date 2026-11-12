@@ -124,6 +124,10 @@ namespace System.Windows
             {
                 trigger.Attach(element);
             }
+            foreach (EventSetter setter in style?.AllEventSetters() ?? Enumerable.Empty<EventSetter>())
+            {
+                setter.Attach(element);
+            }
         }
 
         // the triggers of the applied style (null or empty: none) and the properties the style has set

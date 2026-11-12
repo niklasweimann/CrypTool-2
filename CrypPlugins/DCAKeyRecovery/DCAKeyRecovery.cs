@@ -2134,6 +2134,9 @@ namespace CrypTool.Plugins.DCAKeyRecovery
                     new Newtonsoft.Json.JsonSerializerSettings
                     {
                         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+                        // the characteristics are subclasses of an abstract class: their JSON names the class
+                        TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                        SerializationBinder = new CharacteristicSerializationBinder(),
                     });
             }
             catch (Exception e)

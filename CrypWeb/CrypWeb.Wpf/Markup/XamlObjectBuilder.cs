@@ -229,6 +229,14 @@ namespace System.Windows.Markup
                 return;
             }
 
+            if (instance is EventSetter eventSetter && name == "Handler")
+            {
+                // a method of the code-behind, subscribed when the style is applied
+                eventSetter.HandlerName = text;
+                eventSetter.HandlerTarget = _context.RootObject;
+                return;
+            }
+
             EventInfo eventInfo = type.GetEvent(name, InstanceMembers);
             if (eventInfo != null)
             {

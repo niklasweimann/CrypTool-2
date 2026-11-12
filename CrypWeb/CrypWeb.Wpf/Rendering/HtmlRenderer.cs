@@ -67,6 +67,7 @@ namespace System.Windows.Rendering
                 case Shape shape: WriteShape(shape, slot); break;
                 case TextBlock textBlock: WriteTextBlock(textBlock, slot); break;
                 case Image image: WriteImage(image, slot); break;
+                case Viewport3D viewport3D: WriteViewport3D(viewport3D, slot); break;
                 case Viewbox viewbox: WriteViewbox(viewbox, slot); break;
                 case Decorator decorator: WriteContainer(decorator, slot, "wb", "", LayoutSlot.GridCell); break;
                 case Grid grid: WriteGrid(grid, slot); break;

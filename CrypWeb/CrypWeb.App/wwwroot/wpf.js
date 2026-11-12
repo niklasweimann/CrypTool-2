@@ -142,7 +142,79 @@ window.ctWpf = (() => {
     }
   }
 
+  // ---- 3D scenes (Viewport3D) --------------------------------------------------------------------------------
+
+  // pictures used as textures, loaded once per address; a picture that arrives later redraws its scenes
+  const textures = new Map();
+  function texture(url, canvas) {
+    let entry = textures.get(url);
+    if (!entry) {
+      entry = { image: new Image(), waiting: new Set() };
+      entry.image.onload = () => { entry.waiting.forEach(c => { c._ctScene = null; draw3d(c); }); entry.waiting.clear(); };
+      entry.image.src = url;
+      textures.set(url, entry);
+    }
+    if (!entry.image.complete) entry.waiting.add(canvas);
+    return entry.image;
+  }
+
+  function polygonPath(ctx, face, from) {
+    ctx.beginPath();
+    ctx.moveTo(face[from], face[from + 1]);
+    for (let i = from + 2; i + 1 < face.length; i += 2) ctx.lineTo(face[i], face[i + 1]);
+    ctx.closePath();
+  }
+
+  /**
+   * Draws the faces of a projected 3D scene (see HtmlRenderer.Viewport3D.cs for the format), back to front.
+   * Polygons get a hairline stroke in their own colour, which closes the seams between neighbouring faces.
+   */
+  function draw3d(canvas) {
+    const text = canvas.dataset.scene;
+    if (!text || canvas._ctScene === text) return;
+    canvas._ctScene = text;
+    const scene = JSON.parse(text);
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 0.5;
+    for (const face of scene.f) {
+      if (face[0] === 0) {
+        polygonPath(ctx, face, 2);
+        ctx.fillStyle = ctx.strokeStyle = face[1];
+        ctx.fill();
+        ctx.stroke();
+        continue;
+      }
+      const isText = face[0] === 2;
+      const m = isText ? 7 : 3;            // index of the texture matrix
+      ctx.save();
+      polygonPath(ctx, face, m + 6);
+      ctx.clip();
+      ctx.globalAlpha = face[m - 1];
+      ctx.transform(face[m], face[m + 1], face[m + 2], face[m + 3], face[m + 4], face[m + 5]);
+      if (!isText) {
+        const image = texture(scene.img[face[1]], canvas);
+        if (image.complete && image.naturalWidth) ctx.drawImage(image, 0, 0, 1, 1);
+      } else {
+        // the text box of its natural size, stretched over the texture square (as a WPF VisualBrush does)
+        const size = face[2];
+        const boxWidth = Math.max(1, face[1].length) * size * 0.6, boxHeight = size * 1.33;
+        ctx.scale(1 / boxWidth, 1 / boxHeight);
+        if (face[5]) { ctx.fillStyle = face[5]; ctx.fillRect(0, 0, boxWidth, boxHeight); }
+        ctx.font = (face[3] ? 'bold ' : '') + size + 'px "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = face[4];
+        ctx.fillText(face[1], boxWidth / 2, boxHeight / 2);
+      }
+      ctx.restore();
+    }
+  }
+
   function layout(host) {
+    host.querySelectorAll('.w3d canvas').forEach(draw3d);
     fitRoot(host);
     host.querySelectorAll('svg.wsh').forEach(sizeShape);
     // inner view boxes first: their size is input for the outer ones

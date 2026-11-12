@@ -32,6 +32,22 @@ namespace Emgu.CV.CvEnum
         Lanczos4 = 4,
     }
 
+    /// <summary>Camera properties (only stored in the browser: the browser camera has no such controls).</summary>
+    public enum CapProp
+    {
+        PosMsec = 0,
+        FrameWidth = 3,
+        FrameHeight = 4,
+        Fps = 5,
+        Brightness = 10,
+        Contrast = 11,
+        Saturation = 12,
+        Hue = 13,
+        Gain = 14,
+        Exposure = 15,
+        Sharpness = 20,
+    }
+
     public enum TemplateMatchingType
     {
         Sqdiff = 0,
@@ -508,5 +524,102 @@ namespace Emgu.CV
         }
 
         public void Dispose() { }
+    }
+}
+
+namespace Emgu.CV
+{
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Windows.Hosting;
+
+    /// <summary>
+    /// A camera (Emgu CV's VideoCapture under its older name). In the browser it is the camera the page opens with
+    /// getUserMedia (see System.Windows.Hosting.BrowserDevices); the camera index is not used.
+    /// </summary>
+    public class Capture : IDisposable
+    {
+        private readonly Dictionary<CapProp, double> _properties = new Dictionary<CapProp, double>();
+        private bool _open;
+
+        public Capture() : this(0) { }
+
+        public Capture(int camIndex)
+        {
+            BrowserDevices.StartCamera();
+            _open = true;
+        }
+
+        public void SetCaptureProperty(CapProp property, double value) => _properties[property] = value;
+
+        public double GetCaptureProperty(CapProp property) => _properties.TryGetValue(property, out double value) ? value : 0;
+
+        /// <summary>
+        /// The newest picture of the camera. Plugins call this on the UI thread, which also receives the pictures, so
+        /// it does not wait: before the first picture arrives the frame is black.
+        /// </summary>
+        public Mat QueryFrame()
+        {
+            bool onUiThread = System.Windows.Threading.Dispatcher.CurrentDispatcher?.CheckAccess() == true;
+            byte[] picture = BrowserDevices.LatestCameraFrame(onUiThread ? TimeSpan.Zero : TimeSpan.FromSeconds(5));
+            if (picture == null)
+            {
+                return new Mat(new Bitmap(640, 480, PixelFormat.Format24bppRgb));
+            }
+            using var stream = new MemoryStream(picture);
+            return new Mat(new Bitmap(stream));
+        }
+
+        public Mat QuerySmallFrame() => QueryFrame();
+
+        public bool Grab() => true;
+
+        public void Dispose()
+        {
+            if (_open)
+            {
+                _open = false;
+                BrowserDevices.StopCamera();
+            }
+        }
+    }
+
+    /// <summary>A picture (Emgu CV's matrix type), here only as the holder of a bitmap.</summary>
+    public class Mat : IDisposable
+    {
+        internal Mat(Bitmap bitmap) => Bitmap = bitmap;
+
+        public Bitmap Bitmap { get; }
+
+        public int Width => Bitmap.Width;
+
+        public int Height => Bitmap.Height;
+
+        public Image<TColor, TDepth> ToImage<TColor, TDepth>()
+            where TColor : struct, IColor
+            where TDepth : new() => new Image<TColor, TDepth>(Bitmap);
+
+        public void Dispose() { }
+    }
+}
+
+namespace DirectShowLib
+{
+    /// <summary>Device categories of DirectShow (only video input exists in the browser).</summary>
+    public static class FilterCategory
+    {
+        public static readonly Guid VideoInputDevice = new Guid("860BB310-5D01-11d0-BD3B-00A0C911CE86");
+        public static readonly Guid AudioInputDevice = new Guid("33D9A762-90C8-11d0-BD43-00A0C911CE86");
+    }
+
+    /// <summary>A capture device: in the browser there is one camera, the one the page may open.</summary>
+    public class DsDevice
+    {
+        private DsDevice(string name) => Name = name;
+
+        public string Name { get; }
+
+        public static DsDevice[] GetDevicesOfCat(Guid filterCategory) =>
+            filterCategory == FilterCategory.VideoInputDevice ? new[] { new DsDevice("Browser camera") } : Array.Empty<DsDevice>();
     }
 }

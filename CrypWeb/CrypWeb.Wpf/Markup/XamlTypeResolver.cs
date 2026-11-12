@@ -51,6 +51,22 @@ namespace System.Windows.Markup
 
             if (!xmlNamespace.Contains("/xaml/presentation"))
             {
+                // an XML namespace of a library ("http://oxyplot.org/wpf"): the CLR namespaces mapped to it
+                foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    foreach (XmlnsDefinitionAttribute definition in SafeAttributes(assembly))
+                    {
+                        if (definition.XmlNamespace != xmlNamespace)
+                        {
+                            continue;
+                        }
+                        Type type = assembly.GetType(definition.ClrNamespace + "." + name, false);
+                        if (type != null)
+                        {
+                            return type;
+                        }
+                    }
+                }
                 return null;
             }
 

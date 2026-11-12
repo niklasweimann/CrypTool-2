@@ -61,6 +61,12 @@ namespace System.Windows.Markup
                 return Color.TryParse(trimmed, out Color color) ? new SolidColorBrush(color) : throw new FormatException("Unknown brush '" + trimmed + "'.");
             }
 
+            if (type == typeof(Media.Media3D.Point3D)) return Media.Media3D.Point3D.Parse(trimmed);
+            if (type == typeof(Media.Media3D.Vector3D)) return Media.Media3D.Vector3D.Parse(trimmed);
+            if (type == typeof(Media.Media3D.Point3DCollection)) return Media.Media3D.Point3DCollection.Parse(trimmed);
+            if (type == typeof(Media.Media3D.Vector3DCollection)) return Media.Media3D.Vector3DCollection.Parse(trimmed);
+            if (type == typeof(Int32Collection)) return Int32Collection.Parse(trimmed);
+
             if (type == typeof(Geometry)) return Geometry.Parse(trimmed);
             if (type == typeof(PathFigureCollection)) return PathFigureCollection.Parse(trimmed);
             if (type == typeof(PointCollection)) return PointCollection.Parse(trimmed);

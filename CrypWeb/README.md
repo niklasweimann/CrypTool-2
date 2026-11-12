@@ -42,7 +42,7 @@ settings of types other than string/int/bool/double/enum cannot be restored by t
 
 ## Running the original plugins unchanged (how the gaps are closed)
 
-The plugin sources in `CrypPlugins/` are never edited. Everything the browser lacks is provided on the build side:
+The plugin sources in `CrypPlugins/` are edited only to fix bugs that also affect the desktop (e.g. `BigIntegerHelper.IsProbablePrime` for small numbers, a cooperative stop for `ADFGVXAnalyzer`, which relied on `Thread.Abort`). Everything the browser lacks is provided on the build side:
 
 | Problem | Solution |
 |---|---|
@@ -53,14 +53,24 @@ The plugin sources in `CrypPlugins/` are never edited. Everything the browser la
 | `NativeCryptography` (C++/CLI) | `CrypWeb.Plugins/NativeCryptoShim.cs` |
 | Data files read from disk | lazy files in the runtime's file system, downloaded on first open (`tools-gen-vfs.py`, `wwwroot/vfs.js`) |
 | WPF-only input/output components | browser-native components (`NativeComponent`: text/number/boolean in-/output, picture output) |
+| Sockets (`NetworkSender`/`NetworkReceiver`) | `CrypWeb.Plugins/LoopbackNetwork.cs`: in-memory `UdpClient`/`TcpClient`/`TcpListener`; the templates send and receive within one workspace |
+| `ThreadPool.SetMaxThreads` (EnigmaAnalyzer) | `CrypWeb.Plugins/ThreadPoolShim.cs`: the pool is shared by the whole app, resizing it is ignored |
+| Emgu CV / OpenCV (ImageProcessor, ImageHash, Transcriptor, Webcam) | `CrypWeb.Plugins/EmguCV.cs`: managed `Image<TColor,TDepth>` with the operations the plugins use (OpenCV formulas); `Capture` is the browser camera |
+| ZXing for `System.Drawing` (VisualEncoder/Decoder) | `CrypWeb.Plugins/ZXingBitmap.cs`: `BarcodeReader`/`BarcodeWriter` on top of the ZXing.Net package |
+| NAudio, OxyPlot (AudioInput/Output) | `CrypWeb.Plugins/NAudio.cs`, `OxyPlot.cs`: microphone and speakers of the page, a line plot drawn with `OnRender` |
+| ISAP commitment (C++ with GMP/MPFR) | `CrypWeb.Plugins/ISAPCommitmentScheme.cs`: managed port (BigInteger, exact fractions) |
+| CrypCloud / VoluntLib (KeySearcher) | `StandIns/KeySearcher/`: the distributed search reports that it is not available; the local search is the original (`SOURCE_SUBSTITUTES` in `tools-gen-plugins.py`) |
+| Camera, microphone, speakers | `System.Windows.Hosting.BrowserDevices` (CrypWeb.Wpf) <-> `CrypWeb.App/Engine/MediaBridge.cs` <-> `wwwroot/media.js` (getUserMedia, Web Audio) |
+| Template data files (`Templates\Codes\QR_Code.png`) | in the virtual file system under `/Templates`, setting values are mapped by `TemplateFiles` |
 
 Workflow after changing shims or plugin sources: `python3 tools-prune-plugins.py` (finds what compiles, writes `plugins.exclude`/`plugins.isolate`/stubs state), then build the app.
 
-Status (headless smoke test over all templates, `dotnet run --project CrypWeb.Tests -- ../Templates runall`): 226 of 241 templates run without errors,
-213 of them with real plugins; the rest are components that still need their own web view or libraries (Enigma, KeySearcher and the other analyzers
-with custom WPF controls, Emgu/NAudio-based ones, the cloud components).
+Status (headless smoke test over all templates, `dotnet run --project CrypWeb.Tests -- ../Templates runall`): all 281 templates run;
+278 without errors (the others are bugs of the original plugins: DCAKeyRecovery, CramerShoupKeyGenerator), and all 188 components build.
+Further checks: `probe <template>` (values on every connector, `CT2_TRACE=1` prints exceptions plugins swallow), `present3d`
+(the PRESENT 3D animation: frames and render time).
 Plugin visualizations: the calls a component makes on its (browser-less) presentation are recorded in the engine worker (`RunNode.Pres`), converted to plain data (`ToPlain`: 2D arrays, lists, dictionaries, numbers, text) and shown by the generic **Open view** dialog (`PresentationModal`/`ValueView`: grids as tables, 0/1 series as cells, number series as bar charts, objects as key/value tables). This is a data view, not the component's original WPF drawing. Per-plugin renderers (e.g. an Enigma machine, histograms) would be added on top of the same data.
-Not done: text drawing in `CrypWeb.Drawing`, webcam/audio via browser APIs.
+Not done: text drawing in `CrypWeb.Drawing`.
 
 ### Plugin presentations: WPF for the web (`CrypWeb.Wpf`)
 
@@ -94,8 +104,16 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
   stored in the workspace.
 - **Drag and drop**: `wpf.js` performs the gesture and reports it once (`drag`); the host replays mouse down/move on the
   source, and `DragDrop.DoDragDrop` delivers the drop synchronously (`CrypWeb.Wpf/Input/DragDrop.cs`).
-- **Tests**: `CrypWeb.Tests ... runall` runs plugin code on the calling thread; it reports plugins that wait for their
-  presentation as "still executing" and renders every presentation.
+- **3D** (`Viewport3D`, PRESENT): models, materials, lights, cameras and 3D transforms are implemented
+  (`CrypWeb.Wpf/Media/Media3D/`). `Rendering/Scene3D.cs` projects the scene (perspective, back faces, painter's algorithm,
+  Lambert shading as in WPF, quads merged from triangle pairs); the renderer writes the faces as a compact list on a canvas
+  (`data-scene`), which `wpf.js` (`draw3d`) draws with Canvas 2D, pictures and text of `ImageBrush`/`VisualBrush` mapped onto
+  their faces. Thousands of textured cubes would be too many SVG elements to update for every animation step.
+- **Bitmaps**: `RenderTargetBitmap`/`WriteableBitmap` keep the drawing rendered into them and are shown as SVG (ECC curve);
+  `BitmapSource` has real pixels where plugins read them (`CopyPixels`, `BitmapSource.Create`, `CroppedBitmap`, PNG/BMP
+  encoders; `Media/PixelBitmaps.cs`).
+- **Tests**: `CrypWeb.Tests ... runall` runs plugin code on background threads as the app does; it reports plugins that are
+  still executing when stopped and renders every presentation.
 - **Checking a view**: `dotnet run --project CrypWeb.Tests -- ../Templates snap <template.cwm> [Element.Property=value]
   [size:id=WxH] [event:id:kind:value:x:y]` writes each rendered presentation to `CrypWeb.App/wwwroot/_snap/<Plugin>.html`
   (open it via the dev server). The page collects the sizes the browser measures in `window.snapSizes`; pass them back as
@@ -105,7 +123,7 @@ Plugins not in `presentations.include` still use the older fallbacks: generated 
 recorded, shown by custom visualizers (`CrypWeb.App/Visualizers/*Viz.razor`) or by the static XAML drawing (`XamlViz`).
 These fallbacks are to be removed as plugins move to the runtime.
 
-Not supported yet: control templates (and their triggers), 3D, `VisualBrush`/`DrawingBrush`, editing in `RichTextBox`, hover events,
+Not supported yet: control templates (and their triggers), `VisualBrush`/`DrawingBrush` outside 3D faces, editing in `RichTextBox`, hover events,
 custom layout (`MeasureOverride`/`ArrangeOverride`), the `CrypAnalysisViewControl` library (used by the analyzers).
 
 ## Hosting on Cloudflare Workers

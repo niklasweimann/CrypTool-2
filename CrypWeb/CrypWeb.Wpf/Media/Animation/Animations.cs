@@ -42,6 +42,8 @@ namespace System.Windows.Media.Animation
         public double? By { get; set; }
         public IEasingFunction EasingFunction { get; set; }
 
+        public new DoubleAnimation Clone() => (DoubleAnimation)base.Clone();
+
         protected override double GetCurrentValueCore(double defaultOriginValue, double defaultDestinationValue, AnimationClock animationClock)
         {
             double from = From ?? defaultOriginValue;
@@ -116,7 +118,15 @@ namespace System.Windows.Media.Animation
     {
         internal TimeSpan? Time { get; private set; }
 
+        /// <summary>Position as a fraction (0..1) of the animation's duration, for key times given in percent.</summary>
+        internal double? Percent { get; private set; }
+
         public static KeyTime FromTimeSpan(TimeSpan timeSpan) => new KeyTime { Time = timeSpan };
+
+        public static KeyTime FromPercent(double percent) => new KeyTime { Percent = Math.Clamp(percent, 0, 1) };
+
+        /// <summary>The key time in milliseconds within an animation of <paramref name="duration"/> milliseconds.</summary>
+        internal double Milliseconds(double duration) => Time?.TotalMilliseconds ?? (Percent.HasValue ? Percent.Value * duration : duration);
 
         public static KeyTime Uniform => default;
 
@@ -166,6 +176,8 @@ namespace System.Windows.Media.Animation
     {
         public Collection<DoubleKeyFrame> KeyFrames { get; } = new Collection<DoubleKeyFrame>();
 
+        public new DoubleAnimationUsingKeyFrames Clone() => (DoubleAnimationUsingKeyFrames)base.Clone();
+
         internal override double DurationMilliseconds
         {
             get
@@ -190,7 +202,7 @@ namespace System.Windows.Media.Animation
             double previousTime = 0;
             foreach (DoubleKeyFrame frame in KeyFrames)
             {
-                double time = frame.KeyTime.Time?.TotalMilliseconds ?? DurationMilliseconds;
+                double time = frame.KeyTime.Milliseconds(DurationMilliseconds);
                 if (now < time)
                 {
                     if (frame.IsDiscrete || time <= previousTime)

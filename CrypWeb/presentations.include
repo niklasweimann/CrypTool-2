@@ -87,3 +87,6 @@ VisualDecoder
 ImageProcessor
 ImageHash
 Transcriptor
+PRESENT
+Webcam
+AudioOutput

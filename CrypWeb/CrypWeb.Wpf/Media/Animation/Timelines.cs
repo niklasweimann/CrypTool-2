@@ -90,7 +90,17 @@ namespace System.Windows.Media.Animation
 
         public event EventHandler Completed;
 
-        internal void RaiseCompleted() => Completed?.Invoke(this, EventArgs.Empty);
+        /// <summary>
+        /// Raises <see cref="Completed"/>. As in WPF the sender is the timeline's clock (an AnimationClock for
+        /// animations), finished: handlers tell animations apart by <c>((AnimationClock)sender).Timeline</c>.
+        /// </summary>
+        internal void RaiseCompleted()
+        {
+            Clock clock = this is AnimationTimeline ? new AnimationClock() : new Clock();
+            clock.Timeline = this;
+            clock.CurrentProgress = 1;
+            Completed?.Invoke(clock, EventArgs.Empty);
+        }
 
         /// <summary>Length of one run in milliseconds (WPF animates for one second when no duration is given).</summary>
         internal virtual double DurationMilliseconds

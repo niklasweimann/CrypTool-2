@@ -144,6 +144,7 @@ public partial class Home : IDisposable
         await Js.InvokeVoidAsync("ct2.init", self, "main svg");
         // the engine runs in this app: plugin code on background threads, presentations on this (UI) thread
         EngineHost.Initialize();
+        MediaBridge.Initialize(Js);
         EngineHost.Message += OnWorkerMessage;
         await Js.InvokeVoidAsync("ct2engine.start");
         StartAutosave();

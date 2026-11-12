@@ -76,10 +76,48 @@ namespace System.Windows
         public string TargetName { get; set; }
     }
 
+    /// <summary>
+    /// Subscribes a handler to an event of every element the style applies to. In XAML the handler is a method name of
+    /// the file's code-behind (kept in <see cref="HandlerName"/> and <see cref="HandlerTarget"/>).
+    /// </summary>
     public class EventSetter : SetterBase
     {
         public RoutedEvent Event { get; set; }
         public Delegate Handler { get; set; }
+        public bool HandledEventsToo { get; set; }
+
+        internal string HandlerName { get; set; }
+        internal object HandlerTarget { get; set; }
+
+        /// <summary>Subscribes the handler to the event (found by name) of <paramref name="element"/>.</summary>
+        internal void Attach(FrameworkElement element)
+        {
+            string name = Event?.Name;
+            if (string.IsNullOrEmpty(name))
+            {
+                return;
+            }
+            Reflection.EventInfo clrEvent = element.GetType().GetEvent(name.Substring(name.LastIndexOf('.') + 1));
+            if (clrEvent?.EventHandlerType == null)
+            {
+                return;
+            }
+            Delegate handler = Handler;
+            if (handler == null && HandlerTarget != null && HandlerName != null)
+            {
+                const Reflection.BindingFlags anyInstance = Reflection.BindingFlags.Instance | Reflection.BindingFlags.Public | Reflection.BindingFlags.NonPublic;
+                Reflection.MethodInfo method = null;
+                for (Type type = HandlerTarget.GetType(); type != null && method == null; type = type.BaseType)
+                {
+                    method = type.GetMethod(HandlerName, anyInstance | Reflection.BindingFlags.DeclaredOnly);
+                }
+                handler = method == null ? null : Delegate.CreateDelegate(clrEvent.EventHandlerType, HandlerTarget, method, throwOnBindFailure: false);
+            }
+            if (handler != null && handler.GetType() == clrEvent.EventHandlerType)
+            {
+                clrEvent.AddEventHandler(element, handler);
+            }
+        }
     }
 
     /// <summary>
@@ -107,6 +145,19 @@ namespace System.Windows
         public Collection<SetterBase> Setters { get; } = new Collection<SetterBase>();
 
         public Collection<object> Triggers { get; } = new Collection<object>();
+
+        /// <summary>The event setters of this style and the styles it is based on.</summary>
+        internal IEnumerable<EventSetter> AllEventSetters()
+        {
+            if (BasedOn != null)
+            {
+                foreach (EventSetter inherited in BasedOn.AllEventSetters()) yield return inherited;
+            }
+            foreach (SetterBase setter in Setters)
+            {
+                if (setter is EventSetter eventSetter) yield return eventSetter;
+            }
+        }
 
         /// <summary>The triggers of this style and the styles it is based on, base styles first.</summary>
         internal IEnumerable<TriggerBase> AllTriggers()

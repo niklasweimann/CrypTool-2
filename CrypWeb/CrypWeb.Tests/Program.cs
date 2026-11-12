@@ -129,10 +129,45 @@ if (args.Length > 1 && args[1] == "runall")
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");
     return;
 }
+if (args.Length > 1 && args[1] == "present3d")
+{
+    // the PRESENT 3D animation: one "next step" on the encryption tab, then animation ticks; prints how the
+    // rendered scene changes and how long rendering takes (a check for the Viewport3D renderer)
+    var comp = PluginRegistry.Create("CrypTool.PRESENT.PRESENT");
+    var host = ((PluginComponent)comp).Host!;
+    var view = (System.Windows.FrameworkElement)host.Root;
+    var tabs = FindAll<System.Windows.Controls.TabControl>(view).First();
+    tabs.SelectedIndex = 4;
+    var next = FindAll<System.Windows.Controls.Button>(view).First(b => b.Name == "btn_EC_Pause");
+    var watch = System.Diagnostics.Stopwatch.StartNew();
+    string previous = host.Render();
+    Console.WriteLine($"first render {watch.ElapsedMilliseconds} ms, {previous.Length} chars");
+    typeof(System.Windows.Controls.Primitives.ButtonBase).GetMethod("OnClick", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!.Invoke(next, null);
+    int changes = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        await Task.Delay(50);
+        System.Windows.Hosting.WpfRuntime.Tick();
+        watch.Restart();
+        string html = host.Render();
+        if (html != previous) { changes++; previous = html; Console.WriteLine($"tick {i}: changed, render {watch.ElapsedMilliseconds} ms, {html.Length} chars"); }
+    }
+    Console.WriteLine($"changes: {changes}");
+    return;
+}
+static IEnumerable<T> FindAll<T>(System.Windows.UIElement element) where T : System.Windows.UIElement
+{
+    if (element is T match) yield return match;
+    for (int i = 0; i < System.Windows.Media.VisualTreeHelper.GetChildrenCount(element); i++)
+        foreach (var found in FindAll<T>((System.Windows.UIElement)System.Windows.Media.VisualTreeHelper.GetChild(element, i))) yield return found;
+}
 if (args.Length > 2 && args[1] == "probe")
 {
     // runs one template and prints the last value on every connector (debugging a single workspace)
     var ws0 = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
+    // CT2_TRACE=1: also print every exception thrown inside plugins (they often catch and log only the message)
+    if (Environment.GetEnvironmentVariable("CT2_TRACE") == "1")
+        AppDomain.CurrentDomain.FirstChanceException += (_, e) => Console.WriteLine("THROWN " + e.Exception.GetType().Name + ": " + e.Exception.Message + " @ " + e.Exception.StackTrace?.Split('\n').FirstOrDefault());
     var eng0 = new ExecutionEngine { ExecuteInBackground = true }; var r0 = eng0.RunAsync(ws0);
     // like the browser worker: render the presentations and tick animations while the workspace runs
     for (int i = 0; i < 60; i++)

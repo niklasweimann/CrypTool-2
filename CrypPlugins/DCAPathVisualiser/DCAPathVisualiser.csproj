@@ -86,6 +86,7 @@
     <Compile Include="DCAPathVisualiserSettings.cs" />
     <Compile Include="Logic\AbortingPolicy.cs" />
     <Compile Include="Logic\Characteristic.cs" />
+    <Compile Include="Logic\CharacteristicSerializationBinder.cs" />
     <Compile Include="Logic\Cipher2\Cipher2Characteristic.cs" />
     <Compile Include="Logic\Cipher3\Cipher3Characteristic.cs" />
     <Compile Include="Logic\DifferentialAttackRoundConfiguration.cs" />

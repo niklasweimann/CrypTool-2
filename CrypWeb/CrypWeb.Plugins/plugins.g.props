@@ -67,6 +67,16 @@
     <Compile Include="../../CrypPlugins/ArrayOperations/Properties/Resources.Designer.cs" Link="ArrayOperations/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.resx" LogicalName="ArrayOperations.Properties.Resources.resources" Link="ArrayOperations/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.de.resx" LogicalName="ArrayOperations.Properties.Resources.de.resources" Link="ArrayOperations/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/AudioInput/AudioInputSettings.cs" Link="AudioInput/AudioInputSettings.cs" />
+    <Compile Include="../../CrypPlugins/AudioInput/AudioInput.cs" Link="AudioInput/AudioInput.cs" />
+    <Compile Include="../../CrypPlugins/AudioInput/Properties/Resources.Designer.cs" Link="AudioInput/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/AudioInput/Properties/Resources.resx" LogicalName="CrypTool.Plugins.AudioInput.Properties.Resources.resources" Link="AudioInput/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/AudioInput/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.AudioInput.Properties.Resources.de.resources" Link="AudioInput/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/AudioOutput/AudioOutputSettings.cs" Link="AudioOutput/AudioOutputSettings.cs" />
+    <Compile Include="../../CrypPlugins/AudioOutput/AudioOutput.cs" Link="AudioOutput/AudioOutput.cs" />
+    <Compile Include="../../CrypPlugins/AudioOutput/Properties/Resources.Designer.cs" Link="AudioOutput/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/AudioOutput/Properties/Resources.resx" LogicalName="CrypTool.Plugins.AudioOutput.Properties.Resources.resources" Link="AudioOutput/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/AudioOutput/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.AudioOutput.Properties.Resources.de.resources" Link="AudioOutput/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/AutocorrelationFunction/AutocorrelationFunction.cs" Link="AutocorrelationFunction/AutocorrelationFunction.cs" />
     <Compile Include="../../CrypPlugins/AutocorrelationFunction/Properties/Resources.Designer.cs" Link="AutocorrelationFunction/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/AutocorrelationFunction/Properties/Resources.resx" LogicalName="AutocorrelationFunction.Properties.Resources.resources" Link="AutocorrelationFunction/Properties/Resources.resx" />
@@ -360,6 +370,7 @@
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ResultViewLastRoundRoundResultEventArgs.cs" Link="DCAKeyRecovery/Logic/ResultViewLastRoundRoundResultEventArgs.cs" />
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/DifferentialAttackLastRoundResult.cs" Link="DCAKeyRecovery/Logic/DifferentialAttackLastRoundResult.cs" />
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/KeyProbability.cs" Link="DCAKeyRecovery/Logic/KeyProbability.cs" />
+    <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/CharacteristicSerializationBinder.cs" Link="DCAKeyRecovery/Logic/CharacteristicSerializationBinder.cs" />
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/Characteristic.cs" Link="DCAKeyRecovery/Logic/Characteristic.cs" />
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/ProgressEventArgs.cs" Link="DCAKeyRecovery/Logic/ProgressEventArgs.cs" />
     <Compile Include="../../CrypPlugins/DCAKeyRecovery/Logic/SummaryLastRound.cs" Link="DCAKeyRecovery/Logic/SummaryLastRound.cs" />
@@ -409,6 +420,7 @@
     <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Models/Cipher3CharacteristicUI.cs" Link="DCAPathFinder/UI/Models/Cipher3CharacteristicUI.cs" />
     <Compile Include="../../CrypPlugins/DCAPathFinder/UI/Tutorial1/XORTableMapping.cs" Link="DCAPathFinder/UI/Tutorial1/XORTableMapping.cs" />
     <Compile Include="../../CrypPlugins/DCAPathFinder/Util/Helper.cs" Link="DCAPathFinder/Util/Helper.cs" />
+    <Compile Include="../../CrypPlugins/DCAPathFinder/Logic/CharacteristicSerializationBinder.cs" Link="DCAPathFinder/Logic/CharacteristicSerializationBinder.cs" />
     <Compile Include="../../CrypPlugins/DCAPathFinder/Logic/Characteristic.cs" Link="DCAPathFinder/Logic/Characteristic.cs" />
     <Compile Include="../../CrypPlugins/DCAPathFinder/Logic/ProgressEventArgs.cs" Link="DCAPathFinder/Logic/ProgressEventArgs.cs" />
     <Compile Include="../../CrypPlugins/DCAPathFinder/Logic/IPathFinder.cs" Link="DCAPathFinder/Logic/IPathFinder.cs" />
@@ -440,6 +452,7 @@
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/UI/Cipher3/Cipher3CharacteristicSelectionEventArgs.cs" Link="DCAPathVisualiser/UI/Cipher3/Cipher3CharacteristicSelectionEventArgs.cs" />
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/UI/Models/Cipher2CharacteristicUI.cs" Link="DCAPathVisualiser/UI/Models/Cipher2CharacteristicUI.cs" />
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/UI/Models/Cipher3CharacteristicUI.cs" Link="DCAPathVisualiser/UI/Models/Cipher3CharacteristicUI.cs" />
+    <Compile Include="../../CrypPlugins/DCAPathVisualiser/Logic/CharacteristicSerializationBinder.cs" Link="DCAPathVisualiser/Logic/CharacteristicSerializationBinder.cs" />
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/Logic/Characteristic.cs" Link="DCAPathVisualiser/Logic/Characteristic.cs" />
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/Logic/SearchPolicy.cs" Link="DCAPathVisualiser/Logic/SearchPolicy.cs" />
     <Compile Include="../../CrypPlugins/DCAPathVisualiser/Logic/DifferentialAttackRoundConfiguration.cs" Link="DCAPathVisualiser/Logic/DifferentialAttackRoundConfiguration.cs" />
@@ -672,6 +685,11 @@
     <Compile Include="../../CrypPlugins/IDPAttack/Properties/Resources.Designer.cs" Link="IDPAttack/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/IDPAttack/Properties/Resources.resx" LogicalName="IDPAnalyser.Properties.Resources.resources" Link="IDPAttack/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/IDPAttack/Properties/Resources.de.resx" LogicalName="IDPAnalyser.Properties.Resources.de.resources" Link="IDPAttack/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ISAPBitCommitmentScheme/ISAPBitCommitmentSchemeSettings.cs" Link="ISAPBitCommitmentScheme/ISAPBitCommitmentSchemeSettings.cs" />
+    <Compile Include="../../CrypPlugins/ISAPBitCommitmentScheme/ISAPBitCommitmentScheme.cs" Link="ISAPBitCommitmentScheme/ISAPBitCommitmentScheme.cs" />
+    <Compile Include="../../CrypPlugins/ISAPBitCommitmentScheme/Properties/Resources.Designer.cs" Link="ISAPBitCommitmentScheme/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ISAPBitCommitmentScheme/Properties/Resources.resx" LogicalName="ISAPBitCommitmentScheme.Properties.Resources.resources" Link="ISAPBitCommitmentScheme/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ISAPBitCommitmentScheme/Properties/Resources.de.resx" LogicalName="ISAPBitCommitmentScheme.Properties.Resources.de.resources" Link="ISAPBitCommitmentScheme/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ImageHash/ImageHash.cs" Link="ImageHash/ImageHash.cs" />
     <Compile Include="../../CrypPlugins/ImageHash/ImageHashSettings.cs" Link="ImageHash/ImageHashSettings.cs" />
     <Compile Include="../../CrypPlugins/ImageHash/Properties/Resources.Designer.cs" Link="ImageHash/Properties/Resources.Designer.cs" />
@@ -877,6 +895,23 @@
     <Compile Include="../../CrypPlugins/PKCS5/Properties/Resources.Designer.cs" Link="PKCS5/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/PKCS5/Properties/Resources.resx" LogicalName="PKCS5.Properties.Resources.resources" Link="PKCS5/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/PKCS5/Properties/Resources.de.resx" LogicalName="PKCS5.Properties.Resources.de.resources" Link="PKCS5/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PRESENT/Elements.cs" Link="PRESENT/Elements.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/PRESENT.cs" Link="PRESENT/PRESENT.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/PresentManaged.cs" Link="PRESENT/PresentManaged.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/PresentCipher.cs" Link="PRESENT/PresentCipher.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/PRESENTSettings.cs" Link="PRESENT/PRESENTSettings.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/SymmetricTransform.cs" Link="PRESENT/SymmetricTransform.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/PresentTransform.cs" Link="PRESENT/PresentTransform.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/Elements.cs" Link="PRESENT/Animation/Elements.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/Present.cs" Link="PRESENT/Animation/Present.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/TextBoxHexOnly.cs" Link="PRESENT/Animation/TextBoxHexOnly.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/KS_Animation.cs" Link="PRESENT/Animation/KS_Animation.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/PresentTracer.cs" Link="PRESENT/Animation/PresentTracer.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/CustomAnimations.cs" Link="PRESENT/Animation/CustomAnimations.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/EC_Animation.cs" Link="PRESENT/Animation/EC_Animation.cs" />
+    <Compile Include="../../CrypPlugins/PRESENT/Properties/Resources.Designer.cs" Link="PRESENT/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PRESENT/Properties/Resources.resx" LogicalName="CrypTool.PRESENT.Properties.Resources.resources" Link="PRESENT/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PRESENT/Properties/Resources.de.resx" LogicalName="CrypTool.PRESENT.Properties.Resources.de.resources" Link="PRESENT/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/PaddingOracle/PaddingOracleSettings.cs" Link="PaddingOracle/PaddingOracleSettings.cs" />
     <Compile Include="../../CrypPlugins/PaddingOracle/PaddingOracle.cs" Link="PaddingOracle/PaddingOracle.cs" />
     <Compile Include="../../CrypPlugins/PaddingOracle/Properties/Resources.Designer.cs" Link="PaddingOracle/Properties/Resources.Designer.cs" />
@@ -1272,6 +1307,8 @@
     <Compile Include="../../CrypPlugins/WatermarkCreator/reedsolomon/ReedSolomonDecoder.cs" Link="WatermarkCreator/reedsolomon/ReedSolomonDecoder.cs" />
     <EmbeddedResource Include="../../CrypPlugins/WatermarkCreator/Properties/Resources.resx" LogicalName="WatermarkCreator.Properties.Resources.resources" Link="WatermarkCreator/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/WatermarkCreator/Properties/Resources.de.resx" LogicalName="WatermarkCreator.Properties.Resources.de.resources" Link="WatermarkCreator/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Webcam/WebcamSettings.cs" Link="Webcam/WebcamSettings.cs" />
+    <Compile Include="../../CrypPlugins/Webcam/Webcam.cs" Link="Webcam/Webcam.cs" />
     <Compile Include="../../CrypPlugins/Whirlpool/WhirlpoolPlugin.cs" Link="Whirlpool/WhirlpoolPlugin.cs" />
     <Compile Include="../../CrypPlugins/Whirlpool/WhirlpoolSettings.cs" Link="Whirlpool/WhirlpoolSettings.cs" />
     <Compile Include="../../CrypPlugins/Whirlpool/Properties/Resources.Designer.cs" Link="Whirlpool/Properties/Resources.Designer.cs" />

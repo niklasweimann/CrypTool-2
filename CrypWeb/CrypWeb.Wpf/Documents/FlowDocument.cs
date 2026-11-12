@@ -72,6 +72,10 @@ namespace System.Windows.Documents
 
         public FlowDocument(Block block) => Blocks.Add(block);
 
+        public bool AllowDrop { get; set; }
+
+        public LineStackingStrategy LineStackingStrategy { get; set; }
+
         public BlockCollection Blocks { get; } = new BlockCollection();
 
         public Thickness PagePadding { get; set; }

@@ -204,6 +204,9 @@ namespace CrypTool.Plugins.DCAPathVisualiser
                 config = JsonConvert.DeserializeObject<DifferentialAttackRoundConfiguration>(json, new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
+                    // the characteristics are subclasses of an abstract class: their JSON names the class
+                    TypeNameHandling = TypeNameHandling.Auto,
+                    SerializationBinder = new CharacteristicSerializationBinder(),
                 });
 
             }

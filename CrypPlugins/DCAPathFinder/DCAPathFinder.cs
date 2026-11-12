@@ -3362,7 +3362,10 @@ namespace CrypTool.Plugins.DCAPathFinder
             JsonSerializer serializer = new JsonSerializer
             {
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                Formatting = Newtonsoft.Json.Formatting.Indented
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                // the characteristics are subclasses of an abstract class: the JSON names the class (see DCAKeyRecovery)
+                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                SerializationBinder = new CharacteristicSerializationBinder(),
             };
             serializer.Serialize(sw, conf);
 
@@ -3377,7 +3380,10 @@ namespace CrypTool.Plugins.DCAPathFinder
             JsonSerializer serializer = new JsonSerializer
             {
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
-                Formatting = Newtonsoft.Json.Formatting.Indented
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                // the characteristics are subclasses of an abstract class: the JSON names the class (see DCAKeyRecovery)
+                TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto,
+                SerializationBinder = new CharacteristicSerializationBinder(),
             };
             serializer.Serialize(sw, data);
 

@@ -23,9 +23,31 @@ namespace CrypTool.Plugins.CramerShoup.lib
 {
     public class ECCramerShoupGenerator
     {
+        /// <summary>
+        /// Curves that BouncyCastle 2 no longer lists: "curve25519" in short Weierstrass form, as BouncyCastle 1.x had it
+        /// (y^2 = x^3 + a x + b over 2^255 - 19, derived from Curve25519 with x = u + 486662 / 3; base point u = 9).
+        /// </summary>
+        private static Org.BouncyCastle.Asn1.X9.X9ECParameters RemovedCurve(string name)
+        {
+            if (name != "curve25519")
+            {
+                return null;
+            }
+            BigInteger p = BigInteger.Two.Pow(255).Subtract(BigInteger.ValueOf(19));
+            BigInteger a = new BigInteger("2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA984914A144", 16);
+            BigInteger b = new BigInteger("7B425ED097B425ED097B425ED097B425ED097B425ED097B4260B5E9C7710C864", 16);
+            BigInteger n = new BigInteger("1000000000000000000000000000000014DEF9DEA2F79CD65812631A5CF5D3ED", 16);
+            BigInteger h = BigInteger.ValueOf(8);
+            Org.BouncyCastle.Math.EC.ECCurve curve = new Org.BouncyCastle.Math.EC.FpCurve(p, a, b, n, h);
+            Org.BouncyCastle.Math.EC.ECPoint g = curve.CreatePoint(
+                new BigInteger("2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD245A", 16),
+                new BigInteger("20AE19A1B8A086B4E01EDD2C7748D14C923D4D7E6D7C61B229E9C5A27ECED3D9", 16));
+            return new Org.BouncyCastle.Asn1.X9.X9ECParameters(curve, new Org.BouncyCastle.Asn1.X9.X9ECPoint(g, false), n, h);
+        }
+
         public ECCramerShoupKeyPair Generator(SecureRandom random, string customcurve)
         {
-            Org.BouncyCastle.Asn1.X9.X9ECParameters parameter = CustomNamedCurves.GetByName(customcurve);
+            Org.BouncyCastle.Asn1.X9.X9ECParameters parameter = CustomNamedCurves.GetByName(customcurve) ?? RemovedCurve(customcurve);
             Org.BouncyCastle.Math.EC.ECCurve curve = parameter.Curve;
             BigInteger p = parameter.N;
             BigInteger min = parameter.H;

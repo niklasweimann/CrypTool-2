@@ -22,6 +22,9 @@
     <Compile Include="ThreadPoolShim.cs" />
     <Compile Include="ZXingBitmap.cs" />
     <Compile Include="EmguCV.cs" />
+    <Compile Include="ISAPCommitmentScheme.cs" />
+    <Compile Include="NAudio.cs" />
+    <Compile Include="OxyPlot.cs" />
     <Compile Include="stubs.g.cs" Condition="Exists('stubs.g.cs')" />
   </ItemGroup>
   <ItemGroup>

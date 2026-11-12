@@ -214,7 +214,12 @@ def lines(its, base):
 PLUG = os.path.join(ROOT, 'CrypWeb', 'CrypWeb.Plugins')
 ISO = os.path.join(ROOT, 'CrypWeb', 'CrypWeb.Plugins.Isolated')
 import shutil as _sh
-_sh.rmtree(ISO, ignore_errors=True)
+# folders of plugins that are no longer isolated are removed; the others keep what tools-gen-presentations.py
+# generated there (Presentations/, presentations.g.props), so the two generators can run in any order
+os.makedirs(ISO, exist_ok=True)
+for _d in os.listdir(ISO):
+    if _d not in ISOLATE or _d not in items_by_dir:
+        _sh.rmtree(os.path.join(ISO, _d), ignore_errors=True)
 main_lines = []; iso_refs = []; iso_names = []
 for d, its in items_by_dir.items():
     if d in ISOLATE:

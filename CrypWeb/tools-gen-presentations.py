@@ -109,7 +109,13 @@ def field_type(tag, known_types):
         return "global::" + clr_namespace + "." + local
     if PRESENTATION_NS_MARK in namespace:
         return known_types.get(local)
+    if namespace in LIBRARY_XMLNS:
+        return "global::%s.%s" % (LIBRARY_XMLNS[namespace], local)
     return None
+
+
+# XML namespaces of libraries whose types the web build provides (see the XmlnsDefinition in CrypWeb.Plugins)
+LIBRARY_XMLNS = {"http://oxyplot.org/wpf": "OxyPlot.Wpf"}
 
 
 def named_elements(element, known_types, result, unknown):

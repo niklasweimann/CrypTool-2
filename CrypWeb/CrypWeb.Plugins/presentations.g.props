@@ -852,6 +852,18 @@
     <EmbeddedResource Include="../../CrypPlugins/Transcriptor/TranscriptorPresentation.xaml" LogicalName="xaml/Transcriptor/TranscriptorPresentation.xaml" Link="Presentations/Transcriptor/TranscriptorPresentation.xaml" />
     <Compile Include="../../CrypPlugins/Transcriptor/TranscriptorPresentation.xaml.cs" Link="Presentations/Transcriptor/TranscriptorPresentation.xaml.cs" />
     <Compile Include="Presentations/Transcriptor/TranscriptorPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/PRESENT/PRESENT.g.resources" LogicalName="PRESENT.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/PRESENT/Animation/PRESENTAnimation.xaml" LogicalName="xaml/PRESENT/Animation/PRESENTAnimation.xaml" Link="Presentations/PRESENT/Animation/PRESENTAnimation.xaml" />
+    <Compile Include="../../CrypPlugins/PRESENT/Animation/PRESENTAnimation.xaml.cs" Link="Presentations/PRESENT/Animation/PRESENTAnimation.xaml.cs" />
+    <Compile Include="Presentations/PRESENT/Animation/PRESENTAnimation.g.cs" />
+    <EmbeddedResource Include="Presentations/Webcam/WebCam.g.resources" LogicalName="WebCam.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/Webcam/WebcamPresentation.xaml" LogicalName="xaml/Webcam/WebcamPresentation.xaml" Link="Presentations/Webcam/WebcamPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/Webcam/WebcamPresentation.xaml.cs" Link="Presentations/Webcam/WebcamPresentation.xaml.cs" />
+    <Compile Include="Presentations/Webcam/WebcamPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/AudioOutput/AudioOutput.g.resources" LogicalName="AudioOutput.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../CrypPlugins/AudioOutput/AudioOutputPresentation.xaml" LogicalName="xaml/AudioOutput/AudioOutputPresentation.xaml" Link="Presentations/AudioOutput/AudioOutputPresentation.xaml" />
+    <Compile Include="../../CrypPlugins/AudioOutput/AudioOutputPresentation.xaml.cs" Link="Presentations/AudioOutput/AudioOutputPresentation.xaml.cs" />
+    <Compile Include="Presentations/AudioOutput/AudioOutputPresentation.g.cs" />
     <EmbeddedResource Include="Presentations/HexBox/HexBox.g.resources" LogicalName="HexBox.g.resources" Type="Non-Resx" WithCulture="false" />
     <EmbeddedResource Include="../../LibSource/HexBox/HexBox.xaml" LogicalName="xaml/HexBox/HexBox.xaml" Link="Presentations/HexBox/HexBox.xaml" />
     <Compile Include="../../LibSource/HexBox/HexBox.xaml.cs" Link="Presentations/HexBox/HexBox.xaml.cs" />
