@@ -75,6 +75,7 @@ public static class EngineHost
         // a plugin that ignored Stop may still compute in the background: that run is left behind
         if (engine?.Running == true) engine = null;
         sentIo.Clear();
+        sentHtml.Clear();   // the app starts with empty node views: send every presentation again
         ws = WorkspaceEditor.FromJson(json);
         var eng = EnsureEngine(doc);
         eng.SleepMs = sleepMs; guiInterval = Math.Max(10, guiMs);
@@ -89,7 +90,7 @@ public static class EngineHost
     /// </summary>
     static ExecutionEngine EnsureEngine(string doc)
     {
-        if (doc != engineDoc) { engine = null; engineDoc = doc; sentIo.Clear(); sentImage.Clear(); }
+        if (doc != engineDoc) { engine = null; engineDoc = doc; sentIo.Clear(); sentImage.Clear(); sentHtml.Clear(); }
         if (!presentationErrorsHooked)
         {
             presentationErrorsHooked = true;
@@ -189,32 +190,33 @@ public static class EngineHost
         sentIo[n.Model.Id] = key; return r;
     }
 
-    /// <summary>Renders the presentation of a component if it changed and queues the HTML like a presentation value.</summary>
-    static void RenderPresentation(RunNode n)
+    /// <summary>Last HTML sent per component, so a presentation is only sent again when it looks different.</summary>
+    static readonly Dictionary<int, string> sentHtml = new();
+
+    /// <summary>The presentation of a component rendered as HTML, or null when it has not changed since the last call.</summary>
+    static string? TakeHtml(RunNode n)
     {
-        if (n.Comp is not PluginComponent { Host: { } host }) return;
+        if (n.Comp is not PluginComponent { Host: { } host }) return null;
         try
         {
-            var html = host.RenderIfChanged();
-            if (html != null) lock (n.Pres) { n.Pres[System.Windows.Hosting.PresentationHost.HtmlKey] = html; n.PresDirty.Add(System.Windows.Hosting.PresentationHost.HtmlKey); }
+            // RenderIfChanged skips the work while nothing in the presentation changed; the first time after a
+            // (re)start everything is rendered, because the app has forgotten the earlier HTML
+            bool sentBefore = sentHtml.TryGetValue(n.Model.Id, out var previous);
+            string? html = sentBefore ? host.RenderIfChanged() : host.Render();
+            if (html == null || html == previous) return null;
+            sentHtml[n.Model.Id] = html;
+            return html;
         }
-        catch (Exception e) { Log(n.Model.Id, "Warning", "Presentation: " + e.Message); }
+        catch (Exception e)
+        {
+            Log(n.Model.Id, "Warning", "Presentation: " + e.Message);
+            return null;
+        }
     }
 
     /// <summary>Settings a component changed itself (from its presentation), for the app to store in the workspace.</summary>
     static object[]? TakeSettings(RunNode n) =>
         n.Comp?.TakeChangedSettings()?.Select(kv => (object)new { name = kv.Key, value = kv.Value.Value, type = kv.Value.Type }).ToArray();
-
-    static object[]? TakePres(RunNode n)
-    {
-        RenderPresentation(n);
-        lock (n.Pres)
-        {
-            if (n.PresDirty.Count == 0) return null;
-            var r = n.PresDirty.Select(k => (object)new { name = k, value = n.Pres[k] }).ToArray();
-            n.PresDirty.Clear(); return r;
-        }
-    }
 
     /// <summary>Sends the state of all components (on the UI thread; the gate keeps component threads out meanwhile).</summary>
     static void Flush(bool force)
@@ -226,7 +228,19 @@ public static class EngineHost
         string json;
         lock (eng.Gate)
         {
-            var nodes = eng.Nodes.Values.Select(n => new { id = n.Model.Id, state = n.State.ToString(), progress = n.Progress, display = n.Display, ms = n.LastMs, err = n.Logs.LastOrDefault(l => l.Level == CrypTool.Web.Core.LogLevel.Error).Message, pres = TakePres(n), image = TakeImage(n), io = TakeIo(n), settings = TakeSettings(n) }).ToList();
+            var nodes = eng.Nodes.Values.Select(n => new
+            {
+                id = n.Model.Id,
+                state = n.State.ToString(),
+                progress = n.Progress,
+                display = n.Display,
+                ms = n.LastMs,
+                err = n.Logs.LastOrDefault(l => l.Level == CrypTool.Web.Core.LogLevel.Error).Message,
+                html = TakeHtml(n),
+                image = TakeImage(n),
+                io = TakeIo(n),
+                settings = TakeSettings(n),
+            }).ToList();
             json = JsonSerializer.Serialize(new { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes });
         }
         Post(json);

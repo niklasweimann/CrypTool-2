@@ -1,0 +1,34 @@
+@inject IJSRuntime JS
+@*
+  Shows a plugin's WPF presentation. The engine runs the original XAML and code-behind on the WPF runtime
+  (CrypWeb.Wpf) and sends the rendered HTML (PresentationHost.Render); wpf.js merges it into this element and
+  reports clicks and input back to the engine (EngineHost.PresEvent).
+*@
+<div class="wpfhost @(Inline ? "" : "dialog")" @ref="host"></div>
+
+@code {
+  /// <summary>The presentation rendered as HTML.</summary>
+  [Parameter] public string Html { get; set; } = "";
+  /// <summary>Workspace id of the plugin; input events are sent back for this plugin.</summary>
+  [Parameter] public int NodeId { get; set; }
+  /// <summary>True inside a node on the canvas, false in the dialog.</summary>
+  [Parameter] public bool Inline { get; set; }
+
+  ElementReference host;
+  string? shown;
+
+  protected override async Task OnAfterRenderAsync(bool firstRender)
+  {
+    // a new string arrives only when the presentation changed (EngineHost.TakeHtml)
+    if (ReferenceEquals(Html, shown)) return;
+    shown = Html;
+    try
+    {
+      await JS.InvokeVoidAsync("ctWpf.update", host, Html, NodeId);
+    }
+    catch (JSException)
+    {
+      // the element is gone (view closed while the update was on its way)
+    }
+  }
+}

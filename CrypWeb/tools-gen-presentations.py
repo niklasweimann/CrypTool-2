@@ -6,8 +6,7 @@ For every plugin folder listed in `presentations.include` this script
   * embeds each XAML file that declares a class (x:Class) as resource `xaml/<Plugin>/<path>.xaml`,
   * adds the code-behind (`<file>.xaml.cs`) to the compilation,
   * generates the other half of the partial class (`<file>.g.cs`): a field for every named element and an
-    `InitializeComponent()` that loads the XAML at run time (System.Windows.Markup.XamlLoader),
-  * removes the generated stand-in class for that presentation (stubs.state.json).
+    `InitializeComponent()` that loads the XAML at run time (System.Windows.Markup.XamlLoader).
 
 Output: CrypWeb.Plugins/presentations.g.props and CrypWeb.Plugins/Presentations/**/*.g.cs.
 Run it after changing `presentations.include`:  python3 tools-gen-presentations.py
@@ -18,7 +17,6 @@ import os
 import re
 import shutil
 import subprocess
-import sys
 import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -29,7 +27,6 @@ PROPS_FILE = os.path.join(HERE, "CrypWeb.Plugins", "presentations.g.props")
 # plugins with their own assembly (plugins.isolate) get their presentation in that assembly
 ISOLATED_DIR = os.path.join(HERE, "CrypWeb.Plugins.Isolated")
 ISOLATE_FILE = os.path.join(HERE, "plugins.isolate")
-STUB_STATE = os.path.join(HERE, "stubs.state.json")
 RUNTIME_DIR = os.path.join(HERE, "CrypWeb.Wpf")
 # Pictures of the plugins, served to the browser. The renderer asks for them lower-cased (HtmlRenderer.ResolveImage).
 RESOURCE_DIR = os.path.join(HERE, "CrypWeb.App", "wwwroot", "wpf-res")
@@ -327,21 +324,6 @@ def main():
     for plugin, plugin_items in isolated_items.items():
         write_props(os.path.join(ISOLATED_DIR, plugin, "presentations.g.props"), plugin_items)
 
-    # the generated stand-ins of these classes would now be duplicates
-    if os.path.exists(STUB_STATE):
-        with open(STUB_STATE) as f:
-            state = json.load(f)
-        # A stand-in with the same simple name in another namespace (the plugin's own) would shadow the real
-        # class that the plugin imports with a using directive, so those go as well.
-        real_names = {name for _, name in real_classes}
-        removed = [key for key in state if tuple(key.split("|")) in real_classes
-                   or (key.split("|")[1] in real_names and not key.startswith("System."))]
-        for key in removed:
-            del state[key]
-        with open(STUB_STATE, "w") as f:
-            json.dump(state, f)
-        subprocess.run([sys.executable, os.path.join(HERE, "tools-prune-plugins.py"), "--write-stubs"], check=True)
-        print("removed %d stand-in classes" % len(removed))
     print("%d presentation classes from %d plugins" % (len(real_classes), len(plugins)))
 
 

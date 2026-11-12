@@ -41,10 +41,7 @@ namespace System.Windows.Hosting
             set => Root.ReportsHidden = value;
         }
 
-        /// <summary>Name under which the rendered HTML travels among the presentation values of a component.</summary>
-        public const string HtmlKey = "$html";
-
-        /// <summary>True when <paramref name="element"/> is a real element tree (generated stand-ins have no children).</summary>
+        /// <summary>True when <paramref name="element"/> is a real element tree (an empty presentation, e.g. a bare UserControl, has nothing to show).</summary>
         public static bool HasContent(UIElement element)
         {
             foreach (UIElement child in element.ChildElements)

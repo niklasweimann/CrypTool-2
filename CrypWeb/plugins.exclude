@@ -1,3 +1,5 @@
+# plugin folders that are not built for the browser (one per line):
+# LatticeCrypto and Primes are standalone tutorials (ICrypTutorial), Wizard and WorkspaceManager belong to the desktop shell
 LatticeCrypto
 Primes
 Wizard

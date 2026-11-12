@@ -16,9 +16,6 @@ public abstract class RunComponent
     public event Action<string>? OutputChanged;
     public event Action<LogLevel, string>? Log;
     public event Action<double>? Progress;
-    /// <summary>Calls the plugin code makes on its (browser-less) presentation: method name or "Property=" and the arguments.</summary>
-    public event Action<string, object?[]>? Presentation;
-    protected void RaisePresentation(string name, object?[] args) => Presentation?.Invoke(name, args);
     protected void RaiseOutput(string prop) => OutputChanged?.Invoke(prop);
     protected void RaiseLog(LogLevel l, string m) => Log?.Invoke(l, m);
     protected void RaiseProgress(double p) => Progress?.Invoke(p);
@@ -48,7 +45,6 @@ public sealed class PluginComponent : RunComponent
         p.OnGuiLogNotificationOccured += (s, e) => RaiseLog(e.NotificationLevel switch { NotificationLevel.Error => LogLevel.Error, NotificationLevel.Warning => LogLevel.Warning, NotificationLevel.Debug => LogLevel.Debug, _ => LogLevel.Info }, e.Message);
         p.OnPluginProgressChanged += (s, e) => { if (e.Max > 0) RaiseProgress(e.Value / e.Max); };
         try { p.Initialize(); } catch { }
-        try { if (p.Presentation is System.Windows.DependencyObject d) d.BridgeSink = (n, a) => RaisePresentation(n, a); } catch { }
         // a presentation compiled from its original XAML/code-behind is drawn as HTML by the WPF runtime
         try { if (p.Presentation is System.Windows.UIElement view && System.Windows.Hosting.PresentationHost.HasContent(view)) Host = new System.Windows.Hosting.PresentationHost(view) { ReportsHidden = BlockingPresentations.Contains(p.GetType().Name) }; } catch { }
     }

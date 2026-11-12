@@ -13,7 +13,7 @@ Plugin presentations (XAML + code-behind) compile and run against it unchanged.
 | `Markup/` | XAML loader: type resolution, value conversion, markup extensions, `XamlDiagnostics` |
 | `Rendering/` | `HtmlRenderer`: element tree -> HTML/SVG; the browser does the layout (CSS grid/flex) |
 | `Hosting/` | `PresentationHost`: renders on change, dispatches input from the browser |
-| `Legacy/` | members needed by the generated stand-ins of presentations that are not compiled for real yet |
+| `Legacy/` | small WPF and .NET Framework types plugin code uses outside presentations (`Point`, `Size`, `Rect`, validation rules, converters, ...) |
 
 ## How it works
 

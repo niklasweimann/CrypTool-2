@@ -363,8 +363,7 @@ public partial class Home : IDisposable
                 v.LastError = n.TryGetProperty("err", out var e) && e.ValueKind == System.Text.Json.JsonValueKind.String ? e.GetString() : null;
                 if (n.TryGetProperty("io", out var io) && io.ValueKind == System.Text.Json.JsonValueKind.Array)
                     foreach (var c in io.EnumerateArray()) v.Io[(c.GetProperty("name").GetString()!, c.GetProperty("out").GetBoolean())] = c.GetProperty("value").GetString() ?? "";
-                if (n.TryGetProperty("pres", out var pr) && pr.ValueKind == System.Text.Json.JsonValueKind.Array)
-                    foreach (var c in pr.EnumerateArray()) v.Pres[c.GetProperty("name").GetString()!] = c.GetProperty("value").GetString() ?? "";
+                if (n.TryGetProperty("html", out var html) && html.ValueKind == System.Text.Json.JsonValueKind.String) v.Html = html.GetString();
                 if (n.TryGetProperty("settings", out var changed) && changed.ValueKind == System.Text.Json.JsonValueKind.Array)
                     ApplyChangedSettings(rd, id, changed);
             }
@@ -707,7 +706,6 @@ public partial class Home : IDisposable
     void OpenSettings(PluginNode p) { settingsFor = p; AddLog("UI", CrypTool.Web.Core.LogLevel.Debug, "Opening settings of " + p.TypeName); StateHasChanged(); }
 
     void CloseSettings() => settingsFor = null;
-    static System.Text.Json.JsonElement ParseJson(string s) { try { return System.Text.Json.JsonDocument.Parse(s).RootElement.Clone(); } catch { return System.Text.Json.JsonDocument.Parse(System.Text.Json.JsonSerializer.Serialize(s)).RootElement.Clone(); } }
     void OpenView(PluginNode p) { viewFor = p; }
     // PluginViewState (CT2): 0 Min, 1 Presentation, 2 Data, 3 Log, 4 Setting, 5 Description, 7 Default
     void SetView(PluginNode p, int v)

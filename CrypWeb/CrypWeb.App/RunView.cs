@@ -11,8 +11,8 @@ public sealed class NodeView
     public string? LastError { get; set; }
     public long Ms { get; set; }
     public string? Image { get; set; }
-    /// <summary>What the component's (not rendered) presentation was told: call name -> latest value as JSON.</summary>
-    public Dictionary<string, string> Pres { get; } = new();
+    /// <summary>The plugin's WPF presentation rendered as HTML (null until it has drawn something).</summary>
+    public string? Html { get; set; }
     /// <summary>Latest value seen on each connector: (name, isOutput) -> text.</summary>
     public Dictionary<(string Name, bool Out), string> Io { get; } = new();
 }

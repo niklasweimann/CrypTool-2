@@ -25,7 +25,6 @@
     <Compile Include="ISAPCommitmentScheme.cs" />
     <Compile Include="NAudio.cs" />
     <Compile Include="OxyPlot.cs" />
-    <Compile Include="stubs.g.cs" Condition="Exists('stubs.g.cs')" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Resources.Extensions" Version="10.0.14" />

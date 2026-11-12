@@ -1,6 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <!-- build target for tools-prune-plugins.py: the plugin assembly plus all isolated plugin assemblies (no WebAssembly bundling) -->
-  <PropertyGroup><TargetFramework>net10.0</TargetFramework><OutputType>Library</OutputType></PropertyGroup>
-  <ItemGroup><ProjectReference Include="..\CrypWeb.Plugins\CrypWeb.Plugins.csproj" /></ItemGroup>
-  <Import Project="..\CrypWeb.Plugins\isolated.g.props" />
-</Project>

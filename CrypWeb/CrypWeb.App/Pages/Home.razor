@@ -312,12 +312,8 @@
                  @onpointerdown:stopPropagation @onwheel:stopPropagation>
               @if (ViewOf(p) == 1)
               {
-                @if ((rn == null || rn.Pres.Count == 0) && !CrypTool.Web.App.Visualizers.XamlRegistry.Has(p.TypeName)) { <div class="mhint">@Loc["view.empty"]</div> }
-                else if (CrypTool.Web.App.Visualizers.VisualizerRegistry.Find(p.TypeName, rn?.Pres) is { } vizType)
-                {
-                  <DynamicComponent Type="vizType" Parameters="@(new Dictionary<string, object?> { ["Pres"] = (IReadOnlyDictionary<string, string>)(rn?.Pres ?? new Dictionary<string, string>()), ["Inline"] = true, ["TypeName"] = p.TypeName, ["NodeId"] = p.Id })" />
-                }
-                else foreach (var kv in rn.Pres.Where(k => k.Value != "[]" && k.Value != "null" && !k.Key.StartsWith('$')).OrderBy(k => k.Key)) { <div class="prow"><b>@kv.Key</b><ValueView Value="ParseJson(kv.Value)" /></div> }
+                @if (rn?.Html == null) { <div class="mhint">@Loc["view.empty"]</div> }
+                else { <PresentationView Html="@rn.Html" NodeId="p.Id" Inline="true" /> }
               }
               else if (ViewOf(p) == 2)
               {
@@ -399,20 +395,11 @@
       <aside class="right">
         <div class="rhead">@Title(sp, Meta(sp))</div>
         <div class="rsub">@(Meta(sp)?.TooltipFor(Loc.Lang))</div>
-        <div class="hint"><button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button> @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && (vn0.Pres.Count > 0 || CrypTool.Web.App.Visualizers.XamlRegistry.Has(sp.TypeName))) { <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button> }</div>
+        <div class="hint"><button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button> @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && vn0.Html != null) { <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button> }</div>
         <div class="sec">@Loc["right.connectors"]</div>
         @foreach (var c in sp.Inputs.Concat(sp.Outputs))
         {
           <div class="crow"><svg width="14" height="14"><path d="M1,1 L13,7 L1,13 z" style="fill:@Theme.TypeColor(c.DataTypeName)" class="port @(c.IsMandatory ? "mand" : "")"/></svg><b>@Loc[c.Outgoing ? "conn.out" : "conn.in"]</b> @c.PropertyName<div class="tip">@PortTip(c, Meta(sp))</div></div>
-        }
-        @if (engine.Nodes.TryGetValue(sp.Id, out var nview) && (nview.Pres.Count > 0 || CrypTool.Web.App.Visualizers.XamlRegistry.Has(sp.TypeName)))
-        {
-          <div class="sec">@Loc["right.presentation"]</div>
-          <div class="hint">@Loc["right.presentationHint"]</div>
-          @foreach (var kv in nview.Pres.Where(k => !k.Key.StartsWith('$')))
-          {
-            <div class="prow"><b>@kv.Key</b><pre>@kv.Value</pre></div>
-          }
         }
       </aside>
     }
@@ -434,7 +421,7 @@
   </div>
   @if (viewFor != null)
   {
-    <PresentationModal NodeId="viewFor.Id" TypeName="@viewFor.TypeName" Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" Hint="@Loc["view.hint"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
+    <PresentationModal NodeId="viewFor.Id" Meta="Meta(viewFor)" View="engine.Nodes.GetValueOrDefault(viewFor.Id)" Title="@Title(viewFor, Meta(viewFor))" Subtitle="@Loc["view.title"]" Empty="@Loc["view.empty"]" CloseText="@Loc["view.close"]" OnClose="() => viewFor = null" />
   }
   @if (settingsFor != null)
   {

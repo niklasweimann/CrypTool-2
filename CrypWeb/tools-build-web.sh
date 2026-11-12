@@ -1,12 +1,10 @@
 #!/bin/sh
 # Builds everything the web app needs and publishes it to ./dist (served by Cloudflare Workers static assets).
-# Pass --skip-worker to reuse the already generated templates and XAML (the name is historical: the engine runs
-# in the app itself now).
+# Pass --skip-templates to reuse the templates copied before.
 set -e
 cd "$(dirname "$0")"
-if [ "$1" != "--skip-worker" ]; then
+if [ "$1" != "--skip-templates" ]; then
   ./tools-copy-templates.sh
-  python3 tools-gen-xaml.py
 fi
 rm -rf dist
 dotnet publish CrypWeb.App -c Release -nologo -v:q -o dist/_publish

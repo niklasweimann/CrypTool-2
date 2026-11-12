@@ -120,55 +120,6 @@ namespace System.Windows
         public DependencyProperty DependencyProperty { get; }
         public void OverrideMetadata(Type forType, PropertyMetadata m) => DependencyProperty.OverrideMetadata(forType, m);
     }
-
-    /// <summary>What every call on a browser-less UI stand-in returns: accepts any member access, call, operator or conversion.</summary>
-    public sealed class StubValue : System.Dynamic.DynamicObject
-    {
-        public static readonly StubValue Instance = new StubValue();
-        readonly DependencyObject owner; readonly string path;
-        StubValue() { }
-        /// <summary>Named element of a UI stand-in: property writes / calls on it are recorded as "name.Property=" / "name.Method()" so the web view can apply them to the drawn XAML.</summary>
-        public StubValue(DependencyObject owner, string path) { this.owner = owner; this.path = path; }
-        public override bool TryGetMember(System.Dynamic.GetMemberBinder b, out object r)
-        {
-            if (owner == null || path.Split('.').Length >= 4) { r = Instance; return true; }
-            var p = path + "." + b.Name;
-            r = owner.__Props.TryGetValue(p, out var stored) ? stored : new StubValue(owner, p); return true; // reads return what the plugin wrote before
-        }
-        public override bool TrySetMember(System.Dynamic.SetMemberBinder b, object v) { if (owner != null) { owner.__Props[path + "." + b.Name] = v; owner.__Record(path + "." + b.Name + "=", new[] { v }); } return true; }
-        public override bool TryInvokeMember(System.Dynamic.InvokeMemberBinder b, object[] a, out object r) { owner?.__Record(path + "." + b.Name + "()", a); r = Instance; return true; }
-        public override bool TryInvoke(System.Dynamic.InvokeBinder b, object[] a, out object r) { r = Instance; return true; }
-        public override bool TryGetIndex(System.Dynamic.GetIndexBinder b, object[] i, out object r) { r = Instance; return true; }
-        public override bool TrySetIndex(System.Dynamic.SetIndexBinder b, object[] i, object v) => true;
-        // comparisons and logical operators must yield a bool for the C# binder, arithmetic keeps the stand-in
-        static bool IsLogical(System.Linq.Expressions.ExpressionType t) => t is System.Linq.Expressions.ExpressionType.Equal or System.Linq.Expressions.ExpressionType.NotEqual or System.Linq.Expressions.ExpressionType.LessThan or System.Linq.Expressions.ExpressionType.LessThanOrEqual or System.Linq.Expressions.ExpressionType.GreaterThan or System.Linq.Expressions.ExpressionType.GreaterThanOrEqual or System.Linq.Expressions.ExpressionType.Not or System.Linq.Expressions.ExpressionType.IsTrue or System.Linq.Expressions.ExpressionType.IsFalse;
-        public override bool TryBinaryOperation(System.Dynamic.BinaryOperationBinder b, object arg, out object r) { r = IsLogical(b.Operation) ? (object)false : Instance; return true; }
-        public override bool TryUnaryOperation(System.Dynamic.UnaryOperationBinder b, out object r) { r = IsLogical(b.Operation) ? (object)false : Instance; return true; }
-        public override bool TryConvert(System.Dynamic.ConvertBinder b, out object r) { r = b.Type.IsValueType ? Activator.CreateInstance(b.Type) : null; return true; }
-        public override string ToString() => "";
-    }
-
-    public class StubEventArgs : RoutedEventArgs
-    {
-        readonly Dictionary<string, object> __bag = new Dictionary<string, object>();
-        public System.Action<string, object[]> BridgeSink { get; set; }
-        public void __Record(string name, object[] args) { BridgeSink?.Invoke(name, args); }
-        public object __Get(string n) => __bag.TryGetValue(n, out var v) ? v : StubValue.Instance;
-        public void __Set(string n, object v) { __bag[n] = v; __Record(n + "=", new[] { v }); }
-    }
-
-    /// <summary>Members used by the generated presentation stand-ins (stubs.g.cs); obsolete once all views are real.</summary>
-    public partial class DependencyObject
-    {
-        public readonly Dictionary<string, object> __Props = new Dictionary<string, object>();
-        readonly Dictionary<string, object> __bag = new Dictionary<string, object>();
-        public object __Get(string n) => __bag.TryGetValue(n, out var v) ? v : new StubValue(this, n);
-        public void __Set(string n, object v) { __bag[n] = v; __Record(n + "=", new[] { v }); }
-        /// <summary>Receives every call/property write that plugin code makes on a generated UI stand-in (see tools-prune-plugins.py).</summary>
-        public System.Action<string, object[]> BridgeSink { get; set; }
-        public void __Record(string name, object[] args) { BridgeSink?.Invoke(name, args); }
-    }
-
 }
 
 namespace System.Windows.Data
@@ -211,7 +162,8 @@ namespace System.Windows.Controls
 }
 
 
-// .NET Remoting leftovers used by a few plugins (synchronization contexts); there is only one thread here, so they do nothing.
+// .NET Remoting leftover used by a few plugins as a class attribute; .NET (Core) has no context-bound objects,
+// so the attribute only has to exist for the code to compile.
 namespace System.Runtime.Remoting.Contexts
 {
     [AttributeUsage(AttributeTargets.Class)]
@@ -223,6 +175,3 @@ namespace System.Runtime.Remoting.Contexts
         public SynchronizationAttribute(int flag, bool reEntrant) { }
     }
 }
-
-namespace System.Windows { /// <summary>Event member of a UI stand-in: subscriptions are accepted and ignored.</summary>
-    public sealed class StubEvent { public static StubEvent operator +(StubEvent e, System.Delegate d) => e; public static StubEvent operator -(StubEvent e, System.Delegate d) => e; } }

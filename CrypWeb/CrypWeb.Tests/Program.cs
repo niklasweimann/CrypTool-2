@@ -44,28 +44,6 @@ if (args.Length > 1 && args[1] == "roundtrip")
     Console.WriteLine($"roundtrip identical={rtOk} onlyDroppedOrphans={rtDropOnly} changed={rtBad}");
     return;
 }
-if (args.Length > 1 && args[1] == "prescalls")
-{
-    // which presentation calls do the components make? (plugin type -> call name -> count, templates, sample)
-    var stat = new Dictionary<string, Dictionary<string, (int n, int t, string sample)>>();
-    var skip2 = new[] { "PrimesGenerator", "KeySearcher", "Analyzer", "Analyser" };
-    foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories))
-    {
-        var w = CwmReader.Read(File.ReadAllBytes(f));
-        if (w.Plugins.Any(p => skip2.Any(k => p.TypeName.Contains(k)))) continue;
-        var e = new ExecutionEngine(); var t = e.RunAsync(w); await Task.WhenAny(t, Task.Delay(1500)); e.Stop(); await Task.WhenAny(t, Task.Delay(4000));
-        foreach (var n in e.Nodes.Values)
-        {
-            if (n.Pres.Count == 0) continue;
-            var key = n.Model.TypeName.Split('.').Last();
-            if (!stat.TryGetValue(key, out var d)) stat[key] = d = new();
-            foreach (var kv in n.Pres) { d.TryGetValue(kv.Key, out var cur); d[kv.Key] = (cur.n + 1, cur.t + 1, cur.sample ?? kv.Value[..Math.Min(90, kv.Value.Length)]); }
-        }
-    }
-    foreach (var kv in stat.OrderByDescending(k => k.Value.Values.Sum(v => v.n)))
-        Console.WriteLine($"PRES {kv.Key}: " + string.Join(" | ", kv.Value.OrderByDescending(x => x.Value.n).Take(6).Select(x => $"{x.Key}×{x.Value.n} {x.Value.sample}")));
-    return;
-}
 if (args.Length > 1 && args[1] == "runall")
 {
     // every template, analyzers included; plugin code runs on background threads as in the app, so a long
@@ -123,7 +101,7 @@ if (args.Length > 1 && args[1] == "runall")
         }
         catch (Exception ex) { aloneErrs.Add(name + ": " + (ex.InnerException ?? ex).Message.Split('\n')[0]); }
     }
-    Console.WriteLine($"components with a visualization: {withView.Count}; rendered alone: {alone.Count}; no WPF view (stand-in): {noHost.Count} [{string.Join(" ", noHost)}]; failed: {aloneErrs.Count}");
+    Console.WriteLine($"components with a visualization: {withView.Count}; rendered alone: {alone.Count}; no rendered view: {noHost.Count} [{string.Join(" ", noHost)}]; failed: {aloneErrs.Count}");
     foreach (var e in aloneErrs) Console.WriteLine("  ALONE " + e);
     foreach (var d in System.Windows.Markup.XamlDiagnostics.Snapshot().Take(40)) Console.WriteLine($"  XAML {d.Value}x {d.Key}");
     foreach (var kv in errs.OrderByDescending(k => k.Value).Take(40)) Console.WriteLine($"  {kv.Value}x {kv.Key}");

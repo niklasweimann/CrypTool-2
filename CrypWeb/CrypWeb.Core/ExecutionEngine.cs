@@ -9,9 +9,6 @@ public sealed class RunNode
     public bool Supported => Comp != null;
     public bool FirstRun = true;
     public long LastMs;
-    /// <summary>Latest value per presentation call (JSON), and the names changed since the last report.</summary>
-    public readonly Dictionary<string, string> Pres = new();
-    public readonly HashSet<string> PresDirty = new();
     public readonly Dictionary<ConnectorPort, Queue<object?>> Queues = new();
     public readonly Dictionary<ConnectorPort, object?> Last = new();
     public readonly List<(LogLevel Level, string Message)> Logs = new();
@@ -21,12 +18,17 @@ public sealed class RunNode
 }
 
 /// <summary>
-/// Single-threaded cooperative re-implementation of the CT2 workspace execution semantics
-/// (queued inputs, mandatory inputs, back-pressure on unconsumed outputs).
+/// Re-implementation of the CT2 workspace execution semantics: queued inputs, mandatory inputs, back-pressure on
+/// unconsumed outputs. The scheduling loop runs on the caller's thread (the UI thread in the app); with
+/// <see cref="ExecuteInBackground"/> each component's Execute runs on a thread of its own, several at once, as in CT2.
 /// </summary>
 public sealed class ExecutionEngine
 {
-    static ExecutionEngine() { try { System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); } catch { } } // iso-8859-x / windows-125x used by plugins
+    static ExecutionEngine()
+    {
+        // plugins use code pages that .NET (Core) only knows after this (iso-8859-x, windows-125x)
+        try { System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance); } catch { }
+    }
     public Dictionary<int, RunNode> Nodes { get; } = new();
     public HashSet<int> ActiveWires { get; } = new();
     public bool Running { get; private set; }
@@ -75,7 +77,6 @@ public sealed class ExecutionEngine
             if (Nodes.TryGetValue(p.Id, out var existing) && existing.Model.TypeName == p.TypeName && existing.Comp != null)
             {
                 var kept = new RunNode { Model = p, Comp = existing.Comp };
-                CopyPresentation(existing, kept);
                 Nodes[p.Id] = kept;
                 try { kept.Comp.ApplySettings(p.Settings); } catch (Exception e) { kept.Logs.Add((LogLevel.Warning, e.Message)); }
                 continue;
@@ -99,11 +100,6 @@ public sealed class ExecutionEngine
         return rn;
     }
 
-    static void CopyPresentation(RunNode from, RunNode to)
-    {
-        lock (from.Pres) foreach (var kv in from.Pres) { to.Pres[kv.Key] = kv.Value; to.PresDirty.Add(kv.Key); }
-    }
-
     // Component events are routed to the node that currently owns the component (nodes are replaced on Prepare).
     readonly Dictionary<RunComponent, RunNode> owners = new();
 
@@ -123,7 +119,6 @@ public sealed class ExecutionEngine
             Log?.Invoke(node, l, m);
         };
         comp.Progress += d => owners[comp].Progress = d;
-        comp.Presentation += (name, args) => RecordPresentation(owners[comp], name, args);
     }
 
     public async Task RunAsync(Workspace ws)
@@ -200,63 +195,6 @@ public sealed class ExecutionEngine
             }
             Running = false; ActiveWires.Clear(); Changed?.Invoke();
         }
-    }
-
-    /// <summary>Turns whatever a plugin passed to its presentation into JSON-friendly data (grids, lists, numbers, text).</summary>
-    static object? ToPlain(object? o, int depth = 0)
-    {
-        if (o == null) return null;
-        if (depth > 5) return o.ToString();
-        switch (o)
-        {
-            case string: case bool: return o;
-            case char c: return c.ToString();
-            case double d: return double.IsFinite(d) ? d : d.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            case float f: return float.IsFinite(f) ? f : f.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            case byte or sbyte or short or ushort or int or uint or long or ulong or decimal: return o;
-            case System.Numerics.BigInteger bi: return bi.ToString();
-            case Enum e: return e.ToString();
-            case byte[] bytes: return "0x" + Convert.ToHexString(bytes.AsSpan(0, Math.Min(bytes.Length, 96))) + (bytes.Length > 96 ? "…" : "");
-            case Array a when a.Rank == 2:
-                {
-                    var rows = new List<object?>();
-                    for (int i = 0; i < Math.Min(a.GetLength(0), 200); i++)
-                    {
-                        var row = new List<object?>();
-                        for (int j = 0; j < Math.Min(a.GetLength(1), 60); j++) row.Add(ToPlain(a.GetValue(i, j), depth + 1));
-                        rows.Add(row);
-                    }
-                    return rows;
-                }
-            case System.Data.DataTable dt:
-                return new Dictionary<string, object?>
-                {
-                    ["columns"] = dt.Columns.Cast<System.Data.DataColumn>().Select(c => c.ColumnName).ToList(),
-                    ["rows"] = dt.Rows.Cast<System.Data.DataRow>().Take(200).Select(r => r.ItemArray.Select(x => ToPlain(x is DBNull ? null : x, depth + 1)).ToList()).ToList(),
-                };
-            case System.Collections.IDictionary dict:
-                {
-                    var r = new Dictionary<string, object?>(); int n = 0;
-                    foreach (System.Collections.DictionaryEntry kv in dict) { if (n++ >= 100) break; r[kv.Key?.ToString() ?? ""] = ToPlain(kv.Value, depth + 1); }
-                    return r;
-                }
-            case System.Collections.IEnumerable en:
-                {
-                    var l = new List<object?>(); int n = 0;
-                    foreach (var x in en) { if (n++ >= 500) break; l.Add(ToPlain(x, depth + 1)); }
-                    return l;
-                }
-            default: return o.ToString();
-        }
-    }
-
-    void RecordPresentation(RunNode n, string name, object?[] args)
-    {
-        string json;
-        try { json = System.Text.Json.JsonSerializer.Serialize(ToPlain(args.Length == 1 ? args[0] : args)); }
-        catch { json = System.Text.Json.JsonSerializer.Serialize(string.Join(", ", args.Select(x => x?.ToString()))); }
-        if (json.Length > 60000) json = System.Text.Json.JsonSerializer.Serialize("(too large to show: " + json.Length + " characters)");
-        lock (n.Pres) { n.Pres[name] = json; n.PresDirty.Add(name); }
     }
 
     void Fail(RunNode n, string msg) { n.State = RunState.Error; n.Logs.Add((LogLevel.Error, msg)); Log?.Invoke(n, LogLevel.Error, msg); }
