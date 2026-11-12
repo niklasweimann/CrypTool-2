@@ -120,7 +120,7 @@ namespace System.Windows.Rendering
         private void OpenTag(string tag, UIElement element, LayoutSlot slot, string cssClass, string extraStyle, string extraAttributes = "")
         {
             _html.Append('<').Append(tag).Append(" class=\"").Append(cssClass);
-            if (!element.IsEnabled)
+            if (!element.IsEnabled && ShowsDisabledLook(element))
             {
                 _html.Append(" off");
             }
@@ -154,6 +154,16 @@ namespace System.Windows.Rendering
             }
             _html.Append(extraAttributes);
             _html.Append(" style=\"").Append(CommonStyle(element, slot)).Append(extraStyle).Append("\">");
+        }
+
+        /// <summary>
+        /// True for the controls whose standard look changes when they are disabled (buttons, text fields, lists,
+        /// sliders, labels). WPF draws disabled panels, shapes and texts unchanged, so they are not faded.
+        /// </summary>
+        private static bool ShowsDisabledLook(UIElement element)
+        {
+            return element is ButtonBase || element is TextBoxBase || element is PasswordBox || element is Selector
+                || element is RangeBase || element is Label;
         }
 
         private static bool IsInteractive(UIElement element)
