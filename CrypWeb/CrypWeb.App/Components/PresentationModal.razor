@@ -3,31 +3,51 @@
   The presentation of one plugin in a dialog (the "Open view" button of the right panel).
 *@
 <div class="sm-back" @onclick="Close">
-  <div class="sm-dialog wide" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
-    <div class="mhead" style="background:@HeadColor">
-      @if (Meta?.Icon != null) { <img src="@Meta.Icon" /> }
-      <div class="mtitle">@Title<small>@Subtitle</small></div>
-      <button class="mx" @onclick="Close" title="Close">✕</button>
+    <div class="sm-dialog wide" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
+        <div class="mhead" style="background:@HeadColor">
+            @if (Meta?.Icon != null)
+            {
+                <img src="@Meta.Icon"/>
+            }
+            <div class="mtitle">@Title<small>@Subtitle</small></div>
+            <button class="mx" @onclick="Close" title="Close">✕</button>
+        </div>
+        <div class="mbody pv">
+            @if (View?.Html == null)
+            {
+                <div class="mhint">@Empty</div>
+            }
+            else
+            {
+                <PresentationView Html="@View.Html" NodeId="NodeId"/>
+            }
+        </div>
+        <div class="mfoot">
+            <button class="mdone" @onclick="Close">@CloseText</button>
+        </div>
     </div>
-    <div class="mbody pv">
-      @if (View?.Html == null) { <div class="mhint">@Empty</div> }
-      else { <PresentationView Html="@View.Html" NodeId="NodeId" /> }
-    </div>
-    <div class="mfoot"><button class="mdone" @onclick="Close">@CloseText</button></div>
-  </div>
 </div>
 
 @code {
-  [Parameter] public int NodeId { get; set; }
-  [Parameter] public PluginMeta? Meta { get; set; }
-  [Parameter] public NodeView? View { get; set; }
-  [Parameter] public string Title { get; set; } = "";
-  [Parameter] public string Subtitle { get; set; } = "";
-  [Parameter] public string Empty { get; set; } = "Run the workspace to see what this component shows.";
-  [Parameter] public string CloseText { get; set; } = "Close";
-  [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter] public int NodeId { get; set; }
+    [Parameter] public PluginMeta? Meta { get; set; }
+    [Parameter] public NodeView? View { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Subtitle { get; set; } = "";
+    [Parameter] public string Empty { get; set; } = "Run the workspace to see what this component shows.";
+    [Parameter] public string CloseText { get; set; } = "Close";
+    [Parameter] public EventCallback OnClose { get; set; }
 
-  string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
-  Task Close() => OnClose.InvokeAsync();
-  async Task OnKey(KeyboardEventArgs e) { if (e.Key == "Escape") await Close(); }
+    string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
+    Task Close()
+  {
+      return OnClose.InvokeAsync();
+  }
+
+
+  async Task OnKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") await Close();
+    }
+
 }

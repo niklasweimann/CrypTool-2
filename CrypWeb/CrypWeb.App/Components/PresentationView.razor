@@ -4,31 +4,42 @@
   (CrypWeb.Wpf) and sends the rendered HTML (PresentationHost.Render); wpf.js merges it into this element and
   reports clicks and input back to the engine (EngineHost.PresEvent).
 *@
-<div class="wpfhost @(Inline ? "" : "dialog")" @ref="host"></div>
+<div class="wpfhost @(Inline ? "" : "dialog")" @ref="Host"></div>
 
 @code {
-  /// <summary>The presentation rendered as HTML.</summary>
-  [Parameter] public string Html { get; set; } = "";
-  /// <summary>Workspace id of the plugin; input events are sent back for this plugin.</summary>
-  [Parameter] public int NodeId { get; set; }
-  /// <summary>True inside a node on the canvas, false in the dialog.</summary>
-  [Parameter] public bool Inline { get; set; }
 
-  ElementReference host;
-  string? shown;
+    /// <summary>The presentation rendered as HTML.</summary>
+    [Parameter]
+    public string Html { get; set; } = "";
 
-  protected override async Task OnAfterRenderAsync(bool firstRender)
-  {
-    // a new string arrives only when the presentation changed (EngineHost.TakeHtml)
-    if (ReferenceEquals(Html, shown)) return;
-    shown = Html;
-    try
+    /// <summary>Workspace id of the plugin; input events are sent back for this plugin.</summary>
+    [Parameter]
+    public int NodeId { get; set; }
+
+    /// <summary>True inside a node on the canvas, false in the dialog.</summary>
+    [Parameter]
+    public bool Inline { get; set; }
+
+    private ElementReference Host { get; set; }
+    private string? Shown { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-      await JS.InvokeVoidAsync("ctWpf.update", host, Html, NodeId);
+        // a new string arrives only when the presentation changed (EngineHost.TakeHtml)
+        if (ReferenceEquals(Html, Shown))
+        {
+            return;
+        }
+
+        Shown = Html;
+        try
+        {
+            await JS.InvokeVoidAsync("ctWpf.update", Host, Html, NodeId);
+        }
+        catch (JSException)
+        {
+            // the element is gone (view closed while the update was on its way)
+        }
     }
-    catch (JSException)
-    {
-      // the element is gone (view closed while the update was on its way)
-    }
-  }
+
 }

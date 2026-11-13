@@ -65,41 +65,111 @@ namespace System.Windows.Rendering
             switch (element)
             {
                 // a control with a ControlTemplate is drawn as its template's elements (Control.TemplateRoot)
-                case Control templated when templated.TemplateRoot != null: WriteContainer(templated, slot, "wb", "", LayoutSlot.GridCell); break;
-                case Shape shape: WriteShape(shape, slot); break;
-                case TextBlock textBlock: WriteTextBlock(textBlock, slot); break;
-                case Image image: WriteImage(image, slot); break;
-                case Viewport3D viewport3D: WriteViewport3D(viewport3D, slot); break;
-                case Viewbox viewbox: WriteViewbox(viewbox, slot); break;
-                case Decorator decorator: WriteContainer(decorator, slot, "wb", "", LayoutSlot.GridCell); break;
-                case Grid grid: WriteGrid(grid, slot); break;
-                case Canvas canvas: WriteContainer(canvas, slot, "wc", "", LayoutSlot.Canvas); break;
-                case StackPanel stack: WriteStack(stack, slot, stack.Orientation, wrap: false); break;
-                case WrapPanel wrap: WriteStack(wrap, slot, wrap.Orientation, wrap: true); break;
-                case DockPanel dock: WriteDockPanel(dock, slot); break;
-                case UniformGrid uniform: WriteUniformGrid(uniform, slot); break;
-                case Panel panel: WriteContainer(panel, slot, "wb", "", LayoutSlot.GridCell); break;
-                case TextBox textBox: WriteTextBox(textBox, slot); break;
-                case RichTextBox richText: WriteFlowDocument(richText, richText.Document, slot); break;
-                case FlowDocumentScrollViewer viewer: WriteFlowDocument(viewer, viewer.Document, slot); break;
-                case PasswordBox passwordBox: WritePasswordBox(passwordBox, slot); break;
-                case ToggleButton toggle: WriteToggle(toggle, slot); break;
-                case ButtonBase button: WriteButton(button, slot); break;
-                case ProgressBar progress: WriteProgressBar(progress, slot); break;
-                case RangeBase range: WriteSlider(range, slot); break;
-                case ScrollViewer scroll: WriteScrollViewer(scroll, slot); break;
-                case TabControl tabs: WriteTabControl(tabs, slot); break;
-                case Expander expander: WriteExpander(expander, slot); break;
-                case GroupBox group: WriteGroupBox(group, slot); break;
-                case DataGrid dataGrid: WriteDataGrid(dataGrid, slot); break;
-                case ListView listView when listView.View is GridView: WriteListView(listView, slot); break;
-                case ComboBox comboBox: WriteComboBox(comboBox, slot); break;
-                case ItemsControl items: WriteItemsControl(items, slot); break;
-                case Separator separator: WriteSeparator(separator, slot); break;
-                case GridSplitter splitter: WriteContainer(splitter, slot, "wsep", "", LayoutSlot.GridCell); break;
-                case ContentControl content: WriteContentControl(content, slot); break;
-                case Forms.Integration.WindowsFormsHost formsHost: WriteFormsHost(formsHost, slot); break;
-                default: WriteContainer(element, slot, "wb", "", LayoutSlot.GridCell); break;
+                case Control templated when templated.TemplateRoot != null:
+                    WriteContainer(templated, slot, "wb", "", LayoutSlot.GridCell);
+                    break;
+                case Shape shape:
+                    WriteShape(shape, slot);
+                    break;
+                case TextBlock textBlock:
+                    WriteTextBlock(textBlock, slot);
+                    break;
+                case Image image:
+                    WriteImage(image, slot);
+                    break;
+                case Viewport3D viewport3D:
+                    WriteViewport3D(viewport3D, slot);
+                    break;
+                case Viewbox viewbox:
+                    WriteViewbox(viewbox, slot);
+                    break;
+                case Decorator decorator:
+                    WriteContainer(decorator, slot, "wb", "", LayoutSlot.GridCell);
+                    break;
+                case Grid grid:
+                    WriteGrid(grid, slot);
+                    break;
+                case Canvas canvas:
+                    WriteContainer(canvas, slot, "wc", "", LayoutSlot.Canvas);
+                    break;
+                case StackPanel stack:
+                    WriteStack(stack, slot, stack.Orientation, wrap: false);
+                    break;
+                case WrapPanel wrap:
+                    WriteStack(wrap, slot, wrap.Orientation, wrap: true);
+                    break;
+                case DockPanel dock:
+                    WriteDockPanel(dock, slot);
+                    break;
+                case UniformGrid uniform:
+                    WriteUniformGrid(uniform, slot);
+                    break;
+                case Panel panel:
+                    WriteContainer(panel, slot, "wb", "", LayoutSlot.GridCell);
+                    break;
+                case TextBox textBox:
+                    WriteTextBox(textBox, slot);
+                    break;
+                case RichTextBox richText:
+                    WriteFlowDocument(richText, richText.Document, slot);
+                    break;
+                case FlowDocumentScrollViewer viewer:
+                    WriteFlowDocument(viewer, viewer.Document, slot);
+                    break;
+                case PasswordBox passwordBox:
+                    WritePasswordBox(passwordBox, slot);
+                    break;
+                case ToggleButton toggle:
+                    WriteToggle(toggle, slot);
+                    break;
+                case ButtonBase button:
+                    WriteButton(button, slot);
+                    break;
+                case ProgressBar progress:
+                    WriteProgressBar(progress, slot);
+                    break;
+                case RangeBase range:
+                    WriteSlider(range, slot);
+                    break;
+                case ScrollViewer scroll:
+                    WriteScrollViewer(scroll, slot);
+                    break;
+                case TabControl tabs:
+                    WriteTabControl(tabs, slot);
+                    break;
+                case Expander expander:
+                    WriteExpander(expander, slot);
+                    break;
+                case GroupBox group:
+                    WriteGroupBox(group, slot);
+                    break;
+                case DataGrid dataGrid:
+                    WriteDataGrid(dataGrid, slot);
+                    break;
+                case ListView listView when listView.View is GridView:
+                    WriteListView(listView, slot);
+                    break;
+                case ComboBox comboBox:
+                    WriteComboBox(comboBox, slot);
+                    break;
+                case ItemsControl items:
+                    WriteItemsControl(items, slot);
+                    break;
+                case Separator separator:
+                    WriteSeparator(separator, slot);
+                    break;
+                case GridSplitter splitter:
+                    WriteContainer(splitter, slot, "wsep", "", LayoutSlot.GridCell);
+                    break;
+                case ContentControl content:
+                    WriteContentControl(content, slot);
+                    break;
+                case Forms.Integration.WindowsFormsHost formsHost:
+                    WriteFormsHost(formsHost, slot);
+                    break;
+                default:
+                    WriteContainer(element, slot, "wb", "", LayoutSlot.GridCell);
+                    break;
             }
         }
 
@@ -117,7 +187,12 @@ namespace System.Windows.Rendering
 
         // ---- the opening tag: everything all elements have in common --------------------------------------------
 
-        private void OpenTag(string tag, UIElement element, LayoutSlot slot, string cssClass, string extraStyle, string extraAttributes = "")
+        private void OpenTag(string tag,
+            UIElement element,
+            LayoutSlot slot,
+            string cssClass,
+            string extraStyle,
+            string extraAttributes = "")
         {
             _html.Append('<').Append(tag).Append(" class=\"").Append(cssClass);
             if (!element.IsEnabled && ShowsDisabledLook(element))
@@ -236,7 +311,9 @@ namespace System.Windows.Rendering
 
         /// <summary>
         /// WPF alignment as CSS self-alignment. An element with an explicit size that is asked to stretch is
-        /// centred in WPF, which CSS would put at the start.
+        /// centred in WPF, which CSS would put at the start; when it is larger than its space, WPF puts it at the
+        /// start instead (FrameworkElement.ComputeAlignmentOffset), which is CSS "safe center". Without that, a large
+        /// canvas in a ScrollViewer would stick out above and to the left where it cannot be scrolled to.
         /// </summary>
         private static string Align(HorizontalAlignment alignment, bool hasSize)
         {
@@ -245,7 +322,7 @@ namespace System.Windows.Rendering
                 HorizontalAlignment.Left => "start",
                 HorizontalAlignment.Center => "center",
                 HorizontalAlignment.Right => "end",
-                _ => hasSize ? "center" : "stretch",
+                _ => hasSize ? "safe center" : "stretch",
             };
         }
 
@@ -256,7 +333,7 @@ namespace System.Windows.Rendering
                 VerticalAlignment.Top => "start",
                 VerticalAlignment.Center => "center",
                 VerticalAlignment.Bottom => "end",
-                _ => hasSize ? "center" : "stretch",
+                _ => hasSize ? "safe center" : "stretch",
             };
         }
 
@@ -321,7 +398,10 @@ namespace System.Windows.Rendering
         private static int? QuarterTurn(Matrix m)
         {
             const double tolerance = 1e-9;
-            if (Math.Abs(m.M11) > tolerance || Math.Abs(m.M22) > tolerance || Math.Abs(m.OffsetX) > tolerance || Math.Abs(m.OffsetY) > tolerance)
+            if (Math.Abs(m.M11) > tolerance
+                || Math.Abs(m.M22) > tolerance
+                || Math.Abs(m.OffsetX) > tolerance
+                || Math.Abs(m.OffsetY) > tolerance)
             {
                 return null;
             }
@@ -346,7 +426,8 @@ namespace System.Windows.Rendering
 
             if (element.HasValue(Panel.BackgroundProperty))
             {
-                css.Add("background", CssValues.Background(element.GetValue(Panel.BackgroundProperty) as Brush, address => ResolveImage(element, address)));
+                css.Add("background",
+                    CssValues.Background(element.GetValue(Panel.BackgroundProperty) as Brush, address => ResolveImage(element, address)));
             }
             if (element.HasValue(Border.BorderThicknessProperty))
             {
@@ -359,7 +440,8 @@ namespace System.Windows.Rendering
                 CornerRadius radius = border.CornerRadius;
                 if (radius.TopLeft != 0 || radius.TopRight != 0 || radius.BottomRight != 0 || radius.BottomLeft != 0)
                 {
-                    css.Add("border-radius", CssValues.Pixels(radius.TopLeft) + " " + CssValues.Pixels(radius.TopRight) + " " + CssValues.Pixels(radius.BottomRight) + " " + CssValues.Pixels(radius.BottomLeft));
+                    css.Add("border-radius",
+                        CssValues.Pixels(radius.TopLeft) + " " + CssValues.Pixels(radius.TopRight) + " " + CssValues.Pixels(radius.BottomRight) + " " + CssValues.Pixels(radius.BottomLeft));
                 }
             }
             if (element.HasValue(Border.PaddingProperty))
@@ -401,7 +483,9 @@ namespace System.Windows.Rendering
         /// </summary>
         internal static string ResolveImage(UIElement element, string address)
         {
-            if (string.IsNullOrEmpty(address) || address.StartsWith("data:", StringComparison.Ordinal) || address.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(address)
+                || address.StartsWith("data:", StringComparison.Ordinal)
+                || address.StartsWith("http", StringComparison.OrdinalIgnoreCase))
             {
                 return address;
             }

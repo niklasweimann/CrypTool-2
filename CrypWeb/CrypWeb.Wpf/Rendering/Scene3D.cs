@@ -425,7 +425,13 @@ namespace System.Windows.Rendering
             return false;
         }
 
-        private void AddPolygon(MeshFrame frame, int[] polygon, int[] triangle, Vector3D normal, PointCollection texture, Material front, Material back)
+        private void AddPolygon(MeshFrame frame,
+            int[] polygon,
+            int[] triangle,
+            Vector3D normal,
+            PointCollection texture,
+            Material front,
+            Material back)
         {
             // front or back: does the face point towards the camera?
             Point3D corner = frame.World[polygon[0]];
@@ -515,20 +521,30 @@ namespace System.Windows.Rendering
             }
         }
 
-        private static void AddBrushLayer(Face3D face, Brush brush, Color materialColor, (double R, double G, double B) light, Matrix? textureToScreen)
+        private static void AddBrushLayer(Face3D face,
+            Brush brush,
+            Color materialColor,
+            (double R, double G, double B) light,
+            Matrix? textureToScreen)
         {
             Color Lit(Color color) => Color.FromArgb(color.A,
                 ToByte(color.R * materialColor.R / 255.0 * light.R),
                 ToByte(color.G * materialColor.G / 255.0 * light.G),
                 ToByte(color.B * materialColor.B / 255.0 * light.B));
 
-            if (brush is VisualBrush visualBrush && TextOf(visualBrush.Visual, out string text, out Brush foreground, out Brush background, out double fontSize, out bool bold))
+            if (brush is VisualBrush visualBrush && TextOf(visualBrush.Visual,
+                out string text,
+                out Brush foreground,
+                out Brush background,
+                out double fontSize,
+                out bool bold))
             {
                 if (textureToScreen == null)
                 {
                     if (background is SolidColorBrush solidBackground)
                     {
-                        face.Layers.Add(new FaceLayer { Color = Lit(solidBackground.Color), Opacity = brush.Opacity * solidBackground.Opacity });
+                        face.Layers.Add(new FaceLayer { Color = Lit(solidBackground.Color),
+                            Opacity = brush.Opacity * solidBackground.Opacity });
                     }
                     return;
                 }
@@ -548,7 +564,9 @@ namespace System.Windows.Rendering
             {
                 // the picture is drawn as it is (lighting would need its pixels); WPF lights it, so the lit
                 // brightness is kept as an overlay of black with the missing light as opacity
-                face.Layers.Add(new FaceLayer { Image = imageBrush.ImageSource, Opacity = brush.Opacity, TextureToScreen = textureToScreen.Value });
+                face.Layers.Add(new FaceLayer { Image = imageBrush.ImageSource,
+                    Opacity = brush.Opacity,
+                    TextureToScreen = textureToScreen.Value });
                 double brightness = (light.R + light.G + light.B) / 3;
                 if (brightness < 1)
                 {
@@ -583,7 +601,12 @@ namespace System.Windows.Rendering
         }
 
         /// <summary>The text of a visual a VisualBrush shows (a TextBlock, or a content control with text).</summary>
-        private static bool TextOf(Visual visual, out string text, out Brush foreground, out Brush background, out double fontSize, out bool bold)
+        private static bool TextOf(Visual visual,
+            out string text,
+            out Brush foreground,
+            out Brush background,
+            out double fontSize,
+            out bool bold)
         {
             text = null;
             foreground = null;

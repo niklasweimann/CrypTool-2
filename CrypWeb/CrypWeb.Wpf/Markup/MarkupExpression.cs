@@ -39,7 +39,8 @@ namespace System.Windows.Markup
                 int equals = IndexOfTopLevel(argument, '=');
                 if (equals > 0 && IsIdentifier(argument.Substring(0, equals).Trim()))
                 {
-                    expression.Named.Add(new KeyValuePair<string, string>(argument.Substring(0, equals).Trim(), Unquote(argument.Substring(equals + 1).Trim())));
+                    expression.Named.Add(new KeyValuePair<string, string>(argument.Substring(0, equals).Trim(),
+                        Unquote(argument.Substring(equals + 1).Trim())));
                 }
                 else
                 {

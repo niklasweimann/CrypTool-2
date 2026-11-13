@@ -69,7 +69,8 @@ namespace System.Windows.Markup
             XNamespace xmlNamespace = prefix == null
                 ? CurrentElement?.GetDefaultNamespace()
                 : CurrentElement?.GetNamespaceOfPrefix(prefix);
-            return XamlTypeResolver.Resolve(xmlNamespace?.NamespaceName ?? "http://schemas.microsoft.com/winfx/2006/xaml/presentation", name);
+            return XamlTypeResolver.Resolve(xmlNamespace?.NamespaceName ?? "http://schemas.microsoft.com/winfx/2006/xaml/presentation",
+                name);
         }
 
         public bool TryFindResource(object key, out object value)

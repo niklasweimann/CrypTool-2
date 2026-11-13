@@ -41,9 +41,17 @@ namespace System.Windows.Documents
         public static readonly DependencyProperty BaselineAlignmentProperty = Dp.Register<BaselineAlignment, Inline>(nameof(BaselineAlignment), BaselineAlignment.Baseline);
 
         /// <summary>Vertical position of the text, e.g. Superscript for exponents (rendered as CSS vertical-align).</summary>
-        public BaselineAlignment BaselineAlignment { get => (BaselineAlignment)GetValue(BaselineAlignmentProperty); set => SetValue(BaselineAlignmentProperty, value); }
+        public BaselineAlignment BaselineAlignment
+        {
+            get => (BaselineAlignment)GetValue(BaselineAlignmentProperty);
+            set => SetValue(BaselineAlignmentProperty, value);
+        }
 
-        public TextDecorationCollection TextDecorations { get => (TextDecorationCollection)GetValue(TextDecorationsProperty); set => SetValue(TextDecorationsProperty, value); }
+        public TextDecorationCollection TextDecorations
+        {
+            get => (TextDecorationCollection)GetValue(TextDecorationsProperty);
+            set => SetValue(TextDecorationsProperty, value);
+        }
 
         public string Name { get; set; }
 

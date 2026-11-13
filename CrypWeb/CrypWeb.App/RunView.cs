@@ -11,17 +11,27 @@ public sealed class NodeView
     public string? LastError { get; set; }
     public long Ms { get; set; }
     public string? Image { get; set; }
+
     /// <summary>The plugin's WPF presentation rendered as HTML (null until it has drawn something).</summary>
     public string? Html { get; set; }
+
     /// <summary>Latest value seen on each connector: (name, isOutput) -> text.</summary>
     public Dictionary<(string Name, bool Out), string> Io { get; } = new();
 }
 
+/// <summary>What the canvas shows about a running (or prepared) workspace: per component state, progress and results, and the wires that carry data.</summary>
 public sealed class RunView
 {
     public bool Running { get; set; }
     public int ExecutionCount { get; set; }
     public HashSet<int> ActiveWires { get; } = new();
     public Dictionary<int, NodeView> Nodes { get; } = new();
-    public void Reset() { Running = false; ExecutionCount = 0; ActiveWires.Clear(); Nodes.Clear(); }
+
+    public void Reset()
+    {
+        Running = false;
+        ExecutionCount = 0;
+        ActiveWires.Clear();
+        Nodes.Clear();
+    }
 }

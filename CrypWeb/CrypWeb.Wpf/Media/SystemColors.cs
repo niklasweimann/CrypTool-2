@@ -26,7 +26,6 @@ namespace System.Windows
     {
         private static SolidColorBrush Frozen(Color color) => new SolidColorBrush(color);
 
-
         public static Color ActiveBorderColor => Color.FromRgb(0xB4, 0xB4, 0xB4);
         public static SolidColorBrush ActiveBorderBrush { get; } = Frozen(ActiveBorderColor);
         public static SystemResourceKey ActiveBorderColorKey { get; } = new SystemResourceKey("ActiveBorderColor", ActiveBorderColor);
@@ -89,8 +88,12 @@ namespace System.Windows
 
         public static Color GradientInactiveCaptionColor => Color.FromRgb(0xD7, 0xE4, 0xF2);
         public static SolidColorBrush GradientInactiveCaptionBrush { get; } = Frozen(GradientInactiveCaptionColor);
-        public static SystemResourceKey GradientInactiveCaptionColorKey { get; } = new SystemResourceKey("GradientInactiveCaptionColor", GradientInactiveCaptionColor);
-        public static SystemResourceKey GradientInactiveCaptionBrushKey { get; } = new SystemResourceKey("GradientInactiveCaptionBrush", GradientInactiveCaptionBrush);
+
+        public static SystemResourceKey GradientInactiveCaptionColorKey { get; } = new SystemResourceKey("GradientInactiveCaptionColor",
+            GradientInactiveCaptionColor);
+
+        public static SystemResourceKey GradientInactiveCaptionBrushKey { get; } = new SystemResourceKey("GradientInactiveCaptionBrush",
+            GradientInactiveCaptionBrush);
 
         public static Color GrayTextColor => Color.FromRgb(0x6D, 0x6D, 0x6D);
         public static SolidColorBrush GrayTextBrush { get; } = Frozen(GrayTextColor);
@@ -129,13 +132,21 @@ namespace System.Windows
 
         public static Color InactiveSelectionHighlightColor => Color.FromRgb(0xF0, 0xF0, 0xF0);
         public static SolidColorBrush InactiveSelectionHighlightBrush { get; } = Frozen(InactiveSelectionHighlightColor);
-        public static SystemResourceKey InactiveSelectionHighlightColorKey { get; } = new SystemResourceKey("InactiveSelectionHighlightColor", InactiveSelectionHighlightColor);
-        public static SystemResourceKey InactiveSelectionHighlightBrushKey { get; } = new SystemResourceKey("InactiveSelectionHighlightBrush", InactiveSelectionHighlightBrush);
+
+        public static SystemResourceKey InactiveSelectionHighlightColorKey { get; } = new SystemResourceKey("InactiveSelectionHighlightColor",
+            InactiveSelectionHighlightColor);
+
+        public static SystemResourceKey InactiveSelectionHighlightBrushKey { get; } = new SystemResourceKey("InactiveSelectionHighlightBrush",
+            InactiveSelectionHighlightBrush);
 
         public static Color InactiveSelectionHighlightTextColor => Color.FromRgb(0x00, 0x00, 0x00);
         public static SolidColorBrush InactiveSelectionHighlightTextBrush { get; } = Frozen(InactiveSelectionHighlightTextColor);
-        public static SystemResourceKey InactiveSelectionHighlightTextColorKey { get; } = new SystemResourceKey("InactiveSelectionHighlightTextColor", InactiveSelectionHighlightTextColor);
-        public static SystemResourceKey InactiveSelectionHighlightTextBrushKey { get; } = new SystemResourceKey("InactiveSelectionHighlightTextBrush", InactiveSelectionHighlightTextBrush);
+
+        public static SystemResourceKey InactiveSelectionHighlightTextColorKey { get; } = new SystemResourceKey("InactiveSelectionHighlightTextColor",
+            InactiveSelectionHighlightTextColor);
+
+        public static SystemResourceKey InactiveSelectionHighlightTextBrushKey { get; } = new SystemResourceKey("InactiveSelectionHighlightTextBrush",
+            InactiveSelectionHighlightTextBrush);
 
         public static Color InfoColor => Color.FromRgb(0xFF, 0xFF, 0xE1);
         public static SolidColorBrush InfoBrush { get; } = Frozen(InfoColor);

@@ -1,96 +1,411 @@
 /* Styles for the HTML that the WPF runtime (CrypWeb.Wpf, HtmlRenderer) produces. Class names:
    wpf root · wg Grid · wb single-cell box (Border, content controls) · ws stack/dock/wrap · wc Canvas · wt TextBlock
    wvb/wvbi Viewbox · wsh shape (svg) · wr rectangle/ellipse · wi Image · wdraw custom drawing · controls below */
-.wpfhost { width: 100%; height: 100%; overflow: auto; background: #fff; }
-.wpfhost.dialog { height: 70vh; }
-.wpf {
-  display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr);
-  width: 100%; height: 100%; position: relative;
-  font: 12px "Segoe UI", system-ui, sans-serif; line-height: normal; color: #000; text-align: left;
+.wpfhost {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: #fff;
 }
-.wpf * { box-sizing: border-box; min-width: 0; min-height: 0; }
+
+.wpfhost.dialog {
+    height: 70vh;
+}
+
+.wpf {
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font: 12px "Segoe UI", system-ui, sans-serif;
+    line-height: normal;
+    color: #000;
+    text-align: left;
+}
+
+.wpf * {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
+}
 
 /* layout containers */
-.wpf .wg { display: grid; position: relative; }
-.wpf .wb { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); position: relative; }
-.wpf .ws { display: flex; position: relative; }
-.wpf .wc { position: relative; }
-.wpf .wvb { position: relative; overflow: hidden; }
+.wpf .wg {
+    display: grid;
+    position: relative;
+}
+
+.wpf .wb {
+    display: grid;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+    position: relative;
+}
+
+.wpf .ws {
+    display: flex;
+    position: relative;
+}
+
+.wpf .wc {
+    position: relative;
+}
+
+.wpf .wvb {
+    position: relative;
+    overflow: hidden;
+}
+
 /* VisualBrush: the brush's element as HTML inside SVG, stretched over the shape (HtmlRenderer.AppendVisualBrush) */
-.wpf .wvbrush { position: relative; }
-.wpf .wbrush { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
-.wpf .wvisual { display: flex; flex-direction: column; width: 100%; height: 100%; }
-.wpf .wvbi { position: absolute; left: 0; top: 0; display: flex; transform-origin: 0 0; width: max-content; height: max-content; } /* a Viewbox measures its child without limits (WPF) */
+.wpf .wvbrush {
+    position: relative;
+}
+
+.wpf .wbrush {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.wpf .wvisual {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.wpf .wvbi {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    transform-origin: 0 0;
+    width: max-content;
+    height: max-content;
+}
+
+/* a Viewbox measures its child without limits (WPF) */
 
 /* text, shapes, pictures */
-.wpf .wt, .wpf .wtx { cursor: default; }
-.wpf .wlabel { padding: 5px; }
-.wpf .wsh { display: block; overflow: visible; pointer-events: none; }
+.wpf .wt, .wpf .wtx {
+    cursor: default;
+}
+
+.wpf .wlabel {
+    padding: 5px;
+}
+
+.wpf .wsh {
+    display: block;
+    overflow: visible;
+    pointer-events: none;
+}
+
 /* only the drawn figure reacts to the mouse, not the rectangular svg box around it (boxes of neighbours overlap) */
-.wpf .wsh > * { pointer-events: visiblePainted; }
-.wpf .wsh[style*="pointer-events:none"] > * { pointer-events: none; }
-.wpf .wdraw { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
-.wpf .wi { display: block; max-width: 100%; max-height: 100%; }
+.wpf .wsh > * {
+    pointer-events: visiblePainted;
+}
+
+.wpf .wsh[style*="pointer-events:none"] > * {
+    pointer-events: none;
+}
+
+.wpf .wdraw {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.wpf .wi {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* a Canvas measures its children with unlimited space, and canvases often have no size of their own */
-.wpf .wc > .wi { max-width: none; max-height: none; }
-.wpf .off { opacity: .55; }
+.wpf .wc > .wi {
+    max-width: none;
+    max-height: none;
+}
+
+.wpf .off {
+    opacity: .55;
+}
+
 /* elements the user can drag (wpf.js): no native image dragging or touch scrolling; while dragged, on top and
    transparent for hit testing so that the drop target under the pointer can be found */
-.wpf [data-d] { -webkit-user-drag: none; user-select: none; touch-action: none; }
-.wpf .wdragging { z-index: 1000; pointer-events: none; opacity: .8; }
+.wpf [data-d] {
+    -webkit-user-drag: none;
+    user-select: none;
+    touch-action: none;
+}
+
+.wpf .wdragging {
+    z-index: 1000;
+    pointer-events: none;
+    opacity: .8;
+}
 
 /* controls */
 .wpf .wbtn {
-  display: grid; place-items: center; font: inherit; color: inherit; padding: 1px 6px;
-  background: #ddd; border: 1px solid #707070; border-radius: 2px; cursor: pointer;
+    display: grid;
+    place-items: center;
+    font: inherit;
+    color: inherit;
+    padding: 1px 6px;
+    background: #ddd;
+    border: 1px solid #707070;
+    border-radius: 2px;
+    cursor: pointer;
 }
-.wpf .wbtn:hover { background: #bee6fd; border-color: #3c7fb1; }
-.wpf .wbtn.on { background: #bcdcf4; border-color: #245a83; }
-.wpf .wbtn:disabled { cursor: default; color: #838383; background: #f4f4f4; border-color: #adb2b5; }
-.wpf .wchk { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
-.wpf .wchk input { margin: 0; }
-.wpf .wtb { font: inherit; color: inherit; background: #fff; border: 1px solid #abadb3; padding: 1px 3px; resize: none; }
-.wpf input.wtb { field-sizing: content; min-width: 2ch; }
-.wpf .wcb { font: inherit; }
+
+.wpf .wbtn:hover {
+    background: #bee6fd;
+    border-color: #3c7fb1;
+}
+
+.wpf .wbtn.on {
+    background: #bcdcf4;
+    border-color: #245a83;
+}
+
+.wpf .wbtn:disabled {
+    cursor: default;
+    color: #838383;
+    background: #f4f4f4;
+    border-color: #adb2b5;
+}
+
+.wpf .wchk {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.wpf .wchk input {
+    margin: 0;
+}
+
+.wpf .wtb {
+    font: inherit;
+    color: inherit;
+    background: #fff;
+    border: 1px solid #abadb3;
+    padding: 1px 3px;
+    resize: none;
+}
+
+.wpf input.wtb {
+    field-sizing: content;
+    min-width: 2ch;
+}
+
+.wpf .wcb {
+    font: inherit;
+}
+
 /* Slider in WPF's standard look (Aero2): thin grey track, light grey rectangular thumb */
-.wpf .wsl { margin: 0; -webkit-appearance: none; appearance: none; background: transparent; min-height: 18px; }
-.wpf .wsl::-webkit-slider-runnable-track { height: 4px; background: #e7eaea; border: 1px solid #d6d6d6; }
-.wpf .wsl::-moz-range-track { height: 4px; background: #e7eaea; border: 1px solid #d6d6d6; }
-.wpf .wsl::-webkit-slider-thumb { -webkit-appearance: none; width: 11px; height: 18px; margin-top: -8px; background: #f0f0f0; border: 1px solid #acacac; border-radius: 0; }
-.wpf .wsl::-moz-range-thumb { width: 11px; height: 18px; background: #f0f0f0; border: 1px solid #acacac; border-radius: 0; }
-.wpf .wsl:hover::-webkit-slider-thumb { background: #dcecfc; border-color: #7eb4ea; }
-.wpf .wsl:hover::-moz-range-thumb { background: #dcecfc; border-color: #7eb4ea; }
-.wpf .wpb { background: #e6e6e6; border: 1px solid #bcbcbc; min-height: 4px; overflow: hidden; }
-.wpf .wpb > div { height: 100%; background: #06b025; }
-.wpf .wsep { background: #a0a0a0; min-height: 1px; min-width: 1px; }
-.wpf .wscroll { overflow: auto; }
-.wpf .wgb { border: 1px solid #d5dfe5; border-radius: 3px; margin: 0; padding: 4px 6px 6px; min-inline-size: 0; }
-.wpf .wgb legend { padding: 0 3px; }
-.wpf .wexph { cursor: pointer; padding: 2px 0; }
+.wpf .wsl {
+    margin: 0;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    min-height: 18px;
+}
+
+.wpf .wsl::-webkit-slider-runnable-track {
+    height: 4px;
+    background: #e7eaea;
+    border: 1px solid #d6d6d6;
+}
+
+.wpf .wsl::-moz-range-track {
+    height: 4px;
+    background: #e7eaea;
+    border: 1px solid #d6d6d6;
+}
+
+.wpf .wsl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 11px;
+    height: 18px;
+    margin-top: -8px;
+    background: #f0f0f0;
+    border: 1px solid #acacac;
+    border-radius: 0;
+}
+
+.wpf .wsl::-moz-range-thumb {
+    width: 11px;
+    height: 18px;
+    background: #f0f0f0;
+    border: 1px solid #acacac;
+    border-radius: 0;
+}
+
+.wpf .wsl:hover::-webkit-slider-thumb {
+    background: #dcecfc;
+    border-color: #7eb4ea;
+}
+
+.wpf .wsl:hover::-moz-range-thumb {
+    background: #dcecfc;
+    border-color: #7eb4ea;
+}
+
+.wpf .wpb {
+    background: #e6e6e6;
+    border: 1px solid #bcbcbc;
+    min-height: 4px;
+    overflow: hidden;
+}
+
+.wpf .wpb > div {
+    height: 100%;
+    background: #06b025;
+}
+
+.wpf .wsep {
+    background: #a0a0a0;
+    min-height: 1px;
+    min-width: 1px;
+}
+
+.wpf .wscroll {
+    overflow: auto;
+}
+
+.wpf .wgb {
+    border: 1px solid #d5dfe5;
+    border-radius: 3px;
+    margin: 0;
+    padding: 4px 6px 6px;
+    min-inline-size: 0;
+}
+
+.wpf .wgb legend {
+    padding: 0 3px;
+}
+
+.wpf .wexph {
+    cursor: pointer;
+    padding: 2px 0;
+}
 
 /* tabs */
-.wpf .wtab { display: flex; flex-direction: column; }
-.wpf .wtabh { display: flex; flex: none; }
-.wpf .wtabh > div { padding: 2px 8px; border: 1px solid #acacac; border-bottom: 0; background: #efefef; cursor: pointer; margin-right: -1px; }
-.wpf .wtabh > div.on { background: #fff; position: relative; top: 1px; }
-.wpf .wtabc { flex: 1; border: 1px solid #acacac; background: #fff; }
+.wpf .wtab {
+    display: flex;
+    flex-direction: column;
+}
+
+.wpf .wtabh {
+    display: flex;
+    flex: none;
+}
+
+.wpf .wtabh > div {
+    padding: 2px 8px;
+    border: 1px solid #acacac;
+    border-bottom: 0;
+    background: #efefef;
+    cursor: pointer;
+    margin-right: -1px;
+}
+
+.wpf .wtabh > div.on {
+    background: #fff;
+    position: relative;
+    top: 1px;
+}
+
+.wpf .wtabc {
+    flex: 1;
+    border: 1px solid #acacac;
+    background: #fff;
+}
 
 /* lists and tables */
 /* a plain ItemsControl has no frame; list boxes (selectable) and tables do */
-.wpf .wlist { overflow: auto; }
-.wpf .wlist.sel, .wpf .wtable { background: #fff; border: 1px solid #abadb3; }
-.wpf .wli { display: grid; }
-.wpf .sel > .wli { padding: 1px 4px; }
-.wpf .sel .wli:hover, .wpf .sel tbody tr:hover { background: #e5f3fb; }
-.wpf .sel .on { background: #cbe8f6; }
-.wpf .wtable table { border-collapse: collapse; }
-.wpf .wtable th { background: #f5f5f5; border-bottom: 1px solid #d5d5d5; padding: 3px 6px; font-weight: normal; text-align: left; white-space: nowrap; position: sticky; top: 0; }
-.wpf .wtable td { padding: 2px 6px; white-space: nowrap; }
+.wpf .wlist {
+    overflow: auto;
+}
 
-.wpf .wdoc { background: #fff; border: 1px solid #abadb3; padding: 2px 4px; overflow: auto; white-space: pre-wrap; }
-.wpf .wdoc p { margin: 0; min-height: 1em; }
+.wpf .wlist.sel, .wpf .wtable {
+    background: #fff;
+    border: 1px solid #abadb3;
+}
+
+.wpf .wli {
+    display: grid;
+}
+
+.wpf .sel > .wli {
+    padding: 1px 4px;
+}
+
+.wpf .sel .wli:hover, .wpf .sel tbody tr:hover {
+    background: #e5f3fb;
+}
+
+.wpf .sel .on {
+    background: #cbe8f6;
+}
+
+.wpf .wtable table {
+    border-collapse: collapse;
+}
+
+.wpf .wtable th {
+    background: #f5f5f5;
+    border-bottom: 1px solid #d5d5d5;
+    padding: 3px 6px;
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+}
+
+.wpf .wtable td {
+    padding: 2px 6px;
+    white-space: nowrap;
+}
+
+.wpf .wdoc {
+    background: #fff;
+    border: 1px solid #abadb3;
+    padding: 2px 4px;
+    overflow: auto;
+    white-space: pre-wrap;
+}
+
+.wpf .wdoc p {
+    margin: 0;
+    min-height: 1em;
+}
+
 /* a table cell drawn by a DataGridCell (cell style): the cell element fills it */
-.wpf td.wcell { padding: 0; }
-.wpf td.wcell > * { width: 100%; min-height: calc(1lh + 2px); padding: 1px 4px; box-sizing: border-box; }
+.wpf td.wcell {
+    padding: 0;
+}
+
+.wpf td.wcell > * {
+    width: 100%;
+    min-height: calc(1lh + 2px);
+    padding: 1px 4px;
+    box-sizing: border-box;
+}
+
 /* a hosted Windows Forms web browser (WindowsFormsHost) */
-.wpf .wweb { border: 0; width: 100%; height: 100%; background: #fff; }
+.wpf .wweb {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+}

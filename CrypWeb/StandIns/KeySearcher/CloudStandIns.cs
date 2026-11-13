@@ -94,14 +94,18 @@ namespace KeySearcher.CrypCloud
     {
         private readonly KeySearcher _keySearcher;
 
-        public CloudKeySearcher(JobDataContainer jobDataContainer, KeyPattern.KeyPattern pattern, P2PQuickWatchPresentation presentation, KeySearcher keySearcher)
+        public CloudKeySearcher(JobDataContainer jobDataContainer,
+            KeyPattern.KeyPattern pattern,
+            P2PQuickWatchPresentation presentation,
+            KeySearcher keySearcher)
         {
             _keySearcher = keySearcher;
         }
 
         public void Start()
         {
-            _keySearcher.GuiLogMessage("The distributed key search (CrypCloud) is not available in the browser. Switch off peer-to-peer to search locally.", NotificationLevel.Error);
+            _keySearcher.GuiLogMessage("The distributed key search (CrypCloud) is not available in the browser. Switch off peer-to-peer to search locally.",
+                NotificationLevel.Error);
             _keySearcher.IsKeySearcherRunning = false;
         }
 

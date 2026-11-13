@@ -70,7 +70,9 @@ namespace System.Windows.Media
 
         public NumberSubstitution() { }
 
-        public NumberSubstitution(NumberCultureSource source, Globalization.CultureInfo cultureOverride, NumberSubstitutionMethod substitution) { }
+        public NumberSubstitution(NumberCultureSource source,
+            Globalization.CultureInfo cultureOverride,
+            NumberSubstitutionMethod substitution) { }
     }
 
     public enum NumberCultureSource { Text, User, Override }

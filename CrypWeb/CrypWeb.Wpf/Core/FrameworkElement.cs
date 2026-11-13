@@ -1,5 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -44,18 +44,50 @@ namespace System.Windows
         public double MaxWidth { get => (double)GetValue(MaxWidthProperty); set => SetValue(MaxWidthProperty, value); }
         public double MaxHeight { get => (double)GetValue(MaxHeightProperty); set => SetValue(MaxHeightProperty, value); }
         public Thickness Margin { get => (Thickness)GetValue(MarginProperty); set => SetValue(MarginProperty, value); }
-        public HorizontalAlignment HorizontalAlignment { get => (HorizontalAlignment)GetValue(HorizontalAlignmentProperty); set => SetValue(HorizontalAlignmentProperty, value); }
-        public VerticalAlignment VerticalAlignment { get => (VerticalAlignment)GetValue(VerticalAlignmentProperty); set => SetValue(VerticalAlignmentProperty, value); }
+
+        public HorizontalAlignment HorizontalAlignment
+        {
+            get => (HorizontalAlignment)GetValue(HorizontalAlignmentProperty);
+            set => SetValue(HorizontalAlignmentProperty, value);
+        }
+
+        public VerticalAlignment VerticalAlignment
+        {
+            get => (VerticalAlignment)GetValue(VerticalAlignmentProperty);
+            set => SetValue(VerticalAlignmentProperty, value);
+        }
+
         public string Name { get => (string)GetValue(NameProperty); set => SetValue(NameProperty, value); }
         public object Tag { get => GetValue(TagProperty); set => SetValue(TagProperty, value); }
         public object DataContext { get => GetValue(DataContextProperty); set => SetValue(DataContextProperty, value); }
         public Style Style { get => (Style)GetValue(StyleProperty); set => SetValue(StyleProperty, value); }
         public Cursor Cursor { get => (Cursor)GetValue(CursorProperty); set => SetValue(CursorProperty, value); }
         public object ToolTip { get => GetValue(ToolTipProperty); set => SetValue(ToolTipProperty, value); }
-        public Transform LayoutTransform { get => (Transform)GetValue(LayoutTransformProperty); set => SetValue(LayoutTransformProperty, value); }
-        public FlowDirection FlowDirection { get => (FlowDirection)GetValue(FlowDirectionProperty); set => SetValue(FlowDirectionProperty, value); }
-        public bool UseLayoutRounding { get => (bool)GetValue(UseLayoutRoundingProperty); set => SetValue(UseLayoutRoundingProperty, value); }
-        public Style FocusVisualStyle { get => (Style)GetValue(FocusVisualStyleProperty); set => SetValue(FocusVisualStyleProperty, value); }
+
+        public Transform LayoutTransform
+        {
+            get => (Transform)GetValue(LayoutTransformProperty);
+            set => SetValue(LayoutTransformProperty, value);
+        }
+
+        public FlowDirection FlowDirection
+        {
+            get => (FlowDirection)GetValue(FlowDirectionProperty);
+            set => SetValue(FlowDirectionProperty, value);
+        }
+
+        public bool UseLayoutRounding
+        {
+            get => (bool)GetValue(UseLayoutRoundingProperty);
+            set => SetValue(UseLayoutRoundingProperty, value);
+        }
+
+        public Style FocusVisualStyle
+        {
+            get => (Style)GetValue(FocusVisualStyleProperty);
+            set => SetValue(FocusVisualStyleProperty, value);
+        }
+
         public object ContextMenu { get => GetValue(ContextMenuProperty); set => SetValue(ContextMenuProperty, value); }
 
         public DependencyObject Parent => ParentElement;
@@ -305,7 +337,8 @@ namespace System.Windows
                     return true;
                 }
                 if (trigger is MultiTrigger multi
-                    && multi.Conditions.Any(c => c.Binding == null && TriggerCondition.NamesProperty(c.Property, c.PropertyName, propertyName)))
+                    && multi.Conditions.Any(c => c.Binding == null
+                    && TriggerCondition.NamesProperty(c.Property, c.PropertyName, propertyName)))
                 {
                     return true;
                 }

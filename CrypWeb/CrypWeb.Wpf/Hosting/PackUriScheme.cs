@@ -8,7 +8,10 @@ namespace System.Windows.Hosting
     /// </summary>
     internal static class PackUriScheme
     {
+        // A module initializer is deliberate: plugin code parses pack:// URIs before any CrypWeb code runs.
+#pragma warning disable CA2255
         [ModuleInitializer]
+#pragma warning restore CA2255
         internal static void Register()
         {
             if (!UriParser.IsKnownScheme("pack"))

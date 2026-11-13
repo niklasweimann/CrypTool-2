@@ -1,7 +1,6 @@
-using System.Globalization;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
@@ -19,8 +18,10 @@ namespace System.Windows.Rendering
             // along a StackPanel; there its star rows and columns size to their content like Auto ones
             bool unboundedWidth = IsUnbounded(grid, horizontal: true);
             bool unboundedHeight = IsUnbounded(grid, horizontal: false);
-            string rows = grid.RowDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.RowDefinitions.Select(r => Track(r.Height, r.MinHeight, unboundedHeight)));
-            string columns = grid.ColumnDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ", grid.ColumnDefinitions.Select(c => Track(c.Width, c.MinWidth, unboundedWidth)));
+            string rows = grid.RowDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ",
+                grid.RowDefinitions.Select(r => Track(r.Height, r.MinHeight, unboundedHeight)));
+            string columns = grid.ColumnDefinitions.Count == 0 ? "minmax(0,1fr)" : string.Join(" ",
+                grid.ColumnDefinitions.Select(c => Track(c.Width, c.MinWidth, unboundedWidth)));
             WriteContainer(grid, slot, "wg", "grid-template-rows:" + rows + ";grid-template-columns:" + columns + ";", LayoutSlot.GridCell);
         }
 
@@ -54,7 +55,9 @@ namespace System.Windows.Rendering
                 switch (current.ParentElement)
                 {
                     case ScrollViewer viewer:
-                        return (horizontal ? viewer.HorizontalScrollBarVisibility : viewer.VerticalScrollBarVisibility) != ScrollBarVisibility.Disabled;
+                        return (horizontal
+                            ? viewer.HorizontalScrollBarVisibility
+                            : viewer.VerticalScrollBarVisibility) != ScrollBarVisibility.Disabled;
                     case Canvas:
                     case Viewbox:   // measures its child without limits, then scales it
                         return true;
@@ -84,7 +87,9 @@ namespace System.Windows.Rendering
         private void WriteStack(Panel panel, LayoutSlot slot, Orientation orientation, bool wrap)
         {
             bool horizontal = orientation == Orientation.Horizontal;
-            string style = "flex-direction:" + (horizontal ? "row" : "column") + ";" + (wrap ? "flex-wrap:wrap;align-content:flex-start;" : "");
+            string style = "flex-direction:" + (horizontal
+                ? "row"
+                : "column") + ";" + (wrap ? "flex-wrap:wrap;align-content:flex-start;" : "");
             LayoutSlot childSlot = wrap ? LayoutSlot.Flow : horizontal ? LayoutSlot.StackHorizontal : LayoutSlot.StackVertical;
             WriteContainer(panel, slot, "ws", style, childSlot);
         }
@@ -92,7 +97,9 @@ namespace System.Windows.Rendering
         private void WriteUniformGrid(UniformGrid grid, LayoutSlot slot)
         {
             int count = grid.Children.Count(c => c.Visibility != Visibility.Collapsed);
-            int columns = grid.Columns > 0 ? grid.Columns : grid.Rows > 0 ? (int)Math.Ceiling(count / (double)grid.Rows) : (int)Math.Ceiling(Math.Sqrt(count));
+            int columns = grid.Columns > 0
+                ? grid.Columns
+                : grid.Rows > 0 ? (int)Math.Ceiling(count / (double)grid.Rows) : (int)Math.Ceiling(Math.Sqrt(count));
             columns = Math.Max(1, columns);
 
             OpenTag("div", grid, slot, "wg", "grid-template-columns:repeat(" + columns + ",minmax(0,1fr));grid-auto-rows:minmax(0,1fr);");
@@ -553,7 +560,9 @@ namespace System.Windows.Rendering
             else if (content != null)
             {
                 object shown = string.IsNullOrEmpty(format) ? content : Data.BindingFormat.Apply(format, content);
-                _html.Append("<span class=\"wtx\">").Append(CssValues.Escape(Convert.ToString(shown, Globalization.CultureInfo.CurrentCulture))).Append("</span>");
+                _html.Append("<span class=\"wtx\">")
+                    .Append(CssValues.Escape(Convert.ToString(shown, Globalization.CultureInfo.CurrentCulture)))
+                    .Append("</span>");
             }
         }
     }

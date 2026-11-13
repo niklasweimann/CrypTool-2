@@ -5,12 +5,15 @@ namespace System.Windows.Media.Animation
     /// <summary>Base of animations of <c>double</c> properties; custom animations override <see cref="GetCurrentValueCore"/>.</summary>
     public abstract class DoubleAnimationBase : AnimationTimeline
     {
-        protected abstract double GetCurrentValueCore(double defaultOriginValue, double defaultDestinationValue, AnimationClock animationClock);
+        protected abstract double GetCurrentValueCore(double defaultOriginValue,
+            double defaultDestinationValue,
+            AnimationClock animationClock);
 
         internal override object ValueAt(double progress, object origin)
         {
             double start = origin is double d && !double.IsNaN(d) ? d : 0;
-            var clock = new AnimationClock { CurrentProgress = progress, CurrentTime = TimeSpan.FromMilliseconds(progress * DurationMilliseconds) };
+            var clock = new AnimationClock { CurrentProgress = progress,
+                CurrentTime = TimeSpan.FromMilliseconds(progress * DurationMilliseconds) };
             return GetCurrentValueCore(start, start, clock);
         }
     }
@@ -32,7 +35,10 @@ namespace System.Windows.Media.Animation
             Duration = duration;
         }
 
-        public DoubleAnimation(double fromValue, double toValue, Duration duration, FillBehavior fillBehavior) : this(fromValue, toValue, duration)
+        public DoubleAnimation(double fromValue,
+            double toValue,
+            Duration duration,
+            FillBehavior fillBehavior) : this(fromValue, toValue, duration)
         {
             FillBehavior = fillBehavior;
         }
@@ -44,7 +50,9 @@ namespace System.Windows.Media.Animation
 
         public new DoubleAnimation Clone() => (DoubleAnimation)base.Clone();
 
-        protected override double GetCurrentValueCore(double defaultOriginValue, double defaultDestinationValue, AnimationClock animationClock)
+        protected override double GetCurrentValueCore(double defaultOriginValue,
+            double defaultDestinationValue,
+            AnimationClock animationClock)
         {
             double from = From ?? defaultOriginValue;
             double to = To ?? (By.HasValue ? from + By.Value : defaultDestinationValue);
@@ -83,7 +91,10 @@ namespace System.Windows.Media.Animation
             Color from = From ?? (origin is Color c ? c : Colors.Transparent);
             Color to = To ?? from;
             static byte Mix(byte a, byte b, double t) => (byte)Math.Round(a + (b - a) * t);
-            return Color.FromArgb(Mix(from.A, to.A, progress), Mix(from.R, to.R, progress), Mix(from.G, to.G, progress), Mix(from.B, to.B, progress));
+            return Color.FromArgb(Mix(from.A, to.A, progress),
+                Mix(from.R, to.R, progress),
+                Mix(from.G, to.G, progress),
+                Mix(from.B, to.B, progress));
         }
     }
 
@@ -110,7 +121,10 @@ namespace System.Windows.Media.Animation
             Thickness from = From ?? (origin is Thickness t ? t : default);
             Thickness to = To ?? from;
             static double Mix(double a, double b, double t) => a + (b - a) * t;
-            return new Thickness(Mix(from.Left, to.Left, progress), Mix(from.Top, to.Top, progress), Mix(from.Right, to.Right, progress), Mix(from.Bottom, to.Bottom, progress));
+            return new Thickness(Mix(from.Left, to.Left, progress),
+                Mix(from.Top, to.Top, progress),
+                Mix(from.Right, to.Right, progress),
+                Mix(from.Bottom, to.Bottom, progress));
         }
     }
 
@@ -126,7 +140,9 @@ namespace System.Windows.Media.Animation
         public static KeyTime FromPercent(double percent) => new KeyTime { Percent = Math.Clamp(percent, 0, 1) };
 
         /// <summary>The key time in milliseconds within an animation of <paramref name="duration"/> milliseconds.</summary>
-        internal double Milliseconds(double duration) => Time?.TotalMilliseconds ?? (Percent.HasValue ? Percent.Value * duration : duration);
+        internal double Milliseconds(double duration) => Time?.TotalMilliseconds ?? (Percent.HasValue
+            ? Percent.Value * duration
+            : duration);
 
         public static KeyTime Uniform => default;
 

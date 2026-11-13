@@ -123,7 +123,8 @@ namespace System.Windows.Input
 
         internal static Cursor Parse(string name)
         {
-            var property = typeof(Cursors).GetProperty(name.Trim(), Reflection.BindingFlags.Public | Reflection.BindingFlags.Static | Reflection.BindingFlags.IgnoreCase);
+            var property = typeof(Cursors).GetProperty(name.Trim(),
+                Reflection.BindingFlags.Public | Reflection.BindingFlags.Static | Reflection.BindingFlags.IgnoreCase);
             return property?.GetValue(null) as Cursor ?? Arrow;
         }
     }

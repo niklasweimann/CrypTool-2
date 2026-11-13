@@ -31,8 +31,12 @@ namespace System.Windows.Controls
             new ReadOnlyObservableCollection<ValidationError>(new ObservableCollection<ValidationError>());
 
         public static readonly DependencyProperty HasErrorProperty = DependencyProperty.RegisterAttached("HasError", typeof(bool), typeof(Validation));
-        public static readonly DependencyProperty ErrorsProperty = DependencyProperty.RegisterAttached("Errors", typeof(ReadOnlyObservableCollection<ValidationError>), typeof(Validation));
-        public static readonly DependencyProperty ErrorTemplateProperty = DependencyProperty.RegisterAttached("ErrorTemplate", typeof(ControlTemplate), typeof(Validation));
+        public static readonly DependencyProperty ErrorsProperty = DependencyProperty.RegisterAttached("Errors",
+            typeof(ReadOnlyObservableCollection<ValidationError>),
+            typeof(Validation));
+        public static readonly DependencyProperty ErrorTemplateProperty = DependencyProperty.RegisterAttached("ErrorTemplate",
+            typeof(ControlTemplate),
+            typeof(Validation));
 
         public static bool GetHasError(DependencyObject element) => false;
 

@@ -1,0 +1,33 @@
+@inject Localizer Loc
+
+@* "About" dialog, opened by the application button at the top left of the ribbon. Reuses the dialog styles of SettingsModal. *@
+<div class="sm-back" @onclick="OnClose">
+    <div class="sm-dialog about" @onclick:stopPropagation>
+        <div class="mhead" style="background:var(--blue); color:#fff">
+            <img src="logo.png" alt="" onerror="this.style.display='none'"/>
+            <div class="mtitle">@AppName<small style="color:#fffc">@Loc["app.edition"]</small></div>
+            <button class="mx" style="color:#fff" @onclick="OnClose" title="@Loc["about.close"]">✕</button>
+        </div>
+        <div class="mbody">
+            <p>@Loc["about.text"]</p>
+            <p>@Loc["about.notOfficial"]</p>
+            <div class="about-links">
+                <a class="sc-link" href="https://www.cryptool.org/CrypTool2" target="_blank" rel="noopener"><span
+                        class="sc-ic">🌐</span>@Loc["start.website"]</a>
+                <a class="sc-link" href="https://github.com/niklasweimann/CrypTool-2" target="_blank"
+                   rel="noopener"><span class="sc-ic">💻</span>@Loc["about.fork"]</a>
+                <a class="sc-link" href="https://github.com/CrypToolProject/CrypTool-2" target="_blank"
+                   rel="noopener"><span class="sc-ic">🔗</span>@Loc["about.source"]</a>
+            </div>
+            <p class="about-license">@Loc["about.license"]</p>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>Product name shown in the ribbon, the tab title and this dialog.</summary>
+    public const string AppName = "CrypTool 2 Web Edition";
+
+    [Parameter] public EventCallback OnClose { get; set; }
+}

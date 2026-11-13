@@ -66,8 +66,18 @@ namespace System.Windows.Media.Media3D
         public Point3D Position { get => (Point3D)GetValue(PositionProperty); set => SetValue(PositionProperty, value); }
         public Vector3D LookDirection { get => (Vector3D)GetValue(LookDirectionProperty); set => SetValue(LookDirectionProperty, value); }
         public Vector3D UpDirection { get => (Vector3D)GetValue(UpDirectionProperty); set => SetValue(UpDirectionProperty, value); }
-        public double NearPlaneDistance { get => (double)GetValue(NearPlaneDistanceProperty); set => SetValue(NearPlaneDistanceProperty, value); }
-        public double FarPlaneDistance { get => (double)GetValue(FarPlaneDistanceProperty); set => SetValue(FarPlaneDistanceProperty, value); }
+
+        public double NearPlaneDistance
+        {
+            get => (double)GetValue(NearPlaneDistanceProperty);
+            set => SetValue(NearPlaneDistanceProperty, value);
+        }
+
+        public double FarPlaneDistance
+        {
+            get => (double)GetValue(FarPlaneDistanceProperty);
+            set => SetValue(FarPlaneDistanceProperty, value);
+        }
     }
 
     /// <summary>A perspective camera; <see cref="FieldOfView"/> is the horizontal opening angle in degrees.</summary>
@@ -122,7 +132,7 @@ namespace System.Windows.Controls
 
         public Visual3DCollection Children { get; } = new Visual3DCollection();
 
-        public bool ClipToBounds { get; set; } = true;
+        public new bool ClipToBounds { get; set; } = true;
     }
 }
 

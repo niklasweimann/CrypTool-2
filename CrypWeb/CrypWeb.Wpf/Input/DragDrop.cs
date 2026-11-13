@@ -60,7 +60,10 @@ namespace System.Windows
 
         public void SetText(string text) => SetData(DataFormats.UnicodeText, text);
 
-        public static readonly RoutedEvent PastingEvent = EventManager.RegisterRoutedEvent("Pasting", RoutingStrategy.Bubble, typeof(DataObjectPastingEventHandler), typeof(DataObject));
+        public static readonly RoutedEvent PastingEvent = EventManager.RegisterRoutedEvent("Pasting",
+            RoutingStrategy.Bubble,
+            typeof(DataObjectPastingEventHandler),
+            typeof(DataObject));
 
         public static void AddPastingHandler(DependencyObject element, DataObjectPastingEventHandler handler) { }
 
@@ -206,7 +209,18 @@ namespace System.Windows
 
     public enum MessageBoxResult { None = 0, OK = 1, Cancel = 2, Yes = 6, No = 7 }
 
-    public enum MessageBoxImage { None = 0, Error = 16, Hand = 16, Stop = 16, Question = 32, Exclamation = 48, Warning = 48, Asterisk = 64, Information = 64 }
+    public enum MessageBoxImage
+    {
+        None = 0,
+        Error = 16,
+        Hand = 16,
+        Stop = 16,
+        Question = 32,
+        Exclamation = 48,
+        Warning = 48,
+        Asterisk = 64,
+        Information = 64
+    }
 
     /// <summary>
     /// Message boxes cannot block in the browser worker. The text is reported through <see cref="Shown"/>
@@ -220,9 +234,16 @@ namespace System.Windows
 
         public static MessageBoxResult Show(string messageBoxText, string caption) => Show(messageBoxText, caption, MessageBoxButton.OK);
 
-        public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon) => Show(messageBoxText, caption, button);
+        public static MessageBoxResult Show(string messageBoxText,
+            string caption,
+            MessageBoxButton button,
+            MessageBoxImage icon) => Show(messageBoxText, caption, button);
 
-        public static MessageBoxResult Show(Window owner, string messageBoxText, string caption, MessageBoxButton button, MessageBoxImage icon) => Show(messageBoxText, caption, button);
+        public static MessageBoxResult Show(Window owner,
+            string messageBoxText,
+            string caption,
+            MessageBoxButton button,
+            MessageBoxImage icon) => Show(messageBoxText, caption, button);
 
         public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
         {

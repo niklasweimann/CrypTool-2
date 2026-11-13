@@ -32,7 +32,13 @@ namespace System.Windows.Rendering
             {
                 path.Append(" fill-rule=\"evenodd\"");
             }
-            AppendStroke(path, shape.Stroke, shape.StrokeThickness, shape.StrokeDashArray, shape.StrokeStartLineCap, shape.StrokeLineJoin, defs);
+            AppendStroke(path,
+                shape.Stroke,
+                shape.StrokeThickness,
+                shape.StrokeDashArray,
+                shape.StrokeStartLineCap,
+                shape.StrokeLineJoin,
+                defs);
             if (shape.Stretch != Stretch.None)
             {
                 path.Append(" vector-effect=\"non-scaling-stroke\"");
@@ -51,11 +57,17 @@ namespace System.Windows.Rendering
                 _html.Append("<defs>").Append(defs).Append("</defs>");
             }
             _html.Append(path);
-            if (CssValues.Simplify(shape.Fill) is VisualBrush { Visual: UIElement visual } visualBrush && outline != null && outline.Transform == null)
+            if (CssValues.Simplify(shape.Fill) is VisualBrush { Visual: UIElement visual } visualBrush
+                && outline != null
+                && outline.Transform == null)
             {
                 // the brush's element, clipped to the outline and stretched over its bounds
                 string clipId = _idPrefix + "c" + (++_gradientCount);
-                _html.Append("<clipPath id=\"").Append(clipId).Append("\"><path d=\"").Append(CssValues.Escape(data)).Append("\"/></clipPath>");
+                _html.Append("<clipPath id=\"")
+                    .Append(clipId)
+                    .Append("\"><path d=\"")
+                    .Append(CssValues.Escape(data))
+                    .Append("\"/></clipPath>");
                 _html.Append("<g clip-path=\"url(#").Append(clipId).Append(")\">");
                 AppendVisualBrush(visualBrush, visual, outline.Bounds);
                 _html.Append("</g>");
@@ -69,7 +81,10 @@ namespace System.Windows.Rendering
             FormattedText text = geometry.Text;
             string fill = SvgPaint(shape.Fill ?? text.Foreground, defs);
             OpenTag("svg", shape, slot, "wsh", "", " data-shape=\"None\"");
-            _html.Append("<text x=\"").Append(CssValues.Number(geometry.Origin.X)).Append("\" y=\"").Append(CssValues.Number(geometry.Origin.Y + text.Baseline))
+            _html.Append("<text x=\"")
+                .Append(CssValues.Number(geometry.Origin.X))
+                .Append("\" y=\"")
+                .Append(CssValues.Number(geometry.Origin.Y + text.Baseline))
                 .Append("\" font-size=\"").Append(CssValues.Number(text.EmSize)).Append("\" fill=\"").Append(fill).Append('"');
             if (text.Typeface?.FontFamily != null)
             {
@@ -99,7 +114,10 @@ namespace System.Windows.Rendering
             }
             else if (shape is Rectangle rectangle && (rectangle.RadiusX > 0 || rectangle.RadiusY > 0))
             {
-                css.Add("border-radius", CssValues.Pixels(rectangle.RadiusX) + "/" + CssValues.Pixels(rectangle.RadiusY > 0 ? rectangle.RadiusY : rectangle.RadiusX));
+                css.Add("border-radius",
+                    CssValues.Pixels(rectangle.RadiusX) + "/" + CssValues.Pixels(rectangle.RadiusY > 0
+                    ? rectangle.RadiusY
+                    : rectangle.RadiusX));
             }
             if (CssValues.Simplify(shape.Fill) is VisualBrush { Visual: UIElement visual } visualBrush)
             {
@@ -172,7 +190,8 @@ namespace System.Windows.Rendering
                 case Panel panel:
                     {
                         var sizes = panel.Children.Cast<UIElement>().Select(EstimateSize).ToList();
-                        content = new Size(sizes.Select(s => s.Width).DefaultIfEmpty().Max(), sizes.Select(s => s.Height).DefaultIfEmpty().Max());
+                        content = new Size(sizes.Select(s => s.Width).DefaultIfEmpty().Max(),
+                            sizes.Select(s => s.Height).DefaultIfEmpty().Max());
                         break;
                     }
                 case Border border when border.Child != null:
@@ -192,13 +211,23 @@ namespace System.Windows.Rendering
             return new Size(Math.Max(1, width + fe.Margin.Left + fe.Margin.Right), Math.Max(1, height + fe.Margin.Top + fe.Margin.Bottom));
         }
 
-        private void AppendStroke(StringBuilder svg, Brush stroke, double thickness, DoubleCollection dashes, PenLineCap cap, PenLineJoin join, StringBuilder defs)
+        private void AppendStroke(StringBuilder svg,
+            Brush stroke,
+            double thickness,
+            DoubleCollection dashes,
+            PenLineCap cap,
+            PenLineJoin join,
+            StringBuilder defs)
         {
             if (stroke == null || thickness <= 0)
             {
                 return;
             }
-            svg.Append(" stroke=\"").Append(SvgPaint(stroke, defs)).Append("\" stroke-width=\"").Append(CssValues.Number(thickness)).Append('"');
+            svg.Append(" stroke=\"")
+                .Append(SvgPaint(stroke, defs))
+                .Append("\" stroke-width=\"")
+                .Append(CssValues.Number(thickness))
+                .Append('"');
             if (dashes != null && dashes.Count > 0)
             {
                 // WPF dash lengths are multiples of the stroke thickness
@@ -298,7 +327,10 @@ namespace System.Windows.Rendering
             var body = new StringBuilder();
             AppendDrawing(element, bitmap.Drawing, defs, body);
             var svg = new StringBuilder();
-            svg.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"").Append(bitmap.DrawnWidth).Append("\" height=\"").Append(bitmap.DrawnHeight)
+            svg.Append("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"")
+                .Append(bitmap.DrawnWidth)
+                .Append("\" height=\"")
+                .Append(bitmap.DrawnHeight)
                 .Append("\" viewBox=\"0 0 ").Append(bitmap.DrawnWidth).Append(' ').Append(bitmap.DrawnHeight).Append("\">");
             if (defs.Length > 0)
             {
@@ -317,17 +349,30 @@ namespace System.Windows.Rendering
                 switch (command.Kind)
                 {
                     case DrawingCommandKind.Geometry:
-                        body.Append("<path d=\"").Append(CssValues.Escape(command.Geometry?.ToSvgPathData())).Append("\" fill=\"").Append(SvgPaint(command.Brush, defs)).Append('"');
+                        body.Append("<path d=\"")
+                            .Append(CssValues.Escape(command.Geometry?.ToSvgPathData()))
+                            .Append("\" fill=\"")
+                            .Append(SvgPaint(command.Brush, defs))
+                            .Append('"');
                         if (command.Pen != null)
                         {
-                            AppendStroke(body, command.Pen.Brush, command.Pen.Thickness, command.Pen.DashStyle?.Dashes, command.Pen.StartLineCap, command.Pen.LineJoin, defs);
+                            AppendStroke(body,
+                                command.Pen.Brush,
+                                command.Pen.Thickness,
+                                command.Pen.DashStyle?.Dashes,
+                                command.Pen.StartLineCap,
+                                command.Pen.LineJoin,
+                                defs);
                         }
                         body.Append("/>");
                         break;
 
                     case DrawingCommandKind.Text:
                         FormattedText text = command.Text;
-                        body.Append("<text x=\"").Append(CssValues.Number(command.Origin.X)).Append("\" y=\"").Append(CssValues.Number(command.Origin.Y + text.Baseline))
+                        body.Append("<text x=\"")
+                            .Append(CssValues.Number(command.Origin.X))
+                            .Append("\" y=\"")
+                            .Append(CssValues.Number(command.Origin.Y + text.Baseline))
                             .Append("\" font-size=\"").Append(CssValues.Number(text.EmSize)).Append("\" fill=\"").Append(SvgPaint(text.Foreground, defs)).Append('"');
                         if (text.Typeface?.FontFamily != null)
                         {
@@ -341,7 +386,10 @@ namespace System.Windows.Rendering
                         break;
 
                     case DrawingCommandKind.Image:
-                        body.Append("<image href=\"").Append(CssValues.Escape(ResolveImage(element, command.Image?.Address))).Append("\" x=\"").Append(CssValues.Number(command.Rectangle.X))
+                        body.Append("<image href=\"")
+                            .Append(CssValues.Escape(ResolveImage(element, command.Image?.Address)))
+                            .Append("\" x=\"")
+                            .Append(CssValues.Number(command.Rectangle.X))
                             .Append("\" y=\"").Append(CssValues.Number(command.Rectangle.Y)).Append("\" width=\"").Append(CssValues.Number(command.Rectangle.Width))
                             .Append("\" height=\"").Append(CssValues.Number(command.Rectangle.Height)).Append("\" preserveAspectRatio=\"none\"/>");
                         break;
@@ -357,7 +405,9 @@ namespace System.Windows.Rendering
                         break;
 
                     case DrawingCommandKind.PushClip:
-                        body.Append("<g style=\"clip-path:path('").Append(CssValues.Escape(command.Geometry?.ToSvgPathData())).Append("')\">");
+                        body.Append("<g style=\"clip-path:path('")
+                            .Append(CssValues.Escape(command.Geometry?.ToSvgPathData()))
+                            .Append("')\">");
                         open++;
                         break;
 

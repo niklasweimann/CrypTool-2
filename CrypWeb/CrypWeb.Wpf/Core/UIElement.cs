@@ -14,7 +14,9 @@ namespace System.Windows
     /// <summary>An element of the tree: visibility, opacity, render transform and input events.</summary>
     public class UIElement : Visual, IInputElement
     {
-        public static readonly DependencyProperty VisibilityProperty = Dp.Register<Visibility, UIElement>(nameof(Visibility), Visibility.Visible, OnVisibilityChanged);
+        public static readonly DependencyProperty VisibilityProperty = Dp.Register<Visibility, UIElement>(nameof(Visibility),
+            Visibility.Visible,
+            OnVisibilityChanged);
         public static readonly DependencyProperty OpacityProperty = Dp.Register<double, UIElement>(nameof(Opacity), 1.0);
         public static readonly DependencyProperty IsEnabledProperty = Dp.Register<bool, UIElement>(nameof(IsEnabled), true);
         public static readonly DependencyProperty IsHitTestVisibleProperty = Dp.Register<bool, UIElement>(nameof(IsHitTestVisible), true);
@@ -34,13 +36,30 @@ namespace System.Windows
         public double Opacity { get => (double)GetValue(OpacityProperty); set => SetValue(OpacityProperty, value); }
         public bool IsEnabled { get => (bool)GetValue(IsEnabledProperty); set => SetValue(IsEnabledProperty, value); }
         public bool IsHitTestVisible { get => (bool)GetValue(IsHitTestVisibleProperty); set => SetValue(IsHitTestVisibleProperty, value); }
-        public Transform RenderTransform { get => (Transform)GetValue(RenderTransformProperty); set => SetValue(RenderTransformProperty, value); }
-        public Point RenderTransformOrigin { get => (Point)GetValue(RenderTransformOriginProperty); set => SetValue(RenderTransformOriginProperty, value); }
+
+        public Transform RenderTransform
+        {
+            get => (Transform)GetValue(RenderTransformProperty);
+            set => SetValue(RenderTransformProperty, value);
+        }
+
+        public Point RenderTransformOrigin
+        {
+            get => (Point)GetValue(RenderTransformOriginProperty);
+            set => SetValue(RenderTransformOriginProperty, value);
+        }
+
         public bool ClipToBounds { get => (bool)GetValue(ClipToBoundsProperty); set => SetValue(ClipToBoundsProperty, value); }
         public Geometry Clip { get => (Geometry)GetValue(ClipProperty); set => SetValue(ClipProperty, value); }
         public Brush OpacityMask { get => (Brush)GetValue(OpacityMaskProperty); set => SetValue(OpacityMaskProperty, value); }
         public bool Focusable { get => (bool)GetValue(FocusableProperty); set => SetValue(FocusableProperty, value); }
-        public bool SnapsToDevicePixels { get => (bool)GetValue(SnapsToDevicePixelsProperty); set => SetValue(SnapsToDevicePixelsProperty, value); }
+
+        public bool SnapsToDevicePixels
+        {
+            get => (bool)GetValue(SnapsToDevicePixelsProperty);
+            set => SetValue(SnapsToDevicePixelsProperty, value);
+        }
+
         public bool AllowDrop { get => (bool)GetValue(AllowDropProperty); set => SetValue(AllowDropProperty, value); }
         public object Effect { get => GetValue(EffectProperty); set => SetValue(EffectProperty, value); }
 
@@ -348,7 +367,8 @@ namespace System.Windows
             bool isVisible = (Visibility)e.NewValue == Visibility.Visible;
             if (wasVisible != isVisible)
             {
-                element.IsVisibleChanged?.Invoke(element, new DependencyPropertyChangedEventArgs(VisibilityProperty, wasVisible, isVisible));
+                element.IsVisibleChanged?.Invoke(element,
+                    new DependencyPropertyChangedEventArgs(VisibilityProperty, wasVisible, isVisible));
             }
         }
 

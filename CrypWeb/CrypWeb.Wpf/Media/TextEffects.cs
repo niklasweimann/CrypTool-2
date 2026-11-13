@@ -164,7 +164,9 @@ namespace System.Windows
 
         public static Collections.IEnumerable GetChildren(DependencyObject current)
         {
-            return current is UIElement element ? new Collections.Generic.List<UIElement>(element.ChildElements) : new Collections.Generic.List<UIElement>();
+            return current is UIElement element
+                ? new Collections.Generic.List<UIElement>(element.ChildElements)
+                : new Collections.Generic.List<UIElement>();
         }
 
         public static DependencyObject GetParent(DependencyObject current) => (current as UIElement)?.ParentElement;
@@ -253,7 +255,10 @@ namespace System.Windows.Interop
     public static class Imaging
     {
         /// <summary>There are no GDI bitmap handles in the browser; the result is an empty picture.</summary>
-        public static Media.Imaging.BitmapSource CreateBitmapSourceFromHBitmap(IntPtr bitmap, IntPtr palette, Int32Rect sourceRect, Media.Imaging.BitmapSizeOptions sizeOptions)
+        public static Media.Imaging.BitmapSource CreateBitmapSourceFromHBitmap(IntPtr bitmap,
+            IntPtr palette,
+            Int32Rect sourceRect,
+            Media.Imaging.BitmapSizeOptions sizeOptions)
         {
             return new Media.Imaging.BitmapImage();
         }

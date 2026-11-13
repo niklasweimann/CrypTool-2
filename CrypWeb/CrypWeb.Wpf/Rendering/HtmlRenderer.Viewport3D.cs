@@ -61,9 +61,16 @@ namespace System.Windows.Rendering
                     }
                     else if (layer.Text != null)
                     {
-                        faces.Append("[2,").Append(Json(layer.Text)).Append(',').Append((int)Math.Round(layer.FontSize)).Append(',').Append(layer.Bold ? 1 : 0)
+                        faces.Append("[2,")
+                            .Append(Json(layer.Text))
+                            .Append(',')
+                            .Append((int)Math.Round(layer.FontSize))
+                            .Append(',').Append(layer.Bold
+                            ? 1
+                            : 0)
                             .Append(',').Append(Colour(layer.TextColor, 1)).Append(',')
-                            .Append(layer.TextBackground is Color background && background.A > 0 ? Json(CssValues.Color(background)) : "null")
+                            .Append(layer.TextBackground is Color background
+                            && background.A > 0 ? Json(CssValues.Color(background)) : "null")
                             .Append(',');
                         AppendShort(faces, layer.Opacity, 2);
                         AppendMatrix(faces, layer.TextureToScreen);

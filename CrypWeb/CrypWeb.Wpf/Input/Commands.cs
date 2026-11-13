@@ -51,7 +51,10 @@ namespace System.Windows.Input
 
         public RoutedUICommand(string text, string name, Type ownerType) : base(name, ownerType) => Text = text;
 
-        public RoutedUICommand(string text, string name, Type ownerType, InputGestureCollection inputGestures) : base(name, ownerType) => Text = text;
+        public RoutedUICommand(string text,
+            string name,
+            Type ownerType,
+            InputGestureCollection inputGestures) : base(name, ownerType) => Text = text;
 
         public string Text { get; set; }
     }
@@ -108,7 +111,9 @@ namespace System.Windows.Input
 
         public CommandBinding(ICommand command, ExecutedRoutedEventHandler executed) : this(command) => Executed += executed;
 
-        public CommandBinding(ICommand command, ExecutedRoutedEventHandler executed, CanExecuteRoutedEventHandler canExecute) : this(command, executed) => CanExecute += canExecute;
+        public CommandBinding(ICommand command,
+            ExecutedRoutedEventHandler executed,
+            CanExecuteRoutedEventHandler canExecute) : this(command, executed) => CanExecute += canExecute;
 
         public ICommand Command { get; set; }
 
@@ -172,7 +177,8 @@ namespace System.Windows.Input
             string name = text.Substring(text.LastIndexOf('.') + 1);
             foreach (Type owner in new[] { typeof(ApplicationCommands), typeof(Documents.EditingCommands) })
             {
-                if (owner.GetProperty(name, Reflection.BindingFlags.Public | Reflection.BindingFlags.Static)?.GetValue(null) is ICommand command)
+                if (owner.GetProperty(name,
+                    Reflection.BindingFlags.Public | Reflection.BindingFlags.Static)?.GetValue(null) is ICommand command)
                 {
                     return command;
                 }

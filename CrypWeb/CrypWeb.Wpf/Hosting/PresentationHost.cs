@@ -133,7 +133,10 @@ namespace System.Windows.Hosting
                     break;
 
                 case "range":
-                    if (element is RangeBase range && double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double number))
+                    if (element is RangeBase range && double.TryParse(value,
+                        NumberStyles.Float,
+                        CultureInfo.InvariantCulture,
+                        out double number))
                     {
                         range.SetValueFromUser(number);
                     }
@@ -191,7 +194,10 @@ namespace System.Windows.Hosting
             {
                 return;
             }
-            double Number(int index) => double.TryParse(parts[index], NumberStyles.Float, CultureInfo.InvariantCulture, out double n) ? n : 0;
+            double Number(int index) => double.TryParse(parts[index],
+                NumberStyles.Float,
+                CultureInfo.InvariantCulture,
+                out double n) ? n : 0;
             var move = new Point(Number(1), Number(2));
             var drop = new Point(Number(3), Number(4));
             UIElement target = _elements.TryGetValue(targetId, out WeakReference<UIElement> reference)

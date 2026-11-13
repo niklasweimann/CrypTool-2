@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -46,10 +45,30 @@ namespace System.Windows.Controls
             set => SetValue(TextProperty, value);
         }
 
-        public TextWrapping TextWrapping { get => (TextWrapping)GetValue(TextWrappingProperty); set => SetValue(TextWrappingProperty, value); }
-        public TextAlignment TextAlignment { get => (TextAlignment)GetValue(TextAlignmentProperty); set => SetValue(TextAlignmentProperty, value); }
-        public TextTrimming TextTrimming { get => (TextTrimming)GetValue(TextTrimmingProperty); set => SetValue(TextTrimmingProperty, value); }
-        public TextDecorationCollection TextDecorations { get => (TextDecorationCollection)GetValue(TextDecorationsProperty); set => SetValue(TextDecorationsProperty, value); }
+        public TextWrapping TextWrapping
+        {
+            get => (TextWrapping)GetValue(TextWrappingProperty);
+            set => SetValue(TextWrappingProperty, value);
+        }
+
+        public TextAlignment TextAlignment
+        {
+            get => (TextAlignment)GetValue(TextAlignmentProperty);
+            set => SetValue(TextAlignmentProperty, value);
+        }
+
+        public TextTrimming TextTrimming
+        {
+            get => (TextTrimming)GetValue(TextTrimmingProperty);
+            set => SetValue(TextTrimmingProperty, value);
+        }
+
+        public TextDecorationCollection TextDecorations
+        {
+            get => (TextDecorationCollection)GetValue(TextDecorationsProperty);
+            set => SetValue(TextDecorationsProperty, value);
+        }
+
         public double LineHeight { get => (double)GetValue(LineHeightProperty); set => SetValue(LineHeightProperty, value); }
 
         /// <summary>How line heights are computed; the browser uses the line height as the line distance (BlockLineHeight).</summary>
@@ -145,14 +164,27 @@ namespace System.Windows.Controls
     [Markup.ContentProperty(nameof(Text))]
     public class TextBox : TextBoxBase
     {
-        public static readonly DependencyProperty TextProperty = Dp.Register<string, TextBox>(nameof(Text), "", (d, e) => ((TextBox)d).RaiseTextChanged());
+        public static readonly DependencyProperty TextProperty = Dp.Register<string, TextBox>(nameof(Text),
+            "",
+            (d, e) => ((TextBox)d).RaiseTextChanged());
         public static readonly DependencyProperty TextWrappingProperty = Dp.Register<TextWrapping, TextBox>(nameof(TextWrapping), TextWrapping.NoWrap);
         public static readonly DependencyProperty TextAlignmentProperty = Dp.Register<TextAlignment, TextBox>(nameof(TextAlignment));
         public static readonly DependencyProperty MaxLengthProperty = Dp.Register<int, TextBox>(nameof(MaxLength));
 
         public string Text { get => (string)GetValue(TextProperty) ?? ""; set => SetValue(TextProperty, value); }
-        public TextWrapping TextWrapping { get => (TextWrapping)GetValue(TextWrappingProperty); set => SetValue(TextWrappingProperty, value); }
-        public TextAlignment TextAlignment { get => (TextAlignment)GetValue(TextAlignmentProperty); set => SetValue(TextAlignmentProperty, value); }
+
+        public TextWrapping TextWrapping
+        {
+            get => (TextWrapping)GetValue(TextWrappingProperty);
+            set => SetValue(TextWrappingProperty, value);
+        }
+
+        public TextAlignment TextAlignment
+        {
+            get => (TextAlignment)GetValue(TextAlignmentProperty);
+            set => SetValue(TextAlignmentProperty, value);
+        }
+
         public int MaxLength { get => (int)GetValue(MaxLengthProperty); set => SetValue(MaxLengthProperty, value); }
         public CharacterCasing CharacterCasing { get; set; }
         public int MaxLines { get; set; } = int.MaxValue;

@@ -15,7 +15,7 @@ public static class TemplateStrings
                 foreach (var rep in doc.Descendants("replacements").Where(r => (string?)r.Attribute("lang") == l).Elements("replacement"))
                     map[(string)rep.Attribute("key")!] = (string)rep.Attribute("value")!;
         }
-        catch { }
+        catch (Exception) { /* invalid text file: the template keeps its placeholders */ }
         return map;
     }
 

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 namespace System.Windows.Media.Animation
 {
@@ -7,7 +6,9 @@ namespace System.Windows.Media.Animation
     {
         public static readonly DependencyProperty TargetProperty = DependencyProperty.RegisterAttached("Target", typeof(DependencyObject), typeof(Storyboard));
         public static readonly DependencyProperty TargetNameProperty = DependencyProperty.RegisterAttached("TargetName", typeof(string), typeof(Storyboard));
-        public static readonly DependencyProperty TargetPropertyProperty = DependencyProperty.RegisterAttached("TargetProperty", typeof(PropertyPath), typeof(Storyboard));
+        public static readonly DependencyProperty TargetPropertyProperty = DependencyProperty.RegisterAttached("TargetProperty",
+            typeof(PropertyPath),
+            typeof(Storyboard));
 
         private object _completion;
 
@@ -27,7 +28,9 @@ namespace System.Windows.Media.Animation
 
         public void Begin(FrameworkElement containingObject, bool isControllable) => Begin(containingObject);
 
-        public void Begin(FrameworkElement containingObject, HandoffBehavior handoffBehavior, bool isControllable) => Begin(containingObject);
+        public void Begin(FrameworkElement containingObject,
+            HandoffBehavior handoffBehavior,
+            bool isControllable) => Begin(containingObject);
 
         public void Begin(FrameworkElement containingObject)
         {
@@ -36,7 +39,10 @@ namespace System.Windows.Media.Animation
             _completion = AnimationScheduler.After(TotalMilliseconds, RaiseCompleted);
         }
 
-        private static void StartChildren(TimelineGroup group, FrameworkElement scope, DependencyObject inheritedTarget, string inheritedName)
+        private static void StartChildren(TimelineGroup group,
+            FrameworkElement scope,
+            DependencyObject inheritedTarget,
+            string inheritedName)
         {
             foreach (Timeline child in group.Children)
             {
@@ -54,7 +60,10 @@ namespace System.Windows.Media.Animation
                 }
                 target ??= string.IsNullOrEmpty(targetName) ? scope : scope?.FindName(targetName) as DependencyObject;
                 string path = GetTargetProperty(child)?.Path;
-                if (target != null && Markup.DependencyPropertyLookup.ResolvePath(target, path, out DependencyObject owner, out DependencyProperty property))
+                if (target != null && Markup.DependencyPropertyLookup.ResolvePath(target,
+                    path,
+                    out DependencyObject owner,
+                    out DependencyProperty property))
                 {
                     animation.ApplyTo(owner, property);
                 }

@@ -302,9 +302,24 @@ namespace System.Windows.Media.Media3D
         public static readonly DependencyProperty TextureCoordinatesProperty = Dp.Register<PointCollection, MeshGeometry3D>(nameof(TextureCoordinates));
         public static readonly DependencyProperty NormalsProperty = Dp.Register<Vector3DCollection, MeshGeometry3D>(nameof(Normals));
 
-        public Point3DCollection Positions { get => (Point3DCollection)GetValue(PositionsProperty); set => SetValue(PositionsProperty, value); }
-        public Int32Collection TriangleIndices { get => (Int32Collection)GetValue(TriangleIndicesProperty); set => SetValue(TriangleIndicesProperty, value); }
-        public PointCollection TextureCoordinates { get => (PointCollection)GetValue(TextureCoordinatesProperty); set => SetValue(TextureCoordinatesProperty, value); }
+        public Point3DCollection Positions
+        {
+            get => (Point3DCollection)GetValue(PositionsProperty);
+            set => SetValue(PositionsProperty, value);
+        }
+
+        public Int32Collection TriangleIndices
+        {
+            get => (Int32Collection)GetValue(TriangleIndicesProperty);
+            set => SetValue(TriangleIndicesProperty, value);
+        }
+
+        public PointCollection TextureCoordinates
+        {
+            get => (PointCollection)GetValue(TextureCoordinatesProperty);
+            set => SetValue(TextureCoordinatesProperty, value);
+        }
+
         public Vector3DCollection Normals { get => (Vector3DCollection)GetValue(NormalsProperty); set => SetValue(NormalsProperty, value); }
     }
 
@@ -360,7 +375,11 @@ namespace System.Windows.Media.Media3D
 
         public Model3DGroup() => Children = new Model3DCollection();
 
-        public Model3DCollection Children { get => (Model3DCollection)GetValue(ChildrenProperty); set => SetValue(ChildrenProperty, value); }
+        public Model3DCollection Children
+        {
+            get => (Model3DCollection)GetValue(ChildrenProperty);
+            set => SetValue(ChildrenProperty, value);
+        }
     }
 
     /// <summary>A mesh with a material for its front faces and optionally one for its back faces.</summary>

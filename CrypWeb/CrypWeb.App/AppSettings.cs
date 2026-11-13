@@ -7,9 +7,11 @@ namespace CrypWeb.App;
 /// <summary>Global (per browser) settings, the counterpart of the "Settings" tab of CrypTool 2. Stored in localStorage.</summary>
 public sealed class AppSettings
 {
-    const string Key = "ct2web.settings.v1";
+    private const string Key = "ct2web.settings.v1";
+
     /// <summary>0 = decided by the component, 1 = always show the presentation, 2 = always the icon view.</summary>
     public int DefaultView { get; set; }
+
     public int GuiUpdateMs { get; set; } = 80;
     public int SleepMs { get; set; } = 1;
     public bool ReplacePlaceholders { get; set; } = true;
@@ -19,8 +21,10 @@ public sealed class AppSettings
 
     public void ApplyTheme()
     {
-        Theme.TypeOverrides.Clear(); foreach (var kv in TypeColors) Theme.TypeOverrides[kv.Key] = kv.Value;
-        Theme.CategoryOverrides.Clear(); foreach (var kv in CategoryColors) Theme.CategoryOverrides[kv.Key] = kv.Value;
+        Theme.TypeOverrides.Clear();
+        foreach (var kv in TypeColors) Theme.TypeOverrides[kv.Key] = kv.Value;
+        Theme.CategoryOverrides.Clear();
+        foreach (var kv in CategoryColors) Theme.CategoryOverrides[kv.Key] = kv.Value;
     }
 
     public static async Task<AppSettings> LoadAsync(IJSRuntime js)
@@ -28,11 +32,30 @@ public sealed class AppSettings
         try
         {
             var raw = await js.InvokeAsync<string?>("ct2.store.get", Key);
-            if (!string.IsNullOrEmpty(raw) && JsonSerializer.Deserialize<AppSettings>(raw) is { } s) { s.ApplyTheme(); return s; }
+            if (!string.IsNullOrEmpty(raw) && JsonSerializer.Deserialize<AppSettings>(raw) is { } s)
+            {
+                s.ApplyTheme();
+                return s;
+            }
         }
-        catch { }
+        catch (Exception)
+        {
+            /* unreadable stored settings: use the defaults */
+        }
+
         return new AppSettings();
     }
 
-    public async Task SaveAsync(IJSRuntime js) { ApplyTheme(); try { await js.InvokeVoidAsync("ct2.store.set", Key, JsonSerializer.Serialize(this)); } catch { } }
+    public async Task SaveAsync(IJSRuntime js)
+    {
+        ApplyTheme();
+        try
+        {
+            await js.InvokeVoidAsync("ct2.store.set", Key, JsonSerializer.Serialize(this));
+        }
+        catch (Exception)
+        {
+            /* storage unavailable: the settings are not remembered */
+        }
+    }
 }

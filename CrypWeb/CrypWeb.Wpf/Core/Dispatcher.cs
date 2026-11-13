@@ -38,7 +38,11 @@ namespace System.Windows.Threading
 
         public void VerifyAccess() { }
 
-        public void Invoke(Action action) => Send(() => { action(); return null; });
+        public void Invoke(Action action) => Send(() =>
+        {
+            action();
+            return null;
+        });
 
         public void Invoke(DispatcherPriority priority, Action action) => Invoke(action);
 
@@ -52,15 +56,27 @@ namespace System.Windows.Threading
 
         public object Invoke(Delegate method, DispatcherPriority priority, params object[] args) => Send(() => Call(method, args));
 
-        public DispatcherOperation BeginInvoke(DispatcherPriority priority, Delegate method, params object[] args) => Post(() => Call(method, args));
+        public DispatcherOperation BeginInvoke(DispatcherPriority priority,
+            Delegate method,
+            params object[] args) => Post(() => Call(method, args));
 
         public DispatcherOperation BeginInvoke(Delegate method, params object[] args) => Post(() => Call(method, args));
 
-        public DispatcherOperation BeginInvoke(Delegate method, DispatcherPriority priority, params object[] args) => Post(() => Call(method, args));
+        public DispatcherOperation BeginInvoke(Delegate method,
+            DispatcherPriority priority,
+            params object[] args) => Post(() => Call(method, args));
 
-        public DispatcherOperation BeginInvoke(DispatcherPriority priority, Action action) => Post(() => { action(); return null; });
+        public DispatcherOperation BeginInvoke(DispatcherPriority priority, Action action) => Post(() =>
+        {
+            action();
+            return null;
+        });
 
-        public DispatcherOperation InvokeAsync(Action action) => Post(() => { action(); return null; });
+        public DispatcherOperation InvokeAsync(Action action) => Post(() =>
+        {
+            action();
+            return null;
+        });
 
         /// <summary>Runs <paramref name="work"/> on the UI thread and waits for its result.</summary>
         private object Send(Func<object> work)
@@ -74,9 +90,18 @@ namespace System.Windows.Threading
             using var done = new ManualResetEventSlim(false);
             _uiContext.Post(_ =>
             {
-                try { result = GuardedContext.Run(work); }
-                catch (Exception exception) { failure = exception; }
-                finally { done.Set(); }
+                try
+                {
+                    result = GuardedContext.Run(work);
+                }
+                catch (Exception exception)
+                {
+                    failure = exception;
+                }
+                finally
+                {
+                    done.Set();
+                }
             }, null);
             done.Wait();
             if (failure != null)
@@ -96,9 +121,18 @@ namespace System.Windows.Threading
             var operation = new DispatcherOperation(null) { Status = DispatcherOperationStatus.Pending };
             _uiContext.Post(_ =>
             {
-                try { operation.Result = GuardedContext.Run(work); }
-                catch (Exception exception) { GuardedContext.Report(exception); }
-                finally { operation.Complete(); }
+                try
+                {
+                    operation.Result = GuardedContext.Run(work);
+                }
+                catch (Exception exception)
+                {
+                    GuardedContext.Report(exception);
+                }
+                finally
+                {
+                    operation.Complete();
+                }
             }, null);
             return operation;
         }

@@ -111,7 +111,10 @@ namespace System.Windows
                 {
                     method = type.GetMethod(HandlerName, anyInstance | Reflection.BindingFlags.DeclaredOnly);
                 }
-                handler = method == null ? null : Delegate.CreateDelegate(clrEvent.EventHandlerType, HandlerTarget, method, throwOnBindFailure: false);
+                handler = method == null ? null : Delegate.CreateDelegate(clrEvent.EventHandlerType,
+                    HandlerTarget,
+                    method,
+                    throwOnBindFailure: false);
             }
             if (handler != null && handler.GetType() == clrEvent.EventHandlerType)
             {

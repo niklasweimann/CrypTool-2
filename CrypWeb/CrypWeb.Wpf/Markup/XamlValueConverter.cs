@@ -50,16 +50,40 @@ namespace System.Windows.Markup
             if (type == typeof(CornerRadius)) return ParseCornerRadius(trimmed);
             if (type == typeof(GridLength)) return GridLength.Parse(trimmed);
             if (type == typeof(Controls.DataGridLength)) return Controls.DataGridLength.Parse(trimmed);
-            if (type == typeof(Point)) { double[] n = Numbers(trimmed, 2); return new Point(n[0], n[1]); }
-            if (type == typeof(Vector)) { double[] n = Numbers(trimmed, 2); return new Vector(n[0], n[1]); }
-            if (type == typeof(Size)) { double[] n = Numbers(trimmed, 2); return new Size(n[0], n[1]); }
-            if (type == typeof(Rect)) { double[] n = Numbers(trimmed, 4); return new Rect(n[0], n[1], n[2], n[3]); }
-            if (type == typeof(Matrix)) { double[] n = Numbers(trimmed, 6); return new Matrix(n[0], n[1], n[2], n[3], n[4], n[5]); }
+            if (type == typeof(Point))
+            {
+                double[] n = Numbers(trimmed, 2);
+                return new Point(n[0], n[1]);
+            }
+            if (type == typeof(Vector))
+            {
+                double[] n = Numbers(trimmed, 2);
+                return new Vector(n[0], n[1]);
+            }
+            if (type == typeof(Size))
+            {
+                double[] n = Numbers(trimmed, 2);
+                return new Size(n[0], n[1]);
+            }
+            if (type == typeof(Rect))
+            {
+                double[] n = Numbers(trimmed, 4);
+                return new Rect(n[0], n[1], n[2], n[3]);
+            }
+            if (type == typeof(Matrix))
+            {
+                double[] n = Numbers(trimmed, 6);
+                return new Matrix(n[0], n[1], n[2], n[3], n[4], n[5]);
+            }
 
-            if (type == typeof(Color)) return Color.TryParse(trimmed, out Color color) ? color : throw new FormatException("Unknown colour '" + trimmed + "'.");
+            if (type == typeof(Color)) return Color.TryParse(trimmed, out Color color)
+                ? color
+                : throw new FormatException("Unknown colour '" + trimmed + "'.");
             if (type == typeof(Brush) || type == typeof(SolidColorBrush))
             {
-                return Color.TryParse(trimmed, out Color color) ? new SolidColorBrush(color) : throw new FormatException("Unknown brush '" + trimmed + "'.");
+                return Color.TryParse(trimmed, out Color color)
+                    ? new SolidColorBrush(color)
+                    : throw new FormatException("Unknown brush '" + trimmed + "'.");
             }
 
             if (type == typeof(Media.Media3D.Point3D)) return Media.Media3D.Point3D.Parse(trimmed);
@@ -75,12 +99,18 @@ namespace System.Windows.Markup
             if (type == typeof(Transform) || type == typeof(GeneralTransform)) return ParseTransform(trimmed);
 
             if (type == typeof(FontFamily)) return new FontFamily(trimmed);
-            if (type == typeof(FontWeight)) { FontWeights.TryParse(trimmed, out FontWeight weight); return weight; }
+            if (type == typeof(FontWeight))
+            {
+                FontWeights.TryParse(trimmed, out FontWeight weight);
+                return weight;
+            }
             if (type == typeof(FontStyle)) return new FontStyleConverter().ConvertFromString(trimmed);
             if (type == typeof(FontStretch)) return default(FontStretch);
             if (type == typeof(TextDecorationCollection)) return TextDecorations.Parse(trimmed);
 
-            if (type == typeof(ImageSource) || type == typeof(BitmapSource) || type == typeof(BitmapImage)) return new BitmapImage(new Uri(trimmed, UriKind.RelativeOrAbsolute));
+            if (type == typeof(ImageSource)
+                || type == typeof(BitmapSource)
+                || type == typeof(BitmapImage)) return new BitmapImage(new Uri(trimmed, UriKind.RelativeOrAbsolute));
             if (type == typeof(Uri)) return new Uri(trimmed, UriKind.RelativeOrAbsolute);
             if (type == typeof(Cursor)) return Cursors.Parse(trimmed);
             if (type == typeof(PropertyPath)) return new PropertyPath(trimmed);
@@ -117,10 +147,25 @@ namespace System.Windows.Markup
 
             double factor = 1;
             string lower = text.ToLowerInvariant();
-            if (lower.EndsWith("px", StringComparison.Ordinal)) { text = text.Substring(0, text.Length - 2); }
-            else if (lower.EndsWith("in", StringComparison.Ordinal)) { factor = 96; text = text.Substring(0, text.Length - 2); }
-            else if (lower.EndsWith("cm", StringComparison.Ordinal)) { factor = 96 / 2.54; text = text.Substring(0, text.Length - 2); }
-            else if (lower.EndsWith("pt", StringComparison.Ordinal)) { factor = 96 / 72.0; text = text.Substring(0, text.Length - 2); }
+            if (lower.EndsWith("px", StringComparison.Ordinal))
+            {
+                text = text.Substring(0, text.Length - 2);
+            }
+            else if (lower.EndsWith("in", StringComparison.Ordinal))
+            {
+                factor = 96;
+                text = text.Substring(0, text.Length - 2);
+            }
+            else if (lower.EndsWith("cm", StringComparison.Ordinal))
+            {
+                factor = 96 / 2.54;
+                text = text.Substring(0, text.Length - 2);
+            }
+            else if (lower.EndsWith("pt", StringComparison.Ordinal))
+            {
+                factor = 96 / 72.0;
+                text = text.Substring(0, text.Length - 2);
+            }
             return double.Parse(text, NumberStyles.Float, CultureInfo.InvariantCulture) * factor;
         }
 

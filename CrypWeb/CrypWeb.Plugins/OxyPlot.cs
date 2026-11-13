@@ -123,11 +123,21 @@ namespace OxyPlot.Wpf
             foreach (Axis axis in Axes)
             {
                 bool horizontal = axis.Position == AxisPosition.Bottom || axis.Position == AxisPosition.Top;
-                if (!double.IsNaN(axis.Minimum)) { if (horizontal) minX = axis.Minimum; else minY = axis.Minimum; }
-                if (!double.IsNaN(axis.Maximum)) { if (horizontal) maxX = axis.Maximum; else maxY = axis.Maximum; }
+                if (!double.IsNaN(axis.Minimum))
+                {
+                    if (horizontal) minX = axis.Minimum; else minY = axis.Minimum;
+                }
+                if (!double.IsNaN(axis.Maximum))
+                {
+                    if (horizontal) maxX = axis.Maximum; else maxY = axis.Maximum;
+                }
             }
             if (maxX - minX < 1e-12) maxX = minX + 1;
-            if (maxY - minY < 1e-12) { maxY += 1; minY -= 1; }
+            if (maxY - minY < 1e-12)
+            {
+                maxY += 1;
+                minY -= 1;
+            }
 
             Point ToScreen(DataPoint p) => new Point(
                 margin + (p.X - minX) / (maxX - minX) * (width - 2 * margin),
@@ -137,8 +147,12 @@ namespace OxyPlot.Wpf
             foreach (Axis axis in Axes)
             {
                 if (!axis.IsAxisVisible) continue;
-                if (axis.Position == AxisPosition.Bottom) drawingContext.DrawLine(axisPen, new Point(margin, height - margin), new Point(width - margin, height - margin));
-                if (axis.Position == AxisPosition.Left) drawingContext.DrawLine(axisPen, new Point(margin, margin), new Point(margin, height - margin));
+                if (axis.Position == AxisPosition.Bottom) drawingContext.DrawLine(axisPen,
+                    new Point(margin, height - margin),
+                    new Point(width - margin, height - margin));
+                if (axis.Position == AxisPosition.Left) drawingContext.DrawLine(axisPen,
+                    new Point(margin, margin),
+                    new Point(margin, height - margin));
             }
 
             foreach (var (series, points) in data)

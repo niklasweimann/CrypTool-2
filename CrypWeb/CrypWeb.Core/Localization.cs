@@ -1,7 +1,13 @@
 namespace CrypTool.Web.Core;
 
-public sealed class PortLoc { public string? Caption { get; set; } public string? Tooltip { get; set; } }
+/// <summary>Localized caption and tooltip of one connector.</summary>
+public sealed class PortLoc
+{
+    public string? Caption { get; set; }
+    public string? Tooltip { get; set; }
+}
 
+/// <summary>Localized texts of one plugin (name, tooltip, connectors) for one language.</summary>
 public sealed class PluginLoc
 {
     public string? Name { get; set; }

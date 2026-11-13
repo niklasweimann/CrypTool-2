@@ -21,13 +21,48 @@ namespace System.Windows.Shapes
         public Brush Stroke { get => (Brush)GetValue(StrokeProperty); set => SetValue(StrokeProperty, value); }
         public double StrokeThickness { get => (double)GetValue(StrokeThicknessProperty); set => SetValue(StrokeThicknessProperty, value); }
         public Stretch Stretch { get => (Stretch)GetValue(StretchProperty); set => SetValue(StretchProperty, value); }
-        public DoubleCollection StrokeDashArray { get => (DoubleCollection)GetValue(StrokeDashArrayProperty); set => SetValue(StrokeDashArrayProperty, value); }
-        public double StrokeDashOffset { get => (double)GetValue(StrokeDashOffsetProperty); set => SetValue(StrokeDashOffsetProperty, value); }
-        public PenLineCap StrokeStartLineCap { get => (PenLineCap)GetValue(StrokeStartLineCapProperty); set => SetValue(StrokeStartLineCapProperty, value); }
-        public PenLineCap StrokeEndLineCap { get => (PenLineCap)GetValue(StrokeEndLineCapProperty); set => SetValue(StrokeEndLineCapProperty, value); }
-        public PenLineCap StrokeDashCap { get => (PenLineCap)GetValue(StrokeDashCapProperty); set => SetValue(StrokeDashCapProperty, value); }
-        public PenLineJoin StrokeLineJoin { get => (PenLineJoin)GetValue(StrokeLineJoinProperty); set => SetValue(StrokeLineJoinProperty, value); }
-        public double StrokeMiterLimit { get => (double)GetValue(StrokeMiterLimitProperty); set => SetValue(StrokeMiterLimitProperty, value); }
+
+        public DoubleCollection StrokeDashArray
+        {
+            get => (DoubleCollection)GetValue(StrokeDashArrayProperty);
+            set => SetValue(StrokeDashArrayProperty, value);
+        }
+
+        public double StrokeDashOffset
+        {
+            get => (double)GetValue(StrokeDashOffsetProperty);
+            set => SetValue(StrokeDashOffsetProperty, value);
+        }
+
+        public PenLineCap StrokeStartLineCap
+        {
+            get => (PenLineCap)GetValue(StrokeStartLineCapProperty);
+            set => SetValue(StrokeStartLineCapProperty, value);
+        }
+
+        public PenLineCap StrokeEndLineCap
+        {
+            get => (PenLineCap)GetValue(StrokeEndLineCapProperty);
+            set => SetValue(StrokeEndLineCapProperty, value);
+        }
+
+        public PenLineCap StrokeDashCap
+        {
+            get => (PenLineCap)GetValue(StrokeDashCapProperty);
+            set => SetValue(StrokeDashCapProperty, value);
+        }
+
+        public PenLineJoin StrokeLineJoin
+        {
+            get => (PenLineJoin)GetValue(StrokeLineJoinProperty);
+            set => SetValue(StrokeLineJoinProperty, value);
+        }
+
+        public double StrokeMiterLimit
+        {
+            get => (double)GetValue(StrokeMiterLimitProperty);
+            set => SetValue(StrokeMiterLimitProperty, value);
+        }
 
         /// <summary>The outline of the shape; custom shapes override this.</summary>
         protected abstract Geometry DefiningGeometry { get; }

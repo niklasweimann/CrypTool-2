@@ -7,40 +7,77 @@ namespace CrypWeb.App.Pages;
 // Startcenter data: recently opened workspaces (kept in localStorage).
 public partial class Home
 {
-    const string RecentKey = "ct2web.recent.v1";
-    sealed record Recent(string Name, string Kind, string? Data);
-    List<Recent> recents = new();
+    private const string RecentKey = "ct2web.recent.v1";
+    private List<Recent> recents = new();
 
-    async Task LoadStartData()
+    private async Task LoadStartData()
     {
         try
         {
             var raw = await Js.InvokeAsync<string?>("ct2.store.get", RecentKey);
-            if (!string.IsNullOrEmpty(raw)) recents = JsonSerializer.Deserialize<List<Recent>>(raw) ?? new();
+            if (!string.IsNullOrEmpty(raw)) recents = JsonSerializer.Deserialize<List<Recent>>(raw) ?? new List<Recent>();
         }
-        catch { }
+        catch (Exception)
+        {
+            /* unreadable list: start with an empty one */
+        }
     }
 
     /// <summary>Remembers a workspace: templates by path, files by content (small ones only, the browser cannot reopen a file by path).</summary>
-    async Task AddRecent(string name, string kind, byte[]? data = null)
+    private async Task AddRecent(string name, string kind, byte[]? data = null)
     {
         recents.RemoveAll(r => r.Name == name && r.Kind == kind);
         recents.Insert(0, new Recent(name, kind, data is { Length: > 0 and < 300_000 } ? Convert.ToBase64String(data) : null));
         if (recents.Count > 15) recents.RemoveRange(15, recents.Count - 15);
-        try { await Js.InvokeVoidAsync("ct2.store.set", RecentKey, JsonSerializer.Serialize(recents)); } catch { }
+        try
+        {
+            await Js.InvokeVoidAsync("ct2.store.set", RecentKey, JsonSerializer.Serialize(recents));
+        }
+        catch (Exception)
+        {
+            /* storage unavailable: the list is not remembered */
+        }
     }
 
-    async Task ClearRecents() { recents.Clear(); try { await Js.InvokeVoidAsync("ct2.store.remove", RecentKey); } catch { } }
-
-    async Task OpenRecent(Recent r)
+    private async Task ClearRecents()
     {
-        if (r.Kind == "template") { await OpenTemplate(r.Name); return; }
-        if (r.Data == null) { error = Loc["start.noRecentData"]; return; }
+        recents.Clear();
+        try
+        {
+            await Js.InvokeVoidAsync("ct2.store.remove", RecentKey);
+        }
+        catch (Exception)
+        {
+            /* storage unavailable: nothing to clear */
+        }
+    }
+
+    private async Task OpenRecent(Recent r)
+    {
+        if (r.Kind == "template")
+        {
+            await OpenTemplate(r.Name);
+            return;
+        }
+
+        if (r.Data == null)
+        {
+            error = Loc["start.noRecentData"];
+            return;
+        }
+
         try
         {
             var ws = CwmReader.Read(Convert.FromBase64String(r.Data));
-            EnsureTarget(); ed.Load(ws); current = r.Name; error = null; await FitAsync();
+            EnsureTarget();
+            ed.Load(ws);
+            current = r.Name;
+            error = null;
+            await FitAsync();
         }
-        catch (Exception ex) { error = ex.Message; }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
     }
 }

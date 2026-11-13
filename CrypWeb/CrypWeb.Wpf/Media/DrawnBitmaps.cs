@@ -70,7 +70,7 @@ namespace System.Windows.Media.Imaging
 
         public override int PixelHeight => DrawnHeight;
 
-        public PixelFormat Format { get; }
+        public override PixelFormat Format { get; }
 
         /// <summary>What the bitmap shows; null while nothing was drawn into it.</summary>
         internal DrawingContext Drawing { get; set; }
@@ -113,9 +113,9 @@ namespace System.Windows.Media.Imaging
             }
         }
 
-        public void CopyPixels(Array pixels, int stride, int offset) { }
+        public new void CopyPixels(Array pixels, int stride, int offset) { }
 
-        public void CopyPixels(Int32Rect sourceRect, Array pixels, int stride, int offset) { }
+        public new void CopyPixels(Int32Rect sourceRect, Array pixels, int stride, int offset) { }
     }
 
     /// <summary>
@@ -160,7 +160,8 @@ namespace System.Windows.Media.Imaging
         {
             lock (Owners)
             {
-                return Owners.TryGetValue(buffer, out WeakReference<WriteableBitmap> owner) && owner.TryGetTarget(out WriteableBitmap bitmap) ? bitmap : null;
+                return Owners.TryGetValue(buffer, out WeakReference<WriteableBitmap> owner)
+                    && owner.TryGetTarget(out WriteableBitmap bitmap) ? bitmap : null;
             }
         }
 

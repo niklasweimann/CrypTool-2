@@ -1,191 +1,266 @@
-using System.Text.Json;
-
 namespace CrypTool.Web.Core;
 
-/// <summary>Editing operations of the canvas (selection, connect, delete, copy/paste, undo/redo, persistence).</summary>
-public sealed class WorkspaceEditor
+/// <summary>Editing operations of the canvas (selection, connect, delete, copy/paste, undo/redo) on one workspace.</summary>
+/// <remarks>Persistence (own JSON format) is in <c>WorkspaceEditor.Json.cs</c>, the connection rules in <see cref="ConnectionRules"/>.</remarks>
+public sealed partial class WorkspaceEditor
 {
+    const int MaxUndoSteps = 200;
+    const double PasteOffset = 30; // each paste lands this much further down-right, so copies do not hide each other
+
     public Workspace Ws { get; private set; } = new();
     public HashSet<int> Selection { get; } = new();
     public int? SelectedWire { get; set; }
-    readonly Stack<Workspace> undo = new(), redo = new();
+
+    readonly Stack<Workspace> undo = new();
+    readonly Stack<Workspace> redo = new();
     Workspace? clipboard;
     int pasteCount;
 
     public bool CanUndo => undo.Count > 0;
     public bool CanRedo => redo.Count > 0;
+
+    /// <summary>True when there are changes that were not saved.</summary>
     public bool Dirty { get; private set; }
+
     public void MarkDirty() => Dirty = true;
 
-    public void Load(Workspace ws) { Ws = ws; Selection.Clear(); SelectedWire = null; undo.Clear(); redo.Clear(); Dirty = false; }
-
-    /// <summary>Call BEFORE a mutating operation.</summary>
-    public void Checkpoint() { undo.Push(Ws.Clone()); redo.Clear(); if (undo.Count > 200) { var l = undo.Reverse().Skip(1).ToArray(); undo.Clear(); foreach (var x in l) undo.Push(x); } Dirty = true; }
-    public void Undo() { if (undo.Count == 0) return; redo.Push(Ws.Clone()); Ws = undo.Pop(); Prune(); }
-    public void Redo() { if (redo.Count == 0) return; undo.Push(Ws.Clone()); Ws = redo.Pop(); Prune(); }
-    void Prune() { var ids = Ws.Plugins.Select(p => p.Id).Concat(Ws.Texts.Select(t => t.Id)).Concat(Ws.Images.Select(t => t.Id)).ToHashSet(); Selection.IntersectWith(ids); SelectedWire = null; }
-
-    public IEnumerable<VisualNode> Movable => Ws.Plugins.Cast<VisualNode>().Concat(Ws.Texts).Concat(Ws.Images);
-    public VisualNode? Find(int id) => Movable.FirstOrDefault(n => n.Id == id);
-
-    public void BringToFront(VisualNode n) { n.ZIndex = Movable.Max(m => m.ZIndex) + 1; }
-
-    public void SendToBack(VisualNode n) { n.ZIndex = Movable.Min(m => m.ZIndex) - 1; }
-
-    /// <summary>Moves a node one step up (+1) or down (-1) in the z-order.</summary>
-    public void Elevate(VisualNode n, int dir)
+    /// <summary>Replaces the workspace (new/open); clears selection and undo history.</summary>
+    public void Load(Workspace workspace)
     {
-        var l = Movable.OrderBy(m => m.ZIndex).ToList();
-        for (int i = 0; i < l.Count; i++) l[i].ZIndex = i + 1;
-        int idx = l.IndexOf(n), j = idx + dir; if (idx < 0 || j < 0 || j >= l.Count) return;
-        (l[idx].ZIndex, l[j].ZIndex) = (l[j].ZIndex, l[idx].ZIndex);
+        Ws = workspace;
+        Selection.Clear();
+        SelectedWire = null;
+        undo.Clear();
+        redo.Clear();
+        Dirty = false;
     }
 
-    public PluginNode AddPlugin(PaletteEntry e, double x, double y)
+    // ---- undo / redo ----
+
+    /// <summary>Call BEFORE a mutating operation: remembers the current state as an undo step.</summary>
+    public void Checkpoint()
     {
-        var p = new PluginNode { Id = Ws.NextId(), X = x, Y = y, Width = e.Width, Height = e.Height, Name = e.Name, TypeName = e.TypeName, AssemblyName = e.AssemblyName };
-        void add(List<PalettePort> src, bool outgoing)
+        undo.Push(Ws.Clone());
+        redo.Clear();
+        if (undo.Count > MaxUndoSteps) DropOldestUndoStep();
+        Dirty = true;
+    }
+
+    void DropOldestUndoStep()
+    {
+        var newestFirst = undo.ToArray();
+        undo.Clear();
+        foreach (var step in newestFirst.Take(newestFirst.Length - 1).Reverse()) undo.Push(step);
+    }
+
+    public void Undo()
+    {
+        if (undo.Count == 0) return;
+        redo.Push(Ws.Clone());
+        Ws = undo.Pop();
+        PruneSelection();
+    }
+
+    public void Redo()
+    {
+        if (redo.Count == 0) return;
+        undo.Push(Ws.Clone());
+        Ws = redo.Pop();
+        PruneSelection();
+    }
+
+    /// <summary>After undo/redo the selected nodes may no longer exist.</summary>
+    void PruneSelection()
+    {
+        var existing = Movable.Select(n => n.Id).ToHashSet();
+        Selection.IntersectWith(existing);
+        SelectedWire = null;
+    }
+
+    // ---- nodes and z-order ----
+
+    /// <summary>Everything that can be moved, selected and deleted (components, notes, pictures).</summary>
+    public IEnumerable<VisualNode> Movable => Ws.Plugins.Cast<VisualNode>().Concat(Ws.Texts).Concat(Ws.Images);
+
+    public VisualNode? Find(int id) => Movable.FirstOrDefault(n => n.Id == id);
+
+    public void BringToFront(VisualNode node) => node.ZIndex = Movable.Max(m => m.ZIndex) + 1;
+
+    public void SendToBack(VisualNode node) => node.ZIndex = Movable.Min(m => m.ZIndex) - 1;
+
+    /// <summary>Moves a node one step up (+1) or down (-1) in the z-order.</summary>
+    public void Elevate(VisualNode node, int direction)
+    {
+        var ordered = Movable.OrderBy(m => m.ZIndex).ToList();
+        for (int i = 0; i < ordered.Count; i++) ordered[i].ZIndex = i + 1; // make the z-indices distinct first
+
+        int index = ordered.IndexOf(node);
+        int neighbour = index + direction;
+        if (index < 0 || neighbour < 0 || neighbour >= ordered.Count) return;
+        (ordered[index].ZIndex, ordered[neighbour].ZIndex) = (ordered[neighbour].ZIndex, ordered[index].ZIndex);
+    }
+
+    public PluginNode AddPlugin(PaletteEntry entry, double x, double y)
+    {
+        var plugin = new PluginNode
         {
-            int i = 0;
-            foreach (var s in src)
+            Id = Ws.NextId(),
+            X = x,
+            Y = y,
+            Width = entry.Width,
+            Height = entry.Height,
+            Name = entry.Name,
+            TypeName = entry.TypeName,
+            AssemblyName = entry.AssemblyName,
+        };
+        Ws.Plugins.Add(plugin);
+        AddPorts(plugin, entry.Inputs, outgoing: false);
+        AddPorts(plugin, entry.Outputs, outgoing: true);
+        BringToFront(plugin);
+        return plugin;
+    }
+
+    /// <summary>Inputs sit on the west side, outputs on the east side (orientation 2 / 3).</summary>
+    void AddPorts(PluginNode plugin, List<PalettePort> ports, bool outgoing)
+    {
+        int index = 0;
+        foreach (var port in ports)
+        {
+            var connector = new ConnectorPort
             {
-                var c = new ConnectorPort { Id = Ws.NextId(), Plugin = p, Outgoing = outgoing, Orientation = outgoing ? 3 : 2, Index = i++, PropertyName = s.PropertyName, Name = s.PropertyName,
-                    DataTypeName = s.DataTypeName, ToolTip = s.ToolTip, IsMandatory = s.IsMandatory };
-                (outgoing ? p.Outputs : p.Inputs).Add(c); Ws.Connectors.Add(c);
-            }
+                Id = Ws.NextId(),
+                Plugin = plugin,
+                Outgoing = outgoing,
+                Orientation = outgoing ? 3 : 2,
+                Index = index++,
+                PropertyName = port.PropertyName,
+                Name = port.PropertyName,
+                DataTypeName = port.DataTypeName,
+                ToolTip = port.ToolTip,
+                IsMandatory = port.IsMandatory,
+            };
+            (outgoing ? plugin.Outputs : plugin.Inputs).Add(connector);
+            Ws.Connectors.Add(connector);
         }
-        Ws.Plugins.Add(p);
-        add(e.Inputs, false); add(e.Outputs, true);
-        BringToFront(p);
-        return p;
     }
 
     public TextNode AddText(double x, double y)
     {
-        var t = new TextNode { Id = Ws.NextId(), X = x, Y = y, Width = 220, Height = 80, Text = "Note" };
-        Ws.Texts.Add(t); BringToFront(t); return t;
+        var note = new TextNode { Id = Ws.NextId(), X = x, Y = y, Width = 220, Height = 80, Text = "Note" };
+        Ws.Texts.Add(note);
+        BringToFront(note);
+        return note;
     }
 
-    public ImageNode AddImage(byte[] data, double x, double y, double w, double h)
+    public ImageNode AddImage(byte[] data, double x, double y, double width, double height)
     {
-        var im = new ImageNode { Id = Ws.NextId(), X = x, Y = y, Width = w, Height = h, Data = data };
-        Ws.Images.Add(im); BringToFront(im); return im;
+        var image = new ImageNode { Id = Ws.NextId(), X = x, Y = y, Width = width, Height = height, Data = data };
+        Ws.Images.Add(image);
+        BringToFront(image);
+        return image;
     }
 
+    // ---- wires ----
+
+    /// <summary>True if an output and an input of different components can be connected (see <see cref="ConnectionRules"/>).</summary>
     public bool CanConnect(ConnectorPort a, ConnectorPort b)
     {
         if (a == b || a.Outgoing == b.Outgoing || a.Plugin == b.Plugin) return false;
-        var from = a.Outgoing ? a : b; var to = a.Outgoing ? b : a;
-        return Compatible(from.DataTypeName, to.DataTypeName);
+        var (from, to) = a.Outgoing ? (a, b) : (b, a);
+        return ConnectionRules.Compatible(from.DataTypeName, to.DataTypeName);
     }
 
-    static readonly Dictionary<string, Type?> typeCache = new();
-    static Type? Resolve(string name)
-    {
-        if (string.IsNullOrEmpty(name)) return typeof(object);
-        if (typeCache.TryGetValue(name, out var t)) return t;
-        t = Type.GetType(name) ?? Type.GetType(name + ", CrypPluginBase") ?? Type.GetType(name + ", System.Runtime.Numerics");
-        return typeCache[name] = t;
-    }
-
-    /// <summary>Same rules as the original WorkspaceModel.CheckConnection: green (assignable) or yellow (convertible).</summary>
-    static bool Compatible(string from, string to)
-    {
-        if (from == to || from == "System.Object" || to == "System.Object" || from == "" || to == "") return true;
-        var a = Resolve(from); var b = Resolve(to);
-        if (a != null && b != null && (a == b || a.IsSubclassOf(b) || a.GetInterfaces().Contains(b))) return true;
-        bool intLike(string t) => t is "System.Int32" or "System.Int64";
-        const string big = "System.Numerics.BigInteger", str = "System.String", bytes = "System.Byte[]", stream = "CrypTool.PluginBase.IO.ICrypToolStream";
-        return (intLike(from) && to == big) || (intLike(to) && from == big)
-            || (to == str && from == bytes) || (to == bytes && from == str)
-            || (to == str && (intLike(from) || from == big || from == "System.Boolean" || from == stream))
-            || (to == stream && from == str);
-    }
-
-    static bool StreamLike(string t) => t.EndsWith("ICrypToolStream") || t == "System.Byte[]" || t == "System.String";
-
+    /// <summary>Connects two ports (in either order). An input takes one connection: an existing wire to it is replaced.</summary>
     public Wire? Connect(ConnectorPort a, ConnectorPort b)
     {
         if (!CanConnect(a, b)) return null;
-        var from = a.Outgoing ? a : b; var to = a.Outgoing ? b : a;
+        var (from, to) = a.Outgoing ? (a, b) : (b, a);
         if (from.Wires.Any(w => w.To == to)) return null;
-        foreach (var old in to.Wires.ToList()) RemoveWire(old); // an input takes one connection
-        var w = new Wire { Id = Ws.NextId(), From = from, To = to };
-        from.Wires.Add(w); to.Wires.Add(w); Ws.Wires.Add(w);
-        return w;
+
+        foreach (var old in to.Wires.ToList()) RemoveWire(old);
+        var wire = new Wire { Id = Ws.NextId(), From = from, To = to };
+        from.Wires.Add(wire);
+        to.Wires.Add(wire);
+        Ws.Wires.Add(wire);
+        return wire;
     }
 
-    public void RemoveWire(Wire w) { w.From?.Wires.Remove(w); w.To?.Wires.Remove(w); Ws.Wires.Remove(w); if (SelectedWire == w.Id) SelectedWire = null; }
+    public void RemoveWire(Wire wire)
+    {
+        wire.From?.Wires.Remove(wire);
+        wire.To?.Wires.Remove(wire);
+        Ws.Wires.Remove(wire);
+        if (SelectedWire == wire.Id) SelectedWire = null;
+    }
 
+    /// <summary>Deletes the selected wire, or else the selected components (with their wires), notes and pictures.</summary>
     public void DeleteSelection()
     {
-        if (SelectedWire is int wid && Ws.Wires.FirstOrDefault(w => w.Id == wid) is { } w) { RemoveWire(w); return; }
-        foreach (var p in Ws.Plugins.Where(p => Selection.Contains(p.Id)).ToList())
+        if (SelectedWire is int wireId && Ws.Wires.FirstOrDefault(w => w.Id == wireId) is { } selectedWire)
         {
-            foreach (var c in p.Inputs.Concat(p.Outputs)) { foreach (var wi in c.Wires.ToList()) RemoveWire(wi); Ws.Connectors.Remove(c); }
-            Ws.Plugins.Remove(p);
+            RemoveWire(selectedWire);
+            return;
+        }
+
+        foreach (var plugin in Ws.Plugins.Where(p => Selection.Contains(p.Id)).ToList())
+        {
+            foreach (var connector in plugin.Inputs.Concat(plugin.Outputs))
+            {
+                foreach (var wire in connector.Wires.ToList()) RemoveWire(wire);
+                Ws.Connectors.Remove(connector);
+            }
+            Ws.Plugins.Remove(plugin);
         }
         Ws.Texts.RemoveAll(t => Selection.Contains(t.Id));
-        Ws.Images.RemoveAll(t => Selection.Contains(t.Id));
+        Ws.Images.RemoveAll(i => Selection.Contains(i.Id));
         Selection.Clear();
     }
 
-    public void Copy() => clipboard = Ws.Clone(n => Selection.Contains(n.Id));
-    public bool HasClipboard => clipboard != null && (clipboard.Plugins.Count + clipboard.Texts.Count + clipboard.Images.Count) > 0;
+    // ---- clipboard ----
 
+    public bool HasClipboard => clipboard != null && clipboard.Plugins.Count + clipboard.Texts.Count + clipboard.Images.Count > 0;
+
+    public void Copy() => clipboard = Ws.Clone(n => Selection.Contains(n.Id));
+
+    /// <summary>Inserts a copy of the clipboard with fresh ids, offset a bit, and selects it.</summary>
     public void Paste()
     {
         if (!HasClipboard) return;
         pasteCount++;
-        int baseId = Ws.NextId();
-        var c = clipboard!.Clone();
-        var map = new Dictionary<int, int>();
-        int Next(int old) => map.TryGetValue(old, out var v) ? v : map[old] = baseId++;
-        foreach (var p in c.Plugins) { p.Id = Next(p.Id); p.X += 30 * pasteCount; p.Y += 30 * pasteCount; }
-        foreach (var t in c.Texts) { t.Id = Next(t.Id); t.X += 30 * pasteCount; t.Y += 30 * pasteCount; }
-        foreach (var t in c.Images) { t.Id = Next(t.Id); t.X += 30 * pasteCount; t.Y += 30 * pasteCount; }
-        foreach (var k in c.Connectors) k.Id = Next(k.Id);
-        foreach (var w in c.Wires) w.Id = Next(w.Id);
-        Ws.Plugins.AddRange(c.Plugins); Ws.Connectors.AddRange(c.Connectors); Ws.Wires.AddRange(c.Wires); Ws.Texts.AddRange(c.Texts); Ws.Images.AddRange(c.Images);
-        Selection.Clear(); foreach (var n in c.Plugins.Cast<VisualNode>().Concat(c.Texts).Concat(c.Images)) { Selection.Add(n.Id); BringToFront(n); }
+        double offset = PasteOffset * pasteCount;
+        var pasted = clipboard!.Clone();
+
+        int nextId = Ws.NextId();
+        var newIds = new Dictionary<int, int>();
+        int NewId(int oldId) => newIds.TryGetValue(oldId, out var id) ? id : newIds[oldId] = nextId++;
+
+        var nodes = pasted.Plugins.Cast<VisualNode>().Concat(pasted.Texts).Concat(pasted.Images).ToList();
+        foreach (var node in nodes)
+        {
+            node.Id = NewId(node.Id);
+            node.X += offset;
+            node.Y += offset;
+        }
+        foreach (var connector in pasted.Connectors) connector.Id = NewId(connector.Id);
+        foreach (var wire in pasted.Wires) wire.Id = NewId(wire.Id);
+
+        Ws.Plugins.AddRange(pasted.Plugins);
+        Ws.Connectors.AddRange(pasted.Connectors);
+        Ws.Wires.AddRange(pasted.Wires);
+        Ws.Texts.AddRange(pasted.Texts);
+        Ws.Images.AddRange(pasted.Images);
+
+        Selection.Clear();
+        foreach (var node in nodes)
+        {
+            Selection.Add(node.Id);
+            BringToFront(node);
+        }
     }
 
-    public void SelectAll() { Selection.Clear(); foreach (var n in Movable) Selection.Add(n.Id); }
-
-    // ---- persistence (own JSON format; the .cwm reader is the import path) ----
-    sealed record Dto(List<PluginDto> Plugins, List<TextNode> Texts, List<WireDto> Wires, List<ImageNode>? Images = null, double Zoom = 1, Dictionary<string, string>? WsExtra = null);
-    sealed record PortDto(int Id, string Name, string DataType, string ToolTip, bool Mandatory, int Orient = 4, string Asm = "", Dictionary<string, string>? Extra = null);
-    sealed record PluginDto(int Id, string Name, string Type, string Assembly, double X, double Y, double W, double H, int Z, bool Min,
-        List<PortDto> In, List<PortDto> Out, Dictionary<string, string> Settings, int View = 0, Dictionary<string, string>? Extra = null, Dictionary<string, string>? SettingTypes = null);
-    sealed record WireDto(int Id, int From, int To, string Sig = "", List<double[]>? Pts = null, Dictionary<string, string>? Extra = null);
-
-    public string ToJson() => JsonSerializer.Serialize(new Dto(
-        Ws.Plugins.Select(p => new PluginDto(p.Id, p.Name, p.TypeName, p.AssemblyName, p.X, p.Y, p.Width, p.Height, p.ZIndex, p.Minimized,
-            p.Inputs.Select(c => new PortDto(c.Id, c.PropertyName, c.DataTypeName, c.ToolTip, c.IsMandatory, c.Orientation, c.DataTypeAssembly, c.Extra)).ToList(),
-            p.Outputs.Select(c => new PortDto(c.Id, c.PropertyName, c.DataTypeName, c.ToolTip, c.IsMandatory, c.Orientation, c.DataTypeAssembly, c.Extra)).ToList(), p.Settings, p.ViewState, p.Extra, p.SettingTypes)).ToList(),
-        Ws.Texts.ToList(),
-        Ws.Wires.Where(w => w.From != null && w.To != null).Select(w => new WireDto(w.Id, w.From!.Id, w.To!.Id, w.RouteSig, w.Points.Select(q => new[] { q.X, q.Y }).ToList(), w.Extra)).ToList(), Ws.Images.ToList(), Ws.Zoom, Ws.Extra),
-        new JsonSerializerOptions { WriteIndented = true });
-
-    public static Workspace FromJson(string json)
+    public void SelectAll()
     {
-        var d = JsonSerializer.Deserialize<Dto>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
-        var ws = new Workspace(); var ports = new Dictionary<int, ConnectorPort>();
-        foreach (var p in d.Plugins)
-        {
-            var n = new PluginNode { Id = p.Id, Name = p.Name, TypeName = p.Type, AssemblyName = p.Assembly, X = p.X, Y = p.Y, Width = p.W, Height = p.H, ZIndex = p.Z, Minimized = p.Min, ViewState = p.View, Extra = p.Extra ?? new() };
-            foreach (var kv in p.Settings ?? new()) n.Settings[kv.Key] = kv.Value;
-            foreach (var kv in p.SettingTypes ?? new()) n.SettingTypes[kv.Key] = kv.Value;
-            ws.Plugins.Add(n);
-            void add(List<PortDto> l, bool o) { int i = 0; foreach (var q in l) { var c = new ConnectorPort { Id = q.Id, Plugin = n, Outgoing = o, Index = i++, PropertyName = q.Name, Name = q.Extra != null && q.Extra.TryGetValue("Name", out var nm) ? nm : q.Name, DataTypeName = q.DataType, DataTypeAssembly = q.Asm, ToolTip = q.ToolTip, IsMandatory = q.Mandatory, Orientation = q.Orient, Extra = q.Extra ?? new() }; (o ? n.Outputs : n.Inputs).Add(c); ws.Connectors.Add(c); ports[c.Id] = c; } }
-            add(p.In, false); add(p.Out, true);
-        }
-        ws.Zoom = d.Zoom <= 0 ? 1 : d.Zoom;
-        ws.Extra = d.WsExtra ?? new();
-        ws.Texts.AddRange(d.Texts);
-        foreach (var t in d.Texts) t.Extra ??= new();
-        foreach (var im in d.Images ?? new()) { im.Extra ??= new(); ws.Images.Add(im); }
-        foreach (var w in d.Wires) if (ports.TryGetValue(w.From, out var f) && ports.TryGetValue(w.To, out var t)) { var x = new Wire { Id = w.Id != 0 ? w.Id : ws.NextId(), From = f, To = t, RouteSig = w.Sig, Extra = w.Extra ?? new() }; foreach (var q in w.Pts ?? new()) x.Points.Add((q[0], q[1])); f.Wires.Add(x); t.Wires.Add(x); ws.Wires.Add(x); }
-        return ws;
+        Selection.Clear();
+        foreach (var node in Movable) Selection.Add(node.Id);
     }
 }

@@ -1,0 +1,152 @@
+@using CrypWeb.App.Pages
+@inject Localizer Loc
+
+@* The start center: new/open, links, the template tree and the recently opened workspaces. *@
+<div class="page start">
+    <div class="sc-head"><img src="logo.png" alt="" onerror="this.style.display='none'"/>
+        <h1>@AboutModal.AppName</h1></div>
+    <p class="sc-intro">@Loc["start.intro"]</p>
+    <div class="sc-grid">
+        <div class="sc-col">
+            <h3 class="sc-h">★ @Loc["start.main"]</h3>
+            <div class="sc-box">
+                <div class="sc-link" @onclick="OnNewWorkspace"><span class="sc-ic">🗋</span>@Loc["start.newWs"]</div>
+                <label class="sc-link">
+                    <span class="sc-ic">📂</span>@Loc["start.openFile"]<InputFile OnChange="OnOpenFile"
+                                                                                 accept=".cwm,.json"/>
+                </label>
+            </div>
+            <h3 class="sc-h">ⓘ @Loc["start.external"]</h3>
+            <div class="sc-box">
+                @foreach (var link in ExternalLinks)
+                {
+                    <a class="sc-link" href="@link.Url" target="_blank" rel="noopener"><span
+                            class="sc-ic @link.IconClass">@link.Icon</span>@Loc[link.TextKey]</a>
+                }
+            </div>
+        </div>
+        <div class="sc-col">
+            <h3 class="sc-h">▤ @Loc["panel.templates"]</h3>
+            <input class="pfilter tplfilter" placeholder="@Loc["panel.search"]" @bind="Filter" @bind:event="oninput"/>
+            <div class="sc-box sc-tpl">
+                <div class="tpltree">@Tree(BuildTree(), 0)</div>
+            </div>
+            <h3 class="sc-h">🕘 @Loc["start.recent"]<button class="sc-trash" title="@Loc["start.clearRecent"]"
+                                                           @onclick="OnClearRecents">🗑
+                </button>
+            </h3>
+            <div class="sc-box sc-recent">
+                @if (Recents.Count == 0)
+                {
+                    <div class="mhint">@Loc["start.noRecent"]</div>
+                }
+                @foreach (var recent in Recents)
+                {
+                    var entry = recent;
+                    var unavailable = entry.Kind == "file" && entry.Data == null; // a file that was too large to keep
+                    <div class="tplfile @(unavailable ? "dis" : "")" @onclick="() => OnOpenRecent.InvokeAsync(entry)">
+                        ▤ @Path.GetFileNameWithoutExtension(entry.Name)<i
+                            class="rk">@(entry.Kind == "file" ? "file" : "")</i>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<string> Templates { get; set; } = Array.Empty<string>();
+    [Parameter, EditorRequired] public IReadOnlyList<Recent> Recents { get; set; } = Array.Empty<Recent>();
+    [Parameter] public EventCallback OnNewWorkspace { get; set; }
+    [Parameter] public EventCallback<InputFileChangeEventArgs> OnOpenFile { get; set; }
+    [Parameter] public EventCallback<string> OnOpenTemplate { get; set; }
+    [Parameter] public EventCallback<Recent> OnOpenRecent { get; set; }
+    [Parameter] public EventCallback OnClearRecents { get; set; }
+
+    sealed record ExternalLink(string Url, string Icon, string IconClass, string TextKey);
+
+    static readonly ExternalLink[] ExternalLinks =
+    {
+        new("https://youtu.be/dYaUe4BKQhc", "💡", "", "start.tutorial"),
+        new("https://www.cryptool.org/en/documentation/ctbook/", "📕", "", "start.book"),
+        new("https://www.cryptool.org/CrypTool2", "🌐", "", "start.website"),
+        new("https://www.youtube.com/channel/UC8_FqvQWJfZYxcSoEJ5ob-Q", "▶", "yt", "start.channel"),
+        new("https://www.facebook.com/CrypTool2", "f", "fb", "start.facebook")
+    };
+
+    // ---- template tree: the templates' relative paths ("Cryptography/Classic/Caesar.cwm") shown as folders ----
+
+    sealed class Folder
+    {
+        public string Name = "";
+        public string Path = "";
+        public readonly List<Folder> Folders = new();
+        public readonly List<string> Files = new();
+    }
+
+    public string Filter { get; private set; } = "";
+    public HashSet<string> OpenFolders { get; } = new() { "Codes" };
+
+    /// <summary>The templates that match the filter, arranged as a tree of folders.</summary>
+    Folder BuildTree()
+    {
+        var root = new Folder();
+        var matching = Templates
+            .Where(t => Filter.Length == 0 || t.Contains(Filter, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(t => t, StringComparer.OrdinalIgnoreCase);
+        foreach (var template in matching)
+        {
+            var parts = template.Split('/');
+            var folder = root;
+            for (var i = 0; i < parts.Length - 1; i++)
+            {
+                var child = folder.Folders.FirstOrDefault(f => f.Name == parts[i]);
+                if (child == null)
+                {
+                    child = new Folder { Name = parts[i], Path = string.Join("/", parts.Take(i + 1)) };
+                    folder.Folders.Add(child);
+                }
+
+                folder = child;
+            }
+
+            folder.Files.Add(template);
+        }
+
+        return root;
+    }
+
+    static int Count(Folder folder) => folder.Files.Count + folder.Folders.Sum(Count);
+
+    void ToggleFolder(string path)
+    {
+        if (!OpenFolders.Remove(path)) OpenFolders.Add(path);
+    }
+
+    RenderFragment Tree(Folder folder, int depth) => @<div class="tplnode">
+                                                         @foreach (var sub in folder.Folders)
+                                                         {
+                                                             var f = sub;
+                                                             var open = Filter.Length > 0 || OpenFolders.Contains(f.Path); // a filter opens all folders
+                                                             <div class="tpldir" style="padding-left:@(depth * 18)px"
+                                                                  @onclick="() => ToggleFolder(f.Path)">
+                                                                 <span
+                                                                     class="tpltw">@(open ? "▾" : "▸")</span>📁 @f.Name<i>@Count(f)</i>
+                                                             </div>
+                                                             @if (open)
+                                                             {
+                                                                 @Tree(f, depth + 1)
+                                                             }
+                                                         }
+                                                         @foreach (var file in folder.Files)
+                                                         {
+                                                             var template = file;
+                                                             <div class="tplfile"
+                                                                  style="padding-left:@(depth * 18 + 18)px"
+                                                                  @onclick="() => OnOpenTemplate.InvokeAsync(template)">
+                                                                 ▤ @Path.GetFileNameWithoutExtension(template)
+                                                             </div>
+                                                         }
+                                                     </div>;
+
+}

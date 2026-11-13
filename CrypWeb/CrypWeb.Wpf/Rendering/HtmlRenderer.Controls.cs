@@ -87,7 +87,9 @@ namespace System.Windows.Rendering
             bool multiline = box.AcceptsReturn || box.TextWrapping != TextWrapping.NoWrap || scrolls || (box.Text ?? "").Contains('\n');
             string attributes = " data-k=\"text\"" + (box.IsReadOnly ? " readonly" : "") + (box.IsEnabled ? "" : " disabled")
                 + (box.MaxLength > 0 ? " maxlength=\"" + box.MaxLength + "\"" : "");
-            string style = box.HasValue(TextBox.TextAlignmentProperty) ? "text-align:" + box.TextAlignment.ToString().ToLowerInvariant() + ";" : "";
+            string style = box.HasValue(TextBox.TextAlignmentProperty)
+                ? "text-align:" + box.TextAlignment.ToString().ToLowerInvariant() + ";"
+                : "";
             if (multiline)
             {
                 if (box.TextWrapping == TextWrapping.NoWrap)
@@ -105,7 +107,12 @@ namespace System.Windows.Rendering
             {
                 // without a width, a WPF text box is as wide as its text (size= for browsers without field-sizing)
                 string size = " size=\"" + Math.Max(1, (box.Text ?? "").Length) + "\"";
-                OpenTag("input", box, slot, "wtb", style, attributes + size + " type=\"text\" value=\"" + CssValues.Escape(box.Text) + "\"");
+                OpenTag("input",
+                    box,
+                    slot,
+                    "wtb",
+                    style,
+                    attributes + size + " type=\"text\" value=\"" + CssValues.Escape(box.Text) + "\"");
             }
         }
 
@@ -120,14 +127,18 @@ namespace System.Windows.Rendering
             double percent = range <= 0 ? 0 : Math.Clamp((bar.Value - bar.Minimum) / range * 100, 0, 100);
             string color = bar.HasValue(Control.ForegroundProperty) ? CssValues.SolidColor(bar.Foreground) : null;
             OpenTag("div", bar, slot, bar.IsIndeterminate ? "wpb busy" : "wpb", "");
-            _html.Append("<div style=\"width:").Append(CssValues.Number(percent)).Append("%;").Append(color == null ? "" : "background:" + color + ";").Append("\"></div></div>");
+            _html.Append("<div style=\"width:").Append(CssValues.Number(percent)).Append("%;").Append(color == null
+                ? ""
+                : "background:" + color + ";").Append("\"></div></div>");
         }
 
         private void WriteSlider(RangeBase range, LayoutSlot slot)
         {
             double step = range is Slider { IsSnapToTickEnabled: true } slider ? slider.TickFrequency : 0;
             string attributes = " data-k=\"range\" type=\"range\" min=\"" + CssValues.Number(range.Minimum) + "\" max=\"" + CssValues.Number(range.Maximum)
-                + "\" step=\"" + (step > 0 ? CssValues.Number(step) : "any") + "\" value=\"" + range.Value.ToString("R", CultureInfo.InvariantCulture) + "\""
+                + "\" step=\"" + (step > 0
+                ? CssValues.Number(step)
+                : "any") + "\" value=\"" + range.Value.ToString("R", CultureInfo.InvariantCulture) + "\""
                 + (range.IsEnabled ? "" : " disabled");
             OpenTag("input", range, slot, "wsl", "", attributes);
         }
@@ -161,7 +172,11 @@ namespace System.Windows.Rendering
         {
             OpenTag("div", expander, slot, "wexp", "");
             // only the header toggles; clicks inside the content belong to the content
-            _html.Append("<div class=\"wexph\" data-e=\"").Append(_idOf(expander)).Append("\" data-k=\"toggle\">").Append(expander.IsExpanded ? "▾ " : "▸ ");
+            _html.Append("<div class=\"wexph\" data-e=\"")
+                .Append(_idOf(expander))
+                .Append("\" data-k=\"toggle\">").Append(expander.IsExpanded
+                ? "▾ "
+                : "▸ ");
             WriteContent(expander.Header);
             _html.Append("</div>");
             if (expander.IsExpanded)
@@ -190,7 +205,9 @@ namespace System.Windows.Rendering
                 {
                     continue;
                 }
-                _html.Append("<div class=\"").Append(ReferenceEquals(tab, current) ? "on" : "").Append("\" data-e=\"").Append(_idOf(tab)).Append("\">");
+                _html.Append("<div class=\"").Append(ReferenceEquals(tab, current)
+                    ? "on"
+                    : "").Append("\" data-e=\"").Append(_idOf(tab)).Append("\">");
                 if (tab.TemplatedHeader is { } header)
                 {
                     WriteElement(header, LayoutSlot.GridCell);
@@ -254,8 +271,10 @@ namespace System.Windows.Rendering
                         .Add("flex-direction", wrap.Orientation == Orientation.Horizontal ? "row" : "column");
                     break;
                 case UniformGrid grid:
-                    if (grid.Columns > 0) css.Add("display", "grid").Add("grid-template-columns", "repeat(" + grid.Columns + ",minmax(0,1fr))");
-                    else if (grid.Rows > 0) css.Add("display", "grid").Add("grid-auto-flow", "column").Add("grid-template-rows", "repeat(" + grid.Rows + ",minmax(0,1fr))");
+                    if (grid.Columns > 0) css.Add("display", "grid").Add("grid-template-columns",
+                        "repeat(" + grid.Columns + ",minmax(0,1fr))");
+                    else if (grid.Rows > 0) css.Add("display", "grid").Add("grid-auto-flow", "column").Add("grid-template-rows",
+                    "repeat(" + grid.Rows + ",minmax(0,1fr))");
                     break;
             }
             if (panel?.HasValue(Panel.BackgroundProperty) == true)
@@ -271,8 +290,12 @@ namespace System.Windows.Rendering
             int index = 0;
             foreach (object item in combo.EffectiveItems)
             {
-                string text = item is ContentControl { Content: not UIElement } container ? Convert.ToString(container.Content, CultureInfo.CurrentCulture) : combo.TextFor(item);
-                _html.Append("<option value=\"").Append(index).Append('"').Append(index == combo.SelectedIndex ? " selected" : "").Append('>')
+                string text = item is ContentControl { Content: not UIElement } container
+                    ? Convert.ToString(container.Content, CultureInfo.CurrentCulture)
+                    : combo.TextFor(item);
+                _html.Append("<option value=\"").Append(index).Append('"').Append(index == combo.SelectedIndex
+                    ? " selected"
+                    : "").Append('>')
                     .Append(CssValues.Escape(text)).Append("</option>");
                 index++;
             }
@@ -286,7 +309,9 @@ namespace System.Windows.Rendering
             _html.Append("<table><thead><tr>");
             foreach (GridViewColumn column in view.Columns)
             {
-                _html.Append("<th").Append(double.IsNaN(column.Width) ? "" : " style=\"width:" + CssValues.Pixels(column.Width) + "\"").Append('>');
+                _html.Append("<th").Append(double.IsNaN(column.Width)
+                    ? ""
+                    : " style=\"width:" + CssValues.Pixels(column.Width) + "\"").Append('>');
                 WriteContent(column.Header);
                 _html.Append("</th>");
             }
@@ -295,7 +320,9 @@ namespace System.Windows.Rendering
             int index = 0;
             foreach (object item in list.EffectiveItems)
             {
-                _html.Append("<tr class=\"").Append(index == list.SelectedIndex ? "on" : "").Append("\" data-i=\"").Append(index).Append("\">");
+                _html.Append("<tr class=\"").Append(index == list.SelectedIndex
+                    ? "on"
+                    : "").Append("\" data-i=\"").Append(index).Append("\">");
                 foreach (GridViewColumn column in view.Columns)
                 {
                     _html.Append("<td>");
@@ -317,9 +344,11 @@ namespace System.Windows.Rendering
         private void WriteDataGrid(DataGrid grid, LayoutSlot slot)
         {
             IList<object> items = grid.EffectiveItems;
-            List<DataGridColumn> columns = grid.Columns.Count > 0 || !grid.AutoGenerateColumns ? grid.Columns.ToList() : GenerateColumns(grid, items);
+            List<DataGridColumn> columns = grid.Columns.Count > 0
+                || !grid.AutoGenerateColumns ? grid.Columns.ToList() : GenerateColumns(grid, items);
             columns = columns.Where(column => column.Visibility == Visibility.Visible).ToList();
-            bool headers = grid.HeadersVisibility == DataGridHeadersVisibility.All || grid.HeadersVisibility == DataGridHeadersVisibility.Column;
+            bool headers = grid.HeadersVisibility == DataGridHeadersVisibility.All
+                || grid.HeadersVisibility == DataGridHeadersVisibility.Column;
             bool anyStar = columns.Any(column => column.Width.IsStar);
 
             OpenTag("div", grid, slot, "wtable sel", "");
@@ -346,9 +375,12 @@ namespace System.Windows.Rendering
             int index = 0;
             foreach (object item in items)
             {
-                Brush rowBrush = index % 2 == 1 && grid.AlternatingRowBackground != null ? grid.AlternatingRowBackground : grid.RowBackground;
+                Brush rowBrush = index % 2 == 1
+                    && grid.AlternatingRowBackground != null ? grid.AlternatingRowBackground : grid.RowBackground;
                 string rowBackground = rowBrush == null ? null : CssValues.Background(rowBrush, address => address);
-                _html.Append("<tr class=\"").Append(index == grid.SelectedIndex ? "on" : "").Append("\" data-i=\"").Append(index).Append('"');
+                _html.Append("<tr class=\"").Append(index == grid.SelectedIndex
+                    ? "on"
+                    : "").Append("\" data-i=\"").Append(index).Append('"');
                 if (rowBackground != null)
                 {
                     _html.Append(" style=\"background:").Append(rowBackground).Append('"');
@@ -535,7 +567,8 @@ namespace System.Windows.Rendering
 
             foreach ((string name, Type type) in members)
             {
-                var column = new DataGridTextColumn { Header = name, Binding = new Binding(first is System.Data.DataRowView ? "[" + name + "]" : name) };
+                var column = new DataGridTextColumn { Header = name,
+                    Binding = new Binding(first is System.Data.DataRowView ? "[" + name + "]" : name) };
                 var args = new DataGridAutoGeneratingColumnEventArgs { Column = column, PropertyName = name, PropertyType = type };
                 if (grid.RaiseAutoGeneratingColumn(args) && args.Column != null)
                 {

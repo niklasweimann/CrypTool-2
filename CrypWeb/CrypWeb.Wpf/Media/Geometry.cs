@@ -43,7 +43,11 @@ namespace System.Windows.Media
 
         internal override FillRule EffectiveFillRule => FillRule;
 
-        public StreamGeometryContext Open() => new StreamGeometryContext(data => { _pathData = data; RenderVersion.Bump(); });
+        public StreamGeometryContext Open() => new StreamGeometryContext(data =>
+        {
+            _pathData = data;
+            RenderVersion.Bump();
+        });
 
         public void Clear() => _pathData = "";
 
@@ -62,70 +66,6 @@ namespace System.Windows.Media
         }
 
         internal override string ToSvgPathData() => _pathData;
-    }
-
-    /// <summary>Records drawing commands as SVG path data.</summary>
-    public sealed class StreamGeometryContext : IDisposable
-    {
-        private readonly StringBuilder _data = new StringBuilder();
-        private readonly Action<string> _commit;
-        private bool _figureClosed;
-        private bool _figureOpen;
-
-        internal StreamGeometryContext(Action<string> commit) => _commit = commit;
-
-        public void BeginFigure(Point startPoint, bool isFilled, bool isClosed)
-        {
-            EndFigure();
-            _data.Append('M').Append(Geometry.Format(startPoint));
-            _figureOpen = true;
-            _figureClosed = isClosed;
-        }
-
-        public void LineTo(Point point, bool isStroked, bool isSmoothJoin)
-        {
-            _data.Append('L').Append(Geometry.Format(point));
-        }
-
-        public void PolyLineTo(IList<Point> points, bool isStroked, bool isSmoothJoin)
-        {
-            foreach (Point point in points)
-            {
-                LineTo(point, isStroked, isSmoothJoin);
-            }
-        }
-
-        public void BezierTo(Point point1, Point point2, Point point3, bool isStroked, bool isSmoothJoin)
-        {
-            _data.Append('C').Append(Geometry.Format(point1)).Append(' ').Append(Geometry.Format(point2)).Append(' ').Append(Geometry.Format(point3));
-        }
-
-        public void QuadraticBezierTo(Point point1, Point point2, bool isStroked, bool isSmoothJoin)
-        {
-            _data.Append('Q').Append(Geometry.Format(point1)).Append(' ').Append(Geometry.Format(point2));
-        }
-
-        public void ArcTo(Point point, Size size, double rotationAngle, bool isLargeArc, SweepDirection sweepDirection, bool isStroked, bool isSmoothJoin)
-        {
-            _data.Append(PathSegment.Arc(point, size, rotationAngle, isLargeArc, sweepDirection));
-        }
-
-        public void Close()
-        {
-            EndFigure();
-            _commit(_data.ToString());
-        }
-
-        public void Dispose() => Close();
-
-        private void EndFigure()
-        {
-            if (_figureOpen && _figureClosed)
-            {
-                _data.Append('Z');
-            }
-            _figureOpen = false;
-        }
     }
 
     public abstract class PathSegment : Animatable
@@ -340,7 +280,9 @@ namespace System.Windows.Media
             RadiusY = radiusY;
         }
 
-        public EllipseGeometry(Rect rect) : this(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), rect.Width / 2, rect.Height / 2) { }
+        public EllipseGeometry(Rect rect) : this(new Point(rect.X + rect.Width / 2, rect.Y + rect.Height / 2),
+            rect.Width / 2,
+            rect.Height / 2) { }
 
         public Point Center { get; set; }
         public double RadiusX { get; set; }
@@ -437,7 +379,9 @@ namespace System.Windows.Media
         public Geometry Geometry2 { get; set; }
         public GeometryCombineMode GeometryCombineMode { get; set; }
 
-        internal override FillRule EffectiveFillRule => GeometryCombineMode == GeometryCombineMode.Union ? FillRule.Nonzero : FillRule.EvenOdd;
+        internal override FillRule EffectiveFillRule => GeometryCombineMode == GeometryCombineMode.Union
+            ? FillRule.Nonzero
+            : FillRule.EvenOdd;
 
         internal override string ToSvgPathData() => Geometry1?.ToSvgPathData() + " " + Geometry2?.ToSvgPathData();
     }

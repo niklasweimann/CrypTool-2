@@ -42,7 +42,8 @@ namespace System.Windows
 
         internal static bool TryParse(string name, out FontWeight weight)
         {
-            var property = typeof(FontWeights).GetProperty(name.Trim(), Reflection.BindingFlags.Public | Reflection.BindingFlags.Static | Reflection.BindingFlags.IgnoreCase);
+            var property = typeof(FontWeights).GetProperty(name.Trim(),
+                Reflection.BindingFlags.Public | Reflection.BindingFlags.Static | Reflection.BindingFlags.IgnoreCase);
             weight = property != null ? (FontWeight)property.GetValue(null) : Normal;
             return property != null;
         }
@@ -128,7 +129,8 @@ namespace System.Windows.Media
 
         public override string ToString() => Source;
 
-        public override bool Equals(object obj) => obj is FontFamily other && string.Equals(Source, other.Source, StringComparison.OrdinalIgnoreCase);
+        public override bool Equals(object obj) => obj is FontFamily other
+            && string.Equals(Source, other.Source, StringComparison.OrdinalIgnoreCase);
 
         public override int GetHashCode() => (Source ?? "").ToLowerInvariant().GetHashCode();
 

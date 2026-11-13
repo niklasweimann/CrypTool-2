@@ -17,7 +17,8 @@ namespace System.Windows.Controls
         public static readonly DependencyProperty FontWeightProperty = TextElement.FontWeightProperty;
         public static readonly DependencyProperty FontStyleProperty = TextElement.FontStyleProperty;
         public static readonly DependencyProperty FontStretchProperty = TextElement.FontStretchProperty;
-        public static readonly DependencyProperty HorizontalContentAlignmentProperty = Dp.Register<HorizontalAlignment, Control>(nameof(HorizontalContentAlignment), HorizontalAlignment.Left);
+        public static readonly DependencyProperty HorizontalContentAlignmentProperty = Dp.Register<HorizontalAlignment, Control>(nameof(HorizontalContentAlignment),
+            HorizontalAlignment.Left);
         public static readonly DependencyProperty VerticalContentAlignmentProperty = Dp.Register<VerticalAlignment, Control>(nameof(VerticalContentAlignment), VerticalAlignment.Top);
         public static readonly DependencyProperty TemplateProperty = Dp.Register<ControlTemplate, Control>(nameof(Template));
         public static readonly DependencyProperty IsTabStopProperty = Dp.Register<bool, Control>(nameof(IsTabStop), true);
@@ -25,7 +26,13 @@ namespace System.Windows.Controls
 
         public Brush Background { get => (Brush)GetValue(BackgroundProperty); set => SetValue(BackgroundProperty, value); }
         public Brush BorderBrush { get => (Brush)GetValue(BorderBrushProperty); set => SetValue(BorderBrushProperty, value); }
-        public Thickness BorderThickness { get => (Thickness)GetValue(BorderThicknessProperty); set => SetValue(BorderThicknessProperty, value); }
+
+        public Thickness BorderThickness
+        {
+            get => (Thickness)GetValue(BorderThicknessProperty);
+            set => SetValue(BorderThicknessProperty, value);
+        }
+
         public Thickness Padding { get => (Thickness)GetValue(PaddingProperty); set => SetValue(PaddingProperty, value); }
         public Brush Foreground { get => (Brush)GetValue(ForegroundProperty); set => SetValue(ForegroundProperty, value); }
         public double FontSize { get => (double)GetValue(FontSizeProperty); set => SetValue(FontSizeProperty, value); }
@@ -33,8 +40,19 @@ namespace System.Windows.Controls
         public FontWeight FontWeight { get => (FontWeight)GetValue(FontWeightProperty); set => SetValue(FontWeightProperty, value); }
         public FontStyle FontStyle { get => (FontStyle)GetValue(FontStyleProperty); set => SetValue(FontStyleProperty, value); }
         public FontStretch FontStretch { get => (FontStretch)GetValue(FontStretchProperty); set => SetValue(FontStretchProperty, value); }
-        public HorizontalAlignment HorizontalContentAlignment { get => (HorizontalAlignment)GetValue(HorizontalContentAlignmentProperty); set => SetValue(HorizontalContentAlignmentProperty, value); }
-        public VerticalAlignment VerticalContentAlignment { get => (VerticalAlignment)GetValue(VerticalContentAlignmentProperty); set => SetValue(VerticalContentAlignmentProperty, value); }
+
+        public HorizontalAlignment HorizontalContentAlignment
+        {
+            get => (HorizontalAlignment)GetValue(HorizontalContentAlignmentProperty);
+            set => SetValue(HorizontalContentAlignmentProperty, value);
+        }
+
+        public VerticalAlignment VerticalContentAlignment
+        {
+            get => (VerticalAlignment)GetValue(VerticalContentAlignmentProperty);
+            set => SetValue(VerticalContentAlignmentProperty, value);
+        }
+
         public ControlTemplate Template { get => (ControlTemplate)GetValue(TemplateProperty); set => SetValue(TemplateProperty, value); }
         public bool IsTabStop { get => (bool)GetValue(IsTabStopProperty); set => SetValue(IsTabStopProperty, value); }
         public int TabIndex { get => (int)GetValue(TabIndexProperty); set => SetValue(TabIndexProperty, value); }
@@ -112,7 +130,8 @@ namespace System.Windows.Controls
                 presenter.SetValue(ContentControl.ContentProperty, new TemplateBindingExpression(nameof(ContentControl.Content)));
                 if (!presenter.HasLocalValue(ContentControl.ContentTemplateProperty))
                 {
-                    presenter.SetValue(ContentControl.ContentTemplateProperty, new TemplateBindingExpression(nameof(ContentControl.ContentTemplate)));
+                    presenter.SetValue(ContentControl.ContentTemplateProperty,
+                        new TemplateBindingExpression(nameof(ContentControl.ContentTemplate)));
                 }
                 return;
             }
@@ -160,98 +179,6 @@ namespace System.Windows.Controls
         }
     }
 
-    /// <summary>A control that shows one piece of content: text or another element.</summary>
-    [Markup.ContentProperty(nameof(Content))]
-    public class ContentControl : Control
-    {
-        public static readonly DependencyProperty ContentProperty = Dp.Register<object, ContentControl>(nameof(Content), null, OnContentChanged);
-        public static readonly DependencyProperty ContentTemplateProperty = Dp.Register<DataTemplate, ContentControl>(nameof(ContentTemplate));
-        public static readonly DependencyProperty ContentStringFormatProperty = Dp.Register<string, ContentControl>(nameof(ContentStringFormat));
-
-        public object Content { get => GetValue(ContentProperty); set => SetValue(ContentProperty, value); }
-        public DataTemplate ContentTemplate { get => (DataTemplate)GetValue(ContentTemplateProperty); set => SetValue(ContentTemplateProperty, value); }
-        public string ContentStringFormat { get => (string)GetValue(ContentStringFormatProperty); set => SetValue(ContentStringFormatProperty, value); }
-
-        private static void OnContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            SetParent(e.OldValue, null);
-            SetParent(e.NewValue, (UIElement)d);
-        }
-
-        private protected override bool SupportsTemplate => true;
-
-        internal override IEnumerable<UIElement> ChildElements
-        {
-            get
-            {
-                if (TemplateRoot is { } templateRoot)
-                {
-                    yield return templateRoot;
-                    yield break;
-                }
-                if (Content is UIElement element)
-                {
-                    yield return element;
-                }
-                else if (TemplatedContent is { } templated)
-                {
-                    yield return templated;
-                }
-            }
-        }
-
-        // the element built for the current (non-element) content, and the content it was built for
-        private object _templatedFor;
-        private UIElement _templated;
-
-        /// <summary>
-        /// The element that shows content which is not an element itself (e.g. a view model): built from
-        /// <see cref="ContentTemplate"/> or from a DataTemplate in the resources whose DataType matches the content
-        /// (an "implicit" data template), with the content as DataContext. Null when there is no such template;
-        /// the content is then shown as text.
-        /// </summary>
-        internal UIElement TemplatedContent
-        {
-            get
-            {
-                object content = Content;
-                if (content == null || content is UIElement)
-                {
-                    return null;
-                }
-                if (ReferenceEquals(content, _templatedFor))
-                {
-                    return _templated;
-                }
-
-                SetParent(_templated, null);
-                _templatedFor = content;
-                _templated = (ContentTemplate ?? FindDataTemplate(content.GetType()))?.LoadContent() as UIElement;
-                // the template's root gets the content as data context, unless the template sets one itself
-                // (DataContext="{Binding}" then finds the content as its source: Binding.InheritedDataContext)
-                if (_templated is FrameworkElement element && !element.HasLocalValue(FrameworkElement.DataContextProperty))
-                {
-                    element.DataContext = content;
-                }
-                SetParent(_templated, this);
-                return _templated;
-            }
-        }
-
-        /// <summary>The implicit data template for a type or one of its base types (resources are keyed by the type).</summary>
-        private DataTemplate FindDataTemplate(Type type)
-        {
-            for (Type current = type; current != null; current = current.BaseType)
-            {
-                if (TryFindResource(current) is DataTemplate template)
-                {
-                    return template;
-                }
-            }
-            return null;
-        }
-    }
-
     /// <summary>Base class of the plugin presentations.</summary>
     public class UserControl : ContentControl { }
 
@@ -283,12 +210,24 @@ namespace System.Windows.Controls
         // the browser draws scrolling itself (native scroll bars); a template with its own scroll bars is not used
         private protected override bool SupportsTemplate => false;
 
-        public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("HorizontalScrollBarVisibility", ScrollBarVisibility.Disabled);
-        public static readonly DependencyProperty VerticalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("VerticalScrollBarVisibility", ScrollBarVisibility.Visible);
+        public static readonly DependencyProperty HorizontalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("HorizontalScrollBarVisibility",
+            ScrollBarVisibility.Disabled);
+        public static readonly DependencyProperty VerticalScrollBarVisibilityProperty = Dp.Attached<ScrollBarVisibility, ScrollViewer>("VerticalScrollBarVisibility",
+            ScrollBarVisibility.Visible);
         public static readonly DependencyProperty CanContentScrollProperty = Dp.Attached<bool, ScrollViewer>("CanContentScroll");
 
-        public ScrollBarVisibility HorizontalScrollBarVisibility { get => (ScrollBarVisibility)GetValue(HorizontalScrollBarVisibilityProperty); set => SetValue(HorizontalScrollBarVisibilityProperty, value); }
-        public ScrollBarVisibility VerticalScrollBarVisibility { get => (ScrollBarVisibility)GetValue(VerticalScrollBarVisibilityProperty); set => SetValue(VerticalScrollBarVisibilityProperty, value); }
+        public ScrollBarVisibility HorizontalScrollBarVisibility
+        {
+            get => (ScrollBarVisibility)GetValue(HorizontalScrollBarVisibilityProperty);
+            set => SetValue(HorizontalScrollBarVisibilityProperty, value);
+        }
+
+        public ScrollBarVisibility VerticalScrollBarVisibility
+        {
+            get => (ScrollBarVisibility)GetValue(VerticalScrollBarVisibilityProperty);
+            set => SetValue(VerticalScrollBarVisibilityProperty, value);
+        }
+
         public bool CanContentScroll { get => (bool)GetValue(CanContentScrollProperty); set => SetValue(CanContentScrollProperty, value); }
 
         public double VerticalOffset => 0;
@@ -326,7 +265,11 @@ namespace System.Windows.Controls
 
         public object Header { get => GetValue(HeaderProperty); set => SetValue(HeaderProperty, value); }
 
-        public DataTemplate HeaderTemplate { get => (DataTemplate)GetValue(HeaderTemplateProperty); set => SetValue(HeaderTemplateProperty, value); }
+        public DataTemplate HeaderTemplate
+        {
+            get => (DataTemplate)GetValue(HeaderTemplateProperty);
+            set => SetValue(HeaderTemplateProperty, value);
+        }
 
         // the element built from HeaderTemplate, and the header it was built for
         private object _templatedHeaderFor;

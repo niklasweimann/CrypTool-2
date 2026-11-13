@@ -22,7 +22,12 @@ namespace System.Windows.Media
     /// <summary>Text prepared for <see cref="DrawingContext.DrawText"/>. Sizes are estimates (the browser measures text).</summary>
     public class FormattedText
     {
-        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground)
+        public FormattedText(string textToFormat,
+            CultureInfo culture,
+            FlowDirection flowDirection,
+            Typeface typeface,
+            double emSize,
+            Brush foreground)
         {
             Text = textToFormat ?? "";
             Typeface = typeface;
@@ -30,13 +35,34 @@ namespace System.Windows.Media
             Foreground = foreground;
         }
 
-        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, double pixelsPerDip)
+        public FormattedText(string textToFormat,
+            CultureInfo culture,
+            FlowDirection flowDirection,
+            Typeface typeface,
+            double emSize,
+            Brush foreground,
+            double pixelsPerDip)
             : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
 
-        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, NumberSubstitution numberSubstitution, TextFormattingMode textFormattingMode)
+        public FormattedText(string textToFormat,
+            CultureInfo culture,
+            FlowDirection flowDirection,
+            Typeface typeface,
+            double emSize,
+            Brush foreground,
+            NumberSubstitution numberSubstitution,
+            TextFormattingMode textFormattingMode)
             : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
 
-        public FormattedText(string textToFormat, CultureInfo culture, FlowDirection flowDirection, Typeface typeface, double emSize, Brush foreground, NumberSubstitution numberSubstitution, TextFormattingMode textFormattingMode, double pixelsPerDip)
+        public FormattedText(string textToFormat,
+            CultureInfo culture,
+            FlowDirection flowDirection,
+            Typeface typeface,
+            double emSize,
+            Brush foreground,
+            NumberSubstitution numberSubstitution,
+            TextFormattingMode textFormattingMode,
+            double pixelsPerDip)
             : this(textToFormat, culture, flowDirection, typeface, emSize, foreground) { }
 
         public TextTrimming Trimming { get; set; }

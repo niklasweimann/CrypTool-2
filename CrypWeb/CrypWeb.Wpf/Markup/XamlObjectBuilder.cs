@@ -79,7 +79,9 @@ namespace System.Windows.Markup
         {
             string reference = dictionary.Source.OriginalString;
             string resourcePath = XamlLoader.ResolveReference(_context.ResourcePath, reference);
-            using IO.Stream stream = resourcePath == null ? null : _context.Assembly?.GetManifestResourceStream(XamlLoader.ResourcePrefix + resourcePath);
+            using IO.Stream stream = resourcePath == null
+                ? null
+                : _context.Assembly?.GetManifestResourceStream(XamlLoader.ResourcePrefix + resourcePath);
             if (stream == null)
             {
                 XamlDiagnostics.Report("Resource dictionary not found", reference);
@@ -148,7 +150,8 @@ namespace System.Windows.Markup
             var template = (FrameworkTemplate)Activator.CreateInstance(type);
             foreach (XAttribute attribute in element.Attributes())
             {
-                if (attribute.Name.NamespaceName.Length == 0 && (attribute.Name.LocalName == "DataType" || attribute.Name.LocalName == "TargetType"))
+                if (attribute.Name.NamespaceName.Length == 0
+                    && (attribute.Name.LocalName == "DataType" || attribute.Name.LocalName == "TargetType"))
                 {
                     SetMember(template, attribute.Name.LocalName, attribute.Value);
                 }
@@ -283,7 +286,8 @@ namespace System.Windows.Markup
             if (instance is Setter valueSetter && name == "Value" && !MarkupExpression.IsExpression(text))
             {
                 Type valueType = valueSetter.Property?.PropertyType;
-                valueSetter.Value = valueType != null && XamlValueConverter.TryConvert(text, valueType, out object converted) ? converted : text;
+                valueSetter.Value = valueType != null
+                    && XamlValueConverter.TryConvert(text, valueType, out object converted) ? converted : text;
                 return;
             }
 
@@ -309,7 +313,8 @@ namespace System.Windows.Markup
             }
             else if (!XamlValueConverter.TryConvert(text, property.PropertyType, out value))
             {
-                XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
+                XamlDiagnostics.Report("Cannot convert",
+                    instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
                 return;
             }
             SetProperty(instance, property, value);
@@ -355,7 +360,8 @@ namespace System.Windows.Markup
             {
                 if (!XamlValueConverter.TryConvert(text, property.PropertyType, out value))
                 {
-                    XamlDiagnostics.Report("Cannot convert", instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
+                    XamlDiagnostics.Report("Cannot convert",
+                        instance.GetType().Name + "." + property.Name + " (" + property.PropertyType.Name + ") '" + text + "'");
                     return;
                 }
             }
@@ -397,7 +403,10 @@ namespace System.Windows.Markup
                 method = type.GetMethods(AnyInstance | BindingFlags.DeclaredOnly).FirstOrDefault(m => m.Name == methodName);
             }
 
-            Delegate handler = method == null ? null : Delegate.CreateDelegate(eventInfo.EventHandlerType, root, method, throwOnBindFailure: false);
+            Delegate handler = method == null ? null : Delegate.CreateDelegate(eventInfo.EventHandlerType,
+                root,
+                method,
+                throwOnBindFailure: false);
             if (handler == null)
             {
                 XamlDiagnostics.Report("Event handler not found", methodName);
@@ -416,7 +425,9 @@ namespace System.Windows.Markup
             }
 
             MethodInfo setter = ownerType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-                .FirstOrDefault(m => m.Name == "Set" + name && m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsInstanceOfType(instance));
+                .FirstOrDefault(m => m.Name == "Set" + name
+                && m.GetParameters().Length == 2
+                && m.GetParameters()[0].ParameterType.IsInstanceOfType(instance));
             DependencyProperty dp = DependencyPropertyLookup.Find(ownerType, name);
             Type valueType = setter?.GetParameters()[1].ParameterType ?? dp?.PropertyType;
             if (valueType == null)
@@ -470,7 +481,8 @@ namespace System.Windows.Markup
             string name = qualified.Substring(dot + 1);
             Type ownerType = XamlTypeResolver.Resolve(propertyElement.Name.NamespaceName, qualified.Substring(0, dot));
             List<XElement> children = propertyElement.Elements().ToList();
-            PropertyInfo property = ownerType != null && !ownerType.IsInstanceOfType(instance) ? null : FindProperty(instance.GetType(), name);
+            PropertyInfo property = ownerType != null
+                && !ownerType.IsInstanceOfType(instance) ? null : FindProperty(instance.GetType(), name);
 
             if (property == null)
             {
@@ -531,7 +543,11 @@ namespace System.Windows.Markup
                 || typeof(BindingBase).IsAssignableFrom(childType);
         }
 
-        private void ApplyAttachedPropertyElement(object instance, Type ownerType, string name, XElement propertyElement, List<XElement> children)
+        private void ApplyAttachedPropertyElement(object instance,
+            Type ownerType,
+            string name,
+            XElement propertyElement,
+            List<XElement> children)
         {
             string displayName = propertyElement.Name.LocalName;
             if (ownerType == null)
@@ -546,7 +562,9 @@ namespace System.Windows.Markup
             }
 
             MethodInfo setter = ownerType.GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
-                .FirstOrDefault(m => m.Name == "Set" + name && m.GetParameters().Length == 2 && m.GetParameters()[0].ParameterType.IsInstanceOfType(instance));
+                .FirstOrDefault(m => m.Name == "Set" + name
+                && m.GetParameters().Length == 2
+                && m.GetParameters()[0].ParameterType.IsInstanceOfType(instance));
             DependencyProperty dp = DependencyPropertyLookup.Find(ownerType, name);
             if (setter == null && dp == null)
             {

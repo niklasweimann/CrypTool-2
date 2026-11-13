@@ -1,12 +1,16 @@
-# CrypTool 2 Web (prototype)
+# CrypTool 2 Web Edition (prototype)
 
 Browser/WebAssembly version of the CT2 workspace canvas (Blazor WASM).
+
+New to the code? Start with [ARCHITECTURE.md](ARCHITECTURE.md): project map, "where do I change what", generated files, conventions.
 
 - `CrypPluginBase.Portable` – original CrypPluginBase sources linked, against `CrypWeb.Wpf` (net10).
 - `CrypWeb.Wpf` – the part of WPF that plugins and their presentations use, rendered to HTML/SVG (see below).
 - `CrypWeb.Core` – WPF-free `.cwm` reader, workspace model, template `$placeholder$` resolution.
 - `CrypWeb.App` – Blazor WebAssembly app: SVG canvas (pan/zoom/fit), template browser.
-- `CrypWeb.Tests` – command-line checks over all templates (`dotnet run --project CrypWeb.Tests -- ../Templates runall`).
+- `CrypWeb.Tests` – command-line checks over all templates (`dotnet run --project CrypWeb.Tests -- ../Templates runall`; other commands are listed at the top of `CrypWeb.Tests/Program.cs`).
+
+IDE: open `CrypWeb/CrypWeb.sln` (Rider / Visual Studio). It contains only the CrypWeb projects, so it does not depend on the repository's own `CrypTool 2.sln` (which needs .NET Framework). After `python3 tools-gen-plugins.py` changes the list of isolated plugin projects, re-add them: `dotnet sln CrypWeb.sln add CrypWeb.Plugins.Isolated/*/*.csproj --solution-folder Plugins.Isolated`.
 
 Run: `./tools-copy-templates.sh && dotnet run --project CrypWeb.App --urls http://localhost:5199`
 

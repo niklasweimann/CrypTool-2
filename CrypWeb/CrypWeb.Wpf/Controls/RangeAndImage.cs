@@ -79,7 +79,13 @@ namespace System.Windows.Controls
 
         public Orientation Orientation { get => (Orientation)GetValue(OrientationProperty); set => SetValue(OrientationProperty, value); }
         public double TickFrequency { get => (double)GetValue(TickFrequencyProperty); set => SetValue(TickFrequencyProperty, value); }
-        public bool IsSnapToTickEnabled { get => (bool)GetValue(IsSnapToTickEnabledProperty); set => SetValue(IsSnapToTickEnabledProperty, value); }
+
+        public bool IsSnapToTickEnabled
+        {
+            get => (bool)GetValue(IsSnapToTickEnabledProperty);
+            set => SetValue(IsSnapToTickEnabledProperty, value);
+        }
+
         public TickPlacement TickPlacement { get; set; }
         public DoubleCollection Ticks { get; set; }
         public bool IsMoveToPointEnabled { get; set; }
@@ -109,7 +115,9 @@ namespace System.Windows.Media
     /// <summary>Rendering hints; they have no effect in the browser.</summary>
     public static class RenderOptions
     {
-        public static readonly DependencyProperty BitmapScalingModeProperty = DependencyProperty.RegisterAttached("BitmapScalingMode", typeof(BitmapScalingMode), typeof(RenderOptions));
+        public static readonly DependencyProperty BitmapScalingModeProperty = DependencyProperty.RegisterAttached("BitmapScalingMode",
+            typeof(BitmapScalingMode),
+            typeof(RenderOptions));
         public static readonly DependencyProperty EdgeModeProperty = DependencyProperty.RegisterAttached("EdgeMode", typeof(EdgeMode), typeof(RenderOptions));
 
         public static void SetBitmapScalingMode(DependencyObject target, BitmapScalingMode value) => target.SetValue(BitmapScalingModeProperty, value);

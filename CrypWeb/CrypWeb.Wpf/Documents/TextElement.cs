@@ -9,12 +9,27 @@ namespace System.Windows.Documents
     /// </summary>
     public class TextElement : DependencyObject
     {
-        public static readonly DependencyProperty FontSizeProperty = DependencyProperty.RegisterAttached("FontSize", typeof(double), typeof(TextElement), new PropertyMetadata(12.0));
-        public static readonly DependencyProperty FontFamilyProperty = DependencyProperty.RegisterAttached("FontFamily", typeof(FontFamily), typeof(TextElement), new PropertyMetadata(new FontFamily("Segoe UI")));
-        public static readonly DependencyProperty FontWeightProperty = DependencyProperty.RegisterAttached("FontWeight", typeof(FontWeight), typeof(TextElement), new PropertyMetadata(FontWeights.Normal));
-        public static readonly DependencyProperty FontStyleProperty = DependencyProperty.RegisterAttached("FontStyle", typeof(FontStyle), typeof(TextElement), new PropertyMetadata(FontStyles.Normal));
+        public static readonly DependencyProperty FontSizeProperty = DependencyProperty.RegisterAttached("FontSize",
+            typeof(double),
+            typeof(TextElement),
+            new PropertyMetadata(12.0));
+        public static readonly DependencyProperty FontFamilyProperty = DependencyProperty.RegisterAttached("FontFamily",
+            typeof(FontFamily),
+            typeof(TextElement),
+            new PropertyMetadata(new FontFamily("Segoe UI")));
+        public static readonly DependencyProperty FontWeightProperty = DependencyProperty.RegisterAttached("FontWeight",
+            typeof(FontWeight),
+            typeof(TextElement),
+            new PropertyMetadata(FontWeights.Normal));
+        public static readonly DependencyProperty FontStyleProperty = DependencyProperty.RegisterAttached("FontStyle",
+            typeof(FontStyle),
+            typeof(TextElement),
+            new PropertyMetadata(FontStyles.Normal));
         public static readonly DependencyProperty FontStretchProperty = DependencyProperty.RegisterAttached("FontStretch", typeof(FontStretch), typeof(TextElement));
-        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.RegisterAttached("Foreground", typeof(Brush), typeof(TextElement), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+        public static readonly DependencyProperty ForegroundProperty = DependencyProperty.RegisterAttached("Foreground",
+            typeof(Brush),
+            typeof(TextElement),
+            new PropertyMetadata(new SolidColorBrush(Colors.Black)));
         public static readonly DependencyProperty BackgroundProperty = DependencyProperty.RegisterAttached("Background", typeof(Brush), typeof(TextElement));
 
         public double FontSize { get => (double)GetValue(FontSizeProperty); set => SetValue(FontSizeProperty, value); }

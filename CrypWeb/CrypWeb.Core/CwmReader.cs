@@ -111,18 +111,35 @@ public static class CwmReader
             var wire = new Wire { Id = c.Id };
             Layout(c, wire);
             wire.Extra = Extras(c, wire);
-            if (c.Members.TryGetValue("From", out var f) && f.Reference is int fi && connectors.TryGetValue(fi, out var from)) { wire.From = from; from.Wires.Add(wire); }
-            if (c.Members.TryGetValue("To", out var t) && t.Reference is int ti && connectors.TryGetValue(ti, out var to)) { wire.To = to; to.Wires.Add(wire); }
+            if (c.Members.TryGetValue("From", out var f) && f.Reference is int fromId && connectors.TryGetValue(fromId, out var from))
+            {
+                wire.From = from;
+                from.Wires.Add(wire);
+            }
+            if (c.Members.TryGetValue("To", out var t) && t.Reference is int toId && connectors.TryGetValue(toId, out var to))
+            {
+                wire.To = to;
+                to.Wires.Add(wire);
+            }
             if (c.Members.TryGetValue("pointList", out var pl) && pl.List != null)
                 foreach (var e in pl.List) if (e.Value != null) wire.Points.Add(ParsePoint(e.Value));
-            wire.RouteSig = RouteSig(wire);
+            wire.RouteSig = CwmWriter.RouteSig(wire);
             ws.Wires.Add(wire);
         }
         foreach (var r in Refs(wsRaw, "AllTextModels"))
         {
             var t = objs[r];
-            var tn = new TextNode { Id = t.Id, Text = ExtractText(Str(t, "data", binary: true)), BackgroundColor = t.Members.TryGetValue("BackgroundColor", out var bc) ? bc.Value : null };
-            try { tn.OriginalData = Convert.FromBase64String(Str(t, "data")); } catch { }
+            var tn = new TextNode
+            {
+                Id = t.Id,
+                Text = ExtractText(Str(t, "data", binary: true)),
+                BackgroundColor = t.Members.TryGetValue("BackgroundColor", out var bc) ? bc.Value : null,
+            };
+            try
+            {
+                tn.OriginalData = Convert.FromBase64String(Str(t, "data"));
+            }
+            catch (Exception) { /* not valid base64: the note is written as plain text */ }
             tn.OriginalText = tn.Text;
             Layout(t, tn);
             tn.Extra = Extras(t, tn);
@@ -133,7 +150,11 @@ public static class CwmReader
             var t = objs[r];
             var im = new ImageNode { Id = t.Id };
             if (t.Members.TryGetValue("data", out var d) && d.Value != null)
-                try { im.Data = Convert.FromBase64String(d.Value); } catch { }
+                try
+                {
+                    im.Data = Convert.FromBase64String(d.Value);
+                }
+                catch (Exception) { /* not valid base64: the picture stays empty */ }
             Layout(t, im);
             im.Extra = Extras(t, im);
             ws.Images.Add(im);
@@ -146,7 +167,10 @@ public static class CwmReader
             {
                 if (e.Reference is not int ppid) continue;
                 var pp = objs[ppid];
-                if (!pp.Members.TryGetValue("PluginModel", out var pmr) || pmr.Reference is not int pmid || !plugins.TryGetValue(pmid, out var node)) continue;
+                if (!pp.Members.TryGetValue("PluginModel", out var pluginRef)
+                    || pluginRef.Reference is not int pluginId
+                    || !plugins.TryGetValue(pluginId, out var node))
+                    continue;
                 node.Extra["__persist"] = "1";
                 foreach (var se in pp.Members.GetValueOrDefault("PersistantSettingsList")?.List ?? new())
                 {
@@ -173,7 +197,11 @@ public static class CwmReader
             var v = val.Value;
             if (m.Element("B64Encoded") != null)
             {
-                try { v = Encoding.UTF8.GetString(Convert.FromBase64String(v)); } catch { }
+                try
+                {
+                    v = Encoding.UTF8.GetString(Convert.FromBase64String(v));
+                }
+                catch (Exception) { /* not base64: keep the raw text */ }
             }
             mem.Value = v;
             if (m.Element("B64Encoded") != null) mem.Type += "|b64";
@@ -194,14 +222,19 @@ public static class CwmReader
     private static Dictionary<string, string> Extras(Raw r, VisualNode? n = null)
     {
         var d = new Dictionary<string, string>();
-        if (n != null) { d["__Width"] = n.Width.ToString("R", CultureInfo.InvariantCulture); d["__Height"] = n.Height.ToString("R", CultureInfo.InvariantCulture); }
-        foreach (var kv in r.Members) if (kv.Value.Value != null && kv.Value.List == null && kv.Value.Reference == null) d[kv.Key] = kv.Value.Value;
+        if (n != null)
+        {
+            // the size computed by the loader; the writer compares it to detect an unchanged size (see CwmWriter.SizeOut)
+            d["__Width"] = n.Width.ToString("R", CultureInfo.InvariantCulture);
+            d["__Height"] = n.Height.ToString("R", CultureInfo.InvariantCulture);
+        }
+        foreach (var (name, member) in r.Members)
+        {
+            bool isPlainValue = member.Value != null && member.List == null && member.Reference == null;
+            if (isPlainValue) d[name] = member.Value!;
+        }
         return d;
     }
-
-    private static string RouteSig(Wire w) =>
-        w.From?.Plugin == null || w.To?.Plugin == null ? "" :
-        string.Join("|", new[] { w.From.Plugin, w.To.Plugin }.Select(p => string.Format(CultureInfo.InvariantCulture, "{0:0.##};{1:0.##};{2:0.##};{3:0.##};{4}", p.X, p.Y, p.Width, p.Height, p.Minimized))) + "|" + w.From.Index + ">" + w.To.Index;
 
     private static string CleanName(string n)
     {
@@ -247,7 +280,14 @@ public static class CwmReader
     {
         if (string.IsNullOrEmpty(payload)) return "";
         byte[] bytes;
-        try { bytes = Convert.FromBase64String(payload); } catch { return payload; }
+        try
+        {
+            bytes = Convert.FromBase64String(payload);
+        }
+        catch
+        {
+            return payload;
+        }
         if (bytes.Length > 4 && bytes[0] == 'P' && bytes[1] == 'K')
         {
             try
@@ -260,10 +300,10 @@ public static class CwmReader
                     bytes = Encoding.UTF8.GetBytes(r.ReadToEnd());
                 }
             }
-            catch { }
+            catch (Exception) { /* not a readable package: use the bytes as they are */ }
         }
         var s = Encoding.UTF8.GetString(bytes);
-        if (s.StartsWith("{\\rtf")) return RtfToText(s);
+        if (s.StartsWith("{\\rtf")) return RtfText.ToText(s);
         var sb = new StringBuilder();
         try
         {
@@ -276,44 +316,11 @@ public static class CwmReader
             }
             return sb.ToString().Trim();
         }
-        catch { return s; }
-    }
-
-    public static string RtfSnippetToText(string s) => s.Contains('\\') || s.Contains('{') ? RtfToText(s) : s;
-
-    private static string RtfToText(string rtf)
-    {
-        var sb = new StringBuilder();
-        int depth = 0; bool skip = false; int skipDepth = 0;
-        for (int i = 0; i < rtf.Length; i++)
+        catch
         {
-            char c = rtf[i];
-            if (c == '{') { depth++; if (i + 2 < rtf.Length && rtf[i + 1] == '\\' && rtf[i + 2] == '*') { skip = true; skipDepth = depth; } }
-            else if (c == '}') { if (skip && depth == skipDepth) skip = false; depth--; }
-            else if (c == '\\')
-            {
-                int j = i + 1;
-                if (j < rtf.Length && !char.IsLetter(rtf[j]))
-                {
-                    if (rtf[j] == '\'' && j + 2 < rtf.Length) { if (!skip) sb.Append((char)Convert.ToInt32(rtf.Substring(j + 1, 2), 16)); i = j + 2; }
-                    else { if (!skip && (rtf[j] == '\\' || rtf[j] == '{' || rtf[j] == '}')) sb.Append(rtf[j]); i = j; }
-                    continue;
-                }
-                int k = j; while (k < rtf.Length && char.IsLetter(rtf[k])) k++;
-                var word = rtf[j..k];
-                int m = k; if (m < rtf.Length && (rtf[m] == '-' || char.IsDigit(rtf[m]))) { m++; while (m < rtf.Length && char.IsDigit(rtf[m])) m++; }
-                if (!skip)
-                {
-                    if (word == "par" || word == "line") sb.Append('\n');
-                    else if (word == "tab") sb.Append('\t');
-                    else if (word == "u" && int.TryParse(rtf[k..m], out var u)) { sb.Append((char)(u < 0 ? u + 65536 : u)); if (m < rtf.Length && rtf[m] == '?') m++; }
-                }
-                if (m < rtf.Length && rtf[m] == ' ') m++;
-                i = m - 1;
-                if (word is "fonttbl" or "colortbl" or "stylesheet" or "info" or "pict") { skip = true; skipDepth = depth; }
-            }
-            else if (!skip && c != '\r' && c != '\n') sb.Append(c);
+            return s;
         }
-        return sb.ToString().Trim();
     }
+
+    public static string RtfSnippetToText(string s) => RtfText.Snippet(s);
 }

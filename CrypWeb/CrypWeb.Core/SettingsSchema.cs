@@ -1,4 +1,3 @@
-using System.Globalization;
 using CrypTool.PluginBase;
 
 namespace CrypTool.Web.Core;
@@ -37,7 +36,7 @@ public static class SettingsSchema
             var t = Type.GetType("LanguageStatisticsLib.LanguageStatistics, LanguageStatisticsLib");
             if (t?.GetProperty("SupportedLanguages")?.GetValue(null) is string[] names) return names.ToList();
         }
-        catch { }
+        catch (Exception) { /* the library is not part of this build: use the fallback list */ }
         return new();
     }
 
@@ -55,7 +54,7 @@ public static class SettingsSchema
             if (value is System.Collections.IEnumerable entries and not string)
                 return entries.Cast<object?>().Select(e => e?.ToString() ?? "").ToList();
         }
-        catch { }
+        catch (Exception) { /* the plugin has no such list: no options */ }
         return new();
     }
 
@@ -70,41 +69,80 @@ public static class SettingsSchema
         if (settings == null) return new();
         var list = new List<SettingField>();
         foreach (var attr in settings.GetSettingsProperties(plugin).OrderBy(a => a.Order))
-        {
-            var pi = attr.PropertyInfo;
-            var f = new SettingField
-            {
-                Caption = attr.Caption ?? "", Tooltip = attr.ToolTip ?? "", Group = attr.HasGroupName ? attr.GroupName ?? "" : "",
-                Order = attr.Order, Control = attr.ControlType.ToString(), Live = attr.ChangeableWhileExecuting,
-            };
-            if (pi == null) { f.Name = attr.MethodInfo?.Name ?? ""; f.Control = "Button"; list.Add(f); continue; }
-            f.Name = pi.Name;
-            f.TypeName = (Nullable.GetUnderlyingType(pi.PropertyType) ?? pi.PropertyType).FullName ?? "";
-            var t = Nullable.GetUnderlyingType(pi.PropertyType) ?? pi.PropertyType;
-            object? val = null; try { val = pi.GetValue(settings); } catch { }
-            f.ValueType = t == typeof(bool) ? "bool" : t.IsEnum ? "enum" : t == typeof(int) || t == typeof(long) || t == typeof(short) || t == typeof(byte) ? "int" : t == typeof(double) || t == typeof(float) ? "double" : t == typeof(string) ? "string" : "other";
-            f.Value = val == null ? "" : val switch
-            {
-                bool b => b ? "True" : "False",
-                Enum e => Convert.ToInt64(e).ToString(CultureInfo.InvariantCulture),
-                IFormattable fm => fm.ToString(null, CultureInfo.InvariantCulture),
-                _ => val.ToString() ?? ""
-            };
-            var cv = attr.ControlValues;
-            if (attr.ControlType == ControlType.DynamicComboBox)
-                f.Options = DynamicOptions(settings, cv);
-            else if (cv != null)
-                f.Options = cv.Select(x => x ?? "").ToList();
-            if (f.Options.Count == 0 && attr.ControlType == ControlType.LanguageSelector) f.Options = SupportedLanguages();
-            if (attr.ControlType == ControlType.Slider || attr.ControlType == ControlType.NumericUpDown || attr.ValidationType == ValidationType.RangeInteger || attr.ValidationType == ValidationType.RangeDouble)
-            {
-                bool isInt = f.ValueType == "int" || attr.ValidationType == ValidationType.RangeInteger;
-                if (isInt && (attr.IntegerMinValue != 0 || attr.IntegerMaxValue != 0)) { f.Min = attr.IntegerMinValue; f.Max = attr.IntegerMaxValue; f.Step = 1; }
-                else if (attr.DoubleMinValue != 0 || attr.DoubleMaxValue != 0) { f.Min = attr.DoubleMinValue; f.Max = attr.DoubleMaxValue; f.Step = attr.DoubleIncrement > 0 ? attr.DoubleIncrement : null; }
-            }
-            if (attr.ValidationType == ValidationType.RegEx) f.Regex = attr.RegularExpression;
-            list.Add(f);
-        }
+            list.Add(BuildField(settings, attr));
         return list;
+    }
+
+    static SettingField BuildField(ISettings settings, TaskPaneAttribute attr)
+    {
+        var field = new SettingField
+        {
+            Caption = attr.Caption ?? "",
+            Tooltip = attr.ToolTip ?? "",
+            Group = attr.HasGroupName ? attr.GroupName ?? "" : "",
+            Order = attr.Order,
+            Control = attr.ControlType.ToString(),
+            Live = attr.ChangeableWhileExecuting,
+        };
+
+        var property = attr.PropertyInfo;
+        if (property == null)
+        {
+            // a method attribute: shown as a button
+            field.Name = attr.MethodInfo?.Name ?? "";
+            field.Control = "Button";
+            return field;
+        }
+
+        var type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+        field.Name = property.Name;
+        field.TypeName = type.FullName ?? "";
+        field.ValueType = ValueTypeOf(type);
+        try
+        {
+            field.Value = DataConvert.ToSettingString(property.GetValue(settings));
+        }
+        catch (Exception) { /* a property that throws shows no value */ }
+
+        var controlValues = attr.ControlValues;
+        if (attr.ControlType == ControlType.DynamicComboBox) field.Options = DynamicOptions(settings, controlValues);
+        else if (controlValues != null) field.Options = controlValues.Select(x => x ?? "").ToList();
+        if (field.Options.Count == 0 && attr.ControlType == ControlType.LanguageSelector) field.Options = SupportedLanguages();
+
+        bool ranged = attr.ControlType is ControlType.Slider or ControlType.NumericUpDown
+            || attr.ValidationType is ValidationType.RangeInteger or ValidationType.RangeDouble;
+        if (ranged) ApplyRange(field, attr);
+
+        if (attr.ValidationType == ValidationType.RegEx) field.Regex = attr.RegularExpression;
+        return field;
+    }
+
+    /// <summary>The simplified type the settings dialog uses to pick an editor.</summary>
+    static string ValueTypeOf(Type type)
+    {
+        if (type == typeof(bool)) return "bool";
+        if (type.IsEnum) return "enum";
+        if (type == typeof(int) || type == typeof(long) || type == typeof(short) || type == typeof(byte)) return "int";
+        if (type == typeof(double) || type == typeof(float)) return "double";
+        if (type == typeof(string)) return "string";
+        return "other";
+    }
+
+    /// <summary>Min/max/step of a slider or number field; a range of 0..0 means "not specified".</summary>
+    static void ApplyRange(SettingField field, TaskPaneAttribute attr)
+    {
+        bool isInteger = field.ValueType == "int" || attr.ValidationType == ValidationType.RangeInteger;
+        if (isInteger && (attr.IntegerMinValue != 0 || attr.IntegerMaxValue != 0))
+        {
+            field.Min = attr.IntegerMinValue;
+            field.Max = attr.IntegerMaxValue;
+            field.Step = 1;
+        }
+        else if (attr.DoubleMinValue != 0 || attr.DoubleMaxValue != 0)
+        {
+            field.Min = attr.DoubleMinValue;
+            field.Max = attr.DoubleMaxValue;
+            field.Step = attr.DoubleIncrement > 0 ? attr.DoubleIncrement : null;
+        }
     }
 }

@@ -1,119 +1,231 @@
+@using System.Globalization
 @using System.Text.Json
+@using System.Text.RegularExpressions
 @using CrypTool.Web.Core
-@inject IJSRuntime Js
-
+@using CrypWeb.App.Engine
 <div class="sm-back" @onclick="Close">
-  <div class="sm-dialog" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
-    <div class="mhead" style="background:@HeadColor">
-      @if (Meta?.Icon != null) { <img src="@Meta.Icon" /> }
-      <div class="mtitle">@Title<small>@Meta?.Tooltip</small></div>
-      <button class="mx" @onclick="Close" title="Close">✕</button>
-    </div>
-    <div class="mbody">
-      @if (loading) { <div class="mhint">Loading settings…</div> }
-      else if (error != null) { <div class="mhint err">@error</div> }
-      else if (fields.Count == 0) { <div class="mhint">This component has no settings.</div> }
-      else
-      {
-        @foreach (var grp in fields.GroupBy(f => f.Group))
-        {
-          @if (grp.Key != "") { <div class="mgroup">@grp.Key</div> }
-          @foreach (var f in grp)
-          {
-            var fld = f;
-            <div class="mrow" title="@fld.Tooltip">
-              <label class="mlabel">@fld.Caption</label>
-              <div class="mctl">
-                @switch (fld.Control)
+    <div class="sm-dialog" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
+        <div class="mhead" style="background:@HeadColor">
+            @if (Meta?.Icon != null)
+            {
+                <img src="@Meta.Icon"/>
+            }
+            <div class="mtitle">@Title<small>@Meta?.Tooltip</small></div>
+            <button class="mx" @onclick="Close" title="Close">✕</button>
+        </div>
+        <div class="mbody">
+            @if (Loading)
+            {
+                <div class="mhint">Loading settings…</div>
+            }
+            else if (Error != null)
+            {
+                <div class="mhint err">@Error</div>
+            }
+            else if (Fields.Count == 0)
+            {
+                <div class="mhint">This component has no settings.</div>
+            }
+            else
+            {
+                @foreach (var grp in Fields.GroupBy(f => f.Group))
                 {
-                  case "ComboBox" or "DynamicComboBox" or "LanguageSelector":
-                    <select value="@Cur(fld)" @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)">
-                      @for (int i = 0; i < fld.Options.Count; i++) { var idx = i; <option value="@idx" selected="@(Cur(fld) == idx.ToString())">@fld.Options[idx]</option> }
-                    </select>
-                    break;
-                  case "RadioButton":
-                    <div class="mradios">
-                      @for (int i = 0; i < fld.Options.Count; i++) { var idx = i; <label><input type="radio" name="@fld.Name" checked="@(Cur(fld) == idx.ToString())" @onchange="() => Set(fld, idx.ToString())" /> @fld.Options[idx]</label> }
-                    </div>
-                    break;
-                  case "CheckBox":
-                    <input type="checkbox" checked="@(Cur(fld) == "True")" @onchange="e => SetBool(fld, e.Value)" />
-                    break;
-                  case "Slider":
-                    <div class="mslider"><input type="range" min="@Num(fld.Min, 0)" max="@Num(fld.Max, 100)" step="@Num(fld.Step, 1)" value="@Cur(fld)" @oninput="e => Set(fld, e.Value?.ToString() ?? string.Empty)" /><span>@Cur(fld)</span></div>
-                    break;
-                  case "NumericUpDown":
-                    <input type="number" min="@(fld.Min?.ToString(inv))" max="@(fld.Max?.ToString(inv))" step="@Num(fld.Step, fld.ValueType == "int" ? 1 : 0.1)" value="@Cur(fld)" @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)" />
-                    break;
-                  case "TextBoxReadOnly":
-                    <input readonly value="@Cur(fld)" />
-                    break;
-                  case "TextBoxHidden":
-                    <input type="password" value="@Cur(fld)" @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)" />
-                    break;
-                  case "OpenFileDialog" or "SaveFileDialog":
-                    <input value="@Cur(fld)" disabled /><span class="mnote">File access is not available in the browser yet.</span>
-                    break;
-                  case "Button":
-                    <button disabled>@fld.Caption</button><span class="mnote">Actions are not available in the browser yet.</span>
-                    break;
-                  default:
-                    <input class="@(Invalid(fld) ? "bad" : "")" type="@(fld.ValueType is "int" or "double" ? "number" : "text")" value="@Cur(fld)" @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)" />
-                    break;
+                    @if (grp.Key != "")
+                    {
+                        <div class="mgroup">@grp.Key</div>
+                    }
+
+                    @foreach (var f in grp)
+                    {
+                        var fld = f;
+                        <div class="mrow" title="@fld.Tooltip">
+                            <label class="mlabel">@fld.Caption</label>
+                            <div class="mctl">
+                                @switch (fld.Control)
+                                {
+                                    case "ComboBox" or "DynamicComboBox" or "LanguageSelector":
+                                        <select value="@Cur(fld)"
+                                                @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)">
+                                            @for (var i = 0; i < fld.Options.Count; i++)
+                                            {
+                                                var idx = i;
+                                                <option value="@idx"
+                                                        selected="@(Cur(fld) == idx.ToString())">@fld.Options[idx]</option>
+                                            }
+                                        </select>
+                                        break;
+                                    case "RadioButton":
+                                        <div class="mradios">
+                                            @for (var i = 0; i < fld.Options.Count; i++)
+                                            {
+                                                var idx = i;
+                                                <label><input
+                                                        type="radio"
+                                                        name="@fld.Name"
+                                                        checked="@(Cur(fld) == idx.ToString())"
+                                                        @onchange="() => Set(fld, idx.ToString())"/> @fld.Options[idx]
+                                                </label>
+                                            }
+                                        </div>
+                                        break;
+                                    case "CheckBox":
+                                        <input type="checkbox" checked="@(Cur(fld) == "True")"
+                                               @onchange="e => SetBool(fld, e.Value)"/>
+                                        break;
+                                    case "Slider":
+                                        <div class="mslider"><input
+                                                type="range"
+                                                min="@Num(fld.Min, 0)"
+                                                max="@Num(fld.Max, 100)"
+                                                step="@Num(fld.Step, 1)"
+                                                value="@Cur(fld)"
+                                                @oninput="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/><span>@Cur(fld)</span>
+                                        </div>
+                                        break;
+                                    case "NumericUpDown":
+                                        <input
+                                            type="number"
+                                            min="@(fld.Min?.ToString(Inv))"
+                                            max="@(fld.Max?.ToString(Inv))"
+                                            step="@Num(fld.Step, fld.ValueType == "int" ? 1 : 0.1)"
+                                            value="@Cur(fld)"
+                                            @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                        break;
+                                    case "TextBoxReadOnly":
+                                        <input readonly value="@Cur(fld)"/>
+                                        break;
+                                    case "TextBoxHidden":
+                                        <input type="password" value="@Cur(fld)"
+                                               @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                        break;
+                                    case "OpenFileDialog" or "SaveFileDialog":
+                                        <input value="@Cur(fld)" disabled/>
+                                        <span class="mnote">File access is not available in the browser yet.</span>
+                                        break;
+                                    case "Button":
+                                        <button disabled>@fld.Caption</button>
+                                        <span class="mnote">Actions are not available in the browser yet.</span>
+                                        break;
+                                    default:
+                                        <input
+                                            class="@(Invalid(fld) ? "bad" : "")"
+                                            type="@(fld.ValueType is "int" or "double" ? "number" : "text")"
+                                            value="@Cur(fld)"
+                                            @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                        break;
+                                }
+                            </div>
+                        </div>
+                    }
                 }
-              </div>
-            </div>
-          }
-        }
-      }
+            }
+        </div>
+        <div
+            class="mfoot">@(Running ? "Changes apply immediately only to settings that may change while the workspace is running." : "")<button
+                class="mdone" @onclick="Close">Done
+            </button>
+        </div>
     </div>
-    <div class="mfoot">@(Running ? "Changes apply immediately only to settings that may change while the workspace is running." : "")<button class="mdone" @onclick="Close">Done</button></div>
-  </div>
 </div>
 
 @code {
-  [Parameter, EditorRequired] public PluginNode Node { get; set; } = default!;
-  [Parameter] public PluginMeta? Meta { get; set; }
-  [Parameter] public string Title { get; set; } = "";
-  [Parameter] public bool Running { get; set; }
-  [Parameter] public EventCallback<(string Name, string Value, string Type)> OnChange { get; set; }
-  [Parameter] public EventCallback OnClose { get; set; }
+    [Parameter][EditorRequired] public PluginNode Node { get; set; } = default!;
+    [Parameter] public PluginMeta? Meta { get; set; }
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public bool Running { get; set; }
+    [Parameter] public EventCallback<(string Name, string Value, string Type)> OnChange { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
 
-  static readonly System.Globalization.CultureInfo inv = System.Globalization.CultureInfo.InvariantCulture;
-  List<SettingField> fields = new();
-  readonly Dictionary<string, string> cur = new();
-  bool loading = true; string? error; int loadedFor = -1;
-  string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
+    private static CultureInfo Inv { get; } = CultureInfo.InvariantCulture;
+    private List<SettingField> Fields { get; set; } = new();
+    readonly Dictionary<string, string> cur = new();
+    private bool Loading { get; set; } = true;
+    private string? Error { get; set; }
+    private int LoadedFor { get; set; } = -1;
+    string HeadColor => Theme.CategoryColor(Meta?.Category ?? "Undefined");
 
-  protected override async Task OnParametersSetAsync()
-  {
-    if (loadedFor == Node.Id) return;
-    loadedFor = Node.Id; loading = true; error = null; fields = new(); cur.Clear();
-    try
+    protected override async Task OnParametersSetAsync()
     {
-      // computed in the app; yields first so the dialog shows its "loading" state
-      await Task.Yield();
-      var json = CrypWeb.App.Engine.EngineHost.Schema(Node.TypeName, JsonSerializer.Serialize(Node.Settings));
-      using var doc = JsonDocument.Parse(json);
-      if (doc.RootElement.TryGetProperty("error", out var err)) error = err.GetString();
-      else fields = JsonSerializer.Deserialize<List<SettingField>>(doc.RootElement.GetProperty("fields").GetRawText(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new();
-      foreach (var f in fields) cur[f.Name] = f.Value;
+        if (LoadedFor == Node.Id)
+        {
+            return;
+        }
+
+        LoadedFor = Node.Id;
+        Loading = true;
+        Error = null;
+        Fields = new List<SettingField>();
+        cur.Clear();
+        try
+        {
+            // computed in the app; yields first so the dialog shows its "loading" state
+            await Task.Yield();
+            var json = EngineHost.Schema(Node.TypeName, JsonSerializer.Serialize(Node.Settings));
+            using var doc = JsonDocument.Parse(json);
+            if (doc.RootElement.TryGetProperty("error", out var err))
+            {
+                Error = err.GetString();
+            }
+            else
+            {
+                var fieldsJson = doc.RootElement.GetProperty("fields").GetRawText();
+                Fields = JsonSerializer.Deserialize<List<SettingField>>(fieldsJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<SettingField>();
+            }
+
+            foreach (var field in Fields) cur[field.Name] = field.Value;
+        }
+        catch (Exception e)
+        {
+            Error = "Could not load settings: " + e.Message;
+        }
+
+        Loading = false;
     }
-    catch (Exception e) { error = "Could not load settings: " + e.Message; }
-    loading = false;
-  }
 
-  string Cur(SettingField f) => cur.GetValueOrDefault(f.Name, f.Value);
-  static string Num(double? v, double dflt) => (v ?? dflt).ToString(inv);
-  bool Invalid(SettingField f) { try { return f.Regex != null && !System.Text.RegularExpressions.Regex.IsMatch(Cur(f), f.Regex); } catch { return false; } }
+    string Cur(SettingField f)
+    {
+        return cur.GetValueOrDefault(f.Name, f.Value);
+    }
 
-  async Task Set(SettingField f, string v)
-  {
-    cur[f.Name] = v;
-    if (Invalid(f)) return;
-    await OnChange.InvokeAsync((f.Name, v, f.TypeName));
-  }
-  Task SetBool(SettingField f, object? v) => Set(f, v is true ? "True" : "False");
-  Task Close() => OnClose.InvokeAsync();
-  async Task OnKey(KeyboardEventArgs e) { if (e.Key == "Escape") await Close(); }
+    static string Num(double? v, double dflt)
+    {
+        return (v ?? dflt).ToString(Inv);
+    }
+
+    /// <summary>True when the field has a validation pattern and the current text does not match it.</summary>
+    bool Invalid(SettingField f)
+    {
+        if (f.Regex == null) return false;
+        try
+        {
+            return !Regex.IsMatch(Cur(f), f.Regex);
+        }
+        catch (ArgumentException)
+        {
+            return false;
+        } // the pattern itself is invalid: do not block input
+    }
+
+    async Task Set(SettingField f, string v)
+    {
+        cur[f.Name] = v;
+        if (Invalid(f)) return;
+        await OnChange.InvokeAsync((f.Name, v, f.TypeName));
+    }
+
+    Task SetBool(SettingField f, object? v)
+    {
+        return Set(f, v is true ? "True" : "False");
+    }
+
+    Task Close()
+    {
+        return OnClose.InvokeAsync();
+    }
+
+    async Task OnKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") await Close();
+    }
+
 }

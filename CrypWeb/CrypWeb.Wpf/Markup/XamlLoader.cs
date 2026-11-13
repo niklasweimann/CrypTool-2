@@ -45,7 +45,9 @@ namespace System.Windows.Markup
                     int firstSlash = resourcePath.IndexOf('/');
                     int lastSlash = resourcePath.LastIndexOf('/');
                     frameworkElement.ResourceRoot = firstSlash < 0 ? "" : resourcePath.Substring(0, firstSlash);
-                    frameworkElement.ResourceDirectory = lastSlash > firstSlash ? resourcePath.Substring(firstSlash + 1, lastSlash - firstSlash) : "";
+                    frameworkElement.ResourceDirectory = lastSlash > firstSlash
+                        ? resourcePath.Substring(firstSlash + 1, lastSlash - firstSlash)
+                        : "";
                 }
             }
 

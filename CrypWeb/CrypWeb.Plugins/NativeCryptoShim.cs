@@ -50,21 +50,36 @@ namespace NativeCryptography
         public static byte[] decryptAES256_CFB(byte[] Input, byte[] Key, byte[] IV, int length) => decryptAES128_CFB(Input, Key, IV, length);
         public static bool supportsAESNI() => false;
 
-        public static byte[] decryptRC2(byte[] Input, byte[] Key, byte[] IV, int length, int mode) => Decrypt(new RC2Engine(), mode == 0 ? "ECB" : "CBC", Input, Key, IV, length);
+        public static byte[] decryptRC2(byte[] Input, byte[] Key, byte[] IV, int length, int mode) => Decrypt(new RC2Engine(),
+            mode == 0 ? "ECB" : "CBC",
+            Input,
+            Key,
+            IV,
+            length);
 
         public static byte[] decryptRC4(byte[] Input, byte[] Key, int length, int keylength)
         {
             var key = keylength > 0 && keylength < Key.Length ? Key[..keylength] : Key;
-            var rc4 = new RC4Engine(); rc4.Init(false, new KeyParameter(key));
+            var rc4 = new RC4Engine();
+            rc4.Init(false, new KeyParameter(key));
             length = Math.Min(length, Input.Length);
-            var o = new byte[length]; rc4.ProcessBytes(Input, 0, length, o, 0); return o;
+            var o = new byte[length];
+            rc4.ProcessBytes(Input, 0, length, o, 0);
+            return o;
         }
 
         public static double calculateEntropy(byte[] text, int bytesToUse)
         {
-            int n = Math.Min(bytesToUse, text.Length); if (n == 0) return 0;
-            var f = new int[256]; for (int i = 0; i < n; i++) f[text[i]]++;
-            double e = 0; foreach (var c in f) if (c > 0) { double p = (double)c / n; e -= p * Math.Log(p, 2); }
+            int n = Math.Min(bytesToUse, text.Length);
+            if (n == 0) return 0;
+            var f = new int[256];
+            for (int i = 0; i < n; i++) f[text[i]]++;
+            double e = 0;
+            foreach (var c in f) if (c > 0)
+            {
+                double p = (double)c / n;
+                e -= p * Math.Log(p, 2);
+            }
             return e;
         }
     }

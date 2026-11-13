@@ -3,7 +3,6 @@
 // The desktop library defines these controls through control/data templates (Themes/Generic.xaml). The web WPF runtime
 // does not instantiate control templates, so the same layout is built in code here. Public API (types, properties,
 // events) is identical to the original, so the analyzers' XAML and code-behind compile unchanged.
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

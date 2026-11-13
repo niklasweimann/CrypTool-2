@@ -5,25 +5,39 @@ namespace CrypWeb.App.Pages;
 // Localization glue for the workspace page (kept in its own file so the main page code stays untouched).
 public partial class Home
 {
-    [Inject] Localizer Loc { get; set; } = default!;
+    private int ribbonTab; // 0 = Home, 1 = View
+    [Inject] private Localizer Loc { get; set; } = default!;
 
-    protected override void OnInitialized() { Loc.Changed += OnLanguageChanged; }
-
-    void OnLanguageChanged() => _ = InvokeAsync(async () =>
+    protected override void OnInitialized()
     {
-        // Template texts ($placeholders$) are resolved when a template is loaded: reload an unmodified template in the new language.
-        if (active.Kind == DocKind.Workspace && current != null && !ed.Dirty && templates.Contains(current))
+        Loc.Changed += OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        _ = InvokeAsync(async () =>
         {
-            double px = panX, py = panY, z = zoom;
-            await OpenTemplate(current, inPlace: true);
-            panX = px; panY = py; zoom = z;
-        }
-        StateHasChanged();
-    });
+            // Template texts ($placeholders$) are resolved when a template is loaded: reload an unmodified template in the new language.
+            if (active.Kind == DocKind.Workspace && current != null && !ed.Dirty && templates.Contains(current))
+            {
+                double px = panX, py = panY, z = zoom;
+                await OpenTemplate(current, true);
+                panX = px;
+                panY = py;
+                zoom = z;
+            }
 
-    int ribbonTab; // 0 = Home, 1 = View
+            StateHasChanged();
+        });
+    }
 
-    async Task SetLanguage(string code) => await Loc.SetLanguageAsync(code);
+    private async Task SetLanguage(string code)
+    {
+        await Loc.SetLanguageAsync(code);
+    }
 
-    void DetachLocalizer() => Loc.Changed -= OnLanguageChanged;
+    private void DetachLocalizer()
+    {
+        Loc.Changed -= OnLanguageChanged;
+    }
 }

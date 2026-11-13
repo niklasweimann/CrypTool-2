@@ -1,257 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Data;
 
 namespace System.Windows.Controls
 {
-    /// <summary>The items added directly to an items control (as opposed to an <c>ItemsSource</c>).</summary>
-    public class ItemCollection : Collection<object>
-    {
-        private readonly UIElement _owner;
-
-        internal ItemCollection(UIElement owner) => _owner = owner;
-
-        protected override void InsertItem(int index, object item)
-        {
-            base.InsertItem(index, item);
-            UIElement.SetParent(item, _owner);
-            RenderVersion.Bump();
-        }
-
-        protected override void RemoveItem(int index)
-        {
-            UIElement.SetParent(this[index], null);
-            base.RemoveItem(index);
-            RenderVersion.Bump();
-        }
-
-        protected override void ClearItems()
-        {
-            foreach (object item in this)
-            {
-                UIElement.SetParent(item, null);
-            }
-            base.ClearItems();
-            RenderVersion.Bump();
-        }
-
-        public void Refresh() => RenderVersion.Bump();
-
-        public object CurrentItem => Count > 0 ? this[0] : null;
-
-        /// <summary>The order in which the items are shown (by property values).</summary>
-        public System.ComponentModel.SortDescriptionCollection SortDescriptions { get; } = new System.ComponentModel.SortDescriptionCollection();
-
-        // As in WPF, Items is the view of what the control shows: with an ItemsSource it lists the source's items,
-        // in the order of SortDescriptions.
-
-        /// <summary>The shown item at a position.</summary>
-        public new object this[int index]
-        {
-            get => View[index];
-            set => base[index] = value;
-        }
-
-        /// <summary>The number of shown items.</summary>
-        public new int Count => View.Count;
-
-        public new int IndexOf(object item) => View.IndexOf(item);
-
-        public new bool Contains(object item) => View.Contains(item);
-
-        private IList<object> View => (_owner as ItemsControl)?.EffectiveItems ?? this;
-
-        /// <summary>The items in the order of <see cref="SortDescriptions"/> (unchanged when there are none).</summary>
-        internal IList<object> Sort(IList<object> items)
-        {
-            if (SortDescriptions.Count == 0)
-            {
-                return items;
-            }
-            IEnumerable<object> sorted = items;
-            IOrderedEnumerable<object> ordered = null;
-            foreach (System.ComponentModel.SortDescription description in SortDescriptions)
-            {
-                Func<object, object> key = item => SortKey(item, description.PropertyName);
-                bool descending = description.Direction == System.ComponentModel.ListSortDirection.Descending;
-                ordered = ordered == null
-                    ? (descending ? sorted.OrderByDescending(key, Comparer<object>.Default) : sorted.OrderBy(key, Comparer<object>.Default))
-                    : (descending ? ordered.ThenByDescending(key, Comparer<object>.Default) : ordered.ThenBy(key, Comparer<object>.Default));
-            }
-            return ordered.ToList();
-        }
-
-        private static object SortKey(object item, string propertyName)
-        {
-            if (string.IsNullOrEmpty(propertyName) || item == null)
-            {
-                return item;
-            }
-            return item.GetType().GetProperty(propertyName)?.GetValue(item);
-        }
-    }
-
-    /// <summary>Shows a list of items, either its own <see cref="Items"/> or those of <see cref="ItemsSource"/>.</summary>
-    [Markup.ContentProperty(nameof(Items))]
-    public class ItemsControl : Control
-    {
-        public static readonly DependencyProperty ItemsSourceProperty = Dp.Register<IEnumerable, ItemsControl>(nameof(ItemsSource));
-        public static readonly DependencyProperty ItemTemplateProperty = Dp.Register<DataTemplate, ItemsControl>(nameof(ItemTemplate));
-        public static readonly DependencyProperty ItemsPanelProperty = Dp.Register<ItemsPanelTemplate, ItemsControl>(nameof(ItemsPanel));
-        public static readonly DependencyProperty DisplayMemberPathProperty = Dp.Register<string, ItemsControl>(nameof(DisplayMemberPath));
-        public static readonly DependencyProperty ItemContainerStyleProperty = Dp.Register<Style, ItemsControl>(nameof(ItemContainerStyle));
-        public static readonly DependencyProperty AlternationCountProperty = Dp.Register<int, ItemsControl>(nameof(AlternationCount));
-
-        private readonly Dictionary<object, UIElement> _templatedItems = new Dictionary<object, UIElement>();
-
-        public ItemsControl() => Items = new ItemCollection(this);
-
-        public ItemCollection Items { get; }
-
-        public IEnumerable ItemsSource { get => (IEnumerable)GetValue(ItemsSourceProperty); set => SetValue(ItemsSourceProperty, value); }
-        public DataTemplate ItemTemplate { get => (DataTemplate)GetValue(ItemTemplateProperty); set => SetValue(ItemTemplateProperty, value); }
-        public ItemsPanelTemplate ItemsPanel { get => (ItemsPanelTemplate)GetValue(ItemsPanelProperty); set => SetValue(ItemsPanelProperty, value); }
-
-        private ItemsPanelTemplate _prototypeFor;
-        private Panel _prototype;
-
-        /// <summary>One instance of the items panel, read by the renderer for its kind and settings (never drawn itself).</summary>
-        internal Panel ItemsPanelPrototype
-        {
-            get
-            {
-                ItemsPanelTemplate template = ItemsPanel;
-                if (!ReferenceEquals(template, _prototypeFor))
-                {
-                    _prototypeFor = template;
-                    _prototype = template?.LoadContent() as Panel;
-                }
-                return _prototype;
-            }
-        }
-        public string DisplayMemberPath { get => (string)GetValue(DisplayMemberPathProperty); set => SetValue(DisplayMemberPathProperty, value); }
-        public Style ItemContainerStyle { get => (Style)GetValue(ItemContainerStyleProperty); set => SetValue(ItemContainerStyleProperty, value); }
-        public int AlternationCount { get => (int)GetValue(AlternationCountProperty); set => SetValue(AlternationCountProperty, value); }
-        public bool HasItems => EffectiveItems.Count > 0;
-
-        /// <summary>The items that are shown: the bound source if there is one, else <see cref="Items"/>.</summary>
-        internal IList<object> EffectiveItems
-        {
-            get
-            {
-                IEnumerable source = ItemsSource;
-                if (source == null)
-                {
-                    return Items.SortDescriptions.Count == 0 ? Items : Items.Sort(new List<object>(Items.AsEnumerable()));
-                }
-                PropertyPathWalker.Watch(source);
-                var list = new List<object>();
-                foreach (object item in source)
-                {
-                    list.Add(item);
-                }
-                return Items.Sort(list);
-            }
-        }
-
-        /// <summary>
-        /// The element that shows <paramref name="item"/>: the item itself if it is an element, otherwise the
-        /// item template instantiated with the item as data context (cached per item); null for plain data.
-        /// </summary>
-        internal UIElement ElementFor(object item)
-        {
-            if (item is UIElement element)
-            {
-                return element;
-            }
-            if (item == null || ItemTemplate == null)
-            {
-                return null;
-            }
-            if (!_templatedItems.TryGetValue(item, out UIElement created))
-            {
-                created = ItemTemplate.LoadContent() as UIElement;
-                if (created is FrameworkElement frameworkElement)
-                {
-                    frameworkElement.DataContext = item;
-                }
-                SetParent(created, this);
-                _templatedItems[item] = created;
-            }
-            return created;
-        }
-
-        private readonly Dictionary<(object Item, object Column), UIElement> _cells = new Dictionary<(object, object), UIElement>();
-
-        /// <summary>The element a column's cell template creates for <paramref name="item"/> (cached per cell).</summary>
-        // cells of a grid with a cell style: (item, column) -> the DataGridCell and its text
-        private readonly Dictionary<(object Item, object Column), (DataGridCell Cell, TextBlock Text)> _styledCells = new();
-
-        /// <summary>A DataGridCell showing <paramref name="text"/> with the grid's or column's cell style.</summary>
-        internal UIElement StyledCell(object item, DataGridColumn column, Style style, string text)
-        {
-            if (!_styledCells.TryGetValue((item, column), out var cell))
-            {
-                var textBlock = new TextBlock();
-                var created = new DataGridCell { Column = column, Content = textBlock, DataContext = item };
-                created.Style = style;
-                SetParent(created, this);
-                cell = (created, textBlock);
-                _styledCells[(item, column)] = cell;
-            }
-            if (cell.Text.Text != text)
-            {
-                cell.Text.Text = text ?? "";
-            }
-            return cell.Cell;
-        }
-
-        internal UIElement CellElement(object item, object column, DataTemplate template)
-        {
-            if (item == null || template == null)
-            {
-                return null;
-            }
-            if (!_cells.TryGetValue((item, column), out UIElement created))
-            {
-                created = template.LoadContent() as UIElement;
-                if (created is FrameworkElement frameworkElement)
-                {
-                    frameworkElement.DataContext = item;
-                }
-                SetParent(created, this);
-                _cells[(item, column)] = created;
-            }
-            return created;
-        }
-
-        /// <summary>Text shown for a plain data item (honours <see cref="DisplayMemberPath"/>).</summary>
-        internal string TextFor(object item)
-        {
-            if (!string.IsNullOrEmpty(DisplayMemberPath))
-            {
-                item = PropertyPathWalker.GetValue(item, DisplayMemberPath, out _);
-            }
-            return Convert.ToString(item, Globalization.CultureInfo.CurrentCulture) ?? "";
-        }
-
-        internal override IEnumerable<UIElement> ChildElements
-        {
-            get
-            {
-                foreach (object item in EffectiveItems)
-                {
-                    UIElement element = ElementFor(item);
-                    if (element != null)
-                    {
-                        yield return element;
-                    }
-                }
-            }
-        }
-    }
 
     public class SelectionChangedEventArgs : RoutedEventArgs
     {
@@ -266,81 +19,6 @@ namespace System.Windows.Controls
 
 namespace System.Windows.Controls.Primitives
 {
-    /// <summary>An items control in which one item can be selected.</summary>
-    public class Selector : ItemsControl
-    {
-        public static readonly DependencyProperty SelectedIndexProperty = Dp.Register<int, Selector>(nameof(SelectedIndex), -1, OnSelectedIndexChanged);
-        public static readonly DependencyProperty SelectedValuePathProperty = Dp.Register<string, Selector>(nameof(SelectedValuePath));
-        public static readonly DependencyProperty IsSynchronizedWithCurrentItemProperty = Dp.Register<bool?, Selector>(nameof(IsSynchronizedWithCurrentItem));
-
-        public int SelectedIndex { get => (int)GetValue(SelectedIndexProperty); set => SetValue(SelectedIndexProperty, value); }
-        public string SelectedValuePath { get => (string)GetValue(SelectedValuePathProperty); set => SetValue(SelectedValuePathProperty, value); }
-        public bool? IsSynchronizedWithCurrentItem { get => (bool?)GetValue(IsSynchronizedWithCurrentItemProperty); set => SetValue(IsSynchronizedWithCurrentItemProperty, value); }
-
-        public object SelectedItem
-        {
-            get
-            {
-                IList<object> items = EffectiveItems;
-                int index = SelectedIndex;
-                return index >= 0 && index < items.Count ? items[index] : null;
-            }
-            set => SelectedIndex = EffectiveItems.IndexOf(value);
-        }
-
-        public object SelectedValue
-        {
-            get
-            {
-                object item = SelectedItem;
-                return string.IsNullOrEmpty(SelectedValuePath) ? item : PropertyPathWalker.GetValue(item, SelectedValuePath, out _);
-            }
-            set => SelectedItem = value;
-        }
-
-        public IList SelectedItems
-        {
-            get
-            {
-                var selected = new List<object>();
-                if (SelectedItem != null)
-                {
-                    selected.Add(SelectedItem);
-                }
-                return selected;
-            }
-        }
-
-        public event SelectionChangedEventHandler SelectionChanged;
-
-        private static void OnSelectedIndexChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            var selector = (Selector)d;
-            var args = new SelectionChangedEventArgs { Source = selector };
-            if (selector.SelectedItem != null)
-            {
-                args.AddedItems.Add(selector.SelectedItem);
-            }
-            selector.SelectionChanged?.Invoke(selector, args);
-        }
-
-        /// <summary>A selection made in the browser.</summary>
-        internal void SelectFromUser(int index) => SelectedIndex = index;
-
-        /// <summary>A double click on an item in the browser.</summary>
-        internal void ActivateFromUser(int index)
-        {
-            SelectedIndex = index;
-            object item = SelectedItem;
-            if (item != null)
-            {
-                OnItemActivated(item);
-            }
-        }
-
-        /// <summary>Called when the user double-clicks an item (WPF: MouseDoubleClick on the item container).</summary>
-        protected virtual void OnItemActivated(object item) { }
-    }
 }
 
 namespace System.Windows.Controls
@@ -523,14 +201,17 @@ namespace System.Windows.Controls
         public static DataGridLength Parse(string text)
         {
             text = text.Trim();
-            if (Enum.TryParse(text, true, out DataGridLengthUnitType named) && named != DataGridLengthUnitType.Pixel && named != DataGridLengthUnitType.Star)
+            if (Enum.TryParse(text, true, out DataGridLengthUnitType named)
+                && named != DataGridLengthUnitType.Pixel
+                && named != DataGridLengthUnitType.Star)
             {
                 return new DataGridLength(1, named);
             }
             if (text.EndsWith("*", StringComparison.Ordinal))
             {
                 string factor = text.Substring(0, text.Length - 1);
-                return new DataGridLength(factor.Length == 0 ? 1 : double.Parse(factor, System.Globalization.CultureInfo.InvariantCulture), DataGridLengthUnitType.Star);
+                return new DataGridLength(factor.Length == 0 ? 1 : double.Parse(factor, System.Globalization.CultureInfo.InvariantCulture),
+                    DataGridLengthUnitType.Star);
             }
             return new DataGridLength(double.Parse(text, System.Globalization.CultureInfo.InvariantCulture));
         }

@@ -4,7 +4,6 @@
 // System.Drawing.Bitmap. The ZXing.Net package for .NET only has the generic versions, so these two classes connect
 // it with CrypWeb's managed System.Drawing (CrypWeb.Drawing): the reader hands the bitmap's pixels to ZXing as a
 // luminance source, the writer paints the encoded matrix into a bitmap.
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;

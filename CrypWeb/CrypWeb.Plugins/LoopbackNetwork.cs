@@ -169,7 +169,9 @@ public class UdpClient : IDisposable
         return bytes;
     }
 
-    public int Send(byte[] datagram, int bytes, string hostname, int port) => Send(datagram, bytes, new IPEndPoint(LoopbackNetwork.Loopback, port));
+    public int Send(byte[] datagram, int bytes, string hostname, int port) => Send(datagram,
+        bytes,
+        new IPEndPoint(LoopbackNetwork.Loopback, port));
 
     /// <summary>Waits for the next datagram; when the client is closed meanwhile, fails like an interrupted socket call.</summary>
     public byte[] Receive(ref IPEndPoint remoteEP)
@@ -243,8 +245,14 @@ public class Socket : IDisposable
         var result = new LoopbackAsyncResult(state);
         LoopbackNetwork.WaitOnOwnThread(() =>
         {
-            try { result.Complete(Receive(buffer, offset, size, socketFlags), null, callback); }
-            catch (Exception error) { result.Complete(0, error, callback); }
+            try
+            {
+                result.Complete(Receive(buffer, offset, size, socketFlags), null, callback);
+            }
+            catch (Exception error)
+            {
+                result.Complete(0, error, callback);
+            }
         });
         return result;
     }
@@ -395,8 +403,14 @@ public class TcpListener
 
     public TcpClient AcceptTcpClient()
     {
-        try { return _pending.Take(); }
-        catch (InvalidOperationException) { throw new LoopbackSocketException((int)SocketError.Interrupted); }
+        try
+        {
+            return _pending.Take();
+        }
+        catch (InvalidOperationException)
+        {
+            throw new LoopbackSocketException((int)SocketError.Interrupted);
+        }
     }
 
     public IAsyncResult BeginAcceptTcpClient(AsyncCallback callback, object state)
@@ -404,8 +418,14 @@ public class TcpListener
         var result = new LoopbackAsyncResult(state);
         LoopbackNetwork.WaitOnOwnThread(() =>
         {
-            try { result.Complete(AcceptTcpClient(), null, callback); }
-            catch (Exception error) { result.Complete(null, error, callback); }
+            try
+            {
+                result.Complete(AcceptTcpClient(), null, callback);
+            }
+            catch (Exception error)
+            {
+                result.Complete(null, error, callback);
+            }
         });
         return result;
     }

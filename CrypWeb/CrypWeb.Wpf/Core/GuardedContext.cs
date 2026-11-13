@@ -32,7 +32,10 @@ namespace System.Windows.Threading
         public static T Run<T>(Func<T> function)
         {
             T result = default;
-            Run(() => { result = function(); });
+            Run(() =>
+            {
+                result = function();
+            });
             return result;
         }
 

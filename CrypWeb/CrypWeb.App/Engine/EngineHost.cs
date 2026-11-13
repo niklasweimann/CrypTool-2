@@ -1,26 +1,40 @@
+using System.Collections;
+using System.Globalization;
 using System.Text.Json;
+using System.Windows.Hosting;
+using System.Windows.Threading;
+using CrypTool.PluginBase.Miscellaneous;
 using CrypTool.Web.Core;
 using Microsoft.JSInterop;
+using LogLevel = CrypTool.Web.Core.LogLevel;
 
 namespace CrypWeb.App.Engine;
 
 /// <summary>
-/// Runs workspaces in the app itself. The runtime is multi-threaded (WasmEnableThreads): the engine and the
-/// presentations live on the UI thread, plugin code (Execute) runs on background threads, as on the desktop.
-///
-/// State changes go to the page as JSON messages (<see cref="Message"/>, handled by Home.OnWorkerMessage) — the same
-/// messages the engine worker used to post, so the page did not have to change. Everything that is raised on a
-/// background thread (outputs, logs, progress) is moved to the UI thread first.
+///     Runs workspaces in the app itself. The runtime is multi-threaded (WasmEnableThreads): the engine and the
+///     presentations live on the UI thread, plugin code (Execute) runs on background threads, as on the desktop.
+///     State changes go to the page as JSON messages (<see cref="Message" />, handled by Home.OnWorkerMessage) — the same
+///     messages the engine worker used to post, so the page did not have to change. Everything that is raised on a
+///     background thread (outputs, logs, progress) is moved to the UI thread first.
 /// </summary>
 public static class EngineHost
 {
-    static ExecutionEngine? engine;
-    static Workspace? ws;
-    static string? engineDoc;
-    static bool presentationErrorsHooked;
-    static long lastSent;
-    static int guiInterval = 80;
-    static SynchronizationContext? ui;
+    public static ExecutionEngine? Engine { get; private set; }
+    private static Workspace? Ws { get; set; }
+    private static string? EngineDoc { get; set; }
+    private static bool PresentationErrorsHooked { get; set; }
+    private static long LastSent { get; set; }
+    private static int GuiInterval { get; set; } = 80;
+    private static SynchronizationContext? Ui { get; set; }
+
+    // ---- state messages -------------------------------------------------------------------------------------
+
+    private static readonly Dictionary<int, int> SentImage = new();
+
+    private static readonly Dictionary<int, string> SentIo = new();
+
+    /// <summary>Last HTML sent per component, so a presentation is only sent again when it looks different.</summary>
+    private static readonly Dictionary<int, string> SentHtml = new();
 
     /// <summary>A state, log or "stopped" message for the page (raised on the UI thread).</summary>
     public static event Action<string>? Message;
@@ -28,20 +42,20 @@ public static class EngineHost
     /// <summary>Called once on the UI thread at startup: presentations and the engine belong to this thread.</summary>
     public static void Initialize()
     {
-        ui = SynchronizationContext.Current;
-        System.Windows.Threading.Dispatcher.AttachUiThread(ui!);
+        Ui = SynchronizationContext.Current;
+        Dispatcher.AttachUiThread(Ui!);
     }
 
-    static void Post(string json)
+    private static void Post(string json)
     {
-        if (ui == null || SynchronizationContext.Current == ui) Message?.Invoke(json);
-        else ui.Post(_ => Message?.Invoke(json), null);
+        if (Ui == null || SynchronizationContext.Current == Ui) Message?.Invoke(json);
+        else Ui.Post(_ => Message?.Invoke(json), null);
     }
 
-    static void OnUiThread(Action action)
+    private static void OnUiThread(Action action)
     {
-        if (ui == null || SynchronizationContext.Current == ui) action();
-        else ui.Post(_ => action(), null);
+        if (Ui == null || SynchronizationContext.Current == Ui) action();
+        else Ui.Post(_ => action(), null);
     }
 
     /// <summary>Language of plugin texts (resources), for the UI thread and the background threads.</summary>
@@ -49,23 +63,26 @@ public static class EngineHost
     {
         try
         {
-            var culture = new System.Globalization.CultureInfo(string.IsNullOrEmpty(language) ? "en" : language);
-            System.Globalization.CultureInfo.CurrentUICulture = culture;
-            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = culture;
+            var culture = new CultureInfo(string.IsNullOrEmpty(language) ? "en" : language);
+            CultureInfo.CurrentUICulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
-        catch (System.Globalization.CultureNotFoundException) { }
+        catch (CultureNotFoundException)
+        {
+            /* unknown language code: keep the current culture */
+        }
     }
 
     /// <summary>
-    /// Opens a workspace without running it: creates the components so that their presentations are shown and
-    /// can be used before the first run, as in CT2. Called again whenever the workspace changes; components of
-    /// unchanged plugins are kept (ExecutionEngine.Prepare).
+    ///     Opens a workspace without running it: creates the components so that their presentations are shown and
+    ///     can be used before the first run, as in CT2. Called again whenever the workspace changes; components of
+    ///     unchanged plugins are kept (ExecutionEngine.Prepare).
     /// </summary>
     public static void Open(string json, string doc)
     {
-        if (engine?.Running == true) return;
-        ws = WorkspaceEditor.FromJson(json);
-        EnsureEngine(doc).Prepare(ws);
+        if (Engine?.Running == true) return;
+        Ws = WorkspaceEditor.FromJson(json);
+        EnsureEngine(doc).Prepare(Ws);
         Flush(true);
     }
 
@@ -73,46 +90,73 @@ public static class EngineHost
     public static void Start(string json, string doc, int guiMs, int sleepMs)
     {
         // a plugin that ignored Stop may still compute in the background: that run is left behind
-        if (engine?.Running == true) engine = null;
-        sentIo.Clear();
-        sentHtml.Clear();   // the app starts with empty node views: send every presentation again
-        ws = WorkspaceEditor.FromJson(json);
+        if (Engine?.Running == true) Engine = null;
+        SentIo.Clear();
+        SentHtml.Clear(); // the app starts with empty node views: send every presentation again
+        Ws = WorkspaceEditor.FromJson(json);
         var eng = EnsureEngine(doc);
-        eng.SleepMs = sleepMs; guiInterval = Math.Max(10, guiMs);
+        eng.SleepMs = sleepMs;
+        GuiInterval = Math.Max(10, guiMs);
         _ = Run(eng);
     }
 
-    public static void Stop() => engine?.Stop();
+    public static void Stop()
+    {
+        Engine?.Stop();
+    }
 
     /// <summary>
-    /// The engine of the workspace document <paramref name="doc"/>; it keeps the components (and presentations)
-    /// between runs. Another document gets a fresh engine, so no component of one workspace shows up in another.
+    ///     The engine of the workspace document <paramref name="doc" />; it keeps the components (and presentations)
+    ///     between runs. Another document gets a fresh engine, so no component of one workspace shows up in another.
     /// </summary>
-    static ExecutionEngine EnsureEngine(string doc)
+    private static ExecutionEngine EnsureEngine(string doc)
     {
-        if (doc != engineDoc) { engine = null; engineDoc = doc; sentIo.Clear(); sentImage.Clear(); sentHtml.Clear(); }
-        if (!presentationErrorsHooked)
+        if (doc != EngineDoc)
         {
-            presentationErrorsHooked = true;
-            System.Windows.Hosting.WpfRuntime.UnhandledException += e => Log(0, "Warning", "Presentation: " + e.GetType().Name + ": " + e.Message + " " + (e.StackTrace ?? "").Split('\n').FirstOrDefault()?.Trim());
-            // a {Loc Key} in a presentation whose text cannot be found (the key is shown instead)
-            CrypTool.PluginBase.Miscellaneous.LocExtension.OnGuiLogMessageOccured += (message, level) => Log(0, "Warning", "Presentation: " + message);
+            Engine = null;
+            EngineDoc = doc;
+            SentIo.Clear();
+            SentImage.Clear();
+            SentHtml.Clear();
         }
-        if (engine != null) return engine;
-        var eng = engine = new ExecutionEngine { ExecuteInBackground = true };
-        eng.Changed += () => OnUiThread(() => { if (ReferenceEquals(engine, eng)) Flush(false); });
+
+        if (!PresentationErrorsHooked)
+        {
+            PresentationErrorsHooked = true;
+            WpfRuntime.UnhandledException += e => Log(0,
+                "Warning",
+                "Presentation: " + e.GetType().Name + ": " + e.Message + " " + (e.StackTrace ?? "").Split('\n').FirstOrDefault()?.Trim());
+            // a {Loc Key} in a presentation whose text cannot be found (the key is shown instead)
+            LocExtension.OnGuiLogMessageOccured += (message, _) => Log(0, "Warning", "Presentation: " + message);
+        }
+
+        if (Engine != null) return Engine;
+        var eng = Engine = new ExecutionEngine { ExecuteInBackground = true };
+        eng.Changed += () => OnUiThread(() =>
+        {
+            if (ReferenceEquals(Engine, eng)) Flush(false);
+        });
         eng.Log += (n, l, m) => Log(n.Model.Id, l.ToString(), m);
         return eng;
     }
 
-    static void Log(int id, string level, string message) =>
-        Post(JsonSerializer.Serialize(new { type = "log", id, level, message }));
-
-    static async Task Run(ExecutionEngine eng)
+    private static void Log(int id, string level, string message)
     {
-        try { await eng.RunAsync(ws!); }
-        catch (Exception e) { Log(0, "Error", e.ToString()); }
-        if (!ReferenceEquals(engine, eng)) return;      // replaced by a newer run
+        Post(JsonSerializer.Serialize(new { type = "log", id, level, message }));
+    }
+
+    private static async Task Run(ExecutionEngine eng)
+    {
+        try
+        {
+            await eng.RunAsync(Ws!);
+        }
+        catch (Exception e)
+        {
+            Log(0, "Error", e.ToString());
+        }
+
+        if (!ReferenceEquals(Engine, eng)) return; // replaced by a newer run
         Flush(true);
         Post("{\"type\":\"stopped\"}");
     }
@@ -122,91 +166,115 @@ public static class EngineHost
     {
         try
         {
-            var values = JsonSerializer.Deserialize<Dictionary<string, string>>(valuesJson) ?? new();
+            var values = JsonSerializer.Deserialize<Dictionary<string, string>>(valuesJson) ?? new Dictionary<string, string>();
             return JsonSerializer.Serialize(new { fields = SettingsSchema.Build(typeName, values) });
         }
-        catch (Exception e) { return JsonSerializer.Serialize(new { error = e.InnerException?.Message ?? e.Message }); }
+        catch (Exception e)
+        {
+            return JsonSerializer.Serialize(new { error = e.InnerException?.Message ?? e.Message });
+        }
     }
 
     /// <summary>Applies one changed setting to a component (for settings that may change while executing).</summary>
     public static void SetSetting(int pluginId, string name, string value)
     {
-        if (engine != null && engine.Nodes.TryGetValue(pluginId, out var n) && n.Comp != null)
+        if (Engine != null && Engine.Nodes.TryGetValue(pluginId, out var n) && n.Comp != null)
             n.Comp.ApplySettings(new Dictionary<string, string> { [name] = value });
     }
 
     public static void SetText(int pluginId, string text)
     {
-        if (engine != null && engine.Nodes.TryGetValue(pluginId, out var n) && n.Comp is NativeComponent nc) { nc.Text = text; engine.Retrigger(pluginId); }
+        if (Engine != null && Engine.Nodes.TryGetValue(pluginId, out var n) && n.Comp is NativeComponent nc)
+        {
+            nc.Text = text;
+            Engine.Retrigger(pluginId);
+        }
     }
 
     /// <summary>An input event (click, text, size, drag, ...) on an element of a component's presentation (wpf.js).</summary>
     [JSInvokable]
     public static void PresEvent(int pluginId, int elementId, string kind, string value, double x, double y)
     {
-        if (engine == null || !engine.Nodes.TryGetValue(pluginId, out var n) || n.Comp is not PluginComponent { Host: { } host }) return;
-        try { host.Dispatch(elementId, kind, value, x, y); }
-        catch (Exception e) { Log(pluginId, "Warning", "Presentation: " + (e.InnerException?.Message ?? e.Message)); }
-        if (kind != "size") Flush(true);      // size reports come in bursts; the next tick draws
+        if (Engine == null || !Engine.Nodes.TryGetValue(pluginId, out var n) || n.Comp is not PluginComponent { Host: { } host }) return;
+        try
+        {
+            host.Dispatch(elementId, kind, value, x, y);
+        }
+        catch (Exception e)
+        {
+            Log(pluginId, "Warning", "Presentation: " + (e.InnerException?.Message ?? e.Message));
+        }
+
+        if (kind != "size") Flush(true); // size reports come in bursts; the next tick draws
     }
 
     /// <summary>Called regularly by the page: advances animations/timers and reports redrawn presentations.</summary>
     [JSInvokable]
     public static void Tick()
     {
-        if (engine == null) return;
-        try { System.Windows.Hosting.WpfRuntime.Tick(); }
-        catch (Exception e) { Log(0, "Warning", "Animation: " + e.Message); }
+        if (Engine == null) return;
+        try
+        {
+            WpfRuntime.Tick();
+        }
+        catch (Exception e)
+        {
+            Log(0, "Warning", "Animation: " + e.Message);
+        }
+
         Flush(false);
     }
 
-    // ---- state messages -------------------------------------------------------------------------------------
-
-    static readonly Dictionary<int, int> sentImage = new();
-    static string? TakeImage(RunNode n)
+    private static string? TakeImage(RunNode n)
     {
-        if (n.ImageVersion == 0 || sentImage.GetValueOrDefault(n.Model.Id) == n.ImageVersion) return null;
-        sentImage[n.Model.Id] = n.ImageVersion; return n.ImageUri;
+        if (n.ImageVersion == 0 || SentImage.GetValueOrDefault(n.Model.Id) == n.ImageVersion) return null;
+        SentImage[n.Model.Id] = n.ImageVersion;
+        return n.ImageUri;
     }
 
-    static readonly Dictionary<int, string> sentIo = new();
-    static string Fmt(object? v)
+    private static string Fmt(object? v)
     {
-        string t = v switch
+        var t = v switch
         {
             null => "",
             string str => str,
             byte[] b => $"[{b.Length} bytes] " + Convert.ToHexString(b.Take(48).ToArray()),
-            System.Collections.IEnumerable e => "[" + string.Join(", ", e.Cast<object?>().Take(24).Select(x => x?.ToString())) + "]",
+            IEnumerable e => "[" + string.Join(", ", e.Cast<object?>().Take(24).Select(x => x?.ToString())) + "]",
             _ => v.ToString() ?? ""
         };
         return t.Length > 400 ? t[..400] + "…" : t;
     }
 
-    static object[]? TakeIo(RunNode n)
+    private static object[]? TakeIo(RunNode n)
     {
         object[] r;
-        try { r = n.Last.Select(kv => (object)new { name = kv.Key.PropertyName, @out = kv.Key.Outgoing, value = Fmt(kv.Value) }).ToArray(); } catch { return null; }
+        try
+        {
+            r = n.Last.Select(kv => (object)new { name = kv.Key.PropertyName, @out = kv.Key.Outgoing, value = Fmt(kv.Value) }).ToArray();
+        }
+        catch
+        {
+            return null;
+        }
+
         var key = JsonSerializer.Serialize(r);
-        if (sentIo.GetValueOrDefault(n.Model.Id) == key) return null;
-        sentIo[n.Model.Id] = key; return r;
+        if (SentIo.GetValueOrDefault(n.Model.Id) == key) return null;
+        SentIo[n.Model.Id] = key;
+        return r;
     }
 
-    /// <summary>Last HTML sent per component, so a presentation is only sent again when it looks different.</summary>
-    static readonly Dictionary<int, string> sentHtml = new();
-
     /// <summary>The presentation of a component rendered as HTML, or null when it has not changed since the last call.</summary>
-    static string? TakeHtml(RunNode n)
+    private static string? TakeHtml(RunNode n)
     {
         if (n.Comp is not PluginComponent { Host: { } host }) return null;
         try
         {
             // RenderIfChanged skips the work while nothing in the presentation changed; the first time after a
             // (re)start everything is rendered, because the app has forgotten the earlier HTML
-            bool sentBefore = sentHtml.TryGetValue(n.Model.Id, out var previous);
-            string? html = sentBefore ? host.RenderIfChanged() : host.Render();
+            var sentBefore = SentHtml.TryGetValue(n.Model.Id, out var previous);
+            var html = sentBefore ? host.RenderIfChanged() : host.Render();
             if (html == null || html == previous) return null;
-            sentHtml[n.Model.Id] = html;
+            SentHtml[n.Model.Id] = html;
             return html;
         }
         catch (Exception e)
@@ -217,16 +285,19 @@ public static class EngineHost
     }
 
     /// <summary>Settings a component changed itself (from its presentation), for the app to store in the workspace.</summary>
-    static object[]? TakeSettings(RunNode n) =>
-        n.Comp?.TakeChangedSettings()?.Select(kv => (object)new { name = kv.Key, value = kv.Value.Value, type = kv.Value.Type }).ToArray();
+    private static object[]? TakeSettings(RunNode n)
+    {
+        return n.Comp?.TakeChangedSettings()?.Select(kv => (object)new { name = kv.Key, value = kv.Value.Value, type = kv.Value.Type }).ToArray();
+    }
 
     /// <summary>Sends the state of all components (on the UI thread; the gate keeps component threads out meanwhile).</summary>
-    static void Flush(bool force)
+    private static void Flush(bool force)
     {
-        var eng = engine; if (eng == null) return;
-        long now = Environment.TickCount64;
-        if (!force && now - lastSent < guiInterval) return;
-        lastSent = now;
+        var eng = Engine;
+        if (eng == null) return;
+        var now = Environment.TickCount64;
+        if (!force && now - LastSent < GuiInterval) return;
+        LastSent = now;
         string json;
         lock (eng.Gate)
         {
@@ -237,14 +308,16 @@ public static class EngineHost
                 progress = n.Progress,
                 display = n.Display,
                 ms = n.LastMs,
-                err = n.Logs.LastOrDefault(l => l.Level == CrypTool.Web.Core.LogLevel.Error).Message,
+                err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message,
                 html = TakeHtml(n),
                 image = TakeImage(n),
                 io = TakeIo(n),
-                settings = TakeSettings(n),
+                settings = TakeSettings(n)
             }).ToList();
-            json = JsonSerializer.Serialize(new { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes });
+            json = JsonSerializer.Serialize(new
+                { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes });
         }
+
         Post(json);
     }
 }

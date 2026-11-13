@@ -15,7 +15,8 @@ namespace System.Windows
 
         public UIPropertyMetadata(PropertyChangedCallback propertyChangedCallback) : base(propertyChangedCallback) { }
 
-        public UIPropertyMetadata(object defaultValue, PropertyChangedCallback propertyChangedCallback) : base(defaultValue, propertyChangedCallback) { }
+        public UIPropertyMetadata(object defaultValue,
+            PropertyChangedCallback propertyChangedCallback) : base(defaultValue, propertyChangedCallback) { }
     }
 
     /// <summary>The browser clipboard is not reachable from the engine worker: text is kept in memory only.</summary>
@@ -28,7 +29,9 @@ namespace System.Windows
         public static string GetText() => _text;
 
         /// <summary>The clipboard holds text only; other formats read as nothing.</summary>
-        public static object GetData(string format) => format == DataFormats.Text || format == DataFormats.UnicodeText || format == DataFormats.StringFormat ? _text : null;
+        public static object GetData(string format) => format == DataFormats.Text
+            || format == DataFormats.UnicodeText
+            || format == DataFormats.StringFormat ? _text : null;
 
         public static bool ContainsData(string format) => GetData(format) is string text && text.Length > 0;
 
