@@ -414,6 +414,7 @@
                                     height="@F(nh)"
                                     rx="5"
                                     class="frame"
+                                    style="fill:@WindowBackground(p)"
                                     @onpointerdown="e => NodeDown(e, p)"
                                     @onpointerdown:stopPropagation/>
                                 <rect
@@ -615,7 +616,7 @@
                             var (vw, vh) = Size(p);
                             engine.Nodes.TryGetValue(p.Id, out var rn);
                             <div class="nview over" @key="p.Id"
-                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px"
+                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px;background:@WindowBackground(p)"
                                  @onpointerdown:stopPropagation @onwheel:stopPropagation>
                                 @if (ViewOf(p) == 1)
                                 {

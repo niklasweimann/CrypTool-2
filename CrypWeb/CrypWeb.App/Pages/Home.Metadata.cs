@@ -210,4 +210,7 @@ public partial class Home
         ed.Checkpoint();
         p.Settings[key] = value;
     }
+
+    /// <summary>Background of a component window, as in CT2: the light variant of its category color.</summary>
+    private string WindowBackground(PluginNode p) => Theme.CategoryLightColor(Meta(p)?.Category ?? "Undefined");
 }

@@ -28,6 +28,48 @@ public static class Theme
         return CategoryOverrides.TryGetValue(key, out var color) ? color : DefaultCategoryColor(category);
     }
 
+    /// <summary>
+    /// The background of a component window in CT2: the category color made lighter as
+    /// <c>ControlPaint.Light(ControlPaint.LightLight(color))</c> does (WorkspaceManagerModel ColorHelper.GetColorLight).
+    /// In HLS terms the lightness moves 62.5 % of the way to white; hue and saturation stay. Transparent
+    /// presentations show this color behind them.
+    /// </summary>
+    public static string CategoryLightColor(string category)
+    {
+        string hex = CategoryColor(category).TrimStart('#');
+        if (hex.Length != 6 || !int.TryParse(hex, System.Globalization.NumberStyles.HexNumber, null, out int rgb))
+        {
+            return "#ffffff";
+        }
+        double r = ((rgb >> 16) & 0xFF) / 255.0, g = ((rgb >> 8) & 0xFF) / 255.0, b = (rgb & 0xFF) / 255.0;
+        double max = Math.Max(r, Math.Max(g, b)), min = Math.Min(r, Math.Min(g, b));
+        double lightness = (max + min) / 2;
+        double saturation = max == min ? 0 : lightness < 0.5 ? (max - min) / (max + min) : (max - min) / (2 - max - min);
+        double hue = 0;
+        if (max != min)
+        {
+            double d = max - min;
+            hue = max == r ? (g - b) / d + (g < b ? 6 : 0) : max == g ? (b - r) / d + 2 : (r - g) / d + 4;
+            hue /= 6;
+        }
+
+        // LightLight moves the lightness halfway to white, Light then a quarter of the rest
+        lightness += (1 - lightness) * 0.625;
+
+        double q = lightness < 0.5 ? lightness * (1 + saturation) : lightness + saturation - lightness * saturation;
+        double p0 = 2 * lightness - q;
+        int Channel(double t)
+        {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            double v = t < 1.0 / 6 ? p0 + (q - p0) * 6 * t : t < 0.5 ? q : t < 2.0 / 3 ? p0 + (q - p0) * (2.0 / 3 - t) * 6 : p0;
+            return (int)Math.Round(Math.Clamp(v, 0, 1) * 255);
+        }
+        return saturation == 0
+            ? $"#{(int)Math.Round(lightness * 255):x2}{(int)Math.Round(lightness * 255):x2}{(int)Math.Round(lightness * 255):x2}"
+            : $"#{Channel(hue + 1.0 / 3):x2}{Channel(hue):x2}{Channel(hue - 1.0 / 3):x2}";
+    }
+
     public static string TypeColor(string dataType)
     {
         var type = dataType.Replace("[]", "");
