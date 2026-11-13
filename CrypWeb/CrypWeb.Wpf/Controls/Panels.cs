@@ -33,6 +33,7 @@ namespace System.Windows.Controls
 
         protected override void InsertItem(int index, UIElement item)
         {
+            EnsureNoParent(item);
             base.InsertItem(index, item);
             UIElement.SetParent(item, _owner);
             RenderVersion.Bump();
@@ -40,10 +41,26 @@ namespace System.Windows.Controls
 
         protected override void SetItem(int index, UIElement item)
         {
+            if (!ReferenceEquals(this[index], item))
+            {
+                EnsureNoParent(item);
+            }
             UIElement.SetParent(this[index], null);
             base.SetItem(index, item);
             UIElement.SetParent(item, _owner);
             RenderVersion.Bump();
+        }
+
+        /// <summary>
+        /// As in WPF, an element can have only one parent: adding one that is still a child somewhere (also of this
+        /// panel) throws. Plugins rely on that, e.g. Transposition re-adds its panels inside try/catch.
+        /// </summary>
+        private static void EnsureNoParent(UIElement item)
+        {
+            if (item?.ParentElement != null)
+            {
+                throw new ArgumentException("Specified Visual is already a child of another Visual. Disconnect it first.");
+            }
         }
 
         protected override void RemoveItem(int index)

@@ -284,7 +284,7 @@ namespace System.Windows.Rendering
 
         private static void AppendStops(StringBuilder defs, GradientBrush brush)
         {
-            foreach (GradientStop stop in brush.GradientStops)
+            foreach (GradientStop stop in brush.GradientStops.OrderBy(s => s.Offset))
             {
                 defs.Append("<stop offset=\"").Append(CssValues.Number(stop.Offset)).Append("\" stop-color=\"")
                     .Append(CssValues.Color(stop.Color, brush.Opacity)).Append("\"/>");

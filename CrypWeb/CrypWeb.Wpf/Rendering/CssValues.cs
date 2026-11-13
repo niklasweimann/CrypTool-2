@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Media;
@@ -107,7 +108,8 @@ namespace System.Windows.Rendering
         private static string Stops(GradientBrush brush)
         {
             var stops = new StringBuilder();
-            foreach (GradientStop stop in brush.GradientStops)
+            // WPF orders the stops by offset; CSS needs them in that order
+            foreach (GradientStop stop in brush.GradientStops.OrderBy(s => s.Offset))
             {
                 if (stops.Length > 0)
                 {
