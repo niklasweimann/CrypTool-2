@@ -7,6 +7,13 @@ rm -rf "$DEST"; mkdir -p "$DEST"
 ( cd ../Templates && find . -name '*.cwm' | sort ) | while read -r f; do
   mkdir -p "$DEST/$(dirname "$f")"; cp "../Templates/$f" "$DEST/$f"; x="${f%.cwm}.xml"; [ -f "../Templates/$x" ] && cp "../Templates/$x" "$DEST/$x" || true
 done
+# experimental templates (Experimental/Templates) go to their own folder; the app shows it only when experimental
+# plugins are switched on (View tab)
+mkdir -p "$DEST/Experimental"
+( cd ../Experimental/Templates && find . -name '*.cwm' | sort ) | while read -r f; do
+  mkdir -p "$DEST/Experimental/$(dirname "$f")"; cp "../Experimental/Templates/$f" "$DEST/Experimental/$f"
+  x="${f%.cwm}.xml"; [ -f "../Experimental/Templates/$x" ] && cp "../Experimental/Templates/$x" "$DEST/Experimental/$x" || true
+done
 python3 -I - "$DEST" <<'PY'
 import os,sys,json
 d=sys.argv[1]; out=[]

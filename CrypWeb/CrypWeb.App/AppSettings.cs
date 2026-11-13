@@ -16,6 +16,9 @@ public sealed class AppSettings
     public int SleepMs { get; set; } = 1;
     public bool ReplacePlaceholders { get; set; } = true;
     public bool ShowGlobalProgress { get; set; } = true;
+
+    /// <summary>Shows the experimental components and templates (View tab); off by default, as in the CT2 release.</summary>
+    public bool ShowExperimental { get; set; }
     public Dictionary<string, string> TypeColors { get; set; } = new();
     public Dictionary<string, string> CategoryColors { get; set; } = new();
 

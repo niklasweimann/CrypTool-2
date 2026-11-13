@@ -119,6 +119,17 @@
                 </div>
                 <div class="rgroup">
                     <div class="rbtns">
+                        <div class="rcol">
+                            <label class="rbtn small chk" title="@Loc["exp.toggleTip"]">
+                                <input type="checkbox" checked="@settings.ShowExperimental" @onchange="ToggleExperimental"/>
+                                @Loc["exp.toggle"]
+                            </label>
+                        </div>
+                    </div>
+                    <div class="rname">@Loc["group.experimental"]</div>
+                </div>
+                <div class="rgroup">
+                    <div class="rbtns">
                         @foreach (var l in Localizer.Languages)
                         {
                             var code = l.Code;
@@ -171,7 +182,7 @@
                         @foreach (var m in grp.OrderBy(m => m.NameFor(Loc.Lang)))
                         {
                             <div
-                                class="pitem @(m.Supported ? "" : "unsup")"
+                                class="pitem @(m.Supported ? "" : "unsup") @(m.Experimental ? "exp" : "")"
                                 draggable="true"
                                 @ondragstart="() => dragEntry = m.ToPalette()"
                                 @ondblclick="() => AddAtCenter(m.ToPalette())"
@@ -185,6 +196,10 @@
                                     <span class="pic"></span>
                                 }
                                 @m.NameFor(Loc.Lang)
+                                @if (m.Experimental)
+                                {
+                                    <span class="expmark" title="@Loc["exp.tip"]">@Loc["exp.mark"]</span>
+                                }
                             </div>
                         }
                     }
@@ -196,8 +211,8 @@
                     <div
                         class="catbtn @(OpenCat == "*" && filter.Length == 0 ? "on" : "")"
                         style="border-left-color:#888"
-                        @onclick="PickAll"><span>@Loc["cat.all"]</span><i>@meta.Count</i></div>
-                    @foreach (var g in meta.Values.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
+                        @onclick="PickAll"><span>@Loc["cat.all"]</span><i>@VisibleMeta.Count()</i></div>
+                    @foreach (var g in VisibleMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
                     {
                         var key = g.Key;
                         var ic = g.FirstOrDefault(m => m.Icon != null)?.Icon;

@@ -4,3 +4,23 @@ LatticeCrypto
 Primes
 Wizard
 WorkspaceManager
+# experimental components (Experimental/CrypPlugins) that do not build for the browser:
+# - they need libraries or services a browser does not have
+ACloudTest
+AcaCiphers
+CadoNFS
+EncryptedVM
+ManInTheMiddle
+NumberFieldSieve
+Soap
+UserCode
+WebService
+# - their code no longer fits the current plugin base (does not build on the desktop either)
+DECRYPTTools
+Grain v1
+VisualDecoder_ocr
+# - the browser's clipboard is not available to plugin code
+ClipboardInput
+ClipboardOutput
+# - a standalone tutorial (ICrypTutorial), not a canvas component
+CrypTutorials

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Scans CrypPlugins/*, then generates what the browser build needs:
+"""Scans CrypPlugins/* and Experimental/CrypPlugins/*, then generates what the browser build needs:
 
   CrypWeb.App/wwwroot/plugins.json                 metadata of all components (name, ports, localized texts, icon, ...)
   CrypWeb.App/wwwroot/icons/*.png                  the plugin icons
@@ -11,6 +11,10 @@
 
 Inputs besides the plugin sources: plugins.exclude (folders that are not built) and plugins.isolate
 (folders that get their own assembly, optionally followed by "private"). See ARCHITECTURE.md.
+
+Experimental components (Experimental/CrypPlugins, not part of the CT2 release) are marked "experimental" in
+plugins.json; the app hides them until they are switched on under View. An experimental folder that also exists
+in CrypPlugins is an older copy and is skipped.
 """
 import glob
 import json
@@ -21,6 +25,10 @@ import xml.etree.ElementTree as ET
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 PLUGINS_DIR = os.path.join(ROOT, 'CrypPlugins')
+EXPERIMENTAL_DIR = os.path.join(ROOT, 'Experimental', 'CrypPlugins')
+
+# where each plugin folder lives (CrypPlugins or Experimental/CrypPlugins); filled by scan_plugins
+PLUGIN_DIRS = {}
 CRYPWEB = os.path.join(ROOT, 'CrypWeb')
 OUT = os.path.join(CRYPWEB, 'CrypWeb.App', 'wwwroot')
 PLUGIN_ASSEMBLY_DIR = os.path.join(CRYPWEB, 'CrypWeb.Plugins')
@@ -438,10 +446,11 @@ def find_libraries(plugin_folders, isolated):
     for folder in sorted(plugin_folders):
         if folder in isolated:
             continue  # isolated plugins would need the library in their own assembly
-        for project in glob.glob(os.path.join(PLUGINS_DIR, folder, '*.csproj')):
+        plugin_dir = PLUGIN_DIRS.get(folder, os.path.join(PLUGINS_DIR, folder))
+        for project in glob.glob(os.path.join(plugin_dir, '*.csproj')):
             references = re.findall(r'<ProjectReference\s+Include="([^"]*LibSource[^"]*\.csproj)"', read_text(project))
             for reference in references:
-                library_project = os.path.normpath(os.path.join(PLUGINS_DIR, folder, reference.replace('\\', os.sep)))
+                library_project = os.path.normpath(os.path.join(plugin_dir, reference.replace('\\', os.sep)))
                 name = os.path.relpath(os.path.dirname(library_project), LIB_SOURCE).split(os.sep)[0]
                 if name not in LIBRARY_SKIP and os.path.exists(library_project):
                     libraries[library_project] = os.path.dirname(library_project)
@@ -469,18 +478,33 @@ def library_items(libraries):
 # main
 # ---------------------------------------------------------------------------------------------------------------------
 
+def plugin_folders():
+    """(folder name, path, experimental) of every plugin folder: CrypPlugins first, then the experimental ones
+    that CrypPlugins does not have."""
+    folders = []
+    for root, experimental in ((PLUGINS_DIR, False), (EXPERIMENTAL_DIR, True)):
+        if not os.path.isdir(root):
+            continue
+        for folder in sorted(os.listdir(root)):
+            path = os.path.join(root, folder)
+            if os.path.isdir(path) and folder not in PLUGIN_DIRS:
+                PLUGIN_DIRS[folder] = path
+                folders.append((folder, path, experimental))
+    return folders
+
+
 def scan_plugins(excluded):
     """Returns (metadata by type name, MSBuild items by plugin folder)."""
     metadata = {}
     items_by_folder = {}
     os.makedirs(os.path.join(OUT, 'icons'), exist_ok=True)
-    for folder in sorted(os.listdir(PLUGINS_DIR)):
-        plugin_dir = os.path.join(PLUGINS_DIR, folder)
-        if not os.path.isdir(plugin_dir):
-            continue
+    for folder, plugin_dir, experimental in plugin_folders():
         sources = find_sources(plugin_dir, folder)
         resources, localized = find_resources(plugin_dir)
-        metadata.update(extract_components(folder, plugin_dir, sources, resources, localized, excluded))
+        components = extract_components(folder, plugin_dir, sources, resources, localized, excluded)
+        for component in components.values():
+            component['experimental'] = experimental
+        metadata.update(components)
         if folder not in excluded and sources:
             items_by_folder[folder] = build_items(folder, plugin_dir, sources, resources, localized)
     return metadata, items_by_folder
@@ -554,7 +578,8 @@ def main():
         json.dump(list(metadata.values()), f)
 
     print(len(metadata), 'components;', sum(1 for m in metadata.values() if m['supported']), 'enabled for build;',
-          sum(1 for m in metadata.values() if m['icon']), 'icons')
+          sum(1 for m in metadata.values() if m['icon']), 'icons;',
+          sum(1 for m in metadata.values() if m['experimental'] and m['supported']), 'experimental enabled')
 
 
 if __name__ == '__main__':

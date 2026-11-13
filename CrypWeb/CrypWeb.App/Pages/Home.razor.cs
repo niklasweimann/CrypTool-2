@@ -96,15 +96,39 @@ public partial class Home : IDisposable
     /// <summary>The expanded palette category; the first one (alphabetically by label) until the user picks one.</summary>
     private string OpenCat
     {
-        get => openCat ?? meta.Values.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? "";
+        get => openCat ?? VisibleMeta.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? "";
         set => openCat = value;
     }
 
     private bool HasSelection => ed.Selection.Count > 0 || ed.SelectedWire != null;
     private PluginNode? SelectedPlugin => ed.Selection.Count == 1 ? ed.Ws.Plugins.FirstOrDefault(p => ed.Selection.Contains(p.Id)) : null;
-    private IEnumerable<string> FilteredTemplates => templates.Where(t => t.Contains(filter, StringComparison.OrdinalIgnoreCase));
+    /// <summary>Folder of the experimental templates (copied from Experimental/Templates by tools-copy-templates.sh).</summary>
+    private const string ExperimentalTemplateFolder = "Experimental/";
 
-    private IEnumerable<PluginMeta> FilteredMeta => meta.Values.Where(m =>
+    /// <summary>The templates of the list: the experimental ones only when they are switched on.</summary>
+    private IEnumerable<string> VisibleTemplates =>
+        templates.Where(t => settings.ShowExperimental || !t.StartsWith(ExperimentalTemplateFolder, StringComparison.Ordinal));
+
+    private IEnumerable<string> FilteredTemplates => VisibleTemplates.Where(t => t.Contains(filter, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
+    /// The components of the palette: experimental ones only when they are switched on (View tab) and the browser
+    /// build can run them.
+    /// </summary>
+    private IEnumerable<PluginMeta> VisibleMeta => meta.Values.Where(m => !m.Experimental || (settings.ShowExperimental && m.Supported));
+
+    /// <summary>The experimental switch of the View tab: shows or hides experimental components and templates.</summary>
+    private async Task ToggleExperimental(ChangeEventArgs e)
+    {
+        settings.ShowExperimental = e.Value is true;
+        if (!settings.ShowExperimental)
+        {
+            openCat = null;     // the open category may have held only experimental components
+        }
+        await settings.SaveAsync(Js);
+    }
+
+    private IEnumerable<PluginMeta> FilteredMeta => VisibleMeta.Where(m =>
         m.NameFor(Loc.Lang).Contains(filter, StringComparison.OrdinalIgnoreCase)
         || m.Category.Contains(filter, StringComparison.OrdinalIgnoreCase));
 

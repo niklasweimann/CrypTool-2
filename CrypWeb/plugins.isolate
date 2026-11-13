@@ -14,3 +14,4 @@ SDES
 StringEncoder
 T310 private
 PBKDF private
+Buffer

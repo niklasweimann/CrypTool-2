@@ -1345,6 +1345,163 @@
     <Compile Include="../../CrypPlugins/ZeroKnowledgeChecker/Properties/Resources.Designer.cs" Link="ZeroKnowledgeChecker/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ZeroKnowledgeChecker/Properties/Resources.resx" LogicalName="ZeroKnowledgeChecker.Properties.Resources.resources" Link="ZeroKnowledgeChecker/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ZeroKnowledgeChecker/Properties/Resources.de.resx" LogicalName="ZeroKnowledgeChecker.Properties.Resources.de.resources" Link="ZeroKnowledgeChecker/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/A5/A5.cs" Link="A5/A5.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/A5/A5Settings.cs" Link="A5/A5Settings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/A5/Properties/Resources.Designer.cs" Link="A5/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/A5/Properties/Resources.resx" LogicalName="A5.Properties.Resources.resources" Link="A5/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/A5/Properties/Resources.de.resx" LogicalName="A5.Properties.Resources.de.resources" Link="A5/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/A5_attack/A5AttackSettings.cs" Link="A5_attack/A5AttackSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/A5_attack/A5Attack.cs" Link="A5_attack/A5Attack.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/A5_attack/Properties/Resources.Designer.cs" Link="A5_attack/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/A5_attack/Properties/Resources.resx" LogicalName="A5_attack.Properties.Resources.resources" Link="A5_attack/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/A5_attack/Properties/Resources.de.resx" LogicalName="A5_attack.Properties.Resources.de.resources" Link="A5_attack/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/BlockmodeVisualizerSettings.cs" Link="BlockmodeVisualizer/BlockmodeVisualizerSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/Enums.cs" Link="BlockmodeVisualizer/Enums.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/BlockmodeVisualizer.cs" Link="BlockmodeVisualizer/BlockmodeVisualizer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/Properties/Resources.Designer.cs" Link="BlockmodeVisualizer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/Properties/Resources.resx" LogicalName="CrypTool.Plugins.BlockmodeVisualizer.Properties.Resources.resources" Link="BlockmodeVisualizer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.BlockmodeVisualizer.Properties.Resources.de.resources" Link="BlockmodeVisualizer/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/MathParser.cs" Link="BooleanFunctionParser/MathParser.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/RPNExpr.cs" Link="BooleanFunctionParser/RPNExpr.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/RPNExprFunctions.cs" Link="BooleanFunctionParser/RPNExprFunctions.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/BooleanFunctionParser.cs" Link="BooleanFunctionParser/BooleanFunctionParser.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/BooleanFunctionParserSettings.cs" Link="BooleanFunctionParser/BooleanFunctionParserSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/Properties/Resources.Designer.cs" Link="BooleanFunctionParser/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BooleanFunctionParser/Properties/Resources.resx" LogicalName="CrypTool.BooleanFunctionParser.Properties.Resources.resources" Link="BooleanFunctionParser/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BooleanFunctionParser/Properties/Resources.de.resx" LogicalName="CrypTool.BooleanFunctionParser.Properties.Resources.de.resources" Link="BooleanFunctionParser/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/Collector/Collector.cs" Link="Collector/Collector.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Collector/Properties/Resources.Designer.cs" Link="Collector/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Collector/Properties/Resources.resx" LogicalName="Collector.Properties.Resources.resources" Link="Collector/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Collector/Properties/Resources.de.resx" LogicalName="Collector.Properties.Resources.de.resources" Link="Collector/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/ComputeAnnihilators/ComputeAnnihilators.cs" Link="ComputeAnnihilators/ComputeAnnihilators.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ComputeAnnihilators/ComputAnnihilatorsSettings.cs" Link="ComputeAnnihilators/ComputAnnihilatorsSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ComputeXZ/ComputeXZSettings.cs" Link="ComputeXZ/ComputeXZSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ComputeXZ/ComputeXZ.cs" Link="ComputeXZ/ComputeXZ.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CrypPluginTemplate/ExamplePluginCT2.cs" Link="CrypPluginTemplate/ExamplePluginCT2.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CrypPluginTemplate/ExamplePluginCT2Settings.cs" Link="CrypPluginTemplate/ExamplePluginCT2Settings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrix/CypherMatrixSettings.cs" Link="CypherMatrix/CypherMatrixSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrix/CypherMatrix.cs" Link="CypherMatrix/CypherMatrix.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrix/Properties/Resources.Designer.cs" Link="CypherMatrix/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/CypherMatrix/Properties/Resources.resx" LogicalName="CypherMatrix.Properties.Resources.resources" Link="CypherMatrix/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/CypherMatrix/Properties/Resources.de.resx" LogicalName="CypherMatrix.Properties.Resources.de.resources" Link="CypherMatrix/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrixHash/CypherMatrixHashSettings.cs" Link="CypherMatrixHash/CypherMatrixHashSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrixHash/CypherMatrixHash.cs" Link="CypherMatrixHash/CypherMatrixHash.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/CypherMatrixHash/Properties/Resources.Designer.cs" Link="CypherMatrixHash/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/CypherMatrixHash/Properties/Resources.resx" LogicalName="CypherMatrixHash.Properties.Resources.resources" Link="CypherMatrixHash/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/CypherMatrixHash/Properties/Resources.de.resx" LogicalName="CypherMatrixHash.Properties.Resources.de.resources" Link="CypherMatrixHash/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrille/FleißnerGrille.cs" Link="FleißnerGrille/FleißnerGrille.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrille/FleißnerGrilleSettings.cs" Link="FleißnerGrille/FleißnerGrilleSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrille/Properties/Resources.Designer.cs" Link="FleißnerGrille/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrille/Properties/Resources.resx" LogicalName="FleißnerGrille.Properties.Resources.resources" Link="FleißnerGrille/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrille/Properties/Resources.de.resx" LogicalName="FleißnerGrille.Properties.Resources.de.resources" Link="FleißnerGrille/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/FleißnerGrilleGenerator.cs" Link="FleißnerGrilleGenerator/FleißnerGrilleGenerator.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/FleißnerGrilleGeneratorSettings.cs" Link="FleißnerGrilleGenerator/FleißnerGrilleGeneratorSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/Properties/Resources.Designer.cs" Link="FleißnerGrilleGenerator/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/Properties/Resources.resx" LogicalName="FleißnerGrilleGenerator.Properties.Resources.resources" Link="FleißnerGrilleGenerator/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/Properties/Resources.de.resx" LogicalName="FleißnerGrilleGenerator.Properties.Resources.de.resources" Link="FleißnerGrilleGenerator/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV0/GrainV0.cs" Link="GrainV0/GrainV0.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV0/GrainV0Settings.cs" Link="GrainV0/GrainV0Settings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV0Attack/GrainV0Attack.cs" Link="GrainV0Attack/GrainV0Attack.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV0Attack/GrainV0AttackSettings.cs" Link="GrainV0Attack/GrainV0AttackSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV1Attack/GrainV1AttackSettings.cs" Link="GrainV1Attack/GrainV1AttackSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/GrainV1Attack/GrainV1Attack.cs" Link="GrainV1Attack/GrainV1Attack.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/GrainV1Attack/Properties/Resources.resx" LogicalName="GrainV1Attack.Properties.Resources.resources" Link="GrainV1Attack/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/GrainV1Attack/Properties/Resources.de.resx" LogicalName="GrainV1Attack.Properties.Resources.de.resources" Link="GrainV1Attack/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/KeyCandidate.cs" Link="HomophonicAnalyzer/KeyCandidate.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/HomophonicAnalyzer.cs" Link="HomophonicAnalyzer/HomophonicAnalyzer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Dictionary.cs" Link="HomophonicAnalyzer/Dictionary.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Mapping.cs" Link="HomophonicAnalyzer/Mapping.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/HomophonicAnalyzerSettings.cs" Link="HomophonicAnalyzer/HomophonicAnalyzerSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Alphabet.cs" Link="HomophonicAnalyzer/Alphabet.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Word.cs" Link="HomophonicAnalyzer/Word.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Frequencies.cs" Link="HomophonicAnalyzer/Frequencies.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/HillclimbingAttacker.cs" Link="HomophonicAnalyzer/HillclimbingAttacker.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Text.cs" Link="HomophonicAnalyzer/Text.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Properties/Resources.de1.Designer.cs" Link="HomophonicAnalyzer/Properties/Resources.de1.Designer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Properties/Resources.Designer.cs" Link="HomophonicAnalyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Properties/Resources.resx" LogicalName="HomophonicAnalyzer.Properties.Resources.resources" Link="HomophonicAnalyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/Properties/Resources.de.resx" LogicalName="HomophonicAnalyzer.Properties.Resources.de.resources" Link="HomophonicAnalyzer/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/CipherImplementation.cs" Link="JosseCipherAnalyzer/CipherImplementation.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/JosseCipherAnalyzer.cs" Link="JosseCipherAnalyzer/JosseCipherAnalyzer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/ResultEntry.cs" Link="JosseCipherAnalyzer/ResultEntry.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/JosseCipherAnalyzerSettings.cs" Link="JosseCipherAnalyzer/JosseCipherAnalyzerSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Evaluator/IEvaluator.cs" Link="JosseCipherAnalyzer/Evaluator/IEvaluator.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Evaluator/NGram.cs" Link="JosseCipherAnalyzer/Evaluator/NGram.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Evaluator/IndexOfCoincidence.cs" Link="JosseCipherAnalyzer/Evaluator/IndexOfCoincidence.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Evaluator/Entropy.cs" Link="JosseCipherAnalyzer/Evaluator/Entropy.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/AttackTypes/Hillclimbing.cs" Link="JosseCipherAnalyzer/AttackTypes/Hillclimbing.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/AttackTypes/SimulatedAnnealing.cs" Link="JosseCipherAnalyzer/AttackTypes/SimulatedAnnealing.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/AttackTypes/AttackType.cs" Link="JosseCipherAnalyzer/AttackTypes/AttackType.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Enum/AnalyzerMode.cs" Link="JosseCipherAnalyzer/Enum/AnalyzerMode.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Enum/CostFunctionTypes.cs" Link="JosseCipherAnalyzer/Enum/CostFunctionTypes.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Properties/Resources.Designer.cs" Link="JosseCipherAnalyzer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Properties/Resources.resx" LogicalName="CrypTool.JosseCipherAnalyzer.Properties.Resources.resources" Link="JosseCipherAnalyzer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/Properties/Resources.de.resx" LogicalName="CrypTool.JosseCipherAnalyzer.Properties.Resources.de.resources" Link="JosseCipherAnalyzer/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/MiniTreyfer/MiniTreyfer.cs" Link="MiniTreyfer/MiniTreyfer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/MiniTreyfer/MiniTreyferSettings.cs" Link="MiniTreyfer/MiniTreyferSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/MiniTreyfer/Properties/Resources.Designer.cs" Link="MiniTreyfer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/MiniTreyfer/Properties/Resources.resx" LogicalName="MiniTreyfer.Properties.Resources.resources" Link="MiniTreyfer/Properties/Resources.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/NFSFactorizer/NFSFactorizer.cs" Link="NFSFactorizer/NFSFactorizer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/NFSFactorizer/NFSFactorizerSettings.cs" Link="NFSFactorizer/NFSFactorizerSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/RegularExpressions/RegularExpressionReplace.cs" Link="RegularExpressions/RegularExpressionReplace.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/RegularExpressions/RegExMatch.cs" Link="RegularExpressions/RegExMatch.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/RegularExpressions/RegExMatchSettings.cs" Link="RegularExpressions/RegExMatchSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/RegularExpressions/RegularExpressionReplaceSettings.cs" Link="RegularExpressions/RegularExpressionReplaceSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SATAttack/SATAttack.cs" Link="SATAttack/SATAttack.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SATAttack/SATAttackSettings.cs" Link="SATAttack/SATAttackSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SATAttack/Properties/Resources.Designer.cs" Link="SATAttack/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SATAttack/Properties/Resources.resx" LogicalName="SATAttack.Properties.Resources.resources" Link="SATAttack/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SATAttack/Properties/Resources.de.resx" LogicalName="SATAttack.Properties.Resources.de.resources" Link="SATAttack/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/SZ42/Lorenz.cs" Link="SZ42/Lorenz.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SZ42/SZ42.cs" Link="SZ42/SZ42.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SZ42/Wheel.cs" Link="SZ42/Wheel.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SZ42/LorenzSettings.cs" Link="SZ42/LorenzSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SZ42/Properties/Resources.Designer.cs" Link="SZ42/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SZ42/Properties/Resources.resx" LogicalName="SZ42.Properties.Resources.resources" Link="SZ42/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SZ42/Properties/Resources.de.resx" LogicalName="SZ42.Properties.Resources.de.resources" Link="SZ42/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnFeistel/SlideAttackOnFeistel.cs" Link="SlideAttackOnFeistel/SlideAttackOnFeistel.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnFeistel/SlideAttackOnFeistelSettings.cs" Link="SlideAttackOnFeistel/SlideAttackOnFeistelSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnFeistel/Properties/Resources.Designer.cs" Link="SlideAttackOnFeistel/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SlideAttackOnFeistel/Properties/Resources.resx" LogicalName="SlideAttackOnFeistel.Properties.Resources.resources" Link="SlideAttackOnFeistel/Properties/Resources.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnTreyfer/SlideAttackOnTreyfer.cs" Link="SlideAttackOnTreyfer/SlideAttackOnTreyfer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnTreyfer/SlideAttackOnTreyferSettings.cs" Link="SlideAttackOnTreyfer/SlideAttackOnTreyferSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SlideAttackOnTreyfer/Properties/Resources.Designer.cs" Link="SlideAttackOnTreyfer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SlideAttackOnTreyfer/Properties/Resources.resx" LogicalName="SlideAttackOnTreyfer.Properties.Resources.resources" Link="SlideAttackOnTreyfer/Properties/Resources.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/SpanishStripCipherAnalysis/SpanishStripCipherAnalysis.cs" Link="SpanishStripCipherAnalysis/SpanishStripCipherAnalysis.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SpanishStripCipherAnalysis/SpanishStripCipherAnalysisSettings.cs" Link="SpanishStripCipherAnalysis/SpanishStripCipherAnalysisSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SpanishStripCipherAnalysis/Properties/Resources.Designer.cs" Link="SpanishStripCipherAnalysis/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SpanishStripCipherAnalysis/Properties/Resources.resx" LogicalName="SpanishStripCipherAnalysis.Properties.Resources.resources" Link="SpanishStripCipherAnalysis/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SpanishStripCipherAnalysis/Properties/Resources.de.resx" LogicalName="SpanishStripCipherAnalysis.Properties.Resources.de.resources" Link="SpanishStripCipherAnalysis/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/Splitter/Splitter.cs" Link="Splitter/Splitter.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Splitter/SplitterSettings.cs" Link="Splitter/SplitterSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Splitter/Properties/Settings.Designer.cs" Link="Splitter/Properties/Settings.Designer.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Splitter/Properties/Resources.Designer.cs" Link="Splitter/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Splitter/Properties/Resources.resx" LogicalName="Splitter.Properties.Resources.resources" Link="Splitter/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Splitter/Properties/Resources.de.resx" LogicalName="Splitter.Properties.Resources.de.resources" Link="Splitter/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/StreamSplitter/StreamSplitterSettings.cs" Link="StreamSplitter/StreamSplitterSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/StreamSplitter/StreamSplitter.cs" Link="StreamSplitter/StreamSplitter.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/StreamSplitter/Properties/Resources.Designer.cs" Link="StreamSplitter/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/StreamSplitter/Properties/Resources.resx" LogicalName="StreamSplitter.Properties.Resources.resources" Link="StreamSplitter/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/StreamSplitter/Properties/Resources.de.resx" LogicalName="StreamSplitter.Properties.Resources.de.resources" Link="StreamSplitter/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/SystemOfEquations/SystemOfEquationsSettings.cs" Link="SystemOfEquations/SystemOfEquationsSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SystemOfEquations/SystemOfEquations.cs" Link="SystemOfEquations/SystemOfEquations.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SystemOfEquations/LFSR.cs" Link="SystemOfEquations/LFSR.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/SystemOfEquations/Combiner.cs" Link="SystemOfEquations/Combiner.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/TREYFER/TREYFERSettings.cs" Link="TREYFER/TREYFERSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/TREYFER/TREYFER.cs" Link="TREYFER/TREYFER.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/TREYFER/Properties/Resources.Designer.cs" Link="TREYFER/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/TREYFER/Properties/Resources.resx" LogicalName="TREYFER.Properties.Resources.resources" Link="TREYFER/Properties/Resources.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/ZufallsTests/Types.cs" Link="ZufallsTests/Types.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ZufallsTests/ZufallsTestSettings.cs" Link="ZufallsTests/ZufallsTestSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ZufallsTests/ZufallsTests.cs" Link="ZufallsTests/ZufallsTests.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/ZufallsTests/Properties/Resources.Designer.cs" Link="ZufallsTests/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/ZufallsTests/Properties/Resources.resx" LogicalName="ZufallsTests.Properties.Resources.resources" Link="ZufallsTests/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/ZufallsTests/Properties/Resources.de.resx" LogicalName="ZufallsTests.Properties.Resources.de.resources" Link="ZufallsTests/Properties/Resources.de.resx" />
+    <Compile Include="../../Experimental/CrypPlugins/Zufallsgeneratoren/Zufallsgeneratoren.cs" Link="Zufallsgeneratoren/Zufallsgeneratoren.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Zufallsgeneratoren/ZufallsgeneratorenSettings.cs" Link="Zufallsgeneratoren/ZufallsgeneratorenSettings.cs" />
+    <Compile Include="../../Experimental/CrypPlugins/Zufallsgeneratoren/Properties/Resources.Designer.cs" Link="Zufallsgeneratoren/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Zufallsgeneratoren/Properties/Resources.resx" LogicalName="Zufallsgeneratoren.Properties.Resources.resources" Link="Zufallsgeneratoren/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/Zufallsgeneratoren/Properties/Resources.de.resx" LogicalName="Zufallsgeneratoren.Properties.Resources.de.resources" Link="Zufallsgeneratoren/Properties/Resources.de.resx" />
     <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeCrib.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeCrib.cs" />
     <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeMenu.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeMenu.cs" />
     <Compile Include="../../LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeSearch.cs" Link="LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer/BombeSearch.cs" />

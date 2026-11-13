@@ -21,6 +21,9 @@ import xml.etree.ElementTree as ET
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLUGINS = os.path.normpath(os.path.join(HERE, "..", "CrypPlugins"))
+# experimental components (not part of the CT2 release); their presentations are included automatically
+EXPERIMENTAL = os.path.normpath(os.path.join(HERE, "..", "Experimental", "CrypPlugins"))
+EXCLUDE_FILE = os.path.join(HERE, "plugins.exclude")
 INCLUDE_FILE = os.path.join(HERE, "presentations.include")
 OUT_DIR = os.path.join(HERE, "CrypWeb.Plugins", "Presentations")
 PROPS_FILE = os.path.join(HERE, "CrypWeb.Plugins", "presentations.g.props")
@@ -60,8 +63,30 @@ def listed_pages(plugin_dir):
 
 
 def source_dir(name):
-    """The source folder of a plugin (CrypPlugins/<name>) or of a library compiled with the plugins."""
-    return LIBRARY_DIRS.get(name) or os.path.join(PLUGINS, name)
+    """The source folder of a plugin (CrypPlugins/<name>, else Experimental/CrypPlugins/<name>) or of a library
+    compiled with the plugins."""
+    if name in LIBRARY_DIRS:
+        return LIBRARY_DIRS[name]
+    regular = os.path.join(PLUGINS, name)
+    experimental = os.path.join(EXPERIMENTAL, name)
+    return regular if os.path.isdir(regular) or not os.path.isdir(experimental) else experimental
+
+
+def experimental_presentations():
+    """Experimental plugin folders (not also in CrypPlugins, not excluded) that have XAML views."""
+    if not os.path.isdir(EXPERIMENTAL):
+        return []
+    excluded = set()
+    if os.path.exists(EXCLUDE_FILE):
+        with open(EXCLUDE_FILE) as f:
+            excluded = {line.strip() for line in f if line.strip() and not line.startswith("#")}
+    folders = []
+    for name in sorted(os.listdir(EXPERIMENTAL)):
+        folder = os.path.join(EXPERIMENTAL, name)
+        if (os.path.isdir(folder) and name not in excluded and not os.path.isdir(os.path.join(PLUGINS, name))
+                and any("obj" not in p.split(os.sep) for p in glob.glob(os.path.join(folder, "**", "*.xaml"), recursive=True))):
+            folders.append(name)
+    return folders
 
 
 def read_include_list():
@@ -268,7 +293,7 @@ def generate_shared_controls(known_types):
 
 
 def main():
-    plugins = read_include_list()
+    plugins = read_include_list() + experimental_presentations()
     isolated = read_isolated()
     known_types = runtime_type_names()
     shutil.rmtree(OUT_DIR, ignore_errors=True)

@@ -864,6 +864,43 @@
     <EmbeddedResource Include="../../CrypPlugins/AudioOutput/AudioOutputPresentation.xaml" LogicalName="xaml/AudioOutput/AudioOutputPresentation.xaml" Link="Presentations/AudioOutput/AudioOutputPresentation.xaml" />
     <Compile Include="../../CrypPlugins/AudioOutput/AudioOutputPresentation.xaml.cs" Link="Presentations/AudioOutput/AudioOutputPresentation.xaml.cs" />
     <Compile Include="Presentations/AudioOutput/AudioOutputPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/BlockmodeVisualizer/BlockmodeVisualizer.g.resources" LogicalName="BlockmodeVisualizer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/BVPresentation.xaml" LogicalName="xaml/BlockmodeVisualizer/BVPresentation.xaml" Link="Presentations/BlockmodeVisualizer/BVPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/BlockmodeVisualizer/BVPresentation.xaml.cs" Link="Presentations/BlockmodeVisualizer/BVPresentation.xaml.cs" />
+    <Compile Include="Presentations/BlockmodeVisualizer/BVPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/BooleanFunctionParser/BooleanFunctionParser.g.resources" LogicalName="BooleanFunctionParser.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/BooleanFunctionParser/BooleanFunctionParserPresentation.xaml" LogicalName="xaml/BooleanFunctionParser/BooleanFunctionParserPresentation.xaml" Link="Presentations/BooleanFunctionParser/BooleanFunctionParserPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/BooleanFunctionParser/BooleanFunctionParserPresentation.xaml.cs" Link="Presentations/BooleanFunctionParser/BooleanFunctionParserPresentation.xaml.cs" />
+    <Compile Include="Presentations/BooleanFunctionParser/BooleanFunctionParserPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/ComputeAnnihilators/ComputeAnnihilators.g.resources" LogicalName="ComputeAnnihilators.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/ComputeAnnihilators/DetailedDescription/Description.xaml" LogicalName="xaml/ComputeAnnihilators/DetailedDescription/Description.xaml" Link="Presentations/ComputeAnnihilators/DetailedDescription/Description.xaml" />
+    <EmbeddedResource Include="Presentations/ComputeXZ/ComputeXZ.g.resources" LogicalName="ComputeXZ.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/ComputeXZ/DetailedDescription/Description.xaml" LogicalName="xaml/ComputeXZ/DetailedDescription/Description.xaml" Link="Presentations/ComputeXZ/DetailedDescription/Description.xaml" />
+    <EmbeddedResource Include="Presentations/FleißnerGrille/FleißnerGrille.g.resources" LogicalName="FleißnerGrille.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrille/FleißnerGrillePresentation.xaml" LogicalName="xaml/FleißnerGrille/FleißnerGrillePresentation.xaml" Link="Presentations/FleißnerGrille/FleißnerGrillePresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrille/FleißnerGrillePresentation.xaml.cs" Link="Presentations/FleißnerGrille/FleißnerGrillePresentation.xaml.cs" />
+    <Compile Include="Presentations/FleißnerGrille/FleißnerGrillePresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/FleißnerGrilleGenerator/FleißnerGrilleGenerator.g.resources" LogicalName="FleißnerGrilleGenerator.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.xaml" LogicalName="xaml/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.xaml" Link="Presentations/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.xaml.cs" Link="Presentations/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.xaml.cs" />
+    <Compile Include="Presentations/FleißnerGrilleGenerator/FleißnerGrilleGeneratorPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/HomophonicAnalyzer/HomophonicAnalyzer.g.resources" LogicalName="HomophonicAnalyzer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/AssignmentPresentation.xaml" LogicalName="xaml/HomophonicAnalyzer/AssignmentPresentation.xaml" Link="Presentations/HomophonicAnalyzer/AssignmentPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/HomophonicAnalyzer/AssignmentPresentation.xaml.cs" Link="Presentations/HomophonicAnalyzer/AssignmentPresentation.xaml.cs" />
+    <Compile Include="Presentations/HomophonicAnalyzer/AssignmentPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/JosseCipherAnalyzer/JosseCipherAnalyzer.g.resources" LogicalName="JosseCipherAnalyzer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.xaml" LogicalName="xaml/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.xaml" Link="Presentations/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.xaml.cs" Link="Presentations/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.xaml.cs" />
+    <Compile Include="Presentations/JosseCipherAnalyzer/JosseCipherAnalyzerPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/NFSFactorizer/NFSFactorizer.g.resources" LogicalName="NFSFactorizer.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/NFSFactorizer/NFSFactorizerPresentation.xaml" LogicalName="xaml/NFSFactorizer/NFSFactorizerPresentation.xaml" Link="Presentations/NFSFactorizer/NFSFactorizerPresentation.xaml" />
+    <Compile Include="../../Experimental/CrypPlugins/NFSFactorizer/NFSFactorizerPresentation.xaml.cs" Link="Presentations/NFSFactorizer/NFSFactorizerPresentation.xaml.cs" />
+    <Compile Include="Presentations/NFSFactorizer/NFSFactorizerPresentation.g.cs" />
+    <EmbeddedResource Include="Presentations/RegularExpressions/RegularExpressions.g.resources" LogicalName="RegularExpressions.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/RegularExpressions/Description/RegexMatchDescript.xaml" LogicalName="xaml/RegularExpressions/Description/RegexMatchDescript.xaml" Link="Presentations/RegularExpressions/Description/RegexMatchDescript.xaml" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/RegularExpressions/Description/RegexReplaceDescript.xaml" LogicalName="xaml/RegularExpressions/Description/RegexReplaceDescript.xaml" Link="Presentations/RegularExpressions/Description/RegexReplaceDescript.xaml" />
+    <EmbeddedResource Include="Presentations/SystemOfEquations/SystemOfEquations.g.resources" LogicalName="SystemOfEquations.g.resources" Type="Non-Resx" WithCulture="false" />
+    <EmbeddedResource Include="../../Experimental/CrypPlugins/SystemOfEquations/DetailedDescription/Description.xaml" LogicalName="xaml/SystemOfEquations/DetailedDescription/Description.xaml" Link="Presentations/SystemOfEquations/DetailedDescription/Description.xaml" />
     <EmbeddedResource Include="Presentations/HexBox/HexBox.g.resources" LogicalName="HexBox.g.resources" Type="Non-Resx" WithCulture="false" />
     <EmbeddedResource Include="../../LibSource/HexBox/HexBox.xaml" LogicalName="xaml/HexBox/HexBox.xaml" Link="Presentations/HexBox/HexBox.xaml" />
     <Compile Include="../../LibSource/HexBox/HexBox.xaml.cs" Link="Presentations/HexBox/HexBox.xaml.cs" />

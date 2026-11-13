@@ -1888,3 +1888,6 @@ main {
     font-size: 11px;
     color: #666;
 }
+
+/* experimental components (View › Experimental plugins) */
+.pitem .expmark { margin-left: auto; padding: 0 4px; border-radius: 3px; background: #f3e3b5; color: #7a5a00; font-size: 10px; }

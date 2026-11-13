@@ -50,6 +50,12 @@ public sealed class PluginMeta
     /// <summary>Whether the engine can run the component.</summary>
     public bool Supported { get; set; }
 
+    /// <summary>
+    /// An experimental component (Experimental/CrypPlugins, not part of the CT2 release); the app shows it only when
+    /// experimental plugins are switched on under View.
+    /// </summary>
+    public bool Experimental { get; set; }
+
     /// <summary>False for components without a visualization (their Presentation is null): no presentation view.</summary>
     public bool Presentation { get; set; } = true;
 

@@ -10,3 +10,9 @@ namespace System.Management
 {
     internal static class NamespaceStandIn { }
 }
+
+// WPF page navigation (FleißnerGrille, HomophonicAnalyzer: unused import of the Visual Studio template)
+namespace System.Windows.Navigation
+{
+    internal static class NamespaceStandIn { }
+}

@@ -138,5 +138,6 @@
   "about.notOfficial": "This is a prototype of a browser port of CrypTool 2 and not yet a replacement for the desktop version.",
   "about.source": "Original CrypTool 2 source code on GitHub",
   "about.license": "CrypTool 2 is open source software under the Apache License 2.0.",
-  "about.fork": "This version is built from the web edition fork on GitHub"
+  "about.fork": "This version is built from the web edition fork on GitHub",
+  "group.experimental": "Experimental", "exp.toggle": "Experimental plugins", "exp.toggleTip": "Shows components and templates that are not part of the CrypTool 2 release (Experimental folder). They may be incomplete or slow.", "exp.mark": "exp.", "exp.tip": "Experimental component: not part of the CrypTool 2 release"
 }

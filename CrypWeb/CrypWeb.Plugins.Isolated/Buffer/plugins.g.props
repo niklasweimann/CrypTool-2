@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="../../../Experimental/CrypPlugins/Buffer/BufferSettings.cs" Link="Buffer/BufferSettings.cs" />
+    <Compile Include="../../../Experimental/CrypPlugins/Buffer/Buffer.cs" Link="Buffer/Buffer.cs" />
+  </ItemGroup>
+</Project>

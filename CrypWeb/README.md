@@ -29,6 +29,17 @@ Regenerate metadata/icons/compile list: `python3 tools-gen-plugins.py`; after ch
 
 Not yet: control (IControl) connectors.
 
+## Experimental components
+
+`Experimental/CrypPlugins` holds components that are not part of the CT2 release. The web build includes the ones that
+compile for the browser (`tools-gen-plugins.py` scans both folders; an experimental folder that also exists in
+`CrypPlugins` is an older copy and is skipped; the reasons for the others are in `plugins.exclude`). They are marked
+`experimental` in `plugins.json` and hidden until **View › Experimental plugins** is switched on (stored with the
+settings); their templates (`Experimental/Templates`, copied by `tools-copy-templates.sh`) appear in the template list
+under "Experimental" at the same time. Their XAML views are compiled automatically (`tools-gen-presentations.py`).
+JosseCipherAnalyzer was ported to the current `LanguageStatisticsLib` API, which it did not build against any more.
+Check: `dotnet run --project CrypWeb.Tests -- ../Experimental/Templates runall`.
+
 ## Localization (en / de)
 
 - **UI strings:** `CrypWeb.App/Localizer.cs` + `wwwroot/i18n/<lang>.json` (English is the fallback). Add a language by adding a JSON file and listing it in `Localizer.Languages`. The picker is in the ribbon, the choice is stored in `localStorage` (default: browser language).
