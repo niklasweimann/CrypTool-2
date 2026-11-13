@@ -83,6 +83,9 @@ namespace System.Windows.Rendering
                 case Viewbox viewbox:
                     WriteViewbox(viewbox, slot);
                     break;
+                case BulletDecorator bulletDecorator:
+                    WriteBulletDecorator(bulletDecorator, slot);
+                    break;
                 case Decorator decorator:
                     WriteContainer(decorator, slot, "wb", "", LayoutSlot.GridCell);
                     break;

@@ -84,6 +84,30 @@ namespace System.Windows.Rendering
             return false;
         }
 
+        /// <summary>
+        /// A bullet and its content side by side, as WPF lays out a BulletDecorator: the bullet on the left,
+        /// centred on the first line of a text, the content to its right.
+        /// </summary>
+        private void WriteBulletDecorator(BulletDecorator decorator, LayoutSlot slot)
+        {
+            OpenTag("div", decorator, slot, "ws", "flex-direction:row;align-items:flex-start;");
+            if (decorator.Bullet != null)
+            {
+                // the height of the first line, to centre the bullet on it (1.33 em is the line height used for text)
+                double firstLine = decorator.Child is TextBlock text ? text.FontSize * 1.33 : double.NaN;
+                _html.Append("<div style=\"flex:none;display:flex;align-items:center;")
+                    .Append(double.IsNaN(firstLine) ? "" : "height:" + CssValues.Pixels(firstLine) + ";")
+                    .Append("\">");
+                WriteElement(decorator.Bullet, LayoutSlot.StackHorizontal);
+                _html.Append("</div>");
+            }
+            if (decorator.Child != null)
+            {
+                WriteElement(decorator.Child, LayoutSlot.StackHorizontal);
+            }
+            _html.Append("</div>");
+        }
+
         private void WriteStack(Panel panel, LayoutSlot slot, Orientation orientation, bool wrap)
         {
             bool horizontal = orientation == Orientation.Horizontal;
