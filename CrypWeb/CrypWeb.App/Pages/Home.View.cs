@@ -14,7 +14,7 @@ public partial class Home
     {
         try
         {
-            var rect = await Js.InvokeAsync<double[]>("ct2.rect", "main svg");
+            var rect = await Js.InvokeAsync<double[]>("ct2.rect", "main svg.canvas");
             (rl, rt, rw, rh) = (rect[0], rect[1], rect[2], rect[3]);
         }
         catch (JSException)

@@ -111,8 +111,10 @@ public partial class Home
         return Math.Abs(p.y - q.y) < .01;
     }
 
-    private void WireSegDown(PointerEventArgs e, Wire w, List<(double x, double y)> pts, int i)
+    private void WireSegDown(PointerEventArgs e, Wire w, int i)
     {
+        var pts = WirePts(w); // the route as drawn (the handler is reused across renders, see Home.Handlers.cs)
+        if (i + 1 >= pts.Count) return;
         ed.Selection.Clear();
         ed.SelectedWire = w.Id;
         if (e.Button != 0) return;

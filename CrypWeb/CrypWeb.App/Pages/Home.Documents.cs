@@ -58,6 +58,7 @@ public partial class Home
 
         var index = docs.IndexOf(doc);
         docs.Remove(doc);
+        ForgetHandlers(); // they may hold elements of the closed document
         if (docs.Count == 0) docs.Add(new Doc());
         if (active == doc) active = docs[Math.Min(index, docs.Count - 1)];
     }

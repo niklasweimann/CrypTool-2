@@ -282,7 +282,7 @@ public partial class Home : IDisposable, IHandleEvent
         try
         {
             // the SVG root group is translated/scaled by pan/zoom: exportPng re-bases it, so pass world bounds
-            await Js.InvokeVoidAsync("ct2.exportPng", "main svg", fileName, x0, y0, x1 - x0, y1 - y0);
+            await Js.InvokeVoidAsync("ct2.exportPng", "main svg.canvas", fileName, x0, y0, x1 - x0, y1 - y0);
         }
         catch (Exception e)
         {
@@ -410,7 +410,7 @@ public partial class Home : IDisposable, IHandleEvent
         }
 
         self = DotNetObjectReference.Create(this);
-        await Js.InvokeVoidAsync("ct2.init", self, "main svg");
+        await Js.InvokeVoidAsync("ct2.init", self, "main svg.canvas");
         // the engine runs in this app: plugin code on background threads, presentations on this (UI) thread
         EngineHost.Initialize();
         MediaBridge.Initialize(Js);

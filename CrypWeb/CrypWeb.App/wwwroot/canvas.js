@@ -41,6 +41,19 @@ window.ct2 = {
         const notifyRect = () => ref.invokeMethodAsync('OnRect', ...ct2.rect(canvasSelector));
         window.addEventListener('resize', notifyRect);
         setTimeout(notifyRect, 0);
+        // The canvas moves and changes size when panels open, tabs change, fonts load or the layout settles:
+        // keep the rectangle used to convert pointer positions up to date (a stale one puts dropped components,
+        // new components and the selection rectangle at the wrong place).
+        const canvas = document.querySelector(canvasSelector);
+        const keepRectCurrent = () => {
+            const r = canvas.getBoundingClientRect();
+            if (r.width > 0 && r.height > 0) notifyRect();
+        };
+        new ResizeObserver(keepRectCurrent).observe(canvas);
+        new ResizeObserver(keepRectCurrent).observe(document.body);
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(keepRectCurrent);
+        // position changes without a size change (e.g. the tab bar grows): check when a gesture starts
+        document.addEventListener('pointerdown', keepRectCurrent, true);
 
         const isTextField = el => el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA');
 

@@ -131,7 +131,7 @@
                             <button
                                 class="rbtn big @(Loc.Lang == code ? "on" : "")"
                                 title="@l.Name"
-                                @onclick="() => SetLanguage(code)"><span
+                                @onclick="On(code, () => SetLanguage(code))"><span
                                     class="ico langico">@(code.ToUpperInvariant())</span>@l.Name</button>
                         }
                     </div>
@@ -159,7 +159,7 @@
                         {
                             <div
                                 class="pitem @(t == current ? "sel" : "")"
-                                @onclick="() => OpenTemplate(t)"
+                                @onclick="On(t, () => OpenTemplate(t))"
                                 title="@t">
                                 @if (templateIcons.Contains(t))
                                 {
@@ -189,8 +189,8 @@
                             <div
                                 class="pitem @(m.Supported ? "" : "unsup") @(m.Experimental ? "exp" : "")"
                                 draggable="true"
-                                @ondragstart="() => dragEntry = m.ToPalette()"
-                                @ondblclick="() => AddAtCenter(m.ToPalette())"
+                                @ondragstart="On(m, () => dragEntry = m.ToPalette())"
+                                @ondblclick="On(m, () => AddAtCenter(m.ToPalette()))"
                                 title="@ItemTip(m)">
                                 @if (m.Icon != null)
                                 {
@@ -224,7 +224,7 @@
                         <div
                             class="catbtn @(OpenTemplateCat == key && filter.Length == 0 ? "on" : "")"
                             style="border-left-color:#5b7db1"
-                            @onclick="() => PickTemplateCat(key)">
+                            @onclick="On(key, () => PickTemplateCat(key))">
                             @if (ic != null)
                             {
                                 <img src="@TemplateIcon(ic)"/>
@@ -248,7 +248,7 @@
                         <div
                             class="catbtn @(OpenCat == key && filter.Length == 0 ? "on" : "")"
                             style="border-left-color:@Theme.CategoryColor(key)"
-                            @onclick="() => PickCat(key)">
+                            @onclick="On(key, () => PickCat(key))">
                             @if (ic != null)
                             {
                                 <img src="@ic"/>
@@ -269,11 +269,11 @@
                     @foreach (var d in docs.ToList())
                     {
                         var dd = d;
-                        <div class="doctab @(dd == active ? "on" : "")" title="@TabTip(dd)" @onclick="() => Activate(dd)"
-                             @oncontextmenu="e => TabMenu(e, dd)" @oncontextmenu:preventDefault><span
+                        <div class="doctab @(dd == active ? "on" : "")" title="@TabTip(dd)" @onclick="On(dd, () => Activate(dd))"
+                             @oncontextmenu="OnMouse(dd, e => TabMenu(e, dd))" @oncontextmenu:preventDefault><span
                                 class="dk"><Icon Name="@(dd.Kind == DocKind.Start ? "star" : dd.Kind == DocKind.Settings ? "settings" : dd.Engine.Running ? "play" : "doc")" Size="14"/></span>@DocTitle(dd)<span
                                 class="dx"
-                                @onclick="() => CloseDoc(dd)"
+                                @onclick="On(dd, () => CloseDoc(dd))"
                                 @onclick:stopPropagation>✕</span></div>
                     }
                     <div class="doctab add" @onclick="NewDoc" title="@Loc["file.new"]">＋</div>
@@ -332,7 +332,7 @@
                         @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
                         {
                             var isel = ed.Selection.Contains(im.Id);
-                            <g class="img-g @(isel ? "selected" : "")" @onpointerdown="e => NodeDown(e, im)"
+                            <g class="img-g @(isel ? "selected" : "")" @onpointerdown="OnPointer(im, e => NodeDown(e, im))"
                                @onpointerdown:stopPropagation>
                                 <image
                                     href="@ImageUri(im)"
@@ -351,7 +351,7 @@
                                         width="10"
                                         height="10"
                                         class="handle"
-                                        @onpointerdown="e => ResizeDown(e, im)"
+                                        @onpointerdown="OnPointer(im, e => ResizeDown(e, im))"
                                         @onpointerdown:stopPropagation/>
                                 }
                             </g>
@@ -361,9 +361,9 @@
                             var sel = ed.Selection.Contains(t.Id);
                             <g
                                 class="note-g @(sel ? "selected" : "")"
-                                @onpointerdown="e => NodeDown(e, t)"
+                                @onpointerdown="OnPointer(t, e => NodeDown(e, t))"
                                 @onpointerdown:stopPropagation
-                                @ondblclick="() => EditText(t)">
+                                @ondblclick="On(t, () => EditText(t))">
                                 <rect x="@F(t.X)" y="@F(t.Y)" width="@F(t.Width)" height="@F(t.Height)" class="note-bg"
                                       rx="3"/>
                                 @foreach (var (line, i) in Wrap(t.Text, t.Width - 16).Select((l, i) => (l, i)))
@@ -378,7 +378,7 @@
                                         width="10"
                                         height="10"
                                         class="handle"
-                                        @onpointerdown="e => ResizeDown(e, t)"
+                                        @onpointerdown="OnPointer(t, e => ResizeDown(e, t))"
                                         @onpointerdown:stopPropagation/>
                                 }
                             </g>
@@ -404,9 +404,9 @@
                                 <path
                                     d="@d"
                                     class="wire-hit"
-                                    @onpointerenter="() => hoverWire = w"
+                                    @onpointerenter="On(w, () => hoverWire = w)"
                                     @onpointerleave="() => hoverWire = null"
-                                    @onpointerdown="e => WireDown(e, w)"
+                                    @onpointerdown="OnPointer(w, e => WireDown(e, w))"
                                     @onpointerdown:stopPropagation/>
                                 @for (var si = 1; si <= pts.Count - 3; si++)
                                 {
@@ -418,9 +418,9 @@
                                         x2="@F(pts[i + 1].x)"
                                         y2="@F(pts[i + 1].y)"
                                         class="wire-seg @(horiz ? "h" : "v")"
-                                        @onpointerenter="() => hoverWire = w"
+                                        @onpointerenter="On(w, () => hoverWire = w)"
                                         @onpointerleave="() => hoverWire = null"
-                                        @onpointerdown="e => WireSegDown(e, w, pts, i)"
+                                        @onpointerdown="OnPointer((w, i), e => WireSegDown(e, w, i))"
                                         @onpointerdown:stopPropagation/>
                                 }
                             </g>
@@ -435,7 +435,7 @@
                             var native = NativeComponent.TryCreate(p.TypeName)?.Which;
                             <g
                                 class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "")"
-                                @oncontextmenu="e => NodeMenu(e, p)"
+                                @oncontextmenu="OnMouse(p, e => NodeMenu(e, p))"
                                 @oncontextmenu:preventDefault
                                 @oncontextmenu:stopPropagation>
                                 <rect
@@ -446,7 +446,7 @@
                                     rx="5"
                                     class="frame"
                                     style="fill:@WindowBackground(p)"
-                                    @onpointerdown="e => NodeDown(e, p)"
+                                    @onpointerdown="OnPointer(p, e => NodeDown(e, p))"
                                     @onpointerdown:stopPropagation/>
                                 <rect
                                     x="@F(p.X + 3)"
@@ -454,47 +454,47 @@
                                     width="@F(nw - 6)"
                                     height="17"
                                     class="head"
-                                    @onpointerdown="e => NodeDown(e, p, true)"
+                                    @onpointerdown="OnPointer(p, e => NodeDown(e, p, true))"
                                     @onpointerdown:stopPropagation
-                                    @ondblclick="() => EditName(p)"/>
+                                    @ondblclick="On(p, () => EditName(p))"/>
                                 @Txt(p.X + TitleCenter(p, nw), p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
                                 <g class="tb">
                                     @if (HasPresentation(p))
                                     {
                                         <g
                                             class="tbb @(ViewOf(p) == 1 ? "on" : "")"
-                                            @onpointerdown="() => SetView(p, 1)"
+                                            @onpointerdown="On(p, () => SetView(p, 1))"
                                             @onpointerdown:stopPropagation>
                                             <title>@Loc["tip.presentation"]</title><circle class="tbhit" cx="@F(p.X + 12)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 12) @F(p.Y + 11.5))" d="M-5,-4H5V2H-5Z M-2,5H2 M0,2V5"/>
                                         </g>
                                     }
                                     <g
                                         class="tbb"
-                                        @onpointerdown="() => OpenSettings(p)"
+                                        @onpointerdown="On(p, () => OpenSettings(p))"
                                         @onpointerdown:stopPropagation>
                                         <title>@Loc["tip.settings"]</title><circle class="tbhit" cx="@F(p.X + 27)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 27) @F(p.Y + 11.5))" d="M-5,-2.5H5 M-5,2.5H5 M-2,-4.5V-0.5 M2,0.5V4.5"/>
                                     </g>
                                     <g
                                         class="tbb @(p.ViewState == 3 ? "on" : "")"
-                                        @onpointerdown="() => SetView(p, 3)"
+                                        @onpointerdown="On(p, () => SetView(p, 3))"
                                         @onpointerdown:stopPropagation>
                                         <title>@Loc["tip.log"]</title><circle class="tbhit" cx="@F(p.X + 42)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 42) @F(p.Y + 11.5))" d="M-5,-4H5 M-5,0H5 M-5,4H2"/></g>
                                     <g
                                         class="tbb @(ViewOf(p) == 2 ? "on" : "")"
-                                        @onpointerdown="() => SetView(p, 2)"
+                                        @onpointerdown="On(p, () => SetView(p, 2))"
                                         @onpointerdown:stopPropagation>
                                         <title>@Loc["tip.data"]</title><circle class="tbhit" cx="@F(p.X + 57)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 57) @F(p.Y + 11.5))" d="M-5,-5H5V5H-5Z M-5,0H5 M0,-5V5"/>
                                     </g>
                                 </g>
                                 <g
                                     class="tbb"
-                                    @onpointerdown="() => ToggleMin(p)"
+                                    @onpointerdown="On(p, () => ToggleMin(p))"
                                     @onpointerdown:stopPropagation>
                                     <title>@Loc[p.Minimized ? "tip.restore" : "tip.minimize"]</title><circle class="tbhit" cx="@F(p.X + nw - 30)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + nw - 30) @F(p.Y + 11.5))" d="@(p.Minimized ? "M-4,-4H4V4H-4Z" : "M-5,3H5")"/>
                                 </g>
                                 <g
                                     class="tbb close"
-                                    @onpointerdown="() => RemoveNode(p)"
+                                    @onpointerdown="On(p, () => RemoveNode(p))"
                                     @onpointerdown:stopPropagation>
                                     <title>@Loc["tip.remove"]</title><circle class="tbhit" cx="@F(p.X + nw - 12)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + nw - 12) @F(p.Y + 11.5))" d="M-4,-4L4,4 M4,-4L-4,4"/>
                                 </g>
@@ -565,9 +565,9 @@
                                     <path d="@Tri(c, pp.x, pp.y, ok)"
                                           class="port @(c.IsMandatory ? "mand" : "") @(ok ? "ok" : "") @(dim ? "dim" : "") @(focus != null && !PortFocused(c) ? "faded" : "")"
                                           style="fill:@Theme.TypeColor(c.DataTypeName)"
-                                          @onpointerenter="() => hoverPort = c" @onpointerleave="() => hoverPort = null"
-                                          @onpointerdown="e => PortDown(e, c)" @onpointerdown:stopPropagation
-                                          @onpointerup="() => PortUp(c)" @onpointerup:stopPropagation>
+                                          @onpointerenter="On(c, () => hoverPort = c)" @onpointerleave="() => hoverPort = null"
+                                          @onpointerdown="OnPointer(c, e => PortDown(e, c))" @onpointerdown:stopPropagation
+                                          @onpointerup="On(c, () => PortUp(c))" @onpointerup:stopPropagation>
                                         <title>@PortTip(c, meta)</title></path>
                                 }
                                 }
@@ -579,7 +579,7 @@
                                         width="10"
                                         height="10"
                                         class="handle"
-                                        @onpointerdown="e => ResizeDown(e, p)"
+                                        @onpointerdown="OnPointer(p, e => ResizeDown(e, p))"
                                         @onpointerdown:stopPropagation/>
                                 }
                             </g>
@@ -625,7 +625,7 @@
                                         class="nat"
                                         spellcheck="false"
                                         value="@NativeText(p)"
-                                        @oninput="e => SetNativeText(p, e.Value?.ToString() ?? string.Empty)"
+                                        @oninput="OnChange(p, e => SetNativeText(p, e.Value?.ToString() ?? string.Empty))"
                                         @onpointerdown:stopPropagation></textarea>
                                 }
                                 else if (native == NativeComponent.Kind.PictureOutput)
@@ -731,10 +731,10 @@
                 <div class="rhead">@Title(sp, Meta(sp))</div>
                 <div class="rsub">@(Meta(sp)?.TooltipFor(Loc.Lang))</div>
                 <div class="hint">
-                    <button class="rbtn small" @onclick="() => OpenSettings(sp)">⚙ @Loc["right.settings"]…</button>
+                    <button class="rbtn small" @onclick="On(sp, () => OpenSettings(sp))">⚙ @Loc["right.settings"]…</button>
                     @if (engine.Nodes.TryGetValue(sp.Id, out var vn0) && vn0.Html != null)
                     {
-                        <button class="rbtn small" @onclick="() => OpenView(sp)">▤ @Loc["view.open"]</button>
+                        <button class="rbtn small" @onclick="On(sp, () => OpenView(sp))">▤ @Loc["view.open"]</button>
                     }
                 </div>
                 <div class="sec">@Loc["right.connectors"]</div>
@@ -767,7 +767,7 @@
                 <label class="lf @l2.ToString().ToLower()" @onclick:stopPropagation><input
                         type="checkbox"
                         checked="@(!hiddenLevels.Contains(l2))"
-                        @onchange="() => ToggleLevel(l2)"/>@l2</label>
+                        @onchange="On(l2, () => ToggleLevel(l2))"/>@l2</label>
             }
             <span class="tog">▾</span></div>
         <div class="logbody">
