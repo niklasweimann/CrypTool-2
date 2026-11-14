@@ -120,10 +120,13 @@ public sealed partial class WorkspaceEditor
         return plugin;
     }
 
-    /// <summary>Inputs sit on the west side, outputs on the east side (orientation 2 / 3).</summary>
+    /// <summary>
+    /// Inputs sit on the west side, outputs on the east side (orientation 2 / 3); as in CT2, control connectors sit
+    /// on the north side (slave) and the south side (master).
+    /// </summary>
     void AddPorts(PluginNode plugin, List<PalettePort> ports, bool outgoing)
     {
-        int index = 0;
+        int index = 0, controlIndex = 0;
         foreach (var port in ports)
         {
             var connector = new ConnectorPort
@@ -131,14 +134,18 @@ public sealed partial class WorkspaceEditor
                 Id = Ws.NextId(),
                 Plugin = plugin,
                 Outgoing = outgoing,
-                Orientation = outgoing ? 3 : 2,
-                Index = index++,
+                Orientation = port.IsControl ? (outgoing ? 1 : 0) : (outgoing ? 3 : 2),
+                Index = port.IsControl ? controlIndex++ : index++,
                 PropertyName = port.PropertyName,
                 Name = port.PropertyName,
                 DataTypeName = port.DataTypeName,
                 ToolTip = port.ToolTip,
                 IsMandatory = port.IsMandatory,
             };
+            if (port.IsControl)
+            {
+                connector.Extra["IControl"] = "True";   // ConnectorPort.IsControl; written to .cwm as IControl
+            }
             (outgoing ? plugin.Outputs : plugin.Inputs).Add(connector);
             Ws.Connectors.Add(connector);
         }

@@ -1,7 +1,8 @@
 namespace CrypTool.Web.Core;
 
 /// <summary>A connector of a palette entry (a component that can be added to the canvas).</summary>
-public sealed record PalettePort(string PropertyName, string DataTypeName, string ToolTip, bool IsMandatory);
+/// <remarks><paramref name="IsControl"/>: a control connector (IControl), placed on the top (slave) or bottom (master) side.</remarks>
+public sealed record PalettePort(string PropertyName, string DataTypeName, string ToolTip, bool IsMandatory, bool IsControl = false);
 
 /// <summary>A component that can be dropped on the canvas.</summary>
 public sealed class PaletteEntry
@@ -31,7 +32,7 @@ public sealed class PortMeta
     public string Tooltip { get; set; } = "";
     public bool Mandatory { get; set; }
 
-    /// <summary>A control (IControl) connector: runs in workspaces, not offered for new components in the palette yet.</summary>
+    /// <summary>A control (IControl) connector: the master gets the slave's control object when a run starts.</summary>
     public bool Control { get; set; }
 }
 
@@ -94,7 +95,8 @@ public sealed class PluginMeta
             port.Name,
             FullTypeName(port.Type),
             string.IsNullOrEmpty(port.Tooltip) ? port.Caption : port.Tooltip,
-            port.Mandatory);
+            port.Mandatory,
+            port.Control);
 
         return new PaletteEntry
         {
@@ -102,8 +104,8 @@ public sealed class PluginMeta
             AssemblyName = string.IsNullOrEmpty(Assembly) ? Dir : Assembly,
             Name = Name,
             Category = Category,
-            Inputs = Ports.Where(p => p.Dir == "in" && !p.Control).Select(ToPort).ToList(),
-            Outputs = Ports.Where(p => p.Dir == "out" && !p.Control).Select(ToPort).ToList(),
+            Inputs = Ports.Where(p => p.Dir == "in").Select(ToPort).ToList(),
+            Outputs = Ports.Where(p => p.Dir == "out").Select(ToPort).ToList(),
         };
     }
 }

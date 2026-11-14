@@ -29,7 +29,7 @@ Regenerate metadata/icons/compile list: `python3 tools-gen-plugins.py`; after ch
 
 Control connections (IControl, e.g. KeySearcher → AES, TranspositionAnalyser → Transposition, cost functions) are
 set up when a run starts, as in CT2 (`ExecutionEngine.ConnectControls`: the master gets the slave's control object);
-they carry no data. Not yet: offering control connectors for components newly placed from the palette.
+they carry no data. Components placed from the palette get their control connectors on the north (slave) and south (master) side, as in CT2.
 
 Limits: the quadratic sieve factorizes with the native msieve library, which the browser cannot load (it finds
 small factors only).
