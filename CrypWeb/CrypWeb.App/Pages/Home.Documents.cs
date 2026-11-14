@@ -62,6 +62,56 @@ public partial class Home
         if (active == doc) active = docs[Math.Min(index, docs.Count - 1)];
     }
 
+    /// <summary>Tooltip of a tab: the file name, or the title of documents without a file.</summary>
+    private string TabTip(Doc doc)
+    {
+        return doc.Kind == DocKind.Workspace && doc.Name != null ? doc.Name : DocTitle(doc).TrimEnd('*', ' ');
+    }
+
+    private async Task CloseAll()
+    {
+        foreach (var doc in docs.ToList()) await CloseDoc(doc);
+    }
+
+    private async Task CloseOthers(Doc keep)
+    {
+        foreach (var doc in docs.ToList().Where(d => d != keep)) await CloseDoc(doc);
+        await Activate(keep);
+    }
+
+    private async void CopyText(string text)
+    {
+        try
+        {
+            await Js.InvokeVoidAsync("navigator.clipboard.writeText", text);
+        }
+        catch (JSException)
+        {
+            /* clipboard not available (insecure context or denied) */
+        }
+    }
+
+    /// <summary>Hides or shows the ribbon (F12).</summary>
+    private async void ToggleMenu()
+    {
+        hideMenu = !hideMenu;
+        await RemeasureSoon();
+    }
+
+    /// <summary>Distraction free: only the tabs and the canvas (F11).</summary>
+    private async void ToggleFocus()
+    {
+        focusMode = !focusMode;
+        await RemeasureSoon();
+    }
+
+    private async Task RemeasureSoon()
+    {
+        StateHasChanged();
+        await Task.Delay(30); // the canvas changes its size once Blazor has rendered
+        await MeasureCanvasAsync();
+    }
+
     private string DocTitle(Doc doc)
     {
         var title = doc.Kind switch

@@ -11,6 +11,9 @@ public partial class Home
     private const long MaxWorkspaceFileBytes = 50_000_000;
     private const long MaxImageFileBytes = 20_000_000;
 
+    /// <summary>The data URIs of the pictures; building one (base64 of megabytes) on every render made dragging sluggish.</summary>
+    private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<byte[], string> ImageUris = new();
+
     private bool ActiveIsBlank =>
         active.Kind == DocKind.Workspace
         && current == null
@@ -139,7 +142,11 @@ public partial class Home
     /// <summary>A <c>data:</c> URI for the picture; the MIME type is guessed from the first byte (PNG, JPEG, GIF, BMP).</summary>
     private static string ImageUri(ImageNode image)
     {
-        var data = image.Data;
+        return ImageUris.GetValue(image.Data, MakeImageUri);
+    }
+
+    private static string MakeImageUri(byte[] data)
+    {
         var mime = data.Length == 0
             ? "image/png"
             : data[0] switch

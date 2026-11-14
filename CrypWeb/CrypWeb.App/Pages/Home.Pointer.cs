@@ -12,7 +12,6 @@ public partial class Home
     /// <summary>Distance (in screen pixels) the pointer must travel before a press on a component counts as a drag.</summary>
     private const double DragThreshold = 3;
 
-    private static readonly (double Width, double Height) MinPluginSize = (70, 60);
     private static readonly (double Width, double Height) MinNoteSize = (60, 30);
 
     /// <summary>Press on the empty canvas: pan (middle/right button or Space), or start a selection rectangle.</summary>
@@ -87,6 +86,7 @@ public partial class Home
     /// <summary>Press on the resize handle in the bottom right corner.</summary>
     private void ResizeDown(PointerEventArgs e, VisualNode node)
     {
+        if (node is PluginNode fixedSize && !CanResize(fixedSize)) return;
         ed.Checkpoint();
         resizing = node;
         lx = e.ClientX;
@@ -148,6 +148,12 @@ public partial class Home
 
     private void Move(PointerEventArgs e)
     {
+        if (mode == Mode.None)
+        {
+            skipRender = true; // plain hovering: nothing to update
+            return;
+        }
+
         // the button was released outside of the canvas
         if (mode != Mode.None && e.Buttons == 0)
         {
@@ -212,7 +218,7 @@ public partial class Home
         double dx = (e.ClientX - lx) / zoom, dy = (e.ClientY - ly) / zoom;
         lx = e.ClientX;
         ly = e.ClientY;
-        var min = resizing is PluginNode ? MinPluginSize : MinNoteSize;
+        var min = resizing is PluginNode plugin ? MinSize(plugin) : MinNoteSize;
         resizing!.Width = Math.Max(min.Width, resizing.Width + dx);
         resizing.Height = Math.Max(min.Height, resizing.Height + dy);
     }
@@ -242,6 +248,12 @@ public partial class Home
 
     private void Up(PointerEventArgs e)
     {
+        if (mode == Mode.None && connecting == null && resizing == null && segWire == null)
+        {
+            skipRender = true;
+            return;
+        }
+
         mode = Mode.None;
         connecting = null;
         resizing = null;

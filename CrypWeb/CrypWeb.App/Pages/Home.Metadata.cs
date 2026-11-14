@@ -14,10 +14,20 @@ public partial class Home
         return meta.TryGetValue(p.TypeName, out var m) ? m : null;
     }
 
+    /// <summary>Space the header keeps free on the left (toolbar icons) and right (minimize and close).</summary>
+    private double HeaderLeft(PluginNode p) => HasPresentation(p) ? 70 : 55;
+
+    private const double HeaderRight = 46;
+
+    /// <summary>Horizontal center of the title: the middle of the space between the toolbar and the window buttons.</summary>
+    private double TitleCenter(PluginNode p, double width) => (HeaderLeft(p) + width - HeaderRight) / 2;
+
+    /// <summary>The component name shortened to the free space of the header; empty when not even a few characters fit.</summary>
     private string HeaderTitle(PluginNode p, PluginMeta? m, double w)
     {
         var s = m?.NameFor(Loc.Lang) ?? p.TypeName.Split('.').Last();
-        var max = Math.Max(3, (int)((w - 100) / 6.3));
+        var max = (int)((w - HeaderLeft(p) - HeaderRight) / 6.3);
+        if (max < 3) return "";
         return s.Length > max ? s[..Math.Max(1, max - 1)] + "…" : s;
     }
 

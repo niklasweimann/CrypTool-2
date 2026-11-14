@@ -3,7 +3,7 @@
 
 <PageTitle>@AboutModal.AppName</PageTitle>
 
-<div class="shell">
+<div class="shell @(hideMenu ? "nomenu" : "") @(focusMode ? "focus" : "")">
     <!-- ===== Ribbon ===== -->
     <div class="ribbon">
         @* Ribbon tabs; ribbonTab: 0 = Home, 2 = Edit, 1 = View (display order differs from the numbers) *@
@@ -20,12 +20,12 @@
             <div class="rbody">
                 <div class="rgroup">
                     <div class="rbtns">
-                        <label class="rbtn big"><span class="ico">🗋</span>@Loc["file.new"]<input type="button"
+                        <label class="rbtn big"><span class="ico"><Icon Name="new"/></span>@Loc["file.new"]<input type="button"
                                                                                                  @onclick="New"/></label>
-                        <label class="rbtn big"><span class="ico">📂</span>@Loc["file.open"]<InputFile
+                        <label class="rbtn big"><span class="ico"><Icon Name="open"/></span>@Loc["file.open"]<InputFile
                                 OnChange="OpenFile" accept=".cwm,.json"/>
                         </label>
-                        <button class="rbtn big" @onclick="Save"><span class="ico">💾</span>@Loc["file.save"]</button>
+                        <button class="rbtn big" @onclick="Save"><span class="ico"><Icon Name="save"/></span>@Loc["file.save"]</button>
                     </div>
                     <div class="rname">@Loc["group.file"]</div>
                 </div>
@@ -34,25 +34,18 @@
                         <button
                             class="rbtn big play @(engine.Running ? "dis" : "")"
                             @onclick="Play"
-                            disabled="@engine.Running"><span class="ico g">▶</span>@Loc["exec.play"]</button>
+                            disabled="@engine.Running"><span class="ico g"><Icon Name="play"/></span>@Loc["exec.play"]</button>
                         <button class="rbtn big" @onclick="StopRun" disabled="@(!engine.Running)"><span
-                                class="ico r">■</span>@Loc["exec.stop"]</button>
+                                class="ico r"><Icon Name="stop"/></span>@Loc["exec.stop"]</button>
                     </div>
                     <div class="rname">@Loc["group.exec"]</div>
-                </div>
-                <div class="rgroup">
-                    <div class="rbtns">
-                        <button class="rbtn big @(logOpen ? "on" : "")" @onclick="() => logOpen = !logOpen"><span
-                                class="ico">📖</span>@Loc["log.title"]</button>
-                    </div>
-                    <div class="rname">@Loc["group.view"]</div>
                 </div>
                 <div class="rgroup extras">
                     <div class="rbtns">
                         <button class="rbtn big" @onclick="() => ShowSingleton(DocKind.Start)"><span
-                                class="ico g">★</span>@Loc["doc.start"]</button>
+                                class="ico g"><Icon Name="star"/></span>@Loc["doc.start"]</button>
                         <button class="rbtn big" @onclick="() => ShowSingleton(DocKind.Settings)"><span
-                                class="ico">⚙</span>@Loc["doc.settings"]</button>
+                                class="ico"><Icon Name="settings"/></span>@Loc["doc.settings"]</button>
                     </div>
                     <div class="rname">@Loc["group.extras"]</div>
                 </div>
@@ -63,7 +56,7 @@
             <div class="rbody">
                 <div class="rgroup">
                     <div class="rbtns">
-                        <button class="rbtn big" @onclick="PasteClip" disabled="@(!ed.HasClipboard)"><span class="ico">📋</span>@Loc["edit.paste"]
+                        <button class="rbtn big" @onclick="PasteClip" disabled="@(!ed.HasClipboard)"><span class="ico"><Icon Name="paste"/></span>@Loc["edit.paste"]
                         </button>
                         <div class="rcol">
                             <button class="rbtn small" @onclick="CutSel" disabled="@(!HasSelection)">
@@ -79,13 +72,13 @@
                 <div class="rgroup">
                     <div class="rbtns">
                         <button class="rbtn big" @onclick="Undo" disabled="@(!ed.CanUndo)"><span
-                                class="ico">↶</span>@Loc["ws.undo"]</button>
+                                class="ico"><Icon Name="undo"/></span>@Loc["ws.undo"]</button>
                         <button class="rbtn big" @onclick="Redo" disabled="@(!ed.CanRedo)"><span
-                                class="ico">↷</span>@Loc["ws.redo"]</button>
-                        <label class="rbtn big"><span class="ico">🖼</span>@Loc["ws.addImage"]<InputFile
+                                class="ico"><Icon Name="redo"/></span>@Loc["ws.redo"]</button>
+                        <label class="rbtn big"><span class="ico"><Icon Name="image"/></span>@Loc["ws.addImage"]<InputFile
                                 OnChange="AddImageFile" accept="image/*"/>
                         </label>
-                        <button class="rbtn big" @onclick="AddNote"><span class="ico">🗒</span>@Loc["ws.addText"]
+                        <button class="rbtn big" @onclick="AddNote"><span class="ico"><Icon Name="note"/></span>@Loc["ws.addText"]
                         </button>
                     </div>
                     <div class="rname">@Loc["group.workspace"]</div>
@@ -97,7 +90,9 @@
             <div class="rbody">
                 <div class="rgroup">
                     <div class="rbtns">
-                        <button class="rbtn big" @onclick="FitAsync"><span class="ico">⤢</span>@Loc["view.fit"]</button>
+                        <button class="rbtn big" @onclick="FitAsync"><span class="ico"><Icon Name="fit"/></span>@Loc["view.fit"]</button>
+                        <button class="rbtn big @(logOpen ? "on" : "")" @onclick="() => logOpen = !logOpen"><span
+                                class="ico"><Icon Name="log"/></span>@Loc["log.title"]</button>
                         <div class="rcol">
                             <div class="zoomrow">
                                 <button class="rbtn small" @onclick="() => ZoomBy(1 / 1.25)">−</button>
@@ -165,7 +160,17 @@
                             <div
                                 class="pitem @(t == current ? "sel" : "")"
                                 @onclick="() => OpenTemplate(t)"
-                                title="@t"><span class="pic tpl">▤</span>@Path.GetFileNameWithoutExtension(t)</div>
+                                title="@t">
+                                @if (templateIcons.Contains(t))
+                                {
+                                    <img class="pic" src="@TemplateIcon(t)"/>
+                                }
+                                else
+                                {
+                                    <span class="pic tpl">▤</span>
+                                }
+                                @Path.GetFileNameWithoutExtension(t)
+                            </div>
                         }
                     }
                 }
@@ -205,6 +210,30 @@
                     }
                 }
             </div>
+            @if (tab == 0)
+            {
+                <div class="catstack">
+                    <div
+                        class="catbtn @(OpenTemplateCat == "*" && filter.Length == 0 ? "on" : "")"
+                        style="border-left-color:#888"
+                        @onclick="PickAllTemplates"><span>@Loc["cat.all"]</span><i>@VisibleTemplates.Count()</i></div>
+                    @foreach (var c in TemplateCategories)
+                    {
+                        var key = c;
+                        var ic = VisibleTemplates.FirstOrDefault(t => TemplateCategory(t) == key && templateIcons.Contains(t));
+                        <div
+                            class="catbtn @(OpenTemplateCat == key && filter.Length == 0 ? "on" : "")"
+                            style="border-left-color:#5b7db1"
+                            @onclick="() => PickTemplateCat(key)">
+                            @if (ic != null)
+                            {
+                                <img src="@TemplateIcon(ic)"/>
+                            }
+                            <span>@key</span><i>@VisibleTemplates.Count(t => TemplateCategory(t) == key)</i>
+                        </div>
+                    }
+                </div>
+            }
             @if (tab == 1)
             {
                 <div class="catstack">
@@ -233,17 +262,22 @@
 
         <!-- ===== Canvas ===== -->
         <section class="center">
-            <div class="doctabs">
-                @foreach (var d in docs.ToList())
-                {
-                    var dd = d;
-                    <div class="doctab @(dd == active ? "on" : "")" @onclick="() => Activate(dd)"><span
-                            class="dk">@(dd.Kind == DocKind.Start ? "★" : dd.Kind == DocKind.Settings ? "⚙" : dd.Engine.Running ? "▶" : "▤")</span>@DocTitle(dd)<span
-                            class="dx"
-                            @onclick="() => CloseDoc(dd)"
-                            @onclick:stopPropagation>✕</span></div>
-                }
-                <div class="doctab add" @onclick="NewDoc" title="@Loc["file.new"]">＋</div>
+            <div class="doctabbar">
+                <button class="tabarrow l" tabindex="-1" title="@Loc["tabs.left"]">‹</button>
+                <button class="tabarrow r" tabindex="-1" title="@Loc["tabs.right"]">›</button>
+                <div class="doctabs">
+                    @foreach (var d in docs.ToList())
+                    {
+                        var dd = d;
+                        <div class="doctab @(dd == active ? "on" : "")" title="@TabTip(dd)" @onclick="() => Activate(dd)"
+                             @oncontextmenu="e => TabMenu(e, dd)" @oncontextmenu:preventDefault><span
+                                class="dk"><Icon Name="@(dd.Kind == DocKind.Start ? "star" : dd.Kind == DocKind.Settings ? "settings" : dd.Engine.Running ? "play" : "doc")" Size="14"/></span>@DocTitle(dd)<span
+                                class="dx"
+                                @onclick="() => CloseDoc(dd)"
+                                @onclick:stopPropagation>✕</span></div>
+                    }
+                    <div class="doctab add" @onclick="NewDoc" title="@Loc["file.new"]">＋</div>
+                </div>
             </div>
             @if (active.Kind == DocKind.Start)
             {
@@ -259,16 +293,16 @@
             {
                 <SettingsPage S="settings" Loc="Loc" OnChanged="SettingsChanged"/>
             }
-            <main style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
-                  @ondrop="Drop">
+            <main class="@(mode != Mode.None ? "tracking" : "")" style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
+                  @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">
                 @if (error != null)
                 {
                     <div class="msg err">@error</div>
                 }
                 <div class="cvtools">
-                    <button title="@Loc["view.fit"]" @onclick="FitAsync">⤢</button>
-                    <button title="@Loc["view.export"]" @onclick="ExportImage">📷</button>
-                    <button title="@Loc["ws.addText"]" @onclick="AddNote">💬</button>
+                    <button title="@Loc["view.fit"]" @onclick="FitAsync"><Icon Name="fit" Size="18"/></button>
+                    <button title="@Loc["view.export"]" @onclick="ExportImage"><Icon Name="camera" Size="18"/></button>
+                    <button title="@Loc["ws.addText"]" @onclick="AddNote"><Icon Name="note" Size="18"/></button>
                 </div>
                 <div class="zoombar"><input
                         type="number"
@@ -291,9 +325,6 @@
                     @oncontextmenu="BgMenu"
                     @oncontextmenu:preventDefault
                     @onpointerdown="BgDown"
-                    @onpointermove="Move"
-                    @onpointerup="Up"
-                    @onpointerleave="Up"
                     @onwheel="Wheel"
                     @onwheel:preventDefault
                     @onclick="SvgClick">
@@ -426,7 +457,7 @@
                                     @onpointerdown="e => NodeDown(e, p, true)"
                                     @onpointerdown:stopPropagation
                                     @ondblclick="() => EditName(p)"/>
-                                @Txt(p.X + nw / 2 + 8, p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
+                                @Txt(p.X + TitleCenter(p, nw), p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
                                 <g class="tb">
                                     @if (HasPresentation(p))
                                     {
@@ -434,38 +465,38 @@
                                             class="tbb @(ViewOf(p) == 1 ? "on" : "")"
                                             @onpointerdown="() => SetView(p, 1)"
                                             @onpointerdown:stopPropagation>
-                                            <title>@Loc["tip.presentation"]</title>@Txt(p.X + 12, p.Y + 15, "tbt", "middle", "▤")
+                                            <title>@Loc["tip.presentation"]</title><circle class="tbhit" cx="@F(p.X + 12)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 12) @F(p.Y + 11.5))" d="M-5,-4H5V2H-5Z M-2,5H2 M0,2V5"/>
                                         </g>
                                     }
                                     <g
                                         class="tbb"
                                         @onpointerdown="() => OpenSettings(p)"
                                         @onpointerdown:stopPropagation>
-                                        <title>@Loc["tip.settings"]</title>@Txt(p.X + 27, p.Y + 15, "tbt", "middle", "⚙")
+                                        <title>@Loc["tip.settings"]</title><circle class="tbhit" cx="@F(p.X + 27)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 27) @F(p.Y + 11.5))" d="M-5,-2.5H5 M-5,2.5H5 M-2,-4.5V-0.5 M2,0.5V4.5"/>
                                     </g>
                                     <g
                                         class="tbb @(p.ViewState == 3 ? "on" : "")"
                                         @onpointerdown="() => SetView(p, 3)"
                                         @onpointerdown:stopPropagation>
-                                        <title>@Loc["tip.log"]</title>@Txt(p.X + 42, p.Y + 15, "tbt", "middle", "≡")</g>
+                                        <title>@Loc["tip.log"]</title><circle class="tbhit" cx="@F(p.X + 42)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 42) @F(p.Y + 11.5))" d="M-5,-4H5 M-5,0H5 M-5,4H2"/></g>
                                     <g
                                         class="tbb @(ViewOf(p) == 2 ? "on" : "")"
                                         @onpointerdown="() => SetView(p, 2)"
                                         @onpointerdown:stopPropagation>
-                                        <title>@Loc["tip.data"]</title>@Txt(p.X + 57, p.Y + 15, "tbt", "middle", "▦")
+                                        <title>@Loc["tip.data"]</title><circle class="tbhit" cx="@F(p.X + 57)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + 57) @F(p.Y + 11.5))" d="M-5,-5H5V5H-5Z M-5,0H5 M0,-5V5"/>
                                     </g>
                                 </g>
                                 <g
                                     class="tbb"
                                     @onpointerdown="() => ToggleMin(p)"
                                     @onpointerdown:stopPropagation>
-                                    <title>@Loc[p.Minimized ? "tip.restore" : "tip.minimize"]</title>@Txt(p.X + nw - 30, p.Y + 15, "tbt", "middle", p.Minimized ? "▢" : "▁")
+                                    <title>@Loc[p.Minimized ? "tip.restore" : "tip.minimize"]</title><circle class="tbhit" cx="@F(p.X + nw - 30)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + nw - 30) @F(p.Y + 11.5))" d="@(p.Minimized ? "M-4,-4H4V4H-4Z" : "M-5,3H5")"/>
                                 </g>
                                 <g
                                     class="tbb close"
                                     @onpointerdown="() => RemoveNode(p)"
                                     @onpointerdown:stopPropagation>
-                                    <title>@Loc["tip.remove"]</title>@Txt(p.X + nw - 12, p.Y + 16, "tbt x", "middle", "✖")
+                                    <title>@Loc["tip.remove"]</title><circle class="tbhit" cx="@F(p.X + nw - 12)" cy="@F(p.Y + 11.5)" r="7"/><path class="ti" transform="translate(@F(p.X + nw - 12) @F(p.Y + 11.5))" d="M-4,-4L4,4 M4,-4L-4,4"/>
                                 </g>
                                 @if (!p.Minimized)
                                 {
@@ -540,7 +571,7 @@
                                         <title>@PortTip(c, meta)</title></path>
                                 }
                                 }
-                                @if (sel && !p.Minimized)
+                                @if (sel && !p.Minimized && CanResize(p))
                                 {
                                     <rect
                                         x="@F(p.X + nw - 10)"
@@ -586,7 +617,7 @@
                             var (vw, vh) = Size(p);
                             engine.Nodes.TryGetValue(p.Id, out var rn);
                             <div class="nview over native" @key="p.Id"
-                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36))))px"
+                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 24 - (native is NativeComponent.Kind.PictureOutput ? 20 : 36))))px;z-index:@p.ZIndex;@ViewClip(p)"
                                  @onpointerdown:stopPropagation>
                                 @if (native is NativeComponent.Kind.TextInput or NativeComponent.Kind.NumberInput or NativeComponent.Kind.BooleanInput)
                                 {
@@ -616,7 +647,7 @@
                             var (vw, vh) = Size(p);
                             engine.Nodes.TryGetValue(p.Id, out var rn);
                             <div class="nview over" @key="p.Id"
-                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px;background:@WindowBackground(p)"
+                                 style="left:@(F(p.X + 6))px;top:@(F(p.Y + 24))px;width:@(F(Math.Max(10, vw - 12)))px;height:@(F(Math.Max(10, vh - 44)))px;background:@WindowBackground(p);z-index:@p.ZIndex;@ViewClip(p)"
                                  @onpointerdown:stopPropagation @onwheel:stopPropagation>
                                 @if (ViewOf(p) == 1)
                                 {
@@ -666,51 +697,6 @@
                                 @onclick="() => ShowSingleton(DocKind.Start)">@Loc["doc.start"]</a></div>
                     </div>
                 }
-                @if (ctx != Ctx.None)
-                {
-                    <div class="ctx-back" @onpointerdown="CloseCtx" @oncontextmenu="CloseCtx"
-                         @oncontextmenu:preventDefault></div>
-                    <div class="ctx" style="left:@(F(ctxX))px;top:@(F(ctxY))px" @onpointerdown:stopPropagation>
-                        @if (ctx == Ctx.Node && ctxNode is { } cp)
-                        {
-                            @CtxItem("▤", Loc["ctx.presentation"], "", () => SetView(cp, 1))
-                            @CtxItem("⚙", Loc["right.settings"], "", () => OpenSettings(cp))
-                            @CtxItem("≡", Loc["log.title"], "", () => SetView(cp, 3))
-                            @CtxItem("▦", "Data", "", () => SetView(cp, 2))
-                            @CtxItem("?", Loc["ctx.help"], "", () => ShowHelp(cp))
-                            <div class="ctx-sep"></div>
-                            @CtxItem("⤒", Loc["ctx.front"], "", () => ZFront(cp), true, "z")
-                            @CtxItem("↑", Loc["ctx.elevate"], "", () => ZUp(cp), true, "z")
-                            @CtxItem("↓", Loc["ctx.reduce"], "", () => ZDown(cp), true, "z")
-                            @CtxItem("⤓", Loc["ctx.back"], "", () => ZBack(cp), true, "z")
-                        }
-                        else
-                        {
-                            var n2 = SelNodes.Count;
-                            var n1 = n2 > 0;
-                            var multi = n2 > 1;
-                            @CtxItem("⇤", Loc["ctx.alignLeft"], "Ctrl+Left", () => Align("left"), multi)
-                            @CtxItem("⇥", Loc["ctx.alignRight"], "Ctrl+Right", () => Align("right"), multi)
-                            @CtxItem("⤒", Loc["ctx.alignTop"], "Ctrl+Up", () => Align("top"), multi)
-                            @CtxItem("⤓", Loc["ctx.alignBottom"], "Ctrl+Down", () => Align("bottom"), multi)
-                            <div class="ctx-sep"></div>
-                            @CtxItem("←", Loc["ctx.moveLeft"], "Ctrl+Shift+Left", () => MoveSel(-10, 0), n1)
-                            @CtxItem("→", Loc["ctx.moveRight"], "Ctrl+Shift+Right", () => MoveSel(10, 0), n1)
-                            @CtxItem("↑", Loc["ctx.moveUp"], "Ctrl+Shift+Up", () => MoveSel(0, -10), n1)
-                            @CtxItem("↓", Loc["ctx.moveDown"], "Ctrl+Shift+Down", () => MoveSel(0, 10), n1)
-                            <div class="ctx-sep"></div>
-                            @CtxItem("⇔", Loc["ctx.spreadH"], "Ctrl+Shift+X", () => Spread(true), n2 > 2)
-                            @CtxItem("⇕", Loc["ctx.spreadV"], "Ctrl+Shift+Y", () => Spread(false), n2 > 2)
-                            <div class="ctx-sep"></div>
-                            @CtxItem("↔", Loc["ctx.bigW"], "Ctrl+Shift+W", () => SizeAll(true, true), multi)
-                            @CtxItem("↔", Loc["ctx.smallW"], "Ctrl+W", () => SizeAll(true, false), multi)
-                            @CtxItem("↕", Loc["ctx.bigH"], "Ctrl+Shift+H", () => SizeAll(false, true), multi)
-                            @CtxItem("↕", Loc["ctx.smallH"], "Ctrl+H", () => SizeAll(false, false), multi)
-                            <div class="ctx-sep"></div>
-                            @CtxItem("▤", Loc["ctx.rearrange"], "Ctrl+R", Rearrange)
-                        }
-                    </div>
-                }
                 @if (editing != null)
                 {
                     <input
@@ -757,7 +743,9 @@
     </div>
 
     <!-- ===== Log + status ===== -->
-    <div class="logpane @(logOpen ? "open" : "")">
+    @if (logOpen)
+    {
+    <div class="logpane open">
         <div class="loghead" @onclick="() => logOpen = !logOpen">@Loc["log.title"] <span class="cnt">@log.Count</span>
             <button @onclick="ClearLog" @onclick:stopPropagation>@Loc["log.clear"]</button>
             @foreach (var lv in new[] { LogLevel.Debug, LogLevel.Info, LogLevel.Warning, LogLevel.Error })
@@ -768,25 +756,80 @@
                         checked="@(!hiddenLevels.Contains(l2))"
                         @onchange="() => ToggleLevel(l2)"/>@l2</label>
             }
-            <span class="tog">@(logOpen ? "▾" : "▴")</span></div>
-        @if (logOpen)
-        {
-            <div class="logbody">
-                @foreach (var l in log.Where(x => !hiddenLevels.Contains(x.Level)).Reverse().Take(200))
-                {
-                    <div class="ll @l.Level.ToString().ToLower()"><span
-                            class="lt">@l.Time.ToString("HH:mm:ss")</span><span class="ls">@l.Source</span>@l.Message
-                    </div>
-                }
-            </div>
-        }
+            <span class="tog">▾</span></div>
+        <div class="logbody">
+            @foreach (var l in log.Where(x => !hiddenLevels.Contains(x.Level)).Reverse().Take(200))
+            {
+                <div class="ll @l.Level.ToString().ToLower()"><span
+                        class="lt">@l.Time.ToString("HH:mm:ss")</span><span class="ls">@l.Source</span>@l.Message
+                </div>
+            }
+        </div>
     </div>
+    }
     <div class="status">
         <span
             class="dot @(engine.Running ? "run" : "")"></span>@(engine.Running ? Loc.T("status.running", engine.ExecutionCount) : Loc["status.ready"])
         <span
             class="sp"></span>@Loc.T("status.counts", ed.Ws.Plugins.Count, ed.Ws.Wires.Count) · @((int)Math.Round(zoom * 100))%
     </div>
+    @if (ctx != Ctx.None)
+    {
+        <div class="ctx-back" @onpointerdown="CloseCtx" @oncontextmenu="CloseCtx"
+             @oncontextmenu:preventDefault></div>
+        <div class="ctx" style="left:@(F(ctxX))px;top:@(F(ctxY))px" @onpointerdown:stopPropagation>
+            @if (ctx == Ctx.Node && ctxNode is { } cp)
+            {
+                @CtxItem("▤", Loc["ctx.presentation"], "", () => SetView(cp, 1))
+                @CtxItem("⚙", Loc["right.settings"], "", () => OpenSettings(cp))
+                @CtxItem("≡", Loc["log.title"], "", () => SetView(cp, 3))
+                @CtxItem("▦", "Data", "", () => SetView(cp, 2))
+                @CtxItem("?", Loc["ctx.help"], "", () => ShowHelp(cp))
+                <div class="ctx-sep"></div>
+                @CtxItem("⤒", Loc["ctx.front"], "", () => ZFront(cp), true, "z")
+                @CtxItem("↑", Loc["ctx.elevate"], "", () => ZUp(cp), true, "z")
+                @CtxItem("↓", Loc["ctx.reduce"], "", () => ZDown(cp), true, "z")
+                @CtxItem("⤓", Loc["ctx.back"], "", () => ZBack(cp), true, "z")
+            }
+            else if (ctx == Ctx.Tab && ctxDoc is { } cd)
+            {
+                @CtxItem("⧉", Loc["tabctx.copyTitle"], "", () => CopyText(DocTitle(cd).TrimEnd('*', ' ')))
+                @CtxItem("✕", Loc["tabctx.closeAll"], "", () => _ = CloseAll())
+                @CtxItem("✖", Loc["tabctx.closeOthers"], "", () => _ = CloseOthers(cd), true, "red")
+                @CtxItem("✖", Loc["tabctx.close"], "", () => _ = CloseDoc(cd), true, "red")
+                <div class="ctx-sep"></div>
+                @CtxItem("▭", Loc["tabctx.hideMenu"], "F12", ToggleMenu)
+                @CtxItem("⛶", Loc["tabctx.focus"], "F11", ToggleFocus)
+                <div class="ctx-sep"></div>
+                @CtxItem("▭", Loc["tabctx.copyTooltip"], "", () => CopyText(TabTip(cd)))
+            }
+            else
+            {
+                var n2 = SelNodes.Count;
+                var n1 = n2 > 0;
+                var multi = n2 > 1;
+                @CtxItem("⇤", Loc["ctx.alignLeft"], "Ctrl+Left", () => Align("left"), multi)
+                @CtxItem("⇥", Loc["ctx.alignRight"], "Ctrl+Right", () => Align("right"), multi)
+                @CtxItem("⤒", Loc["ctx.alignTop"], "Ctrl+Up", () => Align("top"), multi)
+                @CtxItem("⤓", Loc["ctx.alignBottom"], "Ctrl+Down", () => Align("bottom"), multi)
+                <div class="ctx-sep"></div>
+                @CtxItem("←", Loc["ctx.moveLeft"], "Ctrl+Shift+Left", () => MoveSel(-10, 0), n1)
+                @CtxItem("→", Loc["ctx.moveRight"], "Ctrl+Shift+Right", () => MoveSel(10, 0), n1)
+                @CtxItem("↑", Loc["ctx.moveUp"], "Ctrl+Shift+Up", () => MoveSel(0, -10), n1)
+                @CtxItem("↓", Loc["ctx.moveDown"], "Ctrl+Shift+Down", () => MoveSel(0, 10), n1)
+                <div class="ctx-sep"></div>
+                @CtxItem("⇔", Loc["ctx.spreadH"], "Ctrl+Shift+X", () => Spread(true), n2 > 2)
+                @CtxItem("⇕", Loc["ctx.spreadV"], "Ctrl+Shift+Y", () => Spread(false), n2 > 2)
+                <div class="ctx-sep"></div>
+                @CtxItem("↔", Loc["ctx.bigW"], "Ctrl+Shift+W", () => SizeAll(true, true), multi)
+                @CtxItem("↔", Loc["ctx.smallW"], "Ctrl+W", () => SizeAll(true, false), multi)
+                @CtxItem("↕", Loc["ctx.bigH"], "Ctrl+Shift+H", () => SizeAll(false, true), multi)
+                @CtxItem("↕", Loc["ctx.smallH"], "Ctrl+H", () => SizeAll(false, false), multi)
+                <div class="ctx-sep"></div>
+                @CtxItem("▤", Loc["ctx.rearrange"], "Ctrl+R", Rearrange)
+            }
+        </div>
+    }
     @if (aboutOpen)
     {
         <AboutModal OnClose="() => aboutOpen = false"/>

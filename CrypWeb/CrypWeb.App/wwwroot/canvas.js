@@ -47,10 +47,13 @@ window.ct2 = {
         // Ctrl/Cmd+Z Y X C V A S W H R, Delete, Backspace, Escape and the arrow keys are handled by the component.
         document.addEventListener('keydown', e => {
             if (isTextField(e.target)) return;
+            // text selected in an output box (or elsewhere): let the browser copy it
+            const modifier0 = e.ctrlKey || e.metaKey;
+            if (modifier0 && e.key.toLowerCase() === 'c' && String(window.getSelection()).length > 0) return;
             const modifier = e.ctrlKey || e.metaKey;
             const key = e.key.toLowerCase();
             const isShortcut = modifier && key.length === 1 && 'zyxcvaswhr'.includes(key);
-            const handled = key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
+            const handled = key === 'f11' || key === 'f12' || key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
             if (!handled) return;
             e.preventDefault();
             ref.invokeMethodAsync('OnKey', e.key, modifier, e.shiftKey);
@@ -66,9 +69,50 @@ window.ct2 = {
         });
         document.addEventListener('keyup', spaceHandler(false));
 
+        // Pointer moves are sent to .NET one at a time, newest position only. A trackpad delivers up to 120 moves per
+        // second; if each one were queued as a Blazor event (and each re-rendered the canvas) the view would lag behind.
+        const main = document.querySelector('main');
+        let pendingMove = null, sending = false;
+        const sendMoves = async () => {
+            sending = true;
+            while (pendingMove) {
+                const m = pendingMove;
+                pendingMove = null;
+                try {
+                    await ref.invokeMethodAsync('OnPointerMove', m.clientX, m.clientY, m.buttons, m.altKey);
+                } catch (e) { /* component is gone */ }
+            }
+            sending = false;
+        };
+        main.addEventListener('pointermove', e => {
+            pendingMove = {clientX: e.clientX, clientY: e.clientY, buttons: e.buttons, altKey: e.altKey};
+            if (!sending) sendMoves();
+        });
+
+        for (const type of ['pointerup', 'pointercancel']) {
+            window.addEventListener(type, () => ref.invokeMethodAsync('OnPointerRelease'));
+        }
+
+        // many document tabs: the mouse wheel (or a vertical trackpad swipe) scrolls the tab bar sideways
+        document.addEventListener('wheel', e => {
+            const tabs = e.target.closest && e.target.closest('.doctabs');
+            if (!tabs || Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+            tabs.scrollLeft += e.deltaY;
+            e.preventDefault();
+        }, {passive: false});
+
+        // no text selection (it looks like rendering artefacts) while a drag, pan or wire gesture is running
+        document.addEventListener('selectstart', e => {
+            if (document.querySelector('main.tracking')) e.preventDefault();
+        });
+        document.addEventListener('pointerdown', e => {
+            if (e.target.closest && e.target.closest('main') && !e.target.closest('.nview')) window.getSelection()?.removeAllRanges();
+        });
+
         // the canvas has its own context menu
         document.addEventListener('contextmenu', e => {
-            if (e.target.closest && e.target.closest('main')) e.preventDefault();
+            // the views of the components (input/output boxes) keep the native menu for copy and paste
+            if (e.target.closest && e.target.closest('main') && !e.target.closest('.nview')) e.preventDefault();
         });
     },
 
@@ -179,3 +223,34 @@ window.ct2.clampCtx = () => {
     if (overflowX > 0) menu.style.left = (rect.left - overflowX) + 'px';
     if (overflowY > 0) menu.style.top = Math.max(0, rect.top - overflowY) + 'px';
 };
+
+// Document tab bar: arrows at the edges show that more tabs are hidden on that side; a click scrolls one bar width.
+// State lives in data attributes of .doctabbar (Blazor does not touch them) and is read by the CSS.
+(() => {
+    let queued = false;
+    const update = () => {
+        queued = false;
+        const tabs = document.querySelector('.doctabs');
+        if (!tabs) return;
+        const bar = tabs.parentElement;
+        bar.dataset.l = String(tabs.scrollLeft > 1);
+        bar.dataset.r = String(tabs.scrollLeft + tabs.clientWidth < tabs.scrollWidth - 1);
+    };
+    const schedule = () => {
+        if (!queued) {
+            queued = true;
+            requestAnimationFrame(update);
+        }
+    };
+    document.addEventListener('scroll', e => {
+        if (e.target.classList && e.target.classList.contains('doctabs')) schedule();
+    }, true);
+    window.addEventListener('resize', schedule);
+    new MutationObserver(schedule).observe(document.documentElement, {childList: true, subtree: true});
+    document.addEventListener('click', e => {
+        const arrow = e.target.closest && e.target.closest('.tabarrow');
+        if (!arrow) return;
+        const tabs = arrow.parentElement.querySelector('.doctabs');
+        tabs.scrollBy({left: (arrow.classList.contains('l') ? -1 : 1) * tabs.clientWidth, behavior: 'smooth'});
+    });
+})();

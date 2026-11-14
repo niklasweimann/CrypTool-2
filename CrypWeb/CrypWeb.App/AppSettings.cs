@@ -19,6 +19,13 @@ public sealed class AppSettings
 
     /// <summary>Shows the experimental components and templates (View tab); off by default, as in the CT2 release.</summary>
     public bool ShowExperimental { get; set; }
+
+    /// <summary>View tab: whether the log pane is shown (off by default).</summary>
+    public bool ShowLog { get; set; }
+
+    /// <summary>View tab: snap components to the grid.</summary>
+    public bool Snap { get; set; } = true;
+
     public Dictionary<string, string> TypeColors { get; set; } = new();
     public Dictionary<string, string> CategoryColors { get; set; } = new();
 

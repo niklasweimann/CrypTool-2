@@ -12,7 +12,7 @@ namespace CrypWeb.App.Pages;
 ///     The workspace page: ribbon, palette, canvas, log. One component split into partial classes by concern (Home.&lt;Concern&gt;.cs); the shared state is
 ///     declared here.
 /// </summary>
-public partial class Home : IDisposable
+public partial class Home : IDisposable, IHandleEvent
 {
     private const int MaxLogEntries = 500;
 
@@ -55,7 +55,72 @@ public partial class Home : IDisposable
     private DotNetObjectReference<Home>? self;
     private AppSettings settings = new();
     private PluginNode? settingsFor, viewFor;
-    private bool snap = true, logOpen = true;
+    /// <summary>
+    ///     The views are an HTML layer above the whole SVG, so a view would cover the window frame of a component that
+    ///     lies in front of it. This cuts out the areas of such components (clip-path, relative to the view's corner).
+    /// </summary>
+    private string ViewClip(PluginNode p)
+    {
+        var (vw, vh) = Size(p);
+        double left = p.X + 6, top = p.Y + 24;
+        var holes = new System.Text.StringBuilder();
+        foreach (var o in ed.Ws.Plugins)
+        {
+            if (o == p || o.Minimized || o.ZIndex <= p.ZIndex) continue;
+            var (ow, oh) = Size(o);
+            if (o.X >= p.X + vw || o.X + ow <= left || o.Y >= p.Y + vh || o.Y + oh <= top) continue;
+            holes.Append(FormattableString.Invariant(
+                $"M{o.X - left:0.#} {o.Y - top:0.#}h{ow:0.#}v{oh:0.#}h{-ow:0.#}Z"));
+        }
+
+        return holes.Length == 0
+            ? ""
+            : "clip-path:path(evenodd,'M-9999 -9999H9999V9999H-9999Z" + holes + "')";
+    }
+
+    /// <summary>
+    ///     Set by an event handler that changed nothing visible. Blazor re-renders after every event, and each
+    ///     render gives the lambda handlers new ids, so a fast sequence of events (pointer moves, a double click)
+    ///     would hit handlers that are already gone ("no event handler associated with this event").
+    /// </summary>
+    private bool skipRender;
+    private bool hideMenu, focusMode;
+    private Doc? shownTab;
+
+    Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    {
+        skipRender = false;
+        var task = callback.InvokeAsync(arg);
+        var pending = task.Status != TaskStatus.RanToCompletion && task.Status != TaskStatus.Canceled;
+        if (!skipRender) StateHasChanged();
+        return pending ? RenderAfter(task) : Task.CompletedTask;
+    }
+
+    private async Task RenderAfter(Task task)
+    {
+        try
+        {
+            await task;
+        }
+        catch when (task.IsCanceled)
+        {
+            return;
+        }
+
+        StateHasChanged();
+    }
+
+    private bool snap
+    {
+        get => settings.Snap;
+        set { settings.Snap = value; _ = settings.SaveAsync(Js); }
+    }
+
+    private bool logOpen
+    {
+        get => settings.ShowLog;
+        set { settings.ShowLog = value; _ = settings.SaveAsync(Js); }
+    }
 
     private int tab = 1;
     private List<string> templates = new();
@@ -109,7 +174,30 @@ public partial class Home : IDisposable
     private IEnumerable<string> VisibleTemplates =>
         templates.Where(t => settings.ShowExperimental || !t.StartsWith(ExperimentalTemplateFolder, StringComparison.Ordinal));
 
-    private IEnumerable<string> FilteredTemplates => VisibleTemplates.Where(t => t.Contains(filter, StringComparison.OrdinalIgnoreCase));
+    /// <summary>Templates that have an icon (<c>name.png</c> next to <c>name.cwm</c>), see templates/icons.json.</summary>
+    private HashSet<string> templateIcons = new();
+
+    private static string TemplateIcon(string template) => "templates/" + Uri.EscapeDataString(template[..^4]).Replace("%2F", "/") + ".png";
+
+    /// <summary>Top level folder of a template: its category in the list below the templates.</summary>
+    private static string TemplateCategory(string template) => template.Split('/')[0];
+
+    private IEnumerable<string> TemplateCategories => VisibleTemplates.Select(TemplateCategory).Distinct().OrderBy(c => c);
+
+    /// <summary>The expanded template category ("*" = all); the first one until the user picks one.</summary>
+    private string OpenTemplateCat
+    {
+        get => openTemplateCat ?? TemplateCategories.FirstOrDefault() ?? "*";
+        set => openTemplateCat = value;
+    }
+
+    private string? openTemplateCat;
+
+    /// <summary>The templates of the list: those of the open category, or all that match the search text.</summary>
+    private IEnumerable<string> FilteredTemplates => VisibleTemplates.Where(t =>
+        filter.Length > 0
+            ? t.Contains(filter, StringComparison.OrdinalIgnoreCase)
+            : OpenTemplateCat == "*" || TemplateCategory(t) == OpenTemplateCat);
 
     /// <summary>
     /// The components of the palette: experimental ones only when they are switched on (View tab) and the browser
@@ -214,6 +302,17 @@ public partial class Home : IDisposable
         PickCat("*");
     }
 
+    private void PickAllTemplates()
+    {
+        PickTemplateCat("*");
+    }
+
+    private void PickTemplateCat(string k)
+    {
+        openTemplateCat = k;
+        filter = "";
+    }
+
     private void PickCat(string k)
     {
         openCat = k;
@@ -240,6 +339,16 @@ public partial class Home : IDisposable
                         "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh");
                 else await Task.Delay(300);
             }
+
+        try
+        {
+            // optional: without the file the templates simply have no icons
+            templateIcons = (await Http.GetFromJsonAsync<List<string>>("templates/icons.json") ?? new List<string>()).ToHashSet();
+        }
+        catch (Exception)
+        {
+            templateIcons = new HashSet<string>();
+        }
 
         try
         {
@@ -278,6 +387,21 @@ public partial class Home : IDisposable
                 catch (Exception)
                 {
                     /* the menu is already closed */
+                }
+            }
+
+            if (active != shownTab)
+            {
+                // with many tabs the newly active one may be scrolled out of sight
+                shownTab = active;
+                try
+                {
+                    await Js.InvokeVoidAsync("eval",
+                        "document.querySelector('.doctab.on')?.scrollIntoView({block: 'nearest', inline: 'nearest'})");
+                }
+                catch (JSException)
+                {
+                    /* page is going away */
                 }
             }
 
@@ -322,12 +446,39 @@ public partial class Home : IDisposable
         spaceDown = down;
     }
 
+    /// <summary>
+    ///     A pointer button was released or the gesture was cancelled anywhere in the window. Blazor can lose the
+    ///     pointerup of the canvas (stale event handler after a re-render); without this the gesture would never end.
+    /// </summary>
+    [JSInvokable]
+    public void OnPointerRelease()
+    {
+        if (mode == Mode.None) return;
+        mode = Mode.None;
+        connecting = null;
+        resizing = null;
+        segWire = null;
+        StateHasChanged();
+    }
+
+    /// <summary>Pointer position over the canvas (coalesced in canvas.js, see there).</summary>
+    [JSInvokable]
+    public void OnPointerMove(double clientX, double clientY, long buttons, bool altKey)
+    {
+        if (mode == Mode.None) return;
+        Move(new Microsoft.AspNetCore.Components.Web.PointerEventArgs
+            { ClientX = clientX, ClientY = clientY, Buttons = buttons, AltKey = altKey });
+        StateHasChanged();
+    }
+
     [JSInvokable]
     public void OnKey(string key, bool mod, bool shift)
     {
         if (editing != null) return;
         ctx = Ctx.None;
         var k = key.ToLowerInvariant();
+        if (k == "f12") ToggleMenu();
+        else if (k == "f11") ToggleFocus();
         if (mod)
         {
             switch (k)

@@ -14,7 +14,6 @@ public partial class Home
         if (engine.Running || active.Kind != DocKind.Workspace) return;
         if (runDoc != null && runDoc.Engine.Running) StopRun();
         CommitEdit();
-        logOpen = true;
         engine.Reset();
         engine.Running = true;
         runDoc = active;

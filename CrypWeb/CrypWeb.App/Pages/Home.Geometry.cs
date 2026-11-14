@@ -42,8 +42,36 @@ public partial class Home
     private static (double w, double h) Size(PluginNode p)
     {
         if (p.Minimized) return (p.ViewState != 0 && p.Width >= 60 ? p.Width : AutoW(p), 22);
-        if (p.ViewState != 0 && p.Width >= 60 && p.Height >= 40) return (p.Width, p.Height);
+        if (p.ViewState != 0 && p.Width >= 60 && p.Height >= 40)
+        {
+            var min = MinSize(p);
+            return (Math.Max(p.Width, min.Width), Math.Max(p.Height, min.Height));
+        }
+
         return (AutoW(p), AutoH(p));
+    }
+
+    /// <summary>A component showing only its icon has a fixed size, as in CT2 (80x80 there; the header needs a bit more here).</summary>
+    private static bool IconOnly(PluginNode p)
+    {
+        return !IsNative(p) && p.ViewState is 0 or 7;
+    }
+
+    private static bool CanResize(PluginNode p)
+    {
+        return !IconOnly(p);
+    }
+
+    /// <summary>
+    ///     Smallest size of a component. CT2 (ComponentVisual.xaml) allows 200x150 for a component with an open view;
+    ///     the room for the toolbar and the connectors is a lower limit in any case. Limits that a presentation sets
+    ///     itself (MinWidth/MaxWidth of the WPF control) are not known in the browser.
+    /// </summary>
+    private static (double Width, double Height) MinSize(PluginNode p)
+    {
+        var (w, h) = IsNative(p) ? (200d, 120d) : IconOnly(p) ? (104d, 80d) : (200d, 150d);
+        return (Math.Max(w, 30 + Math.Max(OnSide(p, 0).Count(), OnSide(p, 1).Count()) * 26),
+            Math.Max(h, 48 + Math.Max(OnSide(p, 2).Count(), OnSide(p, 3).Count()) * 26));
     }
 
     private static bool IsNative(PluginNode p)

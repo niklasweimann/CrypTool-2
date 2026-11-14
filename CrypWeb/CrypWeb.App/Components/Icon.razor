@@ -1,0 +1,34 @@
+@* Line icons on a 24x24 grid for the ribbon, tabs and canvas tools. They take their color from the CSS "color". *@
+<svg class="icon" viewBox="0 0 24 24" width="@Size" height="@Size"
+     fill="@(Filled ? "currentColor" : "none")" stroke="currentColor" stroke-width="1.7"
+     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="@PathOf(Name)"/>
+</svg>
+
+@code {
+    [Parameter] public string Name { get; set; } = "";
+    [Parameter] public int Size { get; set; } = 26;
+
+    private bool Filled => Name is "play" or "stop";
+
+    private static string PathOf(string name) => name switch
+    {
+        "new" => "M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z M14 3v5h5 M12 12v5 M9.5 14.5h5",
+        "open" => "M3 18V6a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v2 M3 18a1 1 0 0 0 1 1h14a1 1 0 0 0 1-.8L21 10H6.5a1 1 0 0 0-1 .8z",
+        "save" => "M5 3h11l4 4v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z M7 3v5h8V3 M7 21v-7h10v7",
+        "play" => "M7 4.5v15l12-7.5z",
+        "stop" => "M7 7h10v10H7z",
+        "star" => "M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z",
+        "settings" => "M4 7h8 M16 7h4 M4 17h4 M12 17h8 M14 4.5v5 M10 14.5v5",
+        "paste" => "M9 4h6v3H9z M8 5.5H6a1 1 0 0 0-1 1V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6.5a1 1 0 0 0-1-1h-2",
+        "undo" => "M9 14L4 9l5-5 M4 9h10a6 6 0 0 1 0 12h-3",
+        "redo" => "M15 14l5-5-5-5 M20 9H10a6 6 0 0 0 0 12h3",
+        "image" => "M4 5h16v14H4z M4 16l5-5 4 4 3-3 4 4 M8.5 9.5a1 1 0 1 0 .01 0",
+        "note" => "M5 4h14v12l-5 5H5z M14 21v-5h5 M8 9h8 M8 13h5",
+        "fit" => "M4 9V4h5 M20 9V4h-5 M4 15v5h5 M20 15v5h-5",
+        "log" => "M5 4h13a1 1 0 0 1 1 1v14H6a1 1 0 0 0-1 1z M5 4v16 M9 8h6 M9 12h6",
+        "camera" => "M4 8h3l2-3h6l2 3h3v11H4z M12 16.5a3.2 3.2 0 1 0 .01 0",
+        "doc" => "M7 3h7l5 5v13H7z M14 3v5h5",
+        _ => ""
+    };
+}
