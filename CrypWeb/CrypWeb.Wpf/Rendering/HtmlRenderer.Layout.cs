@@ -64,12 +64,14 @@ namespace System.Windows.Rendering
                     case StackPanel stack:
                         return (stack.Orientation == Orientation.Horizontal) == horizontal;
                     case Grid parentGrid:
-                        // only an auto row/column passes unlimited space on
+                        // a pixel row/column limits the space; auto ones pass unlimited space on, and so do star ones
+                        // (also the single implicit one of a grid without definitions), because in a grid that is
+                        // itself unlimited they size like auto: whether it is, the walk up decides
                         var tracks = horizontal
                             ? parentGrid.ColumnDefinitions.Select(c => c.Width).ToList()
                             : parentGrid.RowDefinitions.Select(r => r.Height).ToList();
                         int index = horizontal ? Grid.GetColumn(current) : Grid.GetRow(current);
-                        if (tracks.Count == 0 || index >= tracks.Count || !tracks[index].IsAuto)
+                        if (index < tracks.Count && tracks[index].IsAbsolute)
                         {
                             return false;
                         }
@@ -447,8 +449,23 @@ namespace System.Windows.Rendering
 
         private void WriteInlines(InlineCollection inlines)
         {
-            foreach (Inline inline in inlines)
+            // plugins change inlines from their own thread while the page is drawn (KeySearcher): work on a copy,
+            // which CopyTo makes without the enumerator's "collection was modified" check
+            var snapshot = new Inline[inlines.Count];
+            try
             {
+                inlines.CopyTo(snapshot, 0);
+            }
+            catch (ArgumentException)
+            {
+                return;     // the collection grew meanwhile: the next drawing shows it
+            }
+            foreach (Inline inline in snapshot)
+            {
+                if (inline == null)
+                {
+                    continue;
+                }
                 switch (inline)
                 {
                     case LineBreak:

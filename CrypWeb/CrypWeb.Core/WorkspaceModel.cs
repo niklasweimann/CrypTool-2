@@ -148,6 +148,12 @@ public sealed class ConnectorPort : VisualNode
     public int Index { get; set; }
     public List<Wire> Wires { get; } = new();
 
+    /// <summary>
+    /// A control connector (IControl): it carries no data, the master component gets the slave's control object
+    /// (ControlMaster = ControlSlave) when a run starts. Read from the workspace file's IControl flag.
+    /// </summary>
+    public bool IsControl => Extra.TryGetValue("IControl", out var flag) && flag == "True";
+
     /// <summary>Copy that belongs to <paramref name="owner"/> (and is registered in its inputs/outputs).</summary>
     internal ConnectorPort CloneFor(PluginNode owner)
     {

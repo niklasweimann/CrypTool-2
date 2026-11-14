@@ -130,7 +130,7 @@ public sealed class NativeComponent : RunComponent
                 RaiseOutput(OutputName);
                 break;
             case Kind.NumberInput:
-                values[OutputName] = BigInteger.TryParse(Text.Trim(), out var number) ? number : BigInteger.Zero;
+                values[OutputName] = ParseNumber(Text);
                 RaiseOutput(OutputName);
                 break;
             case Kind.BooleanInput:
@@ -139,5 +139,27 @@ public sealed class NativeComponent : RunComponent
                 break;
         }
         RaiseProgress(1);
+    }
+
+    /// <summary>
+    /// The number of a NumberInput as the original component reads it: an expression such as "(2^304-1)/2"
+    /// (BigIntegerHelper.ParseExpression), white space ignored; empty or invalid input gives 0 and a warning.
+    /// </summary>
+    private BigInteger ParseNumber(string text)
+    {
+        string expression = System.Text.RegularExpressions.Regex.Replace(text ?? "", @"\s+", "");
+        if (expression.Length == 0)
+        {
+            return BigInteger.Zero;
+        }
+        try
+        {
+            return CrypTool.PluginBase.Miscellaneous.BigIntegerHelper.ParseExpression(expression);
+        }
+        catch (Exception e)
+        {
+            RaiseLog(LogLevel.Warning, "Not a number: " + text + " (" + e.Message + ")");
+            return BigInteger.Zero;
+        }
     }
 }

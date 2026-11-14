@@ -164,6 +164,7 @@ public sealed class ExecutionEngine
         ActiveWires.Clear();
         ExecutionCount = 0;
         ResetNodesForRun();
+        ConnectControls();
         PreExecuteAll();
         Changed?.Invoke();
 
@@ -191,6 +192,36 @@ public sealed class ExecutionEngine
             node.Queues.Clear();
             node.Last.Clear();
             foreach (var input in node.Model.Inputs) node.Queues[input] = new();
+        }
+    }
+
+    /// <summary>
+    /// Control connections (IControl), as the CT2 workspace sets them up when a run starts: the master component
+    /// (e.g. KeySearcher, TranspositionAnalyser) gets the control object of the slave (e.g. AES, Transposition, a
+    /// cost function) through its ControlMaster property and drives the slave itself.
+    /// </summary>
+    void ConnectControls()
+    {
+        foreach (var node in Nodes.Values.Where(n => n.Comp != null))
+        {
+            foreach (var master in node.Model.Outputs.Where(o => o.IsControl))
+            {
+                foreach (var wire in master.Wires)
+                {
+                    if (wire.To?.Plugin == null || !Nodes.TryGetValue(wire.To.Plugin.Id, out var slave) || slave.Comp == null)
+                    {
+                        continue;
+                    }
+                    try
+                    {
+                        node.Comp!.Set(master.PropertyName, slave.Comp.Get(wire.To.PropertyName));
+                    }
+                    catch (Exception e)
+                    {
+                        Fail(node, $"Control connection '{master.PropertyName}': {e.Message}");
+                    }
+                }
+            }
         }
     }
 
@@ -327,7 +358,10 @@ public sealed class ExecutionEngine
     bool TryFire(RunNode n)
     {
         var p = n.Model;
+        // as in CT2 (PluginModel.HasOnlyOptionalUnconnectedInputs) a connected control input counts as connected,
+        // so a slave that is driven by its master does not start by itself; for data, control connectors are ignored
         bool onlyOptionalUnconnected = p.Inputs.All(c => !c.IsMandatory && c.Wires.Count == 0);
+        var dataInputs = p.Inputs.Where(c => !c.IsControl).ToList();
         if (n.FirstRun && (p.Inputs.Count == 0 || onlyOptionalUnconnected))
         {
             n.FirstRun = false;
@@ -335,14 +369,14 @@ public sealed class ExecutionEngine
         }
         bool blocked = false;
         bool atLeastOneNew = false;
-        foreach (var input in p.Inputs)
+        foreach (var input in dataInputs)
         {
             if (!input.IsMandatory && input.Wires.Count == 0) continue;
             var queue = n.Queues[input];
             if (queue.Count == 0 && !n.Last.ContainsKey(input)) blocked = true; // never received a value
             else if (queue.Count > 0) atLeastOneNew = true;
         }
-        foreach (var output in p.Outputs)
+        foreach (var output in p.Outputs.Where(o => !o.IsControl))
         {
             foreach (var wire in output.Wires)
             {
@@ -412,7 +446,7 @@ public sealed class ExecutionEngine
         // outside a run (prepared or stopped workspace) nothing flows along the wires, as in CT2
         if (!Running) return;
         var port = n.Model.Outputs.FirstOrDefault(o => o.PropertyName == prop);
-        if (port == null) return;
+        if (port == null || port.IsControl) return;
         object? data;
         try
         {

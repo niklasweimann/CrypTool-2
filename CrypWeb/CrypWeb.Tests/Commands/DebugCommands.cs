@@ -116,9 +116,22 @@ public static class DebugCommands
     {
         // runs one template and prints the last value on every connector (debugging a single workspace)
         var ws0 = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
-        // CT2_TRACE=1: also print every exception thrown inside plugins (they often catch and log only the message)
-        if (Environment.GetEnvironmentVariable("CT2_TRACE") == "1")
-            AppDomain.CurrentDomain.FirstChanceException += (_, e) => Console.WriteLine("THROWN " + e.Exception.GetType().Name + ": " + e.Exception.Message + " @ " + e.Exception.StackTrace?.Split('\n').FirstOrDefault());
+        // CT2_TRACE=1: also print every exception thrown inside plugins (they often catch and log only the message);
+        // CT2_TRACE=2: with the first stack frames
+        string trace = Environment.GetEnvironmentVariable("CT2_TRACE");
+        if (trace == "1" || trace == "2")
+        {
+            int frames = trace == "2" ? 8 : 1;
+            AppDomain.CurrentDomain.FirstChanceException += (_, e) =>
+            {
+                // the exception's own trace holds only the throwing frame at this point: take the current call stack
+                string stack = frames == 1
+                    ? e.Exception.StackTrace?.Split('\n').FirstOrDefault()?.Trim() ?? ""
+                    : string.Join("\n      ", Environment.StackTrace.Split('\n').Select(l => l.Trim())
+                        .Where(l => !l.Contains("System.Environment") && !l.Contains("FirstChance") && !l.Contains("DebugCommands")).Take(frames));
+                Console.WriteLine("THROWN " + e.Exception.GetType().Name + ": " + e.Exception.Message + " @ " + stack);
+            };
+        }
         var eng0 = new ExecutionEngine { ExecuteInBackground = true };
         var r0 = eng0.RunAsync(ws0);
         // like the browser worker: render the presentations and tick animations while the workspace runs

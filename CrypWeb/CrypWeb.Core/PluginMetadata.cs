@@ -31,7 +31,7 @@ public sealed class PortMeta
     public string Tooltip { get; set; } = "";
     public bool Mandatory { get; set; }
 
-    /// <summary>A control (IControl) connector; not supported yet.</summary>
+    /// <summary>A control (IControl) connector: runs in workspaces, not offered for new components in the palette yet.</summary>
     public bool Control { get; set; }
 }
 

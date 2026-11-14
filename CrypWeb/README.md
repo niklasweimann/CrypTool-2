@@ -27,7 +27,12 @@ TextInput/TextOutput/NumberInput/BooleanInput/BooleanOutput have browser-native 
 Regenerate metadata/icons/compile list: `python3 tools-gen-plugins.py`; after changing `presentations.include`:
 `python3 tools-gen-presentations.py`.
 
-Not yet: control (IControl) connectors.
+Control connections (IControl, e.g. KeySearcher → AES, TranspositionAnalyser → Transposition, cost functions) are
+set up when a run starts, as in CT2 (`ExecutionEngine.ConnectControls`: the master gets the slave's control object);
+they carry no data. Not yet: offering control connectors for components newly placed from the palette.
+
+Limits: the quadratic sieve factorizes with the native msieve library, which the browser cannot load (it finds
+small factors only).
 
 ## Experimental components
 
