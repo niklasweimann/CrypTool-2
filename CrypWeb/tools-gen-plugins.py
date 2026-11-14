@@ -357,10 +357,11 @@ def localize(localized_by_lang, texts, name_key, tooltip_key, ports, body):
 
 def has_no_presentation(body):
     """A component without a visualization returns null as its Presentation (CT2 then offers no presentation view)."""
-    if re.search(r'Presentation\s*(?:=>\s*null|\{\s*get\s*(?:=>\s*null|\{\s*return\s+null\s*;))', body):
+    # \b: "QuickWatchPresentation => null" (the old quick-watch view, null almost everywhere) is a different property
+    if re.search(r'\bPresentation\s*(?:=>\s*null|\{\s*get\s*(?:=>\s*null|\{\s*return\s+null\s*;))', body):
         return True
     # an auto-property that is never assigned stays null too: Presentation { get; private set; }
-    return bool(re.search(r'Presentation\s*\{\s*get\s*;\s*(?:private\s+)?set\s*;\s*\}', body)
+    return bool(re.search(r'\bPresentation\s*\{\s*get\s*;\s*(?:private\s+)?set\s*;\s*\}', body)
                 and not re.search(r'\bPresentation\s*=\s*(?!null\b)', body))
 
 
