@@ -41,6 +41,9 @@ A short map for maintainers. The user-facing description and the list of support
 | change how a plugin is run (settings, outputs, presentation) | `CrypWeb.Core/PluginComponent.cs`; browser-native in/outputs: `NativeComponent.cs` |
 | support another WPF control or property in a presentation | `CrypWeb.Wpf/Controls`, `Rendering/HtmlRenderer*.cs`, `Markup/` |
 | add a UI language | `CrypWeb.App/Localizer.cs`, `wwwroot/i18n/` |
+| change the command palette, minimap, runtimes, dropping onto wires | `Home.CommandPalette.cs`, `Home.Minimap.cs`, `Home.Insight.cs`, `Home.Splice.cs` |
+| change links to templates (format, link manager) | `CrypWeb.App/TemplateLink.cs`, `Components/LinkManager.razor`, `Home.Links.cs` |
+| change offline use (caching, installable app) | `wwwroot/service-worker.js`, `wwwroot/manifest.webmanifest`, `wwwroot/vfs.js`, `Home.Offline.cs` |
 | add a plugin to the build | `plugins.exclude`, `plugins.isolate`, then `python3 tools-gen-plugins.py` |
 
 `Home` is one Blazor component split into partial classes, one per concern (`Home.<Concern>.cs`). The shared state

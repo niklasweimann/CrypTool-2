@@ -1,5 +1,4 @@
 using System.Net.Http.Json;
-using System.Text.RegularExpressions;
 using CrypTool.Web.Core;
 using CrypWeb.App.Engine;
 using Microsoft.AspNetCore.Components;
@@ -360,8 +359,8 @@ public partial class Home : IDisposable, IHandleEvent
             /* no plugin metadata: the palette stays empty */
         }
 
-        var q = Regex.Match(new Uri(Nav.Uri).Query, "t=([^&]+)");
-        if (q.Success) await OpenTemplate(Uri.UnescapeDataString(q.Groups[1].Value));
+        // a link of the link manager (?t=template&component.setting=value...) opens that template
+        if (TemplateLink.Parse(Nav.Uri) is { } link) await OpenLink(link);
         else
             try
             {
@@ -411,12 +410,15 @@ public partial class Home : IDisposable, IHandleEvent
 
         self = DotNetObjectReference.Create(this);
         await Js.InvokeVoidAsync("ct2.init", self, "main svg.canvas");
+        await Js.InvokeVoidAsync("ct2.initFileDrop", self);
         // the engine runs in this app: plugin code on background threads, presentations on this (UI) thread
         EngineHost.Initialize();
         MediaBridge.Initialize(Js);
         EngineHost.Message += OnWorkerMessage;
         await Js.InvokeVoidAsync("ct2engine.start");
+        engineReady = true;
         StartAutosave();
+        await RunPendingLink();
     }
 
     /// <summary>Appends to the log of <paramref name="doc" /> (default: the active document); the oldest entries are dropped.</summary>
@@ -454,6 +456,7 @@ public partial class Home : IDisposable, IHandleEvent
     public void OnPointerRelease()
     {
         if (mode == Mode.None) return;
+        if (mode == Mode.Drag) FinishDragSplice();
         mode = Mode.None;
         connecting = null;
         resizing = null;
@@ -479,6 +482,7 @@ public partial class Home : IDisposable, IHandleEvent
         var k = key.ToLowerInvariant();
         if (k == "f12") ToggleMenu();
         else if (k == "f11") ToggleFocus();
+        else if (k == "f10") _ = StepRun();
         if (mod)
         {
             switch (k)
@@ -532,6 +536,9 @@ public partial class Home : IDisposable, IHandleEvent
                 case "s":
                     Save();
                     break;
+                case "k":
+                    _ = OpenCommandPalette();
+                    break;
             }
         }
         else if (k is "delete" or "backspace")
@@ -570,7 +577,8 @@ public partial class Home : IDisposable, IHandleEvent
         Marquee,
         Connect,
         Resize,
-        WireSeg
+        WireSeg,
+        Minimap
     }
 
     private record LogEntry(DateTime Time, int NodeId, string Source, LogLevel Level, string Message);

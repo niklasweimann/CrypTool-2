@@ -18,6 +18,27 @@ Canvas features: move (multi/Shift-select, marquee, snap, arrow-key nudge), resi
 connect ports by drag (type-checked, re-route by dragging an input), select/delete wires, add components (palette drag/double-click) and notes,
 rename (double-click title), collapse, copy/paste/duplicate, undo/redo, open .cwm/.json, save .json.
 
+Additions of the web edition (not in CT2):
+
+- **Command palette** (Ctrl/⌘+K, View › Commands): find commands, components and templates by typing; a component is placed
+  where the mouse pointer was (`Home.CommandPalette.cs`).
+- **Step mode**: Pause / Step (F10) / Continue in Home › Execution. While paused no component starts except one per step; the
+  components that may start next are outlined, the one started last is highlighted (`ExecutionEngine.Paused`, `Home.Execution.cs`).
+- **Runtime** (View › Runtime): executions and time per component, coloured from fast (green) to slowest (red)
+  (`Home.Insight.cs`).
+- **Drop onto a wire**: a component dragged from the palette, or an unconnected component moved on the canvas, is put in between
+  when dropped onto a wire whose types fit (`Home.Splice.cs`).
+- **Minimap** (View › Minimap): overview in the bottom right corner; click or drag in it to move the view (`Home.Minimap.cs`).
+- **Files**: dropping a `.cwm`/`.json` anywhere on the page opens it, a picture is placed on the canvas; the installed app opens
+  `.cwm` files (`manifest.webmanifest` file handler) (`ct2.initFileDrop` in `canvas.js`, `Home.Files.cs`).
+- **Offline / installable app** (PWA): `wwwroot/service-worker.js` caches what has been used (network first, files with a content
+  hash cache first); View › Make available offline downloads all templates and data files (about 100 MB). The plugins' data files
+  are read with synchronous requests, which bypass the service worker: `vfs.js` stores them in the same cache and, when offline,
+  reads the cached ones into memory.
+- **Link manager** (Home › Extras › Links): makes links that open a template with chosen settings, e.g.
+  `?t=Cryptography/Classic/Caesar.cwm&24074685.Text=HELLO&46855303.Number=3&run=1&lang=de` (component id in the template or its
+  name, then the setting; `run=1` starts the workspace; format in `TemplateLink.cs`). Saved links are kept with the settings.
+
 Execution: `CrypWeb.Core/ExecutionEngine.cs` re-implements the CT2 workspace semantics (queued inputs, mandatory inputs,
 back-pressure); plugin code runs on background threads as in CT2 (see "Threads" below).
 `CrypWeb.Plugins` compiles the original plugin sources unchanged against the portable plugin base and `CrypWeb.Wpf`.

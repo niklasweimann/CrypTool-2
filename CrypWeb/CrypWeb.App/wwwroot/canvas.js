@@ -55,18 +55,23 @@ window.ct2 = {
         // position changes without a size change (e.g. the tab bar grows): check when a gesture starts
         document.addEventListener('pointerdown', keepRectCurrent, true);
 
-        const isTextField = el => el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA');
+        // form fields and dialogs keep their keys (arrows in a list, Delete in a text box)
+        const isTextField = el => el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'
+            || el.isContentEditable || !!(el.closest && el.closest('.sm-back')));
 
-        // Ctrl/Cmd+Z Y X C V A S W H R, Delete, Backspace, Escape and the arrow keys are handled by the component.
+        // Ctrl/Cmd+Z Y X C V A S W H R K, F10 (step), F11, F12, Delete, Backspace, Escape and the arrow keys are handled by
+        // the component.
         document.addEventListener('keydown', e => {
-            if (isTextField(e.target)) return;
+            // the command palette (Ctrl/Cmd+K) also opens from a text field
+            const palette = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k';
+            if (isTextField(e.target) && !palette) return;
             // text selected in an output box (or elsewhere): let the browser copy it
             const modifier0 = e.ctrlKey || e.metaKey;
             if (modifier0 && e.key.toLowerCase() === 'c' && String(window.getSelection()).length > 0) return;
             const modifier = e.ctrlKey || e.metaKey;
             const key = e.key.toLowerCase();
-            const isShortcut = modifier && key.length === 1 && 'zyxcvaswhr'.includes(key);
-            const handled = key === 'f11' || key === 'f12' || key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
+            const isShortcut = modifier && key.length === 1 && 'zyxcvaswhrk'.includes(key);
+            const handled = key === 'f10' || key === 'f11' || key === 'f12' || key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
             if (!handled) return;
             e.preventDefault();
             ref.invokeMethodAsync('OnKey', e.key, modifier, e.shiftKey);
@@ -267,3 +272,117 @@ window.ct2.clampCtx = () => {
         tabs.scrollBy({left: (arrow.classList.contains('l') ? -1 : 1) * tabs.clientWidth, behavior: 'smooth'});
     });
 })();
+
+// ---- files dropped onto the page, files opened with the installed app, offline cache ----------------------------
+
+/**
+ * Dropping a file anywhere on the page opens it: a workspace (.cwm / .json) in a new tab, a picture as an image on
+ * the canvas at the drop position. The page shows a hint while a file is dragged over it (class "filedrag" on body).
+ */
+window.ct2.initFileDrop = ref => {
+    const hasFiles = e => e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files');
+    let depth = 0;
+    const setHint = on => document.body.classList.toggle('filedrag', on);
+    window.addEventListener('dragenter', e => {
+        if (!hasFiles(e)) return;
+        depth++;
+        setHint(true);
+    });
+    window.addEventListener('dragleave', e => {
+        if (!hasFiles(e)) return;
+        depth = Math.max(0, depth - 1);
+        if (depth === 0) setHint(false);
+    });
+    window.addEventListener('dragover', e => {
+        if (!hasFiles(e)) return;
+        e.preventDefault(); // otherwise the browser opens the file itself
+        e.dataTransfer.dropEffect = 'copy';
+    });
+    window.addEventListener('drop', async e => {
+        if (!hasFiles(e)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        depth = 0;
+        setHint(false);
+        for (const file of Array.from(e.dataTransfer.files)) {
+            const bytes = new Uint8Array(await file.arrayBuffer());
+            await ref.invokeMethodAsync('OnFileDrop', file.name, file.type || '', bytes, e.clientX, e.clientY);
+        }
+    }, true);
+
+    // the installed app was started with a .cwm file (file_handlers in manifest.webmanifest)
+    if ('launchQueue' in window) {
+        window.launchQueue.setConsumer(async params => {
+            for (const handle of params.files || []) {
+                const file = await handle.getFile();
+                const bytes = new Uint8Array(await file.arrayBuffer());
+                await ref.invokeMethodAsync('OnFileDrop', file.name, file.type || '', bytes, -1, -1);
+            }
+        });
+    }
+};
+
+/** Last pointer position over the page: [clientX, clientY] (used to place components from the command palette). */
+(() => {
+    let last = [-1, -1];
+    document.addEventListener('pointermove', e => {
+        last = [e.clientX, e.clientY];
+    }, {passive: true, capture: true});
+    window.ct2.lastPointer = () => last;
+})();
+
+/** Focuses (and selects the text of) the element; used by dialogs that open with the keyboard. */
+window.ct2.focus = selector => {
+    const element = document.querySelector(selector);
+    if (!element) return;
+    element.focus();
+    if (element.select) element.select();
+};
+
+/** Keeps the highlighted entry of a list visible. */
+window.ct2.scrollIntoView = selector => document.querySelector(selector)?.scrollIntoView({block: 'nearest'});
+
+/** Copies a text to the clipboard; returns false when the browser refuses. */
+window.ct2.copyText = async text => {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+/** True when the service worker is active (the app works offline with what has been cached). */
+window.ct2.offlineReady = () => !!(navigator.serviceWorker && navigator.serviceWorker.controller);
+
+/**
+ * "Make available offline": lets the service worker download all templates (with their texts and icons) and the
+ * data files of the plugins in advance. Progress goes to ref.OnPrecacheProgress(done, failed, total, finished).
+ */
+window.ct2.precacheAll = async ref => {
+    const registration = navigator.serviceWorker && await navigator.serviceWorker.ready;
+    const worker = registration && registration.active;
+    if (!worker) return false;
+    const json = async url => {
+        try {
+            return await (await fetch(url)).json();
+        } catch {
+            return [];
+        }
+    };
+    const escape = path => path.split('/').map(encodeURIComponent).join('/');
+    const templates = await json('templates/index.json');
+    const icons = await json('templates/icons.json');
+    const vfs = await json('vfs/manifest.json');
+    const urls = ['templates/index.json', 'templates/icons.json', 'templates/palette.json', 'plugins.json', 'vfs/manifest.json'];
+    for (const t of templates) {
+        urls.push('templates/' + escape(t));
+        urls.push('templates/' + escape(t.slice(0, -4) + '.xml'));
+    }
+    for (const t of icons) urls.push('templates/' + escape(t.slice(0, -4) + '.png'));
+    for (const entry of vfs) urls.push('vfs/' + escape(entry.p.substring(1)));
+    const channel = new MessageChannel();
+    channel.port1.onmessage = m => ref.invokeMethodAsync('OnPrecacheProgress', m.data.done, m.data.failed, m.data.total, !!m.data.finished);
+    worker.postMessage({type: 'precache', urls}, [channel.port2]);
+    return true;
+};

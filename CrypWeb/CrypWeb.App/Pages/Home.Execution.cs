@@ -11,6 +11,41 @@ public partial class Home
 {
     private async Task Play()
     {
+        if (engine.Running && engine.Paused && ReferenceEquals(runDoc, active))
+        {
+            // Play while paused continues the run
+            engine.Paused = false;
+            EngineHost.Resume();
+            return;
+        }
+
+        await StartRun(false);
+    }
+
+    /// <summary>Step mode: pauses the run; it continues with Play or one component at a time with Step.</summary>
+    private void PauseRun()
+    {
+        if (!engine.Running || !ReferenceEquals(runDoc, active)) return;
+        engine.Paused = true;
+        EngineHost.Pause();
+    }
+
+    /// <summary>Starts the next ready component (F10); without a run the workspace starts paused.</summary>
+    private async Task StepRun()
+    {
+        if (active.Kind != DocKind.Workspace) return;
+        if (!engine.Running)
+        {
+            await StartRun(true);
+        }
+
+        if (!ReferenceEquals(runDoc, active)) return;
+        engine.Paused = true;
+        EngineHost.Step();
+    }
+
+    private async Task StartRun(bool paused)
+    {
         if (engine.Running || active.Kind != DocKind.Workspace) return;
         if (runDoc != null && runDoc.Engine.Running) StopRun();
         CommitEdit();
@@ -22,7 +57,8 @@ public partial class Home
         previewSignature = PreviewSignature(active);
         AddLog(Loc["log.workspace"], LogLevel.Info, Loc["log.started"]);
         EngineHost.SetCulture(Loc.Lang);
-        EngineHost.Start(ed.ToJson(), active.Key, settings.GuiUpdateMs, settings.SleepMs);
+        engine.Paused = paused;
+        EngineHost.Start(ed.ToJson(), active.Key, settings.GuiUpdateMs, settings.SleepMs, paused);
         await Task.CompletedTask;
     }
 
@@ -31,6 +67,8 @@ public partial class Home
         var d = runDoc;
         if (d == null || !d.Engine.Running) return;
         d.Engine.Running = false;
+        d.Engine.Paused = false;
+        d.Engine.Ready.Clear();
         d.Engine.ActiveWires.Clear();
         foreach (var node in d.Engine.Nodes.Values.Where(n => n.State == RunState.Running))
             node.State = RunState.Idle;
@@ -102,6 +140,11 @@ public partial class Home
         if (!engine.Running && !ReferenceEquals(target, previewDoc)) return;
 
         engine.ExecutionCount = state.GetProperty("count").GetInt32();
+        engine.Paused = state.GetProperty("paused").GetBoolean();
+        engine.Ready.Clear();
+        foreach (var ready in state.GetProperty("ready").EnumerateArray())
+            engine.Ready.Add(ready.GetInt32());
+        engine.LastStarted = state.GetProperty("last").ValueKind == JsonValueKind.Number ? state.GetProperty("last").GetInt32() : null;
         engine.ActiveWires.Clear();
         foreach (var wire in state.GetProperty("wires").EnumerateArray())
             engine.ActiveWires.Add(wire.GetInt32());
@@ -115,6 +158,8 @@ public partial class Home
             view.State = Enum.Parse<RunState>(node.GetProperty("state").GetString()!);
             view.Progress = node.GetProperty("progress").GetDouble();
             view.Ms = node.GetProperty("ms").GetInt64();
+            view.Runs = node.GetProperty("runs").GetInt32();
+            view.TotalMs = node.GetProperty("total").GetInt64();
             view.Display = StringOrNull(node, "display");
             view.LastError = StringOrNull(node, "err");
             if (StringOrNull(node, "image") is { } image) view.Image = image;
@@ -147,6 +192,8 @@ public partial class Home
         if (target.Engine.Running)
             AddLog(Loc["log.workspace"], LogLevel.Info, Loc["log.finished"], 0, target);
         target.Engine.Running = false;
+        target.Engine.Paused = false;
+        target.Engine.Ready.Clear();
         target.Engine.ActiveWires.Clear();
         if (ReferenceEquals(runDoc, target)) runDoc = null;
     }

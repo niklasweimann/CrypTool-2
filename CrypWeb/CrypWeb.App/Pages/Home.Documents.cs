@@ -198,13 +198,14 @@ public partial class Home
     }
 
     /// <summary>Adds a component at the given world position, in the view chosen in the settings.</summary>
-    private void AddAt(PaletteEntry entry, double x, double y)
+    private PluginNode AddAt(PaletteEntry entry, double x, double y)
     {
         ed.Checkpoint();
         var plugin = ed.AddPlugin(entry, Snap(x), Snap(y));
         if (settings.DefaultView == 2) plugin.ViewState = 7;
         else if (settings.DefaultView == 1) SetView(plugin, 1);
         SelectOnly(plugin.Id);
+        return plugin;
     }
 
     private void SelectOnly(int id)
@@ -222,9 +223,12 @@ public partial class Home
     /// <summary>A palette entry was dropped onto the canvas.</summary>
     private void Drop(DragEventArgs e)
     {
+        var wire = spliceWire;
+        spliceWire = null;
         if (dragEntry == null) return;
         var (wx, wy) = ToWorld(e.ClientX, e.ClientY);
-        AddAt(dragEntry, wx, wy);
+        var plugin = AddAt(dragEntry, wx, wy);
+        if (wire != null) Splice(plugin, wire); // dropped onto a wire: in between (same undo step)
         dragEntry = null;
     }
 }

@@ -10,6 +10,11 @@ public sealed class NodeView
     public string? Display { get; set; }
     public string? LastError { get; set; }
     public long Ms { get; set; }
+
+    /// <summary>Executions in the current run and their total duration (ms).</summary>
+    public int Runs { get; set; }
+
+    public long TotalMs { get; set; }
     public string? Image { get; set; }
 
     /// <summary>The plugin's WPF presentation rendered as HTML (null until it has drawn something).</summary>
@@ -27,9 +32,21 @@ public sealed class RunView
     public HashSet<int> ActiveWires { get; } = new();
     public Dictionary<int, NodeView> Nodes { get; } = new();
 
+    /// <summary>Step mode: no component starts until the next step.</summary>
+    public bool Paused { get; set; }
+
+    /// <summary>Step mode: the components that the next step may start.</summary>
+    public HashSet<int> Ready { get; } = new();
+
+    /// <summary>The component started last.</summary>
+    public int? LastStarted { get; set; }
+
     public void Reset()
     {
         Running = false;
+        Paused = false;
+        Ready.Clear();
+        LastStarted = null;
         ExecutionCount = 0;
         ActiveWires.Clear();
         Nodes.Clear();

@@ -77,6 +77,9 @@
     <link href="css/i18n.css" rel="stylesheet"/>
     <link href="css/wpf.css" rel="stylesheet"/>
     <link href="favicon.png" rel="icon" type="image/png"/>
+    <link href="manifest.webmanifest" rel="manifest"/>
+    <link href="icon-192.png" rel="apple-touch-icon"/>
+    <meta content="#2b3f6b" name="theme-color"/>
     <link href="CrypWeb.App.styles.css" rel="stylesheet"/>
     <script type="importmap"></script>
 </head>
@@ -108,6 +111,8 @@
 <script>
     // plugin texts come in every language the app offers: load all satellite resource assemblies
     Blazor.start({configureRuntime: runtime => runtime.withConfig({loadAllSatelliteResources: true})});
+    // offline use and installation as an app (see service-worker.js)
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js').catch(() => { /* not available (e.g. private window) */ });
 </script>
 </body>
 

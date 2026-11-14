@@ -1,0 +1,401 @@
+@using System.Globalization
+@using System.Text.Json
+@using CrypTool.Web.Core
+@using CrypWeb.App.Engine
+@implements IHandleEvent
+@* Link manager (Home › Extras › Links): makes links that open a template with chosen settings (see TemplateLink), and keeps them. *@
+<div class="sm-back" @onclick="Close">
+    <div class="sm-dialog wide lm" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
+        <div class="mhead" style="background:#3b5aa0">
+            <div class="mtitle">@Loc["links.title"]<small>@Loc["links.intro"]</small></div>
+            <button class="mx" @onclick="Close" title="@Loc["view.close"]">✕</button>
+        </div>
+        <div class="mbody lm-body">
+            <div class="lm-col lm-pick">
+                <div class="lm-h">1 · @Loc["links.template"]</div>
+                <input class="lm-search" placeholder="@Loc["panel.search"]" @bind="search" @bind:event="oninput"/>
+                <div class="lm-tlist">
+                    @foreach (var t in Templates.Where(t => search.Length == 0 || t.Contains(search, StringComparison.OrdinalIgnoreCase)).Take(300))
+                    {
+                        var tt = t;
+                        <div class="lm-t @(tt == template ? "on" : "")" title="@tt" @onclick="() => PickTemplate(tt)">
+                            @if (Icons.Contains(tt))
+                            {
+                                <img src="@IconOf(tt)"/>
+                            }
+                            <span>@Path.GetFileNameWithoutExtension(tt)</span><small>@(Path.GetDirectoryName(tt)?.Replace("/", " › "))</small>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="lm-col lm-edit">
+                <div class="lm-h">2 · @Loc["links.settings"]</div>
+                @if (template == null)
+                {
+                    <div class="mhint">@Loc["links.pickFirst"]</div>
+                }
+                else if (loading)
+                {
+                    <div class="mhint">@Loc["links.loading"]</div>
+                }
+                else if (workspace == null)
+                {
+                    <div class="mhint err">@Loc["links.loadFailed"]</div>
+                }
+                else
+                {
+                    <div class="lm-comps">
+                        @foreach (var p in workspace.Plugins.OrderBy(p => p.Y).ThenBy(p => p.X))
+                        {
+                            var pp = p;
+                            var meta = MetaOf(pp);
+                            var changedHere = overrides.Keys.Count(k => k.Id == pp.Id);
+                            <div class="lm-comp @(expanded == pp.Id ? "open" : "")">
+                                <div class="lm-ch" @onclick="() => Toggle(pp)" style="border-left-color:@Theme.CategoryColor(meta?.Category ?? "Undefined")">
+                                    @if (meta?.Icon != null)
+                                    {
+                                        <img src="@meta.Icon"/>
+                                    }
+                                    <span>@TitleOf(pp)</span>
+                                    @if (changedHere > 0)
+                                    {
+                                        <i class="lm-badge">@changedHere</i>
+                                    }
+                                    <b>@(expanded == pp.Id ? "▾" : "▸")</b>
+                                </div>
+                                @if (expanded == pp.Id)
+                                {
+                                    <div class="lm-fields">
+                                        @if (!fields.TryGetValue(pp.Id, out var list))
+                                        {
+                                            <div class="mhint">@Loc["links.loading"]</div>
+                                        }
+                                        else if (list.Count == 0)
+                                        {
+                                            <div class="mhint">@Loc["right.noSettings"]</div>
+                                        }
+                                        else
+                                        {
+                                            @foreach (var f in list)
+                                            {
+                                                var fld = f;
+                                                var changed = overrides.ContainsKey((pp.Id, fld.Name));
+                                                <div class="mrow @(changed ? "lm-changed" : "")" title="@fld.Tooltip">
+                                                    <label class="mlabel">@fld.Caption</label>
+                                                    <div class="mctl">@Field(pp, fld)</div>
+                                                    @if (changed)
+                                                    {
+                                                        <button class="lm-reset" title="@Loc["links.reset"]" @onclick="() => Reset(pp, fld)">↺</button>
+                                                    }
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+            <div class="lm-col lm-out">
+                <div class="lm-h">3 · @Loc["links.link"]</div>
+                <label class="lm-opt"><input type="checkbox" @bind="run"/> @Loc["links.run"]</label>
+                <label class="lm-opt">@Loc["links.lang"]
+                    <select @bind="lang">
+                        <option value="">@Loc["links.langAny"]</option>
+                        @foreach (var l in Localizer.Languages)
+                        {
+                            <option value="@l.Code">@l.Name</option>
+                        }
+                    </select>
+                </label>
+                <input class="lm-name" placeholder="@Loc["links.namePlaceholder"]" @bind="name" @bind:event="oninput"/>
+                <textarea class="lm-url" readonly rows="4">@(Url ?? "")</textarea>
+                <div class="lm-btns">
+                    <button class="mdone" disabled="@(Url == null)" @onclick="Copy">@Loc[copied ? "links.copied" : "links.copy"]</button>
+                    <button disabled="@(Url == null)" @onclick="Test" title="@Loc["links.testTip"]">@Loc["links.test"]</button>
+                    <button disabled="@(Url == null)" @onclick="SaveLink">@Loc[editing != null ? "links.update" : "links.save"]</button>
+                </div>
+                @if (overrides.Count > 0)
+                {
+                    <div class="lm-sum">@Loc.T("links.changedCount", overrides.Count)</div>
+                }
+                <div class="lm-h">@Loc["links.saved"]</div>
+                @if (Links.Count == 0)
+                {
+                    <div class="mhint">@Loc["links.none"]</div>
+                }
+                <div class="lm-saved">
+                    @foreach (var l in Links.ToList())
+                    {
+                        var ll = l;
+                        <div class="lm-link @(ReferenceEquals(ll, editing) ? "on" : "")">
+                            <div class="lm-ln" title="@ll.Url">@ll.Name</div>
+                            <div class="lm-la">
+                                <button title="@Loc["links.copy"]" @onclick="() => CopyUrl(ll.Url)">⧉</button>
+                                <button title="@Loc["links.edit"]" @onclick="() => Edit(ll)">✎</button>
+                                <button title="@Loc["links.test"]" @onclick="() => TestUrl(ll.Url)">▶</button>
+                                <button class="red" title="@Loc["links.delete"]" @onclick="() => Delete(ll)">✕</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter][EditorRequired] public IEnumerable<string> Templates { get; set; } = default!;
+    [Parameter] public HashSet<string> Icons { get; set; } = new();
+    [Parameter][EditorRequired] public Localizer Loc { get; set; } = default!;
+    [Parameter][EditorRequired] public Func<string, Task<Workspace?>> LoadTemplate { get; set; } = default!;
+    [Parameter][EditorRequired] public Func<PluginNode, PluginMeta?> MetaOf { get; set; } = default!;
+    [Parameter][EditorRequired] public Func<PluginNode, string> TitleOf { get; set; } = default!;
+    [Parameter][EditorRequired] public List<SavedLink> Links { get; set; } = default!;
+    [Parameter] public string BaseUri { get; set; } = "";
+    [Parameter] public EventCallback OnLinksChanged { get; set; }
+    [Parameter] public EventCallback<TemplateLink> OnTest { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+    [Inject] private IJSRuntime Js { get; set; } = default!;
+
+    private static CultureInfo Inv { get; } = CultureInfo.InvariantCulture;
+
+    // The page re-renders many times a second while the engine reports (also when idle), and passes this dialog new
+    // parameters each time. A re-render gives the handlers in the lists new ids, and a click that arrives in between is
+    // lost (see Pages/Home.Handlers.cs). So the dialog draws itself only after its own events and changes.
+    private bool renderRequested = true;
+
+    protected override bool ShouldRender()
+    {
+        var render = renderRequested;
+        renderRequested = false;
+        return render;
+    }
+
+    async Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    {
+        await callback.InvokeAsync(arg);
+        Redraw();
+    }
+
+    private void Redraw()
+    {
+        renderRequested = true;
+        StateHasChanged();
+    }
+    private string search = "";
+    private string? template;
+    private Workspace? workspace;
+    private bool loading;
+    private int? expanded;
+    private bool run;
+    private string lang = "";
+    private string name = "";
+    private bool copied;
+    private SavedLink? editing;
+
+    /// <summary>The settings form of each component (as in the settings dialog), with the template's values.</summary>
+    private readonly Dictionary<int, List<SettingField>> fields = new();
+
+    /// <summary>The values chosen here that differ from the template: (component id, setting) -> value.</summary>
+    private readonly Dictionary<(int Id, string Setting), string> overrides = new();
+
+    private static string IconOf(string t) => "templates/" + Uri.EscapeDataString(t[..^4]).Replace("%2F", "/") + ".png";
+
+    private string? Url => template == null ? null : BuildLink().ToUrl(BaseUri);
+
+    private TemplateLink BuildLink()
+    {
+        var link = new TemplateLink { Template = template!, Run = run, Lang = lang.Length == 0 ? null : lang };
+        foreach (var plugin in workspace?.Plugins.OrderBy(p => p.Id) ?? Enumerable.Empty<PluginNode>())
+        {
+            foreach (var (key, value) in overrides.Where(o => o.Key.Id == plugin.Id).OrderBy(o => o.Key.Setting))
+                link.Settings.Add((plugin.Id.ToString(Inv), key.Setting, value));
+        }
+
+        return link;
+    }
+
+    private async Task PickTemplate(string t, TemplateLink? from = null)
+    {
+        if (t == template && from == null) return;
+        template = t;
+        workspace = null;
+        fields.Clear();
+        overrides.Clear();
+        expanded = null;
+        copied = false;
+        if (from == null)
+        {
+            editing = null;
+            name = Path.GetFileNameWithoutExtension(t);
+        }
+
+        loading = true;
+        Redraw();
+        workspace = await LoadTemplate(t);
+        loading = false;
+        if (workspace != null && from != null)
+        {
+            foreach (var (component, setting, value) in from.Settings)
+            {
+                if (Pages.Home.LinkTarget(workspace, component) is { } plugin) overrides[(plugin.Id, setting)] = value;
+            }
+        }
+        // the component with the most to set (usually the cipher) is shown first
+        var first = workspace?.Plugins.FirstOrDefault(p => overrides.Keys.Any(k => k.Id == p.Id))
+                    ?? workspace?.Plugins.Where(p => NativeKind(p) == null).OrderBy(p => p.Y).ThenBy(p => p.X).FirstOrDefault();
+        if (first != null) await Toggle(first);
+    }
+
+    private async Task Toggle(PluginNode p)
+    {
+        expanded = expanded == p.Id ? null : p.Id;
+        if (expanded == null || fields.ContainsKey(p.Id)) return;
+        Redraw();
+        await Task.Yield();
+        fields[p.Id] = LoadFields(p);
+        Redraw();
+    }
+
+    /// <summary>Browser-native in-/outputs: the value they hold is their only setting (see NativeComponent).</summary>
+    private static NativeComponent.Kind? NativeKind(PluginNode p) => NativeComponent.TryCreate(p.TypeName)?.Which;
+
+    private List<SettingField> LoadFields(PluginNode p)
+    {
+        switch (NativeKind(p))
+        {
+            case NativeComponent.Kind.TextInput:
+                return new List<SettingField> { new() { Name = "Text", Caption = Loc["links.text"], Control = "TextArea", ValueType = "string", TypeName = "System.String", Value = p.Settings.GetValueOrDefault("Text", "") } };
+            case NativeComponent.Kind.NumberInput:
+                return new List<SettingField> { new() { Name = "Number", Caption = Loc["links.number"], Control = "TextBox", ValueType = "string", TypeName = "System.String", Value = p.Settings.GetValueOrDefault("Number", "") } };
+            case NativeComponent.Kind.BooleanInput:
+                return new List<SettingField> { new() { Name = "Value", Caption = Loc["links.value"], Control = "TextBox", ValueType = "int", TypeName = "System.Int32", Value = p.Settings.GetValueOrDefault("Value", "0") } };
+            case not null:
+                return new List<SettingField>(); // outputs have nothing to set
+        }
+
+        try
+        {
+            using var doc = JsonDocument.Parse(EngineHost.Schema(p.TypeName, JsonSerializer.Serialize(p.Settings)));
+            if (!doc.RootElement.TryGetProperty("fields", out var list)) return new List<SettingField>();
+            var all = JsonSerializer.Deserialize<List<SettingField>>(list.GetRawText(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<SettingField>();
+            // actions, files and read-only values cannot be given in a link
+            return all.Where(f => f.Control is not ("Button" or "OpenFileDialog" or "SaveFileDialog" or "TextBoxReadOnly")).ToList();
+        }
+        catch (Exception)
+        {
+            return new List<SettingField>();
+        }
+    }
+
+    private string Cur(PluginNode p, SettingField f) => overrides.TryGetValue((p.Id, f.Name), out var v) ? v : f.Value;
+
+    private void Set(PluginNode p, SettingField f, string value)
+    {
+        copied = false;
+        if (value == f.Value) overrides.Remove((p.Id, f.Name));
+        else overrides[(p.Id, f.Name)] = value;
+    }
+
+    private void SetBool(PluginNode p, SettingField f, object? value) => Set(p, f, value is true ? "True" : "False");
+
+    private void Reset(PluginNode p, SettingField f)
+    {
+        overrides.Remove((p.Id, f.Name));
+        copied = false;
+    }
+
+    private RenderFragment Field(PluginNode p, SettingField f) => __builder =>
+    {
+        var value = Cur(p, f);
+        switch (f.Control)
+        {
+            case "ComboBox" or "DynamicComboBox" or "LanguageSelector" or "RadioButton":
+                <select @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)">
+                    @for (var i = 0; i < f.Options.Count; i++)
+                    {
+                        var idx = i.ToString(Inv);
+                        <option value="@idx" selected="@(value == idx)">@f.Options[i]</option>
+                    }
+                </select>
+                break;
+            case "CheckBox":
+                <input type="checkbox" checked="@(value == "True")" @onchange="e => SetBool(p, f, e.Value)"/>
+                break;
+            case "TextArea":
+                <textarea rows="4" spellcheck="false" value="@value" @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"></textarea>
+                break;
+            case "NumericUpDown" or "Slider":
+                var step = (f.Step ?? (f.ValueType == "int" ? 1 : 0.1)).ToString(Inv);
+                <input type="number" min="@(f.Min?.ToString(Inv))" max="@(f.Max?.ToString(Inv))" step="@step"
+                       value="@value" @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"/>
+                break;
+            default:
+                <input type="@(f.ValueType is "int" or "double" ? "number" : "text")" value="@value"
+                       @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"/>
+                break;
+        }
+    };
+
+    private async Task Copy()
+    {
+        if (Url is { } url) copied = await Js.InvokeAsync<bool>("ct2.copyText", url);
+    }
+
+    private async Task CopyUrl(string url) => await Js.InvokeAsync<bool>("ct2.copyText", url);
+
+    private async Task Test()
+    {
+        await OnTest.InvokeAsync(BuildLink());
+    }
+
+    private async Task TestUrl(string url)
+    {
+        if (TemplateLink.Parse(url) is { } link) await OnTest.InvokeAsync(link);
+    }
+
+    private async Task SaveLink()
+    {
+        if (Url is not { } url) return;
+        var title = name.Trim().Length > 0 ? name.Trim() : Path.GetFileNameWithoutExtension(template!);
+        if (editing != null && Links.Contains(editing))
+        {
+            editing.Name = title;
+            editing.Url = url;
+        }
+        else
+        {
+            editing = new SavedLink { Name = title, Url = url };
+            Links.Insert(0, editing);
+        }
+
+        await OnLinksChanged.InvokeAsync();
+    }
+
+    private async Task Edit(SavedLink l)
+    {
+        if (TemplateLink.Parse(l.Url) is not { } link) return;
+        editing = l;
+        name = l.Name;
+        run = link.Run;
+        lang = link.Lang ?? "";
+        template = null; // load again, with the link's values
+        await PickTemplate(link.Template, link);
+    }
+
+    private async Task Delete(SavedLink l)
+    {
+        Links.Remove(l);
+        if (ReferenceEquals(editing, l)) editing = null;
+        await OnLinksChanged.InvokeAsync();
+    }
+
+    private Task Close() => OnClose.InvokeAsync();
+
+    private async Task OnKey(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape") await Close();
+    }
+}

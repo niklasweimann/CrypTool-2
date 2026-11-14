@@ -23,6 +23,15 @@ public sealed class AppSettings
     /// <summary>View tab: whether the log pane is shown (off by default).</summary>
     public bool ShowLog { get; set; }
 
+    /// <summary>View tab: executions and time per component below each component.</summary>
+    public bool ShowTimings { get; set; }
+
+    /// <summary>View tab: overview map of the workspace in the bottom right corner of the canvas.</summary>
+    public bool ShowMinimap { get; set; } = true;
+
+    /// <summary>The links made with the link manager (name and URL), newest first.</summary>
+    public List<SavedLink> Links { get; set; } = new();
+
     /// <summary>View tab: snap components to the grid.</summary>
     public bool Snap { get; set; } = true;
 
@@ -68,4 +77,11 @@ public sealed class AppSettings
             /* storage unavailable: the settings are not remembered */
         }
     }
+}
+
+/// <summary>A link of the link manager: opens a template with the given settings.</summary>
+public sealed class SavedLink
+{
+    public string Name { get; set; } = "";
+    public string Url { get; set; } = "";
 }

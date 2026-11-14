@@ -40,11 +40,12 @@ public partial class Home
     ///     Loads a template (<c>.cwm</c>) and, if present, its <c>.xml</c> with the localized texts for the
     ///     <c>$placeholders$</c>. With <paramref name="inPlace" /> the current tab is replaced instead of opening a new one.
     /// </summary>
-    private async Task OpenTemplate(string template, bool inPlace = false)
+    /// <param name="adjust">Changes the workspace before it is shown (settings of a link); such a template always gets a tab of its own.</param>
+    private async Task OpenTemplate(string template, bool inPlace = false, Action<Workspace>? adjust = null)
     {
         if (!inPlace)
         {
-            var alreadyOpen = docs.FirstOrDefault(d => d.Kind == DocKind.Workspace && d.Name == template && !d.Ed.Dirty);
+            var alreadyOpen = adjust != null ? null : docs.FirstOrDefault(d => d.Kind == DocKind.Workspace && d.Name == template && !d.Ed.Dirty);
             if (alreadyOpen != null)
             {
                 await Activate(alreadyOpen);
@@ -63,6 +64,7 @@ public partial class Home
         {
             var workspace = CwmReader.Read(await Http.GetByteArrayAsync(TemplateUrl(template)));
             await TryApplyTemplateStrings(workspace, template);
+            adjust?.Invoke(workspace);
             ed.Load(workspace);
             await FitAsync();
             _ = AddRecent(template, "template");
@@ -95,23 +97,61 @@ public partial class Home
         {
             using var buffer = new MemoryStream();
             await e.File.OpenReadStream(MaxWorkspaceFileBytes).CopyToAsync(buffer);
-            var bytes = buffer.ToArray();
-            var isJson = e.File.Name.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
+            await OpenWorkspaceBytes(e.File.Name, buffer.ToArray());
+        }
+        catch (Exception ex)
+        {
+            error = "Could not open file: " + ex.Message;
+        }
+    }
+
+    /// <summary>Opens the bytes of a workspace file (<c>.json</c> by name, everything else is read as <c>.cwm</c>) in a tab.</summary>
+    private async Task OpenWorkspaceBytes(string fileName, byte[] bytes)
+    {
+        try
+        {
+            var isJson = fileName.EndsWith(".json", StringComparison.OrdinalIgnoreCase);
             var workspace = isJson
                 ? WorkspaceEditor.FromJson(Encoding.UTF8.GetString(bytes))
                 : CwmReader.Read(bytes);
 
             EnsureTarget();
             ed.Load(workspace);
-            current = e.File.Name;
+            current = fileName;
             error = null;
             await FitAsync();
-            _ = AddRecent(e.File.Name, "file", bytes);
+            _ = AddRecent(fileName, "file", bytes);
         }
         catch (Exception ex)
         {
             error = "Could not open file: " + ex.Message;
         }
+    }
+
+    /// <summary>
+    ///     A file was dropped onto the page (canvas.js, ct2.initFileDrop) or the installed app was started with one
+    ///     (x = y = -1): workspaces open in a tab, pictures are placed on the canvas where they were dropped.
+    /// </summary>
+    [JSInvokable]
+    public async Task OnFileDrop(string fileName, string contentType, byte[] data, double clientX, double clientY)
+    {
+        var extension = Path.GetExtension(fileName).ToLowerInvariant();
+        if (extension is ".cwm" or ".json")
+        {
+            if (data.Length > MaxWorkspaceFileBytes) error = "Could not open file: it is larger than 50 MB.";
+            else await OpenWorkspaceBytes(fileName, data);
+        }
+        else if (contentType.StartsWith("image/", StringComparison.Ordinal) && active.Kind == DocKind.Workspace)
+        {
+            if (data.Length > MaxImageFileBytes) error = "Could not add image: it is larger than 20 MB.";
+            else await AddImageData(data, contentType, clientX >= 0 ? ToWorld(clientX, clientY) : null);
+        }
+        else
+        {
+            error = string.Format(Loc["drop.unsupported"], fileName);
+        }
+
+        StateHasChanged();
     }
 
     /// <summary>Adds an image file as a picture on the canvas (at most 400 units wide, in the middle of the view).</summary>
@@ -121,14 +161,25 @@ public partial class Home
         {
             using var buffer = new MemoryStream();
             await e.File.OpenReadStream(MaxImageFileBytes).CopyToAsync(buffer);
-            var data = buffer.ToArray();
+            await AddImageData(buffer.ToArray(), e.File.ContentType, null);
+        }
+        catch (Exception ex)
+        {
+            error = "Could not add image: " + ex.Message;
+        }
+    }
 
-            var dataUri = "data:" + e.File.ContentType + ";base64," + Convert.ToBase64String(data);
+    /// <summary>Places a picture (at most 400 units wide) centred on <paramref name="at" />, or in the middle of the view.</summary>
+    private async Task AddImageData(byte[] data, string contentType, (double x, double y)? at)
+    {
+        try
+        {
+            var dataUri = "data:" + contentType + ";base64," + Convert.ToBase64String(data);
             var naturalSize = await Js.InvokeAsync<double[]>("ct2.imageSize", dataUri);
             var width = Math.Min(naturalSize[0], 400);
             var height = naturalSize[0] > 0 ? naturalSize[1] * width / naturalSize[0] : 200;
 
-            var (centerX, centerY) = Center();
+            var (centerX, centerY) = at ?? Center();
             ed.Checkpoint();
             var image = ed.AddImage(data, centerX - width / 2, centerY - height / 2, width, height);
             SelectOnly(image.Id);

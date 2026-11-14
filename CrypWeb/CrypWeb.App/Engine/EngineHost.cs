@@ -83,26 +83,46 @@ public static class EngineHost
         if (Engine?.Running == true) return;
         Ws = WorkspaceEditor.FromJson(json);
         EnsureEngine(doc).Prepare(Ws);
+        LastStateJson = null; // the page may show another workspace meanwhile: send the state in any case
         Flush(true);
     }
 
     /// <summary>Starts the workspace; returns at once, the run continues asynchronously.</summary>
-    public static void Start(string json, string doc, int guiMs, int sleepMs)
+    public static void Start(string json, string doc, int guiMs, int sleepMs, bool paused = false)
     {
         // a plugin that ignored Stop may still compute in the background: that run is left behind
         if (Engine?.Running == true) Engine = null;
         SentIo.Clear();
         SentHtml.Clear(); // the app starts with empty node views: send every presentation again
+        LastStateJson = null;
         Ws = WorkspaceEditor.FromJson(json);
         var eng = EnsureEngine(doc);
         eng.SleepMs = sleepMs;
         GuiInterval = Math.Max(10, guiMs);
-        _ = Run(eng);
+        _ = Run(eng, paused);
     }
 
     public static void Stop()
     {
         Engine?.Stop();
+    }
+
+    /// <summary>Step mode (see ExecutionEngine.Paused): pause, continue, or start the next ready component.</summary>
+    public static void Pause()
+    {
+        Engine?.Pause();
+        Flush(true);
+    }
+
+    public static void Resume()
+    {
+        Engine?.Resume();
+        Flush(true);
+    }
+
+    public static void Step()
+    {
+        Engine?.Step();
     }
 
     /// <summary>
@@ -115,6 +135,7 @@ public static class EngineHost
         {
             Engine = null;
             EngineDoc = doc;
+            LastStateJson = null;
             SentIo.Clear();
             SentImage.Clear();
             SentHtml.Clear();
@@ -145,11 +166,11 @@ public static class EngineHost
         Post(JsonSerializer.Serialize(new { type = "log", id, level, message }));
     }
 
-    private static async Task Run(ExecutionEngine eng)
+    private static async Task Run(ExecutionEngine eng, bool paused)
     {
         try
         {
-            await eng.RunAsync(Ws!);
+            await eng.RunAsync(Ws!, paused);
         }
         catch (Exception e)
         {
@@ -308,16 +329,31 @@ public static class EngineHost
                 progress = n.Progress,
                 display = n.Display,
                 ms = n.LastMs,
+                runs = n.Executions,
+                total = n.TotalMs,
                 err = n.Logs.LastOrDefault(l => l.Level == LogLevel.Error).Message,
                 html = TakeHtml(n),
                 image = TakeImage(n),
                 io = TakeIo(n),
                 settings = TakeSettings(n)
             }).ToList();
+            var paused = eng.Running && eng.Paused;
             json = JsonSerializer.Serialize(new
-                { type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes });
+            {
+                type = "state", running = eng.Running, count = eng.ExecutionCount, wires = eng.ActiveWires.ToArray(), nodes,
+                paused, ready = paused ? eng.ReadyNodes() : new List<int>(), last = eng.LastStarted
+            });
         }
 
+        // unchanged state (the usual case between runs): no message, so the page does not draw itself again
+        if (json == LastStateJson) return;
+        LastStateJson = json;
         Post(json);
     }
+
+    /// <summary>
+    ///     The last state message. The clock (Tick) flushes every few milliseconds; sending the same state again would
+    ///     re-render the whole page each time, which costs a lot of CPU with large workspaces.
+    /// </summary>
+    private static string? LastStateJson { get; set; }
 }

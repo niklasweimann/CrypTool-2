@@ -2016,6 +2016,16 @@ textarea.inline {
     z-index: 1;
 }
 
+/* port bubbles: above the component views (see Home.razor) */
+.canvas-over {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
 /* views end at the edge of the canvas */
 .nviews {
     position: absolute;
@@ -2079,4 +2089,462 @@ main.tracking, main.tracking * {
 main.tracking input, main.tracking textarea {
     user-select: text !important;
     -webkit-user-select: text !important;
+}
+
+/* ---- step mode, runtime per component, splicing ---- */
+.dot.pause {
+    background: #f0a020;
+    box-shadow: 0 0 6px #f0a020;
+}
+
+.status .precache {
+    margin-left: 12px;
+    color: var(--accent);
+}
+
+/* the components the next step may start */
+.node.ready .frame {
+    stroke: #f0a020;
+    stroke-width: 2;
+    stroke-dasharray: 6 4;
+}
+
+/* the component the last step started */
+.node.stepped .frame {
+    stroke: #f0a020;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 6px rgba(240, 160, 32, .6));
+}
+
+.timing {
+    cursor: default;
+}
+
+.timingtxt {
+    font-size: 10px;
+    font-weight: 600;
+    fill: #fff;
+    pointer-events: none;
+}
+
+/* the wire a dragged component would be put into */
+.wire.splice {
+    stroke-width: 6;
+    filter: drop-shadow(0 0 4px #2f6fed);
+}
+
+/* a file is dragged over the page */
+.drophint {
+    display: none;
+}
+
+body.filedrag .drophint {
+    display: flex;
+    position: fixed;
+    inset: 10px;
+    z-index: 70;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    border: 3px dashed var(--accent);
+    border-radius: 14px;
+    background: rgba(232, 239, 254, .82);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* ---- minimap ---- */
+.minimap {
+    position: absolute;
+    z-index: 20;
+    /* no backdrop blur: WebKit would blur again on every frame of the animated wires below */
+    background: rgba(255, 255, 255, .96);
+    contain: strict;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(16, 24, 40, .15);
+    overflow: hidden;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.minimap svg {
+    display: block;
+}
+
+.mm-node {
+    opacity: .75;
+}
+
+.mm-node.sel {
+    opacity: 1;
+    stroke: var(--accent);
+    stroke-width: 6;
+}
+
+.mm-node.run {
+    opacity: 1;
+}
+
+.mm-note {
+    fill: #fff6c4;
+    opacity: .8;
+}
+
+.mm-wire {
+    stroke: #8995ab;
+    stroke-width: 1;
+}
+
+.mm-view {
+    fill: rgba(47, 111, 237, .10);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+}
+
+/* ---- command palette ---- */
+.cmdp-back {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(16, 24, 40, .25);
+}
+
+.cmdp {
+    position: fixed;
+    z-index: 61;
+    top: 12vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(620px, calc(100vw - 32px));
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cmdp-in {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+}
+
+.cmdp-in input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+}
+
+.cmdp-list {
+    max-height: 52vh;
+    overflow-y: auto;
+    padding: 4px;
+}
+
+.ci-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.ci-item.on {
+    background: var(--accent-soft);
+}
+
+.ci-ico {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    flex: none;
+}
+
+.ci-ico img {
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.ci-label {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.ci-detail {
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    min-width: 0;
+}
+
+.ci-kind {
+    font-size: 10.5px;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 4px;
+    padding: 1px 6px;
+    flex: none;
+}
+
+.cmdp-empty {
+    padding: 14px;
+    color: var(--muted);
+}
+
+.cmdp-foot {
+    border-top: 1px solid var(--line);
+    padding: 5px 14px;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+/* ---- link manager ---- */
+.sm-dialog.wide.lm {
+    width: min(1180px, 96vw);
+    height: min(760px, 90vh);
+}
+
+.lm-body {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) minmax(280px, 1.4fr) minmax(240px, 1fr);
+    gap: 14px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.lm-col {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 6px;
+}
+
+.lm-edit, .lm-out {
+    overflow-y: auto;
+}
+
+.lm-h {
+    font-weight: 600;
+    color: #2b3f6b;
+    margin: 4px 0 2px;
+}
+
+.lm-search, .lm-name, .lm-url {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 5px 8px;
+    font: inherit;
+}
+
+.lm-url {
+    font: 11px ui-monospace, SFMono-Regular, Menlo, monospace;
+    resize: vertical;
+    word-break: break-all;
+    background: var(--bg);
+}
+
+.lm-tlist {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+}
+
+.lm-t {
+    display: grid;
+    grid-template-columns: 22px 1fr;
+    column-gap: 6px;
+    align-items: center;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.lm-t img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    grid-row: span 2;
+}
+
+.lm-t span {
+    grid-column: 2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lm-t small {
+    grid-column: 2;
+    color: var(--muted);
+    font-size: 10.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lm-t:hover {
+    background: var(--bg);
+}
+
+.lm-t.on {
+    background: var(--accent-soft);
+}
+
+.lm-comp {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+}
+
+.lm-ch {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 8px;
+    border-left: 5px solid #888;
+    cursor: pointer;
+    background: #fafbfd;
+}
+
+.lm-ch img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.lm-ch span {
+    flex: 1;
+}
+
+.lm-badge {
+    font-style: normal;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 9px;
+    padding: 0 7px;
+    font-size: 11px;
+}
+
+.lm-fields {
+    padding: 4px 8px 8px;
+}
+
+.lm-fields .mrow {
+    position: relative;
+}
+
+.lm-fields textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.lm-changed .mlabel {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.lm-reset {
+    border: none;
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.lm-opt {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.lm-btns {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.lm-btns button {
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 6px;
+    padding: 5px 12px;
+    cursor: pointer;
+}
+
+.lm-btns button.mdone {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.lm-btns button:disabled {
+    opacity: .5;
+    cursor: default;
+}
+
+.lm-sum {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.lm-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border-radius: 6px;
+}
+
+.lm-link:hover, .lm-link.on {
+    background: var(--bg);
+}
+
+.lm-ln {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lm-la button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 2px 5px;
+}
+
+.lm-la button.red:hover {
+    color: #e5484d;
+}
+
+@media (max-width: 820px) {
+    .lm-body {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+
+    .lm-tlist {
+        max-height: 220px;
+    }
 }

@@ -18,6 +18,11 @@ public sealed class RunNode
     /// <summary>Duration of the last Execute in milliseconds.</summary>
     public long LastMs;
 
+    /// <summary>Executions in this run and their total duration in milliseconds (shown as "runtime per component").</summary>
+    public int Executions;
+
+    public long TotalMs;
+
     /// <summary>Values waiting at each input (one entry per received value).</summary>
     public readonly Dictionary<ConnectorPort, Queue<object?>> Queues = new();
 
@@ -63,6 +68,38 @@ public sealed class ExecutionEngine
 
     /// <summary>Lock for the engine state that components change from their own thread (outputs, wires).</summary>
     public object Gate { get; } = new();
+
+    /// <summary>
+    /// Step mode: while paused no component is started, except one per <see cref="Step"/>. Components that are already
+    /// executing finish. Not part of CT2; it shows the data flow one execution at a time.
+    /// </summary>
+    public bool Paused { get; private set; }
+
+    int stepsAllowed;
+
+    /// <summary>The component started last (in step mode the one the last step started).</summary>
+    public int? LastStarted { get; private set; }
+
+    public void Pause() => Paused = true;
+
+    public void Resume()
+    {
+        Paused = false;
+        Interlocked.Exchange(ref stepsAllowed, 0);
+    }
+
+    /// <summary>Pauses (if not paused yet) and lets the next ready component start.</summary>
+    public void Step()
+    {
+        Paused = true;
+        Interlocked.Increment(ref stepsAllowed);
+    }
+
+    /// <summary>The components that would start next (for the step mode display).</summary>
+    public List<int> ReadyNodes()
+    {
+        lock (Gate) return Nodes.Values.Where(n => n.Comp != null && n.State != RunState.Error && IsReady(n)).Select(n => n.Model.Id).ToList();
+    }
 
     /// <summary>Stops the run: the components are told at once (a running Execute sees its stop flag), the loop ends.</summary>
     public void Stop()
@@ -155,9 +192,12 @@ public sealed class ExecutionEngine
     }
 
     /// <summary>Runs the workspace until <see cref="Stop"/> is called (the task ends when all components have been told to stop).</summary>
-    public async Task RunAsync(Workspace ws)
+    public async Task RunAsync(Workspace ws, bool paused = false)
     {
         if (Running) return;
+        Paused = paused;
+        Interlocked.Exchange(ref stepsAllowed, 0);
+        LastStarted = null;
         Prepare(ws);
         cts = new CancellationTokenSource();
         Running = true;
@@ -189,6 +229,9 @@ public sealed class ExecutionEngine
             if (node.Comp != null && node.State != RunState.Error) node.State = RunState.Idle;
             node.FirstRun = true;
             node.Progress = 0;
+            node.Executions = 0;
+            node.TotalMs = 0;
+            node.LastMs = 0;
             node.Queues.Clear();
             node.Last.Clear();
             foreach (var input in node.Model.Inputs) node.Queues[input] = new();
@@ -259,11 +302,14 @@ public sealed class ExecutionEngine
                 if (ct.IsCancellationRequested) break;
                 if (node.Comp == null || node.State == RunState.Error) continue;
                 lock (executing) if (executing.ContainsKey(node)) continue;
+                if (Paused && Volatile.Read(ref stepsAllowed) <= 0) break;
 
                 bool fire;
                 lock (Gate) fire = TryFire(node);
                 if (!fire) continue;
 
+                if (Paused) Interlocked.Decrement(ref stepsAllowed);
+                LastStarted = node.Model.Id;
                 progressed = true;
                 if (node.State == RunState.Error)
                 {
@@ -286,6 +332,12 @@ public sealed class ExecutionEngine
             {
                 idle = 0;
                 await Task.Delay(Math.Max(1, progressed ? SleepMs : 20), CancellationToken.None);
+            }
+            else if (Paused)
+            {
+                // waiting for the next step is not "nothing happens any more": the components are not shown as done
+                idle = 0;
+                await Task.Delay(20, CancellationToken.None);
             }
             else
             {
@@ -353,26 +405,18 @@ public sealed class ExecutionEngine
     /// <summary>
     /// CT2's rule for starting a component: sources start once; others start when all connected or mandatory inputs
     /// have a value and at least one input has a new one, and no consumer still has an unconsumed value (back-pressure).
-    /// On start the queued inputs are handed to the component.
+    /// Changes nothing (see <see cref="TryFire"/>).
     /// </summary>
-    bool TryFire(RunNode n)
+    bool IsReady(RunNode n)
     {
         var p = n.Model;
-        // as in CT2 (PluginModel.HasOnlyOptionalUnconnectedInputs) a connected control input counts as connected,
-        // so a slave that is driven by its master does not start by itself; for data, control connectors are ignored
-        bool onlyOptionalUnconnected = p.Inputs.All(c => !c.IsMandatory && c.Wires.Count == 0);
-        var dataInputs = p.Inputs.Where(c => !c.IsControl).ToList();
-        if (n.FirstRun && (p.Inputs.Count == 0 || onlyOptionalUnconnected))
-        {
-            n.FirstRun = false;
-            return true;
-        }
+        if (n.FirstRun && StartsAsSource(p)) return true;
         bool blocked = false;
         bool atLeastOneNew = false;
-        foreach (var input in dataInputs)
+        foreach (var input in p.Inputs.Where(c => !c.IsControl))
         {
             if (!input.IsMandatory && input.Wires.Count == 0) continue;
-            var queue = n.Queues[input];
+            if (!n.Queues.TryGetValue(input, out var queue)) return false; // not prepared for a run
             if (queue.Count == 0 && !n.Last.ContainsKey(input)) blocked = true; // never received a value
             else if (queue.Count > 0) atLeastOneNew = true;
         }
@@ -387,7 +431,25 @@ public sealed class ExecutionEngine
                 if (consumerHasPending) blocked = true;
             }
         }
-        if (blocked || !atLeastOneNew) return false;
+        return !blocked && atLeastOneNew;
+    }
+
+    /// <summary>
+    /// As in CT2 (PluginModel.HasOnlyOptionalUnconnectedInputs) a connected control input counts as connected, so a
+    /// slave that is driven by its master does not start by itself; for data, control connectors are ignored.
+    /// </summary>
+    static bool StartsAsSource(PluginNode p) => p.Inputs.Count == 0 || p.Inputs.All(c => !c.IsMandatory && c.Wires.Count == 0);
+
+    /// <summary>Starts the component if it is ready (<see cref="IsReady"/>): the queued inputs are handed to it.</summary>
+    bool TryFire(RunNode n)
+    {
+        var p = n.Model;
+        if (!IsReady(n)) return false;
+        if (n.FirstRun && StartsAsSource(p))
+        {
+            n.FirstRun = false;
+            return true;
+        }
         foreach (var c in p.Inputs)
         {
             var q = n.Queues[c];
@@ -431,6 +493,8 @@ public sealed class ExecutionEngine
             if (ExecuteInBackground) await OnOwnThread(comp.Execute);
             else comp.Execute();
             n.LastMs = sw.ElapsedMilliseconds;
+            n.TotalMs += n.LastMs;
+            n.Executions++;
             Interlocked.Increment(ref executionCount);
             n.Progress = 1;
             if (n.State == RunState.Running) n.State = RunState.Done;

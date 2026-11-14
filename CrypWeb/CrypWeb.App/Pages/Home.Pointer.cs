@@ -181,6 +181,9 @@ public partial class Home
             case Mode.Connect:
                 (cx, cy) = ToWorld(e.ClientX, e.ClientY);
                 break;
+            case Mode.Minimap:
+                MinimapPan(e);
+                break;
         }
     }
 
@@ -211,6 +214,8 @@ public partial class Home
             node.X = e.AltKey ? startX + dx : Snap(startX + dx);
             node.Y = e.AltKey ? startY + dy : Snap(startY + dy);
         }
+
+        UpdateSpliceWhileMoving(wx, wy);
     }
 
     private void MoveResize(PointerEventArgs e)
@@ -254,6 +259,7 @@ public partial class Home
             return;
         }
 
+        if (mode == Mode.Drag) FinishDragSplice();
         mode = Mode.None;
         connecting = null;
         resizing = null;
