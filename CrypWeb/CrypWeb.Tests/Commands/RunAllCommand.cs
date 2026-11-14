@@ -9,6 +9,7 @@ public static class RunAllCommand
     /// <summary>Runs every template (and renders every presentation) and prints a summary.</summary>
     public static async Task Run(string root, string[] args)
     {
+        DebugCommands.HookTrace();   // CT2_TRACE / CT2_TRACE_FILTER (see there)
         // every template, analyzers included; plugin code runs on background threads as in the app, so a long
         // computation is stopped after the time limit instead of holding up the run
         var unsupported = new Dictionary<string, int>();

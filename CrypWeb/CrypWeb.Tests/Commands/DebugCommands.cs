@@ -116,22 +116,7 @@ public static class DebugCommands
     {
         // runs one template and prints the last value on every connector (debugging a single workspace)
         var ws0 = CwmReader.Read(File.ReadAllBytes(Path.Combine(root, args[2])));
-        // CT2_TRACE=1: also print every exception thrown inside plugins (they often catch and log only the message);
-        // CT2_TRACE=2: with the first stack frames
-        string trace = Environment.GetEnvironmentVariable("CT2_TRACE");
-        if (trace == "1" || trace == "2")
-        {
-            int frames = trace == "2" ? 8 : 1;
-            AppDomain.CurrentDomain.FirstChanceException += (_, e) =>
-            {
-                // the exception's own trace holds only the throwing frame at this point: take the current call stack
-                string stack = frames == 1
-                    ? e.Exception.StackTrace?.Split('\n').FirstOrDefault()?.Trim() ?? ""
-                    : string.Join("\n      ", Environment.StackTrace.Split('\n').Select(l => l.Trim())
-                        .Where(l => !l.Contains("System.Environment") && !l.Contains("FirstChance") && !l.Contains("DebugCommands")).Take(frames));
-                Console.WriteLine("THROWN " + e.Exception.GetType().Name + ": " + e.Exception.Message + " @ " + stack);
-            };
-        }
+        HookTrace();
         var eng0 = new ExecutionEngine { ExecuteInBackground = true };
         var r0 = eng0.RunAsync(ws0);
         // like the browser worker: render the presentations and tick animations while the workspace runs
@@ -173,15 +158,44 @@ public static class DebugCommands
     }
 
     /// <summary>Runs every template that contains the given component type and prints timings and errors.</summary>
+    /// <summary>
+    /// CT2_TRACE=1: print every exception thrown inside plugins (they often catch and log only the message);
+    /// CT2_TRACE=2: with the call stack.
+    /// </summary>
+    internal static void HookTrace()
+    {
+        string trace = Environment.GetEnvironmentVariable("CT2_TRACE");
+        if (trace == "1" || trace == "2")
+        {
+            int frames = trace == "2" ? 8 : 1;
+            AppDomain.CurrentDomain.FirstChanceException += (_, e) =>
+            {
+                // the exception's own trace holds only the throwing frame at this point: take the current call stack
+                string stack = frames == 1
+                    ? e.Exception.StackTrace?.Split('\n').FirstOrDefault()?.Trim() ?? ""
+                    : string.Join("\n      ", Environment.StackTrace.Split('\n').Select(l => l.Trim())
+                        .Where(l => !l.Contains("System.Environment") && !l.Contains("FirstChance") && !l.Contains("DebugCommands")).Take(frames));
+                // CT2_TRACE_FILTER: only exceptions whose message contains this text
+                string filter = Environment.GetEnvironmentVariable("CT2_TRACE_FILTER");
+                if (string.IsNullOrEmpty(filter) || e.Exception.Message.Contains(filter, StringComparison.Ordinal))
+                {
+                    Console.WriteLine("THROWN " + e.Exception.GetType().Name + ": " + e.Exception.Message + " @ " + stack);
+                }
+            };
+        }
+    }
+
     public static async Task RunType(string root, string[] args)
     {
+        HookTrace();
         foreach (var f in Directory.EnumerateFiles(root, "*.cwm", SearchOption.AllDirectories))
         {
             var ws0 = CwmReader.Read(File.ReadAllBytes(f));
             if (!ws0.Plugins.Any(p => p.TypeName.Contains(args[2], StringComparison.OrdinalIgnoreCase))) continue;
             var eng0 = new ExecutionEngine { ExecuteInBackground = true };
             var r0 = eng0.RunAsync(ws0);
-            await Task.Delay(2000);
+            // optional fourth argument: milliseconds until Stop (to test stopping at different points)
+            await Task.Delay(args.Length > 3 && int.TryParse(args[3], out int ms) ? ms : 2000);
             eng0.Stop();
             await r0;
             Console.WriteLine(Path.GetRelativePath(root, f) + "  executions=" + eng0.ExecutionCount + "  slowest=" + string.Join(", ",
