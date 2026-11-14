@@ -211,5 +211,6 @@
   "links.number": "Number",
   "links.value": "Value (0/1)",
   "links.unknownComponent": "The link names a component that the template does not have: {0}",
-  "offline.preparing": "Offline: preparing…"
+  "offline.preparing": "Offline: preparing…",
+  "offline.templateMissing": "\"{0}\" could not be loaded: no connection, and the template has not been used or made available offline (View › Make available offline) before."
 }

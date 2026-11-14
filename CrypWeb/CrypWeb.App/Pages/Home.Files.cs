@@ -69,6 +69,11 @@ public partial class Home
             await FitAsync();
             _ = AddRecent(template, "template");
         }
+        catch (HttpRequestException)
+        {
+            // no connection and the template is not in the offline cache
+            error = Loc.T("offline.templateMissing", template);
+        }
         catch (Exception e)
         {
             error = e.Message;

@@ -83,11 +83,13 @@ self.addEventListener('fetch', event => {
     event.respondWith(HASHED.test(url.pathname) ? cacheFirst(request) : networkFirst(request));
 });
 
-// "Make available offline": {type: 'precache', urls: [...]}; answers with progress messages on the given port.
+// {type: 'precache', urls: [...]}: stores the files that are not cached yet. Sent by "Make available offline" (with a port
+// for progress messages) and by the page after every start (the runtime's files; on the first visit the page loads them
+// before this worker controls it, so they would be missing offline).
 self.addEventListener('message', event => {
     const data = event.data || {};
-    if (data.type !== 'precache' || !event.ports[0]) return;
-    const port = event.ports[0];
+    if (data.type !== 'precache') return;
+    const port = event.ports[0] || {postMessage() { /* nobody listens */ }};
     event.waitUntil((async () => {
         const cache = await caches.open(CACHE);
         let done = 0, failed = 0;

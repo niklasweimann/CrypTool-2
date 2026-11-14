@@ -417,6 +417,9 @@ public partial class Home : IDisposable, IHandleEvent
         EngineHost.Message += OnWorkerMessage;
         await Js.InvokeVoidAsync("ct2engine.start");
         engineReady = true;
+        // the first visit loads the runtime before the service worker is in charge: have it cache what is missing
+        // (a string[] alone would be taken as the argument list: wrap it)
+        await Js.InvokeVoidAsync("ct2.cacheAppFiles", new object[] { Localizer.Languages.Select(l => l.Code).ToArray() });
         StartAutosave();
         await RunPendingLink();
     }

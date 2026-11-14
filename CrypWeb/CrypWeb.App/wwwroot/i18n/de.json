@@ -211,5 +211,6 @@
   "links.number": "Zahl",
   "links.value": "Wert (0/1)",
   "links.unknownComponent": "Der Link nennt eine Komponente, die die Vorlage nicht hat: {0}",
-  "offline.preparing": "Offline: wird vorbereitet…"
+  "offline.preparing": "Offline: wird vorbereitet…",
+  "offline.templateMissing": "„{0}“ konnte nicht geladen werden: keine Verbindung, und die Vorlage wurde vorher weder benutzt noch offline verfügbar gemacht (Ansicht › Offline verfügbar machen)."
 }

@@ -356,6 +356,36 @@ window.ct2.copyText = async text => {
 window.ct2.offlineReady = () => !!(navigator.serviceWorker && navigator.serviceWorker.controller);
 
 /**
+ * Makes sure that everything the app needs to start is in the offline cache: the files of the .NET runtime (from its
+ * own list), the scripts, styles and data files the page loaded, and the texts of all languages. Called once after the
+ * start; the service worker downloads only what it does not have yet.
+ */
+window.ct2.cacheAppFiles = async languages => {
+    try {
+        const registration = navigator.serviceWorker && await navigator.serviceWorker.ready;
+        const worker = registration && registration.active;
+        if (!worker) return;
+        const urls = new Set();
+        const add = path => urls.add(new URL(path, document.baseURI).href);
+        const resources = globalThis.getDotnetRuntime(0).getConfig().resources || {};
+        for (const [group, list] of Object.entries(resources)) {
+            if (group === 'satelliteResources') {
+                for (const [culture, files] of Object.entries(list)) for (const f of files) add('_framework/' + culture + '/' + f.name);
+            } else if (Array.isArray(list)) {
+                for (const f of list) if (f && f.name) add(f.name.startsWith('_framework/') ? f.name : '_framework/' + f.name.replace(/^\.\.\/_framework\//, ''));
+            }
+        }
+        for (const entry of performance.getEntriesByType('resource')) {
+            const url = new URL(entry.name);
+            if (url.origin === location.origin && !url.pathname.includes('/_framework/debug') && !url.pathname.includes('/vfs/')) add(url.href);
+        }
+        for (const lang of languages) add('i18n/' + lang + '.json');
+        ['./', 'plugins.json', 'templates/index.json', 'templates/icons.json', 'vfs/manifest.json'].forEach(add);
+        worker.postMessage({type: 'precache', urls: [...urls]});
+    } catch { /* no service worker or no runtime list: whatever was used is cached anyway */ }
+};
+
+/**
  * "Make available offline": lets the service worker download all templates (with their texts and icons) and the
  * data files of the plugins in advance. Progress goes to ref.OnPrecacheProgress(done, failed, total, finished).
  */
