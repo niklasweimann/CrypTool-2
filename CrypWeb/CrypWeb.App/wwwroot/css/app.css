@@ -11,6 +11,10 @@
     --shadow-pop: 0 10px 30px rgba(16, 24, 40, .18), 0 2px 6px rgba(16, 24, 40, .08);
 }
 
+input[type=radio], input[type=checkbox], input[type=range] {
+    accent-color: var(--accent);
+}
+
 html, body {
     margin: 0;
     height: 100%;
@@ -839,10 +843,18 @@ main {
 .inline {
     position: absolute;
     z-index: 5;
-    font: 12px "Segoe UI", sans-serif;
-    padding: 1px 4px;
-    border: 2px solid #1565d8;
-    border-radius: 3px;
+    font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    padding: 2px 6px;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 4px 14px rgba(16, 24, 40, .2);
+}
+
+textarea.inline {
+    resize: none;
+    background: #fffbe6;
 }
 
 .plabel {
@@ -951,7 +963,8 @@ main {
 .sm-back {
     position: fixed;
     inset: 0;
-    background: #0006;
+    background: rgba(16, 24, 40, .45);
+    backdrop-filter: blur(3px);
     z-index: 50;
     display: flex;
     align-items: center;
@@ -962,8 +975,8 @@ main {
     width: min(560px, 94vw);
     max-height: 86vh;
     background: #fff;
-    border-radius: 6px;
-    box-shadow: 0 10px 40px #0007;
+    border-radius: 14px;
+    box-shadow: var(--shadow-pop);
     display: flex;
     flex-direction: column;
     outline: none;
@@ -1003,12 +1016,14 @@ main {
     background: transparent;
     font-size: 16px;
     cursor: pointer;
-    padding: 2px 6px;
-    border-radius: 3px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: var(--muted);
 }
 
 .mx:hover {
-    background: #0002;
+    background: #eef1f6;
+    color: #1f2430;
 }
 
 .mbody {
@@ -1018,10 +1033,10 @@ main {
 
 .mgroup {
     font-weight: 600;
-    color: var(--blue);
+    color: var(--accent);
     border-bottom: 1px solid var(--line);
-    margin: 12px 0 4px;
-    padding-bottom: 2px;
+    margin: 14px 0 6px;
+    padding-bottom: 3px;
 }
 
 .mrow {
@@ -1034,7 +1049,7 @@ main {
 .mlabel {
     width: 200px;
     flex: none;
-    color: #333;
+    color: #3d4556;
 }
 
 .mctl {
@@ -1048,9 +1063,10 @@ main {
 .mctl input[type=text], .mctl input[type=number], .mctl input[type=password], .mctl input:not([type]), .mctl select {
     flex: 1;
     min-width: 0;
-    padding: 4px 6px;
-    border: 1px solid #b7c3d8;
-    border-radius: 3px;
+    padding: 5px 8px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: #fff;
     font: inherit;
 }
 
@@ -1060,7 +1076,7 @@ main {
 }
 
 .mctl input:disabled {
-    background: #f1f1f1;
+    background: var(--bg);
 }
 
 .mslider {
@@ -1110,22 +1126,23 @@ main {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding: 8px 12px;
+    padding: 10px 14px;
     border-top: 1px solid var(--line);
-    background: #f3f6fb;
-    color: #778;
+    background: var(--bg);
+    color: var(--muted);
     font-size: 11px;
 }
 
 .mdone {
     margin-left: auto;
-    padding: 4px 18px;
-    border: 1px solid #2b579a;
-    background: #2b579a;
+    padding: 6px 18px;
+    border: 0;
+    background: var(--accent);
     color: #fff;
-    border-radius: 3px;
+    border-radius: 8px;
     cursor: pointer;
     font: inherit;
+    font-weight: 600;
 }
 
 .rtab {
@@ -1133,8 +1150,9 @@ main {
 }
 
 .rbtn.on {
-    background: #cfe0ff;
-    border-color: #7fa3e0;
+    background: var(--accent-soft);
+    border-color: transparent;
+    color: var(--accent);
 }
 
 .langico {
@@ -1300,26 +1318,28 @@ main {
     flex: 1;
     overflow: auto;
     background: #fff;
-    padding: 18px 28px;
+    padding: 22px 32px;
 }
 
 .page h1 {
     font-size: 22px;
-    color: var(--blue);
-    margin: 0 0 6px;
+    font-weight: 700;
+    color: #1f2430;
+    margin: 0 0 8px;
 }
 
 .page h2 {
     font-size: 16px;
-    margin: 20px 0 4px;
+    font-weight: 600;
+    margin: 22px 0 6px;
 }
 
 .page h3 {
-    font-size: 12px;
-    color: #556;
-    margin: 10px 0 4px;
+    font-size: 11px;
+    color: var(--muted);
+    margin: 12px 0 4px;
     text-transform: uppercase;
-    letter-spacing: .04em;
+    letter-spacing: .05em;
 }
 
 .startbtns {
@@ -1510,10 +1530,10 @@ main {
 
 .sgrp {
     font-weight: 600;
-    color: var(--blue);
+    color: var(--accent);
     border-bottom: 1px solid var(--line);
-    margin: 18px 0 6px;
-    padding-bottom: 2px;
+    margin: 22px 0 8px;
+    padding-bottom: 4px;
     max-width: 640px;
 }
 
@@ -1678,13 +1698,14 @@ main {
 .tpltree {
     max-width: 760px;
     border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 4px 0;
-    background: #fbfcfe;
+    border-radius: 10px;
+    padding: 4px;
+    background: #fff;
 }
 
 .tpldir, .tplfile {
-    padding: 3px 10px;
+    padding: 4px 10px;
+    border-radius: 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -1697,7 +1718,7 @@ main {
 }
 
 .tpldir:hover, .tplfile:hover {
-    background: #dde8fb;
+    background: var(--accent-soft);
 }
 
 .tpldir i {
@@ -1742,7 +1763,7 @@ main {
 }
 
 .page.start {
-    background: linear-gradient(180deg, #e9f1fb, #cfe0f5);
+    background: linear-gradient(180deg, #f3f6fd, #e3ebf9);
 }
 
 .sc-head {
@@ -1779,36 +1800,38 @@ main {
 
 .sc-h {
     font-size: 14px;
+    font-weight: 600;
     text-transform: none;
     letter-spacing: 0;
-    color: #111;
-    margin: 14px 0 6px;
+    color: #1f2430;
+    margin: 16px 0 8px;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
 .sc-box {
-    background: #bcdcf8;
-    border: 2px solid #7ea6d6;
-    border-radius: 5px;
-    padding: 4px;
+    background: rgba(255, 255, 255, .8);
+    border: 1px solid rgba(16, 24, 40, .08);
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(16, 24, 40, .06);
+    padding: 6px;
 }
 
 .sc-link {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px;
+    padding: 8px 10px;
     cursor: pointer;
-    color: #112;
+    color: #1f2430;
     text-decoration: none;
     position: relative;
-    border-radius: 3px;
+    border-radius: 8px;
 }
 
 .sc-link:hover {
-    background: #d6ebff;
+    background: var(--accent-soft);
 }
 
 .sc-link input[type=file] {

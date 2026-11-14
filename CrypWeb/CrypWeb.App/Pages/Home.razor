@@ -697,7 +697,20 @@
                                 @onclick="() => ShowSingleton(DocKind.Start)">@Loc["doc.start"]</a></div>
                     </div>
                 }
-                @if (editing != null)
+                @if (editing is TextNode)
+                {
+                    @* notes have several lines: Enter breaks the line, Ctrl/Cmd+Enter or leaving the box applies the text *@
+                    <textarea
+                        class="inline"
+                        spellcheck="false"
+                        style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px;height:@(F(editH))px"
+                        @bind="editText"
+                        @bind:event="oninput"
+                        @onkeydown="EditKey"
+                        @onblur="CommitEdit"
+                        id="inline-edit"></textarea>
+                }
+                else if (editing != null)
                 {
                     <input
                         class="inline"

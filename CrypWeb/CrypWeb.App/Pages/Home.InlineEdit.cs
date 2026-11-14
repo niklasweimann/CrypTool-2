@@ -26,6 +26,7 @@ public partial class Home
         editX = t.X * zoom + panX;
         editY = t.Y * zoom + panY;
         editW = Math.Max(160, t.Width * zoom);
+        editH = Math.Max(60, t.Height * zoom);
         FocusEdit();
     }
 
@@ -46,8 +47,8 @@ public partial class Home
 
     private void EditKey(KeyboardEventArgs e)
     {
-        if (e.Key == "Enter") CommitEdit();
-        else if (e.Key == "Escape") editing = null;
+        if (e.Key == "Escape") editing = null;
+        else if (e.Key == "Enter" && (editing is not TextNode || e.CtrlKey || e.MetaKey)) CommitEdit();
     }
 
     private void CommitEdit()

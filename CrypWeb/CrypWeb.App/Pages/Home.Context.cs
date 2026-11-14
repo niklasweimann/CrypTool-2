@@ -190,114 +190,29 @@ public partial class Home
     }
 
     /// <summary>
-    ///     Routes all wires anew: for every wire the candidate route (see <see cref="RouteCandidates" />) that crosses
-    ///     the fewest components, runs on top of the fewest other wires and is the shortest wins.
+    ///     Routes all wires anew around the components (see <see cref="RouteAround" />). The wires are routed one
+    ///     after the other and avoid running on top of the ones already placed.
     /// </summary>
     private void Rearrange()
     {
         ed.Checkpoint();
-        const double margin = 8;
+        const double margin = 10;
         var boxes = ed.Ws.Plugins.Where(p => !p.Minimized).Select(p =>
         {
             var (w, h) = Size(p);
-            return (plugin: p, x0: p.X - margin, y0: p.Y - margin, x1: p.X + w + margin, y1: p.Y + h + margin);
+            return new Box(p.X - margin, p.Y - margin, p.X + w + margin, p.Y + h + margin);
         }).ToList();
 
         var placed = new List<List<(double x, double y)>>();
         foreach (var wire in ed.Ws.Wires.Where(w => w.From != null && w.To != null))
         {
-            var best = AutoRoute(wire);
-            var bestCost = double.MaxValue;
-            foreach (var route in RouteCandidates(wire, boxes.Select(b => (b.x0, b.y0, b.x1, b.y1)).ToList()))
-            {
-                var cost = RouteCost(route, boxes, placed, wire);
-                if (cost >= bestCost) continue;
-                bestCost = cost;
-                best = route;
-            }
-
+            var route = RouteAround(wire, boxes, placed);
+            if (route == null || !IsValidRoute(wire, route)) route = AutoRoute(wire);
             wire.Points.Clear();
-            wire.Points.AddRange(best);
+            wire.Points.AddRange(route);
             wire.RouteSig = CwmWriter.RouteSig(wire);
-            placed.Add(best);
+            placed.Add(route);
         }
-    }
-
-    /// <summary>
-    ///     Orthogonal routes between the two ports: the automatic one, the same with the vertical run moved next to
-    ///     a component edge, and routes with a horizontal lane above/below the components.
-    /// </summary>
-    private static IEnumerable<List<(double x, double y)>> RouteCandidates(Wire wire,
-        List<(double x0, double y0, double x1, double y1)> boxes)
-    {
-        yield return AutoRoute(wire);
-
-        var start = PortPos(wire.From!);
-        var end = PortPos(wire.To!);
-        var (sdx, sdy) = Away(SideOf(wire.From!));
-        var (edx, edy) = Away(SideOf(wire.To!));
-        if (sdx == 0 || edx == 0) yield break; // only left/right ports are re-routed beyond the automatic route
-
-        const double stub = 18;
-        var a = (x: start.x + sdx * stub, y: start.y);
-        var b = (x: end.x + edx * stub, y: end.y);
-
-        // vertical run between the stubs, next to a component edge (or in the middle)
-        var xs = new List<double> { (a.x + b.x) / 2 };
-        foreach (var box in boxes)
-        {
-            xs.Add(box.x0);
-            xs.Add(box.x1);
-        }
-
-        foreach (var x in xs.Distinct())
-            yield return new List<(double, double)> { start, a, (x, a.y), (x, b.y), b, end };
-
-        // horizontal lane above/below: leave the stub vertically, run along the lane, come back down/up
-        var lanes = new List<double>();
-        foreach (var box in boxes)
-        {
-            lanes.Add(box.y0);
-            lanes.Add(box.y1);
-        }
-
-        foreach (var y in lanes.Distinct())
-            yield return new List<(double, double)> { start, a, (a.x, y), (b.x, y), b, end };
-    }
-
-    /// <summary>Cost of a route: crossed components (heavy), shared stretches with already placed wires, length, bends.</summary>
-    private static double RouteCost(List<(double x, double y)> route,
-        List<(PluginNode plugin, double x0, double y0, double x1, double y1)> boxes,
-        List<List<(double x, double y)>> placed, Wire wire)
-    {
-        var cost = 0.0;
-        for (var i = 0; i + 1 < route.Count; i++)
-        {
-            var (p, q) = (route[i], route[i + 1]);
-            var length = Math.Abs(q.x - p.x) + Math.Abs(q.y - p.y);
-            cost += length + (length > 0 ? 20 : 0); // every bend costs a little
-            var (lx, hx) = (Math.Min(p.x, q.x), Math.Max(p.x, q.x));
-            var (ly, hy) = (Math.Min(p.y, q.y), Math.Max(p.y, q.y));
-            foreach (var box in boxes)
-            {
-                // the first and last stretch leave the own components
-                var own = box.plugin == wire.From!.Plugin || box.plugin == wire.To!.Plugin;
-                if (own && (i == 0 || i + 2 == route.Count)) continue;
-                if (hx > box.x0 && lx < box.x1 && hy > box.y0 && ly < box.y1) cost += 5000;
-            }
-
-            foreach (var other in placed)
-                for (var j = 0; j + 1 < other.Count; j++)
-                {
-                    var (r, t) = (other[j], other[j + 1]);
-                    var sameVertical = Math.Abs(p.x - q.x) < .5 && Math.Abs(r.x - t.x) < .5 && Math.Abs(p.x - r.x) < 4;
-                    var sameHorizontal = Math.Abs(p.y - q.y) < .5 && Math.Abs(r.y - t.y) < .5 && Math.Abs(p.y - r.y) < 4;
-                    if (sameVertical && Math.Min(hy, Math.Max(r.y, t.y)) > Math.Max(ly, Math.Min(r.y, t.y))) cost += 300;
-                    if (sameHorizontal && Math.Min(hx, Math.Max(r.x, t.x)) > Math.Max(lx, Math.Min(r.x, t.x))) cost += 300;
-                }
-        }
-
-        return cost;
     }
 
     private enum Ctx

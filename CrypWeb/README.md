@@ -12,7 +12,7 @@ New to the code? Start with [ARCHITECTURE.md](ARCHITECTURE.md): project map, "wh
 
 IDE: open `CrypWeb/CrypWeb.sln` (Rider / Visual Studio). It contains only the CrypWeb projects, so it does not depend on the repository's own `CrypTool 2.sln` (which needs .NET Framework). After `python3 tools-gen-plugins.py` changes the list of isolated plugin projects, re-add them: `dotnet sln CrypWeb.sln add CrypWeb.Plugins.Isolated/*/*.csproj --solution-folder Plugins.Isolated`.
 
-Run: `./tools-copy-templates.sh && dotnet run --project CrypWeb.App --urls http://localhost:5199`
+Run (the script also copies the template icons, `<name>.png` next to each `.cwm`, and writes `templates/icons.json`): `./tools-copy-templates.sh && dotnet run --project CrypWeb.App --urls http://localhost:5199`
 
 Canvas features: move (multi/Shift-select, marquee, snap, arrow-key nudge), resize, pan (middle/right/Space), zoom at cursor, fit/100%,
 connect ports by drag (type-checked, re-route by dragging an input), select/delete wires, add components (palette drag/double-click) and notes,

@@ -33,7 +33,7 @@ public partial class Home : IDisposable, IHandleEvent
     private PaletteEntry? dragEntry;
     private bool dragMoved, spaceDown;
     private Dictionary<int, (double x, double y)> dragStart = new();
-    private double editX, editY, editW;
+    private double editX, editY, editW, editH;
     private VisualNode? editing;
     private string? error;
     private string filter = "", editText = "";
