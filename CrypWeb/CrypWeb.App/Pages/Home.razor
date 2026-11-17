@@ -772,8 +772,8 @@
                         class="inline"
                         spellcheck="false"
                         style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px;height:@(F(editH))px"
-                        @bind="editText"
-                        @bind:event="oninput"
+                        value="@editText"
+                        @oninput="EditInput"
                         @onkeydown="EditKey"
                         @onblur="CommitEdit"
                         id="inline-edit"></textarea>
@@ -783,8 +783,8 @@
                     <input
                         class="inline"
                         style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px"
-                        @bind="editText"
-                        @bind:event="oninput"
+                        value="@editText"
+                        @oninput="EditInput"
                         @onkeydown="EditKey"
                         @onblur="CommitEdit"
                         id="inline-edit"/>

@@ -1,4 +1,5 @@
 using CrypTool.Web.Core;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
@@ -45,10 +46,22 @@ public partial class Home
         }
     }
 
+    /// <summary>
+    ///     Keeps the typed text. No re-render: the text box already shows it, and a render per key stroke would
+    ///     give the handlers of the text box new ids while the next key's events are already on their way (see
+    ///     <see cref="skipRender"/>), so those events (and the typed text) would be lost.
+    /// </summary>
+    private void EditInput(ChangeEventArgs e)
+    {
+        editText = e.Value?.ToString() ?? "";
+        skipRender = true;
+    }
+
     private void EditKey(KeyboardEventArgs e)
     {
         if (e.Key == "Escape") editing = null;
         else if (e.Key == "Enter" && (editing is not TextNode || e.CtrlKey || e.MetaKey)) CommitEdit();
+        else skipRender = true; // an ordinary key: nothing visible changed
     }
 
     private void CommitEdit()
