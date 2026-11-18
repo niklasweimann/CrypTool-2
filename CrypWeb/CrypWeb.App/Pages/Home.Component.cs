@@ -38,9 +38,10 @@ public partial class Home
             return;
         }
 
+        // at least the current size (or the size the view had before it was closed), and room for the view
         var (w, h) = Size(p);
-        p.Width = Math.Max(w, 260);
-        p.Height = Math.Max(h, 190);
+        p.Width = Math.Max(Math.Max(w, p.Width), 260);
+        p.Height = Math.Max(Math.Max(h, p.Height), 190);
         p.ViewState = view;
     }
 

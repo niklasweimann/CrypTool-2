@@ -41,8 +41,11 @@ public partial class Home
 
     private static (double w, double h) Size(PluginNode p)
     {
-        if (p.Minimized) return (p.ViewState != 0 && p.Width >= 60 ? p.Width : AutoW(p), 22);
-        if (p.ViewState != 0 && p.Width >= 60 && p.Height >= 40)
+        // a component showing only its icon has its fixed size (and cannot be resized, see CanResize); the size it
+        // got with an open view is kept in Width/Height and applies again when a view is opened
+        var sized = !IconOnly(p) && p.ViewState != 0;
+        if (p.Minimized) return (sized && p.Width >= 60 ? p.Width : AutoW(p), 22);
+        if (sized && p.Width >= 60 && p.Height >= 40)
         {
             var min = MinSize(p);
             return (Math.Max(p.Width, min.Width), Math.Max(p.Height, min.Height));
