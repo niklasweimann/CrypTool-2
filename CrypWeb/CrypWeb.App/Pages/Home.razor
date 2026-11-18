@@ -128,7 +128,7 @@
                 </div>
                 <div class="rgroup">
                     <div class="rbtns">
-                        <button class="rbtn big" title="@Loc["offline.tip"]" @onclick="MakeAvailableOffline" disabled="@(precache != null)"><span
+                        <button class="rbtn big" title="@Loc["offline.tip"]" @onclick="MakeAvailableOffline"><span
                                 class="ico"><Icon Name="offline"/></span>@Loc["offline.make"]</button>
                     </div>
                     <div class="rname">@Loc["group.offline"]</div>
@@ -318,7 +318,10 @@
                   @ondragover="DragOver" @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">
                 @if (error != null)
                 {
-                    <div class="msg err">@error</div>
+                    <div class="msg err" role="alert">
+                        <span>@error</span>
+                        <button class="msg-close" title="@Loc["about.close"]" @onclick="() => error = null">✕</button>
+                    </div>
                 }
                 <div class="cvtools">
                     <button title="@Loc["view.fit"]" @onclick="FitAsync"><Icon Name="fit" Size="18"/></button>
@@ -851,9 +854,9 @@
     <div class="status">
         <span
             class="dot @(engine.Running ? engine.Paused ? "pause" : "run" : "")"></span>@(engine.Running ? Loc.T(engine.Paused ? "status.paused" : "status.running", engine.ExecutionCount) : Loc["status.ready"])
-        @if (precache is { } pc)
+        @if (offlineRun is { } run)
         {
-            <span class="precache">@(pc.Total == 0 ? Loc["offline.preparing"] : Loc.T("offline.progress", pc.Done, pc.Total))</span>
+            <span class="precache" @onclick="MakeAvailableOffline">@(run.Total == 0 ? Loc["offline.preparing"] : Loc.T("offline.progress", run.Done, run.Total))</span>
         }
         <span
             class="sp"></span>@Loc.T("status.counts", ed.Ws.Plugins.Count, ed.Ws.Wires.Count) · @((int)Math.Round(zoom * 100))%
@@ -967,6 +970,14 @@
                      OnLinksChanged="SaveLinks"
                      OnTest="async l => { linkManagerOpen = false; await OpenLink(l); }"
                      OnClose="() => linkManagerOpen = false"/>
+    }
+    @if (offlineOpen)
+    {
+        <OfflineModal Run="offlineRun"
+                      Version="offlineVersion"
+                      OnDownload="StartOfflineDownload"
+                      OnCancel="CancelOfflineDownload"
+                      OnClose="() => offlineOpen = false"/>
     }
     @if (aboutOpen)
     {

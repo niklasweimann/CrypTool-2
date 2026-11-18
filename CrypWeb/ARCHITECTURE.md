@@ -67,6 +67,7 @@ A short map for maintainers. The user-facing description and the list of support
 | `CrypWeb.Plugins/presentations.g.props`, `Presentations/**/*.g.cs` | `tools-gen-presentations.py` (input: `presentations.include`) |
 | `CrypWeb.Wpf/Media/Colors.g.cs` | `CrypWeb.Wpf/tools/gen-colors.py` |
 | virtual file system `manifest.json` | `tools-gen-vfs.py` |
+| `CrypWeb.App/wwwroot/offline.json` (file lists of the offline dialog) | `tools-gen-offline.py` (run by `tools-build-web.sh`; needs the templates, `vfs/` and `wpf-res/`) |
 
 ## Verifying a change
 

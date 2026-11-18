@@ -36,12 +36,7 @@
         .splash-title {
             font-size: 28px;
             font-weight: 600;
-            letter-spacing: .5px
-        }
-
-        .splash-sub {
-            font-size: 13px;
-            color: #5b6f98;
+            letter-spacing: .5px;
             margin-bottom: 18px
         }
 
@@ -76,12 +71,15 @@
     <link href="css/app.css" rel="stylesheet"/>
     <link href="css/i18n.css" rel="stylesheet"/>
     <link href="css/wpf.css" rel="stylesheet"/>
-    <link href="favicon.png" rel="icon" type="image/png"/>
+    <link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48"/>
+    <link href="favicon.png" rel="icon" sizes="32x32" type="image/png"/>
+    <link href="icon-192.png" rel="icon" sizes="192x192" type="image/png"/>
     <link href="manifest.webmanifest" rel="manifest"/>
-    <link href="icon-192.png" rel="apple-touch-icon"/>
+    <link href="apple-touch-icon.png" rel="apple-touch-icon"/>
     <meta content="#2b3f6b" name="theme-color"/>
-    <link href="CrypWeb.App.styles.css" rel="stylesheet"/>
     <script type="importmap"></script>
+    <!-- first: records messages and errors from the start, and shows the error report when the app crashes -->
+    <script src="crashreport.js"></script>
 </head>
 
 <body>
@@ -89,7 +87,6 @@
     <div class="splash">
         <img alt="" class="splash-logo" src="logo.png"/>
         <div class="splash-title">CrypTool 2 Web Edition</div>
-        <div class="splash-sub">Web edition</div>
         <div class="splash-bar">
             <div class="splash-fill"></div>
         </div>
@@ -105,12 +102,27 @@
 <script src="canvas.js"></script>
 <script src="wpf.js"></script>
 <script src="vfs.js"></script>
+<script src="offline.js"></script>
 <script src="engine.js"></script>
 <script src="media.js"></script>
 <script autostart="false" src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 <script>
     // plugin texts come in every language the app offers: load all satellite resource assemblies
-    Blazor.start({configureRuntime: runtime => runtime.withConfig({loadAllSatelliteResources: true})});
+    Blazor.start({
+        configureRuntime: runtime => runtime
+            .withConfig({
+                loadAllSatelliteResources: true,
+                // The runtime loads the resource assemblies of the browser's language (e.g. de-DE) with a synchronous
+                // call from the UI thread, which the default mode of the multi-threaded runtime refuses: the app would
+                // not start in a German browser. This mode allows such calls; blocking waits inside them still throw.
+                jsThreadBlockingMode: 'ThrowWhenBlockingWait',
+            })
+            // the .NET runtime stopped (e.g. a Mono abort): show the error report (crashreport.js)
+            .withModuleConfig({
+                onAbort: reason => ctCrash.runtimeAborted(reason),
+                onExit: code => { if (code !== 0) ctCrash.runtimeAborted('exit code ' + code); },
+            }),
+    });
     // offline use and installation as an app (see service-worker.js)
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js').catch(() => { /* not available (e.g. private window) */ });
 </script>

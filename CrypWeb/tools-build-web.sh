@@ -6,6 +6,8 @@ cd "$(dirname "$0")"
 if [ "$1" != "--skip-templates" ]; then
   ./tools-copy-templates.sh
 fi
+# the file lists of the offline dialog (needs the templates, vfs/ and wpf-res/)
+python3 tools-gen-offline.py
 rm -rf dist
 dotnet publish CrypWeb.App -c Release -nologo -v:q -o dist/_publish
 mv dist/_publish/wwwroot/* dist/ 2>/dev/null || true

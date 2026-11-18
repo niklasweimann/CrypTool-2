@@ -98,7 +98,8 @@ public partial class Home
         yield return new(command, Loc["view.minimap"] + (showMinimap ? " ✓" : ""), "", "map", Cmd(() => showMinimap = !showMinimap));
         yield return new(command, Loc["view.timings"] + (showTimings ? " ✓" : ""), "", "timer", Cmd(() => showTimings = !showTimings));
         yield return new(command, Loc["view.snap"] + (snap ? " ✓" : ""), "", null, Cmd(() => snap = !snap));
-        yield return new(command, Loc["offline.make"], "", "offline", MakeAvailableOffline);
+        yield return new(command, Loc["offline.make"], "", "offline", Cmd(MakeAvailableOffline));
+        yield return new(command, Loc["cmd.errorReport"], "", null, async () => await Js.InvokeVoidAsync("ctCrash.open"));
     }
 
     /// <summary>The entries that match the query: every word of it must occur; names that start with it come first.</summary>

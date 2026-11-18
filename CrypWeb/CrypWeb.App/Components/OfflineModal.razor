@@ -1,0 +1,203 @@
+@using System.Globalization
+@using System.Text.Json.Serialization
+@using CrypWeb.App.Pages
+@inject Localizer Loc
+@inject IJSRuntime Js
+
+@*
+  "Make available offline": the user chooses what to keep on this device (templates, pictures, the language data of
+  single languages), downloads it, loads it again from the server or deletes it. The work is done by wwwroot/offline.js
+  and the service worker; a running download belongs to the page (Home.Offline.cs) and goes on when this dialog closes.
+*@
+<div class="sm-back" @onclick="OnClose">
+    <div class="sm-dialog ol" @onclick:stopPropagation>
+        <div class="mhead">
+            <span class="ol-ico"><Icon Name="offline" Size="26"/></span>
+            <div class="mtitle">@Loc["offline.title"]<small>@Loc["offline.intro"]</small></div>
+            <button class="mx" @onclick="OnClose" title="@Loc["about.close"]">✕</button>
+        </div>
+        <div class="mbody">
+            @if (status == null)
+            {
+                <div class="mhint">@Loc["offline.preparing"]</div>
+            }
+            else if (!status.Available)
+            {
+                <div class="mhint err">@Loc["offline.unavailable"]</div>
+            }
+            else
+            {
+                <div class="mgroup">@Loc["offline.content"]</div>
+                @foreach (var g in status.Groups.Where(g => !IsLanguage(g)))
+                {
+                    @Row(g, Loc["offline.group." + g.Id], Loc["offline.group." + g.Id + ".tip"])
+                }
+                <div class="mgroup ol-langhead">
+                    <span>@Loc["offline.languages"]</span>
+                    <button class="ol-link" @onclick="() => SelectLanguages(true)" disabled="@Busy">@Loc["offline.all"]</button>
+                    <button class="ol-link" @onclick="() => SelectLanguages(false)" disabled="@Busy">@Loc["offline.none"]</button>
+                </div>
+                <div class="ol-langtip">@Loc["offline.languagesTip"]</div>
+                @foreach (var g in status.Groups.Where(IsLanguage).OrderBy(LanguageName, StringComparer.CurrentCulture))
+                {
+                    @Row(g, LanguageName(g), null)
+                }
+            }
+        </div>
+        @if (Run is { } run)
+        {
+            <div class="ol-progress">
+                <div class="ol-bar">
+                    <div style="width:@(F(run.TotalBytes > 0 ? 100.0 * run.Bytes / run.TotalBytes : run.Total > 0 ? 100.0 * run.Done / run.Total : 0))%"></div>
+                </div>
+                <span>@Loc.T("offline.running", run.Done, run.Total, Size(run.Bytes), Size(run.TotalBytes))</span>
+                <button class="ol-btn" @onclick="OnCancel">@Loc["offline.cancel"]</button>
+            </div>
+        }
+        <div class="mfoot ol-foot">
+            <span class="ol-info">
+                @if (status is { Available: true })
+                {
+                    @Loc.T("offline.used", Size(status.UsedBytes))
+                }
+            </span>
+            <button class="ol-btn" @onclick="Remove" disabled="@(Busy || !selected.Any(IsCached))"
+                    title="@Loc["offline.deleteTip"]">@Loc["offline.delete"]</button>
+            <button class="ol-btn" @onclick="() => Download(true)" disabled="@(Busy || selected.Count == 0)"
+                    title="@Loc["offline.refreshTip"]">@Loc["offline.refresh"]</button>
+            <button class="mdone" @onclick="() => Download(false)" disabled="@(Busy || MissingBytes == 0)">
+                @(MissingBytes > 0 ? Loc.T("offline.download", Size(MissingBytes)) : Loc["offline.complete"])
+            </button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    /// <summary>The running download, or null.</summary>
+    [Parameter] public OfflineRun? Run { get; set; }
+
+    /// <summary>Changes when a download ended: the dialog reads the state of the cache again.</summary>
+    [Parameter] public int Version { get; set; }
+
+    /// <summary>Starts a download: the selected groups, and whether to load them again from the server.</summary>
+    [Parameter] public EventCallback<(string[] Groups, bool Fresh)> OnDownload { get; set; }
+
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnClose { get; set; }
+
+    private OfflineStatus? status;
+    private readonly HashSet<string> selected = new();
+    private int shownVersion = -1;
+    private bool removing;
+
+    private bool Busy => Run != null || removing;
+
+    /// <summary>Bytes of the selected groups that are not stored yet.</summary>
+    private long MissingBytes => status?.Groups.Where(g => selected.Contains(g.Id)).Sum(g => g.Bytes - g.CachedBytes) ?? 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (shownVersion == Version) return;
+        var first = status == null;
+        shownVersion = Version;
+        status = await Js.InvokeAsync<OfflineStatus>("ctOffline.status");
+        if (first) SelectDefaults();
+    }
+
+    /// <summary>
+    ///     First selection: the templates and pictures, and the language data of the app's language and English (most
+    ///     templates use English texts), unless they are stored already.
+    /// </summary>
+    private void SelectDefaults()
+    {
+        var wanted = new[] { "templates", "pictures", "lang-" + Loc.Lang, "lang-en" };
+        foreach (var g in status!.Groups)
+            if (wanted.Contains(g.Id) && g.CachedFiles < g.Files)
+                selected.Add(g.Id);
+    }
+
+    private RenderFragment Row(OfflineGroup g, string name, string? tip) => @<label class="ol-row @(selected.Contains(g.Id) ? "on" : "")">
+        <input type="checkbox" checked="@selected.Contains(g.Id)" disabled="@Busy" @onchange="e => Toggle(g.Id, (bool)e.Value!)"/>
+        <span class="ol-name">@name@if (tip != null)
+                                   {
+                                       <small>@tip</small>
+                                   }</span>
+        <span class="ol-size">@Size(g.Bytes)</span>
+        <span class="ol-state @(g.CachedFiles == g.Files ? "full" : g.CachedFiles > 0 ? "part" : "")">@State(g)</span>
+    </label>;
+
+    private string State(OfflineGroup g) =>
+        g.CachedFiles == g.Files ? Loc["offline.stored"]
+        : g.CachedFiles == 0 ? Loc["offline.notStored"]
+        : Loc.T("offline.partly", (int)Math.Floor(100.0 * g.CachedBytes / Math.Max(1, g.Bytes)));
+
+    private void Toggle(string id, bool on)
+    {
+        if (on) selected.Add(id);
+        else selected.Remove(id);
+    }
+
+    private void SelectLanguages(bool all)
+    {
+        foreach (var g in status!.Groups.Where(IsLanguage))
+            Toggle(g.Id, all);
+    }
+
+    private bool IsCached(string id) => status?.Groups.FirstOrDefault(g => g.Id == id)?.CachedFiles > 0;
+
+    private async Task Download(bool fresh) => await OnDownload.InvokeAsync((selected.ToArray(), fresh));
+
+    private async Task Remove()
+    {
+        removing = true;
+        try
+        {
+            await Js.InvokeVoidAsync("ctOffline.remove", selected.ToArray());
+            status = await Js.InvokeAsync<OfflineStatus>("ctOffline.status");
+        }
+        finally
+        {
+            removing = false;
+        }
+    }
+
+    private static bool IsLanguage(OfflineGroup g) => g.Id.StartsWith("lang-");
+
+    /// <summary>Name of the language of a language group (texts langname.xx; the code when there is none).</summary>
+    private string LanguageName(OfflineGroup g)
+    {
+        var key = "langname." + g.Id[5..];
+        var name = Loc[key];
+        return name == key ? g.Id[5..] : name;
+    }
+
+    private string Size(long bytes)
+    {
+        var culture = CultureInfo.GetCultureInfo(Loc.Lang == "de" ? "de-DE" : "en-US");
+        return bytes >= 1_000_000
+            ? (bytes / 1_000_000.0).ToString("0.0", culture) + " MB"
+            : Math.Max(1, (int)Math.Round(bytes / 1000.0)).ToString(culture) + " kB";
+    }
+
+    private static string F(double value) => value.ToString("0.#", CultureInfo.InvariantCulture);
+
+    /// <summary>What ctOffline.status() returns.</summary>
+    private sealed class OfflineStatus
+    {
+        [JsonPropertyName("available")] public bool Available { get; set; }
+        [JsonPropertyName("groups")] public List<OfflineGroup> Groups { get; set; } = new();
+        [JsonPropertyName("usedBytes")] public long UsedBytes { get; set; }
+        [JsonPropertyName("quotaBytes")] public long QuotaBytes { get; set; }
+    }
+
+    private sealed class OfflineGroup
+    {
+        [JsonPropertyName("id")] public string Id { get; set; } = "";
+        [JsonPropertyName("files")] public int Files { get; set; }
+        [JsonPropertyName("bytes")] public long Bytes { get; set; }
+        [JsonPropertyName("cachedFiles")] public int CachedFiles { get; set; }
+        [JsonPropertyName("cachedBytes")] public long CachedBytes { get; set; }
+    }
+
+}

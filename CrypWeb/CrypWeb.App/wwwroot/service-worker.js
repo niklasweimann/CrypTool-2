@@ -16,7 +16,9 @@
 // multi-threaded .NET runtime needs (SharedArrayBuffer).
 
 const CACHE = 'ct2web-v1';
-const SHELL = ['./', 'manifest.webmanifest', 'favicon.png', 'icon-192.png', 'icon-512.png', 'logo.png'];
+const SHELL = ['./', 'manifest.webmanifest', 'favicon.ico', 'favicon.png', 'icon-192.png', 'icon-512.png',
+    'icon-maskable-512.png', 'apple-touch-icon.png', 'logo.png', 'crashreport.js',
+    'offline.js', 'offline.json'];
 const HASHED = /\/_framework\/.+\.[a-z0-9]{8,}\.(wasm|js|dat|pdb|json)$/i;
 
 self.addEventListener('install', event => {
@@ -67,9 +69,8 @@ async function networkFirst(request) {
         const cached = await fromCache(request);
         return cached || await network;
     } catch (error) {
-        const cached = await fromCache(request);
-        if (cached) return cached;
-        throw error;
+        // offline and never loaded: answer "not available" instead of failing the request with a network error
+        return await fromCache(request) || new Response('Not available offline', {status: 504, statusText: 'Offline'});
     }
 }
 
@@ -83,34 +84,45 @@ self.addEventListener('fetch', event => {
     event.respondWith(HASHED.test(url.pathname) ? cacheFirst(request) : networkFirst(request));
 });
 
-// {type: 'precache', urls: [...]}: stores the files that are not cached yet. Sent by "Make available offline" (with a port
-// for progress messages) and by the page after every start (the runtime's files; on the first visit the page loads them
-// before this worker controls it, so they would be missing offline).
+// {type: 'precache', urls: [...], sizes?: [...]}: stores the files that are not cached yet. Sent by the offline dialog
+// (offline.js, with a port for progress messages {done, failed, total, bytes}) and by the page after every start (the
+// runtime's files; on the first visit the page loads them before this worker controls it, so they would be missing
+// offline). {type: 'cancel-precache', id} stops the download that was started with that id after the files in progress.
+const cancelledDownloads = new Set();
+
 self.addEventListener('message', event => {
     const data = event.data || {};
+    if (data.type === 'cancel-precache') {
+        cancelledDownloads.add(data.id);
+        return;
+    }
     if (data.type !== 'precache') return;
     const port = event.ports[0] || {postMessage() { /* nobody listens */ }};
+    const cancelled = () => data.id !== undefined && cancelledDownloads.has(data.id);
     event.waitUntil((async () => {
         const cache = await caches.open(CACHE);
-        let done = 0, failed = 0;
-        const queue = [...data.urls];
+        const total = data.urls.length;
+        let done = 0, failed = 0, bytes = 0;
+        const queue = data.urls.map((url, i) => ({url, size: data.sizes ? data.sizes[i] : 0}));
         const worker = async () => {
-            while (queue.length) {
-                const url = queue.shift();
+            while (queue.length && !cancelled()) {
+                const {url, size} = queue.shift();
                 try {
                     if (!(await cache.match(url))) {
                         const response = await fetch(url);
                         if (!response.ok) throw new Error(String(response.status));
                         await cache.put(url, response);
                     }
+                    bytes += size;
                 } catch {
                     failed++;
                 }
                 done++;
-                if (done % 20 === 0 || done === data.urls.length) port.postMessage({done, failed, total: data.urls.length});
+                if (done % 10 === 0 || done === total) port.postMessage({done, failed, total, bytes});
             }
         };
         await Promise.all([worker(), worker(), worker(), worker()]);
-        port.postMessage({done, failed, total: data.urls.length, finished: true});
+        port.postMessage({done, failed, total, bytes, finished: true, cancelled: cancelled()});
+        cancelledDownloads.delete(data.id);
     })());
 });

@@ -174,6 +174,162 @@ const EXPORT_TEXTAREA_STYLE =
 const EXPORT_MARGIN = 40; // total extra space around the content, in workspace units
 const EXPORT_SCALE = 2;   // the PNG has twice the resolution
 
+/** The static export cannot contain live text boxes: replace them by plain boxes with the same text. */
+function replaceTextareas(root) {
+    root.querySelectorAll('textarea').forEach(textarea => {
+        const replacement = document.createElement('div');
+        replacement.style.cssText = EXPORT_TEXTAREA_STYLE;
+        replacement.textContent = textarea.value || textarea.textContent;
+        textarea.replaceWith(replacement);
+    });
+}
+
+/** The 2D matrix of a CSS transform without rotation or skew, or null (no transform, or one that is kept). */
+function plainTransform(element, computed) {
+    if (computed.transform === 'none' || (element instanceof SVGElement && element.ownerSVGElement)) return null;
+    const m = new DOMMatrixReadOnly(computed.transform);
+    return m.is2D && m.b === 0 && m.c === 0 && m.a > 0 && m.d > 0 ? m : null;
+}
+
+/** True for an element that is shown scaled (e.g. the content of a view box). */
+function isScaled(element, computed) {
+    const m = plainTransform(element, computed);
+    return !!m && (Math.abs(m.a - 1) > 1e-6 || Math.abs(m.d - 1) > 1e-6);
+}
+
+/**
+ * WebKit (Safari, Orion) ignores CSS transforms of HTML inside an SVG foreignObject that is drawn as an image. A
+ * pure shift is therefore expressed by left/top instead (scaled elements are drawn as images of their own, see
+ * renderElement). Returns the CSS to append to the element's copied style ("" when nothing changes).
+ */
+function shiftAsLayout(element, computed) {
+    const m = plainTransform(element, computed);
+    if (!m || isScaled(element, computed) || (m.e === 0 && m.f === 0)) return '';
+    const px = value => parseFloat(value) || 0;
+    let position = computed.position, left = 0, top = 0;
+    if (position === 'absolute' || position === 'fixed') {
+        left = computed.left === 'auto' ? element.offsetLeft : px(computed.left);
+        top = computed.top === 'auto' ? element.offsetTop : px(computed.top);
+    } else if (position === 'relative') {
+        left = px(computed.left);
+        top = px(computed.top);
+    } else {
+        position = 'relative';
+    }
+    return 'transform:none;position:' + position + ';right:auto;bottom:auto;left:' + (left + m.e) + 'px;top:' +
+        (top + m.f) + 'px;';
+}
+
+/** A single-line text field (its current text is a property, so a copy of the element does not show it). */
+function isTextInput(element) {
+    return element instanceof HTMLInputElement &&
+        !['checkbox', 'radio', 'button', 'submit', 'reset', 'range', 'color', 'file', 'image', 'hidden'].includes(element.type);
+}
+
+async function toDataUri(url) {
+    const blob = await (await fetch(url)).blob();
+    return await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
+
+/**
+ * Renders an element (at its unscaled layout size) as an SVG image that is drawn into the box x, y, w, h of the
+ * export, and adds it to result. The styles are inlined and pictures embedded, as the image cannot load anything.
+ * Scaled descendants (view boxes) are left out here and rendered as images of their own on top: the SVG viewBox
+ * does the scaling, because WebKit ignores CSS transforms (and zoom) inside a foreignObject.
+ */
+async function renderElement(element, x, y, w, h, result) {
+    const width = element.offsetWidth, height = element.offsetHeight;
+    if (!(width > 0 && height > 0)) return;
+    const copy = element.cloneNode(true);
+    const originals = [element, ...element.querySelectorAll('*')];
+    const copies = [copy, ...copy.querySelectorAll('*')];
+    const scaled = [];
+    originals.forEach((original, i) => {
+        if (scaled.some(s => s.contains(original))) return; // part of a scaled element: rendered with it
+        const computed = getComputedStyle(original);
+        let css = '';
+        for (const name of computed) css += name + ':' + computed.getPropertyValue(name) + ';';
+        if (i > 0 && isScaled(original, computed)) {
+            // keep its place in the layout, show nothing
+            scaled.push(original);
+            copies[i].setAttribute('style', css + 'visibility:hidden;');
+            copies[i].replaceChildren();
+            return;
+        }
+        css += shiftAsLayout(original, computed);
+        copies[i].setAttribute('style', css);
+        if (original instanceof HTMLCanvasElement) {
+            const image = document.createElement('img');
+            image.src = original.toDataURL();
+            image.setAttribute('style', css);
+            copies[i].replaceWith(image);
+        } else if (original instanceof HTMLTextAreaElement || isTextInput(original)) {
+            // a plain box with the text box's own look and place (e.g. the display of the T9 phone)
+            const box = document.createElement('div');
+            box.setAttribute('style', css + 'overflow:hidden;white-space:' +
+                (original instanceof HTMLTextAreaElement ? 'pre-wrap' : 'pre') + ';');
+            box.textContent = original.value;
+            copies[i].replaceWith(box);
+        }
+    });
+    // the element itself is placed by the box it is drawn into
+    copy.style.position = 'static';
+    copy.style.transform = 'none';
+    copy.style.margin = '0';
+    copy.style.width = width + 'px';
+    copy.style.height = height + 'px';
+    for (const image of copy.querySelectorAll('img')) {
+        try {
+            if (image.src && !image.src.startsWith('data:')) image.src = await toDataUri(image.src);
+        } catch (e) { /* keep the original address */ }
+    }
+    copy.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+    const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w * EXPORT_SCALE + '" height="' + h * EXPORT_SCALE +
+        '" viewBox="0 0 ' + width + ' ' + height + '" preserveAspectRatio="none"><foreignObject x="0" y="0" width="' +
+        width + '" height="' + height + '">' + new XMLSerializer().serializeToString(copy) + '</foreignObject></svg>';
+    const image = new Image();
+    image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    try {
+        await new Promise((resolve, reject) => {
+            image.onload = resolve;
+            image.onerror = reject;
+        });
+        result.push({image, x, y, width: w, height: h});
+    } catch (e) {
+        return; /* skip an element that cannot be rendered */
+    }
+
+    // where the scaled descendants appear on screen, converted to the box of the export
+    const box = element.getBoundingClientRect();
+    const toX = w / box.width, toY = h / box.height;
+    for (const part of scaled) {
+        const r = part.getBoundingClientRect();
+        await renderElement(part, x + (r.left - box.left) * toX, y + (r.top - box.top) * toY, r.width * toX, r.height * toY, result);
+    }
+}
+
+/**
+ * The component views (text boxes, pictures, presentations) are plain HTML above the SVG, so they are not part of
+ * the SVG clone. Each one becomes its own small SVG image (see renderElement). They are not put into the main SVG:
+ * WebKit misplaces scaled content inside a foreignObject that sits below a transformed SVG group.
+ */
+async function renderComponentViews() {
+    const layer = document.querySelector('.nviews');
+    if (!layer) return [];
+    const views = [...layer.querySelectorAll(':scope > .nview')]
+        .sort((a, b) => (parseInt(a.style.zIndex) || 0) - (parseInt(b.style.zIndex) || 0));
+    const result = [];
+    for (const view of views) {
+        await renderElement(view, parseFloat(view.style.left) || 0, parseFloat(view.style.top) || 0,
+            view.offsetWidth, view.offsetHeight, result);
+    }
+    return result;
+}
+
 /**
  * Renders the workspace to a PNG and downloads it. The content bounds (x, y, w, h) are given in workspace
  * coordinates; the SVG's pan/zoom transform is replaced so the content fills the image.
@@ -192,12 +348,16 @@ window.ct2.exportPng = async (selector, fileName, x, y, w, h) => {
         for (const property of EXPORT_STYLE_PROPERTIES) copies[i].style.setProperty(property, computed.getPropertyValue(property));
     });
     clone.querySelectorAll('.bub, .ring').forEach(e => e.remove());
-    clone.querySelectorAll('textarea').forEach(textarea => {
-        const replacement = document.createElement('div');
-        replacement.style.cssText = EXPORT_TEXTAREA_STYLE;
-        replacement.textContent = textarea.value || textarea.textContent;
-        textarea.replaceWith(replacement);
-    });
+    replaceTextareas(clone);
+    const views = await renderComponentViews();
+    // an SVG that is loaded as an image cannot fetch other files: embed the component icons and pictures
+    for (const image of clone.querySelectorAll('image')) {
+        const href = image.getAttribute('href') || image.getAttributeNS('http://www.w3.org/1999/xlink', 'href');
+        if (!href || href.startsWith('data:')) continue;
+        try {
+            image.setAttribute('href', await toDataUri(href));
+        } catch (e) { /* keep the original address */ }
+    }
 
     const width = Math.ceil(w + EXPORT_MARGIN);
     const height = Math.ceil(h + EXPORT_MARGIN);
@@ -226,6 +386,7 @@ window.ct2.exportPng = async (selector, fileName, x, y, w, h) => {
     const context = canvas.getContext('2d');
     context.scale(EXPORT_SCALE, EXPORT_SCALE);
     context.drawImage(image, 0, 0);
+    for (const view of views) context.drawImage(view.image, view.x - x, view.y - y, view.width, view.height);
     const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
     saveBlob(blob, fileName);
     return true;
@@ -385,34 +546,3 @@ window.ct2.cacheAppFiles = async languages => {
     } catch { /* no service worker or no runtime list: whatever was used is cached anyway */ }
 };
 
-/**
- * "Make available offline": lets the service worker download all templates (with their texts and icons) and the
- * data files of the plugins in advance. Progress goes to ref.OnPrecacheProgress(done, failed, total, finished).
- */
-window.ct2.precacheAll = async ref => {
-    const registration = navigator.serviceWorker && await navigator.serviceWorker.ready;
-    const worker = registration && registration.active;
-    if (!worker) return false;
-    const json = async url => {
-        try {
-            return await (await fetch(url)).json();
-        } catch {
-            return [];
-        }
-    };
-    const escape = path => path.split('/').map(encodeURIComponent).join('/');
-    const templates = await json('templates/index.json');
-    const icons = await json('templates/icons.json');
-    const vfs = await json('vfs/manifest.json');
-    const urls = ['templates/index.json', 'templates/icons.json', 'templates/palette.json', 'plugins.json', 'vfs/manifest.json'];
-    for (const t of templates) {
-        urls.push('templates/' + escape(t));
-        urls.push('templates/' + escape(t.slice(0, -4) + '.xml'));
-    }
-    for (const t of icons) urls.push('templates/' + escape(t.slice(0, -4) + '.png'));
-    for (const entry of vfs) urls.push('vfs/' + escape(entry.p.substring(1)));
-    const channel = new MessageChannel();
-    channel.port1.onmessage = m => ref.invokeMethodAsync('OnPrecacheProgress', m.data.done, m.data.failed, m.data.total, !!m.data.finished);
-    worker.postMessage({type: 'precache', urls}, [channel.port2]);
-    return true;
-};
