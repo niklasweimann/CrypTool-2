@@ -85,8 +85,9 @@ public partial class Home
                 if (c.Plugin != null && c != connecting && ed.CanConnect(connecting, c))
                     yield return (c, hoverPort == c ? "okhov" : "ok");
         }
-        else if (hoverPort != null)
+        else if (hoverPort?.Plugin != null && ed.Ws.Plugins.Contains(hoverPort.Plugin))
         {
+            // (a port of a component that was deleted or replaced while the pointer was on it shows no bubble)
             yield return (hoverPort, "hover");
         }
     }

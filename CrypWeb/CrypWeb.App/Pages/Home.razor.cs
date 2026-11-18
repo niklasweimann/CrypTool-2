@@ -553,6 +553,7 @@ public partial class Home : IDisposable, IHandleEvent
             ed.Selection.Clear();
             ed.SelectedWire = null;
             connecting = null;
+            hoverPort = null; // also closes a connector bubble that missed its "pointer left" event
             mode = Mode.None;
         }
         else if (k.StartsWith("arrow") && ed.Selection.Count > 0)
