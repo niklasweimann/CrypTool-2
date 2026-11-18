@@ -29,7 +29,14 @@ public static class TemplateStrings
     {
         if (map.Count == 0) return;
         foreach (var p in ws.Plugins) p.Name = Apply(p.Name, map);
-        foreach (var t in ws.Texts) t.Text = Apply(t.Text, map);
+        foreach (var t in ws.Texts)
+        {
+            t.Text = Apply(t.Text, map);
+            // the rich text gets the same texts, escaped for XML
+            if (t.Xaml != null)
+                foreach (var kv in map)
+                    t.Xaml = t.Xaml.Replace(kv.Key, System.Security.SecurityElement.Escape(CwmReader.RtfSnippetToText(kv.Value)));
+        }
         foreach (var p in ws.Plugins) foreach (var k in p.Settings.Keys.ToList()) p.Settings[k] = Apply(p.Settings[k], map);
     }
 }

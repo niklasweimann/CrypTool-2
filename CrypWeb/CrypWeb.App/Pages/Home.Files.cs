@@ -58,6 +58,7 @@ public partial class Home
         current = template;
         error = null;
         editing = null;
+        CloseNoteEditor();
         if (runDoc == active) StopRun();
 
         try

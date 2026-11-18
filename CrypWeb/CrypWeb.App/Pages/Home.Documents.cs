@@ -15,6 +15,7 @@ public partial class Home
     {
         active = doc;
         editing = null;
+        CloseNoteEditor();
         error = null;
         await Task.Delay(20); // let Blazor render the new tab before measuring
         await MeasureCanvasAsync();
@@ -181,14 +182,6 @@ public partial class Home
     {
         ed.Checkpoint();
         ed.Paste();
-    }
-
-    private void AddNote()
-    {
-        ed.Checkpoint();
-        var (x, y) = Center();
-        var note = ed.AddText(x - 110, y - 40);
-        SelectOnly(note.Id);
     }
 
     private void AddAtCenter(PaletteEntry entry)

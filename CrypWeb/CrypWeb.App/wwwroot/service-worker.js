@@ -18,7 +18,7 @@
 const CACHE = 'ct2web-v1';
 const SHELL = ['./', 'manifest.webmanifest', 'favicon.ico', 'favicon.png', 'icon-192.png', 'icon-512.png',
     'icon-maskable-512.png', 'apple-touch-icon.png', 'logo.png', 'crashreport.js',
-    'offline.js', 'offline.json'];
+    'offline.js', 'offline.json', 'noteeditor.js'];
 const HASHED = /\/_framework\/.+\.[a-z0-9]{8,}\.(wasm|js|dat|pdb|json)$/i;
 
 self.addEventListener('install', event => {

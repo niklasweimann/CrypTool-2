@@ -336,8 +336,9 @@ public static class CwmWriter
 
         void EmitText(TextNode t)
         {
-            // keep the original rich text (formatting) as long as the text was not edited
-            var data = t.OriginalData != null && t.Text == t.OriginalText ? t.OriginalData : XamlPackage(t.Text);
+            // keep the original package (with everything WPF wrote) as long as the note was not edited
+            var unchanged = t.OriginalData != null && t.Text == t.OriginalText && t.Xaml == t.OriginalXaml;
+            var data = unchanged ? t.OriginalData! : t.Xaml != null ? XamlPackageOf(t.Xaml) : XamlPackage(t.Text);
             Begin(M + "TextModel", t.Id);
             Bytes("data", data);
             Ref("<WorkspaceModel>k__BackingField", M + "WorkspaceModel", idWorkspace);
@@ -381,7 +382,13 @@ public static class CwmWriter
             new XAttribute("Foreground", "#FF000000"));
         foreach (var line in (text ?? "").Replace("\r\n", "\n").Split('\n'))
             section.Add(new XElement(ns + "Paragraph", new XAttribute("Margin", "0,0,0,0"), new XElement(ns + "Run", line)));
-        string xaml = section.ToString(SaveOptions.DisableFormatting); // the document part has no XML declaration
+        return XamlPackageOf(section.ToString(SaveOptions.DisableFormatting));
+    }
+
+    /// <summary>A WPF "XamlPackage" (zip with Xaml/Document.xaml) holding the given XAML section (a note's rich text).</summary>
+    public static byte[] XamlPackageOf(string xaml)
+    {
+        // the document part has no XML declaration
         string rels = "﻿<?xml version=\"1.0\" encoding=\"utf-8\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Type=\"http://schemas.microsoft.com/wpf/2005/10/xaml/entry\" Target=\"/Xaml/Document.xaml\" Id=\"R" + Guid.NewGuid().ToString("N")[..16] + "\" /></Relationships>";
         string types = "﻿<?xml version=\"1.0\" encoding=\"utf-8\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"xaml\" ContentType=\"application/vnd.ms-wpf.xaml+xml\" /><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\" /></Types>";
         using var ms = new MemoryStream();

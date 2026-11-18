@@ -323,11 +323,51 @@
                         <button class="msg-close" title="@Loc["about.close"]" @onclick="() => error = null">✕</button>
                     </div>
                 }
-                <div class="cvtools">
-                    <button title="@Loc["view.fit"]" @onclick="FitAsync"><Icon Name="fit" Size="18"/></button>
-                    <button title="@Loc["view.export"]" @onclick="ExportImage"><Icon Name="camera" Size="18"/></button>
-                    <button title="@Loc["ws.addText"]" @onclick="AddNote"><Icon Name="note" Size="18"/></button>
-                </div>
+                @if (editingNote != null)
+                {
+                    @* the note editor's tools: wwwroot/noteeditor.js runs them (data-cmd) without taking the focus from the text *@
+                    <div class="cvtools ne-tools" role="toolbar" aria-label="@Loc["note.tools"]">
+                        <select data-font title="@Loc["note.font"]">
+                            @foreach (var font in NoteFonts)
+                            {
+                                <option value="@font" style="font-family:'@font'">@font</option>
+                            }
+                        </select>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="cut" title="@Loc["note.cut"]"><Icon Name="cut" Size="18"/></button>
+                        <button data-cmd="copy" title="@Loc["note.copy"]"><Icon Name="copy" Size="18"/></button>
+                        <button data-cmd="paste" title="@Loc["note.paste"]"><Icon Name="paste" Size="18"/></button>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="undo" title="@Loc["ws.undo"]"><Icon Name="undo" Size="18"/></button>
+                        <button data-cmd="redo" title="@Loc["ws.redo"]"><Icon Name="redo" Size="18"/></button>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="bold" title="@Loc["note.bold"]" class="ne-letter"><b>B</b></button>
+                        <button data-cmd="italic" title="@Loc["note.italic"]" class="ne-letter"><i>I</i></button>
+                        <button data-cmd="underline" title="@Loc["note.underline"]" class="ne-letter"><u>U</u></button>
+                        <button data-cmd="grow" title="@Loc["note.grow"]"><Icon Name="font-grow" Size="18"/></button>
+                        <button data-cmd="shrink" title="@Loc["note.shrink"]"><Icon Name="font-shrink" Size="18"/></button>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="insertUnorderedList" title="@Loc["note.bullets"]"><Icon Name="list-bullets" Size="18"/></button>
+                        <button data-cmd="insertOrderedList" title="@Loc["note.numbers"]"><Icon Name="list-numbers" Size="18"/></button>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="justifyLeft" title="@Loc["note.left"]"><Icon Name="align-left" Size="18"/></button>
+                        <button data-cmd="justifyCenter" title="@Loc["note.center"]"><Icon Name="align-center" Size="18"/></button>
+                        <button data-cmd="justifyRight" title="@Loc["note.right"]"><Icon Name="align-right" Size="18"/></button>
+                        <button data-cmd="justifyFull" title="@Loc["note.justify"]"><Icon Name="align-justify" Size="18"/></button>
+                        <button data-cmd="indent" title="@Loc["note.indent"]"><Icon Name="indent" Size="18"/></button>
+                        <button data-cmd="outdent" title="@Loc["note.outdent"]"><Icon Name="outdent" Size="18"/></button>
+                        <span class="ne-sep"></span>
+                        <button data-cmd="done" class="ne-done" title="@Loc["note.doneTip"]">@Loc["note.done"]</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="cvtools">
+                        <button title="@Loc["view.fit"]" @onclick="FitAsync"><Icon Name="fit" Size="18"/></button>
+                        <button title="@Loc["view.export"]" @onclick="ExportImage"><Icon Name="camera" Size="18"/></button>
+                        <button title="@Loc["ws.addText"]" @onclick="AddNote"><Icon Name="note" Size="18"/></button>
+                    </div>
+                }
                 <div class="zoombar"><input
                         type="number"
                         class="zin"
@@ -387,13 +427,10 @@
                                 class="note-g @(sel ? "selected" : "")"
                                 @onpointerdown="OnPointer(t, e => NodeDown(e, t))"
                                 @onpointerdown:stopPropagation
-                                @ondblclick="On(t, () => EditText(t))">
+                                @ondblclick="On(t, () => EditNote(t))">
+                                @* the text is drawn in the HTML layer above the canvas (rich text, see .nviews below) *@
                                 <rect x="@F(t.X)" y="@F(t.Y)" width="@F(t.Width)" height="@F(t.Height)" class="note-bg"
                                       rx="3"/>
-                                @foreach (var (line, i) in Wrap(t.Text, t.Width - 16).Select((l, i) => (l, i)))
-                                {
-                                    @Txt(t.X + 8, t.Y + 20 + i * 16, "note", "start", line)
-                                }
                                 @if (sel)
                                 {
                                     <rect
@@ -638,6 +675,21 @@
            positioned content inside an SVG foreignObject. *@
                 <div class="nclip">
                     <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
+                        @foreach (var t in ed.Ws.Texts)
+                        {
+                            var place = $"left:{F(t.X)}px;top:{F(t.Y)}px;width:{F(t.Width)}px;height:{F(t.Height)}px;z-index:{t.ZIndex}";
+                            if (ReferenceEquals(t, editingNote))
+                            {
+                                @* filled and driven by wwwroot/noteeditor.js; a key of its own, so that Blazor never reuses the
+                                   element the browser edited for the display (and the other way round) *@
+                                <div id="note-editor" class="nview note-view editing" @key="(t.Id, true)" contenteditable="true"
+                                     spellcheck="false" style="@place" @onpointerdown:stopPropagation></div>
+                            }
+                            else
+                            {
+                                <div class="nview note-view" @key="(t.Id, false)" style="@place">@((MarkupString)NoteHtml(t))</div>
+                            }
+                        }
                         @foreach (var p in ed.Ws.Plugins.Where(n => !n.Minimized))
                         {
                             var native = NativeComponent.TryCreate(p.TypeName)?.Which;
@@ -768,20 +820,7 @@
                                 @onclick="() => ShowSingleton(DocKind.Start)">@Loc["doc.start"]</a></div>
                     </div>
                 }
-                @if (editing is TextNode)
-                {
-                    @* notes have several lines: Enter breaks the line, Ctrl/Cmd+Enter or leaving the box applies the text *@
-                    <textarea
-                        class="inline"
-                        spellcheck="false"
-                        style="left:@(F(editX))px;top:@(F(editY))px;width:@(F(editW))px;height:@(F(editH))px"
-                        value="@editText"
-                        @oninput="EditInput"
-                        @onkeydown="EditKey"
-                        @onblur="CommitEdit"
-                        id="inline-edit"></textarea>
-                }
-                else if (editing != null)
+                @if (editing != null)
                 {
                     <input
                         class="inline"

@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace CrypWeb.App.Pages;
 
-/// <summary>In-place editing of component names and note texts.</summary>
+/// <summary>In-place editing of component names (notes have their own editor, see Home.Notes.cs).</summary>
 public partial class Home
 {
     /// <summary>Shows a text box over the component title.</summary>
@@ -16,18 +16,6 @@ public partial class Home
         editX = p.X * zoom + panX;
         editY = (p.Y + Size(p).h + 2) * zoom + panY;
         editW = Math.Max(120, (Size(p).w - 24) * zoom);
-        FocusEdit();
-    }
-
-    /// <summary>Shows a text box over a note.</summary>
-    private void EditText(TextNode t)
-    {
-        editing = t;
-        editText = t.Text;
-        editX = t.X * zoom + panX;
-        editY = t.Y * zoom + panY;
-        editW = Math.Max(160, t.Width * zoom);
-        editH = Math.Max(60, t.Height * zoom);
         FocusEdit();
     }
 
@@ -60,7 +48,7 @@ public partial class Home
     private void EditKey(KeyboardEventArgs e)
     {
         if (e.Key == "Escape") editing = null;
-        else if (e.Key == "Enter" && (editing is not TextNode || e.CtrlKey || e.MetaKey)) CommitEdit();
+        else if (e.Key == "Enter") CommitEdit();
         else skipRender = true; // an ordinary key: nothing visible changed
     }
 
@@ -69,7 +57,6 @@ public partial class Home
         if (editing == null) return;
         ed.Checkpoint();
         if (editing is PluginNode plugin) plugin.Name = editText;
-        else if (editing is TextNode note) note.Text = editText;
         editing = null;
     }
 

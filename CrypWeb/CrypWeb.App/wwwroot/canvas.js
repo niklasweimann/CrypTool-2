@@ -124,7 +124,8 @@ window.ct2 = {
             if (document.querySelector('main.tracking')) e.preventDefault();
         });
         document.addEventListener('pointerdown', e => {
-            if (e.target.closest && e.target.closest('main') && !e.target.closest('.nview')) window.getSelection()?.removeAllRanges();
+            // (not in a component view or a note, and not on the note editor's tools, which act on the selection)
+            if (e.target.closest && e.target.closest('main') && !e.target.closest('.nview') && !e.target.closest('.ne-tools')) window.getSelection()?.removeAllRanges();
         });
 
         // the canvas has its own context menu

@@ -141,6 +141,8 @@ public static class CwmReader
             }
             catch (Exception) { /* not valid base64: the note is written as plain text */ }
             tn.OriginalText = tn.Text;
+            tn.Xaml = tn.OriginalData != null ? DocumentXaml(tn.OriginalData) : null;
+            tn.OriginalXaml = tn.Xaml;
             Layout(t, tn);
             tn.Extra = Extras(t, tn);
             ws.Texts.Add(tn);
@@ -276,6 +278,24 @@ public static class CwmReader
     }
 
     /// <summary>TextModel.data is base64 (inside a b64 string) of an RTF or XAML FlowDocument; extract readable text.</summary>
+    /// <summary>The XAML of a note's XamlPackage (Xaml/Document.xaml), or null when the data is something else (RTF).</summary>
+    private static string? DocumentXaml(byte[] bytes)
+    {
+        if (bytes.Length < 4 || bytes[0] != 'P' || bytes[1] != 'K') return null;
+        try
+        {
+            using var zip = new ZipArchive(new MemoryStream(bytes));
+            var entry = zip.Entries.FirstOrDefault(e => e.FullName.EndsWith("Document.xaml", StringComparison.OrdinalIgnoreCase));
+            if (entry == null) return null;
+            using var r = new StreamReader(entry.Open(), Encoding.UTF8);
+            return r.ReadToEnd();
+        }
+        catch (Exception)
+        {
+            return null; // not a readable package
+        }
+    }
+
     private static string ExtractText(string payload)
     {
         if (string.IsNullOrEmpty(payload)) return "";

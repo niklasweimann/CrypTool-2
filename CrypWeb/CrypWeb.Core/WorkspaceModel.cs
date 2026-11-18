@@ -211,12 +211,22 @@ public sealed class TextNode : VisualNode
 
     public string? OriginalText { get; set; }
 
+    /// <summary>
+    ///     The rich text: the XAML section of the note (formatting, lists, alignment), or null for a plain note.
+    ///     Shown and edited as HTML (NoteXaml); written back into the XamlPackage when it changed.
+    /// </summary>
+    public string? Xaml { get; set; }
+
+    public string? OriginalXaml { get; set; }
+
     internal TextNode Clone() => CopyBaseTo(new TextNode
     {
         Text = Text,
         BackgroundColor = BackgroundColor,
         OriginalData = OriginalData,
         OriginalText = OriginalText,
+        Xaml = Xaml,
+        OriginalXaml = OriginalXaml,
     });
 }
 
