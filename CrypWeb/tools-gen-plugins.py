@@ -95,7 +95,7 @@ INPUT_DIRECTIONS = ('InputData', 'ControlSlave')
 OUTPUT_DIRECTIONS = ('OutputData', 'ControlMaster')
 
 PLUGIN_CLASS_PATTERN = re.compile(
-    r'^[ \t]*(?:public\s+)?(?:sealed\s+|partial\s+|static\s+)*class\s+(\w+)\s*'
+    r'^[ \t]*(?:public\s+|internal\s+)?(?:sealed\s+|partial\s+|static\s+)*class\s+(\w+)\s*'
     r'(?::[^{]*\bICrypComponent\b|:[^{]*\bACloudCompatible\b)', re.M)
 
 # [PluginInfo("resourceAssembly", "NameKey", "TooltipKey", "doc.xml", new[] {icons})] and the variant that starts with typeof(...)
