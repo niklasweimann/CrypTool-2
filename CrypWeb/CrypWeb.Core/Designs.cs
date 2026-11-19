@@ -34,6 +34,25 @@ public sealed class Design
         return (0.2126 * ((rgb >> 16) & 0xFF) + 0.7152 * ((rgb >> 8) & 0xFF) + 0.0722 * (rgb & 0xFF)) / 255;
     }
 
+    /// <summary>
+    ///     Makes the design safe to use: an unknown look or anything that is not a "#rrggbb" color (a hand-edited or imported
+    ///     file, the colors end up in style attributes) is replaced by the default, unknown keys are dropped.
+    /// </summary>
+    public Design Sanitize()
+    {
+        if (!Designs.Looks.Contains(Look)) Look = "tinted";
+        CanvasTop = Hex(CanvasTop, "#c9ddf8");
+        CanvasBottom = Hex(CanvasBottom, "#a9c8f2");
+        TypeColors = Theme.DataTypeKeys.ToDictionary(k => k, k => Hex(TypeColors?.GetValueOrDefault(k), Theme.DefaultTypeColor(k)));
+        CategoryColors = Theme.CategoryKeys.ToDictionary(k => k, k => Hex(CategoryColors?.GetValueOrDefault(k), Theme.DefaultCategoryColor(k)));
+        return this;
+    }
+
+    private static string Hex(string? value, string fallback)
+    {
+        return value != null && System.Text.RegularExpressions.Regex.IsMatch(value, "^#[0-9a-fA-F]{6}$") ? value : fallback;
+    }
+
     public Design Clone()
     {
         return new Design

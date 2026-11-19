@@ -1,39 +1,74 @@
 using CrypTool.Web.Core;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace CrypWeb.App.Pages;
 
 // Shortcuts on the connectors. A double click on an input adds a matching input component (text, number or boolean)
 // next to it and connects it; a double click on an output adds a matching output component (text, boolean or picture).
+// Settings › Workspace: add the best fitting component, ask which one when several fit, or do nothing.
 public partial class Home
 {
     /// <summary>Distance between a component and the one added next to its connector.</summary>
     private const double AddedGap = 70;
 
-    private void PortDoubleClick(ConnectorPort port)
+    private ConnectorPort? ctxPort;
+    private List<PaletteEntry> ctxChoices = new();
+
+    private void PortDoubleClick(ConnectorPort port, MouseEventArgs e)
     {
-        if (port.Plugin == null || port.IsControl) return;
+        if (settings.PortDoubleClick == "off" || port.Plugin == null || port.IsControl) return;
         if (!port.Outgoing && port.Wires.Count > 0) return; // an input takes one wire: it is taken
 
+        var fitting = FittingComponents(port);
+        if (fitting.Count == 0) return;
+        if (settings.PortDoubleClick == "ask" && fitting.Count > 1)
+        {
+            ctxPort = port;
+            ctxChoices = fitting;
+            panDist = 0;
+            OpenCtx(e, Ctx.Port, null);
+            return;
+        }
+
+        AddMatching(port, fitting[0]);
+    }
+
+    /// <summary>The components that can be connected to the connector, best first.</summary>
+    private List<PaletteEntry> FittingComponents(ConnectorPort port)
+    {
+        var result = new List<PaletteEntry>();
         foreach (var kind in MatchingKinds(port))
         {
             var entry = meta.Values.FirstOrDefault(m => m.Supported && m.Type.Split('.').Last().Equals(kind, StringComparison.OrdinalIgnoreCase))?.ToPalette();
-            // the connector of the new component that faces the double-clicked one
-            var facing = (port.Outgoing ? entry?.Inputs : entry?.Outputs)?.FirstOrDefault(p => !p.IsControl);
+            var facing = FacingPort(port, entry);
             if (entry == null || facing == null) continue;
             var (from, to) = port.Outgoing ? (port.DataTypeName, facing.DataTypeName) : (facing.DataTypeName, port.DataTypeName);
-            if (!ConnectionRules.Compatible(from, to)) continue;
-
-            var at = PortPos(port);
-            var plugin = AddAt(entry, at.x, at.y);
-            // placed by the size the component is drawn with: beside the connector, facing away from its component
-            var (w, h) = Size(plugin);
-            var x = port.Outgoing ? at.x + AddedGap : at.x - AddedGap - w;
-            plugin.X = Snap(x);
-            plugin.Y = Snap(FreeY(plugin, plugin.X, at.y - h / 2));
-            var added = (port.Outgoing ? plugin.Inputs : plugin.Outputs).FirstOrDefault(c => !c.IsControl && c.PropertyName == facing.PropertyName);
-            if (added != null) ed.Connect(added, port); // the same undo step as the new component
-            return;
+            if (ConnectionRules.Compatible(from, to)) result.Add(entry);
         }
+
+        return result;
+    }
+
+    /// <summary>The connector of the new component that faces the double-clicked one.</summary>
+    private static PalettePort? FacingPort(ConnectorPort port, PaletteEntry? entry)
+    {
+        return (port.Outgoing ? entry?.Inputs : entry?.Outputs)?.FirstOrDefault(p => !p.IsControl);
+    }
+
+    /// <summary>Adds the component beside the connector and connects it (one undo step).</summary>
+    private void AddMatching(ConnectorPort port, PaletteEntry entry)
+    {
+        var facing = FacingPort(port, entry);
+        if (facing == null) return;
+        var at = PortPos(port);
+        var plugin = AddAt(entry, at.x, at.y);
+        // placed by the size the component is drawn with: beside the connector, facing away from its component
+        var (w, h) = Size(plugin);
+        var x = port.Outgoing ? at.x + AddedGap : at.x - AddedGap - w;
+        plugin.X = Snap(x);
+        plugin.Y = Snap(FreeY(plugin, plugin.X, at.y - h / 2));
+        var added = (port.Outgoing ? plugin.Inputs : plugin.Outputs).FirstOrDefault(c => !c.IsControl && c.PropertyName == facing.PropertyName);
+        if (added != null) ed.Connect(added, port);
     }
 
     /// <summary>The components that fit a connector, best first (names as in plugins.json).</summary>

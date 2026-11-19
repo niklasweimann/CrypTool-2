@@ -59,11 +59,24 @@ public partial class Home
     }
 
     /// <summary>SVG path of a route with rounded corners; horizontal runs hop with a small arc over vertical runs of other wires.</summary>
-    private static string WirePath(Wire w, List<(double x, double y)> raw, List<VSeg> verticals)
+    /// <summary>A smooth curve from port to port, leaving and entering the ports in the direction they face.</summary>
+    private static string CurvedPath(Wire w)
+    {
+        var start = PortPos(w.From!);
+        var end = PortPos(w.To!);
+        var (startDx, startDy) = Away(SideOf(w.From!));
+        var (endDx, endDy) = Away(SideOf(w.To!));
+        var reach = Math.Max(40, Distance(start, end) / 2.5);
+        return $"M {F(start.x)} {F(start.y)} C {F(start.x + startDx * reach)} {F(start.y + startDy * reach)} " +
+               $"{F(end.x + endDx * reach)} {F(end.y + endDy * reach)} {F(end.x)} {F(end.y)}";
+    }
+
+    private string WirePath(Wire w, List<(double x, double y)> raw, List<VSeg> verticals)
     {
         var pts = raw.ToList();
         RemoveZeroLengthSegments(pts);
         if (pts.Count < 2) return "";
+        if (settings.WireStyle == "curved") return CurvedPath(w);
         const double R = 5, corner = 8;
         var sb = new StringBuilder($"M {F(pts[0].x)} {F(pts[0].y)}");
         var cur = pts[0];

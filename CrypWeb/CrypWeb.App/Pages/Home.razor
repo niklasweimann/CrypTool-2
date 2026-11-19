@@ -3,7 +3,17 @@
 
 <PageTitle>@AboutModal.AppName</PageTitle>
 
-<div class="shell @(hideMenu ? "nomenu" : "") @(focusMode ? "focus" : "")">
+@if (!started)
+{
+    @* the same picture as the loading screen of index.html, until the start is decided (restored tabs, links): no tab flashes up *@
+    <div class="splash" style="z-index:1000">
+        <img alt="" class="splash-logo" src="logo.png"/>
+        <div class="splash-title">CrypTool 2 Web Edition</div>
+        <div class="splash-bar"><div class="splash-fill"></div></div>
+        <div class="splash-text">@Loc["splash.loading"]</div>
+    </div>
+}
+<div class="shell @(hideMenu ? "nomenu" : "") @(focusMode ? "focus" : "") @(settings.ReduceMotion ? "reduce-motion" : "")" style="--doc-scale:@F(settings.DocFontPercent / 100.0)">
     <!-- ===== Ribbon ===== -->
     <div class="ribbon">
         @* Ribbon tabs; ribbonTab: 0 = Home, 2 = Edit, 1 = View (display order differs from the numbers) *@
@@ -316,7 +326,7 @@
                           ShowExperimental="settings.ShowExperimental"
                           OnOpenTemplate="t => OpenTemplate(t)"/>
             }
-            <main class="comp-@settings.Current.Look @(settings.Current.IsDark ? "cv-dark" : "") @(mode != Mode.None ? "tracking" : "")" style="--cv-top:@settings.Current.CanvasTop;--cv-bottom:@settings.Current.CanvasBottom;@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
+            <main class="comp-@settings.Current.Look @(settings.Current.IsDark ? "cv-dark" : "") @(settings.WireAnimation ? "" : "no-wire-anim") @(mode != Mode.None ? "tracking" : "")" style="--wire-w:@(settings.WireWidth)px;--comp-fs:@F(settings.ComponentFontPercent / 100.0);--cv-top:@settings.Current.CanvasTop;--cv-bottom:@settings.Current.CanvasBottom;@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
                   @ondragover="DragOver" @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">
                 @if (error != null)
                 {
@@ -398,7 +408,7 @@
                         @foreach (var im in ed.Ws.Images.OrderBy(i => i.ZIndex))
                         {
                             var isel = ed.Selection.Contains(im.Id);
-                            <g class="img-g @(isel ? "selected" : "")" @onpointerdown="OnPointer(im, e => NodeDown(e, im))"
+                            <g class="img-g @(isel ? "selected" : "")" @key="im.Id" @onpointerdown="OnPointer(im, e => NodeDown(e, im))"
                                @onpointerdown:stopPropagation>
                                 <image
                                     href="@ImageUri(im)"
@@ -426,6 +436,7 @@
                         {
                             var sel = ed.Selection.Contains(t.Id);
                             <g
+                                @key="t.Id"
                                 class="note-g @(sel ? "selected" : "")"
                                 @onpointerdown="OnPointer(t, e => NodeDown(e, t))"
                                 @onpointerdown:stopPropagation
@@ -460,7 +471,7 @@
                             var act = engine.Running && engine.ActiveWires.Contains(w.Id);
                             var ws_ = ed.SelectedWire == w.Id;
                             var faded = focus != null && !focus.Contains(w);
-                            <g class="wiregrp @(faded ? "faded" : "")">
+                            <g class="wiregrp @(faded ? "faded" : "")" @key="w.Id">
                                 <path d="@d" class="wire-under"/>
                                 <path d="@d" class="wire @(act ? "active" : "") @(ws_ ? "sel" : "") @(w == spliceWire ? "splice" : "")"
                                       style="stroke:@col"/>
@@ -471,11 +482,12 @@
                                     @onpointerleave="() => hoverWire = null"
                                     @onpointerdown="OnPointer(w, e => WireDown(e, w))"
                                     @onpointerdown:stopPropagation/>
-                                @for (var si = 1; si <= pts.Count - 3; si++)
+                                @for (var si = 1; si <= pts.Count - 3 && settings.WireStyle != "curved"; si++)
                                 {
                                     var i = si;
                                     var horiz = IsHoriz(pts[i], pts[i + 1]);
                                     <line
+                                        @key="(w.Id, i)"
                                         x1="@F(pts[i].x)"
                                         y1="@F(pts[i].y)"
                                         x2="@F(pts[i + 1].x)"
@@ -497,6 +509,7 @@
                             engine.Nodes.TryGetValue(p.Id, out var rn);
                             var native = NativeComponent.TryCreate(p.TypeName)?.Which;
                             <g
+                                @key="p.Id"
                                 class="node @(sel ? "selected" : "") @(rn?.State == RunState.Error ? "err" : "") @(engine.Paused && engine.Ready.Contains(p.Id) ? "ready" : "") @(engine.Paused && engine.LastStarted == p.Id ? "stepped" : "")"
                                 @oncontextmenu="OnMouse(p, e => NodeMenu(e, p))"
                                 @oncontextmenu:preventDefault
@@ -642,16 +655,16 @@
                                     var dim = connecting != null && !ok && c != connecting;
                                     @if (ok)
                                     {
-                                        <circle cx="@F(pp.x)" cy="@F(pp.y)" r="13" class="ring"/>
+                                        <circle @key="(c, true)" cx="@F(pp.x)" cy="@F(pp.y)" r="@F(13 * settings.PortSizePercent / 100.0)" class="ring"/>
                                     }
 
-                                    <path d="@Tri(c, pp.x, pp.y, ok)"
+                                    <path @key="c" d="@Tri(c, pp.x, pp.y, ok)"
                                           class="port @(c.IsMandatory ? "mand" : "") @(ok ? "ok" : "") @(dim ? "dim" : "") @(focus != null && !PortFocused(c) ? "faded" : "")"
                                           style="fill:@Theme.TypeColor(c.DataTypeName)"
                                           @onpointerenter="On(c, () => hoverPort = c)" @onpointerleave="() => hoverPort = null"
                                           @onpointerdown="OnPointer(c, e => PortDown(e, c))" @onpointerdown:stopPropagation
                                           @onpointerup="On(c, () => PortUp(c))" @onpointerup:stopPropagation
-                                          @ondblclick="On(c, () => PortDoubleClick(c))" @ondblclick:stopPropagation>
+                                          @ondblclick="OnMouse(c, e => PortDoubleClick(c, e))" @ondblclick:stopPropagation>
                                         <title>@PortTip(c, meta)</title></path>
                                 }
                                 }
@@ -930,6 +943,14 @@
                 @CtxItem("↑", Loc["ctx.elevate"], "", () => ZUp(cp), true, "z")
                 @CtxItem("↓", Loc["ctx.reduce"], "", () => ZDown(cp), true, "z")
                 @CtxItem("⤓", Loc["ctx.back"], "", () => ZBack(cp), true, "z")
+            }
+            else if (ctx == Ctx.Port && ctxPort is { } cport)
+            {
+                @foreach (var choice in ctxChoices)
+                {
+                    var ch = choice;
+                    @CtxItem("＋", meta.TryGetValue(ch.TypeName, out var chosen) ? chosen.NameFor(Loc.Lang) : ch.Name, "", () => AddMatching(cport, ch))
+                }
             }
             else if (ctx == Ctx.Tab && ctxDoc is { } cd)
             {

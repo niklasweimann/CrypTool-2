@@ -195,6 +195,10 @@ html.ui-dark .nviews .nview, html.ui-dark .nviews .nat {
     color: #1f2430;
 }
 
+html.ui-dark .set-btn.danger {
+    color: #ff7b7b;
+}
+
 /* pictures of the documentation come with a light background of their own */
 html.ui-dark .dc-article img {
     background: #fff;

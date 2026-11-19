@@ -31,7 +31,7 @@ public partial class Home
         if (ws.Plugins.Count + ws.Texts.Count == 0)
         {
             panX = panY = 40;
-            zoom = 1;
+            zoom = settings.DefaultZoomPercent / 100.0;
             return;
         }
 
@@ -68,6 +68,14 @@ public partial class Home
 
     private void Wheel(WheelEventArgs e)
     {
+        // "scroll": the wheel moves the canvas; Ctrl/Cmd (and pinching on a trackpad, which sends Ctrl) zooms
+        if (settings.WheelMode == "scroll" && !e.CtrlKey && !e.MetaKey)
+        {
+            panX -= e.DeltaX;
+            panY -= e.DeltaY;
+            return;
+        }
+
         ZoomAt(e.DeltaY < 0 ? 1.1 : 1 / 1.1, e.ClientX - rl, e.ClientY - rt);
     }
 }

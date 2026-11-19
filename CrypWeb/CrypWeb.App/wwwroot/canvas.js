@@ -536,6 +536,23 @@ window.ct2.setUiMode = mode => {
     apply();
 };
 
+/** Removes everything the app keeps in localStorage (settings, tabs, recent workspaces, light/dark mode). */
+window.ct2.clearStored = () => {
+    try {
+        for (const key of Object.keys(localStorage)) if (key.startsWith('ct2web.')) localStorage.removeItem(key);
+    } catch (e) { /* storage unavailable */ }
+};
+
+/**
+ * Removes the offline files (the caches of this app). The service worker stays: it fills the cache again with what the
+ * app loads next. (Unregistering it as well left some browsers with a page that never finished loading.)
+ */
+window.ct2.clearOffline = async () => {
+    try {
+        for (const key of await caches.keys()) if (key.startsWith('ct2web-')) await caches.delete(key);
+    } catch (e) { /* no cache storage: nothing to remove */ }
+};
+
 window.ct2.copyText = async text => {
     try {
         await navigator.clipboard.writeText(text);

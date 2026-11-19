@@ -1,152 +1,44 @@
 @using CrypTool.Web.Core
 @using System.Globalization
-@* Settings: vertical tabs on the left (one per topic), the controls of the tab on the right. A design (colors, canvas
-   background, look of the components) is picked from the ready-made ones or edited as the custom design: changing
-   anything while a ready-made design is selected copies that design to the custom one first (see Edit). *@
+@using System.Text.Json
+@using Microsoft.AspNetCore.Components.Forms
+@implements IHandleEvent
+@inject IJSRuntime Js
+@* Settings: vertical tabs on the left (one per topic), the controls of the tab on the right; the search box looks through
+   all tabs. Every setting is a Row (tab, group, label, control) in Rows(): the page shows the rows of the tab, or the rows
+   that match the search. A design (colors, canvas background, look of the components) is picked from the ready-made ones
+   or edited as the custom design: changing anything while a ready-made design is selected copies that design to the
+   custom one first (see Edit). *@
 <div class="page settings">
     <h1>@Loc["doc.settings"]</h1>
     <div class="set-layout">
         <nav class="set-tabs" role="tablist">
+            <input class="set-search" type="search" placeholder="@Loc["set.search"]" aria-label="@Loc["set.search"]"
+                   @bind="query" @bind:event="oninput"/>
             @foreach (var t in Tabs)
             {
                 var id = t;
-                <button class="set-tab @(S.SettingsTab == id ? "on" : "")" role="tab" aria-selected="@(S.SettingsTab == id)"
-                        @onclick="() => S.SettingsTab = id">@Loc["set.tab." + id]</button>
+                <button class="set-tab @(!Searching && S.SettingsTab == id ? "on" : "")" role="tab" aria-selected="@(!Searching && S.SettingsTab == id)"
+                        @onclick="() => Select(id)">@Loc["set.tab." + id]</button>
             }
         </nav>
         <div class="set-panel" role="tabpanel">
-            @switch (S.SettingsTab)
+            @if (Searching)
             {
-                case "general":
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.defaultView"]</div>
-                        <div class="mctl">
-                            <select @onchange="e => Set(() => S.DefaultView = Num(e, 0))">
-                                <option value="0" selected="@(S.DefaultView == 0)">@Loc["set.view.plugin"]</option>
-                                <option value="1" selected="@(S.DefaultView == 1)">@Loc["set.view.open"]</option>
-                                <option value="2" selected="@(S.DefaultView == 2)">@Loc["set.view.closed"]</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.placeholders"]</div>
-                        <div class="mctl"><input
-                                type="checkbox"
-                                checked="@S.ReplacePlaceholders"
-                                @onchange="e => Set(() => S.ReplacePlaceholders = (bool)(e.Value ?? false))"/></div>
-                    </div>
-                    break;
-
-                case "execution":
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.guiUpdate"]</div>
-                        @Slider(S.GuiUpdateMs, 10, 1000, 10, 80, v => S.GuiUpdateMs = v)
-                    </div>
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.sleep"]</div>
-                        @Slider(S.SleepMs, 1, 500, 1, 1, v => S.SleepMs = v)
-                    </div>
-                    break;
-
-                case "design":
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.design"]</div>
-                        <div class="mctl">
-                            <select @onchange="e => PickDesign(e.Value?.ToString() ?? Designs.DefaultId)">
-                                @foreach (var group in new[] { "light", "dark", "access" })
-                                {
-                                    <optgroup label="@Loc["set.group." + group]">
-                                        @foreach (var p in Designs.Presets.Where(p => p.Group == group))
-                                        {
-                                            <option value="@p.Id" selected="@(S.DesignId == p.Id)">@Loc["design." + p.Id]</option>
-                                        }
-                                    </optgroup>
-                                }
-                                <optgroup label="@Loc["set.group.custom"]">
-                                    <option value="@Designs.Custom" selected="@(S.DesignId == Designs.Custom)">@Loc["design.custom"]</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="dpreview" style="background:linear-gradient(180deg,@D.CanvasTop,@D.CanvasBottom)" aria-hidden="true">
-                        @foreach (var key in Theme.CategoryKeys)
-                        {
-                            <span class="dchip" style="background:@D.CategoryColors.GetValueOrDefault(key, "#ccc")"></span>
-                        }
-                        <span class="dtypes">
-                            @foreach (var key in Theme.DataTypeKeys)
-                            {
-                                <i style="background:@D.TypeColors.GetValueOrDefault(key, "#ccc")"></i>
-                            }
-                        </span>
-                    </div>
-                    <div class="mnote">@Loc[S.DesignId == Designs.Custom ? "set.customNote" : "set.presetNote"]</div>
-                    <div class="sgrp">@Loc["set.interface"]</div>
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.uiFollows"]</div>
-                        <div class="mctl"><input
-                                type="checkbox"
-                                checked="@S.UiFollowsDesign"
-                                @onchange="e => Set(() => S.UiFollowsDesign = (bool)(e.Value ?? false))"/></div>
-                    </div>
-                    @if (S.UiFollowsDesign)
-                    {
-                        <div class="mrow">
-                            <div class="mlabel">@Loc["set.darkUi"]</div>
-                            <div class="mctl"><input
-                                    type="checkbox"
-                                    checked="@D.DarkUi"
-                                    @onchange="e => Edit(d => d.DarkUi = (bool)(e.Value ?? false))"/></div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="mrow">
-                            <div class="mlabel">@Loc["set.uiMode"]</div>
-                            <div class="mctl">
-                                <select @onchange="e => Set(() => S.UiMode = e.Value?.ToString() ?? S.UiMode)">
-                                    @foreach (var mode in new[] { "light", "dark", "system" })
-                                    {
-                                        <option value="@mode" selected="@(S.UiMode == mode)">@Loc["set.mode." + mode]</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    }
-                    <div class="sgrp">@Loc["set.workspaceLook"]</div>
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.componentStyle"]</div>
-                        <div class="mctl">
-                            <select @onchange="e => Edit(d => d.Look = e.Value?.ToString() ?? d.Look)">
-                                @foreach (var look in Designs.Looks)
-                                {
-                                    <option value="@look" selected="@(D.Look == look)">@Loc["set.style." + look]</option>
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mrow">
-                        <div class="mlabel">@Loc["set.canvasBackground"]</div>
-                        <div class="mctl">
-                            @ColorInput(D.CanvasTop, v => Edit(d => d.CanvasTop = v), Loc["set.canvasTop"])
-                            @ColorInput(D.CanvasBottom, v => Edit(d => d.CanvasBottom = v), Loc["set.canvasBottom"])
-                        </div>
-                    </div>
-                    <div class="sgrp">@Loc["set.typeColors"]</div>
-                    @ColorGroup("set.group.numbers", TypeColors("System.Int32", "System.Double", "System.Numerics.BigInteger"))
-                    @ColorGroup("set.group.data", TypeColors("System.Byte", "System.String", "System.Boolean"))
-                    @ColorGroup("set.group.other", TypeColors("System.Object", "Stream"))
-                    <div class="sgrp">@Loc["set.catColors"]</div>
-                    @ColorGroup("set.group.ciphers", CategoryColors("CiphersClassic", "CiphersModernSymmetric", "CiphersModernAsymmetric"))
-                    @ColorGroup("set.group.analysis", CategoryColors("CryptanalysisSpecific", "CryptanalysisGeneric"))
-                    @ColorGroup("set.group.misc", CategoryColors("Steganography", "HashFunctions", "Protocols", "ToolsMisc", "ToolsDataInputOutput"))
-                    @if (S.DesignId == Designs.Custom)
-                    {
-                        <div class="mrow">
-                            <button class="rbtn small" @onclick="ResetCustom">@Loc["set.resetCustom"]</button>
-                        </div>
-                    }
-                    break;
+                var found = Rows().Where(Matches).ToList();
+                @if (found.Count == 0)
+                {
+                    <div class="mhint">@Loc["set.noMatch"]</div>
+                }
+                @RowsView(found, true)
+            }
+            else
+            {
+                @RowsView(Rows().Where(r => r.Tab == S.SettingsTab), false)
+            }
+            @if (message.Length > 0)
+            {
+                <div class="mnote" role="status">@message</div>
             }
         </div>
     </div>
@@ -157,12 +49,59 @@
     [Parameter] public Localizer Loc { get; set; } = default!;
     [Parameter] public EventCallback OnChanged { get; set; }
 
-    private static readonly string[] Tabs = { "general", "execution", "design" };
+    private static readonly string[] Tabs = { "general", "workspace", "wires", "execution", "design", "access", "data" };
+
+    /// <summary>
+    ///     One setting: where it is shown, its label and the control. The hint is shown below it; <see cref="Full" /> rows
+    ///     have no label column; the keywords are only for the search.
+    /// </summary>
+    private sealed record Row(string Tab, string Group, string Label, RenderFragment Control, string Hint = "", bool Full = false, string Keywords = "");
+
+    private string query = "";
+    private string message = "";
+
+    private bool Searching => query.Trim().Length > 0;
 
     /// <summary>The design in use (what the controls show).</summary>
     private Design D => S.Current;
 
     private static CultureInfo Inv => CultureInfo.InvariantCulture;
+
+    // The page is drawn again after its own events and when a setting changed elsewhere (ribbon, design): the parent
+    // renders many times a second, and a render in between would give the controls new handlers and lose clicks.
+    private string? shown;
+    private bool redraw = true;
+
+    protected override bool ShouldRender()
+    {
+        var signature = JsonSerializer.Serialize(S) + Loc.Lang + query;
+        if (!redraw && signature == shown) return false;
+        redraw = false;
+        shown = signature;
+        return true;
+    }
+
+    async Task IHandleEvent.HandleEventAsync(EventCallbackWorkItem callback, object? arg)
+    {
+        await callback.InvokeAsync(arg);
+        redraw = true;
+        StateHasChanged();
+    }
+
+    private void Select(string tab)
+    {
+        S.SettingsTab = tab;
+        query = "";
+        message = "";
+    }
+
+    private bool Matches(Row row)
+    {
+        var text = Loc[row.Label] + " " + (row.Group.Length > 0 ? Loc[row.Group] : "") + " " + row.Hint + " " + row.Keywords + " " + Loc["set.tab." + row.Tab];
+        return text.Contains(query.Trim(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    // ---- changing settings ----
 
     static int Num(ChangeEventArgs e, int fallback)
     {
@@ -189,53 +128,311 @@
         return OnChanged.InvokeAsync();
     }
 
-    Task PickDesign(string id) => Set(() => S.DesignId = id);
+    // ---- the settings ----
 
-    Task ResetCustom() => Set(() => S.Custom = Designs.Default.Design.Clone());
+    private List<Row> Rows()
+    {
+        var rows = new List<Row>();
+        void Add(string tab, string group, string label, RenderFragment control, string hint = "", bool full = false) =>
+            rows.Add(new Row(tab, group, label, control, hint, full));
+
+        // general
+        Add("general", "", "set.language", SelectControl(Loc.Lang, Localizer.Languages.Select(l => (l.Code, l.Name)).ToArray(),
+            v => _ = Loc.SetLanguageAsync(v)));
+        Add("general", "", "set.defaultView", SelectControl(S.DefaultView.ToString(Inv),
+            new[] { ("0", Loc["set.view.plugin"]), ("1", Loc["set.view.open"]), ("2", Loc["set.view.closed"]) }, v => S.DefaultView = int.Parse(v, Inv)));
+        Add("general", "", "set.placeholders", Check(S.ReplacePlaceholders, v => S.ReplacePlaceholders = v));
+        Add("general", "set.group.autosave", "set.autosave", Check(S.AutosaveEnabled, v => S.AutosaveEnabled = v), Loc["set.autosaveHint"]);
+        Add("general", "set.group.autosave", "set.autosaveEvery", Slider(S.AutosaveSeconds, 1, 60, 1, 2, "s", v => S.AutosaveSeconds = v));
+
+        // workspace
+        Add("workspace", "set.group.canvas", "set.snap", Check(S.Snap, v => S.Snap = v));
+        Add("workspace", "set.group.canvas", "set.grid", Slider(S.GridSize, 2, 50, 1, 10, "px", v => S.GridSize = v));
+        Add("workspace", "set.group.canvas", "set.defaultZoom", Slider(S.DefaultZoomPercent, 25, 200, 5, 100, "%", v => S.DefaultZoomPercent = v));
+        Add("workspace", "set.group.canvas", "set.wheel", SelectControl(S.WheelMode,
+            new[] { ("zoom", Loc["set.wheel.zoom"]), ("scroll", Loc["set.wheel.scroll"]) }, v => S.WheelMode = v));
+        Add("workspace", "set.group.panels", "set.minimap", Check(S.ShowMinimap, v => S.ShowMinimap = v));
+        Add("workspace", "set.group.panels", "set.log", Check(S.ShowLog, v => S.ShowLog = v));
+        Add("workspace", "set.group.panels", "set.timings", Check(S.ShowTimings, v => S.ShowTimings = v));
+        Add("workspace", "set.group.editing", "set.portDouble", SelectControl(S.PortDoubleClick,
+            new[] { ("best", Loc["set.portDouble.best"]), ("ask", Loc["set.portDouble.ask"]), ("off", Loc["set.portDouble.off"]) }, v => S.PortDoubleClick = v),
+            Loc["set.portDoubleHint"]);
+
+        // wires
+        Add("wires", "", "set.wireStyle", SelectControl(S.WireStyle,
+            new[] { ("orthogonal", Loc["set.wire.orthogonal"]), ("curved", Loc["set.wire.curved"]) }, v => S.WireStyle = v));
+        Add("wires", "", "set.wireWidth", Slider(S.WireWidth, 1, 8, 1, 3, "px", v => S.WireWidth = v));
+        Add("wires", "", "set.wireAnimation", Check(S.WireAnimation, v => S.WireAnimation = v));
+
+        // execution
+        Add("execution", "", "set.guiUpdate", Slider(S.GuiUpdateMs, 10, 1000, 10, 80, "ms", v => S.GuiUpdateMs = v));
+        Add("execution", "", "set.sleep", Slider(S.SleepMs, 1, 500, 1, 1, "ms", v => S.SleepMs = v));
+        Add("execution", "", "set.runLimit", Slider(S.RunLimitMinutes, 0, 120, 1, 0, "min", v => S.RunLimitMinutes = v), Loc["set.runLimitHint"]);
+
+        // design
+        Add("design", "", "set.design", DesignSelect(), "", true);
+        Add("design", "set.interface", "set.uiFollows", Check(S.UiFollowsDesign, v => S.UiFollowsDesign = v));
+        if (S.UiFollowsDesign)
+            Add("design", "set.interface", "set.darkUi", Check(D.DarkUi, v => _ = Edit(d => d.DarkUi = v)));
+        else
+            Add("design", "set.interface", "set.uiMode", SelectControl(S.UiMode,
+                new[] { ("light", Loc["set.mode.light"]), ("dark", Loc["set.mode.dark"]), ("system", Loc["set.mode.system"]) }, v => S.UiMode = v));
+        Add("design", "set.workspaceLook", "set.componentStyle", SelectControl(D.Look,
+            Designs.Looks.Select(l => (l, Loc["set.style." + l])).ToArray(), v => _ = Edit(d => d.Look = v)));
+        Add("design", "set.workspaceLook", "set.canvasBackground", Colors(
+            ColorItem(Loc["set.canvasTop"], D.CanvasTop, v => d => d.CanvasTop = v),
+            ColorItem(Loc["set.canvasBottom"], D.CanvasBottom, v => d => d.CanvasBottom = v)));
+        AddColors(rows, "set.typeColors", "set.group.numbers", TypeColors("System.Int32", "System.Double", "System.Numerics.BigInteger"));
+        AddColors(rows, "set.typeColors", "set.group.data", TypeColors("System.Byte", "System.String", "System.Boolean"));
+        AddColors(rows, "set.typeColors", "set.group.other", TypeColors("System.Object", "Stream"));
+        AddColors(rows, "set.catColors", "set.group.ciphers", CategoryColors("CiphersClassic", "CiphersModernSymmetric", "CiphersModernAsymmetric"));
+        AddColors(rows, "set.catColors", "set.group.analysis", CategoryColors("CryptanalysisSpecific", "CryptanalysisGeneric"));
+        AddColors(rows, "set.catColors", "set.group.misc", CategoryColors("Steganography", "HashFunctions", "Protocols", "ToolsMisc", "ToolsDataInputOutput"));
+        if (S.DesignId == Designs.Custom)
+            Add("design", "set.customDesign", "set.resetCustom", Button("set.resetCustom", () => S.Custom = Designs.Default.Design.Clone()));
+        Add("design", "set.customDesign", "set.exportDesign", Button("set.exportDesign", ExportDesign));
+        Add("design", "set.customDesign", "set.importDesign", FileInput(ImportDesign));
+
+        // accessibility
+        Add("access", "", "set.reduceMotion", Check(S.ReduceMotion, v => S.ReduceMotion = v), Loc["set.reduceMotionHint"]);
+        Add("access", "", "set.componentFont", Slider(S.ComponentFontPercent, 80, 160, 5, 100, "%", v => S.ComponentFontPercent = v));
+        Add("access", "", "set.portSize", Slider(S.PortSizePercent, 80, 200, 5, 100, "%", v => S.PortSizePercent = v));
+        Add("access", "", "set.docFont", Slider(S.DocFontPercent, 80, 200, 5, 100, "%", v => S.DocFontPercent = v));
+
+        // data
+        Add("data", "set.group.settingsFile", "set.exportSettings", Button("set.exportSettings", ExportSettings), Loc["set.settingsFileHint"]);
+        Add("data", "set.group.settingsFile", "set.importSettings", FileInput(ImportSettings));
+        Add("data", "set.group.browserData", "set.clearData", Button("set.clearData", ClearData, danger: true), Loc["set.clearDataHint"]);
+        Add("data", "set.group.browserData", "set.clearOffline", Button("set.clearOffline", ClearOffline, danger: true), Loc["set.clearOfflineHint"]);
+        return rows;
+    }
+
+    private void AddColors(List<Row> rows, string group, string title, List<ColorEntry> items) =>
+        rows.Add(new Row("design", group, title, Colors(items.ToArray()), "", true, string.Join(' ', items.Select(i => i.Label))));
+
+    // ---- showing rows ----
+
+    private RenderFragment RowsView(IEnumerable<Row> rows, bool tabTitles) => __builder =>
+    {
+        string? tab = null, group = null;
+        foreach (var row in rows)
+        {
+            if (tabTitles && row.Tab != tab)
+            {
+                tab = row.Tab;
+                group = null;
+                <h2 class="set-tabtitle">@Loc["set.tab." + tab]</h2>
+            }
+
+            if (row.Group != group)
+            {
+                group = row.Group;
+                if (group.Length > 0)
+                {
+                    <div class="sgrp">@Loc[group]</div>
+                }
+            }
+
+            if (row.Full)
+            {
+                @row.Control
+            }
+            else
+            {
+                <div class="mrow">
+                    <div class="mlabel">@Loc[row.Label]</div>
+                    <div class="mctl">@row.Control</div>
+                </div>
+                if (row.Hint.Length > 0)
+                {
+                    <div class="mnote hint-row">@row.Hint</div>
+                }
+            }
+        }
+    };
 
     // ---- controls ----
 
-    /// <summary>A slider with a number field behind it; both change the same value.</summary>
-    private RenderFragment Slider(int value, int min, int max, int step, int fallback, Action<int> apply) => __builder =>
+    private RenderFragment Check(bool value, Action<bool> apply) => __builder =>
     {
-        <div class="mctl mslider">
+        <input type="checkbox" checked="@value" @onchange="e => Set(() => apply((bool)(e.Value ?? false)))"/>
+    };
+
+    private RenderFragment SelectControl(string value, (string Value, string Text)[] options, Action<string> apply) => __builder =>
+    {
+        <select @onchange="e => Set(() => apply(e.Value?.ToString() ?? value))">
+            @foreach (var (v, text) in options)
+            {
+                <option value="@v" selected="@(value == v)">@text</option>
+            }
+        </select>
+    };
+
+    /// <summary>A slider with a number field and the unit behind it; both change the same value.</summary>
+    private RenderFragment Slider(int value, int min, int max, int step, int fallback, string unit, Action<int> apply) => __builder =>
+    {
+        <div class="mslider">
             <input type="range" min="@min" max="@max" step="@step" value="@value"
                    @onchange="e => Set(() => apply(Math.Clamp(Num(e, fallback), min, max)))"/>
             <input type="number" class="mnum" min="@min" max="@max" step="@step" value="@value"
                    @onchange="e => Set(() => apply(Math.Clamp(Num(e, fallback), min, max)))"/>
-            <span class="munit">ms</span>
+            <span class="munit">@unit</span>
         </div>
     };
 
-    private RenderFragment ColorInput(string value, Func<string, Task> apply, string label) => __builder =>
+    private RenderFragment Button(string label, Action action, bool danger = false) => __builder =>
     {
-        <label class="colrow"><input type="color" value="@value" title="@label" aria-label="@label"
-                                     @onchange="e => ApplyColor(e.Value?.ToString(), apply)"/><span>@label</span></label>
+        <button class="set-btn @(danger ? "danger" : "")" @onclick="() => Set(action)">@Loc[label]</button>
     };
 
-    private static Task ApplyColor(string? value, Func<string, Task> apply) =>
-        string.IsNullOrEmpty(value) ? Task.CompletedTask : apply(value);
+    private RenderFragment Button(string label, Func<Task> action, bool danger = false) => __builder =>
+    {
+        <button class="set-btn @(danger ? "danger" : "")" @onclick="action">@Loc[label]</button>
+    };
 
-    private record ColorItem(string Label, string Value, Func<string, Task> Apply);
+    private RenderFragment FileInput(Func<InputFileChangeEventArgs, Task> onChange) => __builder =>
+    {
+        <InputFile accept=".json,application/json" OnChange="onChange"/>
+    };
 
-    private IEnumerable<ColorItem> TypeColors(params string[] keys) =>
-        keys.Select(k => new ColorItem(k.Split('.').Last(), D.TypeColors.GetValueOrDefault(k, Theme.DefaultTypeColor(k)),
-            v => Edit(d => d.TypeColors[k] = v)));
+    // ---- design controls ----
 
-    private IEnumerable<ColorItem> CategoryColors(params string[] keys) =>
-        keys.Select(k => new ColorItem(Loc["cat." + k], D.CategoryColors.GetValueOrDefault(k, Theme.DefaultCategoryColor(k)),
-            v => Edit(d => d.CategoryColors[k] = v)));
+    private RenderFragment DesignSelect() => __builder =>
+    {
+        <div class="mrow">
+            <div class="mlabel">@Loc["set.design"]</div>
+            <div class="mctl">
+                <select @onchange="e => Set(() => S.DesignId = e.Value?.ToString() ?? Designs.DefaultId)">
+                    @foreach (var group in new[] { "light", "dark", "access" })
+                    {
+                        <optgroup label="@Loc["set.group." + group]">
+                            @foreach (var p in Designs.Presets.Where(p => p.Group == group))
+                            {
+                                <option value="@p.Id" selected="@(S.DesignId == p.Id)">@Loc["design." + p.Id]</option>
+                            }
+                        </optgroup>
+                    }
+                    <optgroup label="@Loc["set.group.custom"]">
+                        <option value="@Designs.Custom" selected="@(S.DesignId == Designs.Custom)">@Loc["design.custom"]</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="dpreview" style="background:linear-gradient(180deg,@D.CanvasTop,@D.CanvasBottom)" aria-hidden="true">
+            @foreach (var key in Theme.CategoryKeys)
+            {
+                <span class="dchip" style="background:@D.CategoryColors.GetValueOrDefault(key, "#ccc")"></span>
+            }
+            <span class="dtypes">
+                @foreach (var key in Theme.DataTypeKeys)
+                {
+                    <i style="background:@D.TypeColors.GetValueOrDefault(key, "#ccc")"></i>
+                }
+            </span>
+        </div>
+        <div class="mnote">@Loc[S.DesignId == Designs.Custom ? "set.customNote" : "set.presetNote"]</div>
+    };
 
-    private RenderFragment ColorGroup(string title, IEnumerable<ColorItem> items) => __builder =>
+    private sealed record ColorEntry(string Label, string Value, Func<string, Action<Design>> Change);
+
+    private static ColorEntry ColorItem(string label, string value, Func<string, Action<Design>> change) => new(label, value, change);
+
+    private List<ColorEntry> TypeColors(params string[] keys) =>
+        keys.Select(k => new ColorEntry(k.Split('.').Last(), D.TypeColors.GetValueOrDefault(k, Theme.DefaultTypeColor(k)),
+            v => d => d.TypeColors[k] = v)).ToList();
+
+    private List<ColorEntry> CategoryColors(params string[] keys) =>
+        keys.Select(k => new ColorEntry(Loc["cat." + k], D.CategoryColors.GetValueOrDefault(k, Theme.DefaultCategoryColor(k)),
+            v => d => d.CategoryColors[k] = v)).ToList();
+
+    private RenderFragment Colors(params ColorEntry[] items) => __builder =>
     {
         <div class="cgroup">
-            <div class="cgtitle">@Loc[title]</div>
             <div class="colgrid">
                 @foreach (var item in items)
                 {
-                    @ColorInput(item.Value, item.Apply, item.Label)
+                    var it = item;
+                    <label class="colrow"><input type="color" value="@it.Value" title="@it.Label" aria-label="@it.Label"
+                                                 @onchange="e => ApplyColor(e.Value?.ToString(), it)"/><span>@it.Label</span></label>
                 }
             </div>
         </div>
     };
+
+    private Task ApplyColor(string? value, ColorEntry item) =>
+        string.IsNullOrEmpty(value) ? Task.CompletedTask : Edit(item.Change(value));
+
+    // ---- files and stored data ----
+
+    private static readonly JsonSerializerOptions Pretty = new() { WriteIndented = true };
+
+    private async Task ExportSettings()
+    {
+        await Js.InvokeVoidAsync("ct2.download", "crypweb-settings.json", JsonSerializer.Serialize(S, Pretty));
+    }
+
+    private async Task ExportDesign()
+    {
+        await Js.InvokeVoidAsync("ct2.download", "crypweb-design.json", JsonSerializer.Serialize(D, Pretty));
+    }
+
+    private const long MaxFileBytes = 2_000_000;
+
+    private async Task<T?> ReadJson<T>(InputFileChangeEventArgs e) where T : class
+    {
+        try
+        {
+            await using var stream = e.File.OpenReadStream(MaxFileBytes);
+            return await JsonSerializer.DeserializeAsync<T>(stream);
+        }
+        catch (Exception)
+        {
+            return null;
+        }
+    }
+
+    private async Task ImportSettings(InputFileChangeEventArgs e)
+    {
+        var imported = await ReadJson<AppSettings>(e);
+        if (imported == null)
+        {
+            message = Loc["set.importFailed"];
+            return;
+        }
+
+        S.CopyFrom(imported);
+        message = Loc["set.imported"];
+        await OnChanged.InvokeAsync();
+    }
+
+    private async Task ImportDesign(InputFileChangeEventArgs e)
+    {
+        var imported = await ReadJson<Design>(e);
+        if (imported == null)
+        {
+            message = Loc["set.importFailed"];
+            return;
+        }
+
+        S.Custom = imported.Sanitize();
+        S.DesignId = Designs.Custom;
+        message = Loc["set.imported"];
+        await OnChanged.InvokeAsync();
+    }
+
+    /// <summary>Removes the settings, open tabs and recent workspaces (not the offline files) and starts again.</summary>
+    private async Task ClearData()
+    {
+        if (!await Js.InvokeAsync<bool>("confirm", Loc["set.clearConfirm"])) return;
+        await Js.InvokeVoidAsync("ct2.clearStored");
+        await Js.InvokeVoidAsync("eval", "location.reload()");
+    }
+
+    /// <summary>Removes the offline files; they are loaded again at the next visit (online).</summary>
+    private async Task ClearOffline()
+    {
+        if (!await Js.InvokeAsync<bool>("confirm", Loc["set.clearOfflineConfirm"])) return;
+        await Js.InvokeVoidAsync("ct2.clearOffline");
+        await Js.InvokeVoidAsync("eval", "location.reload()");
+    }
 }

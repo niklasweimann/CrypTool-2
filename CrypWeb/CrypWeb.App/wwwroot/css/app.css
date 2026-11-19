@@ -710,7 +710,7 @@ main {
 }
 
 .title {
-    font-size: 11px;
+    font-size: calc(11px * var(--comp-fs, 1));
     font-weight: 600;
     fill: #111;
     pointer-events: none;
@@ -737,7 +737,7 @@ main {
     resize: none;
     border: 1px solid #e3e7ef;
     border-radius: 6px;
-    font: 12px ui-monospace, Menlo, monospace;
+    font: calc(12px * var(--comp-fs, 1)) ui-monospace, Menlo, monospace;
     padding: 5px 6px;
     background: #fafbfd;
     outline: none;
@@ -777,7 +777,7 @@ main {
 .wire-under {
     fill: none;
     stroke: #222;
-    stroke-width: 5;
+    stroke-width: calc(var(--wire-w, 3px) + 2px);
     stroke-linejoin: round;
     pointer-events: none;
     opacity: .55;
@@ -785,13 +785,13 @@ main {
 
 .wire {
     fill: none;
-    stroke-width: 3;
+    stroke-width: var(--wire-w, 3px);
     stroke-linejoin: round;
     pointer-events: none;
 }
 
 .wire.active {
-    stroke-width: 4;
+    stroke-width: calc(var(--wire-w, 3px) + 1px);
     stroke-dasharray: 8 6;
     animation: flow .6s linear infinite;
 }
@@ -884,7 +884,7 @@ textarea.inline {
 }
 
 .plabel {
-    font-size: 10px;
+    font-size: calc(10px * var(--comp-fs, 1));
     fill: #222;
     paint-order: stroke;
     stroke: #fff;
@@ -1414,7 +1414,7 @@ textarea.inline {
 }
 
 .cnttxt {
-    font-size: 10.5px;
+    font-size: calc(10.5px * var(--comp-fs, 1));
     fill: #5b6578;
     pointer-events: none;
 }
@@ -1435,7 +1435,7 @@ textarea.inline {
 }
 
 .uname {
-    font-size: 12px;
+    font-size: calc(12px * var(--comp-fs, 1));
     fill: #3d4556;
     pointer-events: none;
 }
@@ -1705,6 +1705,56 @@ textarea.inline {
     padding-right: 10px;
     position: sticky;
     top: 0;
+}
+
+.set-search {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    font: inherit;
+    background: var(--surface);
+}
+
+.set-tabtitle {
+    font-size: 15px;
+    font-weight: 700;
+    margin: 20px 0 4px;
+}
+
+.hint-row {
+    margin: -2px 0 6px 212px;
+}
+
+/* buttons and file fields of the settings page */
+.set-btn, .settings input[type=file]::file-selector-button {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 6px 14px;
+    background: var(--surface);
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.set-btn:hover, .settings input[type=file]::file-selector-button:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+}
+
+.settings input[type=file] {
+    font: inherit;
+    color: var(--muted);
+}
+
+.settings input[type=file]::file-selector-button {
+    margin-right: 10px;
+}
+
+.set-btn.danger {
+    color: #c62828;
 }
 
 .set-tab {
@@ -3218,4 +3268,24 @@ body.filedrag .drophint {
 .ne-tools .ne-done:hover {
     background: var(--accent);
     filter: brightness(1.1);
+}
+
+/* settings: no flowing dashes on the wires; reduced motion (also when the device asks for it) */
+.no-wire-anim .wire.active {
+    animation: none;
+    stroke-dasharray: none;
+}
+
+.reduce-motion *, .reduce-motion *::before, .reduce-motion *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }

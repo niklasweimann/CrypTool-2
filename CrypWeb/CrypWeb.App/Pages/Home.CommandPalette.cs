@@ -91,7 +91,7 @@ public partial class Home
             yield return new(command, "100%", "", null, Cmd(Zoom100));
             yield return new(command, Loc["ws.undo"], "Ctrl+Z", "undo", Cmd(Undo));
             yield return new(command, Loc["ws.redo"], "Ctrl+Y", "redo", Cmd(Redo));
-            yield return new(command, Loc["ws.addText"], "", "note", Cmd(AddNote));
+            yield return new(command, Loc["ws.addText"], "", "note", Cmd(() => _ = AddNote()));
             yield return new(command, Loc["view.export"], "", "camera", ExportImage);
         }
 
@@ -132,7 +132,7 @@ public partial class Home
     private void AddFromPalette(PaletteEntry entry)
     {
         if (paletteAt is { } at) AddAt(entry, at.x - 50, at.y - 40);
-        else AddAtCenter(entry);
+        else _ = AddAtCenter(entry);
     }
 
     /// <summary>Click on an entry: looked up by position at the time of the click (the handler is reused across renders).</summary>

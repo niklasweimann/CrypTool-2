@@ -42,6 +42,47 @@ public sealed class AppSettings
     public Dictionary<string, string>? TypeColors { get; set; }
     public Dictionary<string, string>? CategoryColors { get; set; }
 
+    // ---- general ----
+
+    /// <summary>The open tabs are kept in the browser while editing (and restored at the next visit).</summary>
+    public bool AutosaveEnabled { get; set; } = true;
+
+    public int AutosaveSeconds { get; set; } = 2;
+
+    // ---- workspace ----
+
+    /// <summary>Distance of the grid that components snap to (while <see cref="Snap" /> is on).</summary>
+    public int GridSize { get; set; } = 10;
+
+    /// <summary>Zoom of a new, empty workspace.</summary>
+    public int DefaultZoomPercent { get; set; } = 100;
+
+    /// <summary>"zoom": the mouse wheel zooms; "scroll": it moves the canvas, Ctrl (or pinching) zooms.</summary>
+    public string WheelMode { get; set; } = "zoom";
+
+    /// <summary>What a double click on a connector does: "best" adds the best fitting component, "ask" lets you choose, "off".</summary>
+    public string PortDoubleClick { get; set; } = "best";
+
+    // ---- wires ----
+
+    /// <summary>"orthogonal" (right-angled routes you can drag) or "curved".</summary>
+    public string WireStyle { get; set; } = "orthogonal";
+
+    public int WireWidth { get; set; } = 3;
+    public bool WireAnimation { get; set; } = true;
+
+    // ---- accessibility ----
+
+    public bool ReduceMotion { get; set; }
+    public int ComponentFontPercent { get; set; } = 100;
+    public int PortSizePercent { get; set; } = 100;
+    public int DocFontPercent { get; set; } = 100;
+
+    // ---- execution ----
+
+    /// <summary>A run that takes longer is stopped (0 = no limit).</summary>
+    public int RunLimitMinutes { get; set; }
+
     public int GuiUpdateMs { get; set; } = 80;
     public int SleepMs { get; set; } = 1;
     public bool ReplacePlaceholders { get; set; } = true;
@@ -94,6 +135,36 @@ public sealed class AppSettings
         TypeColors = null;
         CategoryColors = null;
         ComponentStyle = null;
+        Custom = (Custom ?? Designs.Default.Design.Clone()).Sanitize();
+        // stored or imported values outside of what the settings page offers
+        AutosaveSeconds = Math.Clamp(AutosaveSeconds, 1, 600);
+        GridSize = Math.Clamp(GridSize, 2, 100);
+        DefaultZoomPercent = Math.Clamp(DefaultZoomPercent, 10, 400);
+        WireWidth = Math.Clamp(WireWidth, 1, 8);
+        ComponentFontPercent = Math.Clamp(ComponentFontPercent, 80, 160);
+        PortSizePercent = Math.Clamp(PortSizePercent, 80, 200);
+        DocFontPercent = Math.Clamp(DocFontPercent, 80, 200);
+        RunLimitMinutes = Math.Clamp(RunLimitMinutes, 0, 1440);
+        GuiUpdateMs = Math.Clamp(GuiUpdateMs, 10, 1000);
+        SleepMs = Math.Clamp(SleepMs, 1, 500);
+        if (WheelMode is not ("zoom" or "scroll")) WheelMode = "zoom";
+        if (PortDoubleClick is not ("best" or "ask" or "off")) PortDoubleClick = "best";
+        if (WireStyle is not ("orthogonal" or "curved")) WireStyle = "orthogonal";
+        if (UiMode is not ("light" or "dark" or "system")) UiMode = "system";
+        Links ??= new List<SavedLink>();
+    }
+
+    /// <summary>Takes over all settings of <paramref name="other" /> (an imported file).</summary>
+    public void CopyFrom(AppSettings other)
+    {
+        foreach (var property in typeof(AppSettings).GetProperties())
+        {
+            if (property.SetMethod == null || property.GetCustomAttributes(typeof(JsonIgnoreAttribute), true).Length > 0) continue;
+            property.SetValue(this, property.GetValue(other));
+        }
+
+        Migrate();
+        ApplyTheme();
     }
 
     public static async Task<AppSettings> LoadAsync(IJSRuntime js)

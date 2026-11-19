@@ -14,6 +14,7 @@ public partial class Home
 
     private async Task RestoreAutosave()
     {
+        if (!settings.AutosaveEnabled) return;
         try
         {
             var raw = await Js.InvokeAsync<string?>("ct2.store.get", AutosaveKey);
@@ -69,13 +70,19 @@ public partial class Home
         }
     }
 
+    private int autosaveSeconds;
+
     private void StartAutosave()
     {
-        AutosaveTimer = new Timer(_ => _ = InvokeAsync(SaveAutosave), null, 2000, 2000);
+        autosaveSeconds = settings.AutosaveSeconds;
+        AutosaveTimer?.Dispose();
+        var period = autosaveSeconds * 1000;
+        AutosaveTimer = new Timer(_ => _ = InvokeAsync(SaveAutosave), null, period, period);
     }
 
     private async Task SaveAutosave()
     {
+        if (!settings.AutosaveEnabled) return;
         try
         {
             var saved = docs.Select(d => new AutosavedDoc(

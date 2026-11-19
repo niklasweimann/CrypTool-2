@@ -59,11 +59,36 @@ public partial class Home
         EngineHost.SetCulture(Loc.Lang);
         engine.Paused = paused;
         EngineHost.Start(ed.ToJson(), active.Key, settings.GuiUpdateMs, settings.SleepMs, paused);
+        StartRunLimit();
         await Task.CompletedTask;
+    }
+
+    private Timer? runLimitTimer;
+
+    /// <summary>Stops the run after the time limit of the settings (0 = no limit).</summary>
+    private void StartRunLimit()
+    {
+        ClearRunLimit();
+        if (settings.RunLimitMinutes <= 0) return;
+        var minutes = settings.RunLimitMinutes;
+        runLimitTimer = new Timer(_ => _ = InvokeAsync(() =>
+        {
+            if (runDoc == null || !runDoc.Engine.Running) return;
+            AddLog(Loc["log.workspace"], LogLevel.Warning, Loc.T("log.timeLimit", minutes), 0, runDoc);
+            StopRun();
+            StateHasChanged();
+        }), null, TimeSpan.FromMinutes(minutes), Timeout.InfiniteTimeSpan);
+    }
+
+    private void ClearRunLimit()
+    {
+        runLimitTimer?.Dispose();
+        runLimitTimer = null;
     }
 
     private void StopRun()
     {
+        ClearRunLimit();
         var d = runDoc;
         if (d == null || !d.Engine.Running) return;
         d.Engine.Running = false;
@@ -195,6 +220,10 @@ public partial class Home
         target.Engine.Paused = false;
         target.Engine.Ready.Clear();
         target.Engine.ActiveWires.Clear();
-        if (ReferenceEquals(runDoc, target)) runDoc = null;
+        if (ReferenceEquals(runDoc, target))
+        {
+            runDoc = null;
+            ClearRunLimit();
+        }
     }
 }

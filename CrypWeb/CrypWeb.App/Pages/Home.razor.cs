@@ -283,6 +283,7 @@ public partial class Home : IDisposable, IHandleEvent
 
     private async Task SettingsChanged()
     {
+        if (settings.AutosaveSeconds != autosaveSeconds && AutosaveTimer != null) StartAutosave();
         await settings.SaveAsync(Js);
     }
 
@@ -355,6 +356,28 @@ public partial class Home : IDisposable, IHandleEvent
 
     protected override async Task OnInitializedAsync()
     {
+        // the loading screen must never stay for good: after an error, or when a request hangs, the app shows up anyway
+        using var watchdog = new Timer(_ => _ = InvokeAsync(() =>
+        {
+            started = true;
+            StateHasChanged();
+        }), null, 20000, Timeout.Infinite);
+        try
+        {
+            await InitializeAsync();
+        }
+        catch (Exception e)
+        {
+            AddLog("Startup", LogLevel.Error, "The start failed: " + e.Message);
+        }
+        finally
+        {
+            started = true;
+        }
+    }
+
+    private async Task InitializeAsync()
+    {
         docs.Add(active);
         _ = LoadStartData();
         settings = await AppSettings.LoadAsync(Js);
@@ -395,9 +418,11 @@ public partial class Home : IDisposable, IHandleEvent
         }
 
         // a link of the link manager (?t=template&component.setting=value...) opens that template
+        var opened = true;
         if (TemplateLink.Parse(Nav.Uri) is { } link) await OpenLink(link);
         else if (DocLink.Parse(Nav.Uri) != null) OpenDocsFromAddress();
         else
+        {
             try
             {
                 await RestoreAutosave();
@@ -406,7 +431,22 @@ public partial class Home : IDisposable, IHandleEvent
             {
                 AddLog("Startup", LogLevel.Warning, "The last session could not be restored: " + e.Message);
             }
+
+            opened = LastAutosave != null; // a session of an earlier visit is back
+        }
+
+        // the first visit (or nothing to restore) starts with the Startcenter, in front of the empty workspace
+        if (!opened)
+        {
+            ShowSingleton(DocKind.Start);
+            var start = active;
+            docs.Remove(start);
+            docs.Insert(0, start);
+        }
     }
+
+    /// <summary>False until the start is decided; the loading screen stays up so that no tab shows up and is replaced.</summary>
+    private bool started;
 
     protected override async Task OnAfterRenderAsync(bool first)
     {

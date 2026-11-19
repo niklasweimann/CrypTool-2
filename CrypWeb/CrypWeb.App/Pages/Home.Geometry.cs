@@ -15,7 +15,8 @@ public partial class Home
 
     private double Snap(double v)
     {
-        return snap ? Math.Round(v / 10) * 10 : v;
+        var grid = Math.Clamp(settings.GridSize, 2, 100);
+        return snap ? Math.Round(v / grid) * grid : v;
     }
 
     private static string F(double d)
@@ -115,9 +116,9 @@ public partial class Home
         return side switch { 0 => (0, -1), 1 => (0, 1), 2 => (-1, 0), _ => (1, 0) };
     }
 
-    private static string Tri(ConnectorPort c, double x, double y, bool big)
+    private string Tri(ConnectorPort c, double x, double y, bool big)
     {
-        var r = big ? 8 : 6.5;
+        var r = (big ? 8 : 6.5) * settings.PortSizePercent / 100.0;
         var (ax, ay) = Away(SideOf(c));
         var (dx, dy) = c.Outgoing ? (ax, ay) : (-ax, -ay); // direction the triangle points
         double px = -dy, py = dx; // perpendicular

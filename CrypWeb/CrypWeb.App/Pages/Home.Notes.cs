@@ -27,8 +27,9 @@ public partial class Home
         NoteXaml.ToHtml(t.Xaml) ?? NoteXaml.ToHtml(NoteXaml.FromText(t.Text)) ?? WebUtility.HtmlEncode(t.Text);
 
     /// <summary>A new note in the middle of the view, opened in the editor (as in CT2).</summary>
-    private void AddNote()
+    private async Task AddNote()
     {
+        await EnsureWorkspace();
         ed.Checkpoint();
         var (x, y) = Center();
         var note = ed.AddText(x - 110, y - 40);

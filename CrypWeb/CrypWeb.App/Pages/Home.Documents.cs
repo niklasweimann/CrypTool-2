@@ -23,7 +23,7 @@ public partial class Home
 
     private void NewDoc()
     {
-        var doc = new Doc();
+        var doc = new Doc { Zoom = settings.DefaultZoomPercent / 100.0 };
         docs.Add(doc);
         active = doc;
     }
@@ -181,12 +181,31 @@ public partial class Home
 
     private void PasteClip()
     {
+        if (active.Kind != DocKind.Workspace) return;
         ed.Checkpoint();
         ed.Paste();
     }
 
-    private void AddAtCenter(PaletteEntry entry)
+    /// <summary>
+    ///     Makes a workspace the active tab: components and notes belong on a workspace, not on the Startcenter, the
+    ///     settings or the documentation. The first workspace is taken, or a new one is made.
+    /// </summary>
+    private async Task EnsureWorkspace()
     {
+        if (active.Kind == DocKind.Workspace) return;
+        var workspace = docs.FirstOrDefault(d => d.Kind == DocKind.Workspace);
+        if (workspace == null)
+        {
+            NewDoc();
+            workspace = active;
+        }
+
+        await Activate(workspace);
+    }
+
+    private async Task AddAtCenter(PaletteEntry entry)
+    {
+        await EnsureWorkspace();
         var (x, y) = Center();
         AddAt(entry, x - 60, y - 40);
     }
