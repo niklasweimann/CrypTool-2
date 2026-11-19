@@ -120,6 +120,7 @@ public partial class Home
         {
             DocKind.Start => Loc["doc.start"],
             DocKind.Settings => Loc["doc.settings"],
+            DocKind.Docs => Loc["doc.docs"],
             _ => doc.Name == null ? Loc["doc.untitled"] : Path.GetFileNameWithoutExtension(doc.Name)
         };
         var unsaved = doc.Kind == DocKind.Workspace && doc.Ed.Dirty;

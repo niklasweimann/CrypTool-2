@@ -69,12 +69,6 @@ public partial class Home
     }
 
     // ----- component menu -----
-    private void ShowHelp(PluginNode p)
-    {
-        ed.Selection.Clear();
-        ed.Selection.Add(p.Id);
-    }
-
     private void ZFront(PluginNode p)
     {
         ed.Checkpoint();

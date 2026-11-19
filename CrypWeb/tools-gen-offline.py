@@ -6,7 +6,7 @@ language data (up to 18 MB per language) is only downloaded for the languages th
 scripts, texts) is not listed: the service worker stores it after every start.
 
 Groups:
-  templates  the templates (.cwm, description .xml, picture) and the data files that templates read
+  templates  the templates (.cwm, description .xml, picture), the documentation (docs/) and the data files that templates read
   pictures   the component icons and the pictures that presentations show
   lang-xx    the dictionary and the n-gram statistics of one language
 
@@ -33,7 +33,7 @@ def files_below(folder):
 
 
 def main():
-    groups = {'templates': files_below('templates'), 'pictures': files_below('icons') + files_below('wpf-res')}
+    groups = {'templates': files_below('templates') + files_below('docs'), 'pictures': files_below('icons') + files_below('wpf-res')}
     with open(os.path.join(WWWROOT, 'vfs', 'manifest.json'), encoding='utf-8') as f:
         data_files = json.load(f)
     for entry in data_files:

@@ -223,6 +223,7 @@ public partial class Home : IDisposable, IHandleEvent
     {
         StopAutosave();
         DetachLocalizer();
+        DetachDocs();
         StopRun();
         self?.Dispose();
     }
@@ -361,6 +362,7 @@ public partial class Home : IDisposable, IHandleEvent
 
         // a link of the link manager (?t=template&component.setting=value...) opens that template
         if (TemplateLink.Parse(Nav.Uri) is { } link) await OpenLink(link);
+        else if (DocLink.Parse(Nav.Uri) != null) OpenDocsFromAddress();
         else
             try
             {
@@ -486,6 +488,7 @@ public partial class Home : IDisposable, IHandleEvent
         if (k == "f12") ToggleMenu();
         else if (k == "f11") ToggleFocus();
         else if (k == "f10") _ = StepRun();
+        else if (k == "f1") HelpKey();
         if (mod)
         {
             switch (k)
@@ -591,7 +594,8 @@ public partial class Home : IDisposable, IHandleEvent
     {
         Workspace,
         Start,
-        Settings
+        Settings,
+        Docs
     }
 
     private sealed class Doc

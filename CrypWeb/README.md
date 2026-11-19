@@ -12,7 +12,7 @@ New to the code? Start with [ARCHITECTURE.md](ARCHITECTURE.md): project map, "wh
 
 IDE: open `CrypWeb/CrypWeb.sln` (Rider / Visual Studio). It contains only the CrypWeb projects, so it does not depend on the repository's own `CrypTool 2.sln` (which needs .NET Framework). After `python3 tools-gen-plugins.py` changes the list of isolated plugin projects, re-add them: `dotnet sln CrypWeb.sln add CrypWeb.Plugins.Isolated/*/*.csproj --solution-folder Plugins.Isolated`.
 
-Run (the script also copies the template icons, `<name>.png` next to each `.cwm`, and writes `templates/icons.json`): `./tools-copy-templates.sh && python3 tools-gen-offline.py && dotnet run --project CrypWeb.App --urls http://localhost:5199`
+Run (the script also copies the template icons, `<name>.png` next to each `.cwm`, and writes `templates/icons.json`): `./tools-copy-templates.sh && python3 tools-gen-docs.py && python3 tools-gen-offline.py && dotnet run --project CrypWeb.App --urls http://localhost:5199`
 
 Canvas features: move (multi/Shift-select, marquee, snap, arrow-key nudge), resize, pan (middle/right/Space), zoom at cursor, fit/100%,
 connect ports by drag (type-checked, re-route by dragging an input), select/delete wires, add components (palette drag/double-click) and notes,
@@ -209,3 +209,12 @@ npm run deploy           # build + wrangler deploy
 
 Limits: 25 MiB per file / 20,000 files per version (currently ~1,700 files, largest ~9 MB). `.github/workflows/crypweb-deploy.yml` deploys manually
 (needs the repo secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`).
+
+## Documentation
+
+The documentation tab (Home › Documentation, F1 for the selected component, links `?doc=component/<type>`, `?doc=template/<path>`,
+`?doc=article/<id>`) shows the component descriptions of the plugins' `doc.xml` files, the template descriptions and the general
+articles. `tools-gen-docs.py` (a step of `tools-build-web.sh`, no dependency on the OnlineDocumentationGenerator project or WPF)
+converts them to `wwwroot/docs/*.json`; `Components/DocsPage.razor` renders them (`css/docs.css`). Formulas (`$...$`, `$$...$$`) are
+typeset with KaTeX (`wwwroot/lib/katex`, vendored so that the app also works offline). Check the conversion warnings the script prints
+(e.g. a `docRef` to a component that does not exist).

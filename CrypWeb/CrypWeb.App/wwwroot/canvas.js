@@ -59,7 +59,7 @@ window.ct2 = {
         const isTextField = el => el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT'
             || el.isContentEditable || !!(el.closest && el.closest('.sm-back')));
 
-        // Ctrl/Cmd+Z Y X C V A S W H R K, F10 (step), F11, F12, Delete, Backspace, Escape and the arrow keys are handled by
+        // Ctrl/Cmd+Z Y X C V A S W H R K, F1 (help), F10 (step), F11, F12, Delete, Backspace, Escape and the arrow keys are handled by
         // the component.
         document.addEventListener('keydown', e => {
             // the command palette (Ctrl/Cmd+K) also opens from a text field
@@ -71,7 +71,7 @@ window.ct2 = {
             const modifier = e.ctrlKey || e.metaKey;
             const key = e.key.toLowerCase();
             const isShortcut = modifier && key.length === 1 && 'zyxcvaswhrk'.includes(key);
-            const handled = key === 'f10' || key === 'f11' || key === 'f12' || key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
+            const handled = key === 'f1' || key === 'f10' || key === 'f11' || key === 'f12' || key === 'delete' || key === 'backspace' || key === 'escape' || key.startsWith('arrow') || isShortcut;
             if (!handled) return;
             e.preventDefault();
             ref.invokeMethodAsync('OnKey', e.key, modifier, e.shiftKey);

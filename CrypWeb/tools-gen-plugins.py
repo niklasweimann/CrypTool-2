@@ -240,22 +240,22 @@ def attribute_block(text_before_class):
 
 
 def parse_plugin_info(attributes):
-    """(name key, tooltip key, icon list text) of the [PluginInfo] attribute, or None."""
+    """(name key, tooltip key, icon list text, documentation file) of the [PluginInfo] attribute, or None."""
     match = PLUGIN_INFO_PATTERNS[0].search(attributes) or PLUGIN_INFO_PATTERNS[1].search(attributes)
     if not match:
         return None
     groups = match.groups()
     if len(groups) == 5:
-        _resource_assembly, name_key, tooltip_key, _doc, icons = groups
+        _resource_assembly, name_key, tooltip_key, doc, icons = groups
     else:
-        name_key, tooltip_key, _doc, icons = groups
+        name_key, tooltip_key, doc, icons = groups
     icons = icons or ''
     if not icons:
         # icons may also follow as plain arguments: PluginInfo(..., "doc.xml", "Plugin/icon.png", ...)
         info = re.search(r'PluginInfo\((.*?)\)\s*\]', attributes, re.S)
         images = re.findall(r'"([^"]+\.(?:png|jpg|jpeg|gif|ico|bmp))"', info.group(1) if info else '', re.I)
         icons = ','.join('"%s"' % x for x in images)
-    return name_key, tooltip_key, icons
+    return name_key, tooltip_key, icons, doc
 
 
 def texts_for(resources, key):
@@ -379,7 +379,7 @@ def extract_components(folder, plugin_dir, sources, resources, localized, exclud
             info = parse_plugin_info(attributes)
             if not info:
                 continue
-            name_key, tooltip_key, icons = info
+            name_key, tooltip_key, icons, doc = info
 
             namespaces = re.findall(r'namespace\s+([\w.]+)', text[:match.start()])
             full_name = (namespaces[-1] + '.' if namespaces else '') + class_name
@@ -401,6 +401,7 @@ def extract_components(folder, plugin_dir, sources, resources, localized, exclud
                 ports=ports,
                 supported=folder not in excluded,
                 presentation=not has_no_presentation(body),
+                doc=doc if doc.lower().endswith('.xml') else '',
             )
     return components
 

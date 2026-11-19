@@ -7,3 +7,4 @@ CrypWeb.App/wwwroot/offline.json
 dist/
 node_modules/
 .wrangler/
+CrypWeb.App/wwwroot/docs/

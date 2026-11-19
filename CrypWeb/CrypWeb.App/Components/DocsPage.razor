@@ -1,0 +1,429 @@
+@using System.Text.RegularExpressions
+@using CrypTool.Web.Core
+@inject HttpClient Http
+@inject IJSRuntime Js
+
+@* The documentation: navigation (components, templates, articles) and the article of the page named by Target
+   ("component/<type>", "template/<path>", "article/<id>"; nothing shows the overview). The texts come from
+   wwwroot/docs, written at build time by tools-gen-docs.py from the plugins' doc.xml files. Links between pages are
+   plain "?doc=..." links: Home reacts to the changed address and passes the new Target. *@
+<div class="docs">
+    <aside class="dc-nav">
+        <div class="dc-search">
+            <input placeholder="@Loc["docs.search"]" @bind="Query" @bind:event="oninput" aria-label="@Loc["docs.search"]"/>
+        </div>
+        <nav class="dc-tree">
+            @if (index == null)
+            {
+                <div class="dc-note">@(failed ? Loc["docs.failed"] : Loc["docs.loading"])</div>
+            }
+            else if (Query.Trim().Length > 0)
+            {
+                @SearchResults()
+            }
+            else
+            {
+                <a class="dc-link top @(kind == "" ? "on" : "")" href="?doc=">@Loc["docs.overview"]</a>
+                @if (index.Articles.Count > 0)
+                {
+                    <div class="dc-group-title">@Loc["docs.articles"]</div>
+                    @foreach (var a in index.Articles)
+                    {
+                        <a class="dc-link @(Is("article", a.Id) ? "on" : "")" href="@DocLink.Href("article", a.Id)">@DocsText.Pick(a.Title, Loc.Lang)</a>
+                    }
+                }
+                <div class="dc-group-title">@Loc["panel.components"]<i>@VisibleComponents.Count()</i></div>
+                @foreach (var group in ComponentGroups)
+                {
+                    <details class="dc-group" open="@(group.Key == CurrentCategory)">
+                        <summary><span class="dc-dot" style="background:@Theme.CategoryColor(group.Key)"></span>@Loc["cat." + group.Key]<i>@group.Count()</i></summary>
+                        @foreach (var c in group)
+                        {
+                            <a class="dc-link @(Is("component", c.Id) ? "on" : "")" href="@DocLink.Href("component", c.Id)">@c.NameFor(Loc.Lang)</a>
+                        }
+                    </details>
+                }
+                <div class="dc-group-title">@Loc["panel.templates"]<i>@VisibleTemplates.Count()</i></div>
+                @foreach (var group in TemplateGroups)
+                {
+                    <details class="dc-group" open="@(group.Key == CurrentFolder)">
+                        <summary>@group.Key.Replace("/", " › ")<i>@group.Count()</i></summary>
+                        @foreach (var t in group)
+                        {
+                            <a class="dc-link @(Is("template", t.Id) ? "on" : "")" href="@DocLink.Href("template", t.Id)">@TitleOf(t)</a>
+                        }
+                    </details>
+                }
+            }
+        </nav>
+    </aside>
+
+    <main class="dc-main" id="dc-main">
+        @if (index != null)
+        {
+            @if (kind == "component" && Component is { } component)
+            {
+                @ComponentPage(component)
+            }
+            else if (kind == "template" && Template is { } template)
+            {
+                @TemplatePage(template)
+            }
+            else if (kind == "article" && ArticleRef is { } articleRef)
+            {
+                @ArticlePage(articleRef)
+            }
+            else if (kind != "")
+            {
+                <div class="dc-article"><h1>@Loc["docs.notFound"]</h1><p><a href="?doc=">@Loc["docs.overview"]</a></p></div>
+            }
+            else
+            {
+                @Overview()
+            }
+        }
+    </main>
+
+    @if (toc.Count > 1)
+    {
+        <aside class="dc-toc">
+            <div class="dc-toc-title">@Loc["docs.onThisPage"]</div>
+            @foreach (var (anchor, text, level) in toc)
+            {
+                <a class="lvl@(level)" href="#@anchor">@((MarkupString)text)</a>
+            }
+        </aside>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired] public Localizer Loc { get; set; } = default!;
+
+    /// <summary>"component/&lt;type&gt;", "template/&lt;path&gt;", "article/&lt;id&gt;" or empty for the overview.</summary>
+    [Parameter] public string Target { get; set; } = "";
+
+    /// <summary>The components' connectors (plugins.json).</summary>
+    [Parameter] public IReadOnlyDictionary<string, PluginMeta> Plugins { get; set; } = new Dictionary<string, PluginMeta>();
+
+    [Parameter] public bool ShowExperimental { get; set; }
+    [Parameter] public EventCallback<string> OnOpenTemplate { get; set; }
+
+    DocsIndex? index;
+    bool failed;
+    string Query { get; set; } = "";
+
+    string kind = "";
+    string id = "";
+    DocsArticle? article;
+    string loadedTarget = "\0";
+    readonly List<(string Id, string Text, int Level)> toc = new();
+
+    // ---- loading ----
+
+    protected override async Task OnInitializedAsync()
+    {
+        // the first requests of the page are sometimes aborted while the runtime starts its threads: try again
+        for (var attempt = 1; attempt <= 3 && index == null; attempt++)
+            try
+            {
+                index = await Http.GetFromJsonAsync<DocsIndex>("docs/index.json");
+            }
+            catch (Exception)
+            {
+                await Task.Delay(300);
+            }
+
+        failed = index == null;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var key = Target + "|" + Loc.Lang; // the table of contents has the words of the language
+        if (index == null || key == loadedTarget) return;
+        loadedTarget = key;
+        (kind, id) = DocLink.Split(Target);
+        article = null;
+        var url = kind switch
+        {
+            "component" when Component?.Article == true => "docs/c/" + Uri.EscapeDataString(id) + ".json",
+            "article" => "docs/a/" + Uri.EscapeDataString(id) + ".json",
+            _ => null
+        };
+        if (url != null)
+            try
+            {
+                article = await Http.GetFromJsonAsync<DocsArticle>(url);
+            }
+            catch (Exception)
+            {
+                /* the page shows what the index knows */
+            }
+
+        BuildToc();
+        typesetMath = true;
+        await Js.InvokeVoidAsync("ct2docs.scrollTop");
+    }
+
+    bool typesetMath;
+
+    // the formulas can only be typeset once Blazor has put the article's HTML on the page
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!typesetMath) return;
+        typesetMath = false;
+        await Js.InvokeVoidAsync("ct2docs.renderMath");
+    }
+
+    // ---- what the index says about the page ----
+
+    DocsComponent? Component => kind == "component" ? index?.Components.FirstOrDefault(c => c.Id == id) : null;
+    DocsTemplate? Template => kind == "template" ? index?.Templates.FirstOrDefault(t => t.Id == id) : null;
+    DocsArticleRef? ArticleRef => kind == "article" ? index?.Articles.FirstOrDefault(a => a.Id == id) : null;
+
+    bool Is(string k, string itemId) => kind == k && id == itemId;
+    string CurrentCategory => Component?.Category ?? "";
+    string CurrentFolder => Template?.Folder ?? "";
+
+    IEnumerable<DocsComponent> VisibleComponents =>
+        index?.Components.Where(c => ShowExperimental || !c.Experimental) ?? Enumerable.Empty<DocsComponent>();
+
+    IEnumerable<DocsTemplate> VisibleTemplates =>
+        index?.Templates.Where(t => ShowExperimental || !t.Experimental) ?? Enumerable.Empty<DocsTemplate>();
+
+    IEnumerable<IGrouping<string, DocsComponent>> ComponentGroups =>
+        VisibleComponents.OrderBy(c => c.NameFor(Loc.Lang), StringComparer.CurrentCultureIgnoreCase)
+            .GroupBy(c => c.Category).OrderBy(g => Loc["cat." + g.Key], StringComparer.CurrentCultureIgnoreCase);
+
+    IEnumerable<IGrouping<string, DocsTemplate>> TemplateGroups =>
+        VisibleTemplates.OrderBy(t => TitleOf(t), StringComparer.CurrentCultureIgnoreCase)
+            .GroupBy(t => t.Folder).OrderBy(g => g.Key, StringComparer.OrdinalIgnoreCase);
+
+    string TitleOf(DocsTemplate t) => DocsText.Pick(t.Title, Loc.Lang);
+
+    string NameOf(string type) => index?.Components.FirstOrDefault(c => c.Id == type)?.NameFor(Loc.Lang) ?? type.Split('.').Last();
+
+    // ---- search ----
+
+    RenderFragment SearchResults() => @<div>
+        @{
+            var words = Query.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            var components = VisibleComponents.Where(c => Matches(words, c.Name, c.NameFor(Loc.Lang), c.TooltipFor(Loc.Lang))).Take(40).ToList();
+            var templates = VisibleTemplates.Where(t => Matches(words, DocsText.Pick(t.Title, Loc.Lang), DocsText.Pick(t.Keywords, Loc.Lang), t.Id)).Take(40).ToList();
+            var articles = (index?.Articles ?? new()).Where(a => Matches(words, DocsText.Pick(a.Title, Loc.Lang))).ToList();
+        }
+        @if (components.Count + templates.Count + articles.Count == 0)
+        {
+            <div class="dc-note">@Loc["docs.noResults"]</div>
+        }
+        @if (components.Count > 0)
+        {
+            <div class="dc-group-title">@Loc["panel.components"]</div>
+            @foreach (var c in components)
+            {
+                <a class="dc-link result" href="@DocLink.Href("component", c.Id)"><b>@c.NameFor(Loc.Lang)</b><small>@c.TooltipFor(Loc.Lang)</small></a>
+            }
+        }
+        @if (templates.Count > 0)
+        {
+            <div class="dc-group-title">@Loc["panel.templates"]</div>
+            @foreach (var t in templates)
+            {
+                <a class="dc-link result" href="@DocLink.Href("template", t.Id)"><b>@TitleOf(t)</b><small>@t.Folder.Replace("/", " › ")</small></a>
+            }
+        }
+        @if (articles.Count > 0)
+        {
+            <div class="dc-group-title">@Loc["docs.articles"]</div>
+            @foreach (var a in articles)
+            {
+                <a class="dc-link result" href="@DocLink.Href("article", a.Id)"><b>@DocsText.Pick(a.Title, Loc.Lang)</b></a>
+            }
+        }
+    </div>;
+
+    /// <summary>Every word occurs in at least one of the texts.</summary>
+    static bool Matches(string[] words, params string[] texts) =>
+        words.All(w => texts.Any(t => t.Contains(w, StringComparison.CurrentCultureIgnoreCase)));
+
+    // ---- table of contents: the headings of the article (h2/h3 written by the generator) and the fixed parts ----
+
+    static readonly Regex Heading = new(@"<h([23]) id=""([^""]+)"">(.*?)</h\1>", RegexOptions.Compiled);
+
+    void BuildToc()
+    {
+        toc.Clear();
+        if (article == null) return;
+        void AddFixed(string sectionId, string label) => toc.Add((sectionId, System.Net.WebUtility.HtmlEncode(label), 2));
+        if (kind == "component")
+        {
+            foreach (var (name, label) in new[] { ("introduction", "docs.introduction"), ("usage", "docs.usage"), ("presentation", "docs.presentation") })
+                if (article.Section(Loc.Lang, name).Length > 0) AddFixed("sec-" + name, Loc[label]);
+            if (Plugins.TryGetValue(id, out var meta) && meta.Ports.Count > 0) AddFixed("sec-connectors", Loc["docs.connectors"]);
+            if (article.Templates.Count > 0) AddFixed("sec-templates", Loc["docs.templates"]);
+        }
+        else
+        {
+            foreach (Match m in Heading.Matches(article.Section(Loc.Lang, "description")))
+                toc.Add((m.Groups[2].Value, m.Groups[3].Value, int.Parse(m.Groups[1].Value) - 1));
+        }
+
+        if (article.References.Count > 0) AddFixed("sec-references", Loc["docs.references"]);
+    }
+
+    // ---- pages ----
+
+    RenderFragment Overview() => @<div class="dc-article dc-overview">
+        <h1>@Loc["docs.title"]</h1>
+        <p class="dc-lede">@Loc["docs.intro"]</p>
+        <div class="dc-cards">
+            <div class="dc-card"><b>@VisibleComponents.Count()</b><span>@Loc["panel.components"]</span></div>
+            <div class="dc-card"><b>@VisibleTemplates.Count()</b><span>@Loc["panel.templates"]</span></div>
+            <div class="dc-card"><b>@(index?.Articles.Count ?? 0)</b><span>@Loc["docs.articles"]</span></div>
+        </div>
+        <h2>@Loc["panel.components"]</h2>
+        <div class="dc-cats">
+            @foreach (var group in ComponentGroups)
+            {
+                var first = group.First();
+                <a class="dc-cat" href="@DocLink.Href("component", first.Id)" style="--cat:@Theme.CategoryColor(group.Key)">
+                    <span class="dc-cat-name">@Loc["cat." + group.Key]</span>
+                    <span class="dc-cat-count">@group.Count()</span>
+                </a>
+            }
+        </div>
+        <h2>@Loc["docs.articles"]</h2>
+        <div class="dc-list">
+            @foreach (var a in index!.Articles)
+            {
+                <a class="dc-item" href="@DocLink.Href("article", a.Id)"><b>@DocsText.Pick(a.Title, Loc.Lang)</b></a>
+            }
+        </div>
+    </div>;
+
+    RenderFragment ComponentPage(DocsComponent c) => @<article class="dc-article">
+        <header class="dc-head">
+            @if (!string.IsNullOrEmpty(c.Icon))
+            {
+                <img class="dc-icon" src="@c.Icon" alt="" onerror="this.style.display='none'"/>
+            }
+            <div>
+                <div class="dc-kind"><span class="dc-dot" style="background:@Theme.CategoryColor(c.Category)"></span>@Loc["cat." + c.Category]@(c.Experimental ? " · " + Loc["docs.experimental"] : "")</div>
+                <h1>@c.NameFor(Loc.Lang)</h1>
+            </div>
+        </header>
+        <p class="dc-lede">@c.TooltipFor(Loc.Lang)</p>
+        @{
+            var any = false;
+            foreach (var (name, label) in new[] { ("introduction", "docs.introduction"), ("usage", "docs.usage"), ("presentation", "docs.presentation") })
+            {
+                var html = article?.Section(Loc.Lang, name) ?? "";
+                if (html.Length == 0) continue;
+                any = true;
+                <section id="sec-@name">
+                    <h2>@Loc[label]</h2>
+                    <div class="dc-text">@((MarkupString)html)</div>
+                </section>
+            }
+
+            if (!any)
+            {
+                <p class="dc-note">@Loc["docs.noText"]</p>
+            }
+        }
+        @if (Plugins.TryGetValue(c.Id, out var meta) && meta.Ports.Count > 0)
+        {
+            <section id="sec-connectors">
+                <h2>@Loc["docs.connectors"]</h2>
+                <div class="tablewrap">
+                    <table class="dc-ports">
+                        <thead><tr><th></th><th>@Loc["docs.name"]</th><th>@Loc["docs.type"]</th><th>@Loc["docs.description"]</th></tr></thead>
+                        <tbody>
+                        @foreach (var port in meta.Ports)
+                        {
+                            <tr>
+                                <td class="dir @(port.Dir)">@(port.Control ? "◆" : port.Dir == "in" ? "◄" : "►")</td>
+                                <td>@meta.PortCaptionFor(port.Name, Loc.Lang)@if (port.Mandatory){<span class="req" title="@Loc["docs.mandatory"]">*</span>}</td>
+                                <td><code>@(port.Control ? Loc["docs.control"] : port.Type)</code></td>
+                                <td>@meta.PortTooltipFor(port.Name, Loc.Lang)</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        }
+        @if (article is { Templates.Count: > 0 })
+        {
+            <section id="sec-templates">
+                <h2>@Loc["docs.templates"]</h2>
+                <div class="dc-list">
+                    @foreach (var t in article.Templates.Select(x => index!.Templates.FirstOrDefault(y => y.Id == x)).Where(x => x != null && (ShowExperimental || !x.Experimental)))
+                    {
+                        <a class="dc-item" href="@DocLink.Href("template", t!.Id)"><b>@TitleOf(t)</b><span>@((MarkupString)DocsText.Pick(t.Summary, Loc.Lang))</span></a>
+                    }
+                </div>
+            </section>
+        }
+        @References()
+    </article>;
+
+    RenderFragment TemplatePage(DocsTemplate t) => @<article class="dc-article">
+        <header class="dc-head">
+            <div>
+                <div class="dc-kind">@Loc["docs.template"] · @t.Folder.Replace("/", " › ")</div>
+                <h1>@TitleOf(t)</h1>
+            </div>
+        </header>
+        <p class="dc-lede">@((MarkupString)DocsText.Pick(t.Summary, Loc.Lang))</p>
+        <div class="dc-actions">
+            <button class="dc-primary" @onclick="() => OnOpenTemplate.InvokeAsync(t.Id)">▶ @Loc["docs.openTemplate"]</button>
+        </div>
+        <img class="dc-shot" src="@PictureOf(t)" alt="" loading="lazy" onerror="this.style.display='none'"/>
+        @if (DocsText.Pick(t.Description, Loc.Lang) is { Length: > 0 } description)
+        {
+            <p>@description</p>
+        }
+        @if (t.Plugins.Count > 0)
+        {
+            <section>
+                <h2>@Loc["docs.usedComponents"]</h2>
+                <div class="dc-chips">
+                    @foreach (var type in t.Plugins.Distinct())
+                    {
+                        <a class="dc-chip" href="@DocLink.Href("component", type)">@NameOf(type)</a>
+                    }
+                </div>
+            </section>
+        }
+        @if (DocsText.Pick(t.Keywords, Loc.Lang) is { Length: > 0 } keywords)
+        {
+            <p class="dc-keywords">@Loc["docs.keywords"]: @keywords</p>
+        }
+    </article>;
+
+    RenderFragment ArticlePage(DocsArticleRef a) => @<article class="dc-article">
+        <header class="dc-head"><div><div class="dc-kind">@Loc["docs.article"]</div><h1>@DocsText.Pick(a.Title, Loc.Lang)</h1></div></header>
+        <div class="dc-text">@((MarkupString)(article?.Section(Loc.Lang, "description") ?? ""))</div>
+        @References()
+    </article>;
+
+    RenderFragment References() => @<text>
+        @if (article is { References.Count: > 0 })
+        {
+            <section id="sec-references" class="dc-refs">
+                <h2>@Loc["docs.references"]</h2>
+                <ol>
+                    @foreach (var reference in article.References)
+                    {
+                        <li id="ref-@reference.Id">@((MarkupString)DocsText.Pick(reference.Html, Loc.Lang))</li>
+                    }
+                </ol>
+            </section>
+        }
+    </text>;
+
+    /// <summary>The picture next to the template file (tools-copy-templates.sh copies it).</summary>
+    static string PictureOf(DocsTemplate t) =>
+        "templates/" + string.Join("/", (t.Id[..^4] + ".png").Split('/').Select(Uri.EscapeDataString));
+
+}

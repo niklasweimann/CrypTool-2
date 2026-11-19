@@ -83,6 +83,7 @@ public partial class Home
         if (ws) yield return new(command, Loc["file.save"], "Ctrl+S", "save", Cmd(Save));
         yield return new(command, Loc["doc.start"], "", "star", Cmd(() => ShowSingleton(DocKind.Start)));
         yield return new(command, Loc["doc.settings"], "", "settings", Cmd(() => ShowSingleton(DocKind.Settings)));
+        yield return new(command, Loc["doc.docs"], "F1", "book", Cmd(() => ShowDocs()));
         yield return new(command, Loc["links.title"], "", "link", Cmd(OpenLinkManager));
         if (ws)
         {

@@ -51,6 +51,8 @@
                                 class="ico g"><Icon Name="star"/></span>@Loc["doc.start"]</button>
                         <button class="rbtn big" @onclick="() => ShowSingleton(DocKind.Settings)"><span
                                 class="ico"><Icon Name="settings"/></span>@Loc["doc.settings"]</button>
+                        <button class="rbtn big" title="@Loc["docs.tip"]" @onclick="() => ShowDocs()"><span
+                                class="ico"><Icon Name="book"/></span>@Loc["doc.docs"]</button>
                         <button class="rbtn big" title="@Loc["links.tip"]" @onclick="OpenLinkManager"><span
                                 class="ico"><Icon Name="link"/></span>@Loc["links.button"]</button>
                     </div>
@@ -292,7 +294,7 @@
                         var dd = d;
                         <div class="doctab @(dd == active ? "on" : "")" title="@TabTip(dd)" @onclick="On(dd, () => Activate(dd))"
                              @oncontextmenu="OnMouse(dd, e => TabMenu(e, dd))" @oncontextmenu:preventDefault><span
-                                class="dk"><Icon Name="@(dd.Kind == DocKind.Start ? "star" : dd.Kind == DocKind.Settings ? "settings" : dd.Engine.Running ? "play" : "doc")" Size="14"/></span>@DocTitle(dd)<span
+                                class="dk"><Icon Name="@(dd.Kind == DocKind.Start ? "star" : dd.Kind == DocKind.Settings ? "settings" : dd.Kind == DocKind.Docs ? "book" : dd.Engine.Running ? "play" : "doc")" Size="14"/></span>@DocTitle(dd)<span
                                 class="dx"
                                 @onclick="On(dd, () => CloseDoc(dd))"
                                 @onclick:stopPropagation>✕</span></div>
@@ -313,6 +315,14 @@
             else if (active.Kind == DocKind.Settings)
             {
                 <SettingsPage S="settings" Loc="Loc" OnChanged="SettingsChanged"/>
+            }
+            else if (active.Kind == DocKind.Docs)
+            {
+                <DocsPage Loc="Loc"
+                          Target="@docsTarget"
+                          Plugins="meta"
+                          ShowExperimental="settings.ShowExperimental"
+                          OnOpenTemplate="t => OpenTemplate(t)"/>
             }
             <main class="@(mode != Mode.None ? "tracking" : "")" style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
                   @ondragover="DragOver" @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">

@@ -11,6 +11,7 @@ public partial class Home
     protected override void OnInitialized()
     {
         Loc.Changed += OnLanguageChanged;
+        AttachDocs();
     }
 
     private void OnLanguageChanged()
