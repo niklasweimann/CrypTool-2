@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A rainbow table (Oechslin) is a time-memory trade-off for finding the password of a hash value: instead of storing every pair of password and hash value, it stores only the ends of long chains of hash and reduction steps and recomputes the rest when a hash value is looked up. The reduction function is different in every column, which avoids most merging of chains. The more chains and the longer they are, the more passwords are covered, but the more hash computations a lookup needs. Salted hash values defeat precomputed tables.
+  </introduction>
+  <introduction lang="de-DE">
+    Eine Regenbogentabelle (Oechslin) ist ein Zeit-Speicher-Kompromiss, um das Passwort zu einem Hashwert zu finden: Statt jedes Paar aus Passwort und Hashwert zu speichern, werden nur die Enden langer Ketten aus Hash- und Reduktionsschritten gespeichert, und der Rest wird bei der Suche neu berechnet. Die Reduktionsfunktion ist in jeder Spalte anders, was ein Zusammenlaufen der Ketten weitgehend verhindert. Je mehr und je längere Ketten, desto mehr Passwörter werden abgedeckt, aber desto mehr Hash-Berechnungen braucht eine Suche. Gesalzene Hashwerte machen vorberechnete Tabellen unbrauchbar.
+  </introduction>
+  <usage lang="en">
+    Set the password length, the number of chains and their length, and the password to find in the settings and run the workspace. The presentation shows the first chains, the share of passwords that the table covers and the result of the lookup; "Test 100 random passwords" measures the success rate.
+  </usage>
+  <usage lang="de-DE">
+    Stellen Sie in den Einstellungen Passwortlänge, Anzahl und Länge der Ketten und das gesuchte Passwort ein und lassen Sie den Arbeitsbereich laufen. Die Präsentation zeigt die ersten Ketten, den Anteil der abgedeckten Passwörter und das Ergebnis der Suche; "100 zufällige Passwörter testen" misst die Erfolgsquote.
+  </usage>
+</documentation>

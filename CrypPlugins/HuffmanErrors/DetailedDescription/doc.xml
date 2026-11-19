@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Huffman coding is a compression method: frequent characters get short code words and rare ones long code words, so that the text becomes shorter. The code words form a prefix code, so the receiver can decode without separators, but this also means that a single flipped bit shifts the boundaries of all later code words (the receiver may find its place again after some characters, but may not). Error-correcting codes add redundancy so that errors can be found and corrected: Hamming(7,4) adds 3 check bits to 4 data bits and corrects every single error in a block. Compression and error correction pull in opposite directions: the first removes redundancy, the second adds it.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Huffman-Codierung ist ein Kompressionsverfahren: Häufige Zeichen bekommen kurze und seltene Zeichen lange Codewörter, sodass der Text kürzer wird. Die Codewörter bilden einen Präfixcode, der Empfänger kann also ohne Trennzeichen decodieren, aber dadurch verschiebt ein einziges gekipptes Bit die Grenzen aller späteren Codewörter (der Empfänger findet nach einigen Zeichen vielleicht wieder die Stelle, vielleicht auch nicht). Fehlerkorrigierende Codes fügen Redundanz hinzu, damit Fehler gefunden und korrigiert werden können: Hamming(7,4) fügt 4 Datenbits 3 Prüfbits hinzu und korrigiert jeden einzelnen Fehler in einem Block. Kompression und Fehlerkorrektur wirken gegeneinander: Die erste entfernt Redundanz, die zweite fügt sie hinzu.
+  </introduction>
+  <usage lang="en">
+    Connect a text to the input. In the settings choose whether the Hamming code protects the bits and which bit is flipped (0 = none). The presentation shows the Huffman code, the bits sent and received and the decoded text; the output is the decoded text.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie einen Text mit dem Eingang. Wählen Sie in den Einstellungen, ob der Hamming-Code die Bits schützt und welches Bit gekippt wird (0 = keines). Die Präsentation zeigt den Huffman-Code, die gesendeten und empfangenen Bits und den decodierten Text; der Ausgang ist der decodierte Text.
+  </usage>
+</documentation>

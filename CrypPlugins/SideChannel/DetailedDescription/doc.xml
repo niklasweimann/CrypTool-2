@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Side-channel attacks do not break the algorithm but read what the device leaks while it computes: time, power, radiation. Simple power analysis (SPA) reads the operations from a single power trace, which breaks a naive square-and-multiply implementation of RSA because multiplications look different from squarings. Differential power analysis (DPA, Kocher, Jaffe and Jun, 1999) uses many traces and statistics, so it also works when single traces are too noisy to read; it recovers an AES key byte by byte. Countermeasures are constant-time code, blinding, masking and noise. The measurements here are simulated.
+  </introduction>
+  <introduction lang="de-DE">
+    Seitenkanalangriffe brechen nicht den Algorithmus, sondern lesen, was das Gerät während der Berechnung verrät: Zeit, Stromverbrauch, Strahlung. Die einfache Stromverbrauchsanalyse (SPA) liest die Operationen aus einer einzigen Messung ab und bricht damit eine naive Square-and-Multiply-Implementierung von RSA, weil Multiplikationen anders aussehen als Quadrierungen. Die differenzielle Stromverbrauchsanalyse (DPA, Kocher, Jaffe und Jun, 1999) nutzt viele Messungen und Statistik und funktioniert deshalb auch, wenn einzelne Messungen zu verrauscht zum Ablesen sind; sie gewinnt einen AES-Schlüssel Byte für Byte. Gegenmaßnahmen sind Code mit konstanter Laufzeit, Blinding, Maskierung und Rauschen. Die Messungen sind hier simuliert.
+  </introduction>
+  <usage lang="en">
+    Choose SPA or DPA in the settings, the seed, the number of traces (DPA) and the noise, and run the workspace. For SPA the presentation shows the trace and the exponent read from it; for DPA it shows the correlation of the 256 key guesses. Increase the noise to see when the attack needs more traces.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen SPA oder DPA, den Startwert, die Anzahl der Messungen (DPA) und das Rauschen und lassen Sie den Arbeitsbereich laufen. Bei SPA zeigt die Präsentation die Messung und den daraus gelesenen Exponenten, bei DPA die Korrelation der 256 Schlüsselvermutungen. Erhöhen Sie das Rauschen, um zu sehen, wann der Angriff mehr Messungen braucht.
+  </usage>
+</documentation>

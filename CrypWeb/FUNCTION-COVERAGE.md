@@ -65,6 +65,9 @@ Abdeckung: 281 von 342 Einträgen (61 offen). Neue Plugins in `CrypPlugins/` (al
 | `AntColony` | Ameisenalgorithmus (Ant System von Dorigo u. a.) für das Problem des Handlungsreisenden, gegen Brute Force geprüft |
 | `PatternLock` | Android-Entsperrmuster: Regeln, die 389112 gültigen Muster (nach Längen geprüft), SHA-1-Wert und Angriff durch Probieren |
 | `Kleptography` | SETUP-Angriff auf die RSA-Schlüsselerzeugung (Young/Yung): der Startwert von p, mit dem Schlüssel des Angreifers verschlüsselt, steckt in den oberen Bits von n; der Angreifer liest p und q aus. Vier Methoden einstellbar: ehrliche Erzeugung, SETUP in den oberen Bits, SETUP in den unteren Bits, symmetrische Hintertür mit gemeinsamem Pad; mit kleinen Zahlen, Templates unter `Games/Kleptography*` |
+| `RainbowTable` | Regenbogentabelle für Passwörter aus 3 bis 4 Kleinbuchstaben: Ketten, Reduktionsfunktionen, Suche, Abdeckung und Erfolgsquote (Stufe-3-Plan: Rainbow Tables) |
+| `SideChannel` | simulierte Seitenkanalangriffe: SPA auf Square-and-Multiply und DPA auf das S-Box-Byte von AES (S-Box aus dem Inversen in GF(2^8) berechnet) (Stufe-3-Plan: Side-Channel DPA/SPA) |
+| `HuffmanErrors` | Huffman-Code, ein Bitfehler und Hamming(7,4)-Korrektur (Stufe-3-Plan: Huffman-Fehlerkorrektur) |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
 Was von den 61 offenen Einträgen bleibt und warum:
@@ -115,7 +118,7 @@ Pro Gruppe ein eigener Commit und ein Test mit bekannten Testvektoren.
 
 **Stufe 3 – Visualisierungen (groß).** Die JCT-Visualisierungen (RSA, DES, ECC/ECDH, Hashing, SSL, Zero-Knowledge, Shamir/VSS, Zufall, Signaturen, Side-Channel DPA/SPA, Kleptographie, Rainbow Tables, ACO, Android-Muster, Huffman-Fehlerkorrektur u. a.) bekommen jeweils eine Komponente plus Präsentation in der bestehenden `CrypWeb.Wpf`-Teilmenge, wie schon die CT2-Visualisierungen. Reihenfolge nach Nutzen für Lehre: RSA, ECC, Hash, DES, Shamir, Zufall, Signatur, danach der Rest. Die Spiele (Zahlenhai, Zudo-Ku, Teilerspiel) ganz ans Ende.
 
-*Abgleich mit der Funktionsliste:* Die Liste enthält 21 Einträge der Art Visualisierung, alle sind abgedeckt (DES, AES, Hash, Zero-Knowledge und Huffman über vorhandene CT2-Komponenten und Templates). Rainbow Tables, Side-Channel DPA/SPA und Huffman-Fehlerkorrektur aus der Aufzählung oben kommen als Einträge in der Liste nicht vor; SSL ist als „TLS handshake“ umgesetzt.
+*Abgleich mit der Funktionsliste:* Die Liste enthält 21 Einträge der Art Visualisierung, alle sind abgedeckt. Die im Plan genannten Themen, die in der Liste keinen eigenen Eintrag haben (Rainbow Tables, Side-Channel DPA/SPA, Huffman-Fehlerkorrektur), sind trotzdem umgesetzt (`RainbowTable`, `SideChannel`, `HuffmanErrors`); SSL ist als „TLS handshake“ umgesetzt.
 
 *Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster und die Kleptographie hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 

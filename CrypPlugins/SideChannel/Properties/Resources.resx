@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CorrelationTitle" xml:space="preserve">
+    <value>Correlation for the 256 guesses of the key byte (the best guess is red)</value>
+  </data>
+  <data name="DpaBest" xml:space="preserve">
+    <value>Best guess: {0} (correlation {1}); second best: {2} (correlation {3}).</value>
+  </data>
+  <data name="DpaKey" xml:space="preserve">
+    <value>The secret key byte is {0}.</value>
+  </data>
+  <data name="DpaSetup" xml:space="preserve">
+    <value>{0} measurements with random plaintext bytes, 10 samples each; the leakage is at sample 4 (S-box output of the first AES round).</value>
+  </data>
+  <data name="DpaText" xml:space="preserve">
+    <value>The power of a device depends on the Hamming weight (the number of 1 bits) of the values it processes. For every guess of the key byte k the attacker predicts HW(SBox(p XOR k)) for every known plaintext byte p and correlates the prediction with the measured power. Only the right guess correlates strongly.</value>
+  </data>
+  <data name="DpaTitle" xml:space="preserve">
+    <value>DPA: finding a key byte by correlation</value>
+  </data>
+  <data name="Failure" xml:space="preserve">
+    <value>The attack failed: more measurements or less noise are needed.</value>
+  </data>
+  <data name="ModeCaption" xml:space="preserve">
+    <value>Attack</value>
+  </data>
+  <data name="ModeList1" xml:space="preserve">
+    <value>SPA: square-and-multiply (RSA exponent)</value>
+  </data>
+  <data name="ModeList2" xml:space="preserve">
+    <value>DPA: AES S-box (key byte)</value>
+  </data>
+  <data name="ModeTooltip" xml:space="preserve">
+    <value>Simple or differential power analysis.</value>
+  </data>
+  <data name="NoiseCaption" xml:space="preserve">
+    <value>Noise (percent of the standard deviation)</value>
+  </data>
+  <data name="NoiseTooltip" xml:space="preserve">
+    <value>The noise of the measurement; 100 is the standard value (for the SPA the noise is 0.3 times as large, as the signal is stronger).</value>
+  </data>
+  <data name="PluginCaption" xml:space="preserve">
+    <value>Side-Channel Attacks (SPA/DPA)</value>
+  </data>
+  <data name="PluginTooltip" xml:space="preserve">
+    <value>Simple and differential power analysis on simulated measurements</value>
+  </data>
+  <data name="SampleTitle" xml:space="preserve">
+    <value>Correlation of the best guess at the 10 samples:</value>
+  </data>
+  <data name="SeedCaption" xml:space="preserve">
+    <value>Seed</value>
+  </data>
+  <data name="SeedTooltip" xml:space="preserve">
+    <value>The same value gives the same secret and the same measurements.</value>
+  </data>
+  <data name="SpaExponent" xml:space="preserve">
+    <value>Exponent read: {1} (secret: {0}, {2})</value>
+  </data>
+  <data name="SpaReading" xml:space="preserve">
+    <value>Read from the trace (S = square, M = multiply): {0}</value>
+  </data>
+  <data name="SpaText" xml:space="preserve">
+    <value>A device computes x^d with square-and-multiply: for every bit of d it squares, and for a 1 bit it also multiplies. A multiplication takes more power than a squaring, so one measurement shows the bits of the secret exponent.</value>
+  </data>
+  <data name="SpaTitle" xml:space="preserve">
+    <value>SPA: reading the exponent from one power trace</value>
+  </data>
+  <data name="SpaTruth" xml:space="preserve">
+    <value>Operations of the device: {0}</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>The attack succeeded.</value>
+  </data>
+  <data name="TraceTitle" xml:space="preserve">
+    <value>Power trace (5 measurements per operation)</value>
+  </data>
+  <data name="TracesCaption" xml:space="preserve">
+    <value>Traces (DPA)</value>
+  </data>
+  <data name="TracesTooltip" xml:space="preserve">
+    <value>The number of power measurements for the DPA.</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>The simulation starts when the workspace runs.</value>
+  </data>
+</root>

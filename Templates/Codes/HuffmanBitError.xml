@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HuffmanBitError.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Huffman Coding: Effect of a Bit Error</title>
+  <summary lang="en"><i>Huffman Coding: Effect of a Bit Error</i></summary>
+  <description lang="en">A text in a Huffman code with one flipped bit: the receiver loses its place.</description>
+  <keywords lang="en">Huffman, bit error, compression, error propagation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the position of the bit error in the settings of the {\\b Huffman Coding with Error Correction} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Huffman-Codierung: Wirkung eines Bitfehlers</title>
+  <summary lang="de"><i>Huffman-Codierung: Wirkung eines Bitfehlers</i></summary>
+  <description lang="de">Ein Text im Huffman-Code mit einem gekippten Bit: Der Empfänger verliert die Stelle.</description>
+  <keywords lang="en">Huffman, bit error, compression, error propagation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Position des Bitfehlers in den Einstellungen der Komponente {\\b Huffman-Codierung mit Fehlerkorrektur}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HuffmanBitError.png" />
+  <relevantPlugins>
+    <plugin name="HuffmanErrors" />
+  </relevantPlugins>
+</sample>

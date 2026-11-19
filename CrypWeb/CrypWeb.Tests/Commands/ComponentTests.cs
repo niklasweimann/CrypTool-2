@@ -51,6 +51,7 @@ public static class ComponentTests
         Games();
         AntsAndPatterns();
         Kleptography();
+        RainbowSideChannelHuffman();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1027,6 +1028,57 @@ public static class ComponentTests
         var pad = global::Kleptography.SetupAttack.Run(1, 3);
         Check((pad.N >> global::Kleptography.SetupAttack.ShiftBits) == (pad.Seed ^ pad.Pad), "kleptography: with a shared pad the upper bits of n are the seed XOR the pad");
         Check(global::Kleptography.SetupAttack.IsPrime(1000003) && !global::Kleptography.SetupAttack.IsPrime(1000001) && global::Kleptography.SetupAttack.IsPrime(System.Numerics.BigInteger.Pow(2, 127) - 1), "kleptography: primality test (1000003 and the Mersenne prime 2^127 - 1 are prime, 1000001 = 101 * 9901 is not)");
+    }
+
+    static void RainbowSideChannelHuffman()
+    {
+        // rainbow table: every password on a chain (apart from the end) is found again from its hash value
+        var table = new global::RainbowTable.ChainTable(3, 800, 40, 1);
+        bool allFound = true;
+        for (int c = 0; c < 20; c++)
+        {
+            long index = table.Starts[c];
+            for (int column = 1; column <= 40; column++)
+            {
+                string password = table.Password(index);
+                string found = table.Lookup(global::RainbowTable.ChainTable.Hash(password), out long work);
+                allFound &= found != null && global::RainbowTable.ChainTable.Hash(found) == global::RainbowTable.ChainTable.Hash(password);
+                index = table.Reduce(global::RainbowTable.ChainTable.Hash(password), column);
+            }
+        }
+        Check(allFound, "rainbow table: every password on the first 20 chains is found again from its hash value");
+        Check(table.Password(0) == "aaa" && table.Password(17575) == "zzz" && table.Index("abc") == 28 && table.Password(28) == "abc", "rainbow table: passwords and indexes (aaa = 0, abc = 28, zzz = 17575)");
+        Check(table.Reduce(5, 1) != table.Reduce(5, 2), "rainbow table: the reduction function is different in every column");
+        int covered = table.Coverage(), hits = 0;
+        var random = new Random(3);
+        for (int i = 0; i < 200; i++) { if (table.Lookup(global::RainbowTable.ChainTable.Hash(table.Password(random.Next(17576))), out long w) != null) { hits++; } }
+        Check(covered > 0.4 * 17576 && covered <= 17576 && hits >= 0.35 * 200 && hits <= 200, $"rainbow table: the table covers {covered} of 17576 passwords and finds {hits} of 200 random passwords");
+        Check(global::RainbowTable.ChainTable.Hash("abc") == BitConverter.ToUInt64(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.ASCII.GetBytes("abc")), 0), "rainbow table: the hash function is the first 8 bytes of SHA-256");
+
+        // side channels: the S-box of AES (known values), SPA reads the exponent, DPA finds the key byte
+        var box = global::SideChannel.SideChannelModel.SBox;
+        Check(box[0x00] == 0x63 && box[0x01] == 0x7c && box[0x53] == 0xed && box[0xff] == 0x16 && box.Distinct().Count() == 256, "AES S-box computed from the inverse in GF(2^8): S(00) = 63, S(01) = 7c, S(53) = ed, S(ff) = 16, and a permutation");
+        bool spa = Enumerable.Range(1, 20).All(seed => { var r = global::SideChannel.SideChannelModel.Spa(seed, 0.3); return r.Recovered == r.Exponent && r.Exponent >= 1 << 15; });
+        Check(spa, "SPA: the exponent is read from the power trace for 20 seeds (16-bit exponents)");
+        bool dpa = Enumerable.Range(1, 20).All(seed => { var r = global::SideChannel.SideChannelModel.Dpa(seed, 200, 1.0); return r.Recovered == r.Key; });
+        Check(dpa, "DPA: the key byte is found with 200 traces for 20 seeds");
+        int noisy = Enumerable.Range(1, 20).Count(seed => { var r = global::SideChannel.SideChannelModel.Dpa(seed, 3, 3.0); return r.Recovered == r.Key; });
+        Check(noisy < 20, $"DPA: with 3 traces and strong noise the attack does not work every time ({noisy} of 20)");
+        Check(Math.Abs(global::SideChannel.SideChannelModel.Pearson(new double[] { 1, 2, 3, 4 }, new double[] { 2, 4, 6, 8 }) - 1) < 1e-12 && Math.Abs(global::SideChannel.SideChannelModel.Pearson(new double[] { 1, 2, 3 }, new double[] { 3, 2, 1 }) + 1) < 1e-12, "Pearson correlation: 1 for a line, -1 for a falling line");
+
+        // Huffman coding with Hamming(7,4)
+        var codes = global::HuffmanErrors.HuffmanCoding.Build("aaabbc");
+        Check(codes['a'] == "0" && codes['c'] == "10" && codes['b'] == "11" && global::HuffmanErrors.HuffmanCoding.Encode("aaabbc", codes).Length == 9, "Huffman: aaabbc gives a = 0, c = 10, b = 11 and 9 bits");
+        string sentence = "hello world, this is a test";
+        var all = global::HuffmanErrors.HuffmanCoding.Build(sentence);
+        Check(global::HuffmanErrors.HuffmanCoding.Decode(global::HuffmanErrors.HuffmanCoding.Encode(sentence, all), all) == sentence && global::HuffmanErrors.HuffmanCoding.Encode(sentence, all).Length < sentence.Length * 8, "Huffman: decoding gives the text back, and the code is shorter than 8 bits per character");
+        Check(global::HuffmanErrors.HuffmanCoding.HammingEncode("1011") == "0110011" && global::HuffmanErrors.HuffmanCoding.HammingDecode("0110011", out int none) == "1011" && none == 0, "Hamming(7,4): 1011 becomes 0110011 (the standard example)");
+        int length = global::HuffmanErrors.HuffmanCoding.Transmit(sentence, true, 0).Sent.Length;
+        bool corrected = Enumerable.Range(1, length).All(p => global::HuffmanErrors.HuffmanCoding.Transmit(sentence, true, p).Decoded == sentence);
+        bool garbled = Enumerable.Range(1, global::HuffmanErrors.HuffmanCoding.Transmit(sentence, false, 0).Sent.Length).All(p => global::HuffmanErrors.HuffmanCoding.Transmit(sentence, false, p).Wrong > 0);
+        Check(corrected, $"Huffman with Hamming(7,4): a bit error at any of the {length} positions is corrected");
+        Check(garbled, "Huffman without protection: a bit error at any position garbles the text");
+        Check(global::HuffmanErrors.HuffmanCoding.Transmit("aaaa", false, 0).Decoded == "aaaa" && global::HuffmanErrors.HuffmanCoding.Transmit("", false, 0).Decoded == "", "Huffman: a text of one character and the empty text");
     }
 
     static void ProtocolVisualization()

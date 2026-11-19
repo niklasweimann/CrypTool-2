@@ -728,6 +728,11 @@
     <Compile Include="../../CrypPlugins/Huffman/Properties/Resources.Designer.cs" Link="Huffman/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Huffman/Properties/Resources.resx" LogicalName="Huffman.Properties.Resources.resources" Link="Huffman/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Huffman/Properties/Resources.de.resx" LogicalName="Huffman.Properties.Resources.de.resources" Link="Huffman/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/HuffmanErrors/HuffmanErrors.cs" Link="HuffmanErrors/HuffmanErrors.cs" />
+    <Compile Include="../../CrypPlugins/HuffmanErrors/HuffmanErrorsSettings.cs" Link="HuffmanErrors/HuffmanErrorsSettings.cs" />
+    <Compile Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.Designer.cs" Link="HuffmanErrors/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.resx" LogicalName="HuffmanErrors.Properties.Resources.resources" Link="HuffmanErrors/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.de.resx" LogicalName="HuffmanErrors.Properties.Resources.de.resources" Link="HuffmanErrors/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/IDPAttack/HighscoreList.cs" Link="IDPAttack/HighscoreList.cs" />
     <Compile Include="../../CrypPlugins/IDPAttack/ValueKey.cs" Link="IDPAttack/ValueKey.cs" />
     <Compile Include="../../CrypPlugins/IDPAttack/IDPAnalyser.cs" Link="IDPAttack/IDPAnalyser.cs" />
@@ -1100,6 +1105,11 @@
     <Compile Include="../../CrypPlugins/Rabbit/Properties/Resources.Designer.cs" Link="Rabbit/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Rabbit/Properties/Resources.resx" LogicalName="Rabbit.Properties.Resources.resources" Link="Rabbit/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Rabbit/Properties/Resources.de.resx" LogicalName="Rabbit.Properties.Resources.de.resources" Link="Rabbit/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/RainbowTable/RainbowTableSettings.cs" Link="RainbowTable/RainbowTableSettings.cs" />
+    <Compile Include="../../CrypPlugins/RainbowTable/RainbowTable.cs" Link="RainbowTable/RainbowTable.cs" />
+    <Compile Include="../../CrypPlugins/RainbowTable/Properties/Resources.Designer.cs" Link="RainbowTable/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RainbowTable/Properties/Resources.resx" LogicalName="RainbowTable.Properties.Resources.resources" Link="RainbowTable/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/RainbowTable/Properties/Resources.de.resx" LogicalName="RainbowTable.Properties.Resources.de.resources" Link="RainbowTable/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/RandomNumberGenerator/RandomNumberGenerator.cs" Link="RandomNumberGenerator/RandomNumberGenerator.cs" />
     <Compile Include="../../CrypPlugins/RandomNumberGenerator/RandomNumberGeneratorSettings.cs" Link="RandomNumberGenerator/RandomNumberGeneratorSettings.cs" />
     <Compile Include="../../CrypPlugins/RandomNumberGenerator/Properties/Resources.Designer.cs" Link="RandomNumberGenerator/Properties/Resources.Designer.cs" />
@@ -1170,6 +1180,11 @@
     <Compile Include="../../CrypPlugins/ShannonEntropy/ShannonEntropySettings.cs" Link="ShannonEntropy/ShannonEntropySettings.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ShannonEntropy/Properties/Resources.resx" LogicalName="ShannonEntropy.Properties.Resources.resources" Link="ShannonEntropy/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ShannonEntropy/Properties/Resources.de.resx" LogicalName="ShannonEntropy.Properties.Resources.de.resources" Link="ShannonEntropy/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/SideChannel/SideChannel.cs" Link="SideChannel/SideChannel.cs" />
+    <Compile Include="../../CrypPlugins/SideChannel/SideChannelSettings.cs" Link="SideChannel/SideChannelSettings.cs" />
+    <Compile Include="../../CrypPlugins/SideChannel/Properties/Resources.Designer.cs" Link="SideChannel/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/SideChannel/Properties/Resources.resx" LogicalName="SideChannel.Properties.Resources.resources" Link="SideChannel/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/SideChannel/Properties/Resources.de.resx" LogicalName="SideChannel.Properties.Resources.de.resources" Link="SideChannel/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Solitaire/SolitaireSettings.cs" Link="Solitaire/SolitaireSettings.cs" />
     <Compile Include="../../CrypPlugins/Solitaire/Solitaire.cs" Link="Solitaire/Solitaire.cs" />
     <Compile Include="../../CrypPlugins/Solitaire/Properties/Resources.Designer.cs" Link="Solitaire/Properties/Resources.Designer.cs" />

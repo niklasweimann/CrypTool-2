@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HuffmanErrorCorrection.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Huffman Coding with Hamming Code: Error Correction</title>
+  <summary lang="en"><i>Huffman Coding with Hamming Code: Error Correction</i></summary>
+  <description lang="en">The same text and the same bit error, now protected by a Hamming(7,4) code: the error is corrected.</description>
+  <keywords lang="en">Huffman, Hamming code, error correction, compression</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The Hamming code adds 3 check bits to every 4 bits. Change the position of the bit error: every single error is corrected." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Huffman-Codierung mit Hamming-Code: Fehlerkorrektur</title>
+  <summary lang="de"><i>Huffman-Codierung mit Hamming-Code: Fehlerkorrektur</i></summary>
+  <description lang="de">Derselbe Text und derselbe Bitfehler, jetzt durch einen Hamming(7,4)-Code geschützt: Der Fehler wird korrigiert.</description>
+  <keywords lang="en">Huffman, Hamming code, error correction, compression</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Hamming-Code fügt je 4 Bits 3 Prüfbits hinzu. Ändern Sie die Position des Bitfehlers: Jeder einzelne Fehler wird korrigiert." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HuffmanErrorCorrection.png" />
+  <relevantPlugins>
+    <plugin name="HuffmanErrors" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SideChannelSPA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Side-Channel Attack: SPA</title>
+  <summary lang="en"><i>Side-Channel Attack: SPA</i></summary>
+  <description lang="en">The secret exponent of square-and-multiply, read from a single simulated power trace.</description>
+  <keywords lang="en">side channel, SPA, power analysis, square and multiply, RSA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Increase the noise in the settings of the {\\b Side-Channel Attacks} component until the trace can no longer be read." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Seitenkanalangriff: SPA</title>
+  <summary lang="de"><i>Seitenkanalangriff: SPA</i></summary>
+  <description lang="de">Der geheime Exponent von Square-and-Multiply, gelesen aus einer einzigen simulierten Strommessung.</description>
+  <keywords lang="en">side channel, SPA, power analysis, square and multiply, RSA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Erhöhen Sie in den Einstellungen der Komponente {\\b Seitenkanalangriffe} das Rauschen, bis sich die Messung nicht mehr ablesen lässt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SideChannelSPA.png" />
+  <relevantPlugins>
+    <plugin name="SideChannel" />
+  </relevantPlugins>
+</sample>

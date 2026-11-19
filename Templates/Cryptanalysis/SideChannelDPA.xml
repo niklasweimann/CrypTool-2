@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SideChannelDPA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Side-Channel Attack: DPA</title>
+  <summary lang="en"><i>Side-Channel Attack: DPA</i></summary>
+  <description lang="en">A key byte of AES, found by correlating predicted and measured power over many traces.</description>
+  <keywords lang="en">side channel, DPA, differential power analysis, AES, correlation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Reduce the number of traces or increase the noise in the settings of the {\\b Side-Channel Attacks} component to see when the attack fails." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Seitenkanalangriff: DPA</title>
+  <summary lang="de"><i>Seitenkanalangriff: DPA</i></summary>
+  <description lang="de">Ein Schlüsselbyte von AES, gefunden durch Korrelation von vorhergesagtem und gemessenem Stromverbrauch über viele Messungen.</description>
+  <keywords lang="en">side channel, DPA, differential power analysis, AES, correlation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Verringern Sie in den Einstellungen der Komponente {\\b Seitenkanalangriffe} die Zahl der Messungen oder erhöhen Sie das Rauschen, um zu sehen, wann der Angriff scheitert." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SideChannelDPA.png" />
+  <relevantPlugins>
+    <plugin name="SideChannel" />
+  </relevantPlugins>
+</sample>

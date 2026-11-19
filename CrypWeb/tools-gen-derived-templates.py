@@ -988,6 +988,52 @@ TEMPLATES += [
 ]
 
 
+def huffman_errors(out, protect, position, text, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A text goes through the Huffman code, a bit error and (optionally) the Hamming code; shown with the presentation of the component."""
+    text_input, output, hz = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput", "HuffmanErrors.HuffmanErrors"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text_input, x=40, y=40, w=300, h=120, settings=dict(Text=text))),
+             dict(add=dict(type=hz, x=400, y=40, w=820, h=560, viewState=1, settings=dict(Protect=str(protect), ErrorPosition=str(position)))),
+             dict(add=dict(type=output, x=400, y=640, w=820, h=100)),
+             dict(connect={"from": f"{text_input}.TextOutput", "to": f"{hz}.InputText"}),
+             dict(connect={"from": f"{hz}.OutputText", "to": f"{output}.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="HuffmanErrors",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    game("Hashfunctions/RainbowTable", "RainbowTable.RainbowTable", dict(Length="3", Chains="800", ChainLength="40", Seed="1", Target="abc"), "Rainbow Table", "Regenbogentabelle",
+         "Chains of hash and reduction steps for passwords of three lowercase letters, and the lookup of a hash value.", "Ketten aus Hash- und Reduktionsschritten für Passwörter aus drei Kleinbuchstaben und die Suche nach einem Hashwert.",
+         "Change the length, the number and length of the chains and the password to find in the settings of the {\\\\b Rainbow Table} component and see how the coverage and the success rate change.",
+         "Ändern Sie Länge, Anzahl und Länge der Ketten und das gesuchte Passwort in den Einstellungen der Komponente {\\\\b Regenbogentabelle} und beobachten Sie, wie sich Abdeckung und Erfolgsquote ändern.",
+         "rainbow table, hash, password, time-memory trade-off, reduction"),
+    game("Cryptanalysis/SideChannelSPA", "SideChannel.SideChannel", dict(Mode="0", Seed="1", Noise="100"), "Side-Channel Attack: SPA", "Seitenkanalangriff: SPA",
+         "The secret exponent of square-and-multiply, read from a single simulated power trace.", "Der geheime Exponent von Square-and-Multiply, gelesen aus einer einzigen simulierten Strommessung.",
+         "Increase the noise in the settings of the {\\\\b Side-Channel Attacks} component until the trace can no longer be read.",
+         "Erhöhen Sie in den Einstellungen der Komponente {\\\\b Seitenkanalangriffe} das Rauschen, bis sich die Messung nicht mehr ablesen lässt.",
+         "side channel, SPA, power analysis, square and multiply, RSA"),
+    game("Cryptanalysis/SideChannelDPA", "SideChannel.SideChannel", dict(Mode="1", Seed="1", Traces="200", Noise="100"), "Side-Channel Attack: DPA", "Seitenkanalangriff: DPA",
+         "A key byte of AES, found by correlating predicted and measured power over many traces.", "Ein Schlüsselbyte von AES, gefunden durch Korrelation von vorhergesagtem und gemessenem Stromverbrauch über viele Messungen.",
+         "Reduce the number of traces or increase the noise in the settings of the {\\\\b Side-Channel Attacks} component to see when the attack fails.",
+         "Verringern Sie in den Einstellungen der Komponente {\\\\b Seitenkanalangriffe} die Zahl der Messungen oder erhöhen Sie das Rauschen, um zu sehen, wann der Angriff scheitert.",
+         "side channel, DPA, differential power analysis, AES, correlation"),
+    huffman_errors("Codes/HuffmanBitError", 0, 5, "hello world, this is a test", "Huffman Coding: Effect of a Bit Error", "Huffman-Codierung: Wirkung eines Bitfehlers",
+                   "A text in a Huffman code with one flipped bit: the receiver loses its place.", "Ein Text im Huffman-Code mit einem gekippten Bit: Der Empfänger verliert die Stelle.",
+                   "Change the position of the bit error in the settings of the {\\\\b Huffman Coding with Error Correction} component.",
+                   "Ändern Sie die Position des Bitfehlers in den Einstellungen der Komponente {\\\\b Huffman-Codierung mit Fehlerkorrektur}.",
+                   "Huffman, bit error, compression, error propagation"),
+    huffman_errors("Codes/HuffmanErrorCorrection", 1, 5, "hello world, this is a test", "Huffman Coding with Hamming Code: Error Correction", "Huffman-Codierung mit Hamming-Code: Fehlerkorrektur",
+                   "The same text and the same bit error, now protected by a Hamming(7,4) code: the error is corrected.", "Derselbe Text und derselbe Bitfehler, jetzt durch einen Hamming(7,4)-Code geschützt: Der Fehler wird korrigiert.",
+                   "The Hamming code adds 3 check bits to every 4 bits. Change the position of the bit error: every single error is corrected.",
+                   "Der Hamming-Code fügt je 4 Bits 3 Prüfbits hinzu. Ändern Sie die Position des Bitfehlers: Jeder einzelne Fehler wird korrigiert.",
+                   "Huffman, Hamming code, error correction, compression"),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

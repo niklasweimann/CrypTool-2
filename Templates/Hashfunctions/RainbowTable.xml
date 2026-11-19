@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RainbowTable.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Rainbow Table</title>
+  <summary lang="en"><i>Rainbow Table</i></summary>
+  <description lang="en">Chains of hash and reduction steps for passwords of three lowercase letters, and the lookup of a hash value.</description>
+  <keywords lang="en">rainbow table, hash, password, time-memory trade-off, reduction</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the length, the number and length of the chains and the password to find in the settings of the {\\b Rainbow Table} component and see how the coverage and the success rate change." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Regenbogentabelle</title>
+  <summary lang="de"><i>Regenbogentabelle</i></summary>
+  <description lang="de">Ketten aus Hash- und Reduktionsschritten für Passwörter aus drei Kleinbuchstaben und die Suche nach einem Hashwert.</description>
+  <keywords lang="en">rainbow table, hash, password, time-memory trade-off, reduction</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie Länge, Anzahl und Länge der Ketten und das gesuchte Passwort in den Einstellungen der Komponente {\\b Regenbogentabelle} und beobachten Sie, wie sich Abdeckung und Erfolgsquote ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RainbowTable.png" />
+  <relevantPlugins>
+    <plugin name="RainbowTable" />
+  </relevantPlugins>
+</sample>
