@@ -879,6 +879,11 @@
     <Compile Include="../../CrypPlugins/Magma/Properties/Resources.Designer.cs" Link="Magma/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Magma/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Magma.Properties.Resources.resources" Link="Magma/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Magma/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Magma.Properties.Resources.de.resources" Link="Magma/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/MathVisualization/MathVisualizationSettings.cs" Link="MathVisualization/MathVisualizationSettings.cs" />
+    <Compile Include="../../CrypPlugins/MathVisualization/MathVisualization.cs" Link="MathVisualization/MathVisualization.cs" />
+    <Compile Include="../../CrypPlugins/MathVisualization/Properties/Resources.Designer.cs" Link="MathVisualization/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/MathVisualization/Properties/Resources.resx" LogicalName="MathVisualization.Properties.Resources.resources" Link="MathVisualization/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/MathVisualization/Properties/Resources.de.resx" LogicalName="MathVisualization.Properties.Resources.de.resources" Link="MathVisualization/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/MessageDigests/MessageDigestsSettings.cs" Link="MessageDigests/MessageDigestsSettings.cs" />
     <Compile Include="../../CrypPlugins/MessageDigests/MessageDigests.cs" Link="MessageDigests/MessageDigests.cs" />
     <EmbeddedResource Include="../../CrypPlugins/MessageDigests/Properties/Resources.resx" LogicalName="MessageDigests.Properties.Resources.resources" Link="MessageDigests/Properties/Resources.resx" />

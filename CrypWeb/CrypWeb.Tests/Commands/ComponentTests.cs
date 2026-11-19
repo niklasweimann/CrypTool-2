@@ -45,6 +45,7 @@ public static class ComponentTests
         ClassicMcEliece();
         HmacHashes();
         CipherVisualization();
+        MathVisualization();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -870,6 +871,37 @@ public static class ComponentTests
         var nihilist = Viz(2, "DYNAMITE WINTER PALACE", "ZEBRAS RUSSIAN")!;
         Check(nihilist.StartsWith("37 106 62 36 67 47 86 26 ") && nihilist.Split(' ').Length == 20 && Viz(2, nihilist, "ZEBRAS RUSSIAN", 1) == "DYNAMITEWINTERPALACE", $"Nihilist: DYNAMITE WINTER PALACE with ZEBRAS / RUSSIAN begins 37 106 62 36 67 47 86 26, and decrypts ({nihilist})");
         Check(Viz(2, "TEXT", "ZEBRAS") == null && Viz(2, "99 99", "ZEBRAS RUSSIAN", 1) == null && Viz(2, "x y", "ZEBRAS RUSSIAN", 1) == null, "Nihilist: a key with one word, numbers that fit no letter and text instead of numbers are refused");
+    }
+
+    static string? MathViz(int visualization, string parameters)
+    {
+        var component = Component("MathVisualization.MathVisualization", ("Visualization", visualization.ToString()));
+        component.PreExecution();
+        component.Set("Parameters", parameters);
+        component.Execute();
+        var result = (string?)component.Get("Result");
+        component.PostExecution();
+        return result;
+    }
+
+    static void MathVisualization()
+    {
+        // RSA: the example of Wikipedia: p = 61, q = 53, n = 3233, phi = 3120, e = 17, d = 2753, m = 65, c = 2790
+        var rsa = global::MathVisualization.Calculations.Rsa("61 53 17 65");
+        Check(rsa.N == 3233 && rsa.Phi == 3120 && rsa.D == 2753 && rsa.Ciphertext == 2790 && rsa.Decrypted == 65 && MathViz(0, "p=61 q=53 e=17 m=65") == "2790", "RSA visualization: p = 61, q = 53, e = 17, m = 65 gives n = 3233, phi = 3120, d = 2753, c = 2790 and decrypts to 65");
+        Check(MathViz(0, "61 53 2 65") == null && MathViz(0, "61 53 17 3233") == null && MathViz(0, "61 61 17 65") == null && MathViz(0, "61 53") == null, "RSA visualization: e not coprime to phi, a message that is not smaller than n, p = q and missing parameters are refused");
+
+        // Shamir: f(x) = 11 + 3x + 7x^2 modulo 23, 5 shares; the points are computed here again
+        var shamir = global::MathVisualization.Calculations.Shamir("23 5 11 3 7");
+        Check(shamir.Secret == 11 && shamir.Points.Count == 5 && shamir.Points.All(point => point.Value == (11 + 3 * point.Key + 7 * point.Key * point.Key) % 23) && shamir.Curve.Length == 23 && MathViz(1, "23 5 11 3 7") == "11",
+              "Shamir visualization: f(x) = 11 + 3x + 7x^2 mod 23, the 5 shares are on the polynomial and the secret 11 is rebuilt from the first 3");
+        Check(MathViz(1, "24 5 11 3 7") == null && MathViz(1, "23 2 11 3 7") == null && MathViz(1, "251 5 1 2 3") == null, "Shamir visualization: a modulus that is not prime or larger than 211, and fewer shares than the threshold are refused");
+
+        // elliptic curve y^2 = x^3 + 2x + 2 modulo 17 with G = (5, 1): 19 points, 2G = (6, 3), 3G = (10, 6) (the textbook example)
+        var curve = global::MathVisualization.Calculations.Curve("17 2 2 5 1 6 3");
+        Check(curve.Points.Count == 18 && curve.Sum.HasValue && curve.Sum.Value.X == 10 && curve.Sum.Value.Y == 6 && MathViz(2, "17 2 2 5 1 6 3") == "10,6", "elliptic curve visualization: 18 points and O on y^2 = x^3 + 2x + 2 mod 17; (5,1) + (6,3) = (10,6)");
+        Check(MathViz(2, "17 2 2 5 1 5 1") == "6,3" && MathViz(2, "17 2 2 5 1 5 16") == "O" && MathViz(2, "17 2 2 5 1 10 6") == "3,1", "elliptic curve visualization: doubling (5,1) = (6,3), opposite points give O, (5,1) + (10,6) = 4G = (3,1)");
+        Check(MathViz(2, "17 2 2") == "" && MathViz(2, "17 0 0") == null && MathViz(2, "17 2 2 5 2 6 3") == null && MathViz(2, "18 2 2") == null, "elliptic curve visualization: without points only the curve is shown; a singular curve, a point that is not on the curve and a modulus that is not prime are refused");
     }
 
     static void Digest(string name, int algorithm, string text, string expected)

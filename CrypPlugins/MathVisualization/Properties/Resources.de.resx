@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CurveExplanation" xml:space="preserve">
+    <value>Die Kurve y^2 = x^3 + {0}x + {1} modulo {2} hat die unten gezeichneten Punkte und den unendlich fernen Punkt O (insgesamt {3} Punkte). Zwei Punkte werden mit einer Geraden durch sie addiert: Der dritte Schnittpunkt, an der x-Achse gespiegelt, ist die Summe.</value>
+  </data>
+  <data name="CurveLegend" xml:space="preserve">
+    <value>Rot: P, blau: Q, grün: P + Q. Der weiße Ring ist der dritte Schnittpunkt der Geraden durch P und Q (modulo p läuft die Gerade um, nur die Punkte sind exakt).</value>
+  </data>
+  <data name="CurveNoPoints" xml:space="preserve">
+    <value>Geben Sie zwei Punkte x1 y1 x2 y2 der Kurve an, um ihre Summe zu sehen.</value>
+  </data>
+  <data name="CurveSum" xml:space="preserve">
+    <value>P = ({0}, {1}) + Q = ({2}, {3}) = {4}</value>
+  </data>
+  <data name="CurveTitle" xml:space="preserve">
+    <value>Elliptische Kurve über einem Primkörper</value>
+  </data>
+  <data name="ParametersCaption" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ParametersTooltip" xml:space="preserve">
+    <value>Zahlen, durch Leerzeichen getrennt. RSA: p q e m. Shamir: p n a0 a1 ... Elliptische Kurve: p a b und optional x1 y1 x2 y2.</value>
+  </data>
+  <data name="PluginCaption" xml:space="preserve">
+    <value>Mathematik-Visualisierung</value>
+  </data>
+  <data name="PluginTooltip" xml:space="preserve">
+    <value>Zeigt RSA, Shamir-Secret-Sharing und die Arithmetik elliptischer Kurven mit kleinen Zahlen</value>
+  </data>
+  <data name="ResultCaption" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="ResultTooltip" xml:space="preserve">
+    <value>RSA: der Geheimtext c. Shamir: das rekonstruierte Geheimnis. Elliptische Kurve: der Punkt P + Q als "x,y" oder O.</value>
+  </data>
+  <data name="RsaExplanation" xml:space="preserve">
+    <value>Zwei Primzahlen p und q ergeben den Modul n und phi(n). Der öffentliche Exponent e muss teilerfremd zu phi(n) sein; der private Exponent d ist sein Inverses modulo phi(n). Das Verschlüsseln potenziert die Nachricht mit e, das Entschlüsseln das Ergebnis mit d, jeweils modulo n.</value>
+  </data>
+  <data name="RsaPrivateKey" xml:space="preserve">
+    <value>Privater Schlüssel</value>
+  </data>
+  <data name="RsaPublic" xml:space="preserve">
+    <value>öffentlich</value>
+  </data>
+  <data name="RsaPublicKey" xml:space="preserve">
+    <value>Öffentlicher Schlüssel</value>
+  </data>
+  <data name="RsaTitle" xml:space="preserve">
+    <value>RSA mit kleinen Zahlen</value>
+  </data>
+  <data name="ShamirExplanation" xml:space="preserve">
+    <value>Das Polynom f(x) = {0} modulo {1} hat den Grad {2} - 1, daher werden {2} Punkte gebraucht, um es zu finden; der konstante Term ist das Geheimnis. Es werden {3} Anteile (x, f(x)) ausgegeben.</value>
+  </data>
+  <data name="ShamirLegend" xml:space="preserve">
+    <value>Grau: alle Punkte (x, f(x)) des Polynoms modulo p. Orange: die Anteile. Grün: das Geheimnis f(0).</value>
+  </data>
+  <data name="ShamirReconstructed" xml:space="preserve">
+    <value>Geheimnis aus den ersten {0} Anteilen (Lagrange)</value>
+  </data>
+  <data name="ShamirShare" xml:space="preserve">
+    <value>Anteil</value>
+  </data>
+  <data name="ShamirTitle" xml:space="preserve">
+    <value>Secret Sharing nach Shamir über einem kleinen Primkörper</value>
+  </data>
+  <data name="VisualizationCaption" xml:space="preserve">
+    <value>Visualisierung</value>
+  </data>
+  <data name="VisualizationList1" xml:space="preserve">
+    <value>RSA</value>
+  </data>
+  <data name="VisualizationList2" xml:space="preserve">
+    <value>Secret Sharing nach Shamir</value>
+  </data>
+  <data name="VisualizationList3" xml:space="preserve">
+    <value>Elliptische Kurve</value>
+  </data>
+  <data name="VisualizationTooltip" xml:space="preserve">
+    <value>Wählen Sie, was gezeigt wird.</value>
+  </data>
+</root>

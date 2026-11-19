@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RSAVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">RSA Visualization</title>
+  <summary lang="en"><i>RSA Visualization</i></summary>
+  <description lang="en">All numbers of an RSA example with small primes, step by step.</description>
+  <keywords lang="en">RSA, visualization, key generation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are p, q, e and the message m. The picture lists n, phi(n), d, the keys, the ciphertext c = m^e mod n and the decryption. The example is the one of the Wikipedia article (p = 61, q = 53, e = 17, m = 65 gives c = 2790). Try other primes; the message must be smaller than n." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">RSA-Visualisierung</title>
+  <summary lang="de"><i>RSA-Visualisierung</i></summary>
+  <description lang="de">Alle Zahlen eines RSA-Beispiels mit kleinen Primzahlen, Schritt für Schritt.</description>
+  <keywords lang="en">RSA, visualization, key generation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind p, q, e und die Nachricht m. Das Bild listet n, phi(n), d, die Schlüssel, den Geheimtext c = m^e mod n und die Entschlüsselung auf. Das Beispiel ist das aus dem Wikipedia-Artikel (p = 61, q = 53, e = 17, m = 65 ergibt c = 2790). Probieren Sie andere Primzahlen; die Nachricht muss kleiner als n sein." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RSAVisualization.png" />
+  <relevantPlugins>
+    <plugin name="MathVisualization" />
+  </relevantPlugins>
+</sample>

@@ -769,6 +769,47 @@ TEMPLATES += [
                   "Nihilist, Polybius, visualization"),
 ]
 
+MVZ = "MathVisualization.MathVisualization"
+
+
+def math_visualization(out, mode, parameters, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A template whose component is shown with its presentation: the parameters on the left, the picture in the middle."""
+    text_input, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text_input, x=40, y=40, w=260, h=120, settings=dict(Text=parameters))),
+             dict(add=dict(type=MVZ, x=360, y=40, w=680, h=620, viewState=1, settings=dict(Visualization=str(mode)))),
+             dict(add=dict(type=output, x=360, y=700, w=680, h=90)),
+             dict(connect={"from": f"{text_input}#0.TextOutput", "to": f"{MVZ}.Parameters"}),
+             dict(connect={"from": f"{MVZ}.Result", "to": f"{output}.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="MathVisualization",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    math_visualization("Cryptography/Modern/Asymmetric/RSAVisualization", 0, "61 53 17 65", "RSA Visualization", "RSA-Visualisierung",
+                       "All numbers of an RSA example with small primes, step by step.",
+                       "Alle Zahlen eines RSA-Beispiels mit kleinen Primzahlen, Schritt für Schritt.",
+                       "The parameters are p, q, e and the message m. The picture lists n, phi(n), d, the keys, the ciphertext c = m^e mod n and the decryption. The example is the one of the Wikipedia article (p = 61, q = 53, e = 17, m = 65 gives c = 2790). Try other primes; the message must be smaller than n.",
+                       "Die Parameter sind p, q, e und die Nachricht m. Das Bild listet n, phi(n), d, die Schlüssel, den Geheimtext c = m^e mod n und die Entschlüsselung auf. Das Beispiel ist das aus dem Wikipedia-Artikel (p = 61, q = 53, e = 17, m = 65 ergibt c = 2790). Probieren Sie andere Primzahlen; die Nachricht muss kleiner als n sein.",
+                       "RSA, visualization, key generation"),
+    math_visualization("Protocols/ShamirVisualization", 1, "23 5 11 3 7", "Shamir's Secret Sharing Visualization", "Secret-Sharing nach Shamir: Visualisierung",
+                       "The polynomial of Shamir's scheme, its shares and the secret as points over a small prime field.",
+                       "Das Polynom des Verfahrens von Shamir, seine Anteile und das Geheimnis als Punkte über einem kleinen Primkörper.",
+                       "The parameters are the prime p = 23, the number of shares 5 and the coefficients 11, 3, 7 (the secret is 11). The picture shows all points of f(x) = 11 + 3x + 7x^2 modulo 23, the five shares in orange and the secret f(0) in green; the secret is rebuilt from three shares.",
+                       "Die Parameter sind die Primzahl p = 23, die Anzahl der Anteile 5 und die Koeffizienten 11, 3, 7 (das Geheimnis ist 11). Das Bild zeigt alle Punkte von f(x) = 11 + 3x + 7x^2 modulo 23, die fünf Anteile orange und das Geheimnis f(0) grün; aus drei Anteilen wird das Geheimnis wiederhergestellt.",
+                       "Shamir, secret sharing, polynomial, visualization"),
+    math_visualization("Cryptography/Modern/Asymmetric/EllipticCurveVisualization", 2, "17 2 2 5 1 6 3", "Elliptic Curve Visualization", "Elliptische Kurve: Visualisierung",
+                       "The points of an elliptic curve over a small prime field and the addition of two points.",
+                       "Die Punkte einer elliptischen Kurve über einem kleinen Primkörper und die Addition zweier Punkte.",
+                       "The parameters are p = 17, a = 2, b = 2 (the curve y^2 = x^3 + 2x + 2) and the points P = (5, 1) and Q = (6, 3). The picture shows the 18 points of the curve and P, Q and P + Q = (10, 6) with the formulas of the addition. Change the points to add others; without points only the curve is drawn.",
+                       "Die Parameter sind p = 17, a = 2, b = 2 (die Kurve y^2 = x^3 + 2x + 2) und die Punkte P = (5, 1) und Q = (6, 3). Das Bild zeigt die 18 Punkte der Kurve und P, Q und P + Q = (10, 6) mit den Formeln der Addition. Ändern Sie die Punkte, um andere zu addieren; ohne Punkte wird nur die Kurve gezeichnet.",
+                       "elliptic curve, point addition, visualization"),
+]
+
 
 def attr(text):
     return text.replace("&", "&amp;").replace('"', "&quot;")

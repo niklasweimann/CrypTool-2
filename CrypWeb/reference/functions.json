@@ -1313,7 +1313,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm": "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm"
  },
  {
   "name": "Encoding",
@@ -3481,7 +3486,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/RSAVisualization.cwm": "Cryptography/Modern/Asymmetric/RSAVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/RSAVisualization.cwm"
  },
  {
   "name": "RSA-AES",
@@ -3854,7 +3864,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/ShamirVisualization.cwm": "Protocols/ShamirVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/ShamirVisualization.cwm"
  },
  {
   "name": "Shanks Babystep-Giantstep",

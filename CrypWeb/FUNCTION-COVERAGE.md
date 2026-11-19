@@ -36,9 +36,9 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 | 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
-| 3 Visualisierungen, Spiele | begonnen: `CipherVisualization` (Caesar, Vigenère, Nihilist mit Präsentation) |
+| 3 Visualisierungen, Spiele | begonnen: `CipherVisualization` (Caesar, Vigenère, Nihilist), `MathVisualization` (RSA, Shamir, elliptische Kurve) |
 
-Abdeckung: 265 von 342 Einträgen (77 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
+Abdeckung: 268 von 342 Einträgen (74 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
 
 | Plugin | Inhalt |
 |---|---|
@@ -57,6 +57,7 @@ Abdeckung: 265 von 342 Einträgen (77 offen). Neue Plugins in `CrypPlugins/` (al
 | `DataTools` | UU-Codierung, Zip/Unzip, byteweise Addition, Bit-Verschiebungen |
 | `ClassicVariants` | Porta, Rail Fence/Redefence, Kamasutra, Doppelkasten |
 | `CipherVisualization` | Caesar, Vigenère, Nihilist mit Präsentation (Stufe 3; Präsentationen sind reiner C#-Code aus WPF-Elementen, ohne XAML) |
+| `MathVisualization` | RSA mit allen Zwischenwerten, Shamir-Polynom als Punktdiagramm, Punkte und Addition auf einer elliptischen Kurve über Fp |
 
 Was von den 80 offenen Einträgen bleibt und warum:
 

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component shows three topics of public-key cryptography with numbers small enough to follow by hand.
+    RSA: from two primes p and q the modulus n = p * q and phi(n) = (p - 1) * (q - 1) follow; the public exponent e is coprime to phi(n), the private exponent d is the inverse of e modulo phi(n). A message m becomes c = m^e mod n and is recovered by c^d mod n.
+    Shamir's secret sharing: the secret is the constant term of a polynomial over a prime field; every share is a point of the polynomial. The picture shows all points of the polynomial modulo p, the shares and the secret, and the secret is rebuilt from the shares by Lagrange interpolation.
+    Elliptic curve: the points of y^2 = x^3 + a*x + b modulo a prime p are drawn, and two points P and Q are added: the line through them meets the curve in a third point, whose reflection on the x axis is P + Q. The formulas with the slope lambda are written below.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente zeigt drei Themen der Public-Key-Kryptografie mit so kleinen Zahlen, dass man sie von Hand nachvollziehen kann.
+    RSA: Aus zwei Primzahlen p und q folgen der Modul n = p * q und phi(n) = (p - 1) * (q - 1); der öffentliche Exponent e ist teilerfremd zu phi(n), der private Exponent d ist das Inverse von e modulo phi(n). Eine Nachricht m wird zu c = m^e mod n und mit c^d mod n zurückgewonnen.
+    Secret Sharing nach Shamir: Das Geheimnis ist der konstante Term eines Polynoms über einem Primkörper; jeder Anteil ist ein Punkt des Polynoms. Das Bild zeigt alle Punkte des Polynoms modulo p, die Anteile und das Geheimnis, und das Geheimnis wird aus den Anteilen durch Lagrange-Interpolation wiederhergestellt.
+    Elliptische Kurve: Die Punkte von y^2 = x^3 + a*x + b modulo einer Primzahl p werden gezeichnet, und zwei Punkte P und Q werden addiert: Die Gerade durch sie schneidet die Kurve in einem dritten Punkt, dessen Spiegelbild an der x-Achse P + Q ist. Die Formeln mit der Steigung lambda stehen darunter.
+  </introduction>
+  <usage lang="en">
+    Choose the visualization in the settings. The input "Parameters" takes numbers separated by spaces. RSA: "p q e m", for example "61 53 17 65". Shamir: "p n a0 a1 a2 ...", a prime up to 211, the number of shares and the coefficients, a0 is the secret, for example "23 5 11 3 7". Elliptic curve: "p a b" and optionally "x1 y1 x2 y2", for example "17 2 2 5 1 6 3" (the curve y^2 = x^3 + 2x + 2 modulo 17 and the points (5,1) and (6,3)); p is a prime up to 211. The output "Result" is the ciphertext c, the reconstructed secret or the sum point as "x,y".
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Visualisierung in den Einstellungen. Der Eingang "Parameter" nimmt Zahlen, durch Leerzeichen getrennt. RSA: "p q e m", zum Beispiel "61 53 17 65". Shamir: "p n a0 a1 a2 ...", eine Primzahl bis 211, die Anzahl der Anteile und die Koeffizienten, a0 ist das Geheimnis, zum Beispiel "23 5 11 3 7". Elliptische Kurve: "p a b" und optional "x1 y1 x2 y2", zum Beispiel "17 2 2 5 1 6 3" (die Kurve y^2 = x^3 + 2x + 2 modulo 17 und die Punkte (5,1) und (6,3)); p ist eine Primzahl bis 211. Der Ausgang "Ergebnis" ist der Geheimtext c, das rekonstruierte Geheimnis oder der Summenpunkt als "x,y".
+  </usage>
+</documentation>

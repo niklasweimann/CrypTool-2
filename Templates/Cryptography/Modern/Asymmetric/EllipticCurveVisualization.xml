@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: EllipticCurveVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Elliptic Curve Visualization</title>
+  <summary lang="en"><i>Elliptic Curve Visualization</i></summary>
+  <description lang="en">The points of an elliptic curve over a small prime field and the addition of two points.</description>
+  <keywords lang="en">elliptic curve, point addition, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are p = 17, a = 2, b = 2 (the curve y^2 = x^3 + 2x + 2) and the points P = (5, 1) and Q = (6, 3). The picture shows the 18 points of the curve and P, Q and P + Q = (10, 6) with the formulas of the addition. Change the points to add others; without points only the curve is drawn." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Elliptische Kurve: Visualisierung</title>
+  <summary lang="de"><i>Elliptische Kurve: Visualisierung</i></summary>
+  <description lang="de">Die Punkte einer elliptischen Kurve über einem kleinen Primkörper und die Addition zweier Punkte.</description>
+  <keywords lang="en">elliptic curve, point addition, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind p = 17, a = 2, b = 2 (die Kurve y^2 = x^3 + 2x + 2) und die Punkte P = (5, 1) und Q = (6, 3). Das Bild zeigt die 18 Punkte der Kurve und P, Q und P + Q = (10, 6) mit den Formeln der Addition. Ändern Sie die Punkte, um andere zu addieren; ohne Punkte wird nur die Kurve gezeichnet." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="EllipticCurveVisualization.png" />
+  <relevantPlugins>
+    <plugin name="MathVisualization" />
+  </relevantPlugins>
+</sample>

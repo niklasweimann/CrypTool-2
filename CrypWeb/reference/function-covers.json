@@ -79,5 +79,8 @@
  "EC-Berechnungen|": "Protocols/ECC_DH.cwm",
  "Caesar / Rot-13|visualization": "Cryptography/Classic/CaesarVisualization.cwm",
  "Vigenère|visualization": "Cryptography/Classic/VigenereVisualization.cwm",
- "Nihilist|visualization": "Cryptography/Classic/NihilistVisualization.cwm"
+ "Nihilist|visualization": "Cryptography/Classic/NihilistVisualization.cwm",
+ "RSA|visualization": "Cryptography/Modern/Asymmetric/RSAVisualization.cwm",
+ "Shamir's Secret Sharing|visualization": "Protocols/ShamirVisualization.cwm",
+ "Elliptische Kurvenberechnung|visualization": "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm"
 }

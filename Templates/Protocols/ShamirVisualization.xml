@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ShamirVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Shamir's Secret Sharing Visualization</title>
+  <summary lang="en"><i>Shamir's Secret Sharing Visualization</i></summary>
+  <description lang="en">The polynomial of Shamir's scheme, its shares and the secret as points over a small prime field.</description>
+  <keywords lang="en">Shamir, secret sharing, polynomial, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are the prime p = 23, the number of shares 5 and the coefficients 11, 3, 7 (the secret is 11). The picture shows all points of f(x) = 11 + 3x + 7x^2 modulo 23, the five shares in orange and the secret f(0) in green; the secret is rebuilt from three shares." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Secret-Sharing nach Shamir: Visualisierung</title>
+  <summary lang="de"><i>Secret-Sharing nach Shamir: Visualisierung</i></summary>
+  <description lang="de">Das Polynom des Verfahrens von Shamir, seine Anteile und das Geheimnis als Punkte über einem kleinen Primkörper.</description>
+  <keywords lang="en">Shamir, secret sharing, polynomial, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind die Primzahl p = 23, die Anzahl der Anteile 5 und die Koeffizienten 11, 3, 7 (das Geheimnis ist 11). Das Bild zeigt alle Punkte von f(x) = 11 + 3x + 7x^2 modulo 23, die fünf Anteile orange und das Geheimnis f(0) grün; aus drei Anteilen wird das Geheimnis wiederhergestellt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ShamirVisualization.png" />
+  <relevantPlugins>
+    <plugin name="MathVisualization" />
+  </relevantPlugins>
+</sample>
