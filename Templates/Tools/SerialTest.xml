@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SerialTest.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Serial Test</title>
+  <summary lang="en">Testing random numbers with the <i>Serial Test</i></summary>
+  <description lang="en">The serial test checks whether all overlapping blocks of m bits occur equally often (chi-square test, NIST SP 800-22).</description>
+  <keywords lang="en">serial test, randomness, chi-square</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The block length m is set in the settings of the {\b Randomness Tests} component (here 2 bits). A good generator fails such a test by chance about once in a hundred runs (significance level 0.01), so a single failure proves nothing." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Serial-Test</title>
+  <summary lang="de">Zufallszahlen prüfen mit dem <i>Serial-Test</i></summary>
+  <description lang="de">Der Serial-Test prüft, ob alle überlappenden Blöcke zu m Bit gleich häufig vorkommen (Chi-Quadrat-Test, NIST SP 800-22).</description>
+  <keywords lang="en">serial test, randomness, chi-square</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Blocklänge m wird in den Einstellungen der Komponente {\b Zufallstests} festgelegt (hier 2 Bit). Ein guter Generator fällt bei einem solchen Test zufällig etwa einmal in hundert Durchläufen durch (Signifikanzniveau 0,01), ein einzelnes Durchfallen beweist also nichts." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SerialTest.png" />
+  <relevantPlugins>
+    <plugin name="RandomnessTests" />
+  </relevantPlugins>
+</sample>

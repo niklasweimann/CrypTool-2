@@ -1,0 +1,767 @@
+#!/usr/bin/env python3
+"""Templates that are variants of existing ones (another mode, other key values): written next to the originals in
+../Templates, as .cwm (settings changed by `CrypWeb.Tests derive`) and .xml (texts, in English and German).
+
+  python3 tools-gen-derived-templates.py
+
+Each entry of TEMPLATES below says which template it is derived from and what changes. The function list entry the
+template covers is recorded in reference/function-aliases.json ("templates"). Needs the built CrypWeb.Tests.
+"""
+import json
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+TEMPLATES_DIR = HERE.parent / "Templates"
+CLASSIC = "Cryptography/Classic"
+ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+TEMPLATES = [
+    dict(
+        out=f"{CLASSIC}/BeaufortCipher", base=f"{CLASSIC}/Vigenere",
+        edits=[dict(match="Vigenere.Vigenere", set=dict(Mode="2"))],
+        en=dict(title="Beaufort Cipher", summary="Encryption and decryption with the <i>Beaufort cipher</i>",
+                description="The Beaufort cipher is a variant of the Vigenère cipher: instead of adding the key letter to the plaintext letter, the plaintext letter is subtracted from the key letter. Encryption and decryption are the same operation (the cipher is reciprocal).",
+                memo="The {\\b Beaufort cipher} is a polyalphabetic substitution cipher. Where Vigenère computes C = P + K, Beaufort computes C = K - P (mod 26). Therefore the same operation both encrypts and decrypts. The mode of the Vigenère component is set to \"Beaufort Classic\"."),
+        de=dict(title="Beaufort-Chiffre", summary="Ver- und Entschlüsselung mit der <i>Beaufort-Chiffre</i>",
+                description="Die Beaufort-Chiffre ist eine Variante der Vigenère-Chiffre: Statt den Schlüsselbuchstaben zum Klartextbuchstaben zu addieren, wird der Klartextbuchstabe vom Schlüsselbuchstaben subtrahiert. Ver- und Entschlüsselung sind dieselbe Operation (die Chiffre ist reziprok).",
+                memo="Die {\\b Beaufort-Chiffre} ist eine polyalphabetische Substitutions-Chiffre. Während Vigenère C = P + K berechnet, berechnet Beaufort C = K - P (mod 26). Dieselbe Operation ver- und entschlüsselt daher. Die Betriebsart der Vigenère-Komponente ist auf \"Beaufort Classic\" gestellt."),
+        keywords="Beaufort, Vigenère, polyalphabetic",
+    ),
+    dict(
+        out=f"{CLASSIC}/GronsfeldCipher", base=f"{CLASSIC}/Vigenere",
+        edits=[dict(match="Vigenere.Vigenere", set=dict(ShiftChar="DBEBF", ShiftValue="3,1,4,1,5")),
+               dict(match="TextInput", where=dict(Text="SECRETKEY"), set=dict(Text="DBEBF"))],
+        en=dict(title="Gronsfeld Cipher", summary="Encryption and decryption with the <i>Gronsfeld cipher</i>",
+                description="The Gronsfeld cipher is a Vigenère cipher whose key is a number: each digit is the shift of one letter, so only the shifts 0 to 9 occur.",
+                memo="The {\\b Gronsfeld cipher} is a Vigenère cipher with a numeric key. Every digit d is a shift by d letters. The key 3 1 4 1 5 is entered as the letters D B E B F (A = 0, B = 1, ...), because the Vigenère component takes its key as letters."),
+        de=dict(title="Gronsfeld-Chiffre", summary="Ver- und Entschlüsselung mit der <i>Gronsfeld-Chiffre</i>",
+                description="Die Gronsfeld-Chiffre ist eine Vigenère-Chiffre mit einer Zahl als Schlüssel: Jede Ziffer ist die Verschiebung eines Buchstabens, es kommen also nur die Verschiebungen 0 bis 9 vor.",
+                memo="Die {\\b Gronsfeld-Chiffre} ist eine Vigenère-Chiffre mit Zahlenschlüssel. Jede Ziffer d verschiebt um d Buchstaben. Der Schlüssel 3 1 4 1 5 wird als die Buchstaben D B E B F eingegeben (A = 0, B = 1, ...), weil die Vigenère-Komponente den Schlüssel als Buchstaben erwartet."),
+        keywords="Gronsfeld, Vigenère, polyalphabetic",
+    ),
+    dict(
+        out=f"{CLASSIC}/TrithemiusCipher", base=f"{CLASSIC}/Vigenere",
+        edits=[dict(match="Vigenere.Vigenere", set=dict(ShiftChar=ALPHABET, ShiftValue=",".join(map(str, range(26))))),
+               dict(match="TextInput", where=dict(Text="SECRETKEY"), set=dict(Text=ALPHABET))],
+        en=dict(title="Trithemius Cipher", summary="Encryption and decryption with the <i>Trithemius cipher</i>",
+                description="The Trithemius cipher (tabula recta) shifts the first letter by 0, the second by 1, the third by 2 and so on. It is the Vigenère cipher with the alphabet as its key.",
+                memo="The {\\b Trithemius cipher} is the Vigenère cipher with the key A B C D ... Z: every letter is shifted by one more than the letter before. It has no secret key, its strength rests on the method being unknown."),
+        de=dict(title="Trithemius-Chiffre", summary="Ver- und Entschlüsselung mit der <i>Trithemius-Chiffre</i>",
+                description="Die Trithemius-Chiffre (Tabula recta) verschiebt den ersten Buchstaben um 0, den zweiten um 1, den dritten um 2 und so weiter. Sie ist die Vigenère-Chiffre mit dem Alphabet als Schlüssel.",
+                memo="Die {\\b Trithemius-Chiffre} ist die Vigenère-Chiffre mit dem Schlüssel A B C D ... Z: Jeder Buchstabe wird um eins mehr verschoben als der davor. Sie hat keinen geheimen Schlüssel, ihre Stärke liegt darin, dass das Verfahren unbekannt ist."),
+        keywords="Trithemius, tabula recta, Vigenère",
+    ),
+    dict(
+        out=f"{CLASSIC}/AtbashCipher", base=f"{CLASSIC}/AffineCipher",
+        edits=[dict(match="AffineCipher.AffineCipher", set=dict(A="25", B="25", CaseSensitive="False")),
+               dict(match="TextInput", where=dict(Text="ABCDEFGHIJKLMNOPQRSTUVWXYZabc"), set=dict(Text=ALPHABET))],
+        en=dict(title="Atbash Cipher", summary="Encryption and decryption with the <i>Atbash cipher</i>",
+                description="The Atbash cipher replaces every letter by the letter at the opposite end of the alphabet (A by Z, B by Y, ...). It is the affine cipher with a = 25 and b = 25 and has no key.",
+                memo="The {\\b Atbash cipher} maps the alphabet onto its reverse. It is the affine cipher E(x) = (25x + 25) mod 26. Since the cipher has no key, applying it twice gives the plaintext again."),
+        de=dict(title="Atbash-Chiffre", summary="Ver- und Entschlüsselung mit der <i>Atbash-Chiffre</i>",
+                description="Die Atbash-Chiffre ersetzt jeden Buchstaben durch den am anderen Ende des Alphabets (A durch Z, B durch Y, ...). Sie ist die affine Chiffre mit a = 25 und b = 25 und hat keinen Schlüssel.",
+                memo="Die {\\b Atbash-Chiffre} bildet das Alphabet auf seine Umkehrung ab. Sie ist die affine Chiffre E(x) = (25x + 25) mod 26. Da es keinen Schlüssel gibt, ergibt zweimaliges Anwenden wieder den Klartext."),
+        keywords="Atbash, affine, substitution",
+    ),
+    dict(
+        out=f"{CLASSIC}/MultiplicationCipher", base=f"{CLASSIC}/AffineCipher",
+        edits=[dict(match="AffineCipher.AffineCipher", set=dict(A="7", B="0", CaseSensitive="False")),
+               dict(match="TextInput", where=dict(Text="ABCDEFGHIJKLMNOPQRSTUVWXYZabc"), set=dict(Text=ALPHABET))],
+        en=dict(title="Multiplication Cipher", summary="Encryption and decryption with the <i>multiplication cipher</i>",
+                description="The multiplication cipher multiplies the position of every letter by a key a that is coprime to the alphabet length. It is the affine cipher with b = 0.",
+                memo="The {\\b multiplication cipher} computes E(x) = a * x mod 26. a must be coprime to 26 (1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25). It is the affine cipher with b = 0; change a in the settings of the \"Affine Cipher\" components."),
+        de=dict(title="Multiplikations-Chiffre", summary="Ver- und Entschlüsselung mit der <i>Multiplikations-Chiffre</i>",
+                description="Die Multiplikations-Chiffre multipliziert die Position jedes Buchstabens mit einem Schlüssel a, der teilerfremd zur Alphabetlänge ist. Sie ist die affine Chiffre mit b = 0.",
+                memo="Die {\\b Multiplikations-Chiffre} berechnet E(x) = a * x mod 26. a muss teilerfremd zu 26 sein (1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25). Sie ist die affine Chiffre mit b = 0; a wird in den Einstellungen der \"Affine Cipher\"-Komponenten geändert."),
+        keywords="multiplication, affine, substitution",
+    ),
+    dict(
+        out="Hashfunctions/HMAC_SHA256", base="Hashfunctions/HMAC",
+        edits=[dict(match="HMAC", set=dict(SelectedHashFunction="3"))],
+        en=dict(title="HMAC with SHA-256 (SHA MAC)", summary="Message authentication code with <i>HMAC-SHA-256</i>",
+                description="A message authentication code (MAC) protects the integrity and the origin of a message. This template computes it as HMAC with the hash function SHA-256.",
+                memo="The {\\b HMAC} component computes a MAC from a message and a secret key. Here the hash function is SHA-256; other hash functions can be chosen in the settings."),
+        de=dict(title="HMAC mit SHA-256 (SHA-MAC)", summary="Nachrichten-Authentifizierungscode mit <i>HMAC-SHA-256</i>",
+                description="Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage berechnet ihn als HMAC mit der Hashfunktion SHA-256.",
+                memo="Die {\\b HMAC}-Komponente berechnet aus einer Nachricht und einem geheimen Schlüssel einen MAC. Hier ist die Hashfunktion SHA-256; andere Hashfunktionen können in den Einstellungen gewählt werden."),
+        keywords="HMAC, SHA, MAC",
+    ),
+    dict(
+        out="Hashfunctions/HMAC_RIPEMD160", base="Hashfunctions/HMAC",
+        edits=[dict(match="HMAC", set=dict(SelectedHashFunction="1"))],
+        en=dict(title="HMAC with RIPEMD-160 (RIPEMD MAC)", summary="Message authentication code with <i>HMAC-RIPEMD-160</i>",
+                description="A message authentication code (MAC) protects the integrity and the origin of a message. This template computes it as HMAC with the hash function RIPEMD-160.",
+                memo="The {\\b HMAC} component computes a MAC from a message and a secret key. Here the hash function is RIPEMD-160; other hash functions can be chosen in the settings."),
+        de=dict(title="HMAC mit RIPEMD-160 (RIPEMD-MAC)", summary="Nachrichten-Authentifizierungscode mit <i>HMAC-RIPEMD-160</i>",
+                description="Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage berechnet ihn als HMAC mit der Hashfunktion RIPEMD-160.",
+                memo="Die {\\b HMAC}-Komponente berechnet aus einer Nachricht und einem geheimen Schlüssel einen MAC. Hier ist die Hashfunktion RIPEMD-160; andere Hashfunktionen können in den Einstellungen gewählt werden."),
+        keywords="HMAC, RIPEMD, MAC",
+    ),
+]
+
+def block_cipher(name, algorithm, summary_en, summary_de, description_en, description_de, keywords):
+    """A template of the BlockCiphers component: the Camellia template with the component replaced."""
+    memo_en = ("With this template you can use the {\\b " + name + "} component to encrypt an arbitrary text entered in the {\\b Plaintext} component on the left side. "
+               "The key is entered as hexadecimal digits in the {\\b Key} component. The cipher, the chaining mode and the padding are chosen in the settings of the component.")
+    memo_de = ("Mit dieser Vorlage können Sie einen beliebigen Text, der in die Komponente {\\b Klartext} auf der linken Seite eingegeben wird, mit der Komponente {\\b " + name + "} verschlüsseln. "
+               "Der Schlüssel wird als Hexadezimalziffern in der Komponente {\\b Schlüssel} eingegeben. Die Chiffre, der Verkettungsmodus und das Padding werden in den Einstellungen der Komponente gewählt.")
+    return dict(
+        out=f"Cryptography/Modern/Symmetric/{name}", base="Cryptography/Modern/Symmetric/Camellia",
+        edits=[dict(match="Camellia.Camellia", retype=dict(type="BlockCiphers.BlockCiphers", assembly="BlockCiphers", name="Block Ciphers",
+                                                         settings=dict(Algorithm=str(algorithm), Action="0", Mode="0", Padding="1"),
+                                                         typeLike=dict(Algorithm="Mode")))],
+        plugin="BlockCiphers",
+        en=dict(title=f"{name} Cipher", summary=summary_en, description=description_en, memo=memo_en),
+        de=dict(title=f"{name}-Chiffre", summary=summary_de, description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    block_cipher("IDEA", 0, "Encryption with the <i>IDEA</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>IDEA</i>",
+                 "IDEA (International Data Encryption Algorithm) is a block cipher by Xuejia Lai and James Massey from 1991. It works on 64-bit blocks with a 128-bit key and mixes three incompatible group operations: XOR, addition modulo 2^16 and multiplication modulo 2^16 + 1.",
+                 "IDEA (International Data Encryption Algorithm) ist eine Blockchiffre von Xuejia Lai und James Massey aus dem Jahr 1991. Sie arbeitet mit 64-Bit-Blöcken und einem 128-Bit-Schlüssel und mischt drei miteinander unverträgliche Gruppenoperationen: XOR, Addition modulo 2^16 und Multiplikation modulo 2^16 + 1.",
+                 "IDEA, block cipher, Lai, Massey, symmetric"),
+    block_cipher("RC5", 1, "Encryption with the <i>RC5</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>RC5</i>",
+                 "RC5 is a block cipher by Ron Rivest from 1994 whose main feature are data-dependent rotations. This template uses 32-bit words (64-bit blocks) and 12 rounds with a 128-bit key.",
+                 "RC5 ist eine Blockchiffre von Ron Rivest aus dem Jahr 1994, deren Hauptmerkmal datenabhängige Rotationen sind. Diese Vorlage verwendet 32-Bit-Wörter (64-Bit-Blöcke) und 12 Runden mit einem 128-Bit-Schlüssel.",
+                 "RC5, block cipher, Rivest, symmetric"),
+    block_cipher("RC6", 2, "Encryption with the <i>RC6</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>RC6</i>",
+                 "RC6 is a block cipher by Rivest, Robshaw, Sidney and Yin from 1998, an extension of RC5 and finalist of the AES competition. It works on 128-bit blocks with 20 rounds.",
+                 "RC6 ist eine Blockchiffre von Rivest, Robshaw, Sidney und Yin aus dem Jahr 1998, eine Erweiterung von RC5 und Finalist des AES-Wettbewerbs. Sie arbeitet mit 128-Bit-Blöcken und 20 Runden.",
+                 "RC6, block cipher, Rivest, AES finalist, symmetric"),
+    block_cipher("Serpent", 3, "Encryption with the <i>Serpent</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>Serpent</i>",
+                 "Serpent is a block cipher by Ross Anderson, Eli Biham and Lars Knudsen from 1998 and finalist of the AES competition. It works on 128-bit blocks in 32 rounds of substitution-permutation steps.",
+                 "Serpent ist eine Blockchiffre von Ross Anderson, Eli Biham und Lars Knudsen aus dem Jahr 1998 und Finalist des AES-Wettbewerbs. Sie arbeitet mit 128-Bit-Blöcken in 32 Runden aus Substitutions-Permutations-Schritten.",
+                 "Serpent, block cipher, AES finalist, symmetric"),
+]
+
+def generator(out, algorithm, settings, title_en, title_de, summary_en, summary_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A pseudo-random number generator template: the RandomNumberGenerators template with another algorithm."""
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators",
+        edits=[dict(match="RandomNumberGenerator.RandomNumberGenerator", set=dict(AlgorithmType=str(algorithm), **settings))],
+        en=dict(title=title_en, summary=summary_en, description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=summary_de, description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    generator("Mathematics/X2modN_Generator", 2, dict(Seed="1234567", Modulus="998244361984199177"),
+              "x² mod N Generator", "x² mod N-Generator",
+              "Pseudo-random numbers with the <i>x² mod N</i> generator", "Pseudozufallszahlen mit dem <i>x² mod N</i>-Generator",
+              "The x² mod N generator squares its state modulo N = p * q in every step: x(i+1) = x(i)^2 mod N. It is the basis of the Blum Blum Shub generator.",
+              "Der x² mod N-Generator quadriert in jedem Schritt seinen Zustand modulo N = p * q: x(i+1) = x(i)^2 mod N. Er ist die Grundlage des Blum-Blum-Shub-Generators.",
+              "The {\\b Random Number Generator} component is set to the algorithm \"X^2 mod N\". Seed and modulus can be changed in its settings. Without special primes the sequence can have short cycles.",
+              "Die Komponente {\\b Zufallszahlengenerator} ist auf den Algorithmus \"X^2 mod N\" gestellt. Startwert und Modul können in den Einstellungen geändert werden. Ohne spezielle Primzahlen kann die Folge kurze Zyklen haben.",
+              "x^2 mod N, pseudo-random, generator"),
+    generator("Mathematics/BlumBlumShub", 2, dict(Seed="1234567", Modulus="1000000094000000609"),
+              "Blum Blum Shub Generator", "Blum-Blum-Shub-Generator",
+              "Pseudo-random numbers with the <i>Blum Blum Shub</i> generator", "Pseudozufallszahlen mit dem <i>Blum-Blum-Shub</i>-Generator",
+              "The Blum Blum Shub generator (1986) is the x² mod N generator with N = p * q, where p and q are primes congruent to 3 modulo 4 (a Blum integer). Its security rests on the difficulty of factoring N.",
+              "Der Blum-Blum-Shub-Generator (1986) ist der x² mod N-Generator mit N = p * q, wobei p und q Primzahlen sind, die kongruent zu 3 modulo 4 sind (eine Blum-Zahl). Seine Sicherheit beruht auf der Schwierigkeit, N zu faktorisieren.",
+              "The modulus N = 1000000007 * 1000000087 is a Blum integer (both primes are congruent to 3 mod 4). The seed must be coprime to N. For real use N would have to be much larger.",
+              "Der Modul N = 1000000007 * 1000000087 ist eine Blum-Zahl (beide Primzahlen sind kongruent zu 3 mod 4). Der Startwert muss teilerfremd zu N sein. Für den echten Einsatz müsste N viel größer sein.",
+              "Blum Blum Shub, BBS, pseudo-random, generator"),
+    generator("Mathematics/InverseCongruentialGenerator", 4, dict(Seed="5", Modulus="1000000007", a="7", b="3"),
+              "Inverse Congruential Generator (ICG)", "Inverser Kongruenzgenerator (IKG)",
+              "Pseudo-random numbers with the <i>inverse congruential generator</i>", "Pseudozufallszahlen mit dem <i>inversen Kongruenzgenerator</i>",
+              "The inverse congruential generator computes x(i+1) = a * x(i)^-1 + b mod p for a prime p, where x^-1 is the modular inverse. In contrast to the linear congruential generator its output has no lattice structure.",
+              "Der inverse Kongruenzgenerator berechnet x(i+1) = a * x(i)^-1 + b mod p für eine Primzahl p, wobei x^-1 das modulare Inverse ist. Anders als beim linearen Kongruenzgenerator hat seine Ausgabe keine Gitterstruktur.",
+              "The modulus p = 1000000007 is prime, so every non-zero value has an inverse. a, b, the seed and the modulus can be changed in the settings of the {\\b Random Number Generator} component.",
+              "Der Modul p = 1000000007 ist eine Primzahl, daher hat jeder Wert außer 0 ein Inverses. a, b, Startwert und Modul können in den Einstellungen der Komponente {\\b Zufallszahlengenerator} geändert werden.",
+              "ICG, inverse congruential, pseudo-random, generator"),
+]
+
+def message_digest(name, algorithm, description_en, description_de, keywords):
+    """A template of the MessageDigests component: the MD5 template with the component replaced."""
+    return dict(
+        out=f"Hashfunctions/{name}", base="Hashfunctions/MD5",
+        edits=[dict(match="MD5.MD5", retype=dict(type="MessageDigests.MessageDigests", assembly="MessageDigests", name="MD2 / MD4",
+                                                settings=dict(Algorithm=str(algorithm)), typeLike=dict(Algorithm="Mode")))],
+        plugin="MessageDigests",
+        en=dict(title=name, summary=f"Usage of the <i>{name}</i> hash function", description=description_en, memo=""),
+        de=dict(title=name, summary=f"Benutzung der <i>{name}</i>-Hash-Funktion", description=description_de, memo=""),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    message_digest("MD2", 0, "This template shows the usage of the <i>MD2</i> hash function (Rivest, 1989, RFC 1319) with a 128-bit hash value.",
+                   "Diese Vorlage zeigt die Benutzung der Hash-Funktion <i>MD2</i> (Rivest, 1989, RFC 1319) mit einem 128-Bit-Hashwert.",
+                   "message, digest, Hash, Rivest, MD2"),
+    message_digest("MD4", 1, "This template shows the usage of the <i>MD4</i> hash function (Rivest, 1990, RFC 1320). MD4 is broken and must not be used for security purposes.",
+                   "Diese Vorlage zeigt die Benutzung der Hash-Funktion <i>MD4</i> (Rivest, 1990, RFC 1320). MD4 ist gebrochen und darf nicht für Sicherheitszwecke verwendet werden.",
+                   "message, digest, Hash, Rivest, MD4"),
+]
+
+def randomness_test(out, test, length, settings, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A randomness test template: the RandomNumberGenerators template with the Randomness Tests component added between generator and output."""
+    rng = "RandomNumberGenerator.RandomNumberGenerator"
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators",
+        edits=[dict(match=rng, set=dict(AlgorithmType="1", OutputType="0", OutputLength=str(length))),
+               dict(move=dict(match="TextOutput", dx=300)),
+               dict(add=dict(type="RandomnessTests.RandomnessTests", at=dict(match=rng, dx=250, dy=0), w=150, h=100,
+                             settings=dict(Test=str(test), **settings))),
+               dict(disconnect=dict(**{"from": rng + ".Output", "to": "TextOutput.Input"})),
+               dict(connect=dict(**{"from": rng + ".Output", "to": "RandomnessTests.InputData"})),
+               dict(connect=dict(**{"from": "RandomnessTests.Report", "to": "TextOutput.Input"}))],
+        plugin="RandomnessTests",
+        en=dict(title=title_en, summary=f"Testing random numbers with the <i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"Zufallszahlen prüfen mit dem <i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+_NOTE_EN = " A good generator fails such a test by chance about once in a hundred runs (significance level 0.01), so a single failure proves nothing."
+_NOTE_DE = " Ein guter Generator fällt bei einem solchen Test zufällig etwa einmal in hundert Durchläufen durch (Signifikanzniveau 0,01), ein einzelnes Durchfallen beweist also nichts."
+
+TEMPLATES += [
+    randomness_test("Tools/FIPS140-1", 0, 2500, {}, "FIPS 140-1 Test", "FIPS-140-1-Test",
+                    "The four statistical tests of FIPS 140-1 (monobit, poker, runs and long run) on 20000 bits from a random number generator.",
+                    "Die vier statistischen Tests aus FIPS 140-1 (Monobit, Poker, Runs und Long Run) über 20000 Bits eines Zufallszahlengenerators.",
+                    "The {\\b Random Number Generator} produces 2500 bytes (20000 bits). The {\\b Randomness Tests} component applies the four tests of FIPS 140-1 and reports the result of each." + _NOTE_EN,
+                    "Der {\\b Zufallszahlengenerator} erzeugt 2500 Bytes (20000 Bits). Die Komponente {\\b Zufallstests} wendet die vier Tests aus FIPS 140-1 an und meldet das Ergebnis jedes Tests." + _NOTE_DE,
+                    "FIPS 140-1, randomness, monobit, poker, runs, long run"),
+    randomness_test("Tools/PokerTest", 1, 12500, dict(PokerBlockLength="4"), "Poker Test", "Poker-Test",
+                    "The poker test cuts a bit sequence into blocks of m bits and compares the frequency of the 2^m values with the uniform distribution (chi-square test).",
+                    "Der Poker-Test zerlegt eine Bitfolge in Blöcke zu m Bit und vergleicht die Häufigkeit der 2^m Werte mit der Gleichverteilung (Chi-Quadrat-Test).",
+                    "The block length m is set in the settings of the {\\b Randomness Tests} component (here 4 bits, 25000 blocks)." + _NOTE_EN,
+                    "Die Blocklänge m wird in den Einstellungen der Komponente {\\b Zufallstests} festgelegt (hier 4 Bit, 25000 Blöcke)." + _NOTE_DE,
+                    "poker test, randomness, chi-square"),
+    randomness_test("Tools/SerialTest", 2, 12500, dict(SerialBlockLength="2"), "Serial Test", "Serial-Test",
+                    "The serial test checks whether all overlapping blocks of m bits occur equally often (chi-square test, NIST SP 800-22).",
+                    "Der Serial-Test prüft, ob alle überlappenden Blöcke zu m Bit gleich häufig vorkommen (Chi-Quadrat-Test, NIST SP 800-22).",
+                    "The block length m is set in the settings of the {\\b Randomness Tests} component (here 2 bits)." + _NOTE_EN,
+                    "Die Blocklänge m wird in den Einstellungen der Komponente {\\b Zufallstests} festgelegt (hier 2 Bit)." + _NOTE_DE,
+                    "serial test, randomness, chi-square"),
+    randomness_test("Tools/RunsTest", 3, 12500, {}, "Runs Test", "Runs-Test",
+                    "The runs test compares the number of runs of equal bits with the number expected for the proportion of ones (NIST SP 800-22).",
+                    "Der Runs-Test vergleicht die Anzahl der Läufe gleicher Bits mit der Anzahl, die bei dem Anteil von Einsen zu erwarten ist (NIST SP 800-22).",
+                    "The {\\b Randomness Tests} component counts the runs in the generated sequence and reports the p-value." + _NOTE_EN,
+                    "Die Komponente {\\b Zufallstests} zählt die Läufe in der erzeugten Folge und meldet den p-Wert." + _NOTE_DE,
+                    "runs test, randomness"),
+]
+
+def signature(out, algorithm, key_size, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """Key generation, signing and verification with the DigitalSignatures component (built on the layout of an empty base template)."""
+    sig = "DigitalSignatures.DigitalSignatures"
+    text, boolean, output = "CrypTool.TextInput.TextInput", "CrypTool.Plugins.BooleanOperators.BooleanOutput", "TextOutput.TextOutput"
+    settings = lambda action: dict(Action=str(action), Algorithm=str(algorithm), Hash="1", KeySize=str(key_size), Curve="0")
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text, x=40, y=60, w=200, h=120, settings=dict(Text="This message is signed and then verified."))),
+             dict(add=dict(type=sig, x=40, y=260, w=170, h=100, name="Generate keys", settings=settings(0))),
+             dict(add=dict(type=sig, x=360, y=120, w=170, h=100, name="Sign", settings=settings(1))),
+             dict(add=dict(type=sig, x=680, y=120, w=170, h=100, name="Verify", settings=settings(2))),
+             dict(add=dict(type=output, x=360, y=300, w=300, h=100)),
+             dict(add=dict(type=boolean, x=960, y=140, w=120, h=80)),
+             dict(connect={"from": text + ".TextOutput", "to": sig + "#1.InputMessage"}),
+             dict(connect={"from": text + ".TextOutput", "to": sig + "#2.InputMessage"}),
+             dict(connect={"from": sig + "#0.OutputPrivateKey", "to": sig + "#1.InputPrivateKey"}),
+             dict(connect={"from": sig + "#0.OutputPublicKey", "to": sig + "#2.InputPublicKey"}),
+             dict(connect={"from": sig + "#1.OutputSignature", "to": sig + "#2.InputSignature"}),
+             dict(connect={"from": sig + "#1.OutputSignature", "to": output + ".Input"}),
+             dict(connect={"from": sig + "#2.Valid", "to": boolean + ".Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="DigitalSignatures",
+        en=dict(title=title_en, summary=f"Key generation, signing and verification with <i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"Schlüsselerzeugung, Signieren und Prüfen mit <i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+_SIG_EN = " The first {\\b Digital Signatures} component generates a key pair, the second signs the message with the private key, the third verifies the signature with the public key. Change the message in the text input and the algorithm, hash function and key size in the settings of the components."
+_SIG_DE = " Die erste Komponente {\\b Digitale Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht mit dem privaten Schlüssel, die dritte prüft die Signatur mit dem öffentlichen Schlüssel. Nachricht, Verfahren, Hashfunktion und Schlüssellänge lassen sich in der Texteingabe und in den Einstellungen der Komponenten ändern."
+
+TEMPLATES += [
+    signature("Cryptography/Modern/Asymmetric/Signature_RSA", 0, 1, "RSA Signature", "RSA-Signatur",
+              "Digital signature with RSA (PKCS#1 v1.5): the hash value of the message is signed with the private key and checked with the public key.",
+              "Digitale Signatur mit RSA (PKCS#1 v1.5): Der Hashwert der Nachricht wird mit dem privaten Schlüssel signiert und mit dem öffentlichen Schlüssel geprüft.",
+              "RSA signatures are deterministic: the same message and key always give the same signature." + _SIG_EN,
+              "RSA-Signaturen sind deterministisch: Dieselbe Nachricht und derselbe Schlüssel ergeben immer dieselbe Signatur." + _SIG_DE,
+              "RSA, signature, PKCS#1, digital signature"),
+    signature("Cryptography/Modern/Asymmetric/Signature_RSA_PSS", 1, 1, "RSA-PSS Signature", "RSA-PSS-Signatur",
+              "Digital signature with RSA and the probabilistic signature scheme PSS (PKCS#1 v2.1).",
+              "Digitale Signatur mit RSA und dem probabilistischen Signaturverfahren PSS (PKCS#1 v2.1).",
+              "PSS adds a random salt, so signing the same message twice gives different signatures that are both valid." + _SIG_EN,
+              "PSS fügt ein Zufallssalz hinzu, dieselbe Nachricht ergibt beim zweimaligen Signieren also verschiedene Signaturen, die beide gültig sind." + _SIG_DE,
+              "RSA, PSS, signature, probabilistic"),
+    signature("Cryptography/Modern/Asymmetric/Signature_DSA", 2, 0, "DSA Signature", "DSA-Signatur",
+              "Digital signature with the Digital Signature Algorithm (DSA, FIPS 186) based on the discrete logarithm.",
+              "Digitale Signatur mit dem Digital Signature Algorithm (DSA, FIPS 186), das auf dem diskreten Logarithmus beruht.",
+              "The template uses a 1024-bit prime (with a 160-bit subgroup) so that the parameters are generated quickly; use 2048 bits or more in practice. DSA is randomized, so signatures differ from run to run." + _SIG_EN,
+              "Die Vorlage verwendet eine 1024-Bit-Primzahl (mit 160-Bit-Untergruppe), damit die Parameter schnell erzeugt werden; in der Praxis sind 2048 Bit oder mehr zu verwenden. DSA ist randomisiert, die Signaturen unterscheiden sich daher von Durchlauf zu Durchlauf." + _SIG_DE,
+              "DSA, signature, discrete logarithm, FIPS 186"),
+    signature("Cryptography/Modern/Asymmetric/Signature_ECDSA", 3, 1, "ECDSA Signature", "ECDSA-Signatur",
+              "Digital signature with the elliptic curve variant of DSA (ECDSA) on the curve secp256r1.",
+              "Digitale Signatur mit der Variante von DSA auf elliptischen Kurven (ECDSA) auf der Kurve secp256r1.",
+              "The curve is chosen in the settings of the key generating component." + _SIG_EN,
+              "Die Kurve wird in den Einstellungen der Komponente gewählt, die das Schlüsselpaar erzeugt." + _SIG_DE,
+              "ECDSA, elliptic curve, signature"),
+    signature("Cryptography/Modern/Asymmetric/Signature_ECNR", 4, 1, "ECNR Signature", "ECNR-Signatur",
+              "Digital signature with the Nyberg-Rueppel scheme on elliptic curves (ECNR), a signature with message recovery.",
+              "Digitale Signatur mit dem Nyberg-Rueppel-Verfahren auf elliptischen Kurven (ECNR), einer Signatur mit Nachrichten-Wiederherstellung.",
+              "The curve is chosen in the settings of the key generating component." + _SIG_EN,
+              "Die Kurve wird in den Einstellungen der Komponente gewählt, die das Schlüsselpaar erzeugt." + _SIG_DE,
+              "ECNR, Nyberg-Rueppel, elliptic curve, signature"),
+]
+
+def public_key_encryption(out, algorithm, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """Key generation, encryption and decryption with the PublicKeyEncryption component (layout built on an empty base template)."""
+    pke = "PublicKeyEncryption.PublicKeyEncryption"
+    text, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    settings = lambda action: dict(Action=str(action), Algorithm=str(algorithm), KeySize="0")
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text, x=40, y=60, w=240, h=120, settings=dict(Text="Public-key encryption: only the owner of the private key can read this."))),
+             dict(add=dict(type=pke, x=40, y=280, w=170, h=100, name="Generate keys", settings=settings(0))),
+             dict(add=dict(type=pke, x=360, y=120, w=170, h=100, name="Encrypt", settings=settings(1))),
+             dict(add=dict(type=pke, x=680, y=120, w=170, h=100, name="Decrypt", settings=settings(2))),
+             dict(add=dict(type=output, x=360, y=300, w=300, h=100)),
+             dict(add=dict(type=output, x=960, y=120, w=300, h=100)),
+             dict(connect={"from": text + ".TextOutput", "to": pke + "#1.InputData"}),
+             dict(connect={"from": pke + "#0.OutputPublicKey", "to": pke + "#1.InputPublicKey"}),
+             dict(connect={"from": pke + "#0.OutputPrivateKey", "to": pke + "#2.InputPrivateKey"}),
+             dict(connect={"from": pke + "#1.OutputData", "to": pke + "#2.InputData"}),
+             dict(connect={"from": pke + "#1.OutputData", "to": output + "#0.Input"}),
+             dict(connect={"from": pke + "#2.OutputData", "to": output + "#1.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="PublicKeyEncryption",
+        en=dict(title=title_en, summary=f"Key generation, encryption and decryption with <i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"Schlüsselerzeugung, Ver- und Entschlüsselung mit <i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+_PKE_EN = " The first {\\b ElGamal / Rabin} component generates a key pair, the second encrypts the text with the public key, the third decrypts it with the private key. The text in the middle is the ciphertext."
+_PKE_DE = " Die erste Komponente {\\b ElGamal / Rabin} erzeugt ein Schlüsselpaar, die zweite verschlüsselt den Text mit dem öffentlichen Schlüssel, die dritte entschlüsselt ihn mit dem privaten Schlüssel. Der Text in der Mitte ist der Geheimtext."
+
+TEMPLATES += [
+    public_key_encryption("Cryptography/Modern/Asymmetric/ElGamal", 0, "ElGamal Encryption", "ElGamal-Verschlüsselung",
+                          "ElGamal (1985) is a public-key encryption scheme based on the discrete logarithm problem: the ciphertext is the pair (g^k, m * y^k) with a random k.",
+                          "ElGamal (1985) ist ein Public-Key-Verschlüsselungsverfahren, das auf dem Problem des diskreten Logarithmus beruht: Der Geheimtext ist das Paar (g^k, m * y^k) mit zufälligem k.",
+                          "The group is the standardized 1024-bit safe prime of RFC 2409 with generator 2. Encrypting the same text twice gives different ciphertexts because k is chosen at random." + _PKE_EN,
+                          "Die Gruppe ist die standardisierte 1024-Bit-Primzahl aus RFC 2409 mit dem Erzeuger 2. Derselbe Text ergibt beim zweimaligen Verschlüsseln verschiedene Geheimtexte, weil k zufällig gewählt wird." + _PKE_DE,
+                          "ElGamal, public key, discrete logarithm, encryption"),
+    public_key_encryption("Cryptography/Modern/Asymmetric/Rabin", 1, "Rabin Cryptosystem", "Rabin-Kryptosystem",
+                          "The Rabin cryptosystem (1979) encrypts by squaring modulo n = p * q; decrypting means computing square roots, which is as hard as factoring n.",
+                          "Das Rabin-Kryptosystem (1979) verschlüsselt durch Quadrieren modulo n = p * q; Entschlüsseln bedeutet, Quadratwurzeln zu ziehen, was so schwer ist wie das Faktorisieren von n.",
+                          "A ciphertext has four square roots; the plaintext carries a marker byte and four check bytes, by which the receiver finds the right root. The 1024-bit key is made of two 512-bit primes congruent to 3 modulo 4." + _PKE_EN,
+                          "Ein Geheimtext hat vier Quadratwurzeln; der Klartext trägt ein Markierungsbyte und vier Prüfbytes, an denen der Empfänger die richtige Wurzel erkennt. Der 1024-Bit-Schlüssel besteht aus zwei 512-Bit-Primzahlen, die kongruent zu 3 modulo 4 sind." + _PKE_DE,
+                          "Rabin, public key, factoring, square roots"),
+]
+
+def cipher_mac(name, cipher, key_text, block_bits):
+    """A MAC template of the CipherMAC component: the HMAC template with the component replaced."""
+    return dict(
+        out=f"Hashfunctions/MAC_{name}", base="Hashfunctions/HMAC",
+        edits=[dict(match="HMAC.HMAC", retype=dict(type="CipherMAC.CipherMAC", assembly="CipherMAC", name="Cipher MAC",
+                                                  settings=dict(Cipher=str(cipher), Mode="0"), typeLike=dict(Cipher="SelectedHashFunction", Mode="SelectedHashFunction"))),
+               dict(match="TextInput", where=dict(Text="A test HMAC key"), set=dict(Text=key_text)),
+               dict(match="TextInput", where=dict(Text="The message / input"), set=dict(Text="The message that is authenticated."))],
+        plugin="CipherMAC",
+        en=dict(title=f"{name} MAC", summary=f"Message authentication code with <i>{name}</i> (CMAC)",
+                description=f"A message authentication code (MAC) protects the integrity and the origin of a message. This template builds it from the block cipher {name} with the CMAC construction (NIST SP 800-38B); the MAC is {block_bits // 8} bytes long.",
+                memo=f"The {{\\b Cipher MAC}} component computes a MAC from a message and a secret key with the block cipher {name}. The key in this template is only an example; its size must fit the cipher. The block cipher and the construction (CMAC or CBC-MAC) are chosen in the settings."),
+        de=dict(title=f"{name}-MAC", summary=f"Nachrichten-Authentifizierungscode mit <i>{name}</i> (CMAC)",
+                description=f"Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage baut ihn aus der Blockchiffre {name} mit der CMAC-Konstruktion (NIST SP 800-38B); der MAC ist {block_bits // 8} Bytes lang.",
+                memo=f"Die Komponente {{\\b Chiffren-MAC}} berechnet aus einer Nachricht und einem geheimen Schlüssel mit der Blockchiffre {name} einen MAC. Der Schlüssel in dieser Vorlage ist nur ein Beispiel; seine Länge muss zur Chiffre passen. Die Blockchiffre und die Konstruktion (CMAC oder CBC-MAC) werden in den Einstellungen gewählt."),
+        keywords=f"MAC, CMAC, {name}, message authentication",
+    )
+
+
+TEMPLATES += [cipher_mac(name, index, "12345678" if name == "DES" else "0123456789abcdef", 64 if name in ("DES", "IDEA", "RC2", "RC5") else 128)
+              for index, name in enumerate(["AES", "DES", "Camellia", "IDEA", "RC2", "RC5", "RC6", "Serpent", "Twofish"])]
+
+def number_theory(out, operation, numbers, texts, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A Number Theory template (layout built on an empty base template): number inputs (Input 1, Input 2, Modulus) or text inputs
+    (CRT: residues, moduli) on the left, the component, the result and the steps on the right."""
+    nt = "NumberTheory.NumberTheory"
+    number_input, text, output = "CrypTool.Plugins.Numbers.NumberInput", "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=nt, x=400, y=120, w=180, h=120, settings=dict(Operation=str(operation))))]
+    for index, (port, value) in enumerate(numbers):
+        edits += [dict(add=dict(type=number_input, x=40, y=40 + 110 * index, w=200, h=90, settings=dict(Number=value))),
+                  dict(connect={"from": f"{number_input}#{index}.NumberOutput", "to": f"{nt}.{port}"})]
+    for index, (port, value) in enumerate(texts):
+        edits += [dict(add=dict(type=text, x=40, y=40 + 110 * index, w=200, h=90, settings=dict(Text=value))),
+                  dict(connect={"from": f"{text}#{index}.TextOutput", "to": f"{nt}.{port}"})]
+    edits += [dict(add=dict(type=output, x=700, y=40, w=240, h=90)), dict(add=dict(type=output, x=700, y=170, w=420, h=260)),
+              dict(connect={"from": f"{nt}.Output", "to": f"{output}#0.Input"}),
+              dict(connect={"from": f"{nt}.Steps", "to": f"{output}#1.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="NumberTheory",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i> with its steps", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i> mit allen Schritten", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    number_theory("Mathematics/SquareAndMultiply", 0, [("Input1", "4"), ("Input2", "13"), ("Mod", "497")], [],
+                  "Square and Multiply", "Square and Multiply",
+                  "Modular exponentiation by repeated squaring: x^e mod n with about log2(e) squarings and multiplications.",
+                  "Modulare Exponentiation durch wiederholtes Quadrieren: x^e mod n mit etwa log2(e) Quadrierungen und Multiplikationen.",
+                  "The inputs are the base x, the exponent e and the modulus n. The upper output is the result, the lower one lists for every bit of the exponent what was done. RSA and Diffie-Hellman depend on this algorithm.",
+                  "Die Eingaben sind die Basis x, der Exponent e und der Modul n. Die obere Ausgabe ist das Ergebnis, die untere listet für jedes Bit des Exponenten auf, was getan wurde. RSA und Diffie-Hellman beruhen auf diesem Algorithmus.",
+                  "square and multiply, binary exponentiation, modular exponentiation"),
+    number_theory("Mathematics/BabyStepGiantStep", 1, [("Input1", "5"), ("Input2", "8"), ("Mod", "23")], [],
+                  "Baby-Step Giant-Step", "Baby-Step Giant-Step",
+                  "Shanks' algorithm for the discrete logarithm: finds e with g^e = h (mod p) in about the square root of p steps.",
+                  "Der Algorithmus von Shanks für den diskreten Logarithmus: findet e mit g^e = h (mod p) in etwa der Quadratwurzel aus p Schritten.",
+                  "The inputs are the base g, the value h and the prime p. The upper output is the smallest e with g^e = h (mod p), the lower one lists the baby steps and giant steps. For primes of a few hundred bits the method is far too slow, which is why the discrete logarithm protects Diffie-Hellman.",
+                  "Die Eingaben sind die Basis g, der Wert h und die Primzahl p. Die obere Ausgabe ist das kleinste e mit g^e = h (mod p), die untere listet die Baby Steps und Giant Steps. Bei Primzahlen von einigen hundert Bit ist das Verfahren viel zu langsam, daher schützt der diskrete Logarithmus Diffie-Hellman.",
+                  "baby-step giant-step, Shanks, discrete logarithm"),
+    number_theory("Mathematics/ChineseRemainderTheorem", 2, [], [("Residues", "2,3,2"), ("Moduli", "3,5,7")],
+                  "Chinese Remainder Theorem", "Chinesischer Restsatz",
+                  "The Chinese remainder theorem solves a system of congruences x = a_i (mod m_i) with pairwise coprime moduli.",
+                  "Der Chinesische Restsatz löst ein System von Kongruenzen x = a_i (mod m_i) mit paarweise teilerfremden Moduln.",
+                  "The inputs are the list of residues and the list of moduli. The upper output is the solution modulo the product of the moduli, the lower one shows the computation (M, M_i and the inverses y_i). RSA decryption is sped up with it.",
+                  "Die Eingaben sind die Liste der Reste und die Liste der Moduln. Die obere Ausgabe ist die Lösung modulo dem Produkt der Moduln, die untere zeigt die Rechnung (M, M_i und die Inversen y_i). Die RSA-Entschlüsselung wird damit beschleunigt.",
+                  "Chinese remainder theorem, CRT, congruences"),
+]
+
+def secret_sharing(out, verifiable, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """Secret sharing templates (layout built on an empty base template): split a secret, then reconstruct it (or verify the shares)."""
+    ss = "SecretSharing.SecretSharing"
+    number_input, output = "CrypTool.Plugins.Numbers.NumberInput", "TextOutput.TextOutput"
+    boolean = "CrypTool.Plugins.BooleanOperators.BooleanOutput"
+    settings = lambda action: dict(Action=str(action), Verifiable="True" if verifiable else "False")
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=number_input, x=40, y=20, w=200, h=90, settings=dict(Number="123456789012345678901234567890"))),
+             dict(add=dict(type=number_input, x=40, y=130, w=200, h=90, settings=dict(Number="3"))),
+             dict(add=dict(type=number_input, x=40, y=240, w=200, h=90, settings=dict(Number="5"))),
+             dict(add=dict(type=ss, x=340, y=100, w=180, h=120, settings=settings(0))),
+             dict(add=dict(type=output, x=640, y=20, w=300, h=200)),
+             dict(connect={"from": number_input + "#0.NumberOutput", "to": ss + "#0.Secret"}),
+             dict(connect={"from": number_input + "#1.NumberOutput", "to": ss + "#0.Threshold"}),
+             dict(connect={"from": number_input + "#2.NumberOutput", "to": ss + "#0.Number"}),
+             dict(connect={"from": ss + "#0.OutputShares", "to": output + "#0.Input"}),
+             dict(add=dict(type=ss, x=340, y=380, w=180, h=120, settings=settings(2 if verifiable else 1))),
+             dict(connect={"from": ss + "#0.OutputShares", "to": ss + "#1.InputShares"})]
+    if verifiable:
+        edits += [dict(add=dict(type=output, x=640, y=250, w=300, h=160)), dict(add=dict(type=boolean, x=640, y=440, w=120, h=80)),
+                  dict(connect={"from": ss + "#0.OutputCommitments", "to": output + "#1.Input"}),
+                  dict(connect={"from": ss + "#0.OutputCommitments", "to": ss + "#1.InputCommitments"}),
+                  dict(connect={"from": ss + "#1.Valid", "to": boolean + ".Input"})]
+    else:
+        edits += [dict(add=dict(type=output, x=640, y=400, w=300, h=100)),
+                  dict(connect={"from": ss + "#1.OutputSecret", "to": output + "#1.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="SecretSharing",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    secret_sharing("Protocols/ShamirSecretSharing", False, "Shamir's Secret Sharing", "Secret Sharing nach Shamir",
+                   "Shamir's threshold scheme splits a secret into n shares of which any k reconstruct it, while k-1 reveal nothing.",
+                   "Das Schwellwertverfahren von Shamir zerlegt ein Geheimnis in n Anteile, von denen je k es rekonstruieren, während k-1 nichts verraten.",
+                   "The first component splits the secret (a number) with threshold 3 into 5 shares; the second reconstructs the secret from the shares it is given (here all of them; any 3 of the lines are enough). Change the numbers on the left and delete lines in the shares to see that fewer than 3 shares give a wrong number.",
+                   "Die erste Komponente zerlegt das Geheimnis (eine Zahl) mit Schwellenwert 3 in 5 Anteile; die zweite rekonstruiert das Geheimnis aus den Anteilen, die sie bekommt (hier allen; je 3 der Zeilen genügen). Ändern Sie die Zahlen links und streichen Sie Zeilen aus den Anteilen, um zu sehen, dass weniger als 3 Anteile eine falsche Zahl ergeben.",
+                   "Shamir, secret sharing, threshold, polynomial"),
+    secret_sharing("Protocols/VerifiableSecretSharing", True, "Verifiable Secret Sharing (Feldman)", "Überprüfbares Secret Sharing (Feldman)",
+                   "Feldman's verifiable secret sharing: the dealer publishes commitments to the polynomial, with which every holder can check their share.",
+                   "Überprüfbares Secret Sharing nach Feldman: Der Verteiler veröffentlicht Verpflichtungen auf das Polynom, mit denen jeder Inhaber seinen Anteil prüfen kann.",
+                   "The first component splits the secret and publishes the commitments g^a_j; the second checks every share against the commitments (the Boolean output shows the result). Change one digit of a share or of a commitment to see the check fail.",
+                   "Die erste Komponente zerlegt das Geheimnis und veröffentlicht die Verpflichtungen g^a_j; die zweite prüft jeden Anteil gegen die Verpflichtungen (die Boolesche Ausgabe zeigt das Ergebnis). Ändern Sie eine Ziffer eines Anteils oder einer Verpflichtung, um zu sehen, dass die Prüfung fehlschlägt.",
+                   "Feldman, verifiable secret sharing, VSS, commitments"),
+]
+
+def chain(out, plugin, component, in_port, out_port, steps, text, key, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A text goes through one or two steps of the same component (layout built on an empty base template); the result of every step is shown.
+    steps: the settings of each step; key: an optional text for the Key input of every step."""
+    text_input, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text_input, x=40, y=40, w=240, h=130, settings=dict(Text=text)))]
+    if key:
+        edits.append(dict(add=dict(type=text_input, x=40, y=220, w=240, h=90, settings=dict(Text=key))))
+    for index, settings in enumerate(steps):
+        x = 380 + 340 * index
+        edits += [dict(add=dict(type=component, x=x, y=40, w=180, h=110, settings=settings)),
+                  dict(add=dict(type=output, x=x, y=220, w=300, h=160)),
+                  dict(connect={"from": (f"{component}#{index - 1}.{out_port}" if index else f"{text_input}#0.TextOutput"), "to": f"{component}#{index}.{in_port}"}),
+                  dict(connect={"from": f"{component}#{index}.{out_port}", "to": f"{output}#{index}.Input"})]
+        if key:
+            edits.append(dict(connect={"from": f"{text_input}#1.TextOutput", "to": f"{component}#{index}.Key"}))
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin=plugin,
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+DT = "DataTools.DataTools"
+TEMPLATES += [
+    chain("Tools/UUEncoding", "DataTools", DT, "InputData", "OutputData", [dict(Operation="0", Amount="1"), dict(Operation="1", Amount="1")],
+          "Binary data can be written as text with uuencode.", None, "UU Encoding", "UU-Codierung",
+          "UU encoding (uuencode) writes data as printable text; the second component decodes it again.",
+          "Die UU-Codierung (uuencode) schreibt Daten als druckbaren Text; die zweite Komponente decodiert ihn wieder.",
+          "The first {\\b Data Tools} component encodes the text with uuencode (header line, lines with a length character, trailer), the second decodes it and gives the text back.",
+          "Die erste Komponente {\\b Datenwerkzeuge} codiert den Text mit uuencode (Kopfzeile, Zeilen mit Längenzeichen, Schlusszeile), die zweite decodiert ihn und liefert den Text zurück.",
+          "uuencode, UU, encoding"),
+    chain("Tools/ZipUnzip", "DataTools", DT, "InputData", "OutputData", [dict(Operation="2", Amount="1"), dict(Operation="3", Amount="1")],
+          "Compress me. " * 20, None, "Zip and Unzip", "Zip und Unzip",
+          "The data is packed into a ZIP archive (deflate) and unpacked again.",
+          "Die Daten werden in ein ZIP-Archiv (Deflate) gepackt und wieder entpackt.",
+          "The first {\\b Data Tools} component creates a ZIP archive from the text, the second reads the first entry of the archive. The text repeats itself, so it compresses well.",
+          "Die erste Komponente {\\b Datenwerkzeuge} erzeugt aus dem Text ein ZIP-Archiv, die zweite liest den ersten Eintrag des Archivs. Der Text wiederholt sich und lässt sich daher gut komprimieren.",
+          "zip, unzip, compression, deflate"),
+    chain("Tools/ByteWiseAddition", "DataTools", DT, "InputData", "OutputData", [dict(Operation="4", Amount="1"), dict(Operation="5", Amount="1")],
+          "HAL", "1", "Byte-wise Addition", "Byteweise Addition",
+          "The key bytes are added to the data bytes modulo 256, and subtracted again.",
+          "Die Schlüsselbytes werden modulo 256 zu den Datenbytes addiert und wieder subtrahiert.",
+          "The key (here the character 1, which is the byte 0x31) is added to every byte of the text modulo 256: H (0x48) becomes y (0x79). The second component subtracts the key again and gives HAL back. A longer key is repeated.",
+          "Der Schlüssel (hier das Zeichen 1, also das Byte 0x31) wird modulo 256 zu jedem Byte des Textes addiert: aus H (0x48) wird y (0x79). Die zweite Komponente subtrahiert den Schlüssel wieder und liefert HAL zurück. Ein längerer Schlüssel wird wiederholt.",
+          "byte-wise addition, modulo 256, Vigenere"),
+    chain("Tools/BitShift", "DataTools", DT, "InputData", "OutputData", [dict(Operation="6", Amount="1"), dict(Operation="7", Amount="1")],
+          "Bits move: \u00e4", None, "Bit Shift and Rotation", "Bit-Verschiebung und -Rotation",
+          "Every byte is shifted by one bit to the left and back to the right: the bit that is pushed out at the high end is lost; a rotation keeps all bits.",
+          "Jedes Byte wird um ein Bit nach links und wieder nach rechts geschoben: Das Bit, das am oberen Ende herausgeschoben wird, geht verloren; eine Rotation behält alle Bits.",
+          "The first {\\b Data Tools} component shifts every byte of the text by one bit to the left, the second rotates the result by one bit to the right. Because the shift lost the high bit, the text does not come back; change the first operation to a rotation and it does. The settings show the number of bits.",
+          "Die erste Komponente {\\b Datenwerkzeuge} schiebt jedes Byte des Textes um ein Bit nach links, die zweite rotiert das Ergebnis um ein Bit nach rechts. Weil das Schieben das höchste Bit verloren hat, kommt der Text nicht zurück; stellen Sie die erste Operation auf Rotation, dann schon. Die Einstellungen zeigen die Anzahl der Bits.",
+          "bit shift, rotation, bits"),
+    chain("Tools/Entropy", "ShannonEntropy", "ShannonEntropy.ShannonEntropy", "InputData", "Report", [dict(Symbol="0")],
+          "The entropy of a text is lower than that of random data, because the letters of a language do not occur equally often and depend on each other.", None,
+          "Entropy", "Entropie",
+          "The Shannon entropy in bits per byte measures how unpredictable data is.",
+          "Die Shannon-Entropie in Bit pro Byte misst, wie unvorhersagbar Daten sind.",
+          "The {\\b Entropy} component counts the bytes of the text and computes H = -sum p(x) * log2 p(x). English text has about 4 to 4.5 bits per byte (at most 8); replace the text by the ciphertext of a good cipher and the entropy rises towards 8.",
+          "Die Komponente {\\b Entropie} zählt die Bytes des Textes und berechnet H = -Summe p(x) * log2 p(x). Englischer Text hat etwa 4 bis 4,5 Bit je Byte (höchstens 8); ersetzen Sie den Text durch den Geheimtext einer guten Chiffre, und die Entropie steigt gegen 8.",
+          "entropy, Shannon, information"),
+]
+
+CV = "ClassicVariants.ClassicVariants"
+
+
+def classic(out, cipher, text, key, rails, offset, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A classic cipher template: encryption and, in the second component, decryption of a text."""
+    steps = [dict(Cipher=str(cipher), Action=str(action), Rails=str(rails), Offset=str(offset)) for action in (0, 1)]
+    return chain(out, "ClassicVariants", CV, "InputText", "OutputText", steps, text, key, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords)
+
+
+TEMPLATES += [
+    classic("Cryptography/Classic/PortaCipher", 0, "ATTACK AT DAWN", "SECRET", 3, 0, "Porta Cipher", "Porta-Chiffre",
+            "Porta (1563) is a polyalphabetic cipher with 13 reciprocal alphabets selected by pairs of key letters.",
+            "Porta (1563) ist eine polyalphabetische Chiffre mit 13 reziproken Alphabeten, die durch Paare von Schlüsselbuchstaben gewählt werden.",
+            "The first {\\\\b Classic Variants} component encrypts the text with the key word, the second decrypts: because the cipher is reciprocal, both do the same thing. Spaces are kept.",
+            "Die erste Komponente {\\\\b Klassische Varianten} verschlüsselt den Text mit dem Schlüsselwort, die zweite entschlüsselt: Weil die Chiffre reziprok ist, tun beide dasselbe. Leerzeichen bleiben erhalten.",
+            "Porta, polyalphabetic, reciprocal"),
+    classic("Cryptography/Classic/RailFenceCipher", 1, "WEAREDISCOVEREDFLEEATONCE", None, 3, 0, "Rail Fence Cipher", "Rail-Fence-Chiffre",
+            "The rail fence cipher writes the text on a zigzag over several rails and reads it rail by rail.",
+            "Die Rail-Fence-Chiffre schreibt den Text im Zickzack über mehrere Schienen und liest ihn Schiene für Schiene.",
+            "The number of rails (here 3) and the offset are set in the settings of the {\\\\b Classic Variants} components. The example is the one of the Wikipedia article: WEAREDISCOVEREDFLEEATONCE becomes WECRLTEERDSOEEFEAOCAIVDEN.",
+            "Die Anzahl der Schienen (hier 3) und der Versatz werden in den Einstellungen der Komponenten {\\\\b Klassische Varianten} festgelegt. Das Beispiel ist das aus dem Wikipedia-Artikel: aus WEAREDISCOVEREDFLEEATONCE wird WECRLTEERDSOEEFEAOCAIVDEN.",
+            "rail fence, zigzag, transposition"),
+    classic("Cryptography/Classic/RedefenceCipher", 1, "WEAREDISCOVEREDFLEEATONCE", "CAB", 3, 1, "Redefence Cipher", "Redefence-Chiffre",
+            "Redefence is the rail fence cipher with an offset and a key that decides in which order the rails are read.",
+            "Redefence ist die Rail-Fence-Chiffre mit einem Versatz und einem Schlüssel, der bestimmt, in welcher Reihenfolge die Schienen gelesen werden.",
+            "The key has one letter per rail; the rails are read in the alphabetical order of the letters (here the second rail first, then the third, then the first). The offset 1 starts the zigzag on the second step.",
+            "Der Schlüssel hat einen Buchstaben je Schiene; die Schienen werden in der alphabetischen Reihenfolge der Buchstaben gelesen (hier erst die zweite, dann die dritte, dann die erste). Der Versatz 1 beginnt den Zickzack beim zweiten Schritt.",
+            "redefence, rail fence, transposition"),
+    classic("Cryptography/Classic/KamasutraCipher", 2, "MEET ME AT NOON", "BADCFEHGJILKNMPORQTSVUXWZY", 3, 0, "Kamasutra Cipher", "Kamasutra-Chiffre",
+            "The Kamasutra cipher is a reciprocal substitution: the key cuts the alphabet into pairs of letters, each letter is replaced by its partner.",
+            "Die Kamasutra-Chiffre ist eine reziproke Substitution: Der Schlüssel zerlegt das Alphabet in Buchstabenpaare, jeder Buchstabe wird durch seinen Partner ersetzt.",
+            "In this template the key BADCFEHG... pairs A with B, C with D, E with F and so on. Both components do the same thing, because the cipher is reciprocal.",
+            "In dieser Vorlage verbindet der Schlüssel BADCFEHG... A mit B, C mit D, E mit F und so weiter. Beide Komponenten tun dasselbe, weil die Chiffre reziprok ist.",
+            "Kamasutra, reciprocal, substitution"),
+    classic("Cryptography/Classic/TwoSquareCipher", 3, "HELPMEOBIWANKENOBI", "EXAMPLE KEYWORD", 3, 0, "Two-Square Cipher (Doppelkasten)", "Doppelkasten-Chiffre (Two-Square)",
+            "The two-square cipher encrypts pairs of letters with two 5x5 squares made of two key words.",
+            "Die Doppelkasten-Chiffre (Two-Square) verschlüsselt Buchstabenpaare mit zwei 5x5-Quadraten aus zwei Schlüsselwörtern.",
+            "The key consists of two words (here EXAMPLE and KEYWORD). The two letters of a pair, one looked up in each square, form a rectangle; the other two corners are the cipher letters. J is treated as I, an odd text gets an X.",
+            "Der Schlüssel besteht aus zwei Wörtern (hier EXAMPLE und KEYWORD). Die beiden Buchstaben eines Paares, je einer in jedem Quadrat gesucht, bilden ein Rechteck; die anderen beiden Ecken sind die Geheimtextbuchstaben. J wird wie I behandelt, ein ungerader Text erhält ein X.",
+            "two-square, Doppelkasten, digraph"),
+]
+
+TEMPLATES += [
+    public_key_encryption("Cryptography/Modern/Asymmetric/MerkleHellman", 2, "Merkle-Hellman Knapsack", "Merkle-Hellman-Rucksack",
+                          "The Merkle-Hellman cryptosystem (1978) is based on the knapsack problem: the public key is a disguised easy knapsack, the ciphertext the sum of the selected elements.",
+                          "Das Kryptosystem von Merkle und Hellman (1978) beruht auf dem Rucksackproblem: Der öffentliche Schlüssel ist ein getarnter leichter Rucksack, der Geheimtext die Summe der ausgewählten Elemente.",
+                          "The public key has 64 numbers b_i = r * w_i mod q made from a superincreasing sequence w_i, which is the private key. A block of 64 bits is encrypted as the sum of the b_i where the bit is 1. Shamir broke the scheme in 1982, it is only of historical interest." + _PKE_EN,
+                          "Der öffentliche Schlüssel besteht aus 64 Zahlen b_i = r * w_i mod q, die aus einer superwachsenden Folge w_i gebildet werden, dem privaten Schlüssel. Ein Block von 64 Bit wird als Summe der b_i verschlüsselt, bei denen das Bit 1 ist. Shamir hat das Verfahren 1982 gebrochen, es ist nur von historischem Interesse." + _PKE_DE,
+                          "Merkle-Hellman, knapsack, subset sum, public key"),
+]
+
+def hash_signature(out, scheme, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """Like the signature templates, with the HashBasedSignatures component (same connectors): LMS (scheme 0) or SPHINCS+ (scheme 1)."""
+    spec = signature(out, 0, 0, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords)
+    old, new = "DigitalSignatures.DigitalSignatures", "HashBasedSignatures.HashBasedSignatures"
+    for edit in spec["edits"]:
+        if "add" in edit and edit["add"]["type"] == old:
+            action = edit["add"]["settings"]["Action"]
+            edit["add"]["type"] = new
+            edit["add"]["settings"] = dict(Action=action, Scheme=str(scheme), Height="0", Winternitz="2", Variant="0")
+        for key in ("connect", "disconnect"):
+            if key in edit:
+                edit[key] = {k: v.replace(old, new) for k, v in edit[key].items()}
+    spec["plugin"] = "HashBasedSignatures"
+    return spec
+
+
+_HS_EN = " The first {\\\\b Hash-Based Signatures} component generates a key pair, the second signs the message and the third verifies the signature. After signing, the LMS private key changes (a one-time key is used up); the number of signatures that are left is an output of the signing component."
+_HS_DE = " Die erste Komponente {\\\\b Hashbasierte Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht und die dritte prüft die Signatur. Nach dem Signieren ändert sich der private LMS-Schlüssel (ein Einmalschlüssel ist verbraucht); die Zahl der verbleibenden Signaturen ist ein Ausgang der signierenden Komponente."
+
+TEMPLATES += [
+    hash_signature("Cryptography/Modern/Asymmetric/Signature_LMS", 0, "LMS Signature (Merkle Tree, Winternitz)", "LMS-Signatur (Merkle-Baum, Winternitz)",
+                   "LMS (RFC 8554) makes many signatures out of Winternitz one-time signatures with a Merkle tree; its security rests on a hash function only.",
+                   "LMS (RFC 8554) macht mit einem Merkle-Baum aus Winternitz-Einmalsignaturen viele Signaturen; seine Sicherheit beruht nur auf einer Hashfunktion.",
+                   "The tree has 32 leaves (height 5), the one-time signatures use w = 4 bits per hash chain. The public key is the root of the tree." + _HS_EN,
+                   "Der Baum hat 32 Blätter (Höhe 5), die Einmalsignaturen verwenden w = 4 Bit je Hashkette. Der öffentliche Schlüssel ist die Wurzel des Baums." + _HS_DE,
+                   "LMS, Merkle, Winternitz, hash-based signature, post-quantum"),
+    hash_signature("Cryptography/Modern/Asymmetric/Signature_SPHINCSplus", 1, "SPHINCS+ Signature", "SPHINCS+-Signatur",
+                   "SPHINCS+ is a stateless hash-based signature scheme that resists quantum computers.",
+                   "SPHINCS+ ist ein zustandsloses hashbasiertes Signaturverfahren, das Quantencomputern widersteht.",
+                   "The parameter set is sha2-128f-simple (signature about 17 KB)." + _HS_EN,
+                   "Der Parametersatz ist sha2-128f-simple (Signatur etwa 17 KB)." + _HS_DE,
+                   "SPHINCS+, hash-based signature, post-quantum"),
+]
+
+TEMPLATES += [
+    public_key_encryption("Cryptography/Modern/Asymmetric/ECIES", 3, "ECIES (Elliptic Curve Integrated Encryption)", "ECIES (Elliptic Curve Integrated Encryption)",
+                          "ECIES is a hybrid encryption with elliptic curves: Diffie-Hellman with a fresh key gives the keys for AES and a MAC.",
+                          "ECIES ist eine hybride Verschlüsselung mit elliptischen Kurven: Diffie-Hellman mit einem frischen Schlüssel liefert die Schlüssel für AES und einen MAC.",
+                          "The key pair is on the curve secp256r1. The ciphertext starts with the sender's ephemeral public point (65 bytes), followed by the AES-CTR encrypted text and a 32-byte HMAC-SHA-256 tag; change a byte of the middle text and the decryption is refused." + _PKE_EN,
+                          "Das Schlüsselpaar liegt auf der Kurve secp256r1. Der Geheimtext beginnt mit dem flüchtigen öffentlichen Punkt des Senders (65 Bytes), danach folgen der mit AES-CTR verschlüsselte Text und ein 32-Byte-HMAC-SHA-256-Tag; ändern Sie ein Byte des mittleren Textes, und die Entschlüsselung wird abgelehnt." + _PKE_DE,
+                          "ECIES, elliptic curve, hybrid encryption, ECDH"),
+]
+
+def mceliece(out, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """Classic McEliece: key generation, encapsulation of a secret with the public key, decapsulation with the private key; both secrets are shown."""
+    mce, output = "ClassicMcEliece.ClassicMcEliece", "TextOutput.TextOutput"
+    settings = lambda action: dict(Action=str(action), Parameters="0")
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=mce, x=40, y=120, w=180, h=100, name="Generate keys", settings=settings(0))),
+             dict(add=dict(type=mce, x=360, y=40, w=180, h=100, name="Encapsulate", settings=settings(1))),
+             dict(add=dict(type=mce, x=680, y=120, w=180, h=100, name="Decapsulate", settings=settings(2))),
+             dict(add=dict(type=output, x=360, y=240, w=300, h=100)),
+             dict(add=dict(type=output, x=680, y=300, w=300, h=100)),
+             dict(add=dict(type=output, x=360, y=380, w=300, h=100)),
+             dict(connect={"from": mce + "#0.OutputPublicKey", "to": mce + "#1.InputPublicKey"}),
+             dict(connect={"from": mce + "#0.OutputPrivateKey", "to": mce + "#2.InputPrivateKey"}),
+             dict(connect={"from": mce + "#1.OutputEncapsulation", "to": mce + "#2.InputEncapsulation"}),
+             dict(connect={"from": mce + "#1.OutputSecret", "to": output + "#0.Input"}),
+             dict(connect={"from": mce + "#1.OutputEncapsulation", "to": output + "#2.Input"}),
+             dict(connect={"from": mce + "#2.OutputSecret", "to": output + "#1.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="ClassicMcEliece",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    mceliece("Cryptography/Modern/Asymmetric/ClassicMcEliece", "Classic McEliece (McEliece / Niederreiter)", "Classic McEliece (McEliece / Niederreiter)",
+             "Classic McEliece is a code-based key encapsulation: the secret is hidden in an error vector that only the owner of the Goppa code can find.",
+             "Classic McEliece ist eine codebasierte Schlüsselkapselung: Das Geheimnis steckt in einem Fehlervektor, den nur der Besitzer des Goppa-Codes finden kann.",
+             "The first component generates the key pair (the public key has 261 KB and is not shown). The second encapsulates a fresh shared secret with the public key (the upper output); the encapsulation is the 96-byte syndrome in the lower output. The third decapsulates it with the private key (the right output). The two secrets are equal. This is Niederreiter's form of McEliece's cryptosystem.",
+             "Die erste Komponente erzeugt das Schlüsselpaar (der öffentliche Schlüssel hat 261 KB und wird nicht angezeigt). Die zweite kapselt mit dem öffentlichen Schlüssel ein frisches gemeinsames Geheimnis (obere Ausgabe); die Kapsel ist das 96 Byte lange Syndrom in der unteren Ausgabe. Die dritte entkapselt sie mit dem privaten Schlüssel (rechte Ausgabe). Die beiden Geheimnisse sind gleich. Das ist die Form von Niederreiter des Kryptosystems von McEliece.",
+             "McEliece, Niederreiter, Goppa code, code-based, post-quantum"),
+]
+
+def with_key(spec, key_hex):
+    """The same template with another key in the hexadecimal key input."""
+    spec["edits"].append(dict(match="TextInput", where=dict(Text="0123456789abcdef"), set=dict(Text=key_hex)))
+    return spec
+
+
+def cbc_mac(spec, name):
+    """The MAC template as CBC-MAC (for ciphers whose block size does not allow CMAC)."""
+    spec["edits"][0]["retype"]["settings"]["Mode"] = "1"
+    for language in ("en", "de"):
+        for key, text in spec[language].items():
+            spec[language][key] = text.replace("(CMAC)", "(CBC-MAC)").replace("CMAC construction (NIST SP 800-38B)", "classic CBC-MAC construction (FIPS 113)").replace("mit der CMAC-Konstruktion (NIST SP 800-38B)", "mit der klassischen CBC-MAC-Konstruktion (FIPS 113)")
+    spec["keywords"] = spec["keywords"].replace("CMAC", "CBC-MAC")
+    return spec
+
+
+TEMPLATES += [
+    block_cipher("Shacal-2", 6, "Encryption with the <i>Shacal-2</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>Shacal-2</i>",
+                 "Shacal-2 (Handschuh and Naccache, 2000) is the compression function of SHA-256 used as a block cipher: 256-bit blocks, keys of 128 to 512 bits. The component also offers Shacal-1 (SHA-1, 160-bit blocks).",
+                 "Shacal-2 (Handschuh und Naccache, 2000) ist die Kompressionsfunktion von SHA-256, als Blockchiffre verwendet: 256-Bit-Blöcke, Schlüssel von 128 bis 512 Bit. Die Komponente bietet auch Shacal-1 (SHA-1, 160-Bit-Blöcke).",
+                 "shacal, SHA-256, block cipher, Handschuh, Naccache"),
+    with_key(block_cipher("DESX", 4, "Encryption with the <i>DESX</i> block cipher", "Verschlüsselung mit der Blockchiffre <i>DESX</i>",
+                          "DESX (Rivest) is DES with key whitening: two more 64-bit keys are added by XOR before and after DES. The key has 24 bytes (DES key, K1, K2), here 48 hexadecimal digits.",
+                          "DESX (Rivest) ist DES mit Schlüssel-Whitening: Zwei weitere 64-Bit-Schlüssel werden vor und nach DES per XOR hinzugefügt. Der Schlüssel hat 24 Bytes (DES-Schlüssel, K1, K2), hier 48 Hexadezimalziffern.",
+                          "DESX, DES, whitening, block cipher"), "0123456789abcdeffedcba98765432100f1e2d3c4b5a6978"),
+    cbc_mac(cipher_mac("Shacal-2", 10, "0123456789abcdef", 256), "Shacal-2"),
+]
+
+TEMPLATES += [
+    dict(out="Hashfunctions/FileHash", base="Hashfunctions/SHA256",
+         edits=[dict(remove="TextInput"),
+                dict(add=dict(type="FileInput.FileInputClass", x=40, y=60, w=260, h=120,
+                              settings=dict(OpenFilename="Templates\\Cryptography\\Modern\\Symmetric\\Alice im Wunderland.txt"))),
+                dict(connect={"from": "FileInput.FileInputClass.StreamOutput", "to": "SHA.SHA.InputData"})],
+         plugin="SHA",
+         en=dict(title="Hash Value of a File", summary="The <i>SHA-256</i> hash value of a file",
+                 description="The hash value of a file proves that the file is unchanged: a single changed bit gives a completely different value.",
+                 memo="The {\\\\b File Input} component reads a file (here a sample text of the virtual file system; choose your own in the component) and the {\\\\b SHA} component computes its SHA-256 hash value. Compare the value with one published by the source of the file to check the download."),
+         de=dict(title="Hashwert einer Datei", summary="Der <i>SHA-256</i>-Hashwert einer Datei",
+                 description="Der Hashwert einer Datei belegt, dass die Datei unverändert ist: Ein einziges geändertes Bit ergibt einen völlig anderen Wert.",
+                 memo="Die Komponente {\\\\b Dateieingabe} liest eine Datei (hier ein Beispieltext des virtuellen Dateisystems; wählen Sie in der Komponente eine eigene) und die Komponente {\\\\b SHA} berechnet ihren SHA-256-Hashwert. Vergleichen Sie den Wert mit dem, den die Quelle der Datei veröffentlicht, um den Download zu prüfen."),
+         keywords="hash, file, SHA-256, checksum"),
+]
+
+TEMPLATES += [
+    dict(out="Hashfunctions/HMAC_Tiger", base="Hashfunctions/HMAC",
+         edits=[dict(match="HMAC.HMAC", retype=dict(type="HmacHashes.HmacHashes", assembly="HmacHashes", name="HMAC",
+                                                   settings=dict(Hash="13"), typeLike=dict(Hash="SelectedHashFunction")))],
+         plugin="HmacHashes",
+         en=dict(title="HMAC with Tiger (Tiger MAC)", summary="Message authentication code with <i>HMAC-Tiger</i>",
+                 description="A message authentication code (MAC) protects the integrity and the origin of a message. This template computes it as HMAC with the hash function Tiger (192-bit hash value).",
+                 memo="The {\\\\b HMAC (many hash functions)} component computes a MAC from a message and a secret key. Here the hash function is Tiger; the component offers MD2, MD4, MD5, SHA-1, SHA-2, SHA-3, RIPEMD, Whirlpool and SM3 as well."),
+         de=dict(title="HMAC mit Tiger (Tiger-MAC)", summary="Nachrichten-Authentifizierungscode mit <i>HMAC-Tiger</i>",
+                 description="Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage berechnet ihn als HMAC mit der Hashfunktion Tiger (192-Bit-Hashwert).",
+                 memo="Die Komponente {\\\\b HMAC (viele Hashfunktionen)} berechnet aus einer Nachricht und einem geheimen Schlüssel einen MAC. Hier ist die Hashfunktion Tiger; die Komponente bietet auch MD2, MD4, MD5, SHA-1, SHA-2, SHA-3, RIPEMD, Whirlpool und SM3 an."),
+         keywords="HMAC, Tiger, MAC"),
+]
+
+
+def attr(text):
+    return text.replace("&", "&amp;").replace('"', "&quot;")
+
+
+def rewrite_xml(base_xml, spec, out_name):
+    """The base template's .xml with title, summary, description, keywords and memo replaced (per language)."""
+    xml = re.sub(r"<!--File name: .*?-->", f"<!--File name: {out_name}.xml-->", base_xml)
+    for lang in ("en", "de"):
+        t = spec[lang]
+        for tag, key in (("title", "title"), ("summary", "summary"), ("description", "description")):
+            xml = re.sub(rf'(<{tag} lang="{lang}">).*?(</{tag}>)', lambda m: m.group(1) + t[key] + m.group(2), xml, flags=re.S)
+        xml = re.sub(rf'(<replacements lang="{lang}">.*?<replacement key="\$memo\$" value=")(.*?)("\s*/>)',
+                     lambda m: m.group(1) + attr(t["memo"]) + m.group(3), xml, count=1, flags=re.S)
+    xml = re.sub(r'<keywords( lang="\w+")?>.*?</keywords>', f'<keywords lang="en">{spec["keywords"]}</keywords>', xml, flags=re.S)
+    if "plugin" in spec:
+        xml = re.sub(r'<plugin name="[^"]*" />', f'<plugin name="{spec["plugin"]}" />', xml)
+    xml = re.sub(r'<icon file="[^"]*" />', f'<icon file="{out_name}.png" />', xml)
+    return xml
+
+
+def main():
+    for spec in TEMPLATES:
+        base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+            json.dump(spec["edits"], f)
+        run = subprocess.run(["dotnet", "run", "--no-build", "--project", str(HERE / "CrypWeb.Tests"), "--", str(TEMPLATES_DIR),
+                              "derive", str(base) + ".cwm", str(out) + ".cwm", f.name], capture_output=True, text=True)
+        if run.returncode != 0:
+            sys.exit(f"{spec['out']}: {run.stdout}{run.stderr}")
+        base_xml = Path(str(base) + ".xml").read_text(encoding="utf-8-sig")
+        Path(str(out) + ".xml").write_text("﻿" + rewrite_xml(base_xml, spec, out.name), encoding="utf-8")
+        if Path(str(base) + ".png").exists():
+            shutil.copyfile(str(base) + ".png", str(out) + ".png")
+        print("written", spec["out"])
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: X2modN_Generator.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">x² mod N Generator</title>
+  <summary lang="en">Pseudo-random numbers with the <i>x² mod N</i> generator</summary>
+  <description lang="en">The x² mod N generator squares its state modulo N = p * q in every step: x(i+1) = x(i)^2 mod N. It is the basis of the Blum Blum Shub generator.</description>
+  <keywords lang="en">x^2 mod N, pseudo-random, generator</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\b Random Number Generator} component is set to the algorithm &quot;X^2 mod N&quot;. Seed and modulus can be changed in its settings. Without special primes the sequence can have short cycles." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">x² mod N-Generator</title>
+  <summary lang="de">Pseudozufallszahlen mit dem <i>x² mod N</i>-Generator</summary>
+  <description lang="de">Der x² mod N-Generator quadriert in jedem Schritt seinen Zustand modulo N = p * q: x(i+1) = x(i)^2 mod N. Er ist die Grundlage des Blum-Blum-Shub-Generators.</description>
+  <keywords lang="en">x^2 mod N, pseudo-random, generator</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\b Zufallszahlengenerator} ist auf den Algorithmus &quot;X^2 mod N&quot; gestellt. Startwert und Modul können in den Einstellungen geändert werden. Ohne spezielle Primzahlen kann die Folge kurze Zyklen haben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="X2modN_Generator.png" />
+  <relevantPlugins>
+    <plugin name="RandomNumberGenerator" />
+  </relevantPlugins>
+</sample>

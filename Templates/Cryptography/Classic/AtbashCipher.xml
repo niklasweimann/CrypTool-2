@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: AtbashCipher.xml-->
+  <!--Last edited: 2023.10.11-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Atbash-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Atbash-Chiffre</i></summary>
+  <description lang="de">Die Atbash-Chiffre ersetzt jeden Buchstaben durch den am anderen Ende des Alphabets (A durch Z, B durch Y, ...). Sie ist die affine Chiffre mit a = 25 und b = 25 und hat keinen Schlüssel.</description>
+  <keywords lang="en">Atbash, affine, substitution</keywords>
+  <replacements lang="de">
+    <replacement key="$AffineCipher$" value="Affine Chiffre" />
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Alphabet$" value="Alphabet" />
+    <replacement key="$DecryptedPlaintext$" value="Entschlüsselter Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$memo$" value="Die {\b Atbash-Chiffre} bildet das Alphabet auf seine Umkehrung ab. Sie ist die affine Chiffre E(x) = (25x + 25) mod 26. Da es keinen Schlüssel gibt, ergibt zweimaliges Anwenden wieder den Klartext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Atbash Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>Atbash cipher</i></summary>
+  <description lang="en">The Atbash cipher replaces every letter by the letter at the opposite end of the alphabet (A by Z, B by Y, ...). It is the affine cipher with a = 25 and b = 25 and has no key.</description>
+  <keywords lang="en">Atbash, affine, substitution</keywords>
+  <replacements lang="en">
+    <replacement key="$AffineCipher$" value="Affine Cipher" />
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Alphabet$" value="Alphabet" />
+    <replacement key="$DecryptedPlaintext$" value="Decrypted plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b Atbash cipher} maps the alphabet onto its reverse. It is the affine cipher E(x) = (25x + 25) mod 26. Since the cipher has no key, applying it twice gives the plaintext again."/>
+</replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="AtbashCipher.png" />
+  <relevantPlugins>
+    <plugin name="AffineCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ECIES.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ECIES (Elliptic Curve Integrated Encryption)</title>
+  <summary lang="en">Key generation, encryption and decryption with <i>ECIES (Elliptic Curve Integrated Encryption)</i></summary>
+  <description lang="en">ECIES is a hybrid encryption with elliptic curves: Diffie-Hellman with a fresh key gives the keys for AES and a MAC.</description>
+  <keywords lang="en">ECIES, elliptic curve, hybrid encryption, ECDH</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key pair is on the curve secp256r1. The ciphertext starts with the sender's ephemeral public point (65 bytes), followed by the AES-CTR encrypted text and a 32-byte HMAC-SHA-256 tag; change a byte of the middle text and the decryption is refused. The first {\b ElGamal / Rabin} component generates a key pair, the second encrypts the text with the public key, the third decrypts it with the private key. The text in the middle is the ciphertext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ECIES (Elliptic Curve Integrated Encryption)</title>
+  <summary lang="de">Schlüsselerzeugung, Ver- und Entschlüsselung mit <i>ECIES (Elliptic Curve Integrated Encryption)</i></summary>
+  <description lang="de">ECIES ist eine hybride Verschlüsselung mit elliptischen Kurven: Diffie-Hellman mit einem frischen Schlüssel liefert die Schlüssel für AES und einen MAC.</description>
+  <keywords lang="en">ECIES, elliptic curve, hybrid encryption, ECDH</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselpaar liegt auf der Kurve secp256r1. Der Geheimtext beginnt mit dem flüchtigen öffentlichen Punkt des Senders (65 Bytes), danach folgen der mit AES-CTR verschlüsselte Text und ein 32-Byte-HMAC-SHA-256-Tag; ändern Sie ein Byte des mittleren Textes, und die Entschlüsselung wird abgelehnt. Die erste Komponente {\b ElGamal / Rabin} erzeugt ein Schlüsselpaar, die zweite verschlüsselt den Text mit dem öffentlichen Schlüssel, die dritte entschlüsselt ihn mit dem privaten Schlüssel. Der Text in der Mitte ist der Geheimtext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ECIES.png" />
+  <relevantPlugins>
+    <plugin name="PublicKeyEncryption" />
+  </relevantPlugins>
+</sample>

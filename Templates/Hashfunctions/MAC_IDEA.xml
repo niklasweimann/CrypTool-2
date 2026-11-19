@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MAC_IDEA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">IDEA MAC</title>
+  <summary lang="en">Message authentication code with <i>IDEA</i> (CMAC)</summary>
+  <description lang="en">A message authentication code (MAC) protects the integrity and the origin of a message. This template builds it from the block cipher IDEA with the CMAC construction (NIST SP 800-38B); the MAC is 8 bytes long.</description>
+  <keywords lang="en">MAC, CMAC, IDEA, message authentication</keywords>
+  <replacements lang="en">
+    <replacement key="$IPAD constant$" value="IPAD constant" />
+    <replacement key="$OPAD constant$" value="OPAD constant" />
+    <replacement key="$Converter$" value="Converter" />
+    <replacement key="$Message$" value="Message" />
+    <replacement key="$Concatenate$" value="Concatenate" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$HMAC key$" value="HMAC key" />
+    <replacement key="$memo$" value="The {\b Cipher MAC} component computes a MAC from a message and a secret key with the block cipher IDEA. The key in this template is only an example; its size must fit the cipher. The block cipher and the construction (CMAC or CBC-MAC) are chosen in the settings." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">IDEA-MAC</title>
+  <summary lang="de">Nachrichten-Authentifizierungscode mit <i>IDEA</i> (CMAC)</summary>
+  <description lang="de">Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage baut ihn aus der Blockchiffre IDEA mit der CMAC-Konstruktion (NIST SP 800-38B); der MAC ist 8 Bytes lang.</description>
+  <keywords lang="en">MAC, CMAC, IDEA, message authentication</keywords>
+  <replacements lang="de">
+    <replacement key="$IPAD constant$" value="IPAD-Konstante" />
+    <replacement key="$OPAD constant$" value="OPAD-Konstante" />
+    <replacement key="$Converter$" value="Konvertierer" />
+    <replacement key="$Message$" value="Nachricht" />
+    <replacement key="$Concatenate$" value="Konkatenation" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$HMAC key$" value="HMAC-Schlüssel" />
+    <replacement key="$memo$" value="Die Komponente {\b Chiffren-MAC} berechnet aus einer Nachricht und einem geheimen Schlüssel mit der Blockchiffre IDEA einen MAC. Der Schlüssel in dieser Vorlage ist nur ein Beispiel; seine Länge muss zur Chiffre passen. Die Blockchiffre und die Konstruktion (CMAC oder CBC-MAC) werden in den Einstellungen gewählt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MAC_IDEA.png" />
+  <relevantPlugins>
+    <plugin name="CipherMAC" />
+    <plugin name="CipherMAC" />
+    <plugin name="CipherMAC" />
+    <plugin name="CipherMAC" />
+  </relevantPlugins>
+</sample>

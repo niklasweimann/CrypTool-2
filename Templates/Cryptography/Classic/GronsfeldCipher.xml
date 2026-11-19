@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: GronsfeldCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Gronsfeld Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>Gronsfeld cipher</i></summary>
+  <description lang="en">The Gronsfeld cipher is a Vigenère cipher whose key is a number: each digit is the shift of one letter, so only the shifts 0 to 9 occur.</description>
+  <keywords lang="en">Gronsfeld, Vigenère, polyalphabetic</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b Gronsfeld cipher} is a Vigenère cipher with a numeric key. Every digit d is a shift by d letters. The key 3 1 4 1 5 is entered as the letters D B E B F (A = 0, B = 1, ...), because the Vigenère component takes its key as letters." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Gronsfeld-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Gronsfeld-Chiffre</i></summary>
+  <description lang="de">Die Gronsfeld-Chiffre ist eine Vigenère-Chiffre mit einer Zahl als Schlüssel: Jede Ziffer ist die Verschiebung eines Buchstabens, es kommen also nur die Verschiebungen 0 bis 9 vor.</description>
+  <keywords lang="en">Gronsfeld, Vigenère, polyalphabetic</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$memo$" value="Die {\b Gronsfeld-Chiffre} ist eine Vigenère-Chiffre mit Zahlenschlüssel. Jede Ziffer d verschiebt um d Buchstaben. Der Schlüssel 3 1 4 1 5 wird als die Buchstaben D B E B F eingegeben (A = 0, B = 1, ...), weil die Vigenère-Komponente den Schlüssel als Buchstaben erwartet." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="GronsfeldCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

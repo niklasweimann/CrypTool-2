@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ByteWiseAddition.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Byte-wise Addition</title>
+  <summary lang="en"><i>Byte-wise Addition</i></summary>
+  <description lang="en">The key bytes are added to the data bytes modulo 256, and subtracted again.</description>
+  <keywords lang="en">byte-wise addition, modulo 256, Vigenere</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key (here the character 1, which is the byte 0x31) is added to every byte of the text modulo 256: H (0x48) becomes y (0x79). The second component subtracts the key again and gives HAL back. A longer key is repeated." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Byteweise Addition</title>
+  <summary lang="de"><i>Byteweise Addition</i></summary>
+  <description lang="de">Die Schlüsselbytes werden modulo 256 zu den Datenbytes addiert und wieder subtrahiert.</description>
+  <keywords lang="en">byte-wise addition, modulo 256, Vigenere</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel (hier das Zeichen 1, also das Byte 0x31) wird modulo 256 zu jedem Byte des Textes addiert: aus H (0x48) wird y (0x79). Die zweite Komponente subtrahiert den Schlüssel wieder und liefert HAL zurück. Ein längerer Schlüssel wird wiederholt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ByteWiseAddition.png" />
+  <relevantPlugins>
+    <plugin name="DataTools" />
+  </relevantPlugins>
+</sample>

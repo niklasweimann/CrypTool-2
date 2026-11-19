@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Entropy.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Entropy</title>
+  <summary lang="en"><i>Entropy</i></summary>
+  <description lang="en">The Shannon entropy in bits per byte measures how unpredictable data is.</description>
+  <keywords lang="en">entropy, Shannon, information</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\b Entropy} component counts the bytes of the text and computes H = -sum p(x) * log2 p(x). English text has about 4 to 4.5 bits per byte (at most 8); replace the text by the ciphertext of a good cipher and the entropy rises towards 8." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Entropie</title>
+  <summary lang="de"><i>Entropie</i></summary>
+  <description lang="de">Die Shannon-Entropie in Bit pro Byte misst, wie unvorhersagbar Daten sind.</description>
+  <keywords lang="en">entropy, Shannon, information</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\b Entropie} zählt die Bytes des Textes und berechnet H = -Summe p(x) * log2 p(x). Englischer Text hat etwa 4 bis 4,5 Bit je Byte (höchstens 8); ersetzen Sie den Text durch den Geheimtext einer guten Chiffre, und die Entropie steigt gegen 8." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Entropy.png" />
+  <relevantPlugins>
+    <plugin name="ShannonEntropy" />
+  </relevantPlugins>
+</sample>

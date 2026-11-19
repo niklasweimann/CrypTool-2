@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ClassicMcEliece.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Classic McEliece (McEliece / Niederreiter)</title>
+  <summary lang="en"><i>Classic McEliece (McEliece / Niederreiter)</i></summary>
+  <description lang="en">Classic McEliece is a code-based key encapsulation: the secret is hidden in an error vector that only the owner of the Goppa code can find.</description>
+  <keywords lang="en">McEliece, Niederreiter, Goppa code, code-based, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first component generates the key pair (the public key has 261 KB and is not shown). The second encapsulates a fresh shared secret with the public key (the upper output); the encapsulation is the 96-byte syndrome in the lower output. The third decapsulates it with the private key (the right output). The two secrets are equal. This is Niederreiter's form of McEliece's cryptosystem." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Classic McEliece (McEliece / Niederreiter)</title>
+  <summary lang="de"><i>Classic McEliece (McEliece / Niederreiter)</i></summary>
+  <description lang="de">Classic McEliece ist eine codebasierte Schlüsselkapselung: Das Geheimnis steckt in einem Fehlervektor, den nur der Besitzer des Goppa-Codes finden kann.</description>
+  <keywords lang="en">McEliece, Niederreiter, Goppa code, code-based, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente erzeugt das Schlüsselpaar (der öffentliche Schlüssel hat 261 KB und wird nicht angezeigt). Die zweite kapselt mit dem öffentlichen Schlüssel ein frisches gemeinsames Geheimnis (obere Ausgabe); die Kapsel ist das 96 Byte lange Syndrom in der unteren Ausgabe. Die dritte entkapselt sie mit dem privaten Schlüssel (rechte Ausgabe). Die beiden Geheimnisse sind gleich. Das ist die Form von Niederreiter des Kryptosystems von McEliece." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ClassicMcEliece.png" />
+  <relevantPlugins>
+    <plugin name="ClassicMcEliece" />
+  </relevantPlugins>
+</sample>

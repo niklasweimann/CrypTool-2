@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MultiplicationCipher.xml-->
+  <!--Last edited: 2023.10.11-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Multiplikations-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Multiplikations-Chiffre</i></summary>
+  <description lang="de">Die Multiplikations-Chiffre multipliziert die Position jedes Buchstabens mit einem Schlüssel a, der teilerfremd zur Alphabetlänge ist. Sie ist die affine Chiffre mit b = 0.</description>
+  <keywords lang="en">multiplication, affine, substitution</keywords>
+  <replacements lang="de">
+    <replacement key="$AffineCipher$" value="Affine Chiffre" />
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Alphabet$" value="Alphabet" />
+    <replacement key="$DecryptedPlaintext$" value="Entschlüsselter Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$memo$" value="Die {\b Multiplikations-Chiffre} berechnet E(x) = a * x mod 26. a muss teilerfremd zu 26 sein (1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25). Sie ist die affine Chiffre mit b = 0; a wird in den Einstellungen der &quot;Affine Cipher&quot;-Komponenten geändert." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Multiplication Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>multiplication cipher</i></summary>
+  <description lang="en">The multiplication cipher multiplies the position of every letter by a key a that is coprime to the alphabet length. It is the affine cipher with b = 0.</description>
+  <keywords lang="en">multiplication, affine, substitution</keywords>
+  <replacements lang="en">
+    <replacement key="$AffineCipher$" value="Affine Cipher" />
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Alphabet$" value="Alphabet" />
+    <replacement key="$DecryptedPlaintext$" value="Decrypted plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b multiplication cipher} computes E(x) = a * x mod 26. a must be coprime to 26 (1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25). It is the affine cipher with b = 0; change a in the settings of the &quot;Affine Cipher&quot; components."/>
+</replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MultiplicationCipher.png" />
+  <relevantPlugins>
+    <plugin name="AffineCipher" />
+  </relevantPlugins>
+</sample>

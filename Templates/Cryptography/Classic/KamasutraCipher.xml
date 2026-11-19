@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KamasutraCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Kamasutra Cipher</title>
+  <summary lang="en"><i>Kamasutra Cipher</i></summary>
+  <description lang="en">The Kamasutra cipher is a reciprocal substitution: the key cuts the alphabet into pairs of letters, each letter is replaced by its partner.</description>
+  <keywords lang="en">Kamasutra, reciprocal, substitution</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="In this template the key BADCFEHG... pairs A with B, C with D, E with F and so on. Both components do the same thing, because the cipher is reciprocal." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Kamasutra-Chiffre</title>
+  <summary lang="de"><i>Kamasutra-Chiffre</i></summary>
+  <description lang="de">Die Kamasutra-Chiffre ist eine reziproke Substitution: Der Schlüssel zerlegt das Alphabet in Buchstabenpaare, jeder Buchstabe wird durch seinen Partner ersetzt.</description>
+  <keywords lang="en">Kamasutra, reciprocal, substitution</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="In dieser Vorlage verbindet der Schlüssel BADCFEHG... A mit B, C mit D, E mit F und so weiter. Beide Komponenten tun dasselbe, weil die Chiffre reziprok ist." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KamasutraCipher.png" />
+  <relevantPlugins>
+    <plugin name="ClassicVariants" />
+  </relevantPlugins>
+</sample>

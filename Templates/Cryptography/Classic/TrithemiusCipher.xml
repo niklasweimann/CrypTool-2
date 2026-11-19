@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TrithemiusCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Trithemius Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>Trithemius cipher</i></summary>
+  <description lang="en">The Trithemius cipher (tabula recta) shifts the first letter by 0, the second by 1, the third by 2 and so on. It is the Vigenère cipher with the alphabet as its key.</description>
+  <keywords lang="en">Trithemius, tabula recta, Vigenère</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b Trithemius cipher} is the Vigenère cipher with the key A B C D ... Z: every letter is shifted by one more than the letter before. It has no secret key, its strength rests on the method being unknown." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Trithemius-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Trithemius-Chiffre</i></summary>
+  <description lang="de">Die Trithemius-Chiffre (Tabula recta) verschiebt den ersten Buchstaben um 0, den zweiten um 1, den dritten um 2 und so weiter. Sie ist die Vigenère-Chiffre mit dem Alphabet als Schlüssel.</description>
+  <keywords lang="en">Trithemius, tabula recta, Vigenère</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$memo$" value="Die {\b Trithemius-Chiffre} ist die Vigenère-Chiffre mit dem Schlüssel A B C D ... Z: Jeder Buchstabe wird um eins mehr verschoben als der davor. Sie hat keinen geheimen Schlüssel, ihre Stärke liegt darin, dass das Verfahren unbekannt ist." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TrithemiusCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

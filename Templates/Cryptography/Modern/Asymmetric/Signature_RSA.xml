@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_RSA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">RSA Signature</title>
+  <summary lang="en">Key generation, signing and verification with <i>RSA Signature</i></summary>
+  <description lang="en">Digital signature with RSA (PKCS#1 v1.5): the hash value of the message is signed with the private key and checked with the public key.</description>
+  <keywords lang="en">RSA, signature, PKCS#1, digital signature</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="RSA signatures are deterministic: the same message and key always give the same signature. The first {\b Digital Signatures} component generates a key pair, the second signs the message with the private key, the third verifies the signature with the public key. Change the message in the text input and the algorithm, hash function and key size in the settings of the components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">RSA-Signatur</title>
+  <summary lang="de">Schlüsselerzeugung, Signieren und Prüfen mit <i>RSA-Signatur</i></summary>
+  <description lang="de">Digitale Signatur mit RSA (PKCS#1 v1.5): Der Hashwert der Nachricht wird mit dem privaten Schlüssel signiert und mit dem öffentlichen Schlüssel geprüft.</description>
+  <keywords lang="en">RSA, signature, PKCS#1, digital signature</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="RSA-Signaturen sind deterministisch: Dieselbe Nachricht und derselbe Schlüssel ergeben immer dieselbe Signatur. Die erste Komponente {\b Digitale Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht mit dem privaten Schlüssel, die dritte prüft die Signatur mit dem öffentlichen Schlüssel. Nachricht, Verfahren, Hashfunktion und Schlüssellänge lassen sich in der Texteingabe und in den Einstellungen der Komponenten ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_RSA.png" />
+  <relevantPlugins>
+    <plugin name="DigitalSignatures" />
+  </relevantPlugins>
+</sample>

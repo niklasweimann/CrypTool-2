@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_SPHINCSplus.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">SPHINCS+ Signature</title>
+  <summary lang="en">Key generation, signing and verification with <i>SPHINCS+ Signature</i></summary>
+  <description lang="en">SPHINCS+ is a stateless hash-based signature scheme that resists quantum computers.</description>
+  <keywords lang="en">SPHINCS+, hash-based signature, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameter set is sha2-128f-simple (signature about 17 KB). The first {\\b Hash-Based Signatures} component generates a key pair, the second signs the message and the third verifies the signature. After signing, the LMS private key changes (a one-time key is used up); the number of signatures that are left is an output of the signing component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">SPHINCS+-Signatur</title>
+  <summary lang="de">Schlüsselerzeugung, Signieren und Prüfen mit <i>SPHINCS+-Signatur</i></summary>
+  <description lang="de">SPHINCS+ ist ein zustandsloses hashbasiertes Signaturverfahren, das Quantencomputern widersteht.</description>
+  <keywords lang="en">SPHINCS+, hash-based signature, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Parametersatz ist sha2-128f-simple (Signatur etwa 17 KB). Die erste Komponente {\\b Hashbasierte Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht und die dritte prüft die Signatur. Nach dem Signieren ändert sich der private LMS-Schlüssel (ein Einmalschlüssel ist verbraucht); die Zahl der verbleibenden Signaturen ist ein Ausgang der signierenden Komponente." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_SPHINCSplus.png" />
+  <relevantPlugins>
+    <plugin name="HashBasedSignatures" />
+  </relevantPlugins>
+</sample>

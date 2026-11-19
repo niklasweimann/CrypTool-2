@@ -1,0 +1,5147 @@
+[
+ {
+  "name": "Achterbahn",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Achterbahn": "CrypTool.Achterbahn.Achterbahn"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Achterbahn-Chiffre": "Cryptography/Modern/Symmetric/Achterbahn.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ADFGVX",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > ADFGVX-Analyse-Komponente": "ADFGVXAnalyzer.ADFGVXAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > ADFGVX heuristische Analyse": "Cryptanalysis/Classic/ADFGVX_Analyzer.cwm",
+   "Kryptoanalyse > Klassisch > Wörterbuchangriff auf die ADFGVX-Chiffre": "Cryptanalysis/Classic/ADFGVX_dictionary_attack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ADFGX / ADFGVX",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > ADFGVX": "CrypTool.ADFGVX.ADFGVX"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > ADFGVX-Chiffre": "Cryptography/Classic/ADFGVX.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > AES": "CrypTool.Plugins.Cryptography.Encryption.AES"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > AES-Verschlüsselung mit impliziter Konvertierung": "Cryptography/Modern/Symmetric/AES Encryption with automatic conversion.cwm",
+   "Kryptografie > Modern > Symmetrisch > AES-Chiffre (Dateieingabe)": "Cryptography/Modern/Symmetric/AES FileInput.cwm",
+   "Kryptografie > Modern > Symmetrisch > AES-Chiffre (Texteingabe)": "Cryptography/Modern/Symmetric/AES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "AES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > AES-Analyse per Entropie (1)": "Cryptanalysis/Modern/AES_Analyzer_Entropy.cwm",
+   "Kryptoanalyse > Modern > AES-Known-Plaintext-Analyse (1)": "Cryptanalysis/Modern/AES_Analyzer_KnownPlaintext.cwm",
+   "Kryptoanalyse > Modern > AES-Analyse per Entropie (2) – mit veränderbarem Klartext": "Cryptanalysis/Modern/KeySearcher_AES.cwm",
+   "Kryptoanalyse > Modern > AES-Known-Plaintext-Analyse (2)": "Cryptanalysis/Modern/KeySearcher_AES_RegEx.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "AES",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > AES-Visualisierung": "CrypTool.Plugins.AESVisualization.AESVisualization"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > AES-Visualisierung": "Cryptography/Modern/Symmetric/AESVisualisierung.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "AES MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_AES.cwm": "Hashfunctions/MAC_AES.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_AES.cwm"
+ },
+ {
+  "name": "Alphabete",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Daten-Ein-/Ausgabe > Alphabete": "CrypTool.Alphabets.Alphabet"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Ameisenalgorithmus (ACO)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Android Entsperrmuster (AUP)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "ASCII",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "ASN.1",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Atbash",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/AtbashCipher.cwm": "Cryptography/Classic/AtbashCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/AtbashCipher.cwm"
+ },
+ {
+  "name": "Authentifizierungsverfahren im Netz",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Autokorrelation",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Generisch > Autokorrelation": "CrypTool.Plugins.AutocorrelationFunction.AutocorrelationFunction"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Avalanche-Effekt",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Sonstige > Avalanche-Visualisierung": "CrypTool.Plugins.AvalancheVisualization.AvalancheVisualization"
+  },
+  "templates": {
+   "Kryptoanalyse > Modern > Avalanche (AES)": "Cryptanalysis/Modern/Avalanche (AES).cwm",
+   "Kryptoanalyse > Modern > Avalanche (klassische Verschlüsselungsverfahren)": "Cryptanalysis/Modern/Avalanche (Classic Ciphers).cwm",
+   "Kryptoanalyse > Modern > Avalanche (Vergleich klassischer Verschlüsselungsverfahren)": "Cryptanalysis/Modern/Avalanche (Compare Classic Ciphers).cwm",
+   "Kryptoanalyse > Modern > Avalanche (DES)": "Cryptanalysis/Modern/Avalanche (DES).cwm",
+   "Kryptoanalyse > Modern > Avalanche (Hashverfahren)": "Cryptanalysis/Modern/Avalanche (Hash Functions).cwm",
+   "Kryptoanalyse > Modern > Avalanche (moderne Verschlüsselungsverfahren)": "Cryptanalysis/Modern/Avalanche (Modern Ciphers).cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Bacon cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Steganografie > Bacon-Chiffre": "CrypTool.BaconCipher.BaconCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Bacon-Chiffre": "Cryptography/Classic/BaconCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Barcode",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Base 64 Decode and Encode",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Tools/Base64enc.cwm": "Tools/Base64enc.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/Base64enc.cwm"
+ },
+ {
+  "name": "BB84",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > BB84-Fehlerdetektor": "CrypTool.Plugins.BB84ErrorDetector.BB84ErrorDetector",
+   "Protokolle > BB84-Schlüsselgenerator": "CrypTool.Plugins.BB84KeyGenerator.BB84KeyGenerator",
+   "Protokolle > BB84-Photonenbasis-Generator": "CrypTool.Plugins.BB84PhotonbaseGenerator.BB84PhotonbaseGenerator",
+   "Protokolle > BB84-Photonendecodierer": "CrypTool.Plugins.BB84PhotonDecoder.BB84PhotonDecoder",
+   "Protokolle > BB84-Photonencodierer": "CrypTool.Plugins.BB84PhotonEncoder.BB84PhotonEncoder"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "BB84",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Protokolle > BB84-Mittelsmann": "CrypTool.Plugins.BB84ManInTheMiddle.BB84ManInTheMiddle"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Beaufort-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/BeaufortCipher.cwm": "Cryptography/Classic/BeaufortCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/BeaufortCipher.cwm"
+ },
+ {
+  "name": "Berlekamp-Massey-Algorithmus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Berlekamp-Massey-Algorithmus": "CrypTool.BerlekampMassey.BerlekampMassey"
+  },
+  "templates": {
+   "Mathematisch > Berlekamp-Massey": "Mathematics/Berlekamp-Massey.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Bifid",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Bifid-Chiffre": "CrypTool.Plugins.BifidCipher.BifidCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Bifid-Chiffre": "Cryptography/Classic/BifidCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Binäre Exponentiation",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/SquareAndMultiply.cwm": "Mathematics/SquareAndMultiply.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/SquareAndMultiply.cwm"
+ },
+ {
+  "name": "Bit-Shift",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Tools/BitShift.cwm": "Tools/BitShift.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/BitShift.cwm"
+ },
+ {
+  "name": "BLAKE",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > BLAKE": "CrypTool.Plugins.BLAKE.BLAKE"
+  },
+  "templates": {
+   "Hash-Funktionen > BLAKE": "Hashfunctions/BLAKE.cwm",
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted BLAKE-256": "Hashfunctions/Password_storage_using_BLAKE.cwm",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted BLAKE-256": "Hashfunctions/Password_verification_using_BLAKE.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Blinde Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > Blinde-Signatur-Generator": "CrypTool.Plugins.BlindSignatureGenerator.BlindSignatureGenerator",
+   "Moderne Verfahren > Asymmetrisch > Blinde-Signatur-Verifizierer": "CrypTool.Plugins.BlindSignatureGenerator.BlindSignatureVerifier"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Blockchain",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > Blockchain": "CrypTool.Plugins.Blockchain.Blockchain",
+   "Protokolle > Blockchain-Signaturgenerator": "CrypTool.Plugins.BlockchainSignatureCreator.Blockchain_Transaction_Signature_Creator"
+  },
+  "templates": {
+   "Protokolle > Blockchain-Simulation": "Protocols/Blockchain.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Blockmodus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Block-Modi von symmetrischen Chiffren": "Cryptography/Modern/Symmetric/Chaining Modes.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Blowfish",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Blowfish": "CrypTool.Plugins.Blowfish.Blowfish"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Blowfish-Chiffre": "Cryptography/Modern/Symmetric/Blowfish.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Blum Blum Shub (BBS) –",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/BlumBlumShub.cwm": "Mathematics/BlumBlumShub.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/BlumBlumShub.cwm"
+ },
+ {
+  "name": "Boolesche Funktionen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematisch > Boole'sche Werte": "Mathematics/Booleans.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Buchchiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Buch-Chiffre": "CrypTool.BookCipher.BookCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Buch-Chiffre mit vollständiger Wortverschlüsselung": "Cryptography/Classic/BookCipherWithCompleteWordEncoding.cwm",
+   "Kryptografie > Klassisch > Buch-Chiffre mit Einzelbuchstaben-Verschlüsselung": "Cryptography/Classic/BookCipherWithSingleLetterEncoding.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Byteweise Addition",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/ByteWiseAddition.cwm": "Tools/ByteWiseAddition.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/ByteWiseAddition.cwm"
+ },
+ {
+  "name": "Byteweise Addition",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Caesar": "CrypTool.Caesar.Caesar"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Caesar-Chiffre": "Cryptography/Classic/Caesar.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Caesar-Analyse": "CrypTool.CaesarAnalysisHelper.CaesarAnalysisHelper"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Caesar Brute-Force-Analyse": "Cryptanalysis/Classic/Caesar_ExhaustiveKeySearch.cwm",
+   "Kryptoanalyse > Klassisch > Caesar Analyse mittels Buchstabenhäufigkeiten": "Cryptanalysis/Classic/Caesar_Analysis_Using-character-frequencies.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Camellia",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Camellia": "Camellia.Camellia"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Camellia-Chiffre": "Cryptography/Modern/Symmetric/Camellia.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Camellia MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_Camellia.cwm": "Hashfunctions/MAC_Camellia.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_Camellia.cwm"
+ },
+ {
+  "name": "CBC",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > CBC-Angriff": "Cryptanalysis/Modern/CBC_Attack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ChaCha",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > ChaCha": "CrypTool.Plugins.ChaCha.ChaCha"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > ChaCha-Chiffre": "Cryptography/Modern/Symmetric/ChaCha.cwm",
+   "Kryptografie > Modern > Symmetrisch > ChaCha-Chiffre (Präsentation)": "Cryptography/Modern/Symmetric/ChaChaPresentation.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Chaocipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Chaocipher": "CrypTool.Chaocipher.Chaocipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Chaocipher": "Cryptography/Classic/Chaocipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Chè Guevara cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > Ché Guevara-Chiffre": "Cryptography/Classic/CheGuevara.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Chiffre-Identifizierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Chinesischer Restsatz (CRT)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/ChineseRemainderTheorem.cwm": "Mathematics/ChineseRemainderTheorem.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/ChineseRemainderTheorem.cwm"
+ },
+ {
+  "name": "CMSS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Coin-Flipping-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > Münzwurf": "CrypTool.Plugins.CoinFlipping.CoinFlipping"
+  },
+  "templates": {
+   "Protokolle > Coin-Flipping-Protokoll": "Protocols/CoinFlip.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Corona / COVID",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Cramer-Shoup",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > Cramer-Shoup": "CrypTool.Plugins.CramerShoup.CramerShoupKeyGenerator",
+   "Moderne Verfahren > Asymmetrisch > Cramer-Shoup Key Generator": "CrypTool.Plugins.CramerShoup.CramerShoupKeyGenerator"
+  },
+  "templates": {
+   "Kryptografie > Modern > Asymmetrisch > Cramer-Shoup mit AES": "Cryptography/Modern/Asymmetric/Cramer-Shoup-with-AES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Crib",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Cylinder-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Cylinder Cipher": "CrypTool.CylinderCipher.CylinderCipher"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Datenein- und -ausgabe",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Datenfluss > Taktgenerator": "CrypTool.CLK.CLK",
+   "Werkzeuge > Daten-Ein-/Ausgabe > IP-Frame-Generator": "CrypTool.Internet_frame_generator.Internet_frame_generator",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Audio Input": "CrypTool.Plugins.AudioInput.AudioInput",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Audio Output": "CrypTool.Plugins.AudioOutput.AudioOutput",
+   "Werkzeuge > Boolean > Boolesche Eingabe": "CrypTool.Plugins.BooleanOperators.BooleanInput",
+   "Werkzeuge > Boolean > Boolesche Ausgabe": "CrypTool.Plugins.BooleanOperators.BooleanOutput",
+   "Werkzeuge > Sonstige > Bildverarbeitung": "CrypTool.Plugins.ImageProcessor.ImageProcessor",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Netzwerk-Empfänger": "CrypTool.Plugins.NetworkReceiver.NetworkReceiver",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Netzwerk-Sender": "CrypTool.Plugins.NetworkSender.NetworkInput",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Zahleneingabe": "CrypTool.Plugins.Numbers.NumberInput",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Kamera": "CrypTool.Plugins.Webcam.Webcam",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Texteingabe": "CrypTool.TextInput.TextInput",
+   "Werkzeuge > Datenfluss > CSV-Leser": "CSVReader.CSVReader",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Wörterbuch": "Dictionary.CrypToolDictionary",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Dateieingabe": "FileInput.FileInputClass"
+  },
+  "templates": {
+   "Werkzeuge > Foto erstellen": "Tools/TakePicture.cwm",
+   "Werkzeuge > Zufällige Dezimalzahl": "Tools/RandomDecimalNumber.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Datenfluss",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Datenfluss > Konkatenation": "Concatenate.Concatenate",
+   "Werkzeuge > Datenfluss > Array-Indizierer": "CrypTool.Plugins.ArrayIndexer.ArrayIndexer",
+   "Werkzeuge > Boolean > Binärer boolescher Operator": "CrypTool.Plugins.BooleanOperators.BooleanBinaryOperators",
+   "Werkzeuge > Boolean > Boolescher Nicht-Operator": "CrypTool.Plugins.BooleanOperators.BooleanNot",
+   "Werkzeuge > Sonstige > Komparatoren": "CrypTool.Plugins.Comparators.Comparators",
+   "Werkzeuge > Sonstige > Konvertierer": "CrypTool.Plugins.Converter.Converter",
+   "Werkzeuge > Codierungen > String-Decodierer": "CrypTool.Plugins.Convertor.StringDecoder",
+   "Werkzeuge > Codierungen > String-Codierer": "CrypTool.Plugins.Convertor.StringEncoder",
+   "Werkzeuge > Sonstige > Länge": "CrypTool.Plugins.LengthOf.LengthOf",
+   "Werkzeuge > Datenfluss > Variable lesen": "CrypTool.Plugins.Variable.VariableLoad",
+   "Werkzeuge > Datenfluss > Variable speichern": "CrypTool.Plugins.Variable.VariableStore",
+   "Werkzeuge > Sonstige > Datenstrom-Vergleicher": "CrypTool.StreamComparator.StreamComparator",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Dateiausgabe": "FileOutput.FileOutputClass",
+   "Werkzeuge > Datenfluss > Gate": "Gate.Gate",
+   "Werkzeuge > Sonstige > Inc Dec": "IncDec.IncDec",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Bildausgabe": "PictureOutput.PictureOutput",
+   "Werkzeuge > Sonstige > Zeichenketten-Operationen": "StringOperations.StringOperations",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Textausgabe": "TextOutput.TextOutput"
+  },
+  "templates": {
+   "Werkzeuge > Text zerlegen": "Tools/SplitText.cwm",
+   "Werkzeuge > Schleife": "Tools/Loop.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > DES": "CrypTool.Plugins.Cryptography.Encryption.DES"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > DES-Komplement-Eigenschaft": "Cryptography/Modern/Symmetric/DES_Complementation_Property.cwm",
+   "Kryptografie > Modern > Symmetrisch > DES-Chiffre": "Cryptography/Modern/Symmetric/DES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > DES Analyse per Entropie": "Cryptanalysis/Modern/DES_Analyzer_Entropy.cwm",
+   "Kryptoanalyse > Modern > DES Known-Plaintext-Analyse": "Cryptanalysis/Modern/DES_Analyzer_KnownPlaintext.cwm",
+   "Kryptoanalyse > Modern > DES Brute-Force-Analyse": "Cryptanalysis/Modern/KeySearcher_DES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DES",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > DES-Visualisierung": "CrypTool.DESVisualization.DESVisualization"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > DES-Visualisierung": "Cryptography/Modern/Symmetric/DESVisualization.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DES MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_DES.cwm": "Hashfunctions/MAC_DES.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_DES.cwm"
+ },
+ {
+  "name": "DESL",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DESL",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DESX",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/DESX.cwm": "Cryptography/Modern/Symmetric/DESX.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/DESX.cwm"
+ },
+ {
+  "name": "DESX",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DESXL",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DESXL",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Dezimalisierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Sonstige > Dezimalisierung": "CrypTool.Plugins.Decimalization.Decimalization"
+  },
+  "templates": {
+   "Mathematisch > Dezimalisierung": "Mathematics/Decimalization.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DGK (Homomorphe Verschlüsselung)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > DGK": "CrypTool.Plugins.DGK.DGK",
+   "Moderne Verfahren > Asymmetrisch > DGK-Schlüsselgenerator": "CrypTool.Plugins.DGK.DGKKeyGenerator"
+  },
+  "templates": {
+   "Kryptografie > Modern > Asymmetrisch > DGK-Chiffre (Texteingabe)": "Cryptography/Modern/Asymmetric/DGK_Text.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "DHA",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DHA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Differenzielle Kryptanalyse (DKA)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > DKA-KeyRecovery": "CrypTool.Plugins.DCAKeyRecovery.DCAKeyRecovery",
+   "Kryptoanalyse > Spezifisch > DKA-Orakel": "CrypTool.Plugins.DCAOracle.DCAOracle",
+   "Kryptoanalyse > Spezifisch > DKA-PfadFinder": "CrypTool.Plugins.DCAPathFinder.DCAPathFinder",
+   "Kryptoanalyse > Spezifisch > DKA-PfadVisualisierer": "CrypTool.Plugins.DCAPathVisualiser.DCAPathVisualiser",
+   "Kryptoanalyse > Spezifisch > DKA-ToyCipher": "CrypTool.Plugins.DCAToyCiphers.DCAToyCiphers"
+  },
+  "templates": {
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 1 (automatischer Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_1_AMode.cwm",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 2 (automatischer Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_2_AMode.cwm",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 3 (automatischer Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_3_AMode.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Differenzielle Kryptanalyse (DKA)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 1 (Tutorial Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_1_TMode.cwm",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 2 (Tutorial Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_2_TMode.cwm",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 3 (Tutorial Modus)": "Cryptanalysis/Modern/Differential_Cryptanalysis_Tutorial_3_TMode.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Diffie-Hellman-Schlüsselaustausch (Perfect Forward Secrecy)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Digitale Signatur",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Dining Cryptographers-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > Dining Cryptographers-Protokoll": "Protocols/DiningCryptographers.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Diskreter Logarithmus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematisch > Diskreter Logarithmus": "Mathematics/DiscreteLogarithm.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Doppelkasten",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/TwoSquareCipher.cwm": "Cryptography/Classic/TwoSquareCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/TwoSquareCipher.cwm"
+ },
+ {
+  "name": "Dragon",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "DSA-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_DSA.cwm": "Cryptography/Modern/Asymmetric/Signature_DSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_DSA.cwm"
+ },
+ {
+  "name": "EC",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "EC-Berechnungen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protocols/ECC_DH.cwm": "Protocols/ECC_DH.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/ECC_DH.cwm"
+ },
+ {
+  "name": "ECC-AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/ECIES.cwm": "Cryptography/Modern/Asymmetric/ECIES.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/ECIES.cwm"
+ },
+ {
+  "name": "ECDSA-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_ECDSA.cwm": "Cryptography/Modern/Asymmetric/Signature_ECDSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_ECDSA.cwm"
+ },
+ {
+  "name": "ECIES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/ECIES.cwm": "Cryptography/Modern/Asymmetric/ECIES.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/ECIES.cwm"
+ },
+ {
+  "name": "ECNR-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_ECNR.cwm": "Cryptography/Modern/Asymmetric/Signature_ECNR.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_ECNR.cwm"
+ },
+ {
+  "name": "Einfacher Webserver",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > Einfacher Webserver": "Protocols/SimpleWebserver.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ElGamal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/ElGamal.cwm": "Cryptography/Modern/Asymmetric/ElGamal.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/ElGamal.cwm"
+ },
+ {
+  "name": "Elliptische Kurvenberechnung",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Encoding",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Werkzeuge > Textcodierung (z.B. Base-64)": "Tools/Base64enc.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Enigma",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Enigma": "CrypTool.Enigma.Enigma"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Enigma-Chiffre": "Cryptography/Classic/Enigma.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Enigma",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Enigma-Analyse": "CrypTool.EnigmaAnalyzer.EnigmaAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Gillogly-Angriff": "Cryptanalysis/Classic/Enigma_GilloglyAttack.cwm",
+   "Kryptoanalyse > Klassisch > Enigma Hillclimbing Angriff": "Cryptanalysis/Classic/Enigma_Hillclimbing.cwm",
+   "Kryptoanalyse > Klassisch > Enigma-Angriff mit Simulated Annealing": "Cryptanalysis/Classic/Enigma_Simulated_Annealing.cwm",
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Turing-Bombe": "Cryptanalysis/Classic/Enigma_TuringBombe.cwm",
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Turing-Bombe (mit Weiterschaltung)": "Cryptanalysis/Classic/Enigma_TuringBombe_Turnover.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Enigma",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/Enigma.cwm": "Cryptography/Classic/Enigma.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/Enigma.cwm"
+ },
+ {
+  "name": "Entropie",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/Entropy.cwm": "Tools/Entropy.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/Entropy.cwm"
+ },
+ {
+  "name": "Faktorisierung",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Faktorisierer": "Factorizer.Factorizer"
+  },
+  "templates": {
+   "Mathematisch > Faktorisierung mit Quadratischem Sieb (QS)": "Mathematics/QuadraticSieve.cwm",
+   "Mathematisch > Faktorisierung mit Probedivision (Brute-Force)": "Mathematics/Factorization.cwm"
+  },
+  "outOfScope": {
+   "Kryptoanalyse > Generisch > Quadratisches Sieb": "tutorial (ICrypTutorial); the Quadratic Sieve component exists",
+   "Kryptotutorien > Die Welt der Primzahlen > Faktorisierung > Probedivision": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Faktorisierung > Quadratisches Sieb": "tutorial (ICrypTutorial); the Quadratic Sieve component exists"
+  },
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "FEAL",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > FEAL": "CrypTool.Plugins.FEAL.FEAL"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > FEAL-Chiffre": "Cryptography/Modern/Symmetric/FEAL.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Fialka",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Fialka": "CrypTool.Fialka.Fialka"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Fialka ED Check": "Cryptography/Classic/Fialka_ED_Check.cwm",
+   "Kryptografie > Klassisch > Fialka ED Mixed Mode Check": "Cryptography/Classic/Fialka_ED_Mixed_Mode_Check.cwm",
+   "Kryptografie > Klassisch > Fialka ED NumLock10 Check": "Cryptography/Classic/Fialka_ED_NumLock10_Check.cwm",
+   "Kryptografie > Klassisch > Fialka Schlüsselausgabe": "Cryptography/Classic/Fialka_Key_Output.cwm",
+   "Kryptografie > Klassisch > Fialka M-125-3 PROTON II": "Cryptography/Classic/Fialka_M_125_3_PROTON_II.cwm",
+   "Kryptografie > Klassisch > Fialka M-125 PROTON I": "Cryptography/Classic/Fialka_M_125_PROTON_I.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "FIPS PUB-140-1",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/FIPS140-1.cwm": "Tools/FIPS140-1.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/FIPS140-1.cwm"
+ },
+ {
+  "name": "Fleissner Grille analysis",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "FORK",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "FORK MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Formatbewahrende Verschlüsselung (FPE)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Formaterhaltende Verschlüsselung (FPE)": "CrypTool.Plugins.FormatPreservingEncryption.FormatPreservingEncryption"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Formaterhaltende Verschlüsselung (XML)": "Cryptography/Modern/Symmetric/Format Preserving Encryption(XML).cwm",
+   "Kryptografie > Modern > Symmetrisch > Formaterhaltende Verschlüsselung": "Cryptography/Modern/Symmetric/Format Preserving Encryption.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Friedman-Test",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Friedman-Test": "FriedmanTest.FriedmanTest"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Friedman-Test für klassische Chiffren": "Cryptanalysis/Classic/Friedman Test.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Gematria",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Codes > Gematrie": "Codes/Gematria.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "GMSS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "GOST-Magma-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > GOST Magma": "CrypTool.Plugins.Magma.Magma"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > GOST Magma-Chiffre": "Cryptography/Modern/Symmetric/GOST_Magma.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "GQ-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Grain",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Grain v1": "CrypTool.Plugins.GrainV1.GrainV1"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Grain v1-Chiffre": "Cryptography/Modern/Symmetric/Grain v1.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Gronsfeld-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/GronsfeldCipher.cwm": "Cryptography/Classic/GronsfeldCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/GronsfeldCipher.cwm"
+ },
+ {
+  "name": "Grøstl",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > Grøstl": "CrypTool.Plugins.Groestl.Groestl"
+  },
+  "templates": {
+   "Hash-Funktionen > Grøstl": "Hashfunctions/Groestl.cwm",
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted Grøstl-256": "Hashfunctions/Password_storage_using_Groestl.cwm",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted Grøstl-256": "Hashfunctions/Password_verification_using_Groestl.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Hagelin-Maschine",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Hagelin Machine": "CrypTool.Plugins.HagelinMachine.HagelinMachine"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Hagelin-Maschine": "Cryptography/Classic/Hagelin_Machine.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Hamming-Abstand",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Sonstige > Hamming-Abstand": "HammingDistance.HammingDistance"
+  },
+  "templates": {
+   "Mathematisch > Hamming-Abstand": "Mathematics/CalculateHammingDistance.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Hash-Algorithmen",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MD5.cwm": "Hashfunctions/MD5.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MD5.cwm"
+ },
+ {
+  "name": "Hash-Kollisionen",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MD5Collider.cwm": "Hashfunctions/MD5Collider.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MD5Collider.cwm"
+ },
+ {
+  "name": "Hashwert einer Datei",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/FileHash.cwm": "Hashfunctions/FileHash.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/FileHash.cwm"
+ },
+ {
+  "name": "Häufigkeitstest",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Generisch > Häufigkeitsanalyse": "CrypTool.FrequencyTest.FrequencyTest"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Häufigkeitsanalyse": "Cryptanalysis/Classic/Frequency Analysis.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "HC128",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > HC128": "CrypTool.Plugins.HC128.HC128"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > HC128-Chiffre": "Cryptography/Modern/Symmetric/HC128.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Heartbleed",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {
+   "Protokolle > Heartbleed Test": "only part of the CT2 wizard, no component in CrypPlugins"
+  },
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "HIGHT",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > HIGHT": "CrypTool.Plugins.HIGHT.HIGHT"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "HIGHT-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > HIGHT-Chiffre": "Cryptography/Modern/Symmetric/HIGHT.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Hill-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Hill-Chiffre": "CrypTool.Plugins.Hill.Hill"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Hill-Chiffre": "Cryptography/Classic/Hill.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Hill-Chiffre",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Histogramm",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/Frequency Analysis.cwm": "Cryptanalysis/Classic/Frequency Analysis.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/Frequency Analysis.cwm"
+ },
+ {
+  "name": "HMAC",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > HMAC": "CrypTool.HMAC.HMAC"
+  },
+  "templates": {
+   "Hash-Funktionen > HMAC": "Hashfunctions/HMAC.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Homomorphe Verschlüsselung (HE) (mit RSA, Paillier, Gentry & Hallevi)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Homophone Substitution",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Homophoner Substitutionsanalysator": "CrypTool.Plugins.HomophonicSubstitutionAnalyzer.HomophonicSubstitutionAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Homophone Substitutionsanalyse": "Cryptanalysis/Classic/Homophonic Substitution Analysis.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Homophone Substitutions-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > Homophone Substitutions-Chiffre und Nomenklatur – Entschlüsselung": "Cryptography/Classic/Decrypt Homophonic Substitution and Nomenclature.cwm",
+   "Kryptografie > Klassisch > Homophone Substitutions-Chiffre und Nomenklatur – Verschlüsselung": "Cryptography/Classic/Encrypt Homophonic Substitution and Nomenclature.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "HTTP-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > HTTP-Anfrage": "Protocols/HTTPRequest.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Huffman",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Werkzeuge > Codierungen > Huffman": "CrypTool.Plugins.Huffman.Huffman"
+  },
+  "templates": {
+   "Werkzeuge > Huffman-Algorithmus (ASCII)": "Tools/Huffman's algorithm - ASCII compression.cwm",
+   "Werkzeuge > Huffman-Algorithmus (BMG, JPG)": "Tools/Huffman's algorithm - BMP compression.cwm",
+   "Werkzeuge > Huffman-Algorithmus (UTF-8)": "Tools/Huffman's algorithm - UTF-8 compression.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "IDEA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/IDEA.cwm": "Cryptography/Modern/Symmetric/IDEA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/IDEA.cwm"
+ },
+ {
+  "name": "IDEA",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "IDEA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_IDEA.cwm": "Hashfunctions/MAC_IDEA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_IDEA.cwm"
+ },
+ {
+  "name": "IDP",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > IDP-Analyse": "IDPAnalyser.IDPAnalyser"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ImageHash",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > BildHash": "CrypTool.Plugins.ImageHash.ImageHash"
+  },
+  "templates": {
+   "Hash-Funktionen > BildHash": "Hashfunctions/ImageHash.cwm",
+   "Hash-Funktionen > BildHash – Weichzeichnungs-Vergleich": "Hashfunctions/ImageHashSmoothComparision.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Inverser Kongruenz-Generator (IKG)",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/InverseCongruentialGenerator.cwm": "Mathematics/InverseCongruentialGenerator.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/InverseCongruentialGenerator.cwm"
+ },
+ {
+  "name": "ISAP Bit-Commitment-Verfahren",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > ISAP Bit-Commitment-Verfahren": "ISAPBitCommitmentScheme.ISAPBitCommitmentScheme"
+  },
+  "templates": {
+   "Mathematisch > ISAP Bit-Commitment-Verfahren": "Mathematics/ISAP_BitCommitmentScheme.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "ISBN",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Codes > ISBN-10-Nummer überprüfen": "Codes/ISBN-10.cwm",
+   "Codes > ISBN-13-Nummer überprüfen": "Codes/ISBN-13.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Josse cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Josse-Chiffre": "CrypTool.JosseCipher.JosseCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Josse-Chiffre": "Cryptography/Classic/JosseCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Kamasutra-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/KamasutraCipher.cwm": "Cryptography/Classic/KamasutraCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/KamasutraCipher.cwm"
+ },
+ {
+  "name": "Kasiski-Test",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Kasiski-Test": "CrypTool.KasiskiTest.KasiskiTest"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Kasiski-Test und Autokorrelation": "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Keccak (hash, cipher,",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > Keccak": "CrypTool.Plugins.Keccak.Keccak"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Keccak-Chiffre": "Cryptography/Modern/Symmetric/KeccakStreamcipher.cwm",
+   "Hash-Funktionen > Keccak-Hash (SHA-3)": "Hashfunctions/KeccakHash.cwm",
+   "Werkzeuge > Keccak-Pseudozufallszahlengenerator (PRNG)": "Tools/KeccakPRNG.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Key Derivation Function (KDF)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > HKDF SHA-256": "CrypTool.Plugins.HKDFSHA256.HKDFSHA256",
+   "Hash-Funktionen > KKDF SHA-256": "CrypTool.Plugins.KKDFSHA256.KKDFSHA256",
+   "Hash-Funktionen > KKDF SHAKE256": "CrypTool.Plugins.KKDFSHAKE256.KKDFSHAKE256"
+  },
+  "templates": {
+   "Hash-Funktionen > KDF-Performance-Vergleich (ohne Präsentation)": "Hashfunctions/KDF_Performance_Comparison_withoutPres.cwm",
+   "Hash-Funktionen > KDF-Performance-Vergleich (mit Präsentation)": "Hashfunctions/KDF_Performance_Comparison_withPres.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Kleptographie (4 Methoden Primzahlen zu generieren, SETUP-",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Kostenfunktion",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Kostenfunktion": "CrypTool.Plugins.CostFunction.CostFunction"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Kostenfunktionen": "Cryptanalysis/Classic/Cost Functions.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Kryptos K1",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Klassisch > Kryptos K1 Analyse": "Cryptanalysis/Classic/Kryptos-K1.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Kryptos K2",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Klassisch > Kryptos K2 Analyse": "Cryptanalysis/Classic/Kryptos-K2.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "LAMBDA1",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > LAMBDA1": "CrypTool.Plugins.LAMBDA1.LAMBDA1"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > LAMBDA1-Blockchiffre": "Cryptography/Modern/Symmetric/LAMBDA1.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Länge einer Zahl",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Lattice",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Lattice",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Levenshtein-Abstand",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematisch > Levenshtein-Distanz": "Mathematics/CalculateLevenshteinDistance.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "LFSR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematisch > Linear rückgekoppeltes Schieberegister (LFSR)": "Mathematics/LFSR.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Linearer Kongruenz-Generator (LKG)",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/LinearCongruentialGenerator.cwm": "Mathematics/LinearCongruentialGenerator.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/LinearCongruentialGenerator.cwm"
+ },
+ {
+  "name": "M-138",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > M-138": "CrypTool.M138.M138"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > M-138": "Cryptography/Classic/M138.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "M-138",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > M-138 Analysewerkzeug": "CrypTool.M138Analyzer.M138Analyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Ciphertext-only-Angriff auf M-138": "Cryptanalysis/Classic/M138_Ciphertext_Only.cwm",
+   "Kryptoanalyse > Klassisch > Known-Plaintext-Angriff auf M-138": "Cryptanalysis/Classic/M138_Known_Plaintext.cwm",
+   "Kryptoanalyse > Klassisch > Partially-Known-Plaintext-Angriff auf M-138": "Cryptanalysis/Classic/M138_Part_Known_PT.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "M209",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > M-209": "CrypTool.Plugins.M209.M209"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > M209-Chiffre": "Cryptography/Classic/M209_EncryptDecrypt.cwm",
+   "Kryptografie > Klassisch > M209-Chiffre Schlüsseleingabe": "Cryptography/Classic/M209_KeySetup.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "M94",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > M94-Testnachrichten von Joseph O. Mauborgne": "Cryptography/Classic/M94_Mauborgne_Testmessages.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "MARS",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "MARS",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "MARS MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "McEliece",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm": "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm"
+ },
+ {
+  "name": "McEliece-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "MD",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "MD2",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MD2.cwm": "Hashfunctions/MD2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MD2.cwm"
+ },
+ {
+  "name": "MD4",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MD4.cwm": "Hashfunctions/MD4.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MD4.cwm"
+ },
+ {
+  "name": "MD5",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > MD5": "CrypTool.MD5.MD5",
+   "Kryptoanalyse > Spezifisch > MD5-Kollisionsgenerator": "CrypTool.Plugins.MD5Collider.MD5Collider"
+  },
+  "templates": {
+   "Hash-Funktionen > MD5-Kollisionsfinder": "Hashfunctions/MD5Collider.cwm",
+   "Hash-Funktionen > MD5 Salted-Hash-Vergleich": "Hashfunctions/Salted-MD5-Hash-Stream-Comparing.cwm",
+   "Hash-Funktionen > MD5": "Hashfunctions/MD5.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "MD5",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Merkle-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_LMS.cwm": "Cryptography/Modern/Asymmetric/Signature_LMS.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_LMS.cwm"
+ },
+ {
+  "name": "Mexican-Army-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Mexican Army Cipher Disk": "CrypTool.MexicanArmyCipherDisk.MexicanArmyCipherDisk"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Mexican Army Cipher Disk": "Cryptography/Classic/MexicanArmyCipherDisk.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Mexican-Army-Chiffre",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Mexican Army Cipher Disk-Analyse": "CrypTool.MexicanArmyCipherDiskAnalyzer.MexicanArmyCipherDiskAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Brute-Force-Angriff auf die Mexican Army Cipher Disk": "Cryptanalysis/Classic/MexicanArmyCipherDiskBruteForce.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Mickey 2",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Mickey 2": "CrypTool.Plugins.Mickey2.Mickey2"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Mickey 2-Chiffre": "Cryptography/Modern/Symmetric/Mickey2.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Misty",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Misty MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "ML-KEM (Kyber)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Morse-Code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Werkzeuge > Codierungen > Morsecode": "CrypTool.Plugins.MorseCode.MorseCode"
+  },
+  "templates": {
+   "Codes > Morsecode": "Codes/MorseCode.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Multiplikationschiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/MultiplicationCipher.cwm": "Cryptography/Classic/MultiplicationCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/MultiplicationCipher.cwm"
+ },
+ {
+  "name": "Multivariate cryptography",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "N-Gramm",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Navajo-Code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > Navajo-Code": "Cryptography/Classic/Navajo-Code.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Niederreiter",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm": "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/ClassicMcEliece.cwm"
+ },
+ {
+  "name": "Nihilist",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Nihilist-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Nihilisten-Chiffre": "CrypTool.Nihilist.Nihilist"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Nihilisten-Chiffre": "Cryptography/Classic/Nihilist.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "NLFSR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematisch > Nichtlinear rückgekoppeltes Schieberegister (NLFSR)": "Mathematics/NLFSR.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Oblivious Transfer-Protokoll",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > Oblivious Transfer 1": "CrypTool.Plugins.ObliviousTransfer1.ObliviousTransfer1",
+   "Protokolle > Oblivious Transfer 2": "CrypTool.Plugins.ObliviousTransfer2.ObliviousTransfer2"
+  },
+  "templates": {
+   "Protokolle > Oblivious Transfer-Protokoll (1 aus n)": "Protocols/ObliviousTransfer.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "One-time pad (OTP)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > One-Time-Pad-Demo": "Cryptography/Classic/One time pad demonstration.cwm",
+   "Kryptografie > Klassisch > One-time-Pad-Fehlbenutzung": "Cryptography/Classic/One time pad misusage.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "OpenSSL",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Padding Oracle",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Padding-Orakel": "CrypTool.Plugins.PaddingOracle.PaddingOracle",
+   "Kryptoanalyse > Spezifisch > Padding-Orakel-Angriff": "CrypTool.Plugins.PaddingOracleAttack.PaddingOracleAttack"
+  },
+  "templates": {
+   "Kryptoanalyse > Modern > Padding-Orakel-Angriff auf AES": "Cryptanalysis/Modern/PaddingOracleAttack_AES.cwm",
+   "Kryptoanalyse > Modern > Padding-Orakel-Angriff auf DES": "Cryptanalysis/Modern/PaddingOracleAttack_DES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Paillier",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > Paillier-Schlüsselgenerator": "CrypTool.Plugins.Paillier.PaillierKeyGenerator"
+  },
+  "templates": {
+   "Kryptografie > Modern > Asymmetrisch > Blinde Signatur Paillier": "Cryptography/Modern/Asymmetric/Blind Signature Paillier.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Blinde Signatur RSA": "Cryptography/Modern/Asymmetric/Blind Signature RSA.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Wahlen)": "Cryptography/Modern/Asymmetric/Paillier_Vote.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre mit Blinding": "Cryptography/Modern/Asymmetric/Paillier_Blinding.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Schlüsselgenerator": "Cryptography/Modern/Asymmetric/Paillier_KeyGenerator.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Paillier (homomorphe Verschlüsselung)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > Paillier": "CrypTool.Plugins.Paillier.Paillier"
+  },
+  "templates": {
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Zahleneingabe)": "Cryptography/Modern/Asymmetric/Paillier.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre mit Addition": "Cryptography/Modern/Asymmetric/Paillier_Add.cwm",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Texteingabe)": "Cryptography/Modern/Asymmetric/Paillier_Text.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Password-based key derivation functions",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > PBKDF": "CrypTool.PBKDF.PBKDF"
+  },
+  "templates": {
+   "Hash-Funktionen > Passwortbasierte Schlüsselableitungsfunktionen": "Hashfunctions/Password_basedKeyDerivationFunctions.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Passwort-Hash (SHA-1)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted SHA-1": "Hashfunctions/Password_store_salted_SHA.cwm",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted SHA-1": "Hashfunctions/Password_verify_salted_SHA.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Passwortqualität",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Sonstige > Passwortstärke": "CrypTool.Plugins.Tools.PasswordStrength"
+  },
+  "templates": {
+   "Werkzeuge > Passwortstärke ermitteln": "Tools/PasswordStrength.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "PBES2",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "PBKDF-1 (PKCS#5 2.0)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hash-Funktionen > PBKDF-1 (PKCS#5 2.0)": "Hashfunctions/pbkdf1.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Periodizitäts",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "PKCS#1",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "PKCS#5",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > PKCS#5": "PKCS5.PKCS5"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "PKCS#5 AES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > AES mit PKCS#5": "Cryptography/Modern/Symmetric/AES PKCS5.cwm",
+   "Kryptografie > Modern > Symmetrisch > AES (CBC) mit PKCS#5 und IV": "Cryptography/Modern/Symmetric/AES-CBC-IV-PKCS5-Base64.cwm",
+   "Kryptografie > Modern > Symmetrisch > AES (ECB) mit PKCS#5": "Cryptography/Modern/Symmetric/AES-PKCS5-Base64.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Playfair",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Playfair-Analyse": "CrypTool.PlayfairAnalyzer.PlayfairAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Playfair-Analyse": "Cryptanalysis/Classic/Playfair_Analyzer.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Playfair-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Playfair": "CrypTool.Playfair.Playfair"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Playfair-Chiffre": "Cryptography/Classic/Playfair.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Poker-Test",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/PokerTest.cwm": "Tools/PokerTest.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/PokerTest.cwm"
+ },
+ {
+  "name": "Porta",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/PortaCipher.cwm": "Cryptography/Classic/PortaCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/PortaCipher.cwm"
+ },
+ {
+  "name": "Potenzieren",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "PRESENT",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > PRESENT": "CrypTool.PRESENT.PRESENT"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > PRESENT-Chiffre": "Cryptography/Modern/Symmetric/PRESENT.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Primzahlen (Generatoren, Tests, Faktorisieren, Tutorien)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Daten-Ein-/Ausgabe > Primzahlgenerator": "CrypTool.PrimesGenerator.PrimesGenerator",
+   "Kryptoanalyse > Generisch > Primzahltest": "PrimeTest.PrimeTest"
+  },
+  "templates": {
+   "Mathematisch > Nächstkleinere Primzahl": "Mathematics/NextSmallerPrime.cwm",
+   "Mathematisch > Primzahltest": "Mathematics/PrimesTest.cwm",
+   "Mathematisch > Primzahlgenerator": "Mathematics/PrimesGenerator.cwm"
+  },
+  "outOfScope": {
+   "Kryptotutorien > Die Welt der Primzahlen": "tutorial (ICrypTutorial), not a canvas component",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Sieb des Eratosthenes": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Miller-Rabin-Test": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Sieb des Atkin": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Erzeugung von Primzahlen > Erzeugung von Primzahlen": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Zahlengerade": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Zahlengitter": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Anzahl der Primzahlen": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Ulam-Spirale": "tutorial (ICrypTutorial)"
+  },
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Pseudozufallszahlengenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Zufallszahlen > LFSR": "CrypTool.LFSR.LFSRComponent",
+   "Werkzeuge > Zufallszahlen > NLFSR": "CrypTool.NLFSR.NLFSR",
+   "Werkzeuge > Zufallszahlen > Zufallszahlengenerator": "CrypTool.Plugins.RandomNumberGenerator.RandomNumberGenerator"
+  },
+  "templates": {
+   "Werkzeuge > Zufallszahlengeneratoren": "Tools/RandomNumberGenerators.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Public-Key Infrastructure",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Purple",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Purple": "CrypTool.Plugins.Purple.Purple"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > PURPLE-Chiffre": "Cryptography/Classic/Purple.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Rabbit",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Rabbit": "CrypTool.Plugins.Rabbit.Rabbit"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Rabbit-Chiffre": "Cryptography/Modern/Symmetric/Rabbit.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Rabin-Cryptosystem",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Rabin.cwm": "Cryptography/Modern/Asymmetric/Rabin.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Rabin.cwm"
+ },
+ {
+  "name": "Railfence",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/RailFenceCipher.cwm": "Cryptography/Classic/RailFenceCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/RailFenceCipher.cwm"
+ },
+ {
+  "name": "RAPPOR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > RAPPOR": "CrypTool.Plugins.RAPPOR.RAPPOR"
+  },
+  "templates": {
+   "Protokolle > RAPPOR": "Protocols/RAPPOR.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RC2",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > RC2": "CrypTool.Plugins.Cryptography.Encryption.RC2"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > RC2-Chiffre": "Cryptography/Modern/Symmetric/RC2.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RC2",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "RC2 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_RC2.cwm": "Hashfunctions/MAC_RC2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_RC2.cwm"
+ },
+ {
+  "name": "RC4",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > RC4": "CrypTool.Plugins.Cryptography.Encryption.RC4"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > RC4-Chiffre": "Cryptography/Modern/Symmetric/RC4.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RC4",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "RC5",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/RC5.cwm": "Cryptography/Modern/Symmetric/RC5.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/RC5.cwm"
+ },
+ {
+  "name": "RC5 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_RC5.cwm": "Hashfunctions/MAC_RC5.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_RC5.cwm"
+ },
+ {
+  "name": "RC6",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/RC6.cwm": "Cryptography/Modern/Symmetric/RC6.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/RC6.cwm"
+ },
+ {
+  "name": "RC6",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "RC6 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_RC6.cwm": "Hashfunctions/MAC_RC6.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_RC6.cwm"
+ },
+ {
+  "name": "Redactable signature schemes (RSS)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Redefence",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/RedefenceCipher.cwm": "Cryptography/Classic/RedefenceCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/RedefenceCipher.cwm"
+ },
+ {
+  "name": "Reziproke Substraktion",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "RIPEMD",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > RIPEMD160": "RIPEMD160.RIPEMD160"
+  },
+  "templates": {
+   "Hash-Funktionen > RIPEMD160": "Hashfunctions/RIPEMD160.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RIPEMD MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/HMAC_RIPEMD160.cwm": "Hashfunctions/HMAC_RIPEMD160.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/HMAC_RIPEMD160.cwm"
+ },
+ {
+  "name": "RIPEMD-160",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/RIPEMD160.cwm": "Hashfunctions/RIPEMD160.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/RIPEMD160.cwm"
+ },
+ {
+  "name": "Rotationschiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/Caesar.cwm": "Cryptography/Classic/Caesar.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/Caesar.cwm"
+ },
+ {
+  "name": "RSA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Asymmetrisch > RSA": "CrypTool.Plugins.RSA.RSAKeyGenerator",
+   "Moderne Verfahren > Asymmetrisch > RSA-Schlüsselgenerator": "CrypTool.Plugins.RSA.RSAKeyGenerator"
+  },
+  "templates": {
+   "Kryptografie > Modern > Asymmetrisch > RSA mit großen Zahlen": "Cryptography/Modern/Asymmetric/RSA_with_Big_Numbers.cwm",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Chiffre": "Cryptography/Modern/Asymmetric/RSA.cwm",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Entschlüsselung": "Cryptography/Modern/Asymmetric/RSA_Decryption.cwm",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Verschlüsselung": "Cryptography/Modern/Asymmetric/RSA_Encryption.cwm",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Schlüsselgenerator": "Cryptography/Modern/Asymmetric/RSA_KeyGenerator.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RSA",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > RSA-Angriff auf gemeinsamen Faktor": "Cryptanalysis/Modern/RSA Common Factor Attack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "RSA",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "RSA-AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "RSA-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_RSA.cwm": "Cryptography/Modern/Asymmetric/Signature_RSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_RSA.cwm"
+ },
+ {
+  "name": "Rucksackproblem",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/MerkleHellman.cwm": "Cryptography/Modern/Asymmetric/MerkleHellman.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/MerkleHellman.cwm"
+ },
+ {
+  "name": "Runs-Test",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/RunsTest.cwm": "Tools/RunsTest.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/RunsTest.cwm"
+ },
+ {
+  "name": "SAFER+",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "SAFER++",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Salsa20",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Salsa20": "CrypTool.Plugins.Salsa20.Salsa20"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Salsa20-Chiffre": "Cryptography/Modern/Symmetric/Salsa20.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SAT-Solver",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > SAT-Solver": "CrypTool.Plugins.SATSolver.SATSolver"
+  },
+  "templates": {
+   "Mathematisch > SAT-Solver (Dateieingabe)": "Mathematics/SATSolverFileInput.cwm",
+   "Mathematisch > SAT-Solver (Texteingabe)": "Mathematics/SATSolverTextInput.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Schlüssel anzeigen/exportieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Schlüssel aus Passwort generieren (PKCS#5)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/Password_basedKeyDerivationFunctions.cwm": "Hashfunctions/Password_basedKeyDerivationFunctions.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/Password_basedKeyDerivationFunctions.cwm"
+ },
+ {
+  "name": "Schlüssel erzeugen/importieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Schlüsselaustausch (BB84)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > BB84-Schlüsselaustausch mit Lauschangriff": "Protocols/BB84-Key-Exchange + Attack.cwm",
+   "Protokolle > BB84-Schlüsselaustausch": "Protocols/BB84-Key-Exchange.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Schlüsselaustausch (Diffie-Hellman DH)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > Diffie-Hellman-Schlüsselaustausch": "Protocols/Diffie-Hellman_Key-Exchange.cwm",
+   "Protokolle > Diffie-Hellman-Schlüsselaustausch über Netzwerk": "Protocols/Diffie-Hellman_Key-Exchange_OverNetwork.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Schlüsselaustausch (multipartit)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Schlüsselsuche",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Schlüsselsucher": "KeySearcher.KeySearcher"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SDES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > SDES": "CrypTool.Plugins.Cryptography.Encryption.SDES"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > SDES-Chiffre": "Cryptography/Modern/Symmetric/SDES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SDES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > SDES Brute-Force-Analyse": "Cryptanalysis/Modern/KeySearcher_SDES.cwm",
+   "Kryptoanalyse > Modern > SDES-Analyse per Entropie": "Cryptanalysis/Modern/SDES_Analyzer_Entropy.cwm",
+   "Kryptoanalyse > Modern > SDES Known-Plaintext-Analyse": "Cryptanalysis/Modern/SDES_Analyzer_KnownPlaintext.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Serial-Test",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/SerialTest.cwm": "Tools/SerialTest.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/SerialTest.cwm"
+ },
+ {
+  "name": "Serpent",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/Serpent.cwm": "Cryptography/Modern/Symmetric/Serpent.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/Serpent.cwm"
+ },
+ {
+  "name": "Serpent",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Serpent MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_Serpent.cwm": "Hashfunctions/MAC_Serpent.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_Serpent.cwm"
+ },
+ {
+  "name": "SHA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Hash-Funktionen > SHA": "SHA.SHA"
+  },
+  "templates": {
+   "Hash-Funktionen > SHA-1-Kollision": "Hashfunctions/SHA-1 Collision.cwm",
+   "Hash-Funktionen > SHA-1": "Hashfunctions/SHA1.cwm",
+   "Hash-Funktionen > SHA-256": "Hashfunctions/SHA256.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SHA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/HMAC_SHA256.cwm": "Hashfunctions/HMAC_SHA256.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/HMAC_SHA256.cwm"
+ },
+ {
+  "name": "Shacal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/Shacal-2.cwm": "Cryptography/Modern/Symmetric/Shacal-2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/Shacal-2.cwm"
+ },
+ {
+  "name": "Shacal MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_Shacal-2.cwm": "Hashfunctions/MAC_Shacal-2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_Shacal-2.cwm"
+ },
+ {
+  "name": "Shamir's secret sharing",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protocols/ShamirSecretSharing.cwm": "Protocols/ShamirSecretSharing.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/ShamirSecretSharing.cwm"
+ },
+ {
+  "name": "Shamir's Secret Sharing",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Shanks Babystep-Giantstep",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/BabyStepGiantStep.cwm": "Mathematics/BabyStepGiantStep.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/BabyStepGiantStep.cwm"
+ },
+ {
+  "name": "Sichere E-Mail (S/MIME)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Sicherer Chat – Angewandte Kryptografie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Werkzeuge > Einfacher Video-Audio-Chat mit AES-Verschlüsselung": "Protocols/AES_Video_Audio_chat.cwm",
+   "Werkzeuge > Diffie-Hellman AES-Video-Audio-Chat": "Protocols/Diffie_Hellman_AES_Video_Audio_chat.cwm",
+   "Werkzeuge > Einfacher AES-Chat": "Protocols/SimpleAESChat.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SIGABA cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > SIGABA": "CrypTool.Plugins.SIGABA.SIGABA"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > SIGABA-Chiffriermaschine": "Cryptography/Classic/SIGABA.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Signatur",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Signatur extrahieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Signatur verifizieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_RSA.cwm": "Cryptography/Modern/Asymmetric/Signature_RSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_RSA.cwm"
+ },
+ {
+  "name": "Simple Kommunikation mit mehreren Clients – Angewandte Kryptografie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protokolle > Einfache Multi-Client-Kommunikation": "Protocols/Simple_Multiple_Client_Communication.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Skytale",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Skytale": "CrypTool.Scytale.Scytale"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Skytale-Chiffre": "Cryptography/Classic/Scytale.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Skytale",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Klassisch > Skytale Brute-Force-Analyse": "Cryptanalysis/Classic/Scytale_ExhaustiveKeySearch.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Skytale / Gartenzaun",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/Scytale.cwm": "Cryptography/Classic/Scytale.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/Scytale.cwm"
+ },
+ {
+  "name": "Solitaire",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Solitaire": "Solitaire.Solitaire"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Solitaire-Chiffre": "Cryptography/Classic/Solitaire.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Solitaire",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Solitaire-Analyse": "SolitaireAnalyser.SolitaireAnalyser"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Solitaire Brute-Force-Analyse": "Cryptanalysis/Classic/SolitaireAnalyzer.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Sosemanuk",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Sosemanuk": "CrypTool.Plugins.Sosemanuk.Sosemanuk"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Sosemanuk-Chiffre": "Cryptography/Modern/Symmetric/Sosemanuk.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Spanische Streifenchiffre (SSC)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Spanische Streifen-Chiffre": "CrypTool.Plugins.SpanishStripCipher.SpanishStripCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Spanische Streifen-Chiffre": "Cryptography/Classic/SpanishStripCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Speck-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Speck": "CrypTool.Plugins.Speck.Speck"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Speck-Chiffre": "Cryptography/Modern/Symmetric/Speck.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "SPHINCS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "SPHINCS+ signature",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm"
+ },
+ {
+  "name": "Steganographie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Steganografie > Bild-Steganografie": "ImageSteganographyVisualization.ImageSteganographyVisualization",
+   "Steganografie > Text-Steganografie": "TextSteganography.TextSteganography"
+  },
+  "templates": {
+   "Steganografie > Bild-Steganografie mit BPCS": "Steganography/BPCSSteganography.cwm",
+   "Steganografie > Bild-Steganografie mit LSB": "Steganography/LSBSteganography.cwm",
+   "Steganografie > Text-Steganografie mit Großbuchstaben (binärer Modus)": "Steganography/CapitalLettersBinarySteg.cwm",
+   "Steganografie > Text-Steganografie mit Großbuchstaben": "Steganography/CapitalLettersTextSteg.cwm",
+   "Steganografie > Text-Steganografie mit Zeichenmarkierung (binärer Modus)": "Steganography/MarkingLettersBinarySteg.cwm",
+   "Steganografie > Text-Steganografie mit Zeichenmarkierung": "Steganography/MarkingLettersTextSteg.cwm",
+   "Steganografie > Text-Steganografie mit Leerzeichen ohne Breite": "Steganography/ZeroWidthSpacesSteg.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Straddling checkerboard cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Straddling-Checkerboard": "CrypTool.StraddlingCheckerboard.StraddlingCheckerboard"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Straddling-Checkerboard": "Cryptography/Classic/StraddlingCheckerboard.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Substitution",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Substitution": "CrypTool.Substitution.Substitution"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Substitutions-Chiffre": "Cryptography/Classic/Substitution.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Substitution",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Monoalphabetische Substitutionsanalyse": "CrypTool.AnalysisMonoalphabeticSubstitution.AnalysisMonoalphabeticSubstitution"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Angriff auf die monoalphabetische Substitution": "Cryptanalysis/Classic/AnalysisMonoalphabeticSubstitution.cwm",
+   "Kryptoanalyse > Klassisch > Angriff auf die monoalphabetische Substitution mit beliebigem Geheimtextalphabet": "Cryptanalysis/Classic/MASC_Analysis_ArbitraryCiphertextAlphabet.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Substitution cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > Substitutions-Chiffre mit Schlüsselwort": "Cryptography/Classic/Substitution_with_Keyword.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Syllabary-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Syllabar-Chiffre": "CrypTool.SyllabaryCipher.SyllabaryCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Syllabar-Chiffre": "Cryptography/Classic/SyllabaryCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "T-310",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > T-310": "CrypTool.Plugins.T310.T310"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > T-310/50 Chiffriermaschine": "Cryptography/Classic/T310-50.cwm",
+   "Kryptografie > Klassisch > T-310/51 Chiffriermaschine": "Cryptography/Classic/T310-51.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "T9 code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Codierungen > T9-Code": "CrypTool.T9Code.T9Code"
+  },
+  "templates": {
+   "Codes > T9-Code": "Codes/T9Code.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "TEA",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > TEA": "CrypTool.TEA.TEA"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > TEA-Chiffre": "Cryptography/Modern/Symmetric/TEA.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Teilerspiel",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Threefish",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Threefish-Chiffre": "Cryptography/Modern/Symmetric/Threefish.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Tiger",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > Tiger": "Tiger.Tiger"
+  },
+  "templates": {
+   "Hash-Funktionen > Tiger": "Hashfunctions/Tiger.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Tiger MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/HMAC_Tiger.cwm": "Hashfunctions/HMAC_Tiger.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/HMAC_Tiger.cwm"
+ },
+ {
+  "name": "TLS handshake",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Transkriptor",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Transkriptor": "CrypTool.Plugins.Transcriptor.Transcriptor"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Transkriptor im manuellen Modus": "Cryptanalysis/Classic/Transcriptor manually mode.cwm",
+   "Kryptoanalyse > Klassisch > Transkriptor im semi-automatischen Modus": "Cryptanalysis/Classic/Transcriptor semi-automatic mode.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Transposition (ein-stufige Spaltentransposition)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Transposition": "Transposition.Transposition"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Transpositions-Chiffre": "Cryptography/Classic/Transposition.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Transposition (zwei-stufige Spaltentransposition) (Doppelwürfel)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Klassisch > Doppelte Spaltentransposition": "Cryptography/Classic/Double Columnar Transposition.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Transposition (zwei-stufige Spaltentransposition) (Doppelwürfel)",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Klassisch > Wörterbuchangriff auf die doppelte Spaltentransposition": "Cryptanalysis/Classic/IDPAttack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Transposition",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Transpositions-Analyse": "TranspositionAnalyser.TranspositionAnalyser"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Transposition Brute-Force-Analyse": "Cryptanalysis/Classic/Transposition_Bruteforce_Analyzer.cwm",
+   "Kryptoanalyse > Klassisch > Transposition Crib-Analyse": "Cryptanalysis/Classic/Transposition_Crib_Analyzer.cwm",
+   "Kryptoanalyse > Klassisch > Transposition Genetische Analyse": "Cryptanalysis/Classic/Transposition_Genetic_Analyzer.cwm",
+   "Kryptoanalyse > Klassisch > Transposition Hill-Climbing-Analyse": "Cryptanalysis/Classic/Transposition_Hillclimbing_Analyzer.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Trifid-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > Trifid-Chiffre": "CrypTool.Plugins.TrifidCipher.TrifidCipher"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Trifid-Chiffre": "Cryptography/Classic/TrifidCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Triple-DES (3DES)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Triple-DES-Chiffre": "Cryptography/Modern/Symmetric/TripleDES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Triple-DES (3DES)",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Modern > Triple-DES Brute-Force-Analyse": "Cryptanalysis/Modern/KeySearcher_TripleDES.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Trithemius",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/TrithemiusCipher.cwm": "Cryptography/Classic/TrithemiusCipher.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/TrithemiusCipher.cwm"
+ },
+ {
+  "name": "Trivium",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Trivium": "CrypTool.Trivium.Trivium"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Trivium-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Trivium-Chiffre": "Cryptography/Modern/Symmetric/Trivium.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Twofish",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Twofish-Chiffre": "Cryptography/Modern/Symmetric/Twofish.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Twofish",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Twofish MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hashfunctions/MAC_Twofish.cwm": "Hashfunctions/MAC_Twofish.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MAC_Twofish.cwm"
+ },
+ {
+  "name": "TwoTrack MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "UU decodieren/encodieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/UUEncoding.cwm": "Tools/UUEncoding.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/UUEncoding.cwm"
+ },
+ {
+  "name": "VCard",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Codes > vCard": "Codes/vcard.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Verifiable Secret Sharing (VSS)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Protocols/VerifiableSecretSharing.cwm": "Protocols/VerifiableSecretSharing.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/VerifiableSecretSharing.cwm"
+ },
+ {
+  "name": "Vernam",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Vernam": "CrypTool.Plugins.Vernam.Vernam"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Vernam-Chiffre": "Cryptography/Classic/VernamCipher.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Vernam",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/One time pad misusage.cwm": "Cryptography/Classic/One time pad misusage.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/One time pad misusage.cwm"
+ },
+ {
+  "name": "Verschlüsselung mit AES und Passwort",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "VIC cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Klassische Verfahren > VIC-Chiffre": "CrypTool.Plugins.VIC.VIC"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > VIC-Chiffre": "Cryptography/Classic/VIC.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Vigenère",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Kryptoanalyse > Spezifisch > Vigenère-Analyse": "CrypTool.VigenereAnalyzer.VigenereAnalyzer"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Vigenère-Analyse": "Cryptanalysis/Classic/Vigenere_Analyzer.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Vigenère",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Vigenère-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > Vigenère": "CrypTool.Vigenere.Vigenere"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > Vigenère-Chiffre": "Cryptography/Classic/Vigenere.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Visual cryptography",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Moderne Verfahren > Symmetrisch > Visuelle Kryptografie": "CrypTool.Plugins.VisualCryptography.VisualCryptography"
+  },
+  "templates": {
+   "Kryptografie > Modern > Symmetrisch > Visuelle Kryptografie": "Cryptography/Modern/Symmetric/Visual Cryptography.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Visuelle Codes (QR, EAN8, WAN13, Code39, Code128, PDF417)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Werkzeuge > Codierungen > Visueller Decodierer": "CrypTool.Plugins.VisualDecoder.VisualDecoder",
+   "Werkzeuge > Codierungen > Visueller Codierer": "CrypTool.Plugins.VisualEncoder.VisualEncoder"
+  },
+  "templates": {
+   "Codes > RSA-signierter QR-Code": "Codes/rsa_signed_qrcode.cwm",
+   "Codes > QR-Code verschlüsseln": "Codes/QRCodeEncryption.cwm",
+   "Codes > QR-Code-Datei decodieren": "Codes/Decode QR file.cwm",
+   "Codes > Optische Codes erkennen": "Codes/Simple_Code_Detector.cwm",
+   "Codes > QR-Code erstellen": "Codes/CreateQRCode.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Vitányi",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Viterbi",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "VSH",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Wasserzeichen erstellen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Steganografie > Wasserzeichen-Generator": "CrypTool.Plugins.WatermarkCreator.WatermarkCreator"
+  },
+  "templates": {
+   "Steganografie > Wasserzeichen-Erzeuger – Unsichtbares Wasserzeichen": "Steganography/WatermarkCreatorInvisible.cwm",
+   "Steganografie > Wasserzeichen-Erzeuger – Robustheit": "Steganography/WatermarkCreatorInvisibleRobust.cwm",
+   "Steganografie > Wasserzeichen-Erzeuger – Sichtbares Wasserzeichen": "Steganography/WatermarkCreatorVisible.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Web-Terminal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "WEP",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > WEP-Protokoll": "CrypTool.WEP.WEP"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "WEP",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > Angriffe auf das WEP-Protokoll": "CrypTool.WEPAttacks.WEPAttacks"
+  },
+  "templates": {
+   "Protokolle > WEP-Angriff": "Protocols/WEP_Attack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Werkzeuge",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {
+   "Werkzeuge > Sonstige > Byte-Array-Operationen": "ByteArrayOperations.ByteArrayOperations",
+   "Kryptoanalyse > Generisch > Wörterbuch-Suche": "Contains.Contains",
+   "Werkzeuge > Sonstige > Rechenoperationen": "CrypTool.Plugins.Numbers.NumberOperations",
+   "Werkzeuge > Sonstige > Fortschritt": "CrypTool.Progress.Progress"
+  },
+  "templates": {},
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Whirlpool",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > Whirlpool": "Whirlpool.WPHash"
+  },
+  "templates": {
+   "Hash-Funktionen > Whirlpool": "Hashfunctions/Whirlpool.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Winternitz-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_LMS.cwm": "Cryptography/Modern/Asymmetric/Signature_LMS.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_LMS.cwm"
+ },
+ {
+  "name": "Wörterbuchangriff",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Hash-Funktionen > Wörterbuch-Angriff auf einen Passwort-Hash-Wert": "Hashfunctions/DictionaryAttack.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Wortmuster",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Kryptoanalyse > Generisch > Wortmuster": "WordPatterns.WordPatterns"
+  },
+  "templates": {
+   "Kryptoanalyse > Klassisch > Wortmusteranalyse": "Cryptanalysis/Classic/WordPatterns.cwm",
+   "Kryptoanalyse > Klassisch > Wortmusteranalyse mit selbstdefiniertem Wörterbuch": "Cryptanalysis/Classic/WordPatterns_LoadDictionary.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "X^2 (mod N) Zufallsgenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Mathematics/X2modN_Generator.cwm": "Mathematics/X2modN_Generator.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/X2modN_Generator.cwm"
+ },
+ {
+  "name": "XOR",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "components": {
+   "Klassische Verfahren > XOR": "CrypTool.XOR.Xor"
+  },
+  "templates": {
+   "Kryptografie > Klassisch > XOR-Chiffre": "Cryptography/Classic/XOR.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Yaos Millionärsproblem",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Protokolle > Yao 1": "CrypTool.Plugins.Yao1.Yao1",
+   "Protokolle > Yao 2": "CrypTool.Plugins.Yao2.Yao2",
+   "Protokolle > Yao 3": "CrypTool.Plugins.Yao3.Yao3"
+  },
+  "templates": {
+   "Protokolle > Yaos Millionärs-Problem-Protokoll": "Protocols/Yao.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Zahlenhai (Number Shark, Taxman)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Zahlentheorie (siehe auch Primzahlen)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "components": {},
+  "templates": {
+   "Mathematisch > Rechnen mit großen Zahlen": "Mathematics/Calculating with Big Numbers.cwm",
+   "Mathematisch > Linearer Kongruenzen-Generator": "Mathematics/LinearCongruentialGenerator.cwm"
+  },
+  "outOfScope": {
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Zahlentheoretische Funktionen": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Primitivwurzeln": "tutorial (ICrypTutorial)",
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Goldbach-Vermutung": "tutorial (ICrypTutorial)"
+  },
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Zero Knowledge-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "components": {
+   "Protokolle > Zero-Knowledge-Beweiser": "CrypTool.Plugins.ZeroKnowledgeChecked.ZeroKnowledgeChecked",
+   "Protokolle > Zero-Knowledge-Verifizierer": "CrypTool.Plugins.ZeroKnowledgeChecker.ZeroKnowledgeChecker"
+  },
+  "templates": {
+   "Protokolle > Zero Knowledge-Protokoll": "Protocols/Zeroknowledge.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Zertifikate verifizieren",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Zip/Unzip",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/ZipUnzip.cwm": "Tools/ZipUnzip.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/ZipUnzip.cwm"
+ },
+ {
+  "name": "Zodiac-408",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Kryptoanalyse > Klassisch > Zodiac-408-Analyse": "Cryptanalysis/Classic/Zodiac-408.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ },
+ {
+  "name": "Zudo-Ku",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Zufall",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "status": "open"
+ },
+ {
+  "name": "Zufallsgenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "components": {},
+  "templates": {
+   "Tools/RandomNumberGenerators.cwm": "Tools/RandomNumberGenerators.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/RandomNumberGenerators.cwm"
+ },
+ {
+  "name": "Zwei-Faktor Authentisierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "status": "open"
+ },
+ {
+  "name": "Zyklische Redundanzprüfung (CRC)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "components": {
+   "Hash-Funktionen > CRC": "CrypTool.CRC.CRC"
+  },
+  "templates": {
+   "Hash-Funktionen > CRC Nullprobleme": "Hashfunctions/CRC Null Problems.cwm",
+   "Hash-Funktionen > CRC": "Hashfunctions/CRC.cwm"
+  },
+  "outOfScope": {},
+  "missing": [],
+  "status": "done"
+ }
+]

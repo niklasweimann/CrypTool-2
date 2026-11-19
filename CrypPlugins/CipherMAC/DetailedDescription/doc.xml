@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A message authentication code (MAC) protects the integrity and the origin of a message: only someone who knows the secret key can compute it.
+    This component builds a MAC from a block cipher (AES, DES, Camellia, IDEA, RC2, RC5, RC6, Serpent, Twofish, Shacal-1 or Shacal-2).
+    CMAC (OMAC1, NIST SP 800-38B) encrypts the message in CBC mode and mixes a key-dependent subkey into the last block, which makes it secure for messages of any length.
+    The classic CBC-MAC (FIPS 113) encrypts the message in CBC mode with a zero IV and takes the last block; it is only secure when all messages have the same length. The message is padded with zero bytes.
+    The MAC is as long as one block of the cipher: 16 bytes for AES, Camellia, RC6, Serpent and Twofish, 8 bytes for DES, IDEA, RC2 and RC5, 20 bytes for Shacal-1 and 32 bytes for Shacal-2. CMAC is defined only for 64-bit and 128-bit blocks, so Shacal needs the CBC-MAC.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht: Nur wer den geheimen Schlüssel kennt, kann ihn berechnen.
+    Diese Komponente baut einen MAC aus einer Blockchiffre (AES, DES, Camellia, IDEA, RC2, RC5, RC6, Serpent oder Twofish).
+    CMAC (OMAC1, NIST SP 800-38B) verschlüsselt die Nachricht im CBC-Modus und mischt einen schlüsselabhängigen Teilschlüssel in den letzten Block, wodurch er für Nachrichten beliebiger Länge sicher ist.
+    Der klassische CBC-MAC (FIPS 113) verschlüsselt die Nachricht im CBC-Modus mit Null-IV und nimmt den letzten Block; er ist nur sicher, wenn alle Nachrichten gleich lang sind. Die Nachricht wird mit Nullbytes aufgefüllt.
+    Der MAC ist so lang wie ein Block der Chiffre: 16 Bytes bei AES, Camellia, RC6, Serpent und Twofish, 8 Bytes bei DES, IDEA, RC2 und RC5, 20 Bytes bei Shacal-1 und 32 Bytes bei Shacal-2. CMAC ist nur für 64-Bit- und 128-Bit-Blöcke definiert, Shacal braucht daher den CBC-MAC.
+  </introduction>
+  <usage lang="en">
+    Choose the cipher and the construction in the settings. The data is expected as a data stream on the input "Data", the key as a byte array on the input "Key". The key size must fit the cipher (AES, Camellia, RC6, Serpent, Twofish: 16, 24 or 32 bytes; DES: 8 bytes; IDEA: 16 bytes; RC2: 1 to 128 bytes; RC5: 1 to 255 bytes; Shacal: 16 to 64 bytes).
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Chiffre und die Konstruktion. Die Daten werden als Datenstrom am Eingang "Daten" erwartet, der Schlüssel als Byte-Array am Eingang "Schlüssel". Die Schlüssellänge muss zur Chiffre passen (AES, Camellia, RC6, Serpent, Twofish: 16, 24 oder 32 Bytes; DES: 8 Bytes; IDEA: 16 Bytes; RC2: 1 bis 128 Bytes; RC5: 1 bis 255 Bytes; Shacal: 16 bis 64 Bytes).
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://csrc.nist.gov/pubs/sp/800/38/b/upd1/final" lang="en" />
+      <caption lang="en">NIST SP 800-38B: the CMAC mode</caption>
+      <caption lang="de-DE">NIST SP 800-38B: der CMAC-Modus</caption>
+    </linkReference>
+  </references>
+</documentation>

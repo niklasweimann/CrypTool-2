@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    HMAC (Bellare, Canetti and Krawczyk, RFC 2104) turns a hash function into a message authentication code (MAC) with a secret key K: HMAC(K, m) = H((K xor opad) || H((K xor ipad) || m)). The key is padded with zeros to the block size of the hash function; a longer key is hashed first. The two nested hashes protect against the length extension attack that a plain H(K || m) is open to.
+    This component offers HMAC with MD2, MD4, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3-256, RIPEMD-128, -160, -256 and -320, Tiger, Whirlpool and SM3. MD2, MD4 and MD5 are broken as hash functions, although HMAC with them is still believed to be secure.
+  </introduction>
+  <introduction lang="de-DE">
+    HMAC (Bellare, Canetti und Krawczyk, RFC 2104) macht aus einer Hashfunktion mit einem geheimen Schlüssel K einen Message Authentication Code (MAC): HMAC(K, m) = H((K xor opad) || H((K xor ipad) || m)). Der Schlüssel wird mit Nullen auf die Blocklänge der Hashfunktion aufgefüllt; ein längerer Schlüssel wird zuerst gehasht. Die beiden ineinander liegenden Hashes schützen vor dem Length-Extension-Angriff, dem ein einfaches H(K || m) ausgesetzt ist.
+    Diese Komponente bietet HMAC mit MD2, MD4, MD5, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512, SHA3-256, RIPEMD-128, -160, -256 und -320, Tiger, Whirlpool und SM3. MD2, MD4 und MD5 sind als Hashfunktionen gebrochen, HMAC mit ihnen gilt aber weiterhin als sicher.
+  </introduction>
+  <usage lang="en">
+    Choose the hash function in the settings. The data is expected as a data stream on the input "Data", the key as a byte array on the input "Key" (any length). The MAC is as long as the hash value of the chosen function.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Hashfunktion. Die Daten werden als Datenstrom am Eingang "Daten" erwartet, der Schlüssel als Byte-Array am Eingang "Schlüssel" (beliebige Länge). Der MAC ist so lang wie der Hashwert der gewählten Funktion.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://www.rfc-editor.org/rfc/rfc2104" lang="en" />
+      <caption lang="en">RFC 2104: HMAC</caption>
+      <caption lang="de-DE">RFC 2104: HMAC</caption>
+    </linkReference>
+  </references>
+</documentation>

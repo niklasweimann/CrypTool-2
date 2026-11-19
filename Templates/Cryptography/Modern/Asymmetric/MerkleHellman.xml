@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MerkleHellman.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Merkle-Hellman Knapsack</title>
+  <summary lang="en">Key generation, encryption and decryption with <i>Merkle-Hellman Knapsack</i></summary>
+  <description lang="en">The Merkle-Hellman cryptosystem (1978) is based on the knapsack problem: the public key is a disguised easy knapsack, the ciphertext the sum of the selected elements.</description>
+  <keywords lang="en">Merkle-Hellman, knapsack, subset sum, public key</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The public key has 64 numbers b_i = r * w_i mod q made from a superincreasing sequence w_i, which is the private key. A block of 64 bits is encrypted as the sum of the b_i where the bit is 1. Shamir broke the scheme in 1982, it is only of historical interest. The first {\b ElGamal / Rabin} component generates a key pair, the second encrypts the text with the public key, the third decrypts it with the private key. The text in the middle is the ciphertext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Merkle-Hellman-Rucksack</title>
+  <summary lang="de">Schlüsselerzeugung, Ver- und Entschlüsselung mit <i>Merkle-Hellman-Rucksack</i></summary>
+  <description lang="de">Das Kryptosystem von Merkle und Hellman (1978) beruht auf dem Rucksackproblem: Der öffentliche Schlüssel ist ein getarnter leichter Rucksack, der Geheimtext die Summe der ausgewählten Elemente.</description>
+  <keywords lang="en">Merkle-Hellman, knapsack, subset sum, public key</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der öffentliche Schlüssel besteht aus 64 Zahlen b_i = r * w_i mod q, die aus einer superwachsenden Folge w_i gebildet werden, dem privaten Schlüssel. Ein Block von 64 Bit wird als Summe der b_i verschlüsselt, bei denen das Bit 1 ist. Shamir hat das Verfahren 1982 gebrochen, es ist nur von historischem Interesse. Die erste Komponente {\b ElGamal / Rabin} erzeugt ein Schlüsselpaar, die zweite verschlüsselt den Text mit dem öffentlichen Schlüssel, die dritte entschlüsselt ihn mit dem privaten Schlüssel. Der Text in der Mitte ist der Geheimtext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MerkleHellman.png" />
+  <relevantPlugins>
+    <plugin name="PublicKeyEncryption" />
+  </relevantPlugins>
+</sample>

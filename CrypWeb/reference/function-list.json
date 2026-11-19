@@ -1,0 +1,5817 @@
+[
+ {
+  "name": "Achterbahn",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Achterbahn"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Achterbahn-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ADFGVX",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > ADFGVX-Analyse-Komponente"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > ADFGVX heuristische Analyse",
+   "Kryptoanalyse > Klassisch > Wörterbuchangriff auf die ADFGVX-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ADFGX / ADFGVX",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > ADFGVX"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > ADFGVX-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > ADFGVX"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > ADFGVX"
+  ]
+ },
+ {
+  "name": "AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > AES"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > AES-Verschlüsselung mit impliziter Konvertierung",
+   "Kryptografie > Modern > Symmetrisch > AES-Chiffre (Dateieingabe)",
+   "Kryptografie > Modern > Symmetrisch > AES-Chiffre (Texteingabe)"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Symmetrische Verschlüsselungsverfahren > AES"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > AES",
+   "Blockchiffren > Rijndael > AES > AES128_ECB",
+   "Blockchiffren > Rijndael > AES > AES256_CFB",
+   "Blockchiffren > Rijndael > AES > AES192_ECB",
+   "Blockchiffren > Rijndael > AES > AES256_CBC",
+   "Blockchiffren > Rijndael > AES > AES128_CBC",
+   "Blockchiffren > Rijndael > AES > AES128_CFB",
+   "Blockchiffren > Rijndael > AES > AES192_OFB",
+   "Blockchiffren > Rijndael > AES > AES192_CFB",
+   "Blockchiffren > Rijndael > AES > AES256_OFB",
+   "Blockchiffren > Rijndael > AES > AES128_OFB",
+   "Blockchiffren > Rijndael > AES > AES256_ECB",
+   "Blockchiffren > Rijndael > AES > AES192_CBC"
+  ]
+ },
+ {
+  "name": "AES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > AES-Analyse per Entropie (1)",
+   "Kryptoanalyse > Modern > AES-Known-Plaintext-Analyse (1)",
+   "Kryptoanalyse > Modern > AES-Analyse per Entropie (2) – mit veränderbarem Klartext",
+   "Kryptoanalyse > Modern > AES-Known-Plaintext-Analyse (2)"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Moderne Verschlüsselung > Symmetrische Verschlüsselung > AES > Ciphertext-only",
+   "Kryptoanalyse > Moderne Verschlüsselung > Symmetrische Verschlüsselung > AES > Bekannter Klartext"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "AES",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > AES-Visualisierung"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > AES-Visualisierung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "AES MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CMac > CmacAES128",
+   "Authentifizierungscodes > CMac > CmacAES192",
+   "Authentifizierungscodes > CMac > CmacAES256",
+   "Authentifizierungscodes > CBCMac > CBCmacAES256",
+   "Authentifizierungscodes > CBCMac > CBCmacAES192",
+   "Authentifizierungscodes > CBCMac > CBCmacAES128"
+  ]
+ },
+ {
+  "name": "Alphabete",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Daten-Ein-/Ausgabe > Alphabete"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Ameisenalgorithmus (ACO)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Ameisenkolonie-Optimierung (ACO)"
+  ]
+ },
+ {
+  "name": "Android Entsperrmuster (AUP)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Android-Mustersperre (AUP)"
+  ]
+ },
+ {
+  "name": "ASCII",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ASN.1",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Atbash",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Authentifizierungsverfahren im Netz",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Autokorrelation",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Autokorrelation"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Avalanche-Effekt",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Sonstige > Avalanche-Visualisierung"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > Avalanche (AES)",
+   "Kryptoanalyse > Modern > Avalanche (klassische Verschlüsselungsverfahren)",
+   "Kryptoanalyse > Modern > Avalanche (Vergleich klassischer Verschlüsselungsverfahren)",
+   "Kryptoanalyse > Modern > Avalanche (DES)",
+   "Kryptoanalyse > Modern > Avalanche (Hashverfahren)",
+   "Kryptoanalyse > Modern > Avalanche (moderne Verschlüsselungsverfahren)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Bacon cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Steganografie > Bacon-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Bacon-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Barcode",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Base 64 Decode and Encode",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "BB84",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > BB84-Fehlerdetektor",
+   "Protokolle > BB84-Schlüsselgenerator",
+   "Protokolle > BB84-Photonenbasis-Generator",
+   "Protokolle > BB84-Photonendecodierer",
+   "Protokolle > BB84-Photonencodierer"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "BB84",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Protokolle > BB84-Mittelsmann"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Beaufort-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Berlekamp-Massey-Algorithmus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Berlekamp-Massey-Algorithmus"
+  ],
+  "ct2Templates": [
+   "Mathematisch > Berlekamp-Massey"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Bifid",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Bifid-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Bifid-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Bifid"
+  ]
+ },
+ {
+  "name": "Binäre Exponentiation",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Simple Power Analysis / Square and Multiply"
+  ]
+ },
+ {
+  "name": "Bit-Shift",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "BLAKE",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > BLAKE"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > BLAKE",
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted BLAKE-256",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted BLAKE-256"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Blinde Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > Blinde-Signatur-Generator",
+   "Moderne Verfahren > Asymmetrisch > Blinde-Signatur-Verifizierer"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Blockchain",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Blockchain",
+   "Protokolle > Blockchain-Signaturgenerator"
+  ],
+  "ct2Templates": [
+   "Protokolle > Blockchain-Simulation"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Blockmodus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Block-Modi von symmetrischen Chiffren"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Blowfish",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Blowfish"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Blowfish-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Blum Blum Shub (BBS) –",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Pseudo-Zufallszahlengeneratoren > BBSRandom"
+  ]
+ },
+ {
+  "name": "Boolesche Funktionen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Boole'sche Werte"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Buchchiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Buch-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Buch-Chiffre mit vollständiger Wortverschlüsselung",
+   "Kryptografie > Klassisch > Buch-Chiffre mit Einzelbuchstaben-Verschlüsselung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Byteweise Addition",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Byteweise Addition",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Caesar"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Caesar-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Caesar"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Caesar"
+  ]
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Caesar-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Caesar Brute-Force-Analyse",
+   "Kryptoanalyse > Klassisch > Caesar Analyse mittels Buchstabenhäufigkeiten"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Caesar"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Caesar / Rot-13",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Camellia",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Camellia"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Camellia-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > Camellia > Camellia256_CBC",
+   "Blockchiffren > Camellia > Camellia192_CBC",
+   "Blockchiffren > Camellia > Camellia128_CBC"
+  ]
+ },
+ {
+  "name": "Camellia MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacCamellia"
+  ]
+ },
+ {
+  "name": "CBC",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > CBC-Angriff"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ChaCha",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > ChaCha"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > ChaCha-Chiffre",
+   "Kryptografie > Modern > Symmetrisch > ChaCha-Chiffre (Präsentation)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Chaocipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Chaocipher"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Chaocipher"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Chè Guevara cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Ché Guevara-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Chiffre-Identifizierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Chinesischer Restsatz (CRT)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Chinesischer Restsatz (CRT)"
+  ]
+ },
+ {
+  "name": "CMSS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > CMSSSignature > CMSS"
+  ]
+ },
+ {
+  "name": "Coin-Flipping-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Münzwurf"
+  ],
+  "ct2Templates": [
+   "Protokolle > Coin-Flipping-Protokoll"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Corona / COVID",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Cramer-Shoup",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > Cramer-Shoup",
+   "Moderne Verfahren > Asymmetrisch > Cramer-Shoup Key Generator"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Asymmetrisch > Cramer-Shoup mit AES"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Crib",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Transposition > Crib"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Cylinder-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Cylinder Cipher"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Datenein- und -ausgabe",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Datenfluss > Taktgenerator",
+   "Werkzeuge > Daten-Ein-/Ausgabe > IP-Frame-Generator",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Audio Input",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Audio Output",
+   "Werkzeuge > Boolean > Boolesche Eingabe",
+   "Werkzeuge > Boolean > Boolesche Ausgabe",
+   "Werkzeuge > Sonstige > Bildverarbeitung",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Netzwerk-Empfänger",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Netzwerk-Sender",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Zahleneingabe",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Kamera",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Texteingabe",
+   "Werkzeuge > Datenfluss > CSV-Leser",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Wörterbuch",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Dateieingabe"
+  ],
+  "ct2Templates": [
+   "Werkzeuge > Foto erstellen",
+   "Werkzeuge > Zufällige Dezimalzahl"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Datenfluss",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Datenfluss > Konkatenation",
+   "Werkzeuge > Datenfluss > Array-Indizierer",
+   "Werkzeuge > Boolean > Binärer boolescher Operator",
+   "Werkzeuge > Boolean > Boolescher Nicht-Operator",
+   "Werkzeuge > Sonstige > Komparatoren",
+   "Werkzeuge > Sonstige > Konvertierer",
+   "Werkzeuge > Codierungen > String-Decodierer",
+   "Werkzeuge > Codierungen > String-Codierer",
+   "Werkzeuge > Sonstige > Länge",
+   "Werkzeuge > Datenfluss > Variable lesen",
+   "Werkzeuge > Datenfluss > Variable speichern",
+   "Werkzeuge > Sonstige > Datenstrom-Vergleicher",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Dateiausgabe",
+   "Werkzeuge > Datenfluss > Gate",
+   "Werkzeuge > Sonstige > Inc Dec",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Bildausgabe",
+   "Werkzeuge > Sonstige > Zeichenketten-Operationen",
+   "Werkzeuge > Daten-Ein-/Ausgabe > Textausgabe"
+  ],
+  "ct2Templates": [
+   "Werkzeuge > Text zerlegen",
+   "Werkzeuge > Schleife"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > DES"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > DES-Komplement-Eigenschaft",
+   "Kryptografie > Modern > Symmetrisch > DES-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Symmetrische Verschlüsselungsverfahren > DES"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Innere Zustände im Data Encryption Standard (DES)",
+   "Blockchiffren > DESede > DESede_CBC",
+   "Passwortbasierte Chiffren > PbeWithSHA1AndDES_CBC",
+   "Passwortbasierte Chiffren > PbeWithMD5AndDES_CBC"
+  ]
+ },
+ {
+  "name": "DES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > DES Analyse per Entropie",
+   "Kryptoanalyse > Modern > DES Known-Plaintext-Analyse",
+   "Kryptoanalyse > Modern > DES Brute-Force-Analyse"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Moderne Verschlüsselung > Symmetrische Verschlüsselung > DES > Bekannter Klartext"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DES",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > DES-Visualisierung"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > DES-Visualisierung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DES MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CMac > CmacDESede",
+   "Authentifizierungscodes > CBCMac > CBCmacDESede"
+  ]
+ },
+ {
+  "name": "DESL",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DESL",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DESX",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DESX",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DESXL",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DESXL",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Dezimalisierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Sonstige > Dezimalisierung"
+  ],
+  "ct2Templates": [
+   "Mathematisch > Dezimalisierung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DGK (Homomorphe Verschlüsselung)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > DGK",
+   "Moderne Verfahren > Asymmetrisch > DGK-Schlüsselgenerator"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Asymmetrisch > DGK-Chiffre (Texteingabe)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "DHA",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > DHA256"
+  ]
+ },
+ {
+  "name": "DHA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacDHA256"
+  ]
+ },
+ {
+  "name": "Differenzielle Kryptanalyse (DKA)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > DKA-KeyRecovery",
+   "Kryptoanalyse > Spezifisch > DKA-Orakel",
+   "Kryptoanalyse > Spezifisch > DKA-PfadFinder",
+   "Kryptoanalyse > Spezifisch > DKA-PfadVisualisierer",
+   "Kryptoanalyse > Spezifisch > DKA-ToyCipher"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 1 (automatischer Modus)",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 2 (automatischer Modus)",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 3 (automatischer Modus)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Differenzielle Kryptanalyse (DKA)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 1 (Tutorial Modus)",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 2 (Tutorial Modus)",
+   "Kryptoanalyse > Modern > Differenzielle Kryptoanalyse Tutorial 3 (Tutorial Modus)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Diffie-Hellman-Schlüsselaustausch (Perfect Forward Secrecy)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Digitale Signatur",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Dining Cryptographers-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > Dining Cryptographers-Protokoll"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Diskreter Logarithmus",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Diskreter Logarithmus"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Doppelkasten",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Doppelkasten"
+  ]
+ },
+ {
+  "name": "Dragon",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > Dragon"
+  ]
+ },
+ {
+  "name": "DSA-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Signatur > DSA",
+   "Signaturen > DSASignature > RAW/DSA",
+   "Signaturen > DSASignature > SHAwithDSA",
+   "Signaturen > IQDSASignature > IQDSA",
+   "Signaturen > IQDSASignature > RIPEMD160withIQDSA",
+   "Signaturen > IQRDSASignature > IQRDSA",
+   "Signaturen > IQRDSASignature > RIPEMD160withIQRDSA"
+  ]
+ },
+ {
+  "name": "EC",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Pseudo-Zufallszahlengeneratoren > ECPRNG"
+  ]
+ },
+ {
+  "name": "EC-Berechnungen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Elliptische-Kurven-Berechnungen"
+  ]
+ },
+ {
+  "name": "ECC-AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ECDSA-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > ECDSASignature > SHA1/ECDSA",
+   "Signaturen > ECDSASignature > SHA512/ECDSA",
+   "Signaturen > ECDSASignature > RawECDSA",
+   "Signaturen > ECDSASignature > SHA224/ECDSA",
+   "Signaturen > ECDSASignature > SHA256/ECDSA",
+   "Signaturen > ECDSASignature > SHA384/ECDSA"
+  ]
+ },
+ {
+  "name": "ECIES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hybride Verschlüsselung > ECIES"
+  ]
+ },
+ {
+  "name": "ECNR-Signatur",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > SHA1/ECNR"
+  ]
+ },
+ {
+  "name": "Einfacher Webserver",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > Einfacher Webserver"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ElGamal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Asymmetrisch > ElGamal",
+   "Asymmetrische Blockchiffren > ElGamal"
+  ]
+ },
+ {
+  "name": "Elliptische Kurvenberechnung",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Encoding",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Werkzeuge > Textcodierung (z.B. Base-64)"
+  ],
+  "wizards": [
+   "Codierungen > Codierung"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Enigma",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Enigma"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Enigma-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Enigma"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Enigma",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Enigma-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Gillogly-Angriff",
+   "Kryptoanalyse > Klassisch > Enigma Hillclimbing Angriff",
+   "Kryptoanalyse > Klassisch > Enigma-Angriff mit Simulated Annealing",
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Turing-Bombe",
+   "Kryptoanalyse > Klassisch > Enigma-Analyse mit Turing-Bombe (mit Weiterschaltung)"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Enigma"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Enigma",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Entropie",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Entropie-Analyse"
+  ]
+ },
+ {
+  "name": "Faktorisierung",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Quadratisches Sieb",
+   "Kryptoanalyse > Generisch > Faktorisierer"
+  ],
+  "ct2Templates": [
+   "Mathematisch > Faktorisierung mit Quadratischem Sieb (QS)",
+   "Mathematisch > Faktorisierung mit Probedivision (Brute-Force)",
+   "Kryptotutorien > Die Welt der Primzahlen > Faktorisierung > Probedivision",
+   "Kryptotutorien > Die Welt der Primzahlen > Faktorisierung > Quadratisches Sieb"
+  ],
+  "wizards": [
+   "Mathematische Funktionen > Primfaktorzerlegung"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "FEAL",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > FEAL"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > FEAL-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Fialka",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Fialka"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Fialka ED Check",
+   "Kryptografie > Klassisch > Fialka ED Mixed Mode Check",
+   "Kryptografie > Klassisch > Fialka ED NumLock10 Check",
+   "Kryptografie > Klassisch > Fialka Schlüsselausgabe",
+   "Kryptografie > Klassisch > Fialka M-125-3 PROTON II",
+   "Kryptografie > Klassisch > Fialka M-125 PROTON I"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "FIPS PUB-140-1",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Fleissner Grille analysis",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Fleißner-Grille-Analyse"
+  ]
+ },
+ {
+  "name": "FORK",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > FORK256"
+  ]
+ },
+ {
+  "name": "FORK MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacFORK256"
+  ]
+ },
+ {
+  "name": "Formatbewahrende Verschlüsselung (FPE)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Formaterhaltende Verschlüsselung (FPE)"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Formaterhaltende Verschlüsselung (XML)",
+   "Kryptografie > Modern > Symmetrisch > Formaterhaltende Verschlüsselung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Friedman-Test",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Friedman-Test"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Friedman-Test für klassische Chiffren"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Friedman-Test"
+  ]
+ },
+ {
+  "name": "Gematria",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Codes > Gematrie"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "GMSS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > GMSSSignature > GMSSwithSHA512",
+   "Signaturen > GMSSSignature > GMSSwithSHA1",
+   "Signaturen > GMSSSignature > GMSSwithSHA224",
+   "Signaturen > GMSSSignature > GMSSwithSHA256",
+   "Signaturen > GMSSSignature > GMSSwithSHA384"
+  ]
+ },
+ {
+  "name": "GOST-Magma-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > GOST Magma"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > GOST Magma-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "GQ-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > IQGQSignature > IQGQ",
+   "Signaturen > IQGQSignature > RIPEMD160withIQGQ"
+  ]
+ },
+ {
+  "name": "Grain",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Grain v1"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Grain v1-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Gronsfeld-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Grøstl",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > Grøstl"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > Grøstl",
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted Grøstl-256",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted Grøstl-256"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hagelin-Maschine",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Hagelin Machine"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Hagelin-Maschine"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hamming-Abstand",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Sonstige > Hamming-Abstand"
+  ],
+  "ct2Templates": [
+   "Mathematisch > Hamming-Abstand"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hash-Algorithmen",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Hash-Sensitivität"
+  ]
+ },
+ {
+  "name": "Hash-Kollisionen",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hashwert einer Datei",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Häufigkeitstest",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Häufigkeitsanalyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Häufigkeitsanalyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Häufigkeits-Analyse"
+  ]
+ },
+ {
+  "name": "HC128",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > HC128"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > HC128-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Heartbleed",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > Heartbleed Test"
+  ],
+  "wizards": [
+   "Werkzeuge > Heartbleed-Analyse"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "HIGHT",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > HIGHT"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "HIGHT-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > HIGHT-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hill-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Hill-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Hill-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Hill-Chiffre",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Histogramm",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "HMAC",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > HMAC"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > HMAC"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Homomorphe Verschlüsselung (HE) (mit RSA, Paillier, Gentry & Hallevi)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Homomorphe Verschlüsselung (HE)"
+  ]
+ },
+ {
+  "name": "Homophone Substitution",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Homophoner Substitutionsanalysator"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Homophone Substitutionsanalyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Homophone Substitutions-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Homophone Substitutions-Chiffre und Nomenklatur – Entschlüsselung",
+   "Kryptografie > Klassisch > Homophone Substitutions-Chiffre und Nomenklatur – Verschlüsselung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "HTTP-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > HTTP-Anfrage"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Huffman",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Werkzeuge > Codierungen > Huffman"
+  ],
+  "ct2Templates": [
+   "Werkzeuge > Huffman-Algorithmus (ASCII)",
+   "Werkzeuge > Huffman-Algorithmus (BMG, JPG)",
+   "Werkzeuge > Huffman-Algorithmus (UTF-8)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Huffman-Codierung"
+  ]
+ },
+ {
+  "name": "IDEA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > IDEA",
+   "Blockchiffren > IDEA > IDEA_CFB",
+   "Blockchiffren > IDEA > IDEA_ECB",
+   "Blockchiffren > IDEA > IDEA_OFB",
+   "Blockchiffren > IDEA > IDEA_CBC"
+  ]
+ },
+ {
+  "name": "IDEA",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "IDEA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacIDEA"
+  ]
+ },
+ {
+  "name": "IDP",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > IDP-Analyse"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ImageHash",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > BildHash"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > BildHash",
+   "Hash-Funktionen > BildHash – Weichzeichnungs-Vergleich"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Inverser Kongruenz-Generator (IKG)",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ISAP Bit-Commitment-Verfahren",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > ISAP Bit-Commitment-Verfahren"
+  ],
+  "ct2Templates": [
+   "Mathematisch > ISAP Bit-Commitment-Verfahren"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "ISBN",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Codes > ISBN-10-Nummer überprüfen",
+   "Codes > ISBN-13-Nummer überprüfen"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Josse cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Josse-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Josse-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Kamasutra-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Kasiski-Test",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Kasiski-Test"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Kasiski-Test und Autokorrelation"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Keccak (hash, cipher,",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > Keccak"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Keccak-Chiffre",
+   "Hash-Funktionen > Keccak-Hash (SHA-3)",
+   "Werkzeuge > Keccak-Pseudozufallszahlengenerator (PRNG)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Key Derivation Function (KDF)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > HKDF SHA-256",
+   "Hash-Funktionen > KKDF SHA-256",
+   "Hash-Funktionen > KKDF SHAKE256"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > KDF-Performance-Vergleich (ohne Präsentation)",
+   "Hash-Funktionen > KDF-Performance-Vergleich (mit Präsentation)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Kleptographie (4 Methoden Primzahlen zu generieren, SETUP-",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Kleptographie"
+  ]
+ },
+ {
+  "name": "Kostenfunktion",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Kostenfunktion"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Kostenfunktionen"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Kryptos K1",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Kryptos K1 Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Kryptos K2",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Kryptos K2 Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "LAMBDA1",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > LAMBDA1"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > LAMBDA1-Blockchiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Länge einer Zahl",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Lattice",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Lattice",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Levenshtein-Abstand",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Levenshtein-Distanz"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "LFSR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Linear rückgekoppeltes Schieberegister (LFSR)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > LFSR"
+  ]
+ },
+ {
+  "name": "Linearer Kongruenz-Generator (LKG)",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "M-138",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > M-138"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > M-138"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "M-138",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > M-138 Analysewerkzeug"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Ciphertext-only-Angriff auf M-138",
+   "Kryptoanalyse > Klassisch > Known-Plaintext-Angriff auf M-138",
+   "Kryptoanalyse > Klassisch > Partially-Known-Plaintext-Angriff auf M-138"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "M209",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > M-209"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > M209-Chiffre",
+   "Kryptografie > Klassisch > M209-Chiffre Schlüsseleingabe"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "M94",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > M94-Testnachrichten von Joseph O. Mauborgne"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "MARS",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > MARS"
+  ]
+ },
+ {
+  "name": "MARS",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "MARS MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacMARS"
+  ]
+ },
+ {
+  "name": "McEliece",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > McEliece-Kryptosystem",
+   "Hybride Verschlüsselung > McElieceFujisakiCipher",
+   "Hybride Verschlüsselung > McElieceKobaraImaiCipher"
+  ]
+ },
+ {
+  "name": "McEliece-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Asymmetrische Blockchiffren > McEliecePKCS"
+  ]
+ },
+ {
+  "name": "MD",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > MD5",
+   "Hash-Funktionen > MD4"
+  ]
+ },
+ {
+  "name": "MD2",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "MD4",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacMD4"
+  ]
+ },
+ {
+  "name": "MD5",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > MD5",
+   "Kryptoanalyse > Spezifisch > MD5-Kollisionsgenerator"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > MD5-Kollisionsfinder",
+   "Hash-Funktionen > MD5 Salted-Hash-Vergleich",
+   "Hash-Funktionen > MD5"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Hash > MD5",
+   "Algorithmen > MAC > HMacMD5",
+   "Authentifizierungscodes > HMac > HmacMD5"
+  ]
+ },
+ {
+  "name": "MD5",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [
+   "Kryptoanalyse > Moderne Verschlüsselung > Hash-Funktionen > MD5"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Merkle-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Merkle-Signaturen (XMSS^MT)",
+   "Signaturen > MerkleOTSSignature > MerkleOTSwithSHA512",
+   "Signaturen > MerkleOTSSignature > MerkleOTSwithSHA384",
+   "Signaturen > MerkleOTSSignature > MerkleOTSwithSHA1",
+   "Signaturen > MerkleOTSSignature > MerkleOTSwithSHA256"
+  ]
+ },
+ {
+  "name": "Mexican-Army-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Mexican Army Cipher Disk"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Mexican Army Cipher Disk"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Mexican-Army-Chiffre",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Mexican Army Cipher Disk-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Brute-Force-Angriff auf die Mexican Army Cipher Disk"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Mickey 2",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Mickey 2"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Mickey 2-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Misty",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > Misty1"
+  ]
+ },
+ {
+  "name": "Misty MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacMisty1"
+  ]
+ },
+ {
+  "name": "ML-KEM (Kyber)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Morse-Code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Werkzeuge > Codierungen > Morsecode"
+  ],
+  "ct2Templates": [
+   "Codes > Morsecode"
+  ],
+  "wizards": [
+   "Codierungen > Morsecode"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Multiplikationschiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Multivariate cryptography",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Multivariate Kryptografie"
+  ]
+ },
+ {
+  "name": "N-Gramm",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Navajo-Code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Navajo-Code"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Niederreiter",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Asymmetrische Blockchiffren > Niederreiter",
+   "Signaturen > NiederreiterCFS"
+  ]
+ },
+ {
+  "name": "Nihilist",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Nihilist-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Nihilisten-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Nihilisten-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "NLFSR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Nichtlinear rückgekoppeltes Schieberegister (NLFSR)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Oblivious Transfer-Protokoll",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Oblivious Transfer 1",
+   "Protokolle > Oblivious Transfer 2"
+  ],
+  "ct2Templates": [
+   "Protokolle > Oblivious Transfer-Protokoll (1 aus n)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "One-time pad (OTP)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > One-Time-Pad-Demo",
+   "Kryptografie > Klassisch > One-time-Pad-Fehlbenutzung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "OpenSSL",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Padding Oracle",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Padding-Orakel",
+   "Kryptoanalyse > Spezifisch > Padding-Orakel-Angriff"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > Padding-Orakel-Angriff auf AES",
+   "Kryptoanalyse > Modern > Padding-Orakel-Angriff auf DES"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Paillier",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > Paillier-Schlüsselgenerator"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Asymmetrisch > Blinde Signatur Paillier",
+   "Kryptografie > Modern > Asymmetrisch > Blinde Signatur RSA",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Wahlen)",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre mit Blinding",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Schlüsselgenerator"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Paillier (homomorphe Verschlüsselung)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > Paillier"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Zahleneingabe)",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre mit Addition",
+   "Kryptografie > Modern > Asymmetrisch > Paillier-Chiffre (Texteingabe)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Password-based key derivation functions",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > PBKDF"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > Passwortbasierte Schlüsselableitungsfunktionen"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Passwort-Hash (SHA-1)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Hash-Funktionen > Passwort-Speicherung mittels Salted SHA-1",
+   "Hash-Funktionen > Passwort-Verifizierung mittels Salted SHA-1"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Passwortqualität",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Sonstige > Passwortstärke"
+  ],
+  "ct2Templates": [
+   "Werkzeuge > Passwortstärke ermitteln"
+  ],
+  "wizards": [
+   "Werkzeuge > Passwort-Stärke"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "PBES2",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Passwortbasierte Chiffren > PBES2"
+  ]
+ },
+ {
+  "name": "PBKDF-1 (PKCS#5 2.0)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Hash-Funktionen > PBKDF-1 (PKCS#5 2.0)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Periodizitäts",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "PKCS#1",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "PKCS#5",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > PKCS#5"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "PKCS#5 AES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > AES mit PKCS#5",
+   "Kryptografie > Modern > Symmetrisch > AES (CBC) mit PKCS#5 und IV",
+   "Kryptografie > Modern > Symmetrisch > AES (ECB) mit PKCS#5"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Playfair",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Playfair-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Playfair-Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Playfair-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Playfair"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Playfair-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Playfair"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Playfair"
+  ]
+ },
+ {
+  "name": "Poker-Test",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Porta",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Potenzieren",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "PRESENT",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > PRESENT"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > PRESENT-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Primzahlen (Generatoren, Tests, Faktorisieren, Tutorien)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Daten-Ein-/Ausgabe > Primzahlgenerator",
+   "Kryptoanalyse > Generisch > Primzahltest"
+  ],
+  "ct2Templates": [
+   "Mathematisch > Nächstkleinere Primzahl",
+   "Mathematisch > Primzahltest",
+   "Mathematisch > Primzahlgenerator",
+   "Kryptotutorien > Die Welt der Primzahlen",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Sieb des Eratosthenes",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Miller-Rabin-Test",
+   "Kryptotutorien > Die Welt der Primzahlen > Primzahltests > Sieb des Atkin",
+   "Kryptotutorien > Die Welt der Primzahlen > Erzeugung von Primzahlen > Erzeugung von Primzahlen",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Zahlengerade",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Zahlengitter",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Anzahl der Primzahlen",
+   "Kryptotutorien > Die Welt der Primzahlen > Verteilung der Primzahlen > Ulam-Spirale"
+  ],
+  "wizards": [
+   "Mathematische Funktionen > Primzahl-Operationen > Primzahl-Erzeugung"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Pseudozufallszahlengenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Zufallszahlen > LFSR",
+   "Werkzeuge > Zufallszahlen > NLFSR",
+   "Werkzeuge > Zufallszahlen > Zufallszahlengenerator"
+  ],
+  "ct2Templates": [
+   "Werkzeuge > Zufallszahlengeneratoren"
+  ],
+  "wizards": [
+   "Werkzeuge > Zufallszahlen"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Public-Key Infrastructure",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Public-Key-Infrastruktur"
+  ]
+ },
+ {
+  "name": "Purple",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Purple"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > PURPLE-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Rabbit",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Rabbit"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Rabbit-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Rabin-Cryptosystem",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Rabin Cryptosystem"
+  ]
+ },
+ {
+  "name": "Railfence",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RAPPOR",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > RAPPOR"
+  ],
+  "ct2Templates": [
+   "Protokolle > RAPPOR"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RC2",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > RC2"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > RC2-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Symmetrische Verschlüsselungsverfahren > RC2"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > RC2 > RC2_CBC",
+   "Passwortbasierte Chiffren > PbeWithSHAAnd40BitRC2_CBC"
+  ]
+ },
+ {
+  "name": "RC2",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RC2 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacRC2"
+  ]
+ },
+ {
+  "name": "RC4",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > RC4"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > RC4-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > ARC4/Spritz",
+   "Visualisierungen > ARC4 / Spritz"
+  ]
+ },
+ {
+  "name": "RC4",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RC5",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > RC5"
+  ]
+ },
+ {
+  "name": "RC5 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacRC5"
+  ]
+ },
+ {
+  "name": "RC6",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Symmetrisch > RC6",
+   "Blockchiffren > RC6"
+  ]
+ },
+ {
+  "name": "RC6",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RC6 MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacRC6"
+  ]
+ },
+ {
+  "name": "Redactable signature schemes (RSS)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Redactable Signature Schemes (RSS)"
+  ]
+ },
+ {
+  "name": "Redefence",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Reziproke Substraktion",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Erweiterter Euklid / Wechselwegnahme"
+  ]
+ },
+ {
+  "name": "RIPEMD",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > RIPEMD160"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > RIPEMD160"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > RIPEMD320",
+   "Hash-Funktionen > RIPEMD128",
+   "Hash-Funktionen > RIPEMD160",
+   "Hash-Funktionen > RIPEMD256"
+  ]
+ },
+ {
+  "name": "RIPEMD MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacRIPEMD256",
+   "Authentifizierungscodes > HMac > HmacRIPEMD128",
+   "Authentifizierungscodes > HMac > HmacRIPEMD160",
+   "Authentifizierungscodes > HMac > HmacRIPEMD320"
+  ]
+ },
+ {
+  "name": "RIPEMD-160",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Rotationschiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RSA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Asymmetrisch > RSA",
+   "Moderne Verfahren > Asymmetrisch > RSA-Schlüsselgenerator"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Asymmetrisch > RSA mit großen Zahlen",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Chiffre",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Entschlüsselung",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Verschlüsselung",
+   "Kryptografie > Modern > Asymmetrisch > RSA-Schlüsselgenerator"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Asymmetrische Verschlüsselungsverfahren > RSA > RSA-Verschlüsselung",
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Asymmetrische Verschlüsselungsverfahren > RSA > RSA-Entschlüsselung"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Asymmetrisch > RSA",
+   "Visualisierungen > Erweitertes RSA-Kryptosystem",
+   "Asymmetrische Blockchiffren > RprimeRSA",
+   "Asymmetrische Blockchiffren > RSA",
+   "Asymmetrische Blockchiffren > RbRSA"
+  ]
+ },
+ {
+  "name": "RSA",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > RSA-Angriff auf gemeinsamen Faktor"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Moderne Verschlüsselung > Asymmetrische Verschlüsselung > RSA"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RSA",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RSA-AES",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "RSA-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Signaturen > RprimeRSA",
+   "Signaturen > RSASignaturePKCS1v15 > RIPEMD160/RSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA384withRSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA1/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > SHA512withRSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA384/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > MD5withRSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA224/RSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA256withRSA",
+   "Signaturen > RSASignaturePKCS1v15 > SHA1/RSA",
+   "Signaturen > RSASignaturePKCS1v15 > MD5/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > SHA512/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > SHA224/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > RIPEMD160/RSA/RAW",
+   "Signaturen > RSASignaturePKCS1v15 > SHA256/RSA/RAW",
+   "Signaturen > RbRSA",
+   "Signaturen > SSL_MD5andSHA1withRSA"
+  ]
+ },
+ {
+  "name": "Rucksackproblem",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Merkle-Hellman Rucksack-Verschlüsselung"
+  ]
+ },
+ {
+  "name": "Runs-Test",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SAFER+",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > SAFER+",
+   "Authentifizierungscodes > CBCMac > CBCmacSAFER+"
+  ]
+ },
+ {
+  "name": "SAFER++",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > SAFER++",
+   "Authentifizierungscodes > CBCMac > CBCmacSAFER++"
+  ]
+ },
+ {
+  "name": "Salsa20",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Salsa20"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Salsa20-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SAT-Solver",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > SAT-Solver"
+  ],
+  "ct2Templates": [
+   "Mathematisch > SAT-Solver (Dateieingabe)",
+   "Mathematisch > SAT-Solver (Texteingabe)"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Schlüssel anzeigen/exportieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Schlüssel aus Passwort generieren (PKCS#5)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Schlüssel erzeugen/importieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Schlüsselaustausch (BB84)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > BB84-Schlüsselaustausch mit Lauschangriff",
+   "Protokolle > BB84-Schlüsselaustausch"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Schlüsselaustausch (Diffie-Hellman DH)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > Diffie-Hellman-Schlüsselaustausch",
+   "Protokolle > Diffie-Hellman-Schlüsselaustausch über Netzwerk"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Diffie-Hellman Schlüsselaustausch (EC)"
+  ]
+ },
+ {
+  "name": "Schlüsselaustausch (multipartit)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Mehrparteien-Schlüsselaustausch (BD II)"
+  ]
+ },
+ {
+  "name": "Schlüsselsuche",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Schlüsselsucher"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SDES",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > SDES"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > SDES-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Symmetrische Verschlüsselungsverfahren > SDES"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SDES",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > SDES Brute-Force-Analyse",
+   "Kryptoanalyse > Modern > SDES-Analyse per Entropie",
+   "Kryptoanalyse > Modern > SDES Known-Plaintext-Analyse"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Moderne Verschlüsselung > Symmetrische Verschlüsselung > SDES > Ciphertext-only",
+   "Kryptoanalyse > Moderne Verschlüsselung > Symmetrische Verschlüsselung > SDES > Bekannter Klartext"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Serial-Test",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Serpent",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > Serpent > Serpent192_CBC",
+   "Blockchiffren > Serpent > Serpent192_CFB",
+   "Blockchiffren > Serpent > Serpent128_OFB",
+   "Blockchiffren > Serpent > Serpent256_ECB",
+   "Blockchiffren > Serpent > Serpent256_OFB",
+   "Blockchiffren > Serpent > Serpent256_CFB",
+   "Blockchiffren > Serpent > Serpent128_ECB",
+   "Blockchiffren > Serpent > Serpent192_OFB",
+   "Blockchiffren > Serpent > Serpent192_ECB",
+   "Blockchiffren > Serpent > Serpent128_CBC",
+   "Blockchiffren > Serpent > Serpent128_CFB",
+   "Blockchiffren > Serpent > Serpent256_CBC"
+  ]
+ },
+ {
+  "name": "Serpent",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Serpent MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacSerpent"
+  ]
+ },
+ {
+  "name": "SHA",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Hash-Funktionen > SHA"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > SHA-1-Kollision",
+   "Hash-Funktionen > SHA-1",
+   "Hash-Funktionen > SHA-256"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Hash > SHA-256",
+   "Algorithmen > Zufallszahlengenerator > SHA-1",
+   "Algorithmen > Hash > SHA-3-Kandidaten",
+   "Hash-Funktionen > SHA384",
+   "Hash-Funktionen > SHA224",
+   "Hash-Funktionen > SHA1",
+   "Hash-Funktionen > SHA256",
+   "Hash-Funktionen > SHA512",
+   "Pseudo-Zufallszahlengeneratoren > SHA1PRNG"
+  ]
+ },
+ {
+  "name": "SHA MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacSHA512",
+   "Authentifizierungscodes > HMac > HmacSHA1",
+   "Authentifizierungscodes > HMac > HmacSHA224",
+   "Authentifizierungscodes > HMac > HmacSHA256",
+   "Authentifizierungscodes > HMac > HmacSHA384"
+  ]
+ },
+ {
+  "name": "Shacal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > Shacal",
+   "Blockchiffren > Shacal2"
+  ]
+ },
+ {
+  "name": "Shacal MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacShacal",
+   "Authentifizierungscodes > CBCMac > CBCmacShacal2"
+  ]
+ },
+ {
+  "name": "Shamir's secret sharing",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Shamirs Secret Sharing"
+  ]
+ },
+ {
+  "name": "Shamir's Secret Sharing",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Shanks Babystep-Giantstep",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Shanks Babystep-Giantstep"
+  ]
+ },
+ {
+  "name": "Sichere E-Mail (S/MIME)",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Sicherer Chat – Angewandte Kryptografie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Werkzeuge > Einfacher Video-Audio-Chat mit AES-Verschlüsselung",
+   "Werkzeuge > Diffie-Hellman AES-Video-Audio-Chat",
+   "Werkzeuge > Einfacher AES-Chat"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SIGABA cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > SIGABA"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > SIGABA-Chiffriermaschine"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Signatur",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Signatur-Demo"
+  ]
+ },
+ {
+  "name": "Signatur extrahieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Signatur verifizieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Signatur-Verifikation"
+  ]
+ },
+ {
+  "name": "Simple Kommunikation mit mehreren Clients – Angewandte Kryptografie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Protokolle > Einfache Multi-Client-Kommunikation"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Skytale",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Skytale"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Skytale-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Skytale"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Skytale",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Skytale Brute-Force-Analyse"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Skytale"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Skytale / Gartenzaun",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Solitaire",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Solitaire"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Solitaire-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Solitaire",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Solitaire-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Solitaire Brute-Force-Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Sosemanuk",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Sosemanuk"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Sosemanuk-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Spanische Streifenchiffre (SSC)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Spanische Streifen-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Spanische Streifen-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Speck-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Speck"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Speck-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "SPHINCS-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > SPHINCS-Signatur"
+  ]
+ },
+ {
+  "name": "SPHINCS+ signature",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > SPHINCS+-Signatur"
+  ]
+ },
+ {
+  "name": "Steganographie",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Steganografie > Bild-Steganografie",
+   "Steganografie > Text-Steganografie"
+  ],
+  "ct2Templates": [
+   "Steganografie > Bild-Steganografie mit BPCS",
+   "Steganografie > Bild-Steganografie mit LSB",
+   "Steganografie > Text-Steganografie mit Großbuchstaben (binärer Modus)",
+   "Steganografie > Text-Steganografie mit Großbuchstaben",
+   "Steganografie > Text-Steganografie mit Zeichenmarkierung (binärer Modus)",
+   "Steganografie > Text-Steganografie mit Zeichenmarkierung",
+   "Steganografie > Text-Steganografie mit Leerzeichen ohne Breite"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Straddling checkerboard cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Straddling-Checkerboard"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Straddling-Checkerboard"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Substitution",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Substitution"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Substitutions-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Substitution"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Substitution"
+  ]
+ },
+ {
+  "name": "Substitution",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Monoalphabetische Substitutionsanalyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Angriff auf die monoalphabetische Substitution",
+   "Kryptoanalyse > Klassisch > Angriff auf die monoalphabetische Substitution mit beliebigem Geheimtextalphabet"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Monoalphabetische Substitution"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Substitutions-Analyse"
+  ]
+ },
+ {
+  "name": "Substitution cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Substitutions-Chiffre mit Schlüsselwort"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Syllabary-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Syllabar-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Syllabar-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "T-310",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > T-310"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > T-310/50 Chiffriermaschine",
+   "Kryptografie > Klassisch > T-310/51 Chiffriermaschine"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "T9 code",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Codierungen > T9-Code"
+  ],
+  "ct2Templates": [
+   "Codes > T9-Code"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "TEA",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > TEA"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > TEA-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Moderne Verschlüsselungsverfahren > Symmetrische Verschlüsselungsverfahren > TEA"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Teilerspiel",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Spiele > Teilerspiel"
+  ]
+ },
+ {
+  "name": "Threefish",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Threefish-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Tiger",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > Tiger"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > Tiger"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > Tiger"
+  ]
+ },
+ {
+  "name": "Tiger MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > HMac > HmacTiger"
+  ]
+ },
+ {
+  "name": "TLS handshake",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > SSL/TLS-Handshake"
+  ]
+ },
+ {
+  "name": "Transkriptor",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Transkriptor"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Transkriptor im manuellen Modus",
+   "Kryptoanalyse > Klassisch > Transkriptor im semi-automatischen Modus"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Transposition (ein-stufige Spaltentransposition)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Transposition"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Transpositions-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Transposition"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Transposition"
+  ]
+ },
+ {
+  "name": "Transposition (zwei-stufige Spaltentransposition) (Doppelwürfel)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Doppelte Spaltentransposition"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Transposition (zwei-stufige Spaltentransposition) (Doppelwürfel)",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Wörterbuchangriff auf die doppelte Spaltentransposition"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Transposition",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Transpositions-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Transposition Brute-Force-Analyse",
+   "Kryptoanalyse > Klassisch > Transposition Crib-Analyse",
+   "Kryptoanalyse > Klassisch > Transposition Genetische Analyse",
+   "Kryptoanalyse > Klassisch > Transposition Hill-Climbing-Analyse"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Transposition > Brute-force",
+   "Kryptoanalyse > Klassische Verschlüsselung > Transposition > Genetisch"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Transpositions-Analyse"
+  ]
+ },
+ {
+  "name": "Trifid-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > Trifid-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Trifid-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Triple-DES (3DES)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Triple-DES-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Passwortbasierte Chiffren > PbeWithSHAAnd3_KeyTripleDES_CBC"
+  ]
+ },
+ {
+  "name": "Triple-DES (3DES)",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Modern > Triple-DES Brute-Force-Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Trithemius",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Trivium",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Trivium"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Trivium-Chiffre",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Trivium-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Twofish",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Twofish-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Blockchiffren > Twofish"
+  ]
+ },
+ {
+  "name": "Twofish",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Twofish MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > CBCMac > CBCmacTwofish"
+  ]
+ },
+ {
+  "name": "TwoTrack MAC",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Authentifizierungscodes > TwoTrackMac > TwoTrackMac160",
+   "Authentifizierungscodes > TwoTrackMac > TwoTrackMac64",
+   "Authentifizierungscodes > TwoTrackMac > TwoTrackMac32",
+   "Authentifizierungscodes > TwoTrackMac > TwoTrackMac96",
+   "Authentifizierungscodes > TwoTrackMac > TTmac128"
+  ]
+ },
+ {
+  "name": "UU decodieren/encodieren",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "VCard",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Codes > vCard"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Verifiable Secret Sharing (VSS)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Verifiable-Secret-Sharing"
+  ]
+ },
+ {
+  "name": "Vernam",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Vernam"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Vernam-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Vernam",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Verschlüsselung mit AES und Passwort",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [
+   "Werkzeuge > Verschlüsseln mit Passwort"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "VIC cipher",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Klassische Verfahren > VIC-Chiffre"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > VIC-Chiffre"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Vigenère",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Kryptoanalyse > Spezifisch > Vigenère-Analyse"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Vigenère-Analyse"
+  ],
+  "wizards": [
+   "Kryptoanalyse > Klassische Verschlüsselung > Vigenère"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Vigenère-Breaker"
+  ]
+ },
+ {
+  "name": "Vigenère",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Vigenère-Chiffre",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > Vigenère"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > Vigenère-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > Vigenère"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > Autokey-Vigenère",
+   "Algorithmen > Klassisch > Vigenère"
+  ]
+ },
+ {
+  "name": "Visual cryptography",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Moderne Verfahren > Symmetrisch > Visuelle Kryptografie"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Modern > Symmetrisch > Visuelle Kryptografie"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Visuelle Codes (QR, EAN8, WAN13, Code39, Code128, PDF417)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Werkzeuge > Codierungen > Visueller Decodierer",
+   "Werkzeuge > Codierungen > Visueller Codierer"
+  ],
+  "ct2Templates": [
+   "Codes > RSA-signierter QR-Code",
+   "Codes > QR-Code verschlüsseln",
+   "Codes > QR-Code-Datei decodieren",
+   "Codes > Optische Codes erkennen",
+   "Codes > QR-Code erstellen"
+  ],
+  "wizards": [
+   "Codierungen > Erstelle visuellen Code",
+   "Codierungen > Decodiere visuellen Code"
+  ],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Vitányi",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Viterbi",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Analysen > Viterbi-Analyse"
+  ]
+ },
+ {
+  "name": "VSH",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Hash-Funktionen > VSH"
+  ]
+ },
+ {
+  "name": "Wasserzeichen erstellen",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Steganografie > Wasserzeichen-Generator"
+  ],
+  "ct2Templates": [
+   "Steganografie > Wasserzeichen-Erzeuger – Unsichtbares Wasserzeichen",
+   "Steganografie > Wasserzeichen-Erzeuger – Robustheit",
+   "Steganografie > Wasserzeichen-Erzeuger – Sichtbares Wasserzeichen"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Web-Terminal",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "WEP",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > WEP-Protokoll"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "WEP",
+  "kinds": [
+   "attack"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Angriffe auf das WEP-Protokoll"
+  ],
+  "ct2Templates": [
+   "Protokolle > WEP-Angriff"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Werkzeuge",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [
+   "Werkzeuge > Sonstige > Byte-Array-Operationen",
+   "Kryptoanalyse > Generisch > Wörterbuch-Suche",
+   "Werkzeuge > Sonstige > Rechenoperationen",
+   "Werkzeuge > Sonstige > Fortschritt"
+  ],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Whirlpool",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > Whirlpool"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > Whirlpool"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Winternitz-Signatur",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Winternitz Einmal-Signatur (WOTS / WOTS+)",
+   "Signaturen > CMSSSignature > CMSSwithSHA512andWinternitzOTS_1",
+   "Signaturen > CMSSSignature > CMSSwithSHA512andWinternitzOTS_3",
+   "Signaturen > CMSSSignature > CMSSwithSHA256andWinternitzOTS_4",
+   "Signaturen > CMSSSignature > CMSSwithSHA1andWinternitzOTS_1",
+   "Signaturen > CMSSSignature > CMSSwithSHA512andWinternitzOTS_2",
+   "Signaturen > CMSSSignature > CMSSwithSHA256andWinternitzOTS_3",
+   "Signaturen > CMSSSignature > CMSSwithSHA384andWinternitzOTS_3",
+   "Signaturen > CMSSSignature > CMSSwithSHA384andWinternitzOTS_4",
+   "Signaturen > CMSSSignature > CMSSwithSHA384andWinternitzOTS_2",
+   "Signaturen > CMSSSignature > CMSSwithSHA384andWinternitzOTS_1",
+   "Signaturen > CMSSSignature > CMSSwithSHA256andWinternitzOTS_1",
+   "Signaturen > CMSSSignature > CMSSwithSHA1andWinternitzOTS_4",
+   "Signaturen > CMSSSignature > CMSSwithSHA1andWinternitzOTS_2",
+   "Signaturen > CMSSSignature > CMSSwithSHA512andWinternitzOTS_4",
+   "Signaturen > CMSSSignature > CMSSwithSHA1andWinternitzOTS_3"
+  ]
+ },
+ {
+  "name": "Wörterbuchangriff",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Hash-Funktionen > Wörterbuch-Angriff auf einen Passwort-Hash-Wert"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Wortmuster",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Kryptoanalyse > Generisch > Wortmuster"
+  ],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Wortmusteranalyse",
+   "Kryptoanalyse > Klassisch > Wortmusteranalyse mit selbstdefiniertem Wörterbuch"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "X^2 (mod N) Zufallsgenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "XOR",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [
+   "Klassische Verfahren > XOR"
+  ],
+  "ct2Templates": [
+   "Kryptografie > Klassisch > XOR-Chiffre"
+  ],
+  "wizards": [
+   "Verschlüsselungsverfahren > Klassische Verschlüsselungsverfahren > XOR"
+  ],
+  "ct1Where": [],
+  "jctWhere": [
+   "Algorithmen > Klassisch > XOR"
+  ]
+ },
+ {
+  "name": "Yaos Millionärsproblem",
+  "kinds": [
+   "mpc"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Yao 1",
+   "Protokolle > Yao 2",
+   "Protokolle > Yao 3"
+  ],
+  "ct2Templates": [
+   "Protokolle > Yaos Millionärs-Problem-Protokoll"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zahlenhai (Number Shark, Taxman)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Spiele > Zahlenhai"
+  ]
+ },
+ {
+  "name": "Zahlentheorie (siehe auch Primzahlen)",
+  "kinds": [],
+  "ct1": true,
+  "ct2": true,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Mathematisch > Rechnen mit großen Zahlen",
+   "Mathematisch > Linearer Kongruenzen-Generator",
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Zahlentheoretische Funktionen",
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Primitivwurzeln",
+   "Kryptotutorien > Die Welt der Primzahlen > Zahlentheorie > Goldbach-Vermutung"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zero Knowledge-Protokoll",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [
+   "Protokolle > Zero-Knowledge-Beweiser",
+   "Protokolle > Zero-Knowledge-Verifizierer"
+  ],
+  "ct2Templates": [
+   "Protokolle > Zero Knowledge-Protokoll"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Zero-Knowledge: Magische Tür",
+   "Visualisierungen > Zero-Knowledge: Fiat-Shamir",
+   "Visualisierungen > Zero-Knowledge: Feige-Fiat-Shamir",
+   "Visualisierungen > Zero-Knowledge: Graphenisomorphie"
+  ]
+ },
+ {
+  "name": "Zertifikate verifizieren",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Visualisierungen > Zertifikat-Verifikation"
+  ]
+ },
+ {
+  "name": "Zip/Unzip",
+  "kinds": [],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zodiac-408",
+  "kinds": [
+   "analysis"
+  ],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [
+   "Kryptoanalyse > Klassisch > Zodiac-408-Analyse"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zudo-Ku",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": true,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": [
+   "Spiele > Zudo-Ku"
+  ]
+ },
+ {
+  "name": "Zufall",
+  "kinds": [
+   "visualization"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zufallsgenerator",
+  "kinds": [
+   "prng"
+  ],
+  "ct1": true,
+  "ct2": false,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zwei-Faktor Authentisierung",
+  "kinds": [],
+  "ct1": false,
+  "ct2": false,
+  "jct": false,
+  "cto": true,
+  "ct2Components": [],
+  "ct2Templates": [],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ },
+ {
+  "name": "Zyklische Redundanzprüfung (CRC)",
+  "kinds": [],
+  "ct1": false,
+  "ct2": true,
+  "jct": false,
+  "cto": false,
+  "ct2Components": [
+   "Hash-Funktionen > CRC"
+  ],
+  "ct2Templates": [
+   "Hash-Funktionen > CRC Nullprobleme",
+   "Hash-Funktionen > CRC"
+  ],
+  "wizards": [],
+  "ct1Where": [],
+  "jctWhere": []
+ }
+]

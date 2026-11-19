@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: FIPS140-1.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">FIPS 140-1 Test</title>
+  <summary lang="en">Testing random numbers with the <i>FIPS 140-1 Test</i></summary>
+  <description lang="en">The four statistical tests of FIPS 140-1 (monobit, poker, runs and long run) on 20000 bits from a random number generator.</description>
+  <keywords lang="en">FIPS 140-1, randomness, monobit, poker, runs, long run</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\b Random Number Generator} produces 2500 bytes (20000 bits). The {\b Randomness Tests} component applies the four tests of FIPS 140-1 and reports the result of each. A good generator fails such a test by chance about once in a hundred runs (significance level 0.01), so a single failure proves nothing." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">FIPS-140-1-Test</title>
+  <summary lang="de">Zufallszahlen prüfen mit dem <i>FIPS-140-1-Test</i></summary>
+  <description lang="de">Die vier statistischen Tests aus FIPS 140-1 (Monobit, Poker, Runs und Long Run) über 20000 Bits eines Zufallszahlengenerators.</description>
+  <keywords lang="en">FIPS 140-1, randomness, monobit, poker, runs, long run</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der {\b Zufallszahlengenerator} erzeugt 2500 Bytes (20000 Bits). Die Komponente {\b Zufallstests} wendet die vier Tests aus FIPS 140-1 an und meldet das Ergebnis jedes Tests. Ein guter Generator fällt bei einem solchen Test zufällig etwa einmal in hundert Durchläufen durch (Signifikanzniveau 0,01), ein einzelnes Durchfallen beweist also nichts." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="FIPS140-1.png" />
+  <relevantPlugins>
+    <plugin name="RandomnessTests" />
+  </relevantPlugins>
+</sample>

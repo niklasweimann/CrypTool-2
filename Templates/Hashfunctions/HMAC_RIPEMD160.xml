@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HMAC_RIPEMD160.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">HMAC with RIPEMD-160 (RIPEMD MAC)</title>
+  <summary lang="en">Message authentication code with <i>HMAC-RIPEMD-160</i></summary>
+  <description lang="en">A message authentication code (MAC) protects the integrity and the origin of a message. This template computes it as HMAC with the hash function RIPEMD-160.</description>
+  <keywords lang="en">HMAC, RIPEMD, MAC</keywords>
+  <replacements lang="en">
+    <replacement key="$IPAD constant$" value="IPAD constant" />
+    <replacement key="$OPAD constant$" value="OPAD constant" />
+    <replacement key="$Converter$" value="Converter" />
+    <replacement key="$Message$" value="Message" />
+    <replacement key="$Concatenate$" value="Concatenate" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$HMAC key$" value="HMAC key" />
+    <replacement key="$memo$" value="The {\b HMAC} component computes a MAC from a message and a secret key. Here the hash function is RIPEMD-160; other hash functions can be chosen in the settings." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">HMAC mit RIPEMD-160 (RIPEMD-MAC)</title>
+  <summary lang="de">Nachrichten-Authentifizierungscode mit <i>HMAC-RIPEMD-160</i></summary>
+  <description lang="de">Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage berechnet ihn als HMAC mit der Hashfunktion RIPEMD-160.</description>
+  <keywords lang="en">HMAC, RIPEMD, MAC</keywords>
+  <replacements lang="de">
+    <replacement key="$IPAD constant$" value="IPAD-Konstante" />
+    <replacement key="$OPAD constant$" value="OPAD-Konstante" />
+    <replacement key="$Converter$" value="Konvertierer" />
+    <replacement key="$Message$" value="Nachricht" />
+    <replacement key="$Concatenate$" value="Konkatenation" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$HMAC key$" value="HMAC-Schlüssel" />
+    <replacement key="$memo$" value="Die {\b HMAC}-Komponente berechnet aus einer Nachricht und einem geheimen Schlüssel einen MAC. Hier ist die Hashfunktion RIPEMD-160; andere Hashfunktionen können in den Einstellungen gewählt werden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HMAC_RIPEMD160.png" />
+  <relevantPlugins>
+    <plugin name="Concatenate" />
+    <plugin name="HMAC" />
+    <plugin name="MD5" />
+    <plugin name="Xor" />
+  </relevantPlugins>
+</sample>

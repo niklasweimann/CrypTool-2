@@ -12,6 +12,9 @@
 //   settings <tpl>      print the stored settings of a template's components
 //   runtype <type>      run every template containing the component type, with timings
 //   palette <out.json>  write the palette entries found in the templates
+//   derive <base.cwm> <out.cwm> <edits.json>   copy a template and change component settings (tools-gen-derived-templates.py)
+//   kat                 known-answer tests of the components added for the function list (ComponentTests.cs)
+//   functions [file]  coverage of the CrypTool function list (reference/functions.json, made by tools-gen-functions.py)
 //   culture | bindtest | triggertest | present3d     checks of single features
 using CrypWeb.Tests;
 
@@ -54,6 +57,25 @@ switch (command)
         break;
     case "runtype" when args.Length > 2:
         await DebugCommands.RunType(templateFolder, args);
+        break;
+    case "derive" when args.Length > 4:
+        Environment.ExitCode = DeriveCommand.Run(args) ? 0 : 1;
+        break;
+    case "api" when args.Length > 2:   // lists the public constructors and methods of BouncyCastle types whose name contains args[2]
+        foreach (var type in typeof(Org.BouncyCastle.Crypto.IDigest).Assembly.GetTypes().Where(t => t.IsPublic && t.Name.Contains(args[2], StringComparison.OrdinalIgnoreCase)))
+        {
+            Console.WriteLine(type.FullName);
+            foreach (var f in type.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)) Console.WriteLine("   field " + f.FieldType.Name + " " + f.Name);
+            foreach (var c in type.GetConstructors()) Console.WriteLine("   new(" + string.Join(", ", c.GetParameters().Select(p => p.ParameterType.Name + " " + p.Name)) + ")");
+            foreach (var m in type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.DeclaredOnly).Where(m => !m.IsSpecialName))
+                Console.WriteLine("   " + (m.IsStatic ? "static " : "") + m.ReturnType.Name + " " + m.Name + "(" + string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name + " " + p.Name)) + ")");
+        }
+        break;
+    case "kat":
+        Environment.ExitCode = ComponentTests.Run() ? 0 : 1;
+        break;
+    case "functions":
+        Environment.ExitCode = FunctionsCommand.Run(templateFolder, args) ? 0 : 1;
         break;
     case "palette":
         DebugCommands.Palette(templateFolder, args[2]);

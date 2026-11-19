@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The entropy measures how unpredictable data is. Shannon's entropy of the symbols of a text is H = -sum p(x) * log2 p(x), where p(x) is the relative frequency of the symbol x. It is the number of bits per symbol that an ideal compression would need on average.
+    A text in English has about 4 to 4.5 bits per byte, a ciphertext of a good cipher and random data are close to the maximum of 8 bits per byte. A substitution cipher does not change the entropy of single letters, which is why the entropy cannot tell it from the plaintext, whereas it shows a cipher that leaves much structure; for pairs of bytes the maximum is 16 bits.
+    The difference to the maximum is the redundancy, the part of the data that carries no information.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Entropie misst, wie unvorhersagbar Daten sind. Die Shannon-Entropie der Symbole eines Textes ist H = -Summe p(x) * log2 p(x), wobei p(x) die relative Häufigkeit des Symbols x ist. Sie ist die Anzahl der Bits je Symbol, die eine ideale Kompression im Mittel bräuchte.
+    Ein englischer Text hat etwa 4 bis 4,5 Bit je Byte, der Geheimtext einer guten Chiffre und Zufallsdaten liegen nahe am Höchstwert von 8 Bit je Byte. Eine Substitutions-Chiffre ändert die Entropie einzelner Buchstaben nicht, daher kann die Entropie sie nicht vom Klartext unterscheiden, zeigt aber eine Chiffre, die viel Struktur lässt; bei Bytepaaren liegt der Höchstwert bei 16 Bit.
+    Der Abstand zum Höchstwert ist die Redundanz, der Teil der Daten, der keine Information trägt.
+  </introduction>
+  <usage lang="en">
+    The data is expected as a byte array on the input "Data". The output "Entropy" is the Shannon entropy in bits per symbol, the output "Report" describes it in words. In the settings you choose whether a symbol is a byte or a pair of bytes (non-overlapping).
+  </usage>
+  <usage lang="de-DE">
+    Die Daten werden als Byte-Array am Eingang "Daten" erwartet. Der Ausgang "Entropie" ist die Shannon-Entropie in Bit je Symbol, der Ausgang "Bericht" beschreibt sie in Worten. In den Einstellungen wählen Sie, ob ein Symbol ein Byte oder ein Bytepaar (ohne Überlappung) ist.
+  </usage>
+</documentation>

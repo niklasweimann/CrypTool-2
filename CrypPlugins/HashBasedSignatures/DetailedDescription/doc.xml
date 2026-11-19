@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    RSA and elliptic curve signatures would be broken by a large quantum computer. Hash-based signatures rest on hash functions alone and are believed to resist it.
+    Their building block is a one-time signature, for example Winternitz's: the private key is a set of random values, the public key their repeated hashes; to sign, every part of the message hash is "revealed" by hashing a value a number of times that depends on that part. A key may sign only once, since a second signature would reveal more values.
+    A Merkle tree makes many signatures out of it: the public key is the root of a tree of hash values whose leaves are the one-time public keys, and a signature contains the one-time signature and the path from its leaf to the root. This is the LMS scheme (RFC 8554). It is stateful: the signer must remember which leaves are used, which is why signing returns the updated private key; reusing a key state breaks security.
+    SPHINCS+ avoids the state with a tree of trees (a hypertree) and many few-time signatures, at the price of larger signatures (about 8 to 30 KB) and slower signing.
+  </introduction>
+  <introduction lang="de-DE">
+    RSA- und Elliptische-Kurven-Signaturen würden von einem großen Quantencomputer gebrochen. Hashbasierte Signaturen beruhen nur auf Hashfunktionen und sollen ihm widerstehen.
+    Ihr Baustein ist eine Einmalsignatur, zum Beispiel die von Winternitz: Der private Schlüssel ist eine Menge zufälliger Werte, der öffentliche ihre mehrfach gehashten Werte; zum Signieren wird jeder Teil des Nachrichten-Hashwerts "enthüllt", indem ein Wert so oft gehasht wird, wie dieser Teil angibt. Ein Schlüssel darf nur einmal signieren, denn eine zweite Signatur würde mehr Werte enthüllen.
+    Ein Merkle-Baum macht daraus viele Signaturen: Der öffentliche Schlüssel ist die Wurzel eines Baums aus Hashwerten, dessen Blätter die öffentlichen Einmalschlüssel sind, und eine Signatur enthält die Einmalsignatur und den Pfad von ihrem Blatt zur Wurzel. Das ist das LMS-Verfahren (RFC 8554). Es hat einen Zustand: Der Signierende muss sich merken, welche Blätter verbraucht sind, daher liefert das Signieren den aktualisierten privaten Schlüssel; ein wiederverwendeter Schlüsselzustand zerstört die Sicherheit.
+    SPHINCS+ vermeidet den Zustand durch einen Baum aus Bäumen (Hypertree) und viele Wenigmal-Signaturen, zum Preis größerer Signaturen (etwa 8 bis 30 KB) und langsameren Signierens.
+  </introduction>
+  <usage lang="en">
+    Choose the action and the scheme in the settings. "Generate key pair" writes the keys; for LMS the output "Signatures left" is 2^h. "Sign" needs "Message" and "Private key" and writes "Signature"; with LMS it also writes the updated private key (use it for the next signature!) and the signatures left. "Verify" needs "Message", "Public key" and "Signature" and sets "Valid". The same scheme and parameters must be chosen for all three actions. Generating an LMS key of height 10 or a SPHINCS+ signature of the "s" sets takes a while.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Aktion und das Verfahren. "Schlüsselpaar erzeugen" schreibt die Schlüssel; bei LMS ist der Ausgang "Verbleibende Signaturen" gleich 2^h. "Signieren" braucht "Nachricht" und "Privater Schlüssel" und schreibt "Signatur"; bei LMS schreibt es außerdem den aktualisierten privaten Schlüssel (für die nächste Signatur verwenden!) und die verbleibenden Signaturen. "Prüfen" braucht "Nachricht", "Öffentlicher Schlüssel" und "Signatur" und setzt "Gültig". Für alle drei Aktionen müssen dasselbe Verfahren und dieselben Parameter gewählt sein. Das Erzeugen eines LMS-Schlüssels der Höhe 10 oder eine SPHINCS+-Signatur der "s"-Sätze dauert etwas.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://www.rfc-editor.org/rfc/rfc8554" lang="en" />
+      <caption lang="en">RFC 8554: Leighton-Micali Hash-Based Signatures</caption>
+      <caption lang="de-DE">RFC 8554: Leighton-Micali Hash-Based Signatures</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://sphincs.org/" lang="en" />
+      <caption lang="en">SPHINCS+</caption>
+      <caption lang="de-DE">SPHINCS+</caption>
+    </linkReference>
+  </references>
+</documentation>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: InverseCongruentialGenerator.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Inverse Congruential Generator (ICG)</title>
+  <summary lang="en">Pseudo-random numbers with the <i>inverse congruential generator</i></summary>
+  <description lang="en">The inverse congruential generator computes x(i+1) = a * x(i)^-1 + b mod p for a prime p, where x^-1 is the modular inverse. In contrast to the linear congruential generator its output has no lattice structure.</description>
+  <keywords lang="en">ICG, inverse congruential, pseudo-random, generator</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The modulus p = 1000000007 is prime, so every non-zero value has an inverse. a, b, the seed and the modulus can be changed in the settings of the {\b Random Number Generator} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Inverser Kongruenzgenerator (IKG)</title>
+  <summary lang="de">Pseudozufallszahlen mit dem <i>inversen Kongruenzgenerator</i></summary>
+  <description lang="de">Der inverse Kongruenzgenerator berechnet x(i+1) = a * x(i)^-1 + b mod p für eine Primzahl p, wobei x^-1 das modulare Inverse ist. Anders als beim linearen Kongruenzgenerator hat seine Ausgabe keine Gitterstruktur.</description>
+  <keywords lang="en">ICG, inverse congruential, pseudo-random, generator</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Modul p = 1000000007 ist eine Primzahl, daher hat jeder Wert außer 0 ein Inverses. a, b, Startwert und Modul können in den Einstellungen der Komponente {\b Zufallszahlengenerator} geändert werden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="InverseCongruentialGenerator.png" />
+  <relevantPlugins>
+    <plugin name="RandomNumberGenerator" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_RSA_PSS.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">RSA-PSS Signature</title>
+  <summary lang="en">Key generation, signing and verification with <i>RSA-PSS Signature</i></summary>
+  <description lang="en">Digital signature with RSA and the probabilistic signature scheme PSS (PKCS#1 v2.1).</description>
+  <keywords lang="en">RSA, PSS, signature, probabilistic</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="PSS adds a random salt, so signing the same message twice gives different signatures that are both valid. The first {\b Digital Signatures} component generates a key pair, the second signs the message with the private key, the third verifies the signature with the public key. Change the message in the text input and the algorithm, hash function and key size in the settings of the components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">RSA-PSS-Signatur</title>
+  <summary lang="de">Schlüsselerzeugung, Signieren und Prüfen mit <i>RSA-PSS-Signatur</i></summary>
+  <description lang="de">Digitale Signatur mit RSA und dem probabilistischen Signaturverfahren PSS (PKCS#1 v2.1).</description>
+  <keywords lang="en">RSA, PSS, signature, probabilistic</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="PSS fügt ein Zufallssalz hinzu, dieselbe Nachricht ergibt beim zweimaligen Signieren also verschiedene Signaturen, die beide gültig sind. Die erste Komponente {\b Digitale Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht mit dem privaten Schlüssel, die dritte prüft die Signatur mit dem öffentlichen Schlüssel. Nachricht, Verfahren, Hashfunktion und Schlüssellänge lassen sich in der Texteingabe und in den Einstellungen der Komponenten ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_RSA_PSS.png" />
+  <relevantPlugins>
+    <plugin name="DigitalSignatures" />
+  </relevantPlugins>
+</sample>

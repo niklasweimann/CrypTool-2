@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component tests whether a bit sequence looks random, for example the output of a pseudo-random number generator.
+    A test can only detect a certain kind of regularity: a sequence that passes one test can still be predictable.
+    The tests are: the four tests of FIPS 140-1 (monobit, poker, runs and long run on 20000 bits), the poker test and the serial test with a block length of your choice, and the runs test.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente prüft, ob eine Bitfolge zufällig aussieht, zum Beispiel die Ausgabe eines Pseudozufallszahlengenerators.
+    Ein Test erkennt nur eine bestimmte Art von Regelmäßigkeit: Eine Folge, die einen Test besteht, kann trotzdem vorhersagbar sein.
+    Es gibt die vier Tests aus FIPS 140-1 (Monobit, Poker, Runs und Long Run über 20000 Bits), den Poker-Test und den Serial-Test mit frei wählbarer Blocklänge sowie den Runs-Test.
+  </introduction>
+  <usage lang="en">
+    The sequence is expected as a byte array on the input "Sequence"; its bits are read most significant bit first. The output "Passed" tells whether the sequence passed, the output "Report" lists the statistics.
+    FIPS 140-1: monobit test (number of ones between 9655 and 10345), poker test on 5000 blocks of 4 bits (X between 1.03 and 57.4), runs test (number of runs of each length within given intervals) and long run test (no run of 34 or more).
+    Poker test: the sequence is cut into blocks of m bits and the frequency of the 2^m values is compared with the uniform distribution (chi-square test, at least 5 * 2^m blocks).
+    Serial test: as the poker test, but with overlapping blocks of m bits (NIST SP 800-22).
+    Runs test: compares the number of runs of equal bits with the number expected for the proportion of ones (NIST SP 800-22).
+    The chi-square based tests fail when the p-value is below 0.01.
+  </usage>
+  <usage lang="de-DE">
+    Die Folge wird als Byte-Array am Eingang "Folge" erwartet; ihre Bits werden mit dem höchstwertigen Bit zuerst gelesen. Der Ausgang "Bestanden" zeigt, ob die Folge bestanden hat, der Ausgang "Bericht" listet die Statistiken auf.
+    FIPS 140-1: Monobit-Test (Anzahl der Einsen zwischen 9655 und 10345), Poker-Test über 5000 Blöcke zu 4 Bit (X zwischen 1,03 und 57,4), Runs-Test (Anzahl der Läufe jeder Länge innerhalb vorgegebener Intervalle) und Long-Run-Test (kein Lauf von 34 oder mehr).
+    Poker-Test: Die Folge wird in Blöcke zu m Bit zerlegt und die Häufigkeit der 2^m Werte mit der Gleichverteilung verglichen (Chi-Quadrat-Test, mindestens 5 * 2^m Blöcke).
+    Serial-Test: wie der Poker-Test, aber mit überlappenden Blöcken zu m Bit (NIST SP 800-22).
+    Runs-Test: vergleicht die Anzahl der Läufe gleicher Bits mit der Anzahl, die bei dem Anteil von Einsen zu erwarten ist (NIST SP 800-22).
+    Die Chi-Quadrat-Tests schlagen fehl, wenn der p-Wert unter 0,01 liegt.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://csrc.nist.gov/pubs/sp/800/22/r1/upd1/final" lang="en" />
+      <caption lang="en">NIST SP 800-22: statistical test suite for random number generators</caption>
+      <caption lang="de-DE">NIST SP 800-22: statistische Testsammlung für Zufallszahlengeneratoren</caption>
+    </linkReference>
+  </references>
+</documentation>

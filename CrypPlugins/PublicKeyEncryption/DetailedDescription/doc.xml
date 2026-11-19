@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component encrypts and decrypts with two public-key schemes whose security rests on different problems.
+    ElGamal (1985) is based on the discrete logarithm: the public key is y = g^x mod p, a message m is encrypted as the pair (g^k, m * y^k) with a random k, and decrypted with the secret exponent x.
+    The Rabin cryptosystem (1979) is based on factoring: the public key is n = p * q, a message m is encrypted as m^2 mod n, and decrypted with the factors p and q by computing square roots. Each ciphertext has four square roots, so the plaintext carries a redundancy by which the right one is recognized.
+    The Merkle-Hellman knapsack cryptosystem (1978) is based on the subset sum problem: the public key is a list of 64 numbers b_i; a block of 64 bits is encrypted as the sum of the b_i where the bit is 1. The private key is an "easy" superincreasing knapsack w_i, which the public one was disguised from by b_i = r * w_i mod q. Shamir broke the scheme in 1982, so it is only of historical interest.
+    ECIES (Elliptic Curve Integrated Encryption Scheme) is a hybrid scheme: the sender makes a fresh key pair on the curve of the recipient, agrees a shared secret with the recipient's public key by elliptic curve Diffie-Hellman, derives an AES key and a MAC key from it with the key derivation function KDF2 (SHA-256), encrypts the message with AES in counter mode and authenticates it with HMAC-SHA-256. The ciphertext is the sender's public point, the encrypted message and the tag; changes are detected. The keys are PKCS#8 and X.509 DER, as for the digital signatures.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente ver- und entschlüsselt mit zwei Public-Key-Verfahren, deren Sicherheit auf unterschiedlichen Problemen beruht.
+    ElGamal (1985) beruht auf dem diskreten Logarithmus: Der öffentliche Schlüssel ist y = g^x mod p, eine Nachricht m wird als Paar (g^k, m * y^k) mit zufälligem k verschlüsselt und mit dem geheimen Exponenten x entschlüsselt.
+    Das Rabin-Kryptosystem (1979) beruht auf der Faktorisierung: Der öffentliche Schlüssel ist n = p * q, eine Nachricht m wird als m^2 mod n verschlüsselt und mit den Faktoren p und q durch Ziehen von Quadratwurzeln entschlüsselt. Jeder Geheimtext hat vier Quadratwurzeln, daher trägt der Klartext eine Redundanz, an der die richtige erkannt wird.
+    Das Rucksack-Kryptosystem von Merkle und Hellman (1978) beruht auf dem Teilsummenproblem: Der öffentliche Schlüssel ist eine Liste von 64 Zahlen b_i; ein Block von 64 Bit wird als Summe der b_i verschlüsselt, bei denen das Bit 1 ist. Der private Schlüssel ist ein "leichter" superwachsender Rucksack w_i, aus dem der öffentliche durch b_i = r * w_i mod q getarnt wurde. Shamir hat das Verfahren 1982 gebrochen, es ist daher nur von historischem Interesse.
+    ECIES (Elliptic Curve Integrated Encryption Scheme) ist ein hybrides Verfahren: Der Sender erzeugt ein frisches Schlüsselpaar auf der Kurve des Empfängers, vereinbart mit dem öffentlichen Schlüssel des Empfängers per elliptischem Diffie-Hellman ein gemeinsames Geheimnis, leitet daraus mit der Schlüsselableitungsfunktion KDF2 (SHA-256) einen AES-Schlüssel und einen MAC-Schlüssel ab, verschlüsselt die Nachricht mit AES im Zählermodus und authentisiert sie mit HMAC-SHA-256. Der Geheimtext besteht aus dem öffentlichen Punkt des Senders, der verschlüsselten Nachricht und dem Tag; Änderungen werden erkannt. Die Schlüssel sind PKCS#8 und X.509 DER wie bei den digitalen Signaturen.
+  </introduction>
+  <usage lang="en">
+    Choose the action in the settings.
+    "Generate key pair": writes the private and the public key as DER encoded integers. ElGamal uses the standardized safe prime of 1024 or 2048 bits (RFC 2409 / RFC 3526) with generator 2; Rabin generates two primes congruent to 3 modulo 4 (this can take a while for 2048 bits).
+    "Encrypt": needs the inputs "Data" and "Public key". The message is cut into blocks; each block gets a leading 0x01 byte (and, for Rabin, four check bytes). ElGamal gives two numbers per block, Rabin one, each as long as the modulus.
+    "Decrypt": needs the inputs "Data" and "Private key". With a wrong key no block has the expected form and an error is reported.
+    These are textbook schemes for learning; they are not hardened against chosen-ciphertext attacks.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Aktion in den Einstellungen.
+    "Schlüsselpaar erzeugen": schreibt den privaten und den öffentlichen Schlüssel als DER-codierte ganze Zahlen. ElGamal verwendet die standardisierte sichere Primzahl mit 1024 oder 2048 Bit (RFC 2409 / RFC 3526) und den Erzeuger 2; Rabin erzeugt zwei Primzahlen, die kongruent zu 3 modulo 4 sind (bei 2048 Bit kann das etwas dauern).
+    "Verschlüsseln": braucht die Eingänge "Daten" und "Öffentlicher Schlüssel". Die Nachricht wird in Blöcke zerlegt; jeder Block erhält ein vorangestelltes 0x01-Byte (bei Rabin zusätzlich vier Prüfbytes). ElGamal liefert je Block zwei Zahlen, Rabin eine, jeweils so lang wie der Modul.
+    "Entschlüsseln": braucht die Eingänge "Daten" und "Privater Schlüssel". Bei einem falschen Schlüssel hat kein Block die erwartete Form, und es wird ein Fehler gemeldet.
+    Es handelt sich um Lehrbuchverfahren zum Lernen; sie sind nicht gegen Chosen-Ciphertext-Angriffe gehärtet.
+  </usage>
+</documentation>

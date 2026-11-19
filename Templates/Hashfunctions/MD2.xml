@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MD2.xml-->
+  <!--Last edited: 2021.04.30-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">MD2</title>
+  <summary lang="en">Usage of the <i>MD2</i> hash function</summary>
+  <description lang="en">This template shows the usage of the <i>MD2</i> hash function (Rivest, 1989, RFC 1319) with a 128-bit hash value.</description>
+  <keywords lang="en">message, digest, Hash, Rivest, MD2</keywords>
+  <replacements lang="en">
+    <replacement key="$Input$" value="Input" />
+    <replacement key="$Hash Value$" value="Hash value" />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">MD2</title>
+  <summary lang="de">Benutzung der <i>MD2</i>-Hash-Funktion</summary>
+  <description lang="de">Diese Vorlage zeigt die Benutzung der Hash-Funktion <i>MD2</i> (Rivest, 1989, RFC 1319) mit einem 128-Bit-Hashwert.</description>
+  <keywords lang="en">message, digest, Hash, Rivest, MD2</keywords>
+  <replacements lang="de">
+    <replacement key="$Input$" value="Eingabe" />
+    <replacement key="$Hash Value$" value="Hashwert" />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MD2.png" />
+  <relevantPlugins>
+    <plugin name="MessageDigests" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RailFenceCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Rail Fence Cipher</title>
+  <summary lang="en"><i>Rail Fence Cipher</i></summary>
+  <description lang="en">The rail fence cipher writes the text on a zigzag over several rails and reads it rail by rail.</description>
+  <keywords lang="en">rail fence, zigzag, transposition</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The number of rails (here 3) and the offset are set in the settings of the {\\b Classic Variants} components. The example is the one of the Wikipedia article: WEAREDISCOVEREDFLEEATONCE becomes WECRLTEERDSOEEFEAOCAIVDEN." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Rail-Fence-Chiffre</title>
+  <summary lang="de"><i>Rail-Fence-Chiffre</i></summary>
+  <description lang="de">Die Rail-Fence-Chiffre schreibt den Text im Zickzack über mehrere Schienen und liest ihn Schiene für Schiene.</description>
+  <keywords lang="en">rail fence, zigzag, transposition</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Anzahl der Schienen (hier 3) und der Versatz werden in den Einstellungen der Komponenten {\\b Klassische Varianten} festgelegt. Das Beispiel ist das aus dem Wikipedia-Artikel: aus WEAREDISCOVEREDFLEEATONCE wird WECRLTEERDSOEEFEAOCAIVDEN." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RailFenceCipher.png" />
+  <relevantPlugins>
+    <plugin name="ClassicVariants" />
+  </relevantPlugins>
+</sample>

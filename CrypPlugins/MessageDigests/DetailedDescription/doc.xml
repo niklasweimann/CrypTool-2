@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component computes the hash value of its input with MD2 or MD4.
+    MD2 (Rivest, 1989, RFC 1319) produces a 128-bit hash value from 16-byte blocks and uses a checksum and an S-box derived from the digits of pi.
+    MD4 (Rivest, 1990, RFC 1320) produces a 128-bit hash value in three rounds of 16 steps; collisions can be found within moments, so it must not be used for security purposes.
+    Both functions are obsolete and are offered to study how hash functions were built and why they were replaced.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente berechnet den Hashwert ihrer Eingabe mit MD2 oder MD4.
+    MD2 (Rivest, 1989, RFC 1319) erzeugt einen 128-Bit-Hashwert aus 16-Byte-Blöcken und verwendet eine Prüfsumme und eine aus den Ziffern von Pi abgeleitete S-Box.
+    MD4 (Rivest, 1990, RFC 1320) erzeugt einen 128-Bit-Hashwert in drei Runden zu je 16 Schritten; Kollisionen lassen sich in kürzester Zeit finden, daher darf MD4 nicht für Sicherheitszwecke verwendet werden.
+    Beide Funktionen sind veraltet und dienen dazu, den Aufbau früher Hashfunktionen und die Gründe für ihre Ablösung zu untersuchen.
+  </introduction>
+  <usage lang="en">
+    Choose MD2 or MD4 in the settings. The data is expected as a data stream on the input "Input stream"; the hash value is available as a byte array and as a stream.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen MD2 oder MD4. Die Daten werden als Datenstrom am Eingang "Eingabestrom" erwartet; der Hashwert steht als Byte-Array und als Datenstrom zur Verfügung.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://www.rfc-editor.org/rfc/rfc1319" lang="en" />
+      <caption lang="en">RFC 1319 (MD2)</caption>
+      <caption lang="de-DE">RFC 1319 (MD2)</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://www.rfc-editor.org/rfc/rfc1320" lang="en" />
+      <caption lang="en">RFC 1320 (MD4)</caption>
+      <caption lang="de-DE">RFC 1320 (MD4)</caption>
+    </linkReference>
+  </references>
+</documentation>

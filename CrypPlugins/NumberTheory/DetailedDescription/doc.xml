@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component shows three algorithms of number theory that are used all over cryptography, together with their intermediate steps.
+    Modular exponentiation by repeated squaring ("square and multiply") computes x^e mod n with about log2(e) squarings: for every bit of the exponent the result is squared, and for a 1 bit it is also multiplied by x. RSA, Diffie-Hellman and many other schemes depend on it.
+    The baby-step giant-step algorithm (Shanks) finds the discrete logarithm, the exponent e with g^e = h mod p, with about the square root of p steps instead of p: it stores the baby steps g^j and compares them with the giant steps h * g^(-m*i).
+    The Chinese remainder theorem solves a system of congruences x = a_i mod m_i with pairwise coprime moduli; the solution is unique modulo the product of the moduli.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente zeigt drei Algorithmen der Zahlentheorie, die überall in der Kryptografie vorkommen, mit ihren Zwischenschritten.
+    Die modulare Exponentiation durch wiederholtes Quadrieren ("Square and Multiply") berechnet x^e mod n mit etwa log2(e) Quadrierungen: Für jedes Bit des Exponenten wird das Ergebnis quadriert, und bei einem 1-Bit zusätzlich mit x multipliziert. RSA, Diffie-Hellman und viele andere Verfahren beruhen darauf.
+    Der Baby-Step-Giant-Step-Algorithmus (Shanks) findet den diskreten Logarithmus, den Exponenten e mit g^e = h mod p, mit etwa der Quadratwurzel aus p Schritten statt p: Er speichert die Baby Steps g^j und vergleicht sie mit den Giant Steps h * g^(-m*i).
+    Der Chinesische Restsatz löst ein System von Kongruenzen x = a_i mod m_i mit paarweise teilerfremden Moduln; die Lösung ist eindeutig modulo dem Produkt der Moduln.
+  </introduction>
+  <usage lang="en">
+    Choose the operation in the settings. Modular exponentiation: "Input 1" is x, "Input 2" the exponent e, "Modulus" n. Discrete logarithm: "Input 1" is g, "Input 2" is h, "Modulus" the prime p (at most 10^14); the output is the smallest e with g^e = h (mod p). Chinese remainder theorem: the inputs "Residues" and "Moduli" take lists of integers separated by commas. The output "Steps" lists what the algorithm did.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Operation in den Einstellungen. Modulare Exponentiation: "Eingabe 1" ist x, "Eingabe 2" der Exponent e, "Modul" n. Diskreter Logarithmus: "Eingabe 1" ist g, "Eingabe 2" ist h, "Modul" die Primzahl p (höchstens 10^14); die Ausgabe ist das kleinste e mit g^e = h (mod p). Chinesischer Restsatz: Die Eingänge "Reste" und "Moduln" nehmen Listen ganzer Zahlen, durch Kommas getrennt. Der Ausgang "Schritte" listet auf, was der Algorithmus getan hat.
+  </usage>
+</documentation>

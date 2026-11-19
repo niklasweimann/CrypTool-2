@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SquareAndMultiply.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Square and Multiply</title>
+  <summary lang="en"><i>Square and Multiply</i> with its steps</summary>
+  <description lang="en">Modular exponentiation by repeated squaring: x^e mod n with about log2(e) squarings and multiplications.</description>
+  <keywords lang="en">square and multiply, binary exponentiation, modular exponentiation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The inputs are the base x, the exponent e and the modulus n. The upper output is the result, the lower one lists for every bit of the exponent what was done. RSA and Diffie-Hellman depend on this algorithm." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Square and Multiply</title>
+  <summary lang="de"><i>Square and Multiply</i> mit allen Schritten</summary>
+  <description lang="de">Modulare Exponentiation durch wiederholtes Quadrieren: x^e mod n mit etwa log2(e) Quadrierungen und Multiplikationen.</description>
+  <keywords lang="en">square and multiply, binary exponentiation, modular exponentiation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Eingaben sind die Basis x, der Exponent e und der Modul n. Die obere Ausgabe ist das Ergebnis, die untere listet für jedes Bit des Exponenten auf, was getan wurde. RSA und Diffie-Hellman beruhen auf diesem Algorithmus." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SquareAndMultiply.png" />
+  <relevantPlugins>
+    <plugin name="NumberTheory" />
+  </relevantPlugins>
+</sample>

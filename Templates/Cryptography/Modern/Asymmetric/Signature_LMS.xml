@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_LMS.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">LMS Signature (Merkle Tree, Winternitz)</title>
+  <summary lang="en">Key generation, signing and verification with <i>LMS Signature (Merkle Tree, Winternitz)</i></summary>
+  <description lang="en">LMS (RFC 8554) makes many signatures out of Winternitz one-time signatures with a Merkle tree; its security rests on a hash function only.</description>
+  <keywords lang="en">LMS, Merkle, Winternitz, hash-based signature, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The tree has 32 leaves (height 5), the one-time signatures use w = 4 bits per hash chain. The public key is the root of the tree. The first {\\b Hash-Based Signatures} component generates a key pair, the second signs the message and the third verifies the signature. After signing, the LMS private key changes (a one-time key is used up); the number of signatures that are left is an output of the signing component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">LMS-Signatur (Merkle-Baum, Winternitz)</title>
+  <summary lang="de">Schlüsselerzeugung, Signieren und Prüfen mit <i>LMS-Signatur (Merkle-Baum, Winternitz)</i></summary>
+  <description lang="de">LMS (RFC 8554) macht mit einem Merkle-Baum aus Winternitz-Einmalsignaturen viele Signaturen; seine Sicherheit beruht nur auf einer Hashfunktion.</description>
+  <keywords lang="en">LMS, Merkle, Winternitz, hash-based signature, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Baum hat 32 Blätter (Höhe 5), die Einmalsignaturen verwenden w = 4 Bit je Hashkette. Der öffentliche Schlüssel ist die Wurzel des Baums. Die erste Komponente {\\b Hashbasierte Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht und die dritte prüft die Signatur. Nach dem Signieren ändert sich der private LMS-Schlüssel (ein Einmalschlüssel ist verbraucht); die Zahl der verbleibenden Signaturen ist ein Ausgang der signierenden Komponente." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_LMS.png" />
+  <relevantPlugins>
+    <plugin name="HashBasedSignatures" />
+  </relevantPlugins>
+</sample>

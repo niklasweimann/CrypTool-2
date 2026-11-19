@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: UUEncoding.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">UU Encoding</title>
+  <summary lang="en"><i>UU Encoding</i></summary>
+  <description lang="en">UU encoding (uuencode) writes data as printable text; the second component decodes it again.</description>
+  <keywords lang="en">uuencode, UU, encoding</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first {\b Data Tools} component encodes the text with uuencode (header line, lines with a length character, trailer), the second decodes it and gives the text back." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">UU-Codierung</title>
+  <summary lang="de"><i>UU-Codierung</i></summary>
+  <description lang="de">Die UU-Codierung (uuencode) schreibt Daten als druckbaren Text; die zweite Komponente decodiert ihn wieder.</description>
+  <keywords lang="en">uuencode, UU, encoding</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente {\b Datenwerkzeuge} codiert den Text mit uuencode (Kopfzeile, Zeilen mit Längenzeichen, Schlusszeile), die zweite decodiert ihn und liefert den Text zurück." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="UUEncoding.png" />
+  <relevantPlugins>
+    <plugin name="DataTools" />
+  </relevantPlugins>
+</sample>

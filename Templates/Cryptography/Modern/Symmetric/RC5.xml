@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RC5.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">RC5 Cipher</title>
+  <summary lang="en">Encryption with the <i>RC5</i> block cipher</summary>
+  <description lang="en">RC5 is a block cipher by Ron Rivest from 1994 whose main feature are data-dependent rotations. This template uses 32-bit words (64-bit blocks) and 12 rounds with a 128-bit key.</description>
+  <keywords lang="en">RC5, block cipher, Rivest, symmetric</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key (Hex values)" />
+    <replacement key="$Message Encoder$" value="Message Encoder" />
+    <replacement key="$Message Decoder$" value="Message Decoder" />
+    <replacement key="$Key Decoder$" value="Key Decoder" />
+    <replacement key="$Decrypted_Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$text$" value="The quick brown fox jumps over the lazy dog." />
+    <replacement key="$memo$" value="With this template you can use the {\b RC5} component to encrypt an arbitrary text entered in the {\b Plaintext} component on the left side. The key is entered as hexadecimal digits in the {\b Key} component. The cipher, the chaining mode and the padding are chosen in the settings of the component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">RC5-Chiffre</title>
+  <summary lang="de">Verschlüsselung mit der Blockchiffre <i>RC5</i></summary>
+  <description lang="de">RC5 ist eine Blockchiffre von Ron Rivest aus dem Jahr 1994, deren Hauptmerkmal datenabhängige Rotationen sind. Diese Vorlage verwendet 32-Bit-Wörter (64-Bit-Blöcke) und 12 Runden mit einem 128-Bit-Schlüssel.</description>
+  <keywords lang="en">RC5, block cipher, Rivest, symmetric</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel (Hex)" />
+    <replacement key="$Message Encoder$" value="Nachrichten-Codierer" />
+    <replacement key="$Message Decoder$" value="Nachrichten-Decodierer" />
+    <replacement key="$Key Decoder$" value="Schlüssel-Decodierer" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$text$" value="Franz jagt im komplett verwahrlosten Taxi quer durch Bayern." />
+    <replacement key="$memo$" value="Mit dieser Vorlage können Sie einen beliebigen Text, der in die Komponente {\b Klartext} auf der linken Seite eingegeben wird, mit der Komponente {\b RC5} verschlüsseln. Der Schlüssel wird als Hexadezimalziffern in der Komponente {\b Schlüssel} eingegeben. Die Chiffre, der Verkettungsmodus und das Padding werden in den Einstellungen der Komponente gewählt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RC5.png" />
+  <relevantPlugins>
+    <plugin name="BlockCiphers" />
+  </relevantPlugins>
+</sample>

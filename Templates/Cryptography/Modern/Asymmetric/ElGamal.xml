@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ElGamal.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ElGamal Encryption</title>
+  <summary lang="en">Key generation, encryption and decryption with <i>ElGamal Encryption</i></summary>
+  <description lang="en">ElGamal (1985) is a public-key encryption scheme based on the discrete logarithm problem: the ciphertext is the pair (g^k, m * y^k) with a random k.</description>
+  <keywords lang="en">ElGamal, public key, discrete logarithm, encryption</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The group is the standardized 1024-bit safe prime of RFC 2409 with generator 2. Encrypting the same text twice gives different ciphertexts because k is chosen at random. The first {\b ElGamal / Rabin} component generates a key pair, the second encrypts the text with the public key, the third decrypts it with the private key. The text in the middle is the ciphertext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ElGamal-Verschlüsselung</title>
+  <summary lang="de">Schlüsselerzeugung, Ver- und Entschlüsselung mit <i>ElGamal-Verschlüsselung</i></summary>
+  <description lang="de">ElGamal (1985) ist ein Public-Key-Verschlüsselungsverfahren, das auf dem Problem des diskreten Logarithmus beruht: Der Geheimtext ist das Paar (g^k, m * y^k) mit zufälligem k.</description>
+  <keywords lang="en">ElGamal, public key, discrete logarithm, encryption</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Gruppe ist die standardisierte 1024-Bit-Primzahl aus RFC 2409 mit dem Erzeuger 2. Derselbe Text ergibt beim zweimaligen Verschlüsseln verschiedene Geheimtexte, weil k zufällig gewählt wird. Die erste Komponente {\b ElGamal / Rabin} erzeugt ein Schlüsselpaar, die zweite verschlüsselt den Text mit dem öffentlichen Schlüssel, die dritte entschlüsselt ihn mit dem privaten Schlüssel. Der Text in der Mitte ist der Geheimtext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ElGamal.png" />
+  <relevantPlugins>
+    <plugin name="PublicKeyEncryption" />
+  </relevantPlugins>
+</sample>

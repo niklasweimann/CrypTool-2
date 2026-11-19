@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Secret sharing splits a secret among n people so that any k of them together can reconstruct it, but k-1 learn nothing at all.
+    In Shamir's scheme (1979) the secret s is the constant term of a random polynomial f(x) = s + a1*x + ... + a(k-1)*x^(k-1) over a prime field; person i receives the point (i, f(i)). Any k points determine the polynomial, and with it s = f(0), by Lagrange interpolation; k-1 points are consistent with every possible s.
+    In Feldman's verifiable secret sharing (1987) the dealer also publishes commitments g^a_j to the coefficients. Everybody can then check that a share (i, y) lies on the committed polynomial: g^y must equal the product of the commitments C_j^(i^j). So a dishonest dealer is caught, and nobody needs to trust a share without checking it.
+  </introduction>
+  <introduction lang="de-DE">
+    Secret Sharing zerlegt ein Geheimnis auf n Personen so, dass je k von ihnen zusammen es rekonstruieren können, k-1 aber gar nichts erfahren.
+    Beim Verfahren von Shamir (1979) ist das Geheimnis s der konstante Term eines zufälligen Polynoms f(x) = s + a1*x + ... + a(k-1)*x^(k-1) über einem Primkörper; Person i erhält den Punkt (i, f(i)). Je k Punkte bestimmen das Polynom und damit s = f(0) durch Lagrange-Interpolation; k-1 Punkte passen zu jedem möglichen s.
+    Beim überprüfbaren Secret Sharing nach Feldman (1987) veröffentlicht der Verteiler zusätzlich Verpflichtungen g^a_j auf die Koeffizienten. Jeder kann dann prüfen, dass ein Anteil (i, y) auf dem festgelegten Polynom liegt: g^y muss dem Produkt der Verpflichtungen C_j^(i^j) entsprechen. So fliegt ein unehrlicher Verteiler auf, und niemand muss einem Anteil ohne Prüfung vertrauen.
+  </introduction>
+  <usage lang="en">
+    Choose the action in the settings. "Split the secret": the inputs "Secret" (0 to q-1), "Threshold k" and "Number of shares n" give the output "Shares", one line "x,y" per share; with "Verifiable" the output "Commitments" is written as well. "Reconstruct the secret": the input "Shares" takes at least k lines "x,y"; the output "Secret" is the result (with fewer than k shares it is a wrong number). "Verify shares": the inputs "Shares" and "Commitments" are compared; the output "Valid" tells whether all shares fit.
+    The arithmetic is done modulo the prime q = (P-1)/2, where P is the 1024-bit safe prime of RFC 2409; the commitments use the generator g = 4 of the subgroup of order q modulo P.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Aktion in den Einstellungen. "Geheimnis zerlegen": Die Eingänge "Geheimnis" (0 bis q-1), "Schwellenwert k" und "Anzahl der Anteile n" ergeben den Ausgang "Anteile", eine Zeile "x,y" je Anteil; mit "Überprüfbar" wird zusätzlich der Ausgang "Verpflichtungen" geschrieben. "Geheimnis rekonstruieren": Der Eingang "Anteile" nimmt mindestens k Zeilen "x,y"; der Ausgang "Geheimnis" ist das Ergebnis (mit weniger als k Anteilen eine falsche Zahl). "Anteile prüfen": Die Eingänge "Anteile" und "Verpflichtungen" werden verglichen; der Ausgang "Gültig" zeigt, ob alle Anteile passen.
+    Gerechnet wird modulo der Primzahl q = (P-1)/2, wobei P die 1024-Bit-Primzahl aus RFC 2409 ist; die Verpflichtungen verwenden den Erzeuger g = 4 der Untergruppe der Ordnung q modulo P.
+  </usage>
+</documentation>

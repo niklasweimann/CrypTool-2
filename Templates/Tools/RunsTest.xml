@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RunsTest.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Runs Test</title>
+  <summary lang="en">Testing random numbers with the <i>Runs Test</i></summary>
+  <description lang="en">The runs test compares the number of runs of equal bits with the number expected for the proportion of ones (NIST SP 800-22).</description>
+  <keywords lang="en">runs test, randomness</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\b Randomness Tests} component counts the runs in the generated sequence and reports the p-value. A good generator fails such a test by chance about once in a hundred runs (significance level 0.01), so a single failure proves nothing." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Runs-Test</title>
+  <summary lang="de">Zufallszahlen prüfen mit dem <i>Runs-Test</i></summary>
+  <description lang="de">Der Runs-Test vergleicht die Anzahl der Läufe gleicher Bits mit der Anzahl, die bei dem Anteil von Einsen zu erwarten ist (NIST SP 800-22).</description>
+  <keywords lang="en">runs test, randomness</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\b Zufallstests} zählt die Läufe in der erzeugten Folge und meldet den p-Wert. Ein guter Generator fällt bei einem solchen Test zufällig etwa einmal in hundert Durchläufen durch (Signifikanzniveau 0,01), ein einzelnes Durchfallen beweist also nichts." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RunsTest.png" />
+  <relevantPlugins>
+    <plugin name="RandomnessTests" />
+  </relevantPlugins>
+</sample>

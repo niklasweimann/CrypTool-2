@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ZipUnzip.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Zip and Unzip</title>
+  <summary lang="en"><i>Zip and Unzip</i></summary>
+  <description lang="en">The data is packed into a ZIP archive (deflate) and unpacked again.</description>
+  <keywords lang="en">zip, unzip, compression, deflate</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first {\b Data Tools} component creates a ZIP archive from the text, the second reads the first entry of the archive. The text repeats itself, so it compresses well." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zip und Unzip</title>
+  <summary lang="de"><i>Zip und Unzip</i></summary>
+  <description lang="de">Die Daten werden in ein ZIP-Archiv (Deflate) gepackt und wieder entpackt.</description>
+  <keywords lang="en">zip, unzip, compression, deflate</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente {\b Datenwerkzeuge} erzeugt aus dem Text ein ZIP-Archiv, die zweite liest den ersten Eintrag des Archivs. Der Text wiederholt sich und lässt sich daher gut komprimieren." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ZipUnzip.png" />
+  <relevantPlugins>
+    <plugin name="DataTools" />
+  </relevantPlugins>
+</sample>

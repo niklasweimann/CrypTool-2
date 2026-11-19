@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Shacal-2.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Shacal-2 Cipher</title>
+  <summary lang="en">Encryption with the <i>Shacal-2</i> block cipher</summary>
+  <description lang="en">Shacal-2 (Handschuh and Naccache, 2000) is the compression function of SHA-256 used as a block cipher: 256-bit blocks, keys of 128 to 512 bits. The component also offers Shacal-1 (SHA-1, 160-bit blocks).</description>
+  <keywords lang="en">shacal, SHA-256, block cipher, Handschuh, Naccache</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key (Hex values)" />
+    <replacement key="$Message Encoder$" value="Message Encoder" />
+    <replacement key="$Message Decoder$" value="Message Decoder" />
+    <replacement key="$Key Decoder$" value="Key Decoder" />
+    <replacement key="$Decrypted_Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$text$" value="The quick brown fox jumps over the lazy dog." />
+    <replacement key="$memo$" value="With this template you can use the {\b Shacal-2} component to encrypt an arbitrary text entered in the {\b Plaintext} component on the left side. The key is entered as hexadecimal digits in the {\b Key} component. The cipher, the chaining mode and the padding are chosen in the settings of the component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Shacal-2-Chiffre</title>
+  <summary lang="de">Verschlüsselung mit der Blockchiffre <i>Shacal-2</i></summary>
+  <description lang="de">Shacal-2 (Handschuh und Naccache, 2000) ist die Kompressionsfunktion von SHA-256, als Blockchiffre verwendet: 256-Bit-Blöcke, Schlüssel von 128 bis 512 Bit. Die Komponente bietet auch Shacal-1 (SHA-1, 160-Bit-Blöcke).</description>
+  <keywords lang="en">shacal, SHA-256, block cipher, Handschuh, Naccache</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel (Hex)" />
+    <replacement key="$Message Encoder$" value="Nachrichten-Codierer" />
+    <replacement key="$Message Decoder$" value="Nachrichten-Decodierer" />
+    <replacement key="$Key Decoder$" value="Schlüssel-Decodierer" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$text$" value="Franz jagt im komplett verwahrlosten Taxi quer durch Bayern." />
+    <replacement key="$memo$" value="Mit dieser Vorlage können Sie einen beliebigen Text, der in die Komponente {\b Klartext} auf der linken Seite eingegeben wird, mit der Komponente {\b Shacal-2} verschlüsseln. Der Schlüssel wird als Hexadezimalziffern in der Komponente {\b Schlüssel} eingegeben. Die Chiffre, der Verkettungsmodus und das Padding werden in den Einstellungen der Komponente gewählt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Shacal-2.png" />
+  <relevantPlugins>
+    <plugin name="BlockCiphers" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ChineseRemainderTheorem.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Chinese Remainder Theorem</title>
+  <summary lang="en"><i>Chinese Remainder Theorem</i> with its steps</summary>
+  <description lang="en">The Chinese remainder theorem solves a system of congruences x = a_i (mod m_i) with pairwise coprime moduli.</description>
+  <keywords lang="en">Chinese remainder theorem, CRT, congruences</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The inputs are the list of residues and the list of moduli. The upper output is the solution modulo the product of the moduli, the lower one shows the computation (M, M_i and the inverses y_i). RSA decryption is sped up with it." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chinesischer Restsatz</title>
+  <summary lang="de"><i>Chinesischer Restsatz</i> mit allen Schritten</summary>
+  <description lang="de">Der Chinesische Restsatz löst ein System von Kongruenzen x = a_i (mod m_i) mit paarweise teilerfremden Moduln.</description>
+  <keywords lang="en">Chinese remainder theorem, CRT, congruences</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Eingaben sind die Liste der Reste und die Liste der Moduln. Die obere Ausgabe ist die Lösung modulo dem Produkt der Moduln, die untere zeigt die Rechnung (M, M_i und die Inversen y_i). Die RSA-Entschlüsselung wird damit beschleunigt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ChineseRemainderTheorem.png" />
+  <relevantPlugins>
+    <plugin name="NumberTheory" />
+  </relevantPlugins>
+</sample>

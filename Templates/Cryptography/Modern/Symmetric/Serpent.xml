@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Serpent.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Serpent Cipher</title>
+  <summary lang="en">Encryption with the <i>Serpent</i> block cipher</summary>
+  <description lang="en">Serpent is a block cipher by Ross Anderson, Eli Biham and Lars Knudsen from 1998 and finalist of the AES competition. It works on 128-bit blocks in 32 rounds of substitution-permutation steps.</description>
+  <keywords lang="en">Serpent, block cipher, AES finalist, symmetric</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key (Hex values)" />
+    <replacement key="$Message Encoder$" value="Message Encoder" />
+    <replacement key="$Message Decoder$" value="Message Decoder" />
+    <replacement key="$Key Decoder$" value="Key Decoder" />
+    <replacement key="$Decrypted_Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$text$" value="The quick brown fox jumps over the lazy dog." />
+    <replacement key="$memo$" value="With this template you can use the {\b Serpent} component to encrypt an arbitrary text entered in the {\b Plaintext} component on the left side. The key is entered as hexadecimal digits in the {\b Key} component. The cipher, the chaining mode and the padding are chosen in the settings of the component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Serpent-Chiffre</title>
+  <summary lang="de">Verschlüsselung mit der Blockchiffre <i>Serpent</i></summary>
+  <description lang="de">Serpent ist eine Blockchiffre von Ross Anderson, Eli Biham und Lars Knudsen aus dem Jahr 1998 und Finalist des AES-Wettbewerbs. Sie arbeitet mit 128-Bit-Blöcken in 32 Runden aus Substitutions-Permutations-Schritten.</description>
+  <keywords lang="en">Serpent, block cipher, AES finalist, symmetric</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel (Hex)" />
+    <replacement key="$Message Encoder$" value="Nachrichten-Codierer" />
+    <replacement key="$Message Decoder$" value="Nachrichten-Decodierer" />
+    <replacement key="$Key Decoder$" value="Schlüssel-Decodierer" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$text$" value="Franz jagt im komplett verwahrlosten Taxi quer durch Bayern." />
+    <replacement key="$memo$" value="Mit dieser Vorlage können Sie einen beliebigen Text, der in die Komponente {\b Klartext} auf der linken Seite eingegeben wird, mit der Komponente {\b Serpent} verschlüsseln. Der Schlüssel wird als Hexadezimalziffern in der Komponente {\b Schlüssel} eingegeben. Die Chiffre, der Verkettungsmodus und das Padding werden in den Einstellungen der Komponente gewählt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Serpent.png" />
+  <relevantPlugins>
+    <plugin name="BlockCiphers" />
+  </relevantPlugins>
+</sample>

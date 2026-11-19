@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PortaCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Porta Cipher</title>
+  <summary lang="en"><i>Porta Cipher</i></summary>
+  <description lang="en">Porta (1563) is a polyalphabetic cipher with 13 reciprocal alphabets selected by pairs of key letters.</description>
+  <keywords lang="en">Porta, polyalphabetic, reciprocal</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first {\\b Classic Variants} component encrypts the text with the key word, the second decrypts: because the cipher is reciprocal, both do the same thing. Spaces are kept." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Porta-Chiffre</title>
+  <summary lang="de"><i>Porta-Chiffre</i></summary>
+  <description lang="de">Porta (1563) ist eine polyalphabetische Chiffre mit 13 reziproken Alphabeten, die durch Paare von Schlüsselbuchstaben gewählt werden.</description>
+  <keywords lang="en">Porta, polyalphabetic, reciprocal</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente {\\b Klassische Varianten} verschlüsselt den Text mit dem Schlüsselwort, die zweite entschlüsselt: Weil die Chiffre reziprok ist, tun beide dasselbe. Leerzeichen bleiben erhalten." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PortaCipher.png" />
+  <relevantPlugins>
+    <plugin name="ClassicVariants" />
+  </relevantPlugins>
+</sample>

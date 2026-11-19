@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DESX.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">DESX Cipher</title>
+  <summary lang="en">Encryption with the <i>DESX</i> block cipher</summary>
+  <description lang="en">DESX (Rivest) is DES with key whitening: two more 64-bit keys are added by XOR before and after DES. The key has 24 bytes (DES key, K1, K2), here 48 hexadecimal digits.</description>
+  <keywords lang="en">DESX, DES, whitening, block cipher</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Key$" value="Key (Hex values)" />
+    <replacement key="$Message Encoder$" value="Message Encoder" />
+    <replacement key="$Message Decoder$" value="Message Decoder" />
+    <replacement key="$Key Decoder$" value="Key Decoder" />
+    <replacement key="$Decrypted_Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$text$" value="The quick brown fox jumps over the lazy dog." />
+    <replacement key="$memo$" value="With this template you can use the {\b DESX} component to encrypt an arbitrary text entered in the {\b Plaintext} component on the left side. The key is entered as hexadecimal digits in the {\b Key} component. The cipher, the chaining mode and the padding are chosen in the settings of the component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">DESX-Chiffre</title>
+  <summary lang="de">Verschlüsselung mit der Blockchiffre <i>DESX</i></summary>
+  <description lang="de">DESX (Rivest) ist DES mit Schlüssel-Whitening: Zwei weitere 64-Bit-Schlüssel werden vor und nach DES per XOR hinzugefügt. Der Schlüssel hat 24 Bytes (DES-Schlüssel, K1, K2), hier 48 Hexadezimalziffern.</description>
+  <keywords lang="en">DESX, DES, whitening, block cipher</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel (Hex)" />
+    <replacement key="$Message Encoder$" value="Nachrichten-Codierer" />
+    <replacement key="$Message Decoder$" value="Nachrichten-Decodierer" />
+    <replacement key="$Key Decoder$" value="Schlüssel-Decodierer" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$text$" value="Franz jagt im komplett verwahrlosten Taxi quer durch Bayern." />
+    <replacement key="$memo$" value="Mit dieser Vorlage können Sie einen beliebigen Text, der in die Komponente {\b Klartext} auf der linken Seite eingegeben wird, mit der Komponente {\b DESX} verschlüsseln. Der Schlüssel wird als Hexadezimalziffern in der Komponente {\b Schlüssel} eingegeben. Die Chiffre, der Verkettungsmodus und das Padding werden in den Einstellungen der Komponente gewählt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DESX.png" />
+  <relevantPlugins>
+    <plugin name="BlockCiphers" />
+  </relevantPlugins>
+</sample>

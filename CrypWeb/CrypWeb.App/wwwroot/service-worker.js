@@ -19,7 +19,8 @@ const CACHE = 'ct2web-v1';
 const SHELL = ['./', 'manifest.webmanifest', 'favicon.ico', 'favicon.png', 'icon-192.png', 'icon-512.png',
     'icon-maskable-512.png', 'apple-touch-icon.png', 'logo.png', 'crashreport.js',
     'offline.js', 'offline.json', 'noteeditor.js'];
-const HASHED = /\/_framework\/.+\.[a-z0-9]{8,}\.(wasm|js|dat|pdb|json)$/i;
+// (.mjs: the worker script of the multi-threaded runtime, dotnet.native.worker.<hash>.mjs)
+const HASHED = /\/_framework\/.+\.[a-z0-9]{8,}\.(wasm|js|mjs|dat|pdb|json)$/i;
 
 self.addEventListener('install', event => {
     self.skipWaiting();
@@ -37,8 +38,15 @@ self.addEventListener('activate', event => {
 
 async function store(request, response) {
     if (response.ok && response.type === 'basic' && response.status === 200) {
-        const cache = await caches.open(CACHE);
-        await cache.put(request, response.clone());
+        // Keeping a copy is an extra: when it fails (storage full, Safari limits) the response of the network is still
+        // the right answer. Failing here would turn a good response into "Not available offline" (504), and a worker
+        // script that gets that cannot start ("Importing a module script failed").
+        try {
+            const cache = await caches.open(CACHE);
+            await cache.put(request, response.clone());
+        } catch (error) {
+            console.warn('service worker: could not cache', request.url, error);
+        }
     }
     return response;
 }

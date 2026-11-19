@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component encrypts and decrypts with the block ciphers IDEA, RC5, RC6, Serpent, DESX and Shacal.
+    IDEA (International Data Encryption Algorithm, 1991) works on 64-bit blocks with a 128-bit key.
+    RC5 (Rivest, 1994) is a block cipher with data-dependent rotations; here with 32-bit words, 64-bit blocks and 12 rounds.
+    RC6 (Rivest, Robshaw, Sidney and Yin, 1998) is an AES finalist with 128-bit blocks and keys of 128, 192 or 256 bits.
+    Serpent (Anderson, Biham and Knudsen, 1998) is an AES finalist with 128-bit blocks and keys of 128, 192 or 256 bits.
+    DESX (Rivest) is DES with key whitening: two more 64-bit keys are added by XOR before and after DES, which makes exhaustive key search much harder; the key has 24 bytes (DES key, K1, K2).
+    Shacal-1 and Shacal-2 (Handschuh and Naccache, 2000) are the compression functions of SHA-1 and SHA-256 used as block ciphers: 160-bit or 256-bit blocks and keys of 128 to 512 bits.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente ver- und entschlüsselt mit den Blockchiffren IDEA, RC5, RC6, Serpent, DESX und Shacal.
+    IDEA (International Data Encryption Algorithm, 1991) arbeitet mit 64-Bit-Blöcken und einem 128-Bit-Schlüssel.
+    RC5 (Rivest, 1994) ist eine Blockchiffre mit datenabhängigen Rotationen; hier mit 32-Bit-Wörtern, 64-Bit-Blöcken und 12 Runden.
+    RC6 (Rivest, Robshaw, Sidney und Yin, 1998) war AES-Finalist und hat 128-Bit-Blöcke und Schlüssel mit 128, 192 oder 256 Bit.
+    Serpent (Anderson, Biham und Knudsen, 1998) war AES-Finalist und hat 128-Bit-Blöcke und Schlüssel mit 128, 192 oder 256 Bit.
+    DESX (Rivest) ist DES mit Schlüssel-Whitening: Zwei weitere 64-Bit-Schlüssel werden vor und nach DES per XOR hinzugefügt, was die vollständige Schlüsselsuche sehr erschwert; der Schlüssel hat 24 Bytes (DES-Schlüssel, K1, K2).
+    Shacal-1 und Shacal-2 (Handschuh und Naccache, 2000) sind die Kompressionsfunktionen von SHA-1 und SHA-256, als Blockchiffren verwendet: 160-Bit- oder 256-Bit-Blöcke und Schlüssel mit 128 bis 512 Bit.
+  </introduction>
+  <usage lang="en">
+    Choose the algorithm, the action (encryption or decryption), the chaining mode (ECB, CBC, CFB, OFB) and the padding in the settings.
+    The data is expected as a data stream on the input "Input", the key as a byte array on the input "Key".
+    The key must have the size the algorithm needs (IDEA: 16 bytes, RC5: 1 to 255 bytes, RC6 and Serpent: 16, 24 or 32 bytes, DESX: 24 bytes, Shacal: 16 to 64 bytes).
+    The initialization vector (IV) is needed in the chaining modes; it has the size of the block (8 bytes for IDEA, RC5 and DESX, 16 bytes for RC6 and Serpent, 20 bytes for Shacal-1, 32 bytes for Shacal-2).
+    When decrypting, the same chaining mode and padding must be chosen as for encryption.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen den Algorithmus, die Aktion (Ver- oder Entschlüsseln), den Verkettungsmodus (ECB, CBC, CFB, OFB) und das Padding.
+    Die Daten werden als Datenstrom am Eingang "Eingabe" erwartet, der Schlüssel als Byte-Array am Eingang "Schlüssel".
+    Der Schlüssel muss die Länge haben, die der Algorithmus braucht (IDEA: 16 Bytes, RC5: 1 bis 255 Bytes, RC6 und Serpent: 16, 24 oder 32 Bytes).
+    Der Initialisierungsvektor (IV) wird in den Verkettungsmodi benötigt; er hat die Länge eines Blocks (8 Bytes bei IDEA und RC5, 16 Bytes bei RC6 und Serpent).
+    Beim Entschlüsseln müssen derselbe Verkettungsmodus und dasselbe Padding wie beim Verschlüsseln gewählt werden.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://en.wikipedia.org/wiki/International_Data_Encryption_Algorithm" lang="en" />
+      <caption lang="en">IDEA on Wikipedia</caption>
+      <caption lang="de-DE">IDEA bei Wikipedia</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://en.wikipedia.org/wiki/RC5" lang="en" />
+      <caption lang="en">RC5 on Wikipedia</caption>
+      <caption lang="de-DE">RC5 bei Wikipedia</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://en.wikipedia.org/wiki/RC6" lang="en" />
+      <caption lang="en">RC6 on Wikipedia</caption>
+      <caption lang="de-DE">RC6 bei Wikipedia</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://en.wikipedia.org/wiki/Serpent_(cipher)" lang="en" />
+      <caption lang="en">Serpent on Wikipedia</caption>
+      <caption lang="de-DE">Serpent bei Wikipedia</caption>
+    </linkReference>
+  </references>
+</documentation>

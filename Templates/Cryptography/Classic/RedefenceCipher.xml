@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RedefenceCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Redefence Cipher</title>
+  <summary lang="en"><i>Redefence Cipher</i></summary>
+  <description lang="en">Redefence is the rail fence cipher with an offset and a key that decides in which order the rails are read.</description>
+  <keywords lang="en">redefence, rail fence, transposition</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key has one letter per rail; the rails are read in the alphabetical order of the letters (here the second rail first, then the third, then the first). The offset 1 starts the zigzag on the second step." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Redefence-Chiffre</title>
+  <summary lang="de"><i>Redefence-Chiffre</i></summary>
+  <description lang="de">Redefence ist die Rail-Fence-Chiffre mit einem Versatz und einem Schlüssel, der bestimmt, in welcher Reihenfolge die Schienen gelesen werden.</description>
+  <keywords lang="en">redefence, rail fence, transposition</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel hat einen Buchstaben je Schiene; die Schienen werden in der alphabetischen Reihenfolge der Buchstaben gelesen (hier erst die zweite, dann die dritte, dann die erste). Der Versatz 1 beginnt den Zickzack beim zweiten Schritt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RedefenceCipher.png" />
+  <relevantPlugins>
+    <plugin name="ClassicVariants" />
+  </relevantPlugins>
+</sample>

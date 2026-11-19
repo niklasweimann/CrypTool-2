@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: BitShift.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Bit Shift and Rotation</title>
+  <summary lang="en"><i>Bit Shift and Rotation</i></summary>
+  <description lang="en">Every byte is shifted by one bit to the left and back to the right: the bit that is pushed out at the high end is lost; a rotation keeps all bits.</description>
+  <keywords lang="en">bit shift, rotation, bits</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first {\b Data Tools} component shifts every byte of the text by one bit to the left, the second rotates the result by one bit to the right. Because the shift lost the high bit, the text does not come back; change the first operation to a rotation and it does. The settings show the number of bits." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Bit-Verschiebung und -Rotation</title>
+  <summary lang="de"><i>Bit-Verschiebung und -Rotation</i></summary>
+  <description lang="de">Jedes Byte wird um ein Bit nach links und wieder nach rechts geschoben: Das Bit, das am oberen Ende herausgeschoben wird, geht verloren; eine Rotation behält alle Bits.</description>
+  <keywords lang="en">bit shift, rotation, bits</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente {\b Datenwerkzeuge} schiebt jedes Byte des Textes um ein Bit nach links, die zweite rotiert das Ergebnis um ein Bit nach rechts. Weil das Schieben das höchste Bit verloren hat, kommt der Text nicht zurück; stellen Sie die erste Operation auf Rotation, dann schon. Die Einstellungen zeigen die Anzahl der Bits." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="BitShift.png" />
+  <relevantPlugins>
+    <plugin name="DataTools" />
+  </relevantPlugins>
+</sample>

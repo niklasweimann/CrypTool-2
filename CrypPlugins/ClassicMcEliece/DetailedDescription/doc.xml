@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    McEliece's cryptosystem (1978) is the oldest public-key scheme that has not been broken, and it is believed to resist quantum computers. It is based on error-correcting codes: the private key is a binary Goppa code, which can correct t errors quickly; the public key is a disguised generator matrix of this code, which looks like a random code, and for a random code decoding is a hard problem (syndrome decoding).
+    Niederreiter (1986) described the same idea with the parity-check matrix: the message is an error vector of weight t, the ciphertext its syndrome. Classic McEliece, a finalist of the NIST post-quantum competition, uses this form as a key encapsulation mechanism (KEM): the sender chooses a random error vector, sends its syndrome as the encapsulation and derives the shared secret from the error vector by hashing; the receiver decodes the syndrome with the Goppa code and gets the same error vector.
+    The price of the security is the key size: the public key has several hundred kilobytes.
+  </introduction>
+  <introduction lang="de-DE">
+    Das Kryptosystem von McEliece (1978) ist das älteste Public-Key-Verfahren, das nicht gebrochen wurde, und soll Quantencomputern widerstehen. Es beruht auf fehlerkorrigierenden Codes: Der private Schlüssel ist ein binärer Goppa-Code, der t Fehler schnell korrigieren kann; der öffentliche Schlüssel ist eine getarnte Generatormatrix dieses Codes, die wie ein zufälliger Code aussieht, und für einen zufälligen Code ist Dekodieren ein schweres Problem (Syndrom-Dekodierung).
+    Niederreiter (1986) beschrieb dieselbe Idee mit der Kontrollmatrix: Die Nachricht ist ein Fehlervektor vom Gewicht t, der Geheimtext sein Syndrom. Classic McEliece, ein Finalist des NIST-Wettbewerbs für Post-Quanten-Kryptografie, verwendet diese Form als Schlüsselkapselung (KEM): Der Sender wählt einen zufälligen Fehlervektor, sendet sein Syndrom als Kapsel und leitet das gemeinsame Geheimnis durch Hashen aus dem Fehlervektor ab; der Empfänger dekodiert das Syndrom mit dem Goppa-Code und erhält denselben Fehlervektor.
+    Der Preis der Sicherheit ist die Schlüsselgröße: Der öffentliche Schlüssel hat mehrere hundert Kilobyte.
+  </introduction>
+  <usage lang="en">
+    Choose the action and the parameter set in the settings. "Generate key pair" writes the private and the public key (this takes some time, in the browser especially). "Encapsulate" needs the public key and writes the encapsulation (96 bytes for mceliece348864) and the shared secret (16 bytes). These sizes are those of the BouncyCastle implementation, which does not append the confirmation hash of the NIST submission and derives a 128-bit secret. "Decapsulate" needs the private key and the encapsulation and writes the shared secret. With a wrong key or a changed encapsulation the result is a different, useless secret (implicit rejection). The same parameter set must be chosen for all three actions.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Aktion und den Parametersatz. "Schlüsselpaar erzeugen" schreibt den privaten und den öffentlichen Schlüssel (das dauert, im Browser besonders). "Kapseln" braucht den öffentlichen Schlüssel und schreibt die Kapsel (96 Bytes bei mceliece348864) und das gemeinsame Geheimnis (16 Bytes). Diese Größen stammen aus der BouncyCastle-Umsetzung, die den Bestätigungs-Hash der NIST-Einreichung nicht anfügt und ein 128-Bit-Geheimnis ableitet. "Entkapseln" braucht den privaten Schlüssel und die Kapsel und schreibt das gemeinsame Geheimnis. Bei einem falschen Schlüssel oder einer veränderten Kapsel ergibt sich ein anderes, nutzloses Geheimnis (implizite Ablehnung). Für alle drei Aktionen muss derselbe Parametersatz gewählt sein.
+  </usage>
+</documentation>

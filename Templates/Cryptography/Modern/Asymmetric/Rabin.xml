@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Rabin.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Rabin Cryptosystem</title>
+  <summary lang="en">Key generation, encryption and decryption with <i>Rabin Cryptosystem</i></summary>
+  <description lang="en">The Rabin cryptosystem (1979) encrypts by squaring modulo n = p * q; decrypting means computing square roots, which is as hard as factoring n.</description>
+  <keywords lang="en">Rabin, public key, factoring, square roots</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="A ciphertext has four square roots; the plaintext carries a marker byte and four check bytes, by which the receiver finds the right root. The 1024-bit key is made of two 512-bit primes congruent to 3 modulo 4. The first {\b ElGamal / Rabin} component generates a key pair, the second encrypts the text with the public key, the third decrypts it with the private key. The text in the middle is the ciphertext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Rabin-Kryptosystem</title>
+  <summary lang="de">Schlüsselerzeugung, Ver- und Entschlüsselung mit <i>Rabin-Kryptosystem</i></summary>
+  <description lang="de">Das Rabin-Kryptosystem (1979) verschlüsselt durch Quadrieren modulo n = p * q; Entschlüsseln bedeutet, Quadratwurzeln zu ziehen, was so schwer ist wie das Faktorisieren von n.</description>
+  <keywords lang="en">Rabin, public key, factoring, square roots</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ein Geheimtext hat vier Quadratwurzeln; der Klartext trägt ein Markierungsbyte und vier Prüfbytes, an denen der Empfänger die richtige Wurzel erkennt. Der 1024-Bit-Schlüssel besteht aus zwei 512-Bit-Primzahlen, die kongruent zu 3 modulo 4 sind. Die erste Komponente {\b ElGamal / Rabin} erzeugt ein Schlüsselpaar, die zweite verschlüsselt den Text mit dem öffentlichen Schlüssel, die dritte entschlüsselt ihn mit dem privaten Schlüssel. Der Text in der Mitte ist der Geheimtext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Rabin.png" />
+  <relevantPlugins>
+    <plugin name="PublicKeyEncryption" />
+  </relevantPlugins>
+</sample>

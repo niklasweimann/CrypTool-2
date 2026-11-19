@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: BlumBlumShub.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Blum Blum Shub Generator</title>
+  <summary lang="en">Pseudo-random numbers with the <i>Blum Blum Shub</i> generator</summary>
+  <description lang="en">The Blum Blum Shub generator (1986) is the x² mod N generator with N = p * q, where p and q are primes congruent to 3 modulo 4 (a Blum integer). Its security rests on the difficulty of factoring N.</description>
+  <keywords lang="en">Blum Blum Shub, BBS, pseudo-random, generator</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The modulus N = 1000000007 * 1000000087 is a Blum integer (both primes are congruent to 3 mod 4). The seed must be coprime to N. For real use N would have to be much larger." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Blum-Blum-Shub-Generator</title>
+  <summary lang="de">Pseudozufallszahlen mit dem <i>Blum-Blum-Shub</i>-Generator</summary>
+  <description lang="de">Der Blum-Blum-Shub-Generator (1986) ist der x² mod N-Generator mit N = p * q, wobei p und q Primzahlen sind, die kongruent zu 3 modulo 4 sind (eine Blum-Zahl). Seine Sicherheit beruht auf der Schwierigkeit, N zu faktorisieren.</description>
+  <keywords lang="en">Blum Blum Shub, BBS, pseudo-random, generator</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Modul N = 1000000007 * 1000000087 ist eine Blum-Zahl (beide Primzahlen sind kongruent zu 3 mod 4). Der Startwert muss teilerfremd zu N sein. Für den echten Einsatz müsste N viel größer sein." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="BlumBlumShub.png" />
+  <relevantPlugins>
+    <plugin name="RandomNumberGenerator" />
+  </relevantPlugins>
+</sample>

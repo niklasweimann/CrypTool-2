@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_DSA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">DSA Signature</title>
+  <summary lang="en">Key generation, signing and verification with <i>DSA Signature</i></summary>
+  <description lang="en">Digital signature with the Digital Signature Algorithm (DSA, FIPS 186) based on the discrete logarithm.</description>
+  <keywords lang="en">DSA, signature, discrete logarithm, FIPS 186</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The template uses a 1024-bit prime (with a 160-bit subgroup) so that the parameters are generated quickly; use 2048 bits or more in practice. DSA is randomized, so signatures differ from run to run. The first {\b Digital Signatures} component generates a key pair, the second signs the message with the private key, the third verifies the signature with the public key. Change the message in the text input and the algorithm, hash function and key size in the settings of the components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">DSA-Signatur</title>
+  <summary lang="de">Schlüsselerzeugung, Signieren und Prüfen mit <i>DSA-Signatur</i></summary>
+  <description lang="de">Digitale Signatur mit dem Digital Signature Algorithm (DSA, FIPS 186), das auf dem diskreten Logarithmus beruht.</description>
+  <keywords lang="en">DSA, signature, discrete logarithm, FIPS 186</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Vorlage verwendet eine 1024-Bit-Primzahl (mit 160-Bit-Untergruppe), damit die Parameter schnell erzeugt werden; in der Praxis sind 2048 Bit oder mehr zu verwenden. DSA ist randomisiert, die Signaturen unterscheiden sich daher von Durchlauf zu Durchlauf. Die erste Komponente {\b Digitale Signaturen} erzeugt ein Schlüsselpaar, die zweite signiert die Nachricht mit dem privaten Schlüssel, die dritte prüft die Signatur mit dem öffentlichen Schlüssel. Nachricht, Verfahren, Hashfunktion und Schlüssellänge lassen sich in der Texteingabe und in den Einstellungen der Komponenten ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_DSA.png" />
+  <relevantPlugins>
+    <plugin name="DigitalSignatures" />
+  </relevantPlugins>
+</sample>

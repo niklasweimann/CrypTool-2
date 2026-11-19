@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Four classic ciphers.
+    Porta (Giovanni Battista della Porta, 1563) is a polyalphabetic cipher with 13 reciprocal alphabets: the key letters come in pairs A/B, C/D, ..., and each pair selects one alphabet in which the letters A to M are exchanged with N to Z; the same operation encrypts and decrypts.
+    The rail fence cipher writes the text on a zigzag over a number of rails and reads it rail by rail. The offset moves the starting point on the zigzag; in the redefence variant a key with one letter per rail decides the order in which the rails are read.
+    The Kamasutra cipher is a reciprocal substitution: the key cuts the alphabet into pairs of letters and each letter is replaced by its partner.
+    The two-square cipher (Doppelkasten) encrypts pairs of letters with two 5x5 squares made of two key words, like the Playfair cipher with a different rule: the two letters of a pair form a rectangle between the squares, the cipher letters are its other two corners.
+  </introduction>
+  <introduction lang="de-DE">
+    Vier klassische Chiffren.
+    Porta (Giovanni Battista della Porta, 1563) ist eine polyalphabetische Chiffre mit 13 reziproken Alphabeten: Die Schlüsselbuchstaben kommen paarweise A/B, C/D, ..., und jedes Paar wählt ein Alphabet, in dem die Buchstaben A bis M gegen N bis Z getauscht werden; dieselbe Operation ver- und entschlüsselt.
+    Die Rail-Fence-Chiffre schreibt den Text im Zickzack über mehrere Schienen und liest ihn Schiene für Schiene. Der Versatz verschiebt den Startpunkt im Zickzack; bei Redefence bestimmt ein Schlüssel mit einem Buchstaben je Schiene die Reihenfolge, in der die Schienen gelesen werden.
+    Die Kamasutra-Chiffre ist eine reziproke Substitution: Der Schlüssel zerlegt das Alphabet in Buchstabenpaare, und jeder Buchstabe wird durch seinen Partner ersetzt.
+    Die Doppelkasten-Chiffre (Two-Square) verschlüsselt Buchstabenpaare mit zwei 5x5-Quadraten aus zwei Schlüsselwörtern, ähnlich wie Playfair mit anderer Regel: Die beiden Buchstaben eines Paares bilden ein Rechteck zwischen den Quadraten, die Geheimtextbuchstaben sind seine beiden anderen Ecken.
+  </introduction>
+  <usage lang="en">
+    Choose the cipher and the action in the settings. The text is expected on the input "Text", the key on the input "Key". Porta: the key is a word of letters; other characters of the text are kept. Rail fence: set the number of rails and the offset in the settings; leave the key empty, or give one letter per rail for the redefence cipher (the rails are read in the alphabetical order of the letters). Kamasutra: the key is the alphabet in pairs, e.g. "BADCFE" exchanges A and B, C and D, E and F. Two-square: the key is two words separated by a space; only letters are used, J is I, and an odd text gets an X.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Chiffre und die Aktion. Der Text wird am Eingang "Text" erwartet, der Schlüssel am Eingang "Schlüssel". Porta: Der Schlüssel ist ein Wort aus Buchstaben; andere Zeichen des Textes bleiben erhalten. Rail Fence: Stellen Sie Schienenzahl und Versatz in den Einstellungen ein; lassen Sie den Schlüssel leer oder geben Sie für Redefence einen Buchstaben je Schiene an (die Schienen werden in alphabetischer Reihenfolge der Buchstaben gelesen). Kamasutra: Der Schlüssel ist das Alphabet in Paaren, z. B. "BADCFE" tauscht A und B, C und D, E und F. Doppelkasten: Der Schlüssel besteht aus zwei durch ein Leerzeichen getrennten Wörtern; es werden nur Buchstaben verwendet, J gilt als I, ein ungerader Text erhält ein X.
+  </usage>
+</documentation>

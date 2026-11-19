@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: BabyStepGiantStep.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Baby-Step Giant-Step</title>
+  <summary lang="en"><i>Baby-Step Giant-Step</i> with its steps</summary>
+  <description lang="en">Shanks' algorithm for the discrete logarithm: finds e with g^e = h (mod p) in about the square root of p steps.</description>
+  <keywords lang="en">baby-step giant-step, Shanks, discrete logarithm</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The inputs are the base g, the value h and the prime p. The upper output is the smallest e with g^e = h (mod p), the lower one lists the baby steps and giant steps. For primes of a few hundred bits the method is far too slow, which is why the discrete logarithm protects Diffie-Hellman." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Baby-Step Giant-Step</title>
+  <summary lang="de"><i>Baby-Step Giant-Step</i> mit allen Schritten</summary>
+  <description lang="de">Der Algorithmus von Shanks für den diskreten Logarithmus: findet e mit g^e = h (mod p) in etwa der Quadratwurzel aus p Schritten.</description>
+  <keywords lang="en">baby-step giant-step, Shanks, discrete logarithm</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Eingaben sind die Basis g, der Wert h und die Primzahl p. Die obere Ausgabe ist das kleinste e mit g^e = h (mod p), die untere listet die Baby Steps und Giant Steps. Bei Primzahlen von einigen hundert Bit ist das Verfahren viel zu langsam, daher schützt der diskrete Logarithmus Diffie-Hellman." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="BabyStepGiantStep.png" />
+  <relevantPlugins>
+    <plugin name="NumberTheory" />
+  </relevantPlugins>
+</sample>

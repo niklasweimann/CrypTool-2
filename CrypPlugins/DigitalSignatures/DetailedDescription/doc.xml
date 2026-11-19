@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A digital signature proves that a message comes from the owner of a private key and has not been changed.
+    The signer computes a hash value of the message and signs it with the private key; everybody can check the signature with the public key.
+    This component generates key pairs and signs and verifies with RSA (PKCS#1 v1.5 and PSS), the Digital Signature Algorithm (DSA), its elliptic curve variant ECDSA and the Nyberg-Rueppel scheme on elliptic curves (ECNR).
+  </introduction>
+  <introduction lang="de-DE">
+    Eine digitale Signatur beweist, dass eine Nachricht vom Besitzer eines privaten Schlüssels stammt und nicht verändert wurde.
+    Der Signierende berechnet einen Hashwert der Nachricht und signiert ihn mit dem privaten Schlüssel; jeder kann die Signatur mit dem öffentlichen Schlüssel prüfen.
+    Diese Komponente erzeugt Schlüsselpaare und signiert und prüft mit RSA (PKCS#1 v1.5 und PSS), dem Digital Signature Algorithm (DSA), seiner Variante auf elliptischen Kurven (ECDSA) und dem Nyberg-Rueppel-Verfahren auf elliptischen Kurven (ECNR).
+  </introduction>
+  <usage lang="en">
+    Choose the action in the settings.
+    "Generate key pair": the outputs "Private key" (PKCS#8) and "Public key" (X.509) are written as DER-encoded byte arrays. RSA and DSA use the chosen key size, ECDSA and ECNR the chosen curve.
+    "Sign": needs the inputs "Message" and "Private key" and writes the signature to the output "Signature". RSA-PSS and DSA-based schemes are randomized, so signing the same message twice gives different signatures.
+    "Verify": needs the inputs "Message", "Public key" and "Signature" and sets the output "Valid".
+    Use the same algorithm and hash function for signing and verifying.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Aktion in den Einstellungen.
+    "Schlüsselpaar erzeugen": Die Ausgänge "Privater Schlüssel" (PKCS#8) und "Öffentlicher Schlüssel" (X.509) liefern DER-codierte Byte-Arrays. RSA und DSA verwenden die gewählte Schlüssellänge, ECDSA und ECNR die gewählte Kurve.
+    "Signieren": braucht die Eingänge "Nachricht" und "Privater Schlüssel" und schreibt die Signatur an den Ausgang "Signatur". RSA-PSS und die DSA-Verfahren sind randomisiert, dieselbe Nachricht ergibt daher bei jedem Signieren eine andere Signatur.
+    "Prüfen": braucht die Eingänge "Nachricht", "Öffentlicher Schlüssel" und "Signatur" und setzt den Ausgang "Gültig".
+    Zum Signieren und Prüfen müssen dasselbe Verfahren und dieselbe Hashfunktion eingestellt sein.
+  </usage>
+  <references>
+    <linkReference>
+      <link url="https://csrc.nist.gov/pubs/fips/186-5/final" lang="en" />
+      <caption lang="en">FIPS 186-5: Digital Signature Standard (DSA, ECDSA, RSA)</caption>
+      <caption lang="de-DE">FIPS 186-5: Digital Signature Standard (DSA, ECDSA, RSA)</caption>
+    </linkReference>
+    <linkReference>
+      <link url="https://www.rfc-editor.org/rfc/rfc8017" lang="en" />
+      <caption lang="en">RFC 8017: PKCS #1 (RSA)</caption>
+      <caption lang="de-DE">RFC 8017: PKCS #1 (RSA)</caption>
+    </linkReference>
+  </references>
+</documentation>

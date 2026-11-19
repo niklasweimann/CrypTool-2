@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: FileHash.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Hash Value of a File</title>
+  <summary lang="en">The <i>SHA-256</i> hash value of a file</summary>
+  <description lang="en">The hash value of a file proves that the file is unchanged: a single changed bit gives a completely different value.</description>
+  <keywords lang="en">hash, file, SHA-256, checksum</keywords>
+  <replacements lang="en">
+    <replacement key="$Message$" value="Message" />
+    <replacement key="$Hash$" value="Hash Value" />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Hashwert einer Datei</title>
+  <summary lang="de">Der <i>SHA-256</i>-Hashwert einer Datei</summary>
+  <description lang="de">Der Hashwert einer Datei belegt, dass die Datei unverändert ist: Ein einziges geändertes Bit ergibt einen völlig anderen Wert.</description>
+  <keywords lang="en">hash, file, SHA-256, checksum</keywords>
+  <replacements lang="de">
+    <replacement key="$Message$" value="Nachricht" />
+    <replacement key="$Hash$" value="Hashwert" />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="FileHash.png" />
+  <relevantPlugins>
+    <plugin name="SHA" />
+  </relevantPlugins>
+</sample>

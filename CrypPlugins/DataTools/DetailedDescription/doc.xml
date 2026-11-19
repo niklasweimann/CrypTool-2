@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component bundles small operations on byte data that often precede or follow a cipher.
+    UU encoding (uuencode) writes binary data as printable text: three bytes become four characters from the range of space to underscore, in lines of up to 45 bytes with a length character at the start of each line.
+    Zip packs the data into a ZIP archive (deflate compression); unzip reads the first entry of an archive.
+    The byte-wise addition and subtraction add the key bytes to the data bytes modulo 256, repeating the key (a Vigenère cipher on bytes). Shifts move the bits of every byte to the left or right and fill with zeros; rotations move the bits around, so no bit is lost.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente fasst kleine Operationen auf Bytedaten zusammen, die oft vor oder nach einer Chiffre vorkommen.
+    Die UU-Codierung (uuencode) schreibt Binärdaten als druckbaren Text: Drei Bytes werden zu vier Zeichen aus dem Bereich Leerzeichen bis Unterstrich, in Zeilen zu höchstens 45 Bytes mit einem Längenzeichen am Zeilenanfang.
+    Zippen packt die Daten in ein ZIP-Archiv (Deflate-Kompression); Entzippen liest den ersten Eintrag eines Archivs.
+    Die byteweise Addition und Subtraktion addieren die Schlüsselbytes modulo 256 zu den Datenbytes, wobei der Schlüssel wiederholt wird (eine Vigenère-Chiffre auf Bytes). Verschiebungen schieben die Bits jedes Bytes nach links oder rechts und füllen mit Nullen auf; Rotationen schieben die Bits im Kreis, so geht kein Bit verloren.
+  </introduction>
+  <usage lang="en">
+    Choose the operation in the settings. The data is expected as a data stream on the input "Data"; byte-wise addition and subtraction also need the byte array on the input "Key". For shifts and rotations the setting "Bits" gives the amount. The result is a data stream. "UU encode" writes the file name "data" in the header line; "UU decode" accepts text with or without the header and trailer lines. "Zip" creates an archive with one entry named "data".
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Operation in den Einstellungen. Die Daten werden als Datenstrom am Eingang "Daten" erwartet; die byteweise Addition und Subtraktion brauchen zusätzlich das Byte-Array am Eingang "Schlüssel". Bei Verschiebungen und Rotationen gibt die Einstellung "Bits" den Betrag an. Das Ergebnis ist ein Datenstrom. "UU codieren" schreibt den Dateinamen "data" in die Kopfzeile; "UU decodieren" akzeptiert Text mit oder ohne Kopf- und Schlusszeile. "Zippen" erzeugt ein Archiv mit einem Eintrag namens "data".
+  </usage>
+</documentation>

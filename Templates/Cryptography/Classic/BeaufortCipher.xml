@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: BeaufortCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Beaufort Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>Beaufort cipher</i></summary>
+  <description lang="en">The Beaufort cipher is a variant of the Vigenère cipher: instead of adding the key letter to the plaintext letter, the plaintext letter is subtracted from the key letter. Encryption and decryption are the same operation (the cipher is reciprocal).</description>
+  <keywords lang="en">Beaufort, Vigenère, polyalphabetic</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b Beaufort cipher} is a polyalphabetic substitution cipher. Where Vigenère computes C = P + K, Beaufort computes C = K - P (mod 26). Therefore the same operation both encrypts and decrypts. The mode of the Vigenère component is set to &quot;Beaufort Classic&quot;." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Beaufort-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Beaufort-Chiffre</i></summary>
+  <description lang="de">Die Beaufort-Chiffre ist eine Variante der Vigenère-Chiffre: Statt den Schlüsselbuchstaben zum Klartextbuchstaben zu addieren, wird der Klartextbuchstabe vom Schlüsselbuchstaben subtrahiert. Ver- und Entschlüsselung sind dieselbe Operation (die Chiffre ist reziprok).</description>
+  <keywords lang="en">Beaufort, Vigenère, polyalphabetic</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$memo$" value="Die {\b Beaufort-Chiffre} ist eine polyalphabetische Substitutions-Chiffre. Während Vigenère C = P + K berechnet, berechnet Beaufort C = K - P (mod 26). Dieselbe Operation ver- und entschlüsselt daher. Die Betriebsart der Vigenère-Komponente ist auf &quot;Beaufort Classic&quot; gestellt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="BeaufortCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

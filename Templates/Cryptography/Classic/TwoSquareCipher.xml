@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TwoSquareCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Two-Square Cipher (Doppelkasten)</title>
+  <summary lang="en"><i>Two-Square Cipher (Doppelkasten)</i></summary>
+  <description lang="en">The two-square cipher encrypts pairs of letters with two 5x5 squares made of two key words.</description>
+  <keywords lang="en">two-square, Doppelkasten, digraph</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key consists of two words (here EXAMPLE and KEYWORD). The two letters of a pair, one looked up in each square, form a rectangle; the other two corners are the cipher letters. J is treated as I, an odd text gets an X." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Doppelkasten-Chiffre (Two-Square)</title>
+  <summary lang="de"><i>Doppelkasten-Chiffre (Two-Square)</i></summary>
+  <description lang="de">Die Doppelkasten-Chiffre (Two-Square) verschlüsselt Buchstabenpaare mit zwei 5x5-Quadraten aus zwei Schlüsselwörtern.</description>
+  <keywords lang="en">two-square, Doppelkasten, digraph</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel besteht aus zwei Wörtern (hier EXAMPLE und KEYWORD). Die beiden Buchstaben eines Paares, je einer in jedem Quadrat gesucht, bilden ein Rechteck; die anderen beiden Ecken sind die Geheimtextbuchstaben. J wird wie I behandelt, ein ungerader Text erhält ein X." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TwoSquareCipher.png" />
+  <relevantPlugins>
+    <plugin name="ClassicVariants" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HMAC_Tiger.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">HMAC with Tiger (Tiger MAC)</title>
+  <summary lang="en">Message authentication code with <i>HMAC-Tiger</i></summary>
+  <description lang="en">A message authentication code (MAC) protects the integrity and the origin of a message. This template computes it as HMAC with the hash function Tiger (192-bit hash value).</description>
+  <keywords lang="en">HMAC, Tiger, MAC</keywords>
+  <replacements lang="en">
+    <replacement key="$IPAD constant$" value="IPAD constant" />
+    <replacement key="$OPAD constant$" value="OPAD constant" />
+    <replacement key="$Converter$" value="Converter" />
+    <replacement key="$Message$" value="Message" />
+    <replacement key="$Concatenate$" value="Concatenate" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$HMAC key$" value="HMAC key" />
+    <replacement key="$memo$" value="The {\\b HMAC (many hash functions)} component computes a MAC from a message and a secret key. Here the hash function is Tiger; the component offers MD2, MD4, MD5, SHA-1, SHA-2, SHA-3, RIPEMD, Whirlpool and SM3 as well." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">HMAC mit Tiger (Tiger-MAC)</title>
+  <summary lang="de">Nachrichten-Authentifizierungscode mit <i>HMAC-Tiger</i></summary>
+  <description lang="de">Ein Message Authentication Code (MAC) schützt Integrität und Herkunft einer Nachricht. Diese Vorlage berechnet ihn als HMAC mit der Hashfunktion Tiger (192-Bit-Hashwert).</description>
+  <keywords lang="en">HMAC, Tiger, MAC</keywords>
+  <replacements lang="de">
+    <replacement key="$IPAD constant$" value="IPAD-Konstante" />
+    <replacement key="$OPAD constant$" value="OPAD-Konstante" />
+    <replacement key="$Converter$" value="Konvertierer" />
+    <replacement key="$Message$" value="Nachricht" />
+    <replacement key="$Concatenate$" value="Konkatenation" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$HMAC key$" value="HMAC-Schlüssel" />
+    <replacement key="$memo$" value="Die Komponente {\\b HMAC (viele Hashfunktionen)} berechnet aus einer Nachricht und einem geheimen Schlüssel einen MAC. Hier ist die Hashfunktion Tiger; die Komponente bietet auch MD2, MD4, MD5, SHA-1, SHA-2, SHA-3, RIPEMD, Whirlpool und SM3 an." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HMAC_Tiger.png" />
+  <relevantPlugins>
+    <plugin name="HmacHashes" />
+    <plugin name="HmacHashes" />
+    <plugin name="HmacHashes" />
+    <plugin name="HmacHashes" />
+  </relevantPlugins>
+</sample>
