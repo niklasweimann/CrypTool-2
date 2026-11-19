@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    ML-KEM (Module-Lattice-based Key-Encapsulation Mechanism, standardized in FIPS 203 from the Kyber submission) is the first post-quantum key exchange standard. Its security rests on the hardness of the learning-with-errors problem in module lattices, for which no efficient quantum algorithm is known. The receiver makes a key pair; the sender encapsulates: a random message is encrypted with the public key, and the shared secret is derived from it by hashing; the receiver decapsulates and gets the same secret. The ciphertext is checked by encrypting again (Fujisaki-Okamoto transform), and a changed ciphertext gives a pseudo-random secret instead of an error. This implementation follows FIPS 203 and was checked against OpenSSL: keys made from the same seed and secrets decapsulated from OpenSSL ciphertexts agree for all three parameter sets.
+  </introduction>
+  <introduction lang="de-DE">
+    ML-KEM (Module-Lattice-based Key-Encapsulation Mechanism, aus der Kyber-Einreichung in FIPS 203 standardisiert) ist der erste Standard für einen Post-Quanten-Schlüsselaustausch. Seine Sicherheit beruht auf der Schwierigkeit des Learning-with-Errors-Problems in Modulgittern, für das kein effizienter Quantenalgorithmus bekannt ist. Der Empfänger erzeugt ein Schlüsselpaar; der Sender kapselt: Eine zufällige Nachricht wird mit dem öffentlichen Schlüssel verschlüsselt, und das gemeinsame Geheimnis wird daraus durch Hashen abgeleitet; der Empfänger entkapselt und erhält dasselbe Geheimnis. Der Geheimtext wird durch erneutes Verschlüsseln geprüft (Fujisaki-Okamoto-Transformation), und ein veränderter Geheimtext ergibt ein pseudozufälliges Geheimnis statt eines Fehlers. Diese Implementierung folgt FIPS 203 und wurde gegen OpenSSL geprüft: Aus demselben Startwert erzeugte Schlüssel und aus OpenSSL-Geheimtexten entkapselte Geheimnisse stimmen für alle drei Parametersätze überein.
+  </introduction>
+  <usage lang="en">
+    Choose the function and the parameter set in the settings. Generate: the outputs are the two keys. Encapsulate: connect the encapsulation key; the outputs are the ciphertext and the secret. Decapsulate: connect the decapsulation key and the ciphertext; the output is the secret.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Funktion und den Parametersatz. Erzeugen: Die Ausgänge sind die beiden Schlüssel. Kapseln: Verbinden Sie den Kapselungsschlüssel; die Ausgänge sind der Geheimtext und das Geheimnis. Entkapseln: Verbinden Sie den Entkapselungsschlüssel und den Geheimtext; der Ausgang ist das Geheimnis.
+  </usage>
+</documentation>

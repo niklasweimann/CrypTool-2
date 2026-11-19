@@ -1258,6 +1258,30 @@ TEMPLATES += [
 ]
 
 
+MLKEM = dict(
+    base="Tools/RandomNumberGenerators", plugin="MlKem",
+    edits=[dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+           dict(add=dict(type="MlKem.MlKem", x=40, y=40, w=280, h=140, settings=dict(Mode="0", ParameterSet="1"))),
+           dict(add=dict(type="MlKem.MlKem", x=420, y=40, w=280, h=140, settings=dict(Mode="1", ParameterSet="1"))),
+           dict(add=dict(type="MlKem.MlKem", x=820, y=40, w=280, h=140, settings=dict(Mode="2", ParameterSet="1"))),
+           dict(add=dict(type="TextOutput.TextOutput", x=420, y=260, w=320, h=100)),
+           dict(add=dict(type="TextOutput.TextOutput", x=820, y=260, w=320, h=100)),
+           dict(add=dict(type="TextOutput.TextOutput", x=40, y=260, w=320, h=100)),
+           dict(connect={"from": "MlKem.MlKem#0.NewEncapsulationKey", "to": "MlKem.MlKem#1.EncapsulationKey"}),
+           dict(connect={"from": "MlKem.MlKem#1.NewCiphertext", "to": "MlKem.MlKem#2.Ciphertext"}),
+           dict(connect={"from": "MlKem.MlKem#0.NewDecapsulationKey", "to": "MlKem.MlKem#2.DecapsulationKey"}),
+           dict(connect={"from": "MlKem.MlKem#0.Report", "to": "TextOutput.TextOutput#2.Input"}),
+           dict(connect={"from": "MlKem.MlKem#1.SharedSecret", "to": "TextOutput.TextOutput#0.Input"}),
+           dict(connect={"from": "MlKem.MlKem#2.SharedSecret", "to": "TextOutput.TextOutput#1.Input"})])
+
+TEMPLATES += [
+    dict(out="Cryptography/Modern/Asymmetric/MLKEM", **MLKEM,
+         en=dict(title="ML-KEM (Kyber): Post-Quantum Key Encapsulation", summary="<i>ML-KEM (Kyber): Post-Quantum Key Encapsulation</i>", description="The receiver makes a key pair, the sender encapsulates a secret, and the receiver decapsulates the same secret.", memo="The first component generates the key pair, the second encapsulates with the public key, the third decapsulates with the private key. The two shared secrets are equal. Choose another parameter set (512, 768 or 1024) in the settings of every component. The implementation follows FIPS 203 and agrees with OpenSSL."),
+         de=dict(title="ML-KEM (Kyber): Post-Quanten-Schlüsselkapselung", summary="<i>ML-KEM (Kyber): Post-Quanten-Schlüsselkapselung</i>", description="Der Empfänger erzeugt ein Schlüsselpaar, der Sender kapselt ein Geheimnis, und der Empfänger entkapselt dasselbe Geheimnis.", memo="Die erste Komponente erzeugt das Schlüsselpaar, die zweite kapselt mit dem öffentlichen Schlüssel, die dritte entkapselt mit dem privaten. Die beiden gemeinsamen Geheimnisse sind gleich. Wählen Sie in den Einstellungen jeder Komponente einen anderen Parametersatz (512, 768 oder 1024). Die Implementierung folgt FIPS 203 und stimmt mit OpenSSL überein."),
+         keywords="ML-KEM, Kyber, post-quantum, key encapsulation, lattice, FIPS 203"),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

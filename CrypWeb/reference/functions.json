@@ -2705,7 +2705,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/MLKEM.cwm": "Cryptography/Modern/Asymmetric/MLKEM.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/MLKEM.cwm"
  },
  {
   "name": "Morse-Code",

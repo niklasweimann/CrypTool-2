@@ -86,6 +86,9 @@ switch (command)
         Console.WriteLine("hill|" + global::ClassicAnalysis.ClassicAnalyses.HillEncrypt("HELLOWORLDFROMTHEHILLCIPHERXYZ", new int[,] { { 6, 24, 1 }, { 13, 16, 10 }, { 20, 17, 15 } }));
         Console.WriteLine("fleissner|" + global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt("THEMEETINGWILLBEHELDATTHEOLDBRIDGEATMIDNIGHTANDTHENEVERTHATENDSTHEMISSION", 4, new[] { 0, 1, 2, 3 }));
         break;
+    case "mlkem":   // whether .NET can do ML-KEM here (a way to check our implementation)
+        Console.WriteLine("MLKem.IsSupported = " + System.Security.Cryptography.MLKem.IsSupported);
+        break;
     case "kat":
         Environment.ExitCode = ComponentTests.Run() ? 0 : 1;
         break;

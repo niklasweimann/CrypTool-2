@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MLKEM.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ML-KEM (Kyber): Post-Quantum Key Encapsulation</title>
+  <summary lang="en"><i>ML-KEM (Kyber): Post-Quantum Key Encapsulation</i></summary>
+  <description lang="en">The receiver makes a key pair, the sender encapsulates a secret, and the receiver decapsulates the same secret.</description>
+  <keywords lang="en">ML-KEM, Kyber, post-quantum, key encapsulation, lattice, FIPS 203</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first component generates the key pair, the second encapsulates with the public key, the third decapsulates with the private key. The two shared secrets are equal. Choose another parameter set (512, 768 or 1024) in the settings of every component. The implementation follows FIPS 203 and agrees with OpenSSL." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ML-KEM (Kyber): Post-Quanten-Schlüsselkapselung</title>
+  <summary lang="de"><i>ML-KEM (Kyber): Post-Quanten-Schlüsselkapselung</i></summary>
+  <description lang="de">Der Empfänger erzeugt ein Schlüsselpaar, der Sender kapselt ein Geheimnis, und der Empfänger entkapselt dasselbe Geheimnis.</description>
+  <keywords lang="en">ML-KEM, Kyber, post-quantum, key encapsulation, lattice, FIPS 203</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente erzeugt das Schlüsselpaar, die zweite kapselt mit dem öffentlichen Schlüssel, die dritte entkapselt mit dem privaten. Die beiden gemeinsamen Geheimnisse sind gleich. Wählen Sie in den Einstellungen jeder Komponente einen anderen Parametersatz (512, 768 oder 1024). Die Implementierung folgt FIPS 203 und stimmt mit OpenSSL überein." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MLKEM.png" />
+  <relevantPlugins>
+    <plugin name="MlKem" />
+  </relevantPlugins>
+</sample>

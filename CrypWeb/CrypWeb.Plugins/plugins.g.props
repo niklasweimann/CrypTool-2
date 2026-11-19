@@ -963,6 +963,11 @@
     <Compile Include="../../CrypPlugins/Mickey2/Properties/Resources.Designer.cs" Link="Mickey2/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Mickey2/Properties/Resources.resx" LogicalName="Mickey2.Properties.Resources.resources" Link="Mickey2/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Mickey2/Properties/Resources.de.resx" LogicalName="Mickey2.Properties.Resources.de.resources" Link="Mickey2/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/MlKem/MlKem.cs" Link="MlKem/MlKem.cs" />
+    <Compile Include="../../CrypPlugins/MlKem/MlKemSettings.cs" Link="MlKem/MlKemSettings.cs" />
+    <Compile Include="../../CrypPlugins/MlKem/Properties/Resources.Designer.cs" Link="MlKem/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/MlKem/Properties/Resources.resx" LogicalName="MlKem.Properties.Resources.resources" Link="MlKem/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/MlKem/Properties/Resources.de.resx" LogicalName="MlKem.Properties.Resources.de.resources" Link="MlKem/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/MorseCode/MorseCodeSettings.cs" Link="MorseCode/MorseCodeSettings.cs" />
     <Compile Include="../../CrypPlugins/MorseCode/Encoders.cs" Link="MorseCode/Encoders.cs" />
     <Compile Include="../../CrypPlugins/MorseCode/MorseCode.cs" Link="MorseCode/MorseCode.cs" />
