@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component shows two protocols as a message sequence between Alice and Bob, with every number calculated, small enough to follow by hand.
+    Diffie-Hellman key exchange: Alice and Bob agree on a prime p and a generator g. Each chooses a secret exponent (a and b), sends A = g^a and B = g^b over the open channel, and computes K = B^a = A^b = g^(ab) mod p. An eavesdropper sees p, g, A and B but would have to compute a discrete logarithm. If new exponents are used for every session and then deleted, the keys of old sessions cannot be recovered later (perfect forward secrecy); the picture shows up to three sessions with different exponents. For a small prime the eavesdropper succeeds by trial, which shows why large primes are needed.
+    Digital signature: Alice hashes the message with SHA-256 and signs the hash value with her private RSA key; Bob hashes the message he received and compares the hash value with what the signature gives under Alice's public key. If the message was changed on the way, the values differ and the signature is not valid.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente zeigt zwei Protokolle als Nachrichtenfolge zwischen Alice und Bob, mit allen berechneten Zahlen, klein genug, um sie von Hand nachzuvollziehen.
+    Diffie-Hellman-Schlüsselaustausch: Alice und Bob vereinbaren eine Primzahl p und einen Erzeuger g. Jeder wählt einen geheimen Exponenten (a und b), sendet A = g^a und B = g^b über den offenen Kanal und berechnet K = B^a = A^b = g^(ab) mod p. Ein Lauscher sieht p, g, A und B, müsste aber einen diskreten Logarithmus berechnen. Werden für jede Sitzung neue Exponenten benutzt und danach gelöscht, lassen sich die Schlüssel alter Sitzungen später nicht wiederherstellen (Perfect Forward Secrecy); das Bild zeigt bis zu drei Sitzungen mit verschiedenen Exponenten. Bei einer kleinen Primzahl hat der Lauscher durch Probieren Erfolg, was zeigt, warum große Primzahlen nötig sind.
+    Digitale Signatur: Alice hasht die Nachricht mit SHA-256 und signiert den Hashwert mit ihrem privaten RSA-Schlüssel; Bob hasht die empfangene Nachricht und vergleicht den Hashwert mit dem, was die Signatur unter Alices öffentlichem Schlüssel ergibt. Wurde die Nachricht unterwegs verändert, unterscheiden sich die Werte, und die Signatur ist nicht gültig.
+  </introduction>
+  <usage lang="en">
+    Choose the protocol in the settings. Diffie-Hellman: the input "Parameters" is "p g a1 b1 [a2 b2 ...]", for example "23 5 6 15 4 9" (two sessions); the output "Result" lists the keys. Signature: the input "Parameters" is "p q e" (two primes and the public exponent), for example "1009 1013 17"; the input "Message" is the text Alice signs; the optional input "Received message" is what Bob receives - give another text to see the verification fail. The output "Result" is "valid" or "invalid".
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie das Protokoll in den Einstellungen. Diffie-Hellman: Der Eingang "Parameter" ist "p g a1 b1 [a2 b2 ...]", zum Beispiel "23 5 6 15 4 9" (zwei Sitzungen); der Ausgang "Ergebnis" listet die Schlüssel auf. Signatur: Der Eingang "Parameter" ist "p q e" (zwei Primzahlen und der öffentliche Exponent), zum Beispiel "1009 1013 17"; der Eingang "Nachricht" ist der Text, den Alice signiert; der optionale Eingang "Empfangene Nachricht" ist das, was Bob empfängt - geben Sie einen anderen Text an, um die Prüfung scheitern zu sehen. Der Ausgang "Ergebnis" ist "valid" oder "invalid".
+  </usage>
+</documentation>

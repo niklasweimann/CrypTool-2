@@ -810,6 +810,78 @@ TEMPLATES += [
                        "elliptic curve, point addition, visualization"),
 ]
 
+PVZ = "ProtocolVisualization.ProtocolVisualization"
+
+
+def protocol_visualization(out, mode, parameters, message, received, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A template whose component is shown with its presentation: parameters (and the messages of the signature) on the left."""
+    text_input, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text_input, x=40, y=40, w=260, h=100, settings=dict(Text=parameters))),
+             dict(add=dict(type=PVZ, x=360, y=40, w=860, h=640, viewState=1, settings=dict(Protocol=str(mode)))),
+             dict(add=dict(type=output, x=360, y=720, w=860, h=90)),
+             dict(connect={"from": f"{text_input}#0.TextOutput", "to": f"{PVZ}.Parameters"}),
+             dict(connect={"from": f"{PVZ}.Result", "to": f"{output}.Input"})]
+    if message is not None:
+        edits += [dict(add=dict(type=text_input, x=40, y=190, w=260, h=100, settings=dict(Text=message))),
+                  dict(connect={"from": f"{text_input}#1.TextOutput", "to": f"{PVZ}.Message"})]
+        edits += [dict(add=dict(type=text_input, x=40, y=340, w=260, h=100, settings=dict(Text=received))),
+                  dict(connect={"from": f"{text_input}#2.TextOutput", "to": f"{PVZ}.Received"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="ProtocolVisualization",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    protocol_visualization("Protocols/DiffieHellmanForwardSecrecy", 0, "23 5 6 15 4 9", None, None,
+                           "Diffie-Hellman Key Exchange with Perfect Forward Secrecy: Visualization", "Diffie-Hellman-Schlüsselaustausch mit Perfect Forward Secrecy: Visualisierung",
+                           "The key exchange between Alice and Bob with every number, in two sessions with new exponents.",
+                           "Der Schlüsselaustausch zwischen Alice und Bob mit allen Zahlen, in zwei Sitzungen mit neuen Exponenten.",
+                           "The parameters are p = 23, g = 5 and the secret exponents of Alice and Bob for each session (6 and 15, then 4 and 9). Each session gives another key (2 and 13). Eve finds the exponent by trial because the prime is tiny. Add more exponents or change the prime to try others.",
+                           "Die Parameter sind p = 23, g = 5 und die geheimen Exponenten von Alice und Bob je Sitzung (6 und 15, dann 4 und 9). Jede Sitzung ergibt einen anderen Schlüssel (2 und 13). Eve findet den Exponenten durch Probieren, weil die Primzahl winzig ist. Fügen Sie weitere Exponenten hinzu oder ändern Sie die Primzahl, um andere auszuprobieren.",
+                           "Diffie-Hellman, forward secrecy, key exchange, visualization"),
+    protocol_visualization("Cryptography/Modern/Asymmetric/DigitalSignatureVisualization", 1, "1009 1013 17", "Pay Bob 10 euros", "Pay Bob 10 euros",
+                           "Digital Signature: Visualization", "Digitale Signatur: Visualisierung",
+                           "Alice signs the hash value of a message, Bob checks the signature of the message he received.",
+                           "Alice signiert den Hashwert einer Nachricht, Bob prüft die Signatur der Nachricht, die er empfangen hat.",
+                           "The parameters are two primes and the public exponent of an RSA key. The upper text is signed, the lower text is what Bob receives: make them differ (\"Pay Bob 1000 euros\") and the signature is no longer valid. The key is small so that the numbers can be followed; real keys have 2048 bits or more.",
+                           "Die Parameter sind zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels. Der obere Text wird signiert, der untere ist das, was Bob empfängt: Machen Sie sie verschieden (\"Pay Bob 1000 euros\"), und die Signatur ist nicht mehr gültig. Der Schlüssel ist klein, damit sich die Zahlen verfolgen lassen; echte Schlüssel haben 2048 Bit oder mehr.",
+                           "digital signature, RSA, SHA-256, visualization"),
+]
+
+RVZ = "RandomVisualization.RandomVisualization"
+
+
+def random_visualization(out, settings, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """The random number generator template with the Random Visualization component, shown with its presentation, instead of the text output."""
+    rng = "RandomNumberGenerator.RandomNumberGenerator"
+    output = "TextOutput.TextOutput"
+    edits = [dict(match=rng, set=dict(OutputType="0", OutputLength="20000", **settings)),
+             dict(remove="TextOutput"),
+             dict(add=dict(type=RVZ, x=400, y=40, w=520, h=700, viewState=1)),
+             dict(add=dict(type=output, x=400, y=780, w=520, h=90)),
+             dict(connect={"from": rng + ".Output", "to": RVZ + ".InputData"}),
+             dict(connect={"from": RVZ + ".Summary", "to": output + ".Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="RandomVisualization",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    random_visualization("Tools/RandomVisualization", dict(AlgorithmType="1"), "Random Numbers: Visualization", "Zufall: Visualisierung",
+                         "20000 bytes of a cryptographic random number generator as bits, histogram and plot of consecutive bytes.",
+                         "20000 Bytes eines kryptografischen Zufallszahlengenerators als Bits, Histogramm und Diagramm aufeinanderfolgender Bytes.",
+                         "The generator is the cryptographic one of the system. The bits look like noise, the histogram is flat and the points fill the square evenly. Change the algorithm in the settings of the {\\\\b Random Number Generator} component to see how weaker generators look.",
+                         "Der Generator ist der kryptografische des Systems. Die Bits sehen aus wie Rauschen, das Histogramm ist flach und die Punkte füllen das Quadrat gleichmäßig. Ändern Sie den Algorithmus in den Einstellungen der Komponente {\\\\b Zufallszahlengenerator}, um zu sehen, wie schwächere Generatoren aussehen.",
+                         "random numbers, visualization, histogram, pairs"),
+]
+
 
 def attr(text):
     return text.replace("&", "&amp;").replace('"', "&quot;")

@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Changed" xml:space="preserve">
+    <value>unterwegs verändert</value>
+  </data>
+  <data name="ChooseSecret" xml:space="preserve">
+    <value>wählt das Geheimnis {0} = {1}</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Die Parameter können nicht verwendet werden</value>
+  </data>
+  <data name="EveFails" xml:space="preserve">
+    <value>Eve müsste einen diskreten Logarithmus modulo einer großen Primzahl berechnen, was nicht machbar ist.</value>
+  </data>
+  <data name="EveFound" xml:space="preserve">
+    <value>Eve probiert die Exponenten von g = {1} modulo {0}, bis sie A = {2} erhält: Sie findet a = {3} und damit B^a = {4}, den Schlüssel. Bei so kleiner Primzahl geht das schnell; bei 2048 Bit ist es nicht machbar.</value>
+  </data>
+  <data name="ExchangeExplanation" xml:space="preserve">
+    <value>Alice und Bob vereinbaren die Primzahl p = {0} und den Erzeuger g = {1}. Jeder wählt einen geheimen Exponenten, sendet g hoch diesen Exponenten und potenziert das, was der andere gesendet hat, mit dem eigenen Geheimnis: Beide erhalten g^(ab) mod p. Eve sieht nur p, g, A und B.</value>
+  </data>
+  <data name="ExchangeTitle" xml:space="preserve">
+    <value>Diffie-Hellman-Schlüsselaustausch</value>
+  </data>
+  <data name="ForwardSecrecyDifferent" xml:space="preserve">
+    <value>Die Sitzungen haben verschiedene Schlüssel: Neue Exponenten ergeben jedes Mal einen neuen Schlüssel.</value>
+  </data>
+  <data name="ForwardSecrecyExplanation" xml:space="preserve">
+    <value>Perfect Forward Secrecy: Die Exponenten a und b werden nur für eine Sitzung benutzt und danach gelöscht. Selbst wenn jemand später die Langzeitschlüssel von Alice und Bob erlangt oder alle Sitzungen mitgeschnitten hat, lassen sich die alten Schlüssel nicht finden, denn nichts, was bleibt, bestimmt sie.</value>
+  </data>
+  <data name="ForwardSecrecySame" xml:space="preserve">
+    <value>Zwei Sitzungen haben denselben Schlüssel, weil die Exponenten dasselbe Ergebnis liefern.</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Nachricht</value>
+  </data>
+  <data name="MessageCaption" xml:space="preserve">
+    <value>Nachricht</value>
+  </data>
+  <data name="MessageTooltip" xml:space="preserve">
+    <value>Signatur: die Nachricht, die Alice signiert.</value>
+  </data>
+  <data name="OpenChannel" xml:space="preserve">
+    <value>offener Kanal (Eve hört mit)</value>
+  </data>
+  <data name="ParameterExamples" xml:space="preserve">
+    <value>Diffie-Hellman:  p g a1 b1 [a2 b2]    23 5 6 15 4 9\nSignatur:  p q e                    1009 1013 17</value>
+  </data>
+  <data name="ParametersCaption" xml:space="preserve">
+    <value>Parameter</value>
+  </data>
+  <data name="ParametersTooltip" xml:space="preserve">
+    <value>Zahlen, durch Leerzeichen getrennt. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (Primzahl, Erzeuger, geheime Exponenten von Alice und Bob je Sitzung). Signatur: p q e (zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels).</value>
+  </data>
+  <data name="PluginCaption" xml:space="preserve">
+    <value>Protokoll-Visualisierung</value>
+  </data>
+  <data name="PluginTooltip" xml:space="preserve">
+    <value>Zeigt den Diffie-Hellman-Schlüsselaustausch und die digitale Signatur als Nachrichtenfolge</value>
+  </data>
+  <data name="ProtocolCaption" xml:space="preserve">
+    <value>Protokoll</value>
+  </data>
+  <data name="ProtocolList1" xml:space="preserve">
+    <value>Diffie-Hellman-Schlüsselaustausch (Perfect Forward Secrecy)</value>
+  </data>
+  <data name="ProtocolList2" xml:space="preserve">
+    <value>Digitale Signatur</value>
+  </data>
+  <data name="ProtocolTooltip" xml:space="preserve">
+    <value>Wählen Sie das Protokoll, das gezeigt wird.</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>empfangene Nachricht</value>
+  </data>
+  <data name="ReceivedCaption" xml:space="preserve">
+    <value>Empfangene Nachricht</value>
+  </data>
+  <data name="ReceivedTooltip" xml:space="preserve">
+    <value>Signatur: die Nachricht, die Bob empfängt; weicht sie von der signierten ab, schlägt die Prüfung fehl. Ohne sie kommt die signierte Nachricht unverändert an.</value>
+  </data>
+  <data name="ResultCaption" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="ResultTooltip" xml:space="preserve">
+    <value>Diffie-Hellman: die Schlüssel der Sitzungen, durch Kommas getrennt. Signatur: "valid" oder "invalid".</value>
+  </data>
+  <data name="SameKey" xml:space="preserve">
+    <value>Beide haben den Schlüssel K = {0}</value>
+  </data>
+  <data name="SessionTitle" xml:space="preserve">
+    <value>Sitzung {0}</value>
+  </data>
+  <data name="SignatureExplanation" xml:space="preserve">
+    <value>Alice hat den RSA-Schlüssel n = {0}, e = {1} (öffentlich) und d = {2} (privat). Sie hasht die Nachricht und signiert den Hashwert mit ihrem privaten Schlüssel; Bob hasht die empfangene Nachricht und vergleicht sie mit dem, was die Signatur mit Alices öffentlichem Schlüssel ergibt.</value>
+  </data>
+  <data name="SignatureInvalid" xml:space="preserve">
+    <value>Die Signatur ist NICHT gültig: s^e mod n = {0}, aber h' = {1}. Die Nachricht ist nicht die, die Alice signiert hat.</value>
+  </data>
+  <data name="SignatureTitle" xml:space="preserve">
+    <value>Digitale Signatur</value>
+  </data>
+  <data name="SignatureValid" xml:space="preserve">
+    <value>Die Signatur ist gültig: s^e mod n = {0} ist gleich h'. Die Nachricht stammt von Alice und wurde nicht verändert.</value>
+  </data>
+  <data name="SmallKeyNote" xml:space="preserve">
+    <value>Der Schlüssel des Beispiels ist sehr klein: Der Hashwert (256 Bit) wird modulo n reduziert, daher können verschiedene Nachrichten dieselbe Signatur haben. Echte Schlüssel haben 2048 Bit oder mehr, und der ganze Hashwert wird (mit Padding) signiert.</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>Das Bild erscheint, wenn der Arbeitsbereich gelaufen ist.</value>
+  </data>
+</root>

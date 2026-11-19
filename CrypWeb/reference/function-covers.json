@@ -82,5 +82,9 @@
  "Nihilist|visualization": "Cryptography/Classic/NihilistVisualization.cwm",
  "RSA|visualization": "Cryptography/Modern/Asymmetric/RSAVisualization.cwm",
  "Shamir's Secret Sharing|visualization": "Protocols/ShamirVisualization.cwm",
- "Elliptische Kurvenberechnung|visualization": "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm"
+ "Elliptische Kurvenberechnung|visualization": "Cryptography/Modern/Asymmetric/EllipticCurveVisualization.cwm",
+ "Diffie-Hellman-Schlüsselaustausch (Perfect Forward Secrecy)|visualization": "Protocols/DiffieHellmanForwardSecrecy.cwm",
+ "Digitale Signatur|visualization": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm",
+ "Signatur|visualization": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm",
+ "Zufall|visualization": "Tools/RandomVisualization.cwm"
 }

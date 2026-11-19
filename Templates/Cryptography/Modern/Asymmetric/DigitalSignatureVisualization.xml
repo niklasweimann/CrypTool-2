@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DigitalSignatureVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Digital Signature: Visualization</title>
+  <summary lang="en"><i>Digital Signature: Visualization</i></summary>
+  <description lang="en">Alice signs the hash value of a message, Bob checks the signature of the message he received.</description>
+  <keywords lang="en">digital signature, RSA, SHA-256, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are two primes and the public exponent of an RSA key. The upper text is signed, the lower text is what Bob receives: make them differ (&quot;Pay Bob 1000 euros&quot;) and the signature is no longer valid. The key is small so that the numbers can be followed; real keys have 2048 bits or more." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Digitale Signatur: Visualisierung</title>
+  <summary lang="de"><i>Digitale Signatur: Visualisierung</i></summary>
+  <description lang="de">Alice signiert den Hashwert einer Nachricht, Bob prüft die Signatur der Nachricht, die er empfangen hat.</description>
+  <keywords lang="en">digital signature, RSA, SHA-256, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels. Der obere Text wird signiert, der untere ist das, was Bob empfängt: Machen Sie sie verschieden (&quot;Pay Bob 1000 euros&quot;), und die Signatur ist nicht mehr gültig. Der Schlüssel ist klein, damit sich die Zahlen verfolgen lassen; echte Schlüssel haben 2048 Bit oder mehr." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DigitalSignatureVisualization.png" />
+  <relevantPlugins>
+    <plugin name="ProtocolVisualization" />
+  </relevantPlugins>
+</sample>

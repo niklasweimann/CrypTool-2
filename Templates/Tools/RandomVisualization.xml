@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RandomVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Random Numbers: Visualization</title>
+  <summary lang="en"><i>Random Numbers: Visualization</i></summary>
+  <description lang="en">20000 bytes of a cryptographic random number generator as bits, histogram and plot of consecutive bytes.</description>
+  <keywords lang="en">random numbers, visualization, histogram, pairs</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The generator is the cryptographic one of the system. The bits look like noise, the histogram is flat and the points fill the square evenly. Change the algorithm in the settings of the {\\b Random Number Generator} component to see how weaker generators look." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zufall: Visualisierung</title>
+  <summary lang="de"><i>Zufall: Visualisierung</i></summary>
+  <description lang="de">20000 Bytes eines kryptografischen Zufallszahlengenerators als Bits, Histogramm und Diagramm aufeinanderfolgender Bytes.</description>
+  <keywords lang="en">random numbers, visualization, histogram, pairs</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Generator ist der kryptografische des Systems. Die Bits sehen aus wie Rauschen, das Histogramm ist flach und die Punkte füllen das Quadrat gleichmäßig. Ändern Sie den Algorithmus in den Einstellungen der Komponente {\\b Zufallszahlengenerator}, um zu sehen, wie schwächere Generatoren aussehen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RandomVisualization.png" />
+  <relevantPlugins>
+    <plugin name="RandomVisualization" />
+  </relevantPlugins>
+</sample>

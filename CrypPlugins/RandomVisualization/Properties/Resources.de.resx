@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BitsExplanation" xml:space="preserve">
+    <value>Jedes Quadrat ist ein Bit (schwarz: 1), 64 je Zeile, die ersten 4096 Bits. Zufällige Bits sehen aus wie Rauschen; Streifen, Spalten oder Blöcke bedeuten, dass die Folge regelmäßig ist.</value>
+  </data>
+  <data name="BitsTitle" xml:space="preserve">
+    <value>Die Bits</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Die Daten können nicht gezeigt werden</value>
+  </data>
+  <data name="HistogramExplanation" xml:space="preserve">
+    <value>Wie oft jede Gruppe von vier Bytewerten vorkommt; die rote Linie ist die erwartete Anzahl. Bei zufälligen Bytes sind die Säulen etwa gleich hoch, mit etwas Schwankung.</value>
+  </data>
+  <data name="HistogramTitle" xml:space="preserve">
+    <value>Die Bytewerte</value>
+  </data>
+  <data name="InputDataCaption" xml:space="preserve">
+    <value>Zufällige Bytes</value>
+  </data>
+  <data name="InputDataTooltip" xml:space="preserve">
+    <value>Die Folge von Bytes, die betrachtet wird, zum Beispiel die Ausgabe eines Zufallszahlengenerators als Byte-Array.</value>
+  </data>
+  <data name="PairsExplanation" xml:space="preserve">
+    <value>Jeder Punkt ist ein Paar aufeinanderfolgender Bytes (x: ein Byte, y: das nächste), bis zu 4000 Paare. Zufällige Bytes füllen das Quadrat gleichmäßig; Linien und Gitter zeigen, dass sich das nächste Byte aus dem vorigen vorhersagen lässt.</value>
+  </data>
+  <data name="PairsTitle" xml:space="preserve">
+    <value>Jedes Byte gegen das nächste</value>
+  </data>
+  <data name="PluginCaption" xml:space="preserve">
+    <value>Zufalls-Visualisierung</value>
+  </data>
+  <data name="PluginTooltip" xml:space="preserve">
+    <value>Zeigt eine Folge zufälliger Bytes als Bits, Histogramm und Diagramm aufeinanderfolgender Bytes</value>
+  </data>
+  <data name="SummaryCaption" xml:space="preserve">
+    <value>Zusammenfassung</value>
+  </data>
+  <data name="SummaryLine" xml:space="preserve">
+    <value>{0} Bytes. Mittelwert {1:F2} (Zufallsbytes: etwa 127,5). Chi-Quadrat {2:F1} (Zufallsbytes: etwa 255, mit einer Streuung von etwa 23). Korrelation mit dem nächsten Byte {3:F3} (Zufallsbytes: etwa 0).</value>
+  </data>
+  <data name="SummaryTooltip" xml:space="preserve">
+    <value>Anzahl der Bytes, Mittelwert, Chi-Quadrat-Wert und serielle Korrelation als Text.</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Wie zufällig ist diese Folge?</value>
+  </data>
+  <data name="TooShort" xml:space="preserve">
+    <value>Es werden mindestens zwei Bytes gebraucht.</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>Die Bilder erscheinen, wenn der Arbeitsbereich gelaufen ist.</value>
+  </data>
+</root>

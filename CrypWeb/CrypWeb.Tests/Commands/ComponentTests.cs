@@ -46,6 +46,8 @@ public static class ComponentTests
         HmacHashes();
         CipherVisualization();
         MathVisualization();
+        ProtocolVisualization();
+        RandomVisualization();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -902,6 +904,74 @@ public static class ComponentTests
         Check(curve.Points.Count == 18 && curve.Sum.HasValue && curve.Sum.Value.X == 10 && curve.Sum.Value.Y == 6 && MathViz(2, "17 2 2 5 1 6 3") == "10,6", "elliptic curve visualization: 18 points and O on y^2 = x^3 + 2x + 2 mod 17; (5,1) + (6,3) = (10,6)");
         Check(MathViz(2, "17 2 2 5 1 5 1") == "6,3" && MathViz(2, "17 2 2 5 1 5 16") == "O" && MathViz(2, "17 2 2 5 1 10 6") == "3,1", "elliptic curve visualization: doubling (5,1) = (6,3), opposite points give O, (5,1) + (10,6) = 4G = (3,1)");
         Check(MathViz(2, "17 2 2") == "" && MathViz(2, "17 0 0") == null && MathViz(2, "17 2 2 5 2 6 3") == null && MathViz(2, "18 2 2") == null, "elliptic curve visualization: without points only the curve is shown; a singular curve, a point that is not on the curve and a modulus that is not prime are refused");
+    }
+
+    static string? Proto(int protocol, string parameters, string? message = null, string? received = null)
+    {
+        var component = Component("ProtocolVisualization.ProtocolVisualization", ("Protocol", protocol.ToString()));
+        component.PreExecution();
+        component.Set("Parameters", parameters);
+        if (message != null) component.Set("Message", message);
+        if (received != null) component.Set("Received", received);
+        component.Execute();
+        var result = (string?)component.Get("Result");
+        component.PostExecution();
+        return result;
+    }
+
+    static void ProtocolVisualization()
+    {
+        // Diffie-Hellman: the example of Wikipedia (p = 23, g = 5, a = 6, b = 15: A = 8, B = 19, K = 2); a second session with other exponents
+        var exchange = global::ProtocolVisualization.Calculations.Exchange("23 5 6 15 4 9");
+        var first = exchange.Sessions[0];
+        var second = exchange.Sessions[1];
+        Check(first.PublicA == 8 && first.PublicB == 19 && first.Key == 2 && first.KeyAlice == first.KeyBob && first.Found == 6, "Diffie-Hellman visualization: p = 23, g = 5, a = 6, b = 15 gives A = 8, B = 19, K = 2, and Eve finds a = 6 by trial");
+        Check(second.PublicA == 4 && second.PublicB == 11 && second.Key == 13 && Proto(0, "23 5 6 15 4 9") == "2,13", "Diffie-Hellman visualization: the second session (a = 4, b = 9) gives K = 13, another key; the result lists both");
+        Check(Proto(0, "21 5 6 15") == null && Proto(0, "23 23 6 15") == null && Proto(0, "23 5 6") == null, "Diffie-Hellman visualization: a modulus that is not prime, a generator that is too large and missing exponents are refused");
+
+        // signature: the numbers are computed here again with .NET arithmetic
+        var n = new System.Numerics.BigInteger(1009) * 1013;
+        var phi = new System.Numerics.BigInteger(1008) * 1012;
+        System.Numerics.BigInteger d = 1;
+        while (17 * d % phi != 1) d++;
+        System.Numerics.BigInteger H(string text) => new System.Numerics.BigInteger(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(text)), isUnsigned: true, isBigEndian: true) % n;
+        var signature = global::ProtocolVisualization.Calculations.Signature("1009 1013 17", "Pay Bob 10 euros", "Pay Bob 10 euros");
+        var expectedSignature = System.Numerics.BigInteger.ModPow(H("Pay Bob 10 euros"), d, n);
+        Check(signature.N == n && signature.D == d && signature.Reduced == H("Pay Bob 10 euros") && signature.Signature == expectedSignature && signature.Valid && signature.Recovered == signature.Reduced && Proto(1, "1009 1013 17", "Pay Bob 10 euros") == "valid",
+              "signature visualization: n, d, the reduced SHA-256 value and the signature equal the calculation with .NET; the message arrives unchanged and is valid");
+        var tampered = global::ProtocolVisualization.Calculations.Signature("1009 1013 17", "Pay Bob 10 euros", "Pay Bob 1000 euros");
+        Check(tampered.Tampered && tampered.Valid == (H("Pay Bob 10 euros") == H("Pay Bob 1000 euros")) && !tampered.Valid && Proto(1, "1009 1013 17", "Pay Bob 10 euros", "Pay Bob 1000 euros") == "invalid", "signature visualization: a message that was changed on the way is not valid");
+        Check(Proto(1, "1009 1009 17", "x") == null && Proto(1, "1008 1013 17", "x") == null && Proto(1, "1009 1013 2", "x") == null, "signature visualization: equal primes, a number that is not prime and an exponent that is not coprime to phi are refused");
+    }
+
+    static void RandomVisualization()
+    {
+        var uniform = Enumerable.Range(0, 1024).Select(i => (byte)i).ToArray();
+        var statistics = global::RandomVisualization.Statistics.Of(uniform);
+        Check(statistics.Count == 1024 && Math.Abs(statistics.Mean - 127.5) < 1e-9 && Math.Abs(statistics.ChiSquare) < 1e-9, "random visualization: every byte value four times: mean 127.5 and chi-square 0");
+        var ramp = global::RandomVisualization.Statistics.Of(Enumerable.Range(0, 256).Select(i => (byte)i).ToArray());
+        var alternating = global::RandomVisualization.Statistics.Of(Enumerable.Range(0, 1000).Select(i => (byte)(i % 2 == 0 ? 0 : 255)).ToArray());
+        var constant = global::RandomVisualization.Statistics.Of(new byte[1024]);
+        Check(ramp.Correlation > 0.98 && alternating.Correlation < -0.99 && constant.ChiSquare > 100000 && constant.Correlation == 0, "random visualization: a rising ramp has a correlation near +1, an alternating sequence near -1; a constant sequence has an enormous chi-square value");
+
+        // random bytes of the system: mean, chi-square and correlation are in their usual range (about 127.5; 255 +- 23, here allowed +- 6 sigma; about 0 +- 0.03)
+        var random = System.Security.Cryptography.RandomNumberGenerator.GetBytes(20000);
+        var good = global::RandomVisualization.Statistics.Of(random);
+        Check(Math.Abs(good.Mean - 127.5) < 3 && good.ChiSquare > 255 - 6 * 23 && good.ChiSquare < 255 + 6 * 23 && Math.Abs(good.Correlation) < 0.05, $"random visualization: 20000 random bytes: mean {good.Mean:F2}, chi-square {good.ChiSquare:F1}, correlation {good.Correlation:F4}");
+
+        // a linear congruential generator with a small modulus: the low byte of x -> (1103515245 x + 12345) mod 2^31 repeats after 256 steps; its bytes are far from random
+        long x = 1;
+        var lcg = new byte[20000];
+        for (var i = 0; i < lcg.Length; i++) { x = (1103515245 * x + 12345) % (1L << 31); lcg[i] = (byte)x; }
+        var weak = global::RandomVisualization.Statistics.Of(lcg);
+        Check(weak.Counts.Count(c => c > 0) == 256 && weak.Counts.Distinct().Count() <= 2, $"random visualization: the low byte of this LCG has a period of 256 and repeats exactly: every value occurs equally often (chi-square {weak.ChiSquare:F1}), which a histogram cannot tell from random data");
+        var component = Component("RandomVisualization.RandomVisualization");
+        component.PreExecution();
+        component.Set("InputData", uniform);
+        component.Execute();
+        var summary = (string?)component.Get("Summary");
+        component.PostExecution();
+        Check(summary == "bytes=1024 mean=127.500 chi2=0.00 correlation=0.9961" || (summary != null && summary.StartsWith("bytes=1024 mean=127.500 chi2=0.00 correlation=")), $"random visualization: the summary line ({summary})");
     }
 
     static void Digest(string name, int algorithm, string text, string expected)

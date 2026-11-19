@@ -1012,6 +1012,11 @@
     <Compile Include="../../CrypPlugins/Progress/Properties/Resources.Designer.cs" Link="Progress/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Progress/Properties/Resources.resx" LogicalName="CrypTool.Progress.Properties.Resources.resources" Link="Progress/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Progress/Properties/Resources.de.resx" LogicalName="CrypTool.Progress.Properties.Resources.de.resources" Link="Progress/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ProtocolVisualization/ProtocolVisualizationSettings.cs" Link="ProtocolVisualization/ProtocolVisualizationSettings.cs" />
+    <Compile Include="../../CrypPlugins/ProtocolVisualization/ProtocolVisualization.cs" Link="ProtocolVisualization/ProtocolVisualization.cs" />
+    <Compile Include="../../CrypPlugins/ProtocolVisualization/Properties/Resources.Designer.cs" Link="ProtocolVisualization/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ProtocolVisualization/Properties/Resources.resx" LogicalName="ProtocolVisualization.Properties.Resources.resources" Link="ProtocolVisualization/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ProtocolVisualization/Properties/Resources.de.resx" LogicalName="ProtocolVisualization.Properties.Resources.de.resources" Link="ProtocolVisualization/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/PublicKeyEncryption/PublicKeyEncryptionSettings.cs" Link="PublicKeyEncryption/PublicKeyEncryptionSettings.cs" />
     <Compile Include="../../CrypPlugins/PublicKeyEncryption/PublicKeyEncryption.cs" Link="PublicKeyEncryption/PublicKeyEncryption.cs" />
     <EmbeddedResource Include="../../CrypPlugins/PublicKeyEncryption/Properties/Resources.resx" LogicalName="PublicKeyEncryption.Properties.Resources.resources" Link="PublicKeyEncryption/Properties/Resources.resx" />
@@ -1083,6 +1088,11 @@
     <Compile Include="../../CrypPlugins/RandomNumberGenerator/RandomNumberGenerators/LCG.cs" Link="RandomNumberGenerator/RandomNumberGenerators/LCG.cs" />
     <EmbeddedResource Include="../../CrypPlugins/RandomNumberGenerator/Properties/Resources.resx" LogicalName="RandomNumberGenerator.Properties.Resources.resources" Link="RandomNumberGenerator/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/RandomNumberGenerator/Properties/Resources.de.resx" LogicalName="RandomNumberGenerator.Properties.Resources.de.resources" Link="RandomNumberGenerator/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/RandomVisualization/RandomVisualization.cs" Link="RandomVisualization/RandomVisualization.cs" />
+    <Compile Include="../../CrypPlugins/RandomVisualization/RandomVisualizationSettings.cs" Link="RandomVisualization/RandomVisualizationSettings.cs" />
+    <Compile Include="../../CrypPlugins/RandomVisualization/Properties/Resources.Designer.cs" Link="RandomVisualization/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/RandomVisualization/Properties/Resources.resx" LogicalName="RandomVisualization.Properties.Resources.resources" Link="RandomVisualization/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/RandomVisualization/Properties/Resources.de.resx" LogicalName="RandomVisualization.Properties.Resources.de.resources" Link="RandomVisualization/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/RandomnessTests/RandomnessTestsSettings.cs" Link="RandomnessTests/RandomnessTestsSettings.cs" />
     <Compile Include="../../CrypPlugins/RandomnessTests/RandomnessTests.cs" Link="RandomnessTests/RandomnessTests.cs" />
     <EmbeddedResource Include="../../CrypPlugins/RandomnessTests/Properties/Resources.resx" LogicalName="RandomnessTests.Properties.Resources.resources" Link="RandomnessTests/Properties/Resources.resx" />

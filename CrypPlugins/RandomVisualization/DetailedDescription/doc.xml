@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Good random numbers are essential for keys, nonces and many protocols, and bad ones can be hard to spot by looking at the numbers. This component draws a sequence of bytes in three ways in which the weaknesses of simple generators become visible.
+    The bit picture shows every bit as a black or white square. The histogram counts how often the byte values occur. The plot of each byte against the next one is the classic test: a linear congruential generator puts all its points on a few parallel lines (Marsaglia's theorem), while good random bytes fill the square evenly.
+    Three numbers sum it up: the mean (127.5 for random bytes), the chi-square statistic of the byte values (about 255 for random bytes) and the serial correlation between consecutive bytes (about 0).
+  </introduction>
+  <introduction lang="de-DE">
+    Gute Zufallszahlen sind für Schlüssel, Nonces und viele Protokolle unverzichtbar, und schlechte sind an den Zahlen selbst oft schwer zu erkennen. Diese Komponente zeichnet eine Bytefolge auf drei Arten, in denen die Schwächen einfacher Generatoren sichtbar werden.
+    Das Bitbild zeigt jedes Bit als schwarzes oder weißes Quadrat. Das Histogramm zählt, wie oft die Bytewerte vorkommen. Das Diagramm jedes Bytes gegen das nächste ist der klassische Test: Ein linearer Kongruenzgenerator legt alle seine Punkte auf wenige parallele Geraden (Satz von Marsaglia), gute Zufallsbytes füllen das Quadrat gleichmäßig.
+    Drei Zahlen fassen zusammen: der Mittelwert (127,5 bei Zufallsbytes), die Chi-Quadrat-Statistik der Bytewerte (etwa 255 bei Zufallsbytes) und die serielle Korrelation aufeinanderfolgender Bytes (etwa 0).
+  </introduction>
+  <usage lang="en">
+    The bytes are expected as a byte array on the input "Random bytes", for example from the Random Number Generator component with the output type "Byte array" (at least a few thousand bytes make the pictures meaningful). The output "Summary" is a line of text with the numbers.
+  </usage>
+  <usage lang="de-DE">
+    Die Bytes werden als Byte-Array am Eingang "Zufällige Bytes" erwartet, zum Beispiel von der Komponente Zufallszahlengenerator mit dem Ausgabetyp "Byte-Array" (erst einige tausend Bytes machen die Bilder aussagekräftig). Der Ausgang "Zusammenfassung" ist eine Textzeile mit den Zahlen.
+  </usage>
+</documentation>

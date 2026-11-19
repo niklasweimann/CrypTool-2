@@ -1114,7 +1114,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/DiffieHellmanForwardSecrecy.cwm": "Protocols/DiffieHellmanForwardSecrecy.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/DiffieHellmanForwardSecrecy.cwm"
  },
  {
   "name": "Digitale Signatur",
@@ -1125,7 +1130,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm"
  },
  {
   "name": "Dining Cryptographers-Protokoll",
@@ -3939,7 +3949,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm"
  },
  {
   "name": "Signatur extrahieren",
@@ -5129,7 +5144,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/RandomVisualization.cwm": "Tools/RandomVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/RandomVisualization.cwm"
  },
  {
   "name": "Zufallsgenerator",

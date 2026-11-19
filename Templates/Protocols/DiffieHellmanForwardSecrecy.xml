@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DiffieHellmanForwardSecrecy.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Diffie-Hellman Key Exchange with Perfect Forward Secrecy: Visualization</title>
+  <summary lang="en"><i>Diffie-Hellman Key Exchange with Perfect Forward Secrecy: Visualization</i></summary>
+  <description lang="en">The key exchange between Alice and Bob with every number, in two sessions with new exponents.</description>
+  <keywords lang="en">Diffie-Hellman, forward secrecy, key exchange, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are p = 23, g = 5 and the secret exponents of Alice and Bob for each session (6 and 15, then 4 and 9). Each session gives another key (2 and 13). Eve finds the exponent by trial because the prime is tiny. Add more exponents or change the prime to try others." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Diffie-Hellman-Schlüsselaustausch mit Perfect Forward Secrecy: Visualisierung</title>
+  <summary lang="de"><i>Diffie-Hellman-Schlüsselaustausch mit Perfect Forward Secrecy: Visualisierung</i></summary>
+  <description lang="de">Der Schlüsselaustausch zwischen Alice und Bob mit allen Zahlen, in zwei Sitzungen mit neuen Exponenten.</description>
+  <keywords lang="en">Diffie-Hellman, forward secrecy, key exchange, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind p = 23, g = 5 und die geheimen Exponenten von Alice und Bob je Sitzung (6 und 15, dann 4 und 9). Jede Sitzung ergibt einen anderen Schlüssel (2 und 13). Eve findet den Exponenten durch Probieren, weil die Primzahl winzig ist. Fügen Sie weitere Exponenten hinzu oder ändern Sie die Primzahl, um andere auszuprobieren." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DiffieHellmanForwardSecrecy.png" />
+  <relevantPlugins>
+    <plugin name="ProtocolVisualization" />
+  </relevantPlugins>
+</sample>
