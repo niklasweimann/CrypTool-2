@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ZeroKnowledgeVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Zero-Knowledge Proof (Fiat-Shamir): Visualization</title>
+  <summary lang="en"><i>Zero-Knowledge Proof (Fiat-Shamir): Visualization</i></summary>
+  <description lang="en">Peggy proves that she knows a secret in three rounds; a cheater who does not know it is caught.</description>
+  <keywords lang="en">zero-knowledge, Fiat-Shamir, identification, proof, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are the primes 11 and 13, the secret 5 and for every round the random number of Peggy and the challenge of Victor (7 and 1, 9 and 0, 2 and 1). Change the challenges to 0 to see that a cheater then gets through." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zero-Knowledge-Beweis (Fiat-Shamir): Visualisierung</title>
+  <summary lang="de"><i>Zero-Knowledge-Beweis (Fiat-Shamir): Visualisierung</i></summary>
+  <description lang="de">Peggy beweist in drei Runden, dass sie ein Geheimnis kennt; ein Betrüger, der es nicht kennt, fliegt auf.</description>
+  <keywords lang="en">zero-knowledge, Fiat-Shamir, identification, proof, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind die Primzahlen 11 und 13, das Geheimnis 5 und je Runde die Zufallszahl von Peggy und die Aufforderung von Victor (7 und 1, 9 und 0, 2 und 1). Setzen Sie die Aufforderungen auf 0, um zu sehen, dass ein Betrüger dann durchkommt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ZeroKnowledgeVisualization.png" />
+  <relevantPlugins>
+    <plugin name="ProtocolVisualization" />
+  </relevantPlugins>
+</sample>

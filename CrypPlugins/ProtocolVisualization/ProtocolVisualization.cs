@@ -75,6 +75,12 @@ namespace ProtocolVisualization
                     Result = authentication.Accepted ? "ok" : "failed";
                     view.ShowAuthentication(authentication);
                 }
+                else if (_settings.Protocol == 5)
+                {
+                    Calculations.ZeroKnowledgeResult zk = Calculations.ZeroKnowledge(Parameters);
+                    Result = zk.HonestAccepted ? "ok" : "failed";
+                    view.ShowZeroKnowledge(zk);
+                }
                 else if (_settings.Protocol == 4)
                 {
                     Calculations.TlsResult tls = Calculations.Tls(Parameters);
@@ -277,6 +283,59 @@ namespace ProtocolVisualization
             r.Accepted = r.Response1 == Hmac(r.Password, r.Nonce1);
             r.ReplayAccepted = r.Response1 == r.Response2;
             return r;
+        }
+
+        // ---------------------------------------------------------------- zero-knowledge proof (Fiat-Shamir)
+
+        public sealed class ZkRound
+        {
+            public BigInteger R, X, Challenge, Y, Left, Right;   // honest prover: x = r^2, y = r * s^c, check y^2 = x * v^c
+            public bool Accepted;
+            public BigInteger CheatX, CheatY;                    // cheater without s, who bets on the challenge 0: x = r^2, y = r
+            public bool CheatAccepted;
+        }
+
+        public sealed class ZeroKnowledgeResult
+        {
+            public BigInteger N, S, V;
+            public List<ZkRound> Rounds = new List<ZkRound>();
+            public bool HonestAccepted;
+            public int CheaterCaughtInRound;                     // 0: the cheater got through all rounds
+        }
+
+        /// <summary>
+        /// Parameters: p q s r1 c1 [r2 c2 ...]: two primes, the secret s of the prover and per round the random number r of the prover and the challenge c (0 or 1) of the verifier.
+        /// Fiat-Shamir identification: n = p * q, public v = s^2 mod n; in every round the prover sends x = r^2, the verifier asks c, the prover answers y = r * s^c, and the verifier
+        /// checks y^2 = x * v^c (mod n). A cheater who does not know s can only answer one of the two challenges.
+        /// </summary>
+        public static ZeroKnowledgeResult ZeroKnowledge(string parameters)
+        {
+            BigInteger[] v = Numbers(parameters, 5, "p q s r1 c1 [r2 c2 ...]: two primes, the secret, and for every round the random number of the prover and the challenge (0 or 1)");
+            if ((v.Length - 3) % 2 != 0) { throw new ArgumentException("Every round needs a random number r and a challenge c."); }
+            if (!IsPrime(v[0]) || !IsPrime(v[1]) || v[0] == v[1]) { throw new ArgumentException("p and q must be two different primes."); }
+            var result = new ZeroKnowledgeResult { N = v[0] * v[1], S = v[2] };
+            if (result.S < 2 || result.S >= result.N || BigInteger.GreatestCommonDivisor(result.S, result.N) != 1) { throw new ArgumentException("The secret s must be between 2 and n - 1 and coprime to n = " + result.N + "."); }
+            result.V = result.S * result.S % result.N;
+            result.HonestAccepted = true;
+            for (int i = 3; i + 1 < v.Length; i += 2)
+            {
+                var round = new ZkRound { R = v[i], Challenge = v[i + 1] };
+                if (round.R < 1 || round.R >= result.N || BigInteger.GreatestCommonDivisor(round.R, result.N) != 1) { throw new ArgumentException("The random number r must be between 1 and n - 1 and coprime to n."); }
+                if (round.Challenge != 0 && round.Challenge != 1) { throw new ArgumentException("The challenge must be 0 or 1."); }
+                round.X = round.R * round.R % result.N;
+                round.Y = round.Challenge == 0 ? round.R : round.R * result.S % result.N;
+                round.Left = round.Y * round.Y % result.N;
+                round.Right = round.Challenge == 0 ? round.X : round.X * result.V % result.N;
+                round.Accepted = round.Left == round.Right;
+                result.HonestAccepted &= round.Accepted;
+                round.CheatX = round.X;
+                round.CheatY = round.R;
+                BigInteger cheatRight = round.Challenge == 0 ? round.X : round.X * result.V % result.N;
+                round.CheatAccepted = round.CheatY * round.CheatY % result.N == cheatRight;
+                if (!round.CheatAccepted && result.CheaterCaughtInRound == 0) { result.CheaterCaughtInRound = result.Rounds.Count + 1; }
+                result.Rounds.Add(round);
+            }
+            return result;
         }
 
         // ---------------------------------------------------------------- TLS 1.3 handshake
@@ -667,6 +726,36 @@ namespace ProtocolVisualization
             var line = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 1, 0, 1) };
             line.Children.Add(Box(text, brush, 790, false, false));
             return line;
+        }
+
+        // ------------------------------------------------------------------ zero-knowledge proof
+
+        public void ShowZeroKnowledge(Calculations.ZeroKnowledgeResult r)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.ZkTitle, 16, true));
+                Add(Text(Properties.Resources.ZkExplanation, 12));
+                Heading("Peggy (prover)", Properties.Resources.OpenChannel, "Victor (verifier)");
+                Row("secret s = " + r.S, "n = " + r.N + ", v = " + r.V, "knows n and v = s^2 mod n = " + r.V + ", not s");
+                int number = 0;
+                foreach (var round in r.Rounds)
+                {
+                    number++;
+                    Add(Text(string.Format(Properties.Resources.ZkRound, number), 13, true));
+                    Row("r = " + round.R + "\nx = r^2 mod n = " + round.X, "x = " + round.X, "");
+                    Row("", "c = " + round.Challenge, "chooses the challenge c = " + round.Challenge, false);
+                    Row("y = r * s^c mod n = " + round.Y, "y = " + round.Y, "y^2 mod n = " + round.Left + "\nx * v^c mod n = " + round.Right + "\n" + (round.Accepted ? "equal: accepted" : "different: rejected"), true, round.Accepted ? GoodBrush : BadBrush);
+                }
+                Add(Text(Properties.Resources.ZkCheaterTitle, 14, true));
+                Add(Text(Properties.Resources.ZkCheaterText, 12));
+                foreach (var round in r.Rounds.Take(r.CheaterCaughtInRound == 0 ? r.Rounds.Count : r.CheaterCaughtInRound))
+                {
+                    Add(EveLine(string.Format(Properties.Resources.ZkCheaterRound, r.Rounds.IndexOf(round) + 1, round.Challenge, round.CheatAccepted ? Properties.Resources.ZkPassed : Properties.Resources.ZkCaught), round.CheatAccepted ? BadBrush : GoodBrush));
+                }
+                Add(EveLine(r.CheaterCaughtInRound == 0 ? string.Format(Properties.Resources.ZkCheaterSurvived, r.Rounds.Count, (Math.Pow(0.5, r.Rounds.Count)).ToString("0.######")) : string.Format(Properties.Resources.ZkCheaterEnded, r.CheaterCaughtInRound), r.CheaterCaughtInRound == 0 ? BadBrush : GoodBrush));
+                Add(Text(Environment.NewLine + Properties.Resources.ZkNote, 12));
+            });
         }
 
         // ------------------------------------------------------------------ TLS 1.3 handshake

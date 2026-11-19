@@ -58,7 +58,7 @@ Abdeckung: 281 von 342 Einträgen (61 offen). Neue Plugins in `CrypPlugins/` (al
 | `ClassicVariants` | Porta, Rail Fence/Redefence, Kamasutra, Doppelkasten |
 | `CipherVisualization` | Caesar, Vigenère, Nihilist mit Präsentation (Stufe 3; Präsentationen sind reiner C#-Code aus WPF-Elementen, ohne XAML) |
 | `MathVisualization` | RSA mit allen Zwischenwerten, Shamir-Polynom als Punktdiagramm, Punkte und Addition auf einer elliptischen Kurve über Fp |
-| `ProtocolVisualization` | Diffie-Hellman (mehrere Sitzungen, Perfect Forward Secrecy, Lauscher probiert), digitale Signatur (Hash, RSA, Prüfung einer veränderten Nachricht), Authentifizierung im Netz (Passwort-Hash, Challenge-Response mit HMAC, Wiedereinspielung) S/MIME (RSA-Signatur, AES-Sitzungsschlüssel, Umschlag) und TLS-1.3-Handshake (Schlüsselanteile, HKDF-Schlüsselplan nach RFC 8446, Finished) als Nachrichtenfolge |
+| `ProtocolVisualization` | Diffie-Hellman (mehrere Sitzungen, Perfect Forward Secrecy, Lauscher probiert), digitale Signatur (Hash, RSA, Prüfung einer veränderten Nachricht), Authentifizierung im Netz (Passwort-Hash, Challenge-Response mit HMAC, Wiedereinspielung) S/MIME (RSA-Signatur, AES-Sitzungsschlüssel, Umschlag) TLS-1.3-Handshake (Schlüsselanteile, HKDF-Schlüsselplan nach RFC 8446, Finished) und Zero-Knowledge-Beweis (Fiat-Shamir mit Betrüger) als Nachrichtenfolge |
 | `NumberShark` | Zahlenhai-Spiel mit getesteter Spiellogik (Punktesumme n(n+1)/2) |
 | `DivisorGame` | Teilerspiel (Chomp auf den Teilern); der Computer durchsucht alle Stellungen, der Test prüft, dass der Anziehende für 2 bis 120 gewinnt |
 | `Sudoku` | Zudo-Ku: Rätsel mit eindeutiger Lösung (Löser prüft die Eindeutigkeit), reproduzierbar je Rätselnummer |
@@ -119,6 +119,26 @@ Pro Gruppe ein eigener Commit und ein Test mit bekannten Testvektoren.
 **Stufe 3 – Visualisierungen (groß).** Die JCT-Visualisierungen (RSA, DES, ECC/ECDH, Hashing, SSL, Zero-Knowledge, Shamir/VSS, Zufall, Signaturen, Side-Channel DPA/SPA, Kleptographie, Rainbow Tables, ACO, Android-Muster, Huffman-Fehlerkorrektur u. a.) bekommen jeweils eine Komponente plus Präsentation in der bestehenden `CrypWeb.Wpf`-Teilmenge, wie schon die CT2-Visualisierungen. Reihenfolge nach Nutzen für Lehre: RSA, ECC, Hash, DES, Shamir, Zufall, Signatur, danach der Rest. Die Spiele (Zahlenhai, Zudo-Ku, Teilerspiel) ganz ans Ende.
 
 *Abgleich mit der Funktionsliste:* Die Liste enthält 21 Einträge der Art Visualisierung, alle sind abgedeckt. Die im Plan genannten Themen, die in der Liste keinen eigenen Eintrag haben (Rainbow Tables, Side-Channel DPA/SPA, Huffman-Fehlerkorrektur), sind trotzdem umgesetzt (`RainbowTable`, `SideChannel`, `HuffmanErrors`); SSL ist als „TLS handshake“ umgesetzt.
+
+Die Punkte der Plan-Aufzählung einzeln, mit der Komponente und dem Template, die sie in CrypWeb abdecken (alle laufen im Test `runall`, die neu gebauten zusätzlich mit Tests im Befehl `kat`):
+
+| Punkt des Plans | Komponente | Template |
+|---|---|---|
+| RSA | `MathVisualization` (neu) | `Cryptography/Modern/Asymmetric/RSAVisualization` |
+| DES | `DESVisualization` (vorhandene CT2-Komponente mit Präsentation) | `Cryptography/Modern/Symmetric/DESVisualization` |
+| ECC/ECDH | `MathVisualization` (neu), `ECCInput` u. a. (vorhanden) | `Cryptography/Modern/Asymmetric/EllipticCurveVisualization`, `Protocols/ECC_DH` |
+| Hashing | MD5-Präsentation (vorhanden) | `Hashfunctions/MD5` |
+| SSL/TLS | `ProtocolVisualization`, Protokoll TLS 1.3 (neu) | `Protocols/TlsHandshakeVisualization` |
+| Zero-Knowledge | `ProtocolVisualization`, Protokoll Fiat-Shamir (neu); zusätzlich die vorhandenen Komponenten `ZeroKnowledgeChecker` | `Protocols/ZeroKnowledgeVisualization`, `Protocols/Zeroknowledge` |
+| Shamir/VSS | `MathVisualization` (neu), `SecretSharing` (neu) | `Protocols/ShamirVisualization`, `Protocols/VerifiableSecretSharing` |
+| Zufall | `RandomVisualization` (neu) | `Tools/RandomVisualization` |
+| Signaturen | `ProtocolVisualization` (neu) | `Cryptography/Modern/Asymmetric/DigitalSignatureVisualization` |
+| Side-Channel DPA/SPA | `SideChannel` (neu) | `Cryptanalysis/SideChannelSPA`, `Cryptanalysis/SideChannelDPA` |
+| Kleptographie | `Kleptography` (neu, vier Methoden) | `Games/Kleptography*` |
+| Rainbow Tables | `RainbowTable` (neu) | `Hashfunctions/RainbowTable` |
+| ACO | `AntColony` (neu) | `Games/AntColony` |
+| Android-Muster | `PatternLock` (neu) | `Games/PatternLock` |
+| Huffman-Fehlerkorrektur | `HuffmanErrors` (neu) | `Codes/HuffmanBitError`, `Codes/HuffmanErrorCorrection` |
 
 *Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster und die Kleptographie hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 

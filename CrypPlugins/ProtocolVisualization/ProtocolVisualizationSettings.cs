@@ -8,7 +8,7 @@ namespace ProtocolVisualization
     {
         private int _protocol; // 0=Diffie-Hellman with perfect forward secrecy, 1=digital signature, 2=authentication in a network, 3=S/MIME
 
-        [TaskPane("ProtocolCaption", "ProtocolTooltip", null, 1, false, ControlType.ComboBox, new string[] { "ProtocolList1", "ProtocolList2", "ProtocolList3", "ProtocolList4", "ProtocolList5" })]
+        [TaskPane("ProtocolCaption", "ProtocolTooltip", null, 1, false, ControlType.ComboBox, new string[] { "ProtocolList1", "ProtocolList2", "ProtocolList3", "ProtocolList4", "ProtocolList5", "ProtocolList6" })]
         public int Protocol
         {
             get => _protocol;

@@ -194,13 +194,14 @@
 Signatur:  p q e                    1009 1013 17
 Authentifizierung:  Passwort A1 A2    secret 8271 9034
 S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11
-TLS:  p g a b                   23 5 6 15</value>
+TLS:  p g a b                   23 5 6 15
+Zero-Knowledge:  p q s r1 c1 ...    11 13 5 7 1 9 0 2 1</value>
   </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameter</value>
   </data>
   <data name="ParametersTooltip" xml:space="preserve">
-    <value>Zahlen, durch Leerzeichen getrennt. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (Primzahl, Erzeuger, geheime Exponenten von Alice und Bob je Sitzung). Signatur: p q e (zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels). Authentifizierung: Passwort Aufforderung1 Aufforderung2 (drei Wörter). S/MIME: pA qA eA pB qB eB (die RSA-Schlüssel von Alice und Bob). TLS: p g a b (Primzahl, Erzeuger, geheime Exponenten von Client und Server).</value>
+    <value>Zahlen, durch Leerzeichen getrennt. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (Primzahl, Erzeuger, geheime Exponenten von Alice und Bob je Sitzung). Signatur: p q e (zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels). Authentifizierung: Passwort Aufforderung1 Aufforderung2 (drei Wörter). S/MIME: pA qA eA pB qB eB (die RSA-Schlüssel von Alice und Bob). TLS: p g a b (Primzahl, Erzeuger, geheime Exponenten von Client und Server). Zero-Knowledge: p q s r1 c1 [r2 c2 ...] (zwei Primzahlen, das Geheimnis und je Runde die Zufallszahl und die Aufforderung 0 oder 1).</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Protokoll-Visualisierung</value>
@@ -225,6 +226,9 @@ TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="ProtocolList5" xml:space="preserve">
     <value>TLS-1.3-Handshake</value>
+  </data>
+  <data name="ProtocolList6" xml:space="preserve">
+    <value>Zero-Knowledge-Beweis (Fiat-Shamir)</value>
   </data>
   <data name="ProtocolTooltip" xml:space="preserve">
     <value>Wählen Sie das Protokoll, das gezeigt wird.</value>
@@ -306,5 +310,38 @@ TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="WaitingText" xml:space="preserve">
     <value>Das Bild erscheint, wenn der Arbeitsbereich gelaufen ist.</value>
+  </data>
+  <data name="ZkCaught" xml:space="preserve">
+    <value>fliegt auf</value>
+  </data>
+  <data name="ZkCheaterEnded" xml:space="preserve">
+    <value>Der Betrüger fliegt in Runde {0} auf.</value>
+  </data>
+  <data name="ZkCheaterRound" xml:space="preserve">
+    <value>Runde {0}, Aufforderung c = {1}: der Betrüger {2}</value>
+  </data>
+  <data name="ZkCheaterSurvived" xml:space="preserve">
+    <value>Der Betrüger ist durch alle {0} Runden gekommen (Wahrscheinlichkeit {1} bei zufälligen Aufforderungen): Fügen Sie mehr Runden hinzu.</value>
+  </data>
+  <data name="ZkCheaterText" xml:space="preserve">
+    <value>Der Betrüger setzt auf c = 0: Er sendet x = r^2 und kann nur y = r antworten. Fragt Victor c = 1, bräuchte der Betrüger r * s und scheitert.</value>
+  </data>
+  <data name="ZkCheaterTitle" xml:space="preserve">
+    <value>Ein Betrüger, der s nicht kennt</value>
+  </data>
+  <data name="ZkExplanation" xml:space="preserve">
+    <value>Peggy beweist Victor, dass sie eine Quadratwurzel s von v modulo n kennt, ohne s zu verraten. In jeder Runde legt sie sich mit x = r^2 fest, Victor verlangt r (c = 0) oder r * s (c = 1) und prüft die Antwort mit den öffentlichen Werten. Eine richtig beantwortete Runde verrät nichts über s, aber ein Betrüger fliegt in jeder Runde mit Wahrscheinlichkeit 1/2 auf.</value>
+  </data>
+  <data name="ZkNote" xml:space="preserve">
+    <value>Die Zahlen sind klein, damit man sie von Hand nachvollziehen kann. Bei einem Modul von 2048 Bit und 40 oder mehr Runden ist die Wahrscheinlichkeit des Betrügers kleiner als 2^-40.</value>
+  </data>
+  <data name="ZkPassed" xml:space="preserve">
+    <value>besteht</value>
+  </data>
+  <data name="ZkRound" xml:space="preserve">
+    <value>Runde {0}</value>
+  </data>
+  <data name="ZkTitle" xml:space="preserve">
+    <value>Zero-Knowledge-Beweis: Fiat-Shamir-Identifikation</value>
   </data>
 </root>

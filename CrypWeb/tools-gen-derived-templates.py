@@ -904,6 +904,13 @@ TEMPLATES += [
                            "The parameters are p = 23, g = 5 and the secret exponents of client and server (6 and 15). A small prime lets Eve find the exponent by trial; with a large prime (try 1000000007) she does not try. The keys are computed with HKDF and SHA-256 as in TLS 1.3.",
                            "Die Parameter sind p = 23, g = 5 und die geheimen Exponenten von Client und Server (6 und 15). Bei einer kleinen Primzahl findet Eve den Exponenten durch Probieren; bei einer großen (probieren Sie 1000000007) versucht sie es nicht. Die Schlüssel werden wie bei TLS 1.3 mit HKDF und SHA-256 berechnet.",
                            "TLS, SSL, handshake, key exchange, HKDF, visualization"),
+    protocol_visualization("Protocols/ZeroKnowledgeVisualization", 5, "11 13 5 7 1 9 0 2 1", None, None,
+                           "Zero-Knowledge Proof (Fiat-Shamir): Visualization", "Zero-Knowledge-Beweis (Fiat-Shamir): Visualisierung",
+                           "Peggy proves that she knows a secret in three rounds; a cheater who does not know it is caught.",
+                           "Peggy beweist in drei Runden, dass sie ein Geheimnis kennt; ein Betrüger, der es nicht kennt, fliegt auf.",
+                           "The parameters are the primes 11 and 13, the secret 5 and for every round the random number of Peggy and the challenge of Victor (7 and 1, 9 and 0, 2 and 1). Change the challenges to 0 to see that a cheater then gets through.",
+                           "Die Parameter sind die Primzahlen 11 und 13, das Geheimnis 5 und je Runde die Zufallszahl von Peggy und die Aufforderung von Victor (7 und 1, 9 und 0, 2 und 1). Setzen Sie die Aufforderungen auf 0, um zu sehen, dass ein Betrüger dann durchkommt.",
+                           "zero-knowledge, Fiat-Shamir, identification, proof, visualization"),
 ]
 
 

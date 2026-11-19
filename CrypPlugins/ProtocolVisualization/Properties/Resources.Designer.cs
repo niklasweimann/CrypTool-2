@@ -376,6 +376,15 @@ namespace ProtocolVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to ProtocolList6.
+        /// </summary>
+        internal static string ProtocolList6 {
+            get {
+                return ResourceManager.GetString("ProtocolList6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to ProtocolTooltip.
         /// </summary>
         internal static string ProtocolTooltip {
@@ -615,6 +624,105 @@ namespace ProtocolVisualization.Properties {
         internal static string WaitingText {
             get {
                 return ResourceManager.GetString("WaitingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCaught.
+        /// </summary>
+        internal static string ZkCaught {
+            get {
+                return ResourceManager.GetString("ZkCaught", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCheaterEnded.
+        /// </summary>
+        internal static string ZkCheaterEnded {
+            get {
+                return ResourceManager.GetString("ZkCheaterEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCheaterRound.
+        /// </summary>
+        internal static string ZkCheaterRound {
+            get {
+                return ResourceManager.GetString("ZkCheaterRound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCheaterSurvived.
+        /// </summary>
+        internal static string ZkCheaterSurvived {
+            get {
+                return ResourceManager.GetString("ZkCheaterSurvived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCheaterText.
+        /// </summary>
+        internal static string ZkCheaterText {
+            get {
+                return ResourceManager.GetString("ZkCheaterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkCheaterTitle.
+        /// </summary>
+        internal static string ZkCheaterTitle {
+            get {
+                return ResourceManager.GetString("ZkCheaterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkExplanation.
+        /// </summary>
+        internal static string ZkExplanation {
+            get {
+                return ResourceManager.GetString("ZkExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkNote.
+        /// </summary>
+        internal static string ZkNote {
+            get {
+                return ResourceManager.GetString("ZkNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkPassed.
+        /// </summary>
+        internal static string ZkPassed {
+            get {
+                return ResourceManager.GetString("ZkPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkRound.
+        /// </summary>
+        internal static string ZkRound {
+            get {
+                return ResourceManager.GetString("ZkRound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ZkTitle.
+        /// </summary>
+        internal static string ZkTitle {
+            get {
+                return ResourceManager.GetString("ZkTitle", resourceCulture);
             }
         }
     }

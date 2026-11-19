@@ -1083,6 +1083,25 @@ public static class ComponentTests
 
     static void ProtocolVisualization()
     {
+        // zero-knowledge (Fiat-Shamir): n = 11 * 13 = 143, s = 5, v = 25; the checks are made again here with .NET arithmetic
+        {
+            var zk = global::ProtocolVisualization.Calculations.ZeroKnowledge("11 13 5 7 1 9 0 2 1");
+            var modulus = new System.Numerics.BigInteger(143);
+            bool checks = zk.N == 143 && zk.V == 25 && zk.Rounds.Count == 3 && zk.HonestAccepted;
+            foreach (var round in zk.Rounds)
+            {
+                var y = round.Challenge == 0 ? round.R : round.R * 5 % modulus;
+                checks &= round.X == round.R * round.R % modulus && round.Y == y && y * y % modulus == (round.Challenge == 0 ? round.X : round.X * 25 % modulus);
+            }
+            Check(checks, "zero-knowledge (Fiat-Shamir): n = 143, s = 5, v = 25; in all three rounds y^2 = x * v^c, so the honest prover is accepted");
+            Check(zk.CheaterCaughtInRound == 1 && zk.Rounds[0].Challenge == 1 && !zk.Rounds[0].CheatAccepted && zk.Rounds[1].CheatAccepted, "zero-knowledge: the cheater (who bets on c = 0) passes a round with c = 0 and is caught in the first round with c = 1");
+            Check(global::ProtocolVisualization.Calculations.ZeroKnowledge("11 13 5 7 0 9 0").CheaterCaughtInRound == 0, "zero-knowledge: if all challenges are 0 the cheater gets through, which is why the verifier chooses at random");
+            bool refused = false;
+            try { global::ProtocolVisualization.Calculations.ZeroKnowledge("11 13 5 7 2"); } catch (ArgumentException) { refused = true; }
+            try { global::ProtocolVisualization.Calculations.ZeroKnowledge("11 11 5 7 1"); refused = false; } catch (ArgumentException) { }
+            Check(refused, "zero-knowledge: a challenge other than 0 and 1 and equal primes are refused");
+        }
+
         // TLS 1.3 key schedule: HKDF against RFC 5869 (test case 1) and .NET, the labels against RFC 8448 (early secret and "derived" secret), then the handshake
         {
             byte[] ikm = Enumerable.Repeat((byte)0x0b, 22).ToArray(), salt = Enumerable.Range(0, 13).Select(i => (byte)i).ToArray(), info = Enumerable.Range(0xf0, 10).Select(i => (byte)i).ToArray();

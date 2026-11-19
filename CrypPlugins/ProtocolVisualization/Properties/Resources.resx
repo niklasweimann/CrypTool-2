@@ -194,13 +194,14 @@
 Signature:  p q e                    1009 1013 17
 Authentication:  password n1 n2     secret 8271 9034
 S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11
-TLS:  p g a b                   23 5 6 15</value>
+TLS:  p g a b                   23 5 6 15
+Zero-knowledge:  p q s r1 c1 ...    11 13 5 7 1 9 0 2 1</value>
   </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameters</value>
   </data>
   <data name="ParametersTooltip" xml:space="preserve">
-    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key). Authentication: password challenge1 challenge2 (three words). S/MIME: pA qA eA pB qB eB (the RSA keys of Alice and Bob). TLS: p g a b (prime, generator, secret exponents of client and server).</value>
+    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key). Authentication: password challenge1 challenge2 (three words). S/MIME: pA qA eA pB qB eB (the RSA keys of Alice and Bob). TLS: p g a b (prime, generator, secret exponents of client and server). Zero-knowledge: p q s r1 c1 [r2 c2 ...] (two primes, the secret, and per round the random number and the challenge 0 or 1).</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Protocol Visualization</value>
@@ -225,6 +226,9 @@ TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="ProtocolList5" xml:space="preserve">
     <value>TLS 1.3 handshake</value>
+  </data>
+  <data name="ProtocolList6" xml:space="preserve">
+    <value>Zero-knowledge proof (Fiat-Shamir)</value>
   </data>
   <data name="ProtocolTooltip" xml:space="preserve">
     <value>Select the protocol that is shown.</value>
@@ -306,5 +310,38 @@ TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="WaitingText" xml:space="preserve">
     <value>The picture appears when the workspace has run.</value>
+  </data>
+  <data name="ZkCaught" xml:space="preserve">
+    <value>is caught</value>
+  </data>
+  <data name="ZkCheaterEnded" xml:space="preserve">
+    <value>The cheater is caught in round {0}.</value>
+  </data>
+  <data name="ZkCheaterRound" xml:space="preserve">
+    <value>Round {0}, challenge c = {1}: the cheater {2}</value>
+  </data>
+  <data name="ZkCheaterSurvived" xml:space="preserve">
+    <value>The cheater got through all {0} rounds (probability {1} for random challenges): add more rounds.</value>
+  </data>
+  <data name="ZkCheaterText" xml:space="preserve">
+    <value>The cheater bets on c = 0: he sends x = r^2 and can answer only y = r. If Victor asks c = 1, the cheater would need r * s and fails.</value>
+  </data>
+  <data name="ZkCheaterTitle" xml:space="preserve">
+    <value>A cheater who does not know s</value>
+  </data>
+  <data name="ZkExplanation" xml:space="preserve">
+    <value>Peggy proves to Victor that she knows a square root s of v modulo n without revealing s. In every round she commits with x = r^2, Victor asks for r (c = 0) or for r * s (c = 1), and he checks the answer with the public values. A round that is answered correctly shows nothing about s, but a cheater is caught with probability 1/2 in each round.</value>
+  </data>
+  <data name="ZkNote" xml:space="preserve">
+    <value>The numbers are small so that they can be followed by hand. With a modulus of 2048 bits and 40 or more rounds the cheater has a probability below 2^-40.</value>
+  </data>
+  <data name="ZkPassed" xml:space="preserve">
+    <value>passes</value>
+  </data>
+  <data name="ZkRound" xml:space="preserve">
+    <value>Round {0}</value>
+  </data>
+  <data name="ZkTitle" xml:space="preserve">
+    <value>Zero-knowledge proof: Fiat-Shamir identification</value>
   </data>
 </root>
