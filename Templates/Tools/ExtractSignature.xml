@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ExtractSignature.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Extract the Signature of a Signed Message</title>
+  <summary lang="en"><i>Extract the Signature of a Signed Message</i></summary>
+  <description lang="en">The signer, the algorithms, the signature value and the content of a CMS message.</description>
+  <keywords lang="en">signature, extract, CMS, PKCS#7, signed message</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The message was signed with OpenSSL (cms -sign) with an RSA key and SHA-256." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Signatur einer signierten Nachricht extrahieren</title>
+  <summary lang="de"><i>Signatur einer signierten Nachricht extrahieren</i></summary>
+  <description lang="de">Der Unterzeichner, die Algorithmen, der Signaturwert und der Inhalt einer CMS-Nachricht.</description>
+  <keywords lang="en">signature, extract, CMS, PKCS#7, signed message</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Nachricht wurde mit OpenSSL (cms -sign) mit einem RSA-Schlüssel und SHA-256 signiert." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ExtractSignature.png" />
+  <relevantPlugins>
+    <plugin name="Asn1Viewer" />
+  </relevantPlugins>
+</sample>

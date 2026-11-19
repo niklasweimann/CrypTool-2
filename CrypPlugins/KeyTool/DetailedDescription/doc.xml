@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This tool generates RSA and elliptic curve key pairs and writes them in the standard PEM format: the private key as PKCS#8, the public key as SubjectPublicKeyInfo. Given a key in PEM format (PKCS#8, PKCS#1, SEC 1 or SubjectPublicKeyInfo) it shows its parameters (modulus, exponent, curve, public point) and its SHA-256 fingerprint and writes it in the standard format again, which imports it. The keys can be used with other tools, for example the OpenSSL command line.
+  </introduction>
+  <introduction lang="de-DE">
+    Dieses Werkzeug erzeugt RSA- und Elliptische-Kurven-Schlüsselpaare und schreibt sie im Standardformat PEM: den privaten Schlüssel als PKCS#8, den öffentlichen als SubjectPublicKeyInfo. Für einen Schlüssel im PEM-Format (PKCS#8, PKCS#1, SEC 1 oder SubjectPublicKeyInfo) zeigt es seine Parameter (Modul, Exponent, Kurve, öffentlicher Punkt) und seinen SHA-256-Fingerabdruck und schreibt ihn wieder im Standardformat, was ihn importiert. Die Schlüssel lassen sich mit anderen Werkzeugen benutzen, zum Beispiel der OpenSSL-Kommandozeile.
+  </introduction>
+  <usage lang="en">
+    Choose the function in the settings. To generate a key, set the size or the curve and run the workspace. To show a key, connect it as PEM block.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Funktion in den Einstellungen. Zum Erzeugen eines Schlüssels stellen Sie die Größe oder die Kurve ein und lassen den Arbeitsbereich laufen. Zum Anzeigen verbinden Sie den Schlüssel als PEM-Block.
+  </usage>
+</documentation>

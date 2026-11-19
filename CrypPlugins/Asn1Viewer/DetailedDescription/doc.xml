@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    ASN.1 (Abstract Syntax Notation One) with its DER encoding is the format of keys, certificates and signed messages. The viewer decodes PEM blocks, hexadecimal digits or Base64 and shows the nested structure with the types and values, so that the parts of an RSA key or of a certificate can be seen. For a CMS (PKCS#7) SignedData message it extracts the signatures: who signed, with which algorithms, the signature value, the signed content and the certificates in the message.
+  </introduction>
+  <introduction lang="de-DE">
+    ASN.1 (Abstract Syntax Notation One) mit der DER-Codierung ist das Format von Schlüsseln, Zertifikaten und signierten Nachrichten. Der Betrachter decodiert PEM-Blöcke, Hexadezimalziffern oder Base64 und zeigt die verschachtelte Struktur mit Typen und Werten, sodass sich die Teile eines RSA-Schlüssels oder eines Zertifikats erkennen lassen. Bei einer CMS-Nachricht (PKCS#7, SignedData) extrahiert er die Signaturen: wer signiert hat, mit welchen Algorithmen, den Signaturwert, den signierten Inhalt und die Zertifikate in der Nachricht.
+  </introduction>
+  <usage lang="en">
+    Connect the data as a PEM block, hexadecimal digits or Base64 and choose the function in the settings.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie die Daten als PEM-Block, Hexadezimalziffern oder Base64 und wählen Sie die Funktion in den Einstellungen.
+  </usage>
+</documentation>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KeyShow.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Import and Show a Key</title>
+  <summary lang="en"><i>Import and Show a Key</i></summary>
+  <description lang="en">A private key in the old PKCS#1 format is read, described and exported in the standard PKCS#8 format.</description>
+  <keywords lang="en">key import, key export, PEM, PKCS#1, PKCS#8</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key was made with OpenSSL. The public key is calculated from the private key." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Schlüssel importieren und anzeigen</title>
+  <summary lang="de"><i>Schlüssel importieren und anzeigen</i></summary>
+  <description lang="de">Ein privater Schlüssel im alten PKCS#1-Format wird gelesen, beschrieben und im Standardformat PKCS#8 exportiert.</description>
+  <keywords lang="en">key import, key export, PEM, PKCS#1, PKCS#8</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel wurde mit OpenSSL erzeugt. Der öffentliche Schlüssel wird aus dem privaten berechnet." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KeyShow.png" />
+  <relevantPlugins>
+    <plugin name="KeyTool" />
+  </relevantPlugins>
+</sample>

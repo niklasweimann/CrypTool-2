@@ -184,7 +184,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/ASN1Viewer.cwm": "Tools/ASN1Viewer.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/ASN1Viewer.cwm"
  },
  {
   "name": "Atbash",
@@ -2848,7 +2853,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
  },
  {
   "name": "Padding Oracle",
@@ -3204,7 +3214,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/CertificateChain.cwm": "Protocols/CertificateChain.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/CertificateChain.cwm"
  },
  {
   "name": "Purple",
@@ -3701,7 +3716,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/KeyShow.cwm": "Cryptography/Modern/Asymmetric/KeyShow.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/KeyShow.cwm"
  },
  {
   "name": "Schlüssel aus Passwort generieren (PKCS#5)",
@@ -3724,7 +3744,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
  },
  {
   "name": "Schlüsselaustausch (BB84)",
@@ -4058,7 +4083,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/ExtractSignature.cwm": "Tools/ExtractSignature.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/ExtractSignature.cwm"
  },
  {
   "name": "Signatur verifizieren",
@@ -5218,7 +5248,12 @@
   "ct2": false,
   "jct": true,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/CertificateChain.cwm": "Protocols/CertificateChain.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/CertificateChain.cwm"
  },
  {
   "name": "Zip/Unzip",

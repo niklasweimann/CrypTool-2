@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A public key infrastructure (PKI) binds public keys to names by certificates: a certification authority (CA) signs a certificate that contains the name and the public key of the owner. A server certificate is signed by an intermediate CA, whose certificate is signed by a root CA, which signs its own certificate; the root certificate is trusted because it is installed beforehand. To verify a chain, the signature of every certificate is checked with the public key of its issuer, the dates are checked, and the issuers must be allowed to issue certificates (basic constraints). The tool creates such a chain with EC keys, verifies chains given as PEM blocks and shows the fields of certificates.
+  </introduction>
+  <introduction lang="de-DE">
+    Eine Public-Key-Infrastruktur (PKI) bindet öffentliche Schlüssel durch Zertifikate an Namen: Eine Zertifizierungsstelle (CA) signiert ein Zertifikat, das den Namen und den öffentlichen Schlüssel des Inhabers enthält. Ein Serverzertifikat wird von einer Zwischenstelle signiert, deren Zertifikat von einer Wurzelstelle, die ihr eigenes Zertifikat signiert; dem Wurzelzertifikat wird vertraut, weil es vorher installiert ist. Zur Prüfung einer Kette wird die Signatur jedes Zertifikats mit dem öffentlichen Schlüssel seines Ausstellers geprüft, die Gültigkeitsdaten werden geprüft, und die Aussteller müssen Zertifikate ausstellen dürfen (Basic Constraints). Das Werkzeug erzeugt eine solche Kette mit EC-Schlüsseln, prüft als PEM-Blöcke gegebene Ketten und zeigt die Felder von Zertifikaten.
+  </introduction>
+  <usage lang="en">
+    Choose the function in the settings. Create: optionally connect a host name. Verify or show: connect the certificates as PEM blocks, server certificate first and the root last.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Funktion in den Einstellungen. Erzeugen: Verbinden Sie optional einen Rechnernamen. Prüfen oder anzeigen: Verbinden Sie die Zertifikate als PEM-Blöcke, zuerst das Serverzertifikat und zuletzt die Wurzel.
+  </usage>
+</documentation>

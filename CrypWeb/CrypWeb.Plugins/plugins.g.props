@@ -72,6 +72,11 @@
     <Compile Include="../../CrypPlugins/ArrayOperations/Properties/Resources.Designer.cs" Link="ArrayOperations/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.resx" LogicalName="ArrayOperations.Properties.Resources.resources" Link="ArrayOperations/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.de.resx" LogicalName="ArrayOperations.Properties.Resources.de.resources" Link="ArrayOperations/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Asn1Viewer/Asn1ViewerSettings.cs" Link="Asn1Viewer/Asn1ViewerSettings.cs" />
+    <Compile Include="../../CrypPlugins/Asn1Viewer/Asn1Viewer.cs" Link="Asn1Viewer/Asn1Viewer.cs" />
+    <Compile Include="../../CrypPlugins/Asn1Viewer/Properties/Resources.Designer.cs" Link="Asn1Viewer/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Asn1Viewer/Properties/Resources.resx" LogicalName="Asn1Viewer.Properties.Resources.resources" Link="Asn1Viewer/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Asn1Viewer/Properties/Resources.de.resx" LogicalName="Asn1Viewer.Properties.Resources.de.resources" Link="Asn1Viewer/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/AudioInput/AudioInputSettings.cs" Link="AudioInput/AudioInputSettings.cs" />
     <Compile Include="../../CrypPlugins/AudioInput/AudioInput.cs" Link="AudioInput/AudioInput.cs" />
     <Compile Include="../../CrypPlugins/AudioInput/Properties/Resources.Designer.cs" Link="AudioInput/Properties/Resources.Designer.cs" />
@@ -228,6 +233,11 @@
     <Compile Include="../../CrypPlugins/Camellia/Camellia.cs" Link="Camellia/Camellia.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Camellia/Properties/Resources.resx" LogicalName="Camellia.Properties.Resources.resources" Link="Camellia/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Camellia/Properties/Resources.de.resx" LogicalName="Camellia.Properties.Resources.de.resources" Link="Camellia/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/CertificateTool/CertificateToolSettings.cs" Link="CertificateTool/CertificateToolSettings.cs" />
+    <Compile Include="../../CrypPlugins/CertificateTool/CertificateTool.cs" Link="CertificateTool/CertificateTool.cs" />
+    <Compile Include="../../CrypPlugins/CertificateTool/Properties/Resources.Designer.cs" Link="CertificateTool/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/CertificateTool/Properties/Resources.resx" LogicalName="CertificateTool.Properties.Resources.resources" Link="CertificateTool/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/CertificateTool/Properties/Resources.de.resx" LogicalName="CertificateTool.Properties.Resources.de.resources" Link="CertificateTool/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ChaCha/ChaChaSettings.cs" Link="ChaCha/ChaChaSettings.cs" />
     <Compile Include="../../CrypPlugins/ChaCha/Version.cs" Link="ChaCha/Version.cs" />
     <Compile Include="../../CrypPlugins/ChaCha/ChaCha.cs" Link="ChaCha/ChaCha.cs" />
@@ -853,6 +863,11 @@
     <Compile Include="../StandIns/KeySearcher/CloudStandIns.cs" Link="KeySearcher/StandIns/CloudStandIns.cs" />
     <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Properties/Resources.resx" LogicalName="KeySearcher.Properties.Resources.resources" Link="KeySearcher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Properties/Resources.de.resx" LogicalName="KeySearcher.Properties.Resources.de.resources" Link="KeySearcher/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/KeyTool/KeyToolSettings.cs" Link="KeyTool/KeyToolSettings.cs" />
+    <Compile Include="../../CrypPlugins/KeyTool/KeyTool.cs" Link="KeyTool/KeyTool.cs" />
+    <Compile Include="../../CrypPlugins/KeyTool/Properties/Resources.Designer.cs" Link="KeyTool/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/KeyTool/Properties/Resources.resx" LogicalName="KeyTool.Properties.Resources.resources" Link="KeyTool/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/KeyTool/Properties/Resources.de.resx" LogicalName="KeyTool.Properties.Resources.de.resources" Link="KeyTool/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Kleptography/Kleptography.cs" Link="Kleptography/Kleptography.cs" />
     <Compile Include="../../CrypPlugins/Kleptography/KleptographySettings.cs" Link="Kleptography/KleptographySettings.cs" />
     <Compile Include="../../CrypPlugins/Kleptography/Properties/Resources.Designer.cs" Link="Kleptography/Properties/Resources.Designer.cs" />

@@ -55,6 +55,7 @@ public static class ComponentTests
         KeySearchTests();
         AnalysisTests();
         ToolTests();
+        KeyAndCertificateTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1197,6 +1198,89 @@ public static class ComponentTests
     }
 
     static T2 Let<T, T2>(this T value, Func<T, T2> f) => f(value);
+
+    static void KeyAndCertificateTests()
+    {
+        // ASN.1 viewer: SEQUENCE { INTEGER 5, OCTET STRING "ab" }
+        string dump = global::Asn1Viewer.Asn1Tools.Dump(global::Asn1Viewer.Asn1Tools.ReadBytes("30 07 02 01 05 04 02 61 62"));
+        Check(dump.Contains("Sequence") && dump.Contains("5") && dump.Contains("6162"), "ASN.1 viewer: SEQUENCE { INTEGER 5, OCTET STRING 6162 } is shown with its parts");
+        Check(global::Asn1Viewer.Asn1Tools.ReadBytes("MAcCAQUEAmFi").SequenceEqual(global::Asn1Viewer.Asn1Tools.ReadBytes("3007020105040261 62")), "ASN.1 viewer: Base64 and hexadecimal give the same bytes");
+
+        // keys: RSA and EC written as PEM are read by .NET, and the other way round
+        var rsaPair = global::KeyTool.KeyTools.GenerateRsa(1024);
+        string rsaPrivate = global::KeyTool.KeyTools.PrivatePem(rsaPair.Private), rsaPublic = global::KeyTool.KeyTools.PublicPem(rsaPair.Public);
+        using (var net = System.Security.Cryptography.RSA.Create())
+        {
+            net.ImportFromPem(rsaPrivate);
+            var signature = net.SignData(new byte[] { 1, 2, 3 }, System.Security.Cryptography.HashAlgorithmName.SHA256, System.Security.Cryptography.RSASignaturePadding.Pkcs1);
+            using (var pub = System.Security.Cryptography.RSA.Create())
+            {
+                pub.ImportFromPem(rsaPublic);
+                Check(net.KeySize == 1024 && pub.VerifyData(new byte[] { 1, 2, 3 }, signature, System.Security.Cryptography.HashAlgorithmName.SHA256, System.Security.Cryptography.RSASignaturePadding.Pkcs1) && rsaPrivate.StartsWith("-----BEGIN PRIVATE KEY-----"), "key tool: the RSA key pair (1024 bits) as PEM is read by .NET, a signature with the private key verifies with the public key");
+            }
+            string pkcs1 = net.ExportRSAPrivateKeyPem();
+            AsymmetricKeyParameterHolder.Test(pkcs1, rsaPublic);
+        }
+        var ecPair = global::KeyTool.KeyTools.GenerateEc("secp256r1");
+        using (var ec = System.Security.Cryptography.ECDsa.Create())
+        {
+            ec.ImportFromPem(global::KeyTool.KeyTools.PrivatePem(ecPair.Private));
+            var signature = ec.SignData(new byte[] { 9 }, System.Security.Cryptography.HashAlgorithmName.SHA256);
+            using (var pub = System.Security.Cryptography.ECDsa.Create())
+            {
+                pub.ImportFromPem(global::KeyTool.KeyTools.PublicPem(ecPair.Public));
+                Check(ec.KeySize == 256 && pub.VerifyData(new byte[] { 9 }, signature, System.Security.Cryptography.HashAlgorithmName.SHA256), "key tool: the EC key pair (P-256) as PEM is read by .NET and a signature verifies");
+            }
+            Org.BouncyCastle.Crypto.AsymmetricKeyParameter pubKey;
+            var priv = global::KeyTool.KeyTools.ReadKey(ec.ExportECPrivateKeyPem(), out pubKey);
+            Check(priv != null && global::KeyTool.KeyTools.Describe(priv, pubKey).Contains("curve prime256v1 (256 bits)") && global::KeyTool.KeyTools.PublicPem(pubKey) == global::KeyTool.KeyTools.PublicPem(ecPair.Public), "key tool: an EC key in SEC 1 format written by .NET is read, the curve is named (prime256v1 = secp256r1) and the public key is the same");
+        }
+
+        // certificates: the chain is valid, other chains, dates and a wrong issuer are not; .NET builds the same chain
+        var now = DateTime.UtcNow;
+        var demo = global::CertificateTool.Certificates.CreateChain("www.example.org", now);
+        var report = new System.Text.StringBuilder();
+        var chain = new List<Org.BouncyCastle.X509.X509Certificate> { demo.Leaf, demo.Intermediate, demo.Root };
+        Check(global::CertificateTool.Certificates.VerifyChain(chain, now, report) && report.ToString().Contains("The chain is valid"), "certificates: the chain root - intermediate - server certificate is valid");
+        Check(!global::CertificateTool.Certificates.VerifyChain(chain, now.AddYears(20), new System.Text.StringBuilder()), "certificates: after the validity period the chain is not valid");
+        var other = global::CertificateTool.Certificates.CreateChain("www.example.org", now);
+        Check(!global::CertificateTool.Certificates.VerifyChain(new List<Org.BouncyCastle.X509.X509Certificate> { demo.Leaf, other.Intermediate, demo.Root }, now, new System.Text.StringBuilder()), "certificates: an intermediate certificate of another chain does not fit (wrong signature)");
+        Check(!global::CertificateTool.Certificates.VerifyChain(new List<Org.BouncyCastle.X509.X509Certificate> { demo.Intermediate, demo.Leaf }, now, new System.Text.StringBuilder()), "certificates: a server certificate as issuer is refused (not a CA, wrong signature)");
+        var read = global::CertificateTool.Certificates.Read(demo.Chain);
+        Check(read.Count == 3 && read[0].SubjectDN.ToString().Contains("www.example.org") && global::CertificateTool.Certificates.Describe(read[2]).Contains("Certification authority: yes"), "certificates: the PEM blocks are read again; the server certificate carries the host name, the root is a CA");
+        using (var netRoot = System.Security.Cryptography.X509Certificates.X509Certificate2.CreateFromPem(global::CertificateTool.Certificates.ToPem(demo.Root)))
+        using (var netIntermediate = System.Security.Cryptography.X509Certificates.X509Certificate2.CreateFromPem(global::CertificateTool.Certificates.ToPem(demo.Intermediate)))
+        using (var netLeaf = System.Security.Cryptography.X509Certificates.X509Certificate2.CreateFromPem(global::CertificateTool.Certificates.ToPem(demo.Leaf)))
+        using (var netChain = new System.Security.Cryptography.X509Certificates.X509Chain())
+        {
+            netChain.ChainPolicy.TrustMode = System.Security.Cryptography.X509Certificates.X509ChainTrustMode.CustomRootTrust;
+            netChain.ChainPolicy.CustomTrustStore.Add(netRoot);
+            netChain.ChainPolicy.ExtraStore.Add(netIntermediate);
+            netChain.ChainPolicy.RevocationMode = System.Security.Cryptography.X509Certificates.X509RevocationMode.NoCheck;
+            Check(netChain.Build(netLeaf) && netChain.ChainElements.Count == 3, "certificates: .NET builds and trusts the chain with our root certificate");
+        }
+
+        // CMS SignedData: the signature extraction shows signer and signature, and the message verifies
+        var gen = new Org.BouncyCastle.Cms.CmsSignedDataGenerator();
+        gen.AddSigner(demo.LeafKeys.Private, demo.Leaf, Org.BouncyCastle.Cms.CmsSignedGenerator.DigestSha256);
+        gen.AddCertificates(Org.BouncyCastle.Utilities.Collections.CollectionUtilities.CreateStore(new List<Org.BouncyCastle.X509.X509Certificate> { demo.Leaf }));
+        var signed = gen.Generate(new Org.BouncyCastle.Cms.CmsProcessableByteArray(System.Text.Encoding.UTF8.GetBytes("Pay Bob 10 euros")), true);
+        string extracted = global::Asn1Viewer.Asn1Tools.Signatures(signed.GetEncoded());
+        var signerInfo = signed.GetSignerInfos().GetSigners().First();
+        Check(extracted.Contains("Pay Bob 10 euros") && extracted.Contains(global::Asn1Viewer.Asn1Tools.ToHex(signerInfo.GetSignature())) && extracted.Contains("www.example.org") && signerInfo.Verify(demo.Leaf), "signature extraction: the CMS message shows the content, the signer, the certificate and the signature value, and the signature is valid");
+    }
+
+    static class AsymmetricKeyParameterHolder
+    {
+        public static void Test(string pkcs1Pem, string publicPem)
+        {
+            Org.BouncyCastle.Crypto.AsymmetricKeyParameter pub;
+            var priv = global::KeyTool.KeyTools.ReadKey(pkcs1Pem, out pub);
+            Check(priv != null && global::KeyTool.KeyTools.Describe(priv, pub).Contains("RSA, modulus of 1024 bits") && global::KeyTool.KeyTools.PublicPem(pub) == publicPem, "key tool: an RSA key in PKCS#1 format written by .NET is read, it has 1024 bits and the public key is the same");
+            Org.BouncyCastle.Crypto.AsymmetricKeyParameter pub2;
+            Check(global::KeyTool.KeyTools.ReadKey(publicPem, out pub2) == null && pub2 != null, "key tool: a public key alone is read without a private key");
+        }
+    }
 
     static void ProtocolVisualization()
     {

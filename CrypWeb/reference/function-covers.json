@@ -113,5 +113,12 @@
  "Reziproke Substraktion|": "Mathematics/ReciprocalSubtraction.cwm",
  "Viterbi|analysis": "Codes/ViterbiDecoder.cwm",
  "Zwei-Faktor Authentisierung|": "Protocols/TwoFactorTotp.cwm",
- "Corona / COVID|": "Protocols/ExposureNotification.cwm"
+ "Corona / COVID|": "Protocols/ExposureNotification.cwm",
+ "ASN.1|": "Tools/ASN1Viewer.cwm",
+ "Signatur extrahieren|": "Tools/ExtractSignature.cwm",
+ "Schlüssel erzeugen/importieren|": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm",
+ "Schlüssel anzeigen/exportieren|": "Cryptography/Modern/Asymmetric/KeyShow.cwm",
+ "Public-Key Infrastructure|": "Protocols/CertificateChain.cwm",
+ "Zertifikate verifizieren|": "Protocols/CertificateChain.cwm",
+ "OpenSSL|": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
 }

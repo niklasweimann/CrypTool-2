@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ASN1Viewer.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ASN.1 Viewer</title>
+  <summary lang="en"><i>ASN.1 Viewer</i></summary>
+  <description lang="en">The structure of an RSA public key: the algorithm and the numbers n and e.</description>
+  <keywords lang="en">ASN.1, DER, PEM, structure, key, certificate</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The input is a PEM block; hexadecimal digits and Base64 work as well. Paste a certificate to see its fields." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ASN.1-Betrachter</title>
+  <summary lang="de"><i>ASN.1-Betrachter</i></summary>
+  <description lang="de">Der Aufbau eines öffentlichen RSA-Schlüssels: der Algorithmus und die Zahlen n und e.</description>
+  <keywords lang="en">ASN.1, DER, PEM, structure, key, certificate</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Eingabe ist ein PEM-Block; Hexadezimalziffern und Base64 funktionieren ebenfalls. Fügen Sie ein Zertifikat ein, um seine Felder zu sehen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ASN1Viewer.png" />
+  <relevantPlugins>
+    <plugin name="Asn1Viewer" />
+  </relevantPlugins>
+</sample>

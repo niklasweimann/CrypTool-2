@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KeyGeneratorEC.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Generate an EC Key Pair (PEM)</title>
+  <summary lang="en"><i>Generate an EC Key Pair (PEM)</i></summary>
+  <description lang="en">A new elliptic curve key pair on the curve P-256 as PEM blocks.</description>
+  <keywords lang="en">key generation, elliptic curve, EC, PEM, P-256</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Choose another curve in the settings of the {\\b Key Tool} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">EC-Schlüsselpaar erzeugen (PEM)</title>
+  <summary lang="de"><i>EC-Schlüsselpaar erzeugen (PEM)</i></summary>
+  <description lang="de">Ein neues Schlüsselpaar auf der elliptischen Kurve P-256 als PEM-Blöcke.</description>
+  <keywords lang="en">key generation, elliptic curve, EC, PEM, P-256</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Wählen Sie in den Einstellungen der Komponente {\\b Schlüsselwerkzeug} eine andere Kurve." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KeyGeneratorEC.png" />
+  <relevantPlugins>
+    <plugin name="KeyTool" />
+  </relevantPlugins>
+</sample>

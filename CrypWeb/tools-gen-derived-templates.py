@@ -1134,6 +1134,67 @@ TEMPLATES += [
 ]
 
 
+# sample data made with the OpenSSL command line (a 1024-bit RSA key for the demonstration, never to be used for anything else)
+SAMPLE_RSA_PRIVATE = """-----BEGIN PRIVATE KEY-----
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALZLugKH7cI6gg4G
+2EkkIzMHMo4fzz9Ll8yKHjEnQbNHDBN9PgAagsxWqr2WstOJPhi9khwgkB+neihC
+Jk9ryKVQaCmXEo9K58GKRr5NsN4j+5A2JCdt87UAKMmbZQqKp3gR6rUbsYUxucyB
+WaU6xUNjyxbLAJ/H/ad8ILpev/uRAgMBAAECgYB6JamgkoX8dAm67lk0QROY2ITG
+eIf8qGExe4aZdu1t+/gagvvtQ9ZKpvPHD1gJp9dE6pkhYaxQmX6fxRs4ckdBYn2t
++F8znKSirofMfKc1UyP60zAd191M7lseQDRHp6FpYjukPNXVvEUJI+PsQeyrV3Pp
+JuzfUhuyVoEEPH5sAQJBAPJz0QxXrd1Fx0Jo6cA0G83dwXfuOlx9ShB4bug4Xxsi
+XF7HhR/kXVSJfl/TkXu5akwldx+oBisigHYGvI7Uj8ECQQDAe2TrB6tqumP9aBxi
+O5DMoHaVzia2ZVZ+VfMQM68Cf4jwXGRBfUMWkOataEBhIU49WiAdwoNEfry/QEJZ
+Xl/RAkAiEJO2oDsVc9BjTEpLbwbZDec46ofYpuHZHpK2nfT+4v0HdBEIQhW64vaW
+kCtIrux4dmseT4VOWjKiYp/rkYIBAkBsNHH1FiitJP8U87QRHP83qXVAndVxb+KB
+vvuXPhbCRsPKq4XIswxF4UtsbFDUyY5cOxAW6sQ0ezLMKOmjp8QhAkEAorBjhFT/
+MhDsYycmnBRng7A+C9+3ZyxcjIOb3fMWezmKVVMX6q6SUcIYv9m3XrPbO2G4WmeQ
+wlK15IuL4kJcNQ==
+-----END PRIVATE KEY-----"""
+SAMPLE_RSA_PUBLIC = """-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2S7oCh+3COoIOBthJJCMzBzKO
+H88/S5fMih4xJ0GzRwwTfT4AGoLMVqq9lrLTiT4YvZIcIJAfp3ooQiZPa8ilUGgp
+lxKPSufBika+TbDeI/uQNiQnbfO1ACjJm2UKiqd4Eeq1G7GFMbnMgVmlOsVDY8sW
+ywCfx/2nfCC6Xr/7kQIDAQAB
+-----END PUBLIC KEY-----"""
+SAMPLE_CMS = "MIIECQYJKoZIhvcNAQcCoIID+jCCA/YCAQExDTALBglghkgBZQMEAgEwCwYJKoZIhvcNAQcBoIICBTCCAgEwggFqoAMCAQICFANzx3I+Yc/ydCUfpdkosstIih2dMA0GCSqGSIb3DQEBCwUAMCMxDjAMBgNVBAMMBUFsaWNlMREwDwYDVQQKDAhDcnlwVG9vbDAeFw0yNjExMTkxNTEwMTBaFw0zNjExMTYxNTEwMTBaMCMxDjAMBgNVBAMMBUFsaWNlMREwDwYDVQQKDAhDcnlwVG9vbDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAtku6AoftwjqCDgbYSSQjMwcyjh/PP0uXzIoeMSdBs0cME30+ABqCzFaqvZay04k+GL2SHCCQH6d6KEImT2vIpVBoKZcSj0rnwYpGvk2w3iP7kDYkJ23ztQAoyZtlCoqneBHqtRuxhTG5zIFZpTrFQ2PLFssAn8f9p3wgul6/+5ECAwEAAaMyMDAwHQYDVR0OBBYEFNIio1Vo8keCnHKrl6PvDQAHr+BTMA8GA1UdEwEB/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADgYEAckLntzHRjb3NK9dWlNw6v6ohj3AeI59wHtlBEX9MuaZU9mWU9VwG3ccc1Kg3NbSyv4wf53/60bYg4/wv1jal52WObblZ2fbQhJ6T7d9L8n6oMvqVSdiXeaDaPs8kMtefalwmHF4f9br7ic+7R466t+SmS+sXiE5PfydNvME1iWIxggHKMIIBxgIBATA7MCMxDjAMBgNVBAMMBUFsaWNlMREwDwYDVQQKDAhDcnlwVG9vbAIUA3PHcj5hz/J0JR+l2Siyy0iKHZ0wCwYJYIZIAWUDBAIBoIHkMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MTExOTE1MTAxMFowLwYJKoZIhvcNAQkEMSIEIMyk1GTuJp2cOezyJ1CPQEmmfRkgtAkJuz+dG3oEnYmdMHkGCSqGSIb3DQEJDzFsMGowCwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcGBSsOAwIHMA0GCCqGSIb3DQMCAgEoMA0GCSqGSIb3DQEBAQUABIGAcL9DH92AMnGOouaxFUy/8AduKKJbS/RcEej8p2vObnN6FT1CZj/Wuws7gTCdvqJQUwiOTTyfuyMYKQqTaHJDmc6ryXWS4TAtFR4UZ85c4Noq4hQuueZjRZJG2SVLcV0yLnniWxZ+QQeJcmUqsGEKPU9tq0qfhwX6XG8vSoc51sc="
+
+CERTIFICATE_CHAIN = dict(
+    base="Tools/RandomNumberGenerators", plugin="CertificateTool",
+    edits=[dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+           dict(add=dict(type="CrypTool.TextInput.TextInput", x=40, y=40, w=320, h=80, settings=dict(Text="www.example.org"))),
+           dict(add=dict(type="CertificateTool.CertificateTool", x=420, y=40, w=300, h=140, settings=dict(Mode="0"))),
+           dict(add=dict(type="CertificateTool.CertificateTool", x=780, y=40, w=300, h=140, settings=dict(Mode="1"))),
+           dict(add=dict(type="TextOutput.TextOutput", x=420, y=260, w=320, h=300)),
+           dict(add=dict(type="TextOutput.TextOutput", x=780, y=260, w=320, h=300)),
+           dict(connect={"from": "CrypTool.TextInput.TextInput.TextOutput", "to": "CertificateTool.CertificateTool#0.Input"}),
+           dict(connect={"from": "CertificateTool.CertificateTool#0.Chain", "to": "CertificateTool.CertificateTool#1.Input"}),
+           dict(connect={"from": "CertificateTool.CertificateTool#0.Report", "to": "TextOutput.TextOutput#0.Input"}),
+           dict(connect={"from": "CertificateTool.CertificateTool#1.Report", "to": "TextOutput.TextOutput#1.Input"})])
+
+TEMPLATES += [
+    tool("Tools/ASN1Viewer", "Asn1Viewer.Asn1Viewer", [("Input", SAMPLE_RSA_PUBLIC)], ["Output"], dict(Mode="0"),
+         "ASN.1 Viewer", "ASN.1-Betrachter", "The structure of an RSA public key: the algorithm and the numbers n and e.", "Der Aufbau eines öffentlichen RSA-Schlüssels: der Algorithmus und die Zahlen n und e.",
+         "The input is a PEM block; hexadecimal digits and Base64 work as well. Paste a certificate to see its fields.", "Die Eingabe ist ein PEM-Block; Hexadezimalziffern und Base64 funktionieren ebenfalls. Fügen Sie ein Zertifikat ein, um seine Felder zu sehen.", "ASN.1, DER, PEM, structure, key, certificate", input_height=200),
+    tool("Tools/ExtractSignature", "Asn1Viewer.Asn1Viewer", [("Input", SAMPLE_CMS)], ["Output"], dict(Mode="1"),
+         "Extract the Signature of a Signed Message", "Signatur einer signierten Nachricht extrahieren", "The signer, the algorithms, the signature value and the content of a CMS message.", "Der Unterzeichner, die Algorithmen, der Signaturwert und der Inhalt einer CMS-Nachricht.",
+         "The message was signed with OpenSSL (cms -sign) with an RSA key and SHA-256.", "Die Nachricht wurde mit OpenSSL (cms -sign) mit einem RSA-Schlüssel und SHA-256 signiert.", "signature, extract, CMS, PKCS#7, signed message", input_height=200),
+    tool("Cryptography/Modern/Asymmetric/KeyGeneratorRSA", "KeyTool.KeyTool", [], ["PrivateKey", "PublicKey", "Report"], dict(Mode="0", KeySize="1024"),
+         "Generate an RSA Key Pair (PEM)", "RSA-Schlüsselpaar erzeugen (PEM)", "A new RSA key pair as PEM blocks, with its parameters and fingerprint.", "Ein neues RSA-Schlüsselpaar als PEM-Blöcke, mit seinen Parametern und seinem Fingerabdruck.",
+         "The key has 1024 bits to be quick; set 2048 bits or more for real keys in the settings of the {\\\\b Key Tool} component. The PEM blocks can be used with OpenSSL.", "Der Schlüssel hat 1024 Bit, damit es schnell geht; stellen Sie für echte Schlüssel in den Einstellungen der Komponente {\\\\b Schlüsselwerkzeug} 2048 Bit oder mehr ein. Die PEM-Blöcke lassen sich mit OpenSSL benutzen.", "key generation, RSA, PEM, PKCS#8, OpenSSL"),
+    tool("Cryptography/Modern/Asymmetric/KeyGeneratorEC", "KeyTool.KeyTool", [], ["PrivateKey", "PublicKey", "Report"], dict(Mode="1", Curve="0"),
+         "Generate an EC Key Pair (PEM)", "EC-Schlüsselpaar erzeugen (PEM)", "A new elliptic curve key pair on the curve P-256 as PEM blocks.", "Ein neues Schlüsselpaar auf der elliptischen Kurve P-256 als PEM-Blöcke.",
+         "Choose another curve in the settings of the {\\\\b Key Tool} component.", "Wählen Sie in den Einstellungen der Komponente {\\\\b Schlüsselwerkzeug} eine andere Kurve.", "key generation, elliptic curve, EC, PEM, P-256"),
+    tool("Cryptography/Modern/Asymmetric/KeyShow", "KeyTool.KeyTool", [("Input", SAMPLE_RSA_PRIVATE)], ["PrivateKey", "PublicKey", "Report"], dict(Mode="2"),
+         "Import and Show a Key", "Schlüssel importieren und anzeigen", "A private key in the old PKCS#1 format is read, described and exported in the standard PKCS#8 format.", "Ein privater Schlüssel im alten PKCS#1-Format wird gelesen, beschrieben und im Standardformat PKCS#8 exportiert.",
+         "The key was made with OpenSSL. The public key is calculated from the private key.", "Der Schlüssel wurde mit OpenSSL erzeugt. Der öffentliche Schlüssel wird aus dem privaten berechnet.", "key import, key export, PEM, PKCS#1, PKCS#8", input_height=200),
+    dict(out="Protocols/CertificateChain", **CERTIFICATE_CHAIN,
+         en=dict(title="Public Key Infrastructure: Certificate Chain", summary="<i>Public Key Infrastructure: Certificate Chain</i>", description="A root CA, an intermediate CA and a server certificate are created and the chain is verified.", memo="The first component creates the chain, the second verifies it from the PEM blocks. Change the function of a component in its settings to show certificates."),
+         de=dict(title="Public-Key-Infrastruktur: Zertifikatskette", summary="<i>Public-Key-Infrastruktur: Zertifikatskette</i>", description="Eine Wurzelstelle, eine Zwischenstelle und ein Serverzertifikat werden erzeugt, und die Kette wird geprüft.", memo="Die erste Komponente erzeugt die Kette, die zweite prüft sie anhand der PEM-Blöcke. Ändern Sie die Funktion einer Komponente in ihren Einstellungen, um Zertifikate anzuzeigen."),
+         keywords="PKI, certificate, chain, X.509, CA, verification"),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

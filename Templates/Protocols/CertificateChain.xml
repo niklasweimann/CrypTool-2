@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CertificateChain.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Public Key Infrastructure: Certificate Chain</title>
+  <summary lang="en"><i>Public Key Infrastructure: Certificate Chain</i></summary>
+  <description lang="en">A root CA, an intermediate CA and a server certificate are created and the chain is verified.</description>
+  <keywords lang="en">PKI, certificate, chain, X.509, CA, verification</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first component creates the chain, the second verifies it from the PEM blocks. Change the function of a component in its settings to show certificates." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Public-Key-Infrastruktur: Zertifikatskette</title>
+  <summary lang="de"><i>Public-Key-Infrastruktur: Zertifikatskette</i></summary>
+  <description lang="de">Eine Wurzelstelle, eine Zwischenstelle und ein Serverzertifikat werden erzeugt, und die Kette wird geprüft.</description>
+  <keywords lang="en">PKI, certificate, chain, X.509, CA, verification</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente erzeugt die Kette, die zweite prüft sie anhand der PEM-Blöcke. Ändern Sie die Funktion einer Komponente in ihren Einstellungen, um Zertifikate anzuzeigen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CertificateChain.png" />
+  <relevantPlugins>
+    <plugin name="CertificateTool" />
+  </relevantPlugins>
+</sample>

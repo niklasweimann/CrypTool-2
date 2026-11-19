@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KeyGeneratorRSA.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Generate an RSA Key Pair (PEM)</title>
+  <summary lang="en"><i>Generate an RSA Key Pair (PEM)</i></summary>
+  <description lang="en">A new RSA key pair as PEM blocks, with its parameters and fingerprint.</description>
+  <keywords lang="en">key generation, RSA, PEM, PKCS#8, OpenSSL</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key has 1024 bits to be quick; set 2048 bits or more for real keys in the settings of the {\\b Key Tool} component. The PEM blocks can be used with OpenSSL." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">RSA-Schlüsselpaar erzeugen (PEM)</title>
+  <summary lang="de"><i>RSA-Schlüsselpaar erzeugen (PEM)</i></summary>
+  <description lang="de">Ein neues RSA-Schlüsselpaar als PEM-Blöcke, mit seinen Parametern und seinem Fingerabdruck.</description>
+  <keywords lang="en">key generation, RSA, PEM, PKCS#8, OpenSSL</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel hat 1024 Bit, damit es schnell geht; stellen Sie für echte Schlüssel in den Einstellungen der Komponente {\\b Schlüsselwerkzeug} 2048 Bit oder mehr ein. Die PEM-Blöcke lassen sich mit OpenSSL benutzen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KeyGeneratorRSA.png" />
+  <relevantPlugins>
+    <plugin name="KeyTool" />
+  </relevantPlugins>
+</sample>
