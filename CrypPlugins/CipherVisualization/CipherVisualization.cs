@@ -57,6 +57,7 @@ namespace CipherVisualization
             if (InputText == null || Key == null)
             {
                 GuiLogMessage("Both the text and the key are needed.", NotificationLevel.Error);
+                ((CipherVisualizationPresentation)Presentation).ShowMessage("Both the text and the key are needed.");
                 return;
             }
 
@@ -84,6 +85,7 @@ namespace CipherVisualization
             catch (ArgumentException ex)
             {
                 GuiLogMessage(ex.Message, NotificationLevel.Error);
+                ((CipherVisualizationPresentation)Presentation).ShowMessage(ex.Message);   // the picture says what is wrong, instead of staying empty
             }
         }
 
@@ -251,6 +253,18 @@ namespace CipherVisualization
         {
             Content = _scroll;
             Background = Brushes.White;
+            _scroll.Content = new TextBlock { Text = Properties.Resources.WaitingText, FontSize = 12, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(10) };
+        }
+
+        /// <summary>Shows why the input cannot be used, and what the keys look like.</summary>
+        public void ShowMessage(string message)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.ErrorTitle, 16, FontWeights.Bold));
+                Add(Text(message, 13));
+                Add(Text(Environment.NewLine + Properties.Resources.KeyExamples, 12, null, true));
+            });
         }
 
         private static TextBlock Text(string text, double size = 12, FontWeight? weight = null, bool mono = false)

@@ -106,6 +106,33 @@ namespace MathVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to ErrorTitle.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ExamplesText.
+        /// </summary>
+        internal static string ExamplesText {
+            get {
+                return ResourceManager.GetString("ExamplesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ExamplesTitle.
+        /// </summary>
+        internal static string ExamplesTitle {
+            get {
+                return ResourceManager.GetString("ExamplesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to ParametersCaption.
         /// </summary>
         internal static string ParametersCaption {
@@ -291,6 +318,15 @@ namespace MathVisualization.Properties {
         internal static string VisualizationTooltip {
             get {
                 return ResourceManager.GetString("VisualizationTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to WaitingText.
+        /// </summary>
+        internal static string WaitingText {
+            get {
+                return ResourceManager.GetString("WaitingText", resourceCulture);
             }
         }
     }

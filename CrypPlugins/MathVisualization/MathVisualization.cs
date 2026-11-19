@@ -55,6 +55,7 @@ namespace MathVisualization
             if (Parameters == null)
             {
                 GuiLogMessage("The parameters are needed.", NotificationLevel.Error);
+                ((MathVisualizationPresentation)Presentation).ShowMessage("The parameters are needed.");
                 return;
             }
 
@@ -84,6 +85,7 @@ namespace MathVisualization
             catch (ArgumentException ex)
             {
                 GuiLogMessage(ex.Message, NotificationLevel.Error);
+                view.ShowMessage(ex.Message);   // the picture says what is wrong and gives examples, instead of staying empty
             }
         }
 
@@ -320,6 +322,28 @@ namespace MathVisualization
         {
             Content = _scroll;
             Background = Brushes.White;
+            _panel = new StackPanel { Margin = new Thickness(10) };
+            Add(Text(Properties.Resources.WaitingText, 12));
+            AddExamples();
+            _scroll.Content = _panel;
+        }
+
+        private void AddExamples()
+        {
+            Add(Text(Properties.Resources.ExamplesTitle, 13, true));
+            Add(Text(Properties.Resources.ExamplesText, 12, false, true));
+        }
+
+        /// <summary>Shows why the parameters cannot be used, and examples of parameters.</summary>
+        public void ShowMessage(string message)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.ErrorTitle, 16, true));
+                Add(Text(message, 13));
+                Add(new Border { Height = 10 });
+                AddExamples();
+            });
         }
 
         private static TextBlock Text(string text, double size = 12, bool bold = false, bool mono = false)

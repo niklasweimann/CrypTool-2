@@ -132,6 +132,17 @@
   <data name="CurveTitle" xml:space="preserve">
     <value>Elliptische Kurve über einem Primkörper</value>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Die Parameter können nicht verwendet werden</value>
+  </data>
+  <data name="ExamplesText" xml:space="preserve">
+    <value>RSA:  p q e m             61 53 17 65
+Shamir:  p n a0 a1 ...    23 5 11 3 7
+Elliptische Kurve:  p a b [x1 y1 x2 y2]    17 2 2 5 1 6 3</value>
+  </data>
+  <data name="ExamplesTitle" xml:space="preserve">
+    <value>Beispiele für Parameter</value>
+  </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameter</value>
   </data>
@@ -194,5 +205,8 @@
   </data>
   <data name="VisualizationTooltip" xml:space="preserve">
     <value>Wählen Sie, was gezeigt wird.</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>Das Bild erscheint, wenn der Arbeitsbereich gelaufen ist. Wählen Sie die Visualisierung in den Einstellungen der Komponente und geben Sie die Parameter als Zahlen, durch Leerzeichen getrennt, an.</value>
   </data>
 </root>

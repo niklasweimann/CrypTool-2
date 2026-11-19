@@ -187,6 +187,15 @@ namespace CipherVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to ErrorTitle.
+        /// </summary>
+        internal static string ErrorTitle {
+            get {
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to InputTextCaption.
         /// </summary>
         internal static string InputTextCaption {
@@ -210,6 +219,15 @@ namespace CipherVisualization.Properties {
         internal static string KeyCaption {
             get {
                 return ResourceManager.GetString("KeyCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to KeyExamples.
+        /// </summary>
+        internal static string KeyExamples {
+            get {
+                return ResourceManager.GetString("KeyExamples", resourceCulture);
             }
         }
         
@@ -363,6 +381,15 @@ namespace CipherVisualization.Properties {
         internal static string VigenereTitle {
             get {
                 return ResourceManager.GetString("VigenereTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to WaitingText.
+        /// </summary>
+        internal static string WaitingText {
+            get {
+                return ResourceManager.GetString("WaitingText", resourceCulture);
             }
         }
     }

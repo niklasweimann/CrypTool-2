@@ -159,6 +159,9 @@
   <data name="CipherTooltip" xml:space="preserve">
     <value>Select the cipher whose calculation is shown.</value>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>The input cannot be used</value>
+  </data>
   <data name="InputTextCaption" xml:space="preserve">
     <value>Text</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="KeyCaption" xml:space="preserve">
     <value>Key</value>
+  </data>
+  <data name="KeyExamples" xml:space="preserve">
+    <value>Keys:  Caesar: 3 or D   Vigenère: LEMON   Nihilist: ZEBRAS RUSSIAN</value>
   </data>
   <data name="KeyLabelShort" xml:space="preserve">
     <value>K</value>
@@ -218,5 +224,8 @@
   </data>
   <data name="VigenereTitle" xml:space="preserve">
     <value>Vigenère cipher: the Vigenère square</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>The picture appears when the workspace has run.</value>
   </data>
 </root>

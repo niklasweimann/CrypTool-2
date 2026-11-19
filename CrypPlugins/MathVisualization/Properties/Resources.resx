@@ -132,6 +132,17 @@
   <data name="CurveTitle" xml:space="preserve">
     <value>Elliptic curve over a prime field</value>
   </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>The parameters cannot be used</value>
+  </data>
+  <data name="ExamplesText" xml:space="preserve">
+    <value>RSA:  p q e m             61 53 17 65
+Shamir:  p n a0 a1 ...    23 5 11 3 7
+Elliptic curve:  p a b [x1 y1 x2 y2]    17 2 2 5 1 6 3</value>
+  </data>
+  <data name="ExamplesTitle" xml:space="preserve">
+    <value>Examples of parameters</value>
+  </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameters</value>
   </data>
@@ -194,5 +205,8 @@
   </data>
   <data name="VisualizationTooltip" xml:space="preserve">
     <value>Select what is shown.</value>
+  </data>
+  <data name="WaitingText" xml:space="preserve">
+    <value>The picture appears when the workspace has run. Choose the visualization in the settings of the component and give the parameters as numbers separated by spaces.</value>
   </data>
 </root>
