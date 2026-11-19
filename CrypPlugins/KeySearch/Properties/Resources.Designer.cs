@@ -97,6 +97,33 @@ namespace KeySearch.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to CipherList12.
+        /// </summary>
+        internal static string CipherList12 {
+            get {
+                return ResourceManager.GetString("CipherList12", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to CipherList13.
+        /// </summary>
+        internal static string CipherList13 {
+            get {
+                return ResourceManager.GetString("CipherList13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to CipherList14.
+        /// </summary>
+        internal static string CipherList14 {
+            get {
+                return ResourceManager.GetString("CipherList14", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to CipherList2.
         /// </summary>
         internal static string CipherList2 {

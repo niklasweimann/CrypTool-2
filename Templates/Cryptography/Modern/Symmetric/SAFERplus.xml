@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SAFERplus.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">SAFER+</title>
+  <summary lang="en"><i>SAFER+</i></summary>
+  <description lang="en">The test vector of SAFER+ with a 128-bit key.</description>
+  <keywords lang="en">SAFER+, Bluetooth, block cipher, AES candidate</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="SAFER+ is used in Bluetooth pairing. Keys of 192 and 256 bits are possible." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">SAFER+</title>
+  <summary lang="de"><i>SAFER+</i></summary>
+  <description lang="de">Der Testvektor von SAFER+ mit einem 128-Bit-Schlüssel.</description>
+  <keywords lang="en">SAFER+, Bluetooth, block cipher, AES candidate</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="SAFER+ wird beim Bluetooth-Pairing benutzt. Schlüssel von 192 und 256 Bit sind möglich." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SAFERplus.png" />
+  <relevantPlugins>
+    <plugin name="ExtraBlockCiphers" />
+  </relevantPlugins>
+</sample>

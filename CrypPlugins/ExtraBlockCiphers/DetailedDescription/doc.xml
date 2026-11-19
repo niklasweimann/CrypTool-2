@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    MARS (IBM, 1998) was one of the five finalists of the AES competition: a type-3 Feistel network with a keyed core of data-dependent rotations and multiplications, wrapped in two layers of unkeyed mixing with a 512-word S-box. MISTY1 (Matsui, 1997) is a 64-bit block cipher with a 128-bit key, provably secure against differential and linear cryptanalysis, and the basis of KASUMI in mobile telephones. SAFER+ (Massey, Khachatrian and Kuregian, 1998) was an AES candidate and is used in Bluetooth pairing; it combines exponentiation and logarithm modulo 257, key additions and pseudo-Hadamard transformations. The ciphers are written from their published specifications and agree with their published test vectors. A message authentication code (CMAC or CBC-MAC) turns a block cipher into a keyed checksum.
+  </introduction>
+  <introduction lang="de-DE">
+    MARS (IBM, 1998) war einer der fünf Finalisten des AES-Wettbewerbs: ein Feistel-Netz vom Typ 3 mit einem geschlüsselten Kern aus datenabhängigen Rotationen und Multiplikationen, eingefasst von zwei Schichten ungeschlüsselter Mischung mit einer S-Box aus 512 Wörtern. MISTY1 (Matsui, 1997) ist eine Blockchiffre mit 64-Bit-Blöcken und 128-Bit-Schlüssel, beweisbar sicher gegen differenzielle und lineare Kryptanalyse, und die Grundlage von KASUMI im Mobilfunk. SAFER+ (Massey, Khachatrian und Kuregian, 1998) war ein AES-Kandidat und wird beim Bluetooth-Pairing benutzt; es verbindet Exponentiation und Logarithmus modulo 257, Schlüsseladditionen und Pseudo-Hadamard-Transformationen. Die Chiffren sind nach ihren veröffentlichten Spezifikationen geschrieben und stimmen mit deren veröffentlichten Testvektoren überein. Ein Nachrichtenauthentifizierungscode (CMAC oder CBC-MAC) macht aus einer Blockchiffre eine geschlüsselte Prüfsumme.
+  </introduction>
+  <usage lang="en">
+    Choose the cipher and the function in the settings and connect the data and the key as hexadecimal digits.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Chiffre und die Funktion in den Einstellungen und verbinden Sie die Daten und den Schlüssel als Hexadezimalziffern.
+  </usage>
+</documentation>

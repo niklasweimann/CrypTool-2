@@ -1070,6 +1070,9 @@ KEY_SEARCH = {
     5: ("Twofish", "407BB6F12C67A2DD18538EC9043F7AB5", "54686520736563726574206973207361", "9863B217DB47883A40E8013CE6E99228"),
     6: ("DESX", "417CB7F22D68A3DE19548FCA05407BB6F12C67A2DD18538E", "5468652073656372", "80BD30D92295E805"),
     9: ("DESL", "447FBAF5306BA6E1", "5468652073656372", "3946FCE2850243B8"),
+    11: ("MARS", "4681BCF7326DA8E31E5994CF0A4580BB", "54686520736563726574206973207361", "3AED867ED35CB2A151072A9E1AAD97B8"),
+    12: ("MISTY1", "4782BDF8336EA9E41F5A95D00B4681BC", "5468652073656372", "B8E64C67DAA1544B"),
+    13: ("SAFERPlus", "4883BEF9346FAAE5205B96D10C4782BD", "54686520736563726574206973207361", "88A7EA1B72848E060226323B934F0776"),
     10: ("DESXL", "4580BBF6316CA7E21D5893CE09447FBAF5306BA6E11C5792", "5468652073656372", "9624E0F9F6CB111F"),
 }
 for _cipher, (_name, _key, _plain, _cipher_text) in KEY_SEARCH.items():
@@ -1322,6 +1325,26 @@ TEMPLATES += [
     tool("Cryptography/Modern/Symmetric/DESXL", "DesVariants.DesVariants", [("Input", "5468652073656372"), ("Key", "4580BBF6316CA7E21D5893CE09447FBAF5306BA6E11C5792")], ["Output"], dict(Variant="3", Mode="0"),
          "DESXL: DESL with Whitening", "DESXL: DESL mit Weißung", "DESL with a whitening key before and after the encryption.", "DESL mit einem Weißungsschlüssel vor und nach der Verschlüsselung.",
          "The key has 24 bytes: the DES key, the pre-whitening key and the post-whitening key.", "Der Schlüssel hat 24 Bytes: den DES-Schlüssel, den Vor- und den Nachweißungsschlüssel.", "DESXL, DESL, whitening, key search", input_height=80),
+]
+
+
+TEMPLATES += [
+    tool("Cryptography/Modern/Symmetric/MARS", "ExtraBlockCiphers.ExtraBlockCiphers", [("Input", "54686520736563726574206973207361"), ("Key", "000102030405060708090A0B0C0D0E0F")], ["Output"], dict(Cipher="0", Mode="0"),
+         "MARS (AES Finalist)", "MARS (AES-Finalist)", "One block encrypted with the IBM cipher MARS.", "Ein Block, verschlüsselt mit der IBM-Chiffre MARS.",
+         "Choose MISTY1 or SAFER+ and the decryption in the settings of the {\\\\b More Block Ciphers} component. MARS accepts keys of 16 to 56 bytes.",
+         "Wählen Sie MISTY1 oder SAFER+ und die Entschlüsselung in den Einstellungen der Komponente {\\\\b Weitere Blockchiffren}. MARS akzeptiert Schlüssel von 16 bis 56 Bytes.", "MARS, AES finalist, block cipher, IBM", input_height=80),
+    tool("Cryptography/Modern/Symmetric/MISTY1", "ExtraBlockCiphers.ExtraBlockCiphers", [("Input", "0123456789ABCDEF"), ("Key", "00112233445566778899AABBCCDDEEFF")], ["Output"], dict(Cipher="1", Mode="0"),
+         "MISTY1", "MISTY1", "The test vector of MISTY1: 0123456789ABCDEF is encrypted to 8B1DA5F56AB3D07C.", "Der Testvektor von MISTY1: 0123456789ABCDEF wird zu 8B1DA5F56AB3D07C verschlüsselt.",
+         "MISTY1 has 64-bit blocks and 128-bit keys and is the basis of KASUMI.", "MISTY1 hat 64-Bit-Blöcke und 128-Bit-Schlüssel und ist die Grundlage von KASUMI.", "MISTY1, KASUMI, block cipher, Matsui", input_height=80),
+    tool("Cryptography/Modern/Symmetric/SAFERplus", "ExtraBlockCiphers.ExtraBlockCiphers", [("Input", "B3A6DB3C870C3E99245E0D1C06B747DE"), ("Key", "2923BE84E16CD6AE529049F1F1BBE9EB")], ["Output"], dict(Cipher="2", Mode="0"),
+         "SAFER+", "SAFER+", "The test vector of SAFER+ with a 128-bit key.", "Der Testvektor von SAFER+ mit einem 128-Bit-Schlüssel.",
+         "SAFER+ is used in Bluetooth pairing. Keys of 192 and 256 bits are possible.", "SAFER+ wird beim Bluetooth-Pairing benutzt. Schlüssel von 192 und 256 Bit sind möglich.", "SAFER+, Bluetooth, block cipher, AES candidate", input_height=80),
+    tool("Hashfunctions/MAC_MARS", "ExtraBlockCiphers.ExtraBlockCiphers", [("Input", "4D6573736167652074686174206E6565647320612043414D4143"), ("Key", "000102030405060708090A0B0C0D0E0F")], ["Output"], dict(Cipher="0", Mode="2"),
+         "CMAC with MARS", "CMAC mit MARS", "A message authentication code made of the block cipher MARS.", "Ein Nachrichtenauthentifizierungscode aus der Blockchiffre MARS.",
+         "Choose the classic CBC-MAC in the settings of the {\\\\b More Block Ciphers} component.", "Wählen Sie in den Einstellungen der Komponente {\\\\b Weitere Blockchiffren} den klassischen CBC-MAC.", "MAC, CMAC, MARS, authentication", input_height=80),
+    tool("Hashfunctions/MAC_MISTY1", "ExtraBlockCiphers.ExtraBlockCiphers", [("Input", "4D6573736167652074686174206E6565647320612043414D4143"), ("Key", "00112233445566778899AABBCCDDEEFF")], ["Output"], dict(Cipher="1", Mode="2"),
+         "CMAC with MISTY1", "CMAC mit MISTY1", "A message authentication code made of the block cipher MISTY1 (64-bit blocks).", "Ein Nachrichtenauthentifizierungscode aus der Blockchiffre MISTY1 (64-Bit-Blöcke).",
+         "With 64-bit blocks a MAC loses its security after about 2^32 messages with the same key.", "Bei 64-Bit-Blöcken verliert ein MAC nach etwa 2^32 Nachrichten mit demselben Schlüssel seine Sicherheit.", "MAC, CMAC, MISTY1, authentication", input_height=80),
 ]
 
 

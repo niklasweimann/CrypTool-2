@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MISTY1.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">MISTY1</title>
+  <summary lang="en"><i>MISTY1</i></summary>
+  <description lang="en">The test vector of MISTY1: 0123456789ABCDEF is encrypted to 8B1DA5F56AB3D07C.</description>
+  <keywords lang="en">MISTY1, KASUMI, block cipher, Matsui</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="MISTY1 has 64-bit blocks and 128-bit keys and is the basis of KASUMI." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">MISTY1</title>
+  <summary lang="de"><i>MISTY1</i></summary>
+  <description lang="de">Der Testvektor von MISTY1: 0123456789ABCDEF wird zu 8B1DA5F56AB3D07C verschlüsselt.</description>
+  <keywords lang="en">MISTY1, KASUMI, block cipher, Matsui</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="MISTY1 hat 64-Bit-Blöcke und 128-Bit-Schlüssel und ist die Grundlage von KASUMI." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MISTY1.png" />
+  <relevantPlugins>
+    <plugin name="ExtraBlockCiphers" />
+  </relevantPlugins>
+</sample>

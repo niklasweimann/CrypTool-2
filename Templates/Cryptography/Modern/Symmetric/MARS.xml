@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MARS.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">MARS (AES Finalist)</title>
+  <summary lang="en"><i>MARS (AES Finalist)</i></summary>
+  <description lang="en">One block encrypted with the IBM cipher MARS.</description>
+  <keywords lang="en">MARS, AES finalist, block cipher, IBM</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Choose MISTY1 or SAFER+ and the decryption in the settings of the {\\b More Block Ciphers} component. MARS accepts keys of 16 to 56 bytes." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">MARS (AES-Finalist)</title>
+  <summary lang="de"><i>MARS (AES-Finalist)</i></summary>
+  <description lang="de">Ein Block, verschlüsselt mit der IBM-Chiffre MARS.</description>
+  <keywords lang="en">MARS, AES finalist, block cipher, IBM</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Wählen Sie MISTY1 oder SAFER+ und die Entschlüsselung in den Einstellungen der Komponente {\\b Weitere Blockchiffren}. MARS akzeptiert Schlüssel von 16 bis 56 Bytes." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MARS.png" />
+  <relevantPlugins>
+    <plugin name="ExtraBlockCiphers" />
+  </relevantPlugins>
+</sample>

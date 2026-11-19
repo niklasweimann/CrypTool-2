@@ -129,6 +129,15 @@
   <data name="CipherList11" xml:space="preserve">
     <value>DESXL (DESL with whitening, 3 x 8 bytes)</value>
   </data>
+  <data name="CipherList12" xml:space="preserve">
+    <value>MARS</value>
+  </data>
+  <data name="CipherList13" xml:space="preserve">
+    <value>MISTY1</value>
+  </data>
+  <data name="CipherList14" xml:space="preserve">
+    <value>SAFER+</value>
+  </data>
   <data name="CipherList2" xml:space="preserve">
     <value>RC2</value>
   </data>

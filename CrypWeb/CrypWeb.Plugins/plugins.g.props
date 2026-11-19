@@ -632,6 +632,11 @@
     <Compile Include="../../CrypPlugins/ExposureNotification/Properties/Resources.Designer.cs" Link="ExposureNotification/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ExposureNotification/Properties/Resources.resx" LogicalName="ExposureNotification.Properties.Resources.resources" Link="ExposureNotification/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ExposureNotification/Properties/Resources.de.resx" LogicalName="ExposureNotification.Properties.Resources.de.resources" Link="ExposureNotification/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ExtraBlockCiphers/ExtraBlockCiphers.cs" Link="ExtraBlockCiphers/ExtraBlockCiphers.cs" />
+    <Compile Include="../../CrypPlugins/ExtraBlockCiphers/ExtraBlockCiphersSettings.cs" Link="ExtraBlockCiphers/ExtraBlockCiphersSettings.cs" />
+    <Compile Include="../../CrypPlugins/ExtraBlockCiphers/Properties/Resources.Designer.cs" Link="ExtraBlockCiphers/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ExtraBlockCiphers/Properties/Resources.resx" LogicalName="ExtraBlockCiphers.Properties.Resources.resources" Link="ExtraBlockCiphers/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ExtraBlockCiphers/Properties/Resources.de.resx" LogicalName="ExtraBlockCiphers.Properties.Resources.de.resources" Link="ExtraBlockCiphers/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL_Algorithms.cs" Link="FEAL/FEAL_Algorithms.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL.cs" Link="FEAL/FEAL.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEALSettings.cs" Link="FEAL/FEALSettings.cs" />

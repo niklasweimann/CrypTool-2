@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MAC_MISTY1.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">CMAC with MISTY1</title>
+  <summary lang="en"><i>CMAC with MISTY1</i></summary>
+  <description lang="en">A message authentication code made of the block cipher MISTY1 (64-bit blocks).</description>
+  <keywords lang="en">MAC, CMAC, MISTY1, authentication</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="With 64-bit blocks a MAC loses its security after about 2^32 messages with the same key." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">CMAC mit MISTY1</title>
+  <summary lang="de"><i>CMAC mit MISTY1</i></summary>
+  <description lang="de">Ein Nachrichtenauthentifizierungscode aus der Blockchiffre MISTY1 (64-Bit-Blöcke).</description>
+  <keywords lang="en">MAC, CMAC, MISTY1, authentication</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Bei 64-Bit-Blöcken verliert ein MAC nach etwa 2^32 Nachrichten mit demselben Schlüssel seine Sicherheit." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MAC_MISTY1.png" />
+  <relevantPlugins>
+    <plugin name="ExtraBlockCiphers" />
+  </relevantPlugins>
+</sample>

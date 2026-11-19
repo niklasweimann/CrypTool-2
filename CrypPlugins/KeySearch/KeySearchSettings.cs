@@ -9,7 +9,7 @@ namespace KeySearch
         private int _cipher = 0;
         private int _unknownBits = 16;
 
-        [TaskPane("CipherCaption", "CipherTooltip", null, 1, false, ControlType.ComboBox, new string[] { "CipherList1", "CipherList2", "CipherList3", "CipherList4", "CipherList5", "CipherList6", "CipherList7", "CipherList8", "CipherList9", "CipherList10", "CipherList11" })]
+        [TaskPane("CipherCaption", "CipherTooltip", null, 1, false, ControlType.ComboBox, new string[] { "CipherList1", "CipherList2", "CipherList3", "CipherList4", "CipherList5", "CipherList6", "CipherList7", "CipherList8", "CipherList9", "CipherList10", "CipherList11", "CipherList12", "CipherList13", "CipherList14" })]
         public int Cipher
         {
             get => _cipher;

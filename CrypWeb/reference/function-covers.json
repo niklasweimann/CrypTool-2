@@ -142,5 +142,11 @@
  "DESL|": "Cryptography/Modern/Symmetric/DESL.cwm",
  "DESXL|": "Cryptography/Modern/Symmetric/DESXL.cwm",
  "DESL|analysis": "Cryptanalysis/Modern/KeySearch_DESL.cwm",
- "DESXL|analysis": "Cryptanalysis/Modern/KeySearch_DESXL.cwm"
+ "DESXL|analysis": "Cryptanalysis/Modern/KeySearch_DESXL.cwm",
+ "MARS|": "Cryptography/Modern/Symmetric/MARS.cwm",
+ "MARS|attack": "Cryptanalysis/Modern/KeySearch_MARS.cwm",
+ "MARS MAC|": "Hashfunctions/MAC_MARS.cwm",
+ "Misty|": "Cryptography/Modern/Symmetric/MISTY1.cwm",
+ "Misty MAC|": "Hashfunctions/MAC_MISTY1.cwm",
+ "SAFER+|": "Cryptography/Modern/Symmetric/SAFERplus.cwm"
 }

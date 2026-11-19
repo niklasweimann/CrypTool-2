@@ -77,7 +77,7 @@ switch (command)
         {
             var key = Enumerable.Range(0, global::KeySearch.KeySearching.KeyLength(cipher)).Select(i => (byte)(0x3b * (i + 1) + cipher)).ToArray();
             var plaintext = global::KeySearch.KeySearching.FromHex("546865207365637265742069732073616665");   // "The secret is safe" (18 bytes) cut to whole blocks below
-            int block = cipher == 2 ? 18 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1 || cipher == 9 || cipher == 10) ? 8 : 16;
+            int block = cipher == 2 ? 18 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1 || cipher == 9 || cipher == 10 || cipher == 12) ? 8 : 16;
             plaintext = plaintext.Take(block).ToArray();
             Console.WriteLine(cipher + "|" + global::KeySearch.KeySearching.ToHex(key) + "|" + global::KeySearch.KeySearching.ToHex(plaintext) + "|" + global::KeySearch.KeySearching.ToHex(global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext)));
         }
@@ -89,6 +89,18 @@ switch (command)
     case "mlkem":   // whether .NET can do ML-KEM here (a way to check our implementation)
         Console.WriteLine("MLKem.IsSupported = " + System.Security.Cryptography.MLKem.IsSupported);
         break;
+    case "safer":
+    {
+        var keys = new[] { new byte[] { 41, 35, 190, 132, 225, 108, 214, 174, 82, 144, 73, 241, 241, 187, 233, 235 }, new byte[] { 72, 211, 143, 117, 230, 217, 29, 42, 229, 192, 247, 43, 120, 129, 135, 68, 14, 95, 80, 0, 212, 97, 141, 190 }, new byte[] { 243, 168, 141, 254, 190, 242, 235, 113, 255, 160, 208, 59, 117, 6, 140, 126, 135, 120, 115, 77, 208, 190, 130, 190, 219, 194, 70, 65, 43, 140, 250, 48 } };
+        var pts = new[] { new byte[] { 179, 166, 219, 60, 135, 12, 62, 153, 36, 94, 13, 28, 6, 183, 71, 222 }, new byte[] { 123, 5, 21, 7, 59, 51, 130, 31, 24, 112, 146, 218, 100, 84, 206, 177 }, new byte[] { 127, 112, 240, 167, 84, 134, 50, 149, 170, 91, 104, 19, 11, 230, 252, 245 } };
+        for (int i = 0; i < 3; i++)
+        {
+            var e = new global::ExtraBlockCiphers.SaferPlusEngine(keys[i]);
+            var c = e.Encrypt(pts[i]);
+            Console.WriteLine(i + " enc " + string.Join(",", c) + " dec " + (e.Decrypt(c).SequenceEqual(pts[i])));
+        }
+        break;
+    }
     case "kat":
         Environment.ExitCode = ComponentTests.Run() ? 0 : 1;
         break;
