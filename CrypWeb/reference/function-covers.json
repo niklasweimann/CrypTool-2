@@ -93,5 +93,6 @@
  "Teilerspiel|": "Games/DivisorGame.cwm",
  "Zudo-Ku|": "Games/Sudoku.cwm",
  "Ameisenalgorithmus (ACO)|": "Games/AntColony.cwm",
- "Android Entsperrmuster (AUP)|": "Games/PatternLock.cwm"
+ "Android Entsperrmuster (AUP)|": "Games/PatternLock.cwm",
+ "Kleptographie (4 Methoden Primzahlen zu generieren, SETUP-|attack": "Games/Kleptography.cwm"
 }

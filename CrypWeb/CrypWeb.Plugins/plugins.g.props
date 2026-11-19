@@ -828,6 +828,11 @@
     <Compile Include="../StandIns/KeySearcher/CloudStandIns.cs" Link="KeySearcher/StandIns/CloudStandIns.cs" />
     <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Properties/Resources.resx" LogicalName="KeySearcher.Properties.Resources.resources" Link="KeySearcher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/KeySearcher/Properties/Resources.de.resx" LogicalName="KeySearcher.Properties.Resources.de.resources" Link="KeySearcher/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Kleptography/Kleptography.cs" Link="Kleptography/Kleptography.cs" />
+    <Compile Include="../../CrypPlugins/Kleptography/KleptographySettings.cs" Link="Kleptography/KleptographySettings.cs" />
+    <Compile Include="../../CrypPlugins/Kleptography/Properties/Resources.Designer.cs" Link="Kleptography/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Kleptography/Properties/Resources.resx" LogicalName="Kleptography.Properties.Resources.resources" Link="Kleptography/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Kleptography/Properties/Resources.de.resx" LogicalName="Kleptography.Properties.Resources.de.resources" Link="Kleptography/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/LAMBDA1/Lambda1.cs" Link="LAMBDA1/Lambda1.cs" />
     <Compile Include="../../CrypPlugins/LAMBDA1/LAMBDA1Settings.cs" Link="LAMBDA1/LAMBDA1Settings.cs" />
     <Compile Include="../../CrypPlugins/LAMBDA1/LAMBDA1Algorithm.cs" Link="LAMBDA1/LAMBDA1Algorithm.cs" />

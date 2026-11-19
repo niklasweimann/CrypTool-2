@@ -50,6 +50,7 @@ public static class ComponentTests
         RandomVisualization();
         Games();
         AntsAndPatterns();
+        Kleptography();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -999,6 +1000,24 @@ public static class ComponentTests
         var found = global::PatternLock.PatternRules.Crack(hash, out long tries);
         Check(found != null && found.SequenceEqual(pattern) && tries > 0 && tries <= 389112, $"unlock pattern: trying all patterns finds {string.Join(" ", found ?? new int[0])} after {tries} tries");
         Check(global::PatternLock.PatternRules.Crack(new byte[20], out long all) == null && all == 389112, "unlock pattern: a hash value that no pattern has is not found after all 389112 patterns");
+    }
+
+    static void Kleptography()
+    {
+        // SETUP attack: for several runs the attacker recovers p and q of the victim's modulus from its upper bits
+        bool all = true, primes = true, sizes = true;
+        for (int run = 1; run <= 5; run++)
+        {
+            var attack = global::Kleptography.SetupAttack.Run(run);
+            all &= attack.Recovered && attack.RecoveredP == attack.P && attack.RecoveredQ == attack.Q && attack.RecoveredP * attack.RecoveredQ == attack.N;
+            primes &= global::Kleptography.SetupAttack.IsPrime(attack.P) && global::Kleptography.SetupAttack.IsPrime(attack.Q);
+            sizes &= attack.N.GetBitLength() >= 316 && attack.N.GetBitLength() <= 321 && attack.P.GetBitLength() == 160;
+        }
+        Check(all, "kleptography: from the upper bits of n the attacker finds p and q in five runs");
+        Check(primes && sizes, "kleptography: p and q are prime (Miller-Rabin) and n has 316 to 321 bits, like an ordinary modulus");
+        var first = global::Kleptography.SetupAttack.Run(1);
+        Check(System.Numerics.BigInteger.ModPow(first.Encrypted, first.AttackerD, first.AttackerN) == first.Seed && (first.N >> global::Kleptography.SetupAttack.ShiftBits) == first.Encrypted, "kleptography: the upper bits of n are the seed encrypted with the attacker's key, and his secret exponent decrypts them");
+        Check(global::Kleptography.SetupAttack.IsPrime(1000003) && !global::Kleptography.SetupAttack.IsPrime(1000001) && global::Kleptography.SetupAttack.IsPrime(System.Numerics.BigInteger.Pow(2, 127) - 1), "kleptography: primality test (1000003 and the Mersenne prime 2^127 - 1 are prime, 1000001 = 101 * 9901 is not)");
     }
 
     static void ProtocolVisualization()

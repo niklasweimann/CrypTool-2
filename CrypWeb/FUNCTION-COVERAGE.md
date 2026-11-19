@@ -36,9 +36,9 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 | 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
-| 3 Visualisierungen, Spiele | **fertig**: alle Visualisierungen und Lernspiele der Funktionsliste sind abgedeckt (Plugins `CipherVisualization`, `MathVisualization`, `ProtocolVisualization`, `RandomVisualization`, `NumberShark`, `DivisorGame`, `Sudoku`, `AntColony`, `PatternLock`; Templates unter `Cryptography/`, `Protocols/`, `Tools/` und `Games/`) |
+| 3 Visualisierungen, Spiele | **fertig**: alle Visualisierungen und Lernspiele der Funktionsliste sind abgedeckt (Plugins `CipherVisualization`, `MathVisualization`, `ProtocolVisualization`, `RandomVisualization`, `NumberShark`, `DivisorGame`, `Sudoku`, `AntColony`, `PatternLock`, `Kleptography`; Templates unter `Cryptography/`, `Protocols/`, `Tools/` und `Games/`) |
 
-Abdeckung: 279 von 342 Einträgen (63 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
+Abdeckung: 280 von 342 Einträgen (62 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
 
 | Plugin | Inhalt |
 |---|---|
@@ -64,13 +64,14 @@ Abdeckung: 279 von 342 Einträgen (63 offen). Neue Plugins in `CrypPlugins/` (al
 | `Sudoku` | Zudo-Ku: Rätsel mit eindeutiger Lösung (Löser prüft die Eindeutigkeit), reproduzierbar je Rätselnummer |
 | `AntColony` | Ameisenalgorithmus (Ant System von Dorigo u. a.) für das Problem des Handlungsreisenden, gegen Brute Force geprüft |
 | `PatternLock` | Android-Entsperrmuster: Regeln, die 389112 gültigen Muster (nach Längen geprüft), SHA-1-Wert und Angriff durch Probieren |
+| `Kleptography` | SETUP-Angriff auf die RSA-Schlüsselerzeugung (Young/Yung): der Startwert von p, mit dem Schlüssel des Angreifers verschlüsselt, steckt in den oberen Bits von n; der Angreifer liest p und q aus. Eine der vier Methoden des Funktionslisten-Eintrags, mit kleinen Zahlen |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
-Was von den 63 offenen Einträgen bleibt und warum:
+Was von den 62 offenen Einträgen bleibt und warum:
 
 | Gruppe | Einträge | Grund |
 |---|---|---|
-| Analysen und Angriffe | Hill, Vitányi, Periodizität, N-Gramm, Viterbi, byteweise Addition, Fleissner, DESX/DESL/DESXL; Angriffe auf IDEA, RC2, RC4, RC6, Serpent, Twofish, MARS, Kleptographie | eigene Analysekomponenten bzw. Anbindung der neuen Chiffren an den KeySearcher (Steuerverbindung) |
+| Analysen und Angriffe | Hill, Vitányi, Periodizität, N-Gramm, Viterbi, byteweise Addition, Fleissner, DESX/DESL/DESXL; Angriffe auf IDEA, RC2, RC4, RC6, Serpent, Twofish, MARS | eigene Analysekomponenten bzw. Anbindung der neuen Chiffren an den KeySearcher (Steuerverbindung) |
 | Algorithmen, deren Tabellen oder Spezifikation fehlen | MARS, Misty, SAFER+/++, Dragon, DHA, FORK, TwoTrack, DESL/DESXL, VSH, MD, GMSS/CMSS, GQ, McEliece-Signatur, Multivariate, Redactable Signatures, Homomorphe Verschlüsselung (RSA/Gentry-Halevi), ML-KEM | S-Boxen und Konstanten lassen sich nicht aus dem Gedächtnis zuverlässig nachbauen; ML-KEM fehlt in der BouncyCastle-Version des Repos |
 | Infrastruktur, im Browser nicht sinnvoll | OpenSSL, Web-Terminal, TLS-Handshake, PKI, Zertifikate prüfen, Signatur extrahieren, Schlüssel erzeugen/importieren/anzeigen, ASN.1, Zwei-Faktor, RSA-AES, PBES2, CTO-Werkzeuge (Barcode, ASCII, Corona, Chiffre-Identifizierung) | Schlüsselverwaltung/Netz/Dateisystem; teils nur über eigene Komponenten |
 
@@ -114,7 +115,7 @@ Pro Gruppe ein eigener Commit und ein Test mit bekannten Testvektoren.
 
 **Stufe 3 – Visualisierungen (groß).** Die JCT-Visualisierungen (RSA, DES, ECC/ECDH, Hashing, SSL, Zero-Knowledge, Shamir/VSS, Zufall, Signaturen, Side-Channel DPA/SPA, Kleptographie, Rainbow Tables, ACO, Android-Muster, Huffman-Fehlerkorrektur u. a.) bekommen jeweils eine Komponente plus Präsentation in der bestehenden `CrypWeb.Wpf`-Teilmenge, wie schon die CT2-Visualisierungen. Reihenfolge nach Nutzen für Lehre: RSA, ECC, Hash, DES, Shamir, Zufall, Signatur, danach der Rest. Die Spiele (Zahlenhai, Zudo-Ku, Teilerspiel) ganz ans Ende.
 
-*Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
+*Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster und die Kleptographie hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 
 **Stufe 4 – CTO-Werkzeuge.** Klären, ob der Quellcode von CrypTool-Online verfügbar und kompatibel lizenziert ist (nicht geprüft). Wenn ja, ist ein Link/Einbetten aus dem Funktions-Index die billigste Lösung; sonst Stufe 1 oder 2.
 

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Kleptography (Young and Yung) studies backdoors in cryptographic systems that cannot be detected from the outside. In a SETUP attack (secretly embedded trapdoor with universal protection) the key generator of a device is changed so that its output carries a message to the attacker, here the seed of the prime p, encrypted with the public key of the attacker in the upper bits of the RSA modulus. Everyone else sees an ordinary key.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Kleptographie (Young und Yung) untersucht Hintertüren in kryptografischen Systemen, die von außen nicht erkennbar sind. Bei einem SETUP-Angriff (secretly embedded trapdoor with universal protection) wird der Schlüsselgenerator eines Geräts so verändert, dass seine Ausgabe eine Nachricht an den Angreifer trägt, hier den Startwert der Primzahl p, mit dem öffentlichen Schlüssel des Angreifers verschlüsselt in den oberen Bits des RSA-Moduls. Alle anderen sehen einen gewöhnlichen Schlüssel.
+  </introduction>
+  <usage lang="en">
+    Choose a run number in the settings and run the workspace. The presentation shows the three steps with all numbers: the key of the attacker, the changed key generation of the victim and the attack that recovers p and q from n.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen eine Nummer und lassen Sie den Arbeitsbereich laufen. Die Präsentation zeigt die drei Schritte mit allen Zahlen: den Schlüssel des Angreifers, die veränderte Schlüsselerzeugung des Opfers und den Angriff, der p und q aus n zurückgewinnt.
+  </usage>
+</documentation>

@@ -958,6 +958,11 @@ TEMPLATES += [
          "Click the points in the order of the pattern. The stored value is an unsalted SHA-1 hash, so trying all 389112 patterns with the {\\\\b Find it from the hash} button finds it at once.",
          "Klicken Sie die Punkte in der Reihenfolge des Musters an. Der gespeicherte Wert ist ein SHA-1-Hash ohne Salt; mit der Schaltfläche {\\\\b Aus dem Hash finden} werden alle 389112 Muster probiert und das Muster sofort gefunden.",
          "android, unlock pattern, SHA-1, brute force, hash"),
+    game("Games/Kleptography", "Kleptography.Kleptography", dict(Seed="1"), "Kleptography: SETUP Attack on RSA", "Kleptographie: SETUP-Angriff auf RSA",
+         "A changed RSA key generator hides the prime p in the key; the attacker reads it.", "Ein veränderter RSA-Schlüsselgenerator versteckt die Primzahl p im Schlüssel; der Angreifer liest sie aus.",
+         "The presentation shows the three steps with all numbers. Change the run in the settings of the {\\\\b Kleptography} component.",
+         "Die Präsentation zeigt die drei Schritte mit allen Zahlen. Ändern Sie den Ablauf in den Einstellungen der Komponente {\\\\b Kleptographie}.",
+         "kleptography, SETUP, backdoor, RSA, key generation"),
 ]
 
 

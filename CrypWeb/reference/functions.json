@@ -2188,7 +2188,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/Kleptography.cwm": "Games/Kleptography.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/Kleptography.cwm"
  },
  {
   "name": "Kostenfunktion",

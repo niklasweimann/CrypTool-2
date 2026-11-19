@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Kleptography.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Kleptography: SETUP Attack on RSA</title>
+  <summary lang="en"><i>Kleptography: SETUP Attack on RSA</i></summary>
+  <description lang="en">A changed RSA key generator hides the prime p in the key; the attacker reads it.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The presentation shows the three steps with all numbers. Change the run in the settings of the {\\b Kleptography} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Kleptographie: SETUP-Angriff auf RSA</title>
+  <summary lang="de"><i>Kleptographie: SETUP-Angriff auf RSA</i></summary>
+  <description lang="de">Ein veränderter RSA-Schlüsselgenerator versteckt die Primzahl p im Schlüssel; der Angreifer liest sie aus.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Präsentation zeigt die drei Schritte mit allen Zahlen. Ändern Sie den Ablauf in den Einstellungen der Komponente {\\b Kleptographie}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Kleptography.png" />
+  <relevantPlugins>
+    <plugin name="Kleptography" />
+  </relevantPlugins>
+</sample>
