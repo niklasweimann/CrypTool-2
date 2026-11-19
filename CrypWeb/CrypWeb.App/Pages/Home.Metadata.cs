@@ -222,6 +222,18 @@ public partial class Home
         p.Settings[key] = value;
     }
 
-    /// <summary>Background of a component window, as in CT2: the light variant of its category color.</summary>
-    private string WindowBackground(PluginNode p) => Theme.CategoryLightColor(Meta(p)?.Category ?? "Undefined");
+    /// <summary>
+    ///     Background of a component window by the look chosen in the settings: "classic" as in CT2 (the light variant of the
+    ///     category color), "tinted" a faint tint of it, "clean" plain white (the category then shows as a line below the title).
+    /// </summary>
+    private string WindowBackground(PluginNode p)
+    {
+        var category = Meta(p)?.Category ?? "Undefined";
+        return settings.ComponentStyle switch
+        {
+            "classic" => Theme.CategoryLightColor(category),
+            "tinted" => Theme.Tint(Theme.CategoryColor(category), 0.86),
+            _ => "#ffffff"
+        };
+    }
 }

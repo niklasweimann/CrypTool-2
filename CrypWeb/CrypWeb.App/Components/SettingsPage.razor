@@ -23,6 +23,20 @@
         </div>
     </div>
     <div class="mrow">
+        <div class="mlabel">@Loc["set.componentStyle"]</div>
+        <div class="mctl mradios">
+            @foreach (var style in new[] { "classic", "clean", "tinted" })
+            {
+                var st = style;
+                <label><input
+                        type="radio"
+                        name="cs"
+                        checked="@(S.ComponentStyle == st)"
+                        @onchange="() => Set(() => S.ComponentStyle = st)"/> @Loc["set.style." + st]</label>
+            }
+        </div>
+    </div>
+    <div class="mrow">
         <div class="mlabel">@Loc["set.guiUpdate"]</div>
         <div class="mctl mslider"><input
                 type="range"

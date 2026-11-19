@@ -680,24 +680,28 @@ main {
 
 /* ---- workspace visuals (original CT2 look) ---- */
 .node .frame {
-    fill: #f4f6fa;
-    stroke: rgba(31, 36, 48, .22);
+    fill: #fff;
+    stroke: rgba(31, 36, 48, .12);
     stroke-width: 1;
-    rx: 9px;
     cursor: move;
-    filter: drop-shadow(0 2px 5px rgba(16, 24, 40, .20));
+    filter: drop-shadow(0 1px 3px rgba(16, 24, 40, .10)) drop-shadow(0 4px 12px rgba(16, 24, 40, .06));
 }
 
 .node .head {
     cursor: move;
-    fill: rgba(255, 255, 255, .55);
-    rx: 6px;
+    fill: transparent;
+}
+
+/* the category: a thin line below the title */
+.node .accent {
+    opacity: .75;
+    pointer-events: none;
 }
 
 .node.selected .frame {
     stroke: var(--accent);
-    stroke-width: 2;
-    filter: drop-shadow(0 0 6px rgba(47, 111, 237, .45)) drop-shadow(0 2px 5px rgba(16, 24, 40, .20));
+    stroke-width: 1.5;
+    filter: drop-shadow(0 0 4px rgba(47, 111, 237, .35)) drop-shadow(0 4px 12px rgba(16, 24, 40, .10));
 }
 
 .node.err .frame {
@@ -731,16 +735,17 @@ main {
     height: 100%;
     box-sizing: border-box;
     resize: none;
-    border: 1px solid #bbb;
-    border-radius: 2px;
+    border: 1px solid #e3e7ef;
+    border-radius: 6px;
     font: 12px ui-monospace, Menlo, monospace;
-    padding: 3px;
-    background: #fff;
+    padding: 5px 6px;
+    background: #fafbfd;
     outline: none;
 }
 
 .nat:focus {
-    border-color: #1565d8;
+    border-color: var(--accent);
+    background: #fff;
 }
 
 .nat.out {
@@ -750,11 +755,11 @@ main {
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
-    background: #fbfbfb;
+    background: #fafbfd;
 }
 
 .port {
-    stroke: rgba(31, 36, 48, .45);
+    stroke: rgba(31, 36, 48, .35);
     stroke-width: 1;
     cursor: crosshair;
 }
@@ -1234,11 +1239,70 @@ textarea.inline {
     fill: #1565d8;
 }
 
+/* ---- look "classic" (as in CrypTool 2): the old rules of the components, switched in the settings ---- */
+.comp-classic .node .frame {
+    stroke: rgba(31, 36, 48, .22);
+    filter: drop-shadow(0 2px 5px rgba(16, 24, 40, .20));
+}
+
+.comp-classic .node .head {
+    fill: rgba(255, 255, 255, .55);
+    rx: 6px;
+}
+
+.comp-classic .node .accent {
+    display: none;
+}
+
+.comp-classic .node.selected .frame {
+    stroke-width: 2;
+    filter: drop-shadow(0 0 6px rgba(47, 111, 237, .45)) drop-shadow(0 2px 5px rgba(16, 24, 40, .20));
+}
+
+.comp-classic .title {
+    font-weight: 600;
+}
+
+.comp-classic .ti {
+    stroke: #4a5368;
+}
+
+.comp-classic .cnt {
+    fill: rgba(31, 36, 48, .07);
+    rx: 4px;
+}
+
+.comp-classic .pbg {
+    fill: rgba(31, 36, 48, .10);
+    rx: 6px;
+}
+
+.comp-classic .pfill {
+    fill: #36b86b;
+    rx: 6px;
+}
+
+.comp-classic .nview {
+    border: 1px solid #9bb393;
+    border-radius: 0;
+}
+
+.comp-classic .nat {
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    background: #fff;
+}
+
+/* "tinted": the category line below the title at full strength */
+.comp-tinted .node .accent {
+    opacity: 1;
+}
+
 /* ---- component chrome ---- */
 .title {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     fill: #1f2430;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .tbt {
@@ -1250,7 +1314,7 @@ textarea.inline {
 /* component toolbar: line icons with a round hover area */
 .ti {
     fill: none;
-    stroke: #4a5368;
+    stroke: #8b94a8;
     stroke-width: 1.3;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -1288,8 +1352,7 @@ textarea.inline {
 }
 
 .cnt {
-    fill: rgba(31, 36, 48, .07);
-    rx: 4px;
+    fill: transparent;
 }
 
 .cnttxt {
@@ -1299,13 +1362,11 @@ textarea.inline {
 }
 
 .pbg {
-    fill: rgba(31, 36, 48, .10);
-    rx: 6px;
+    fill: rgba(31, 36, 48, .08);
 }
 
 .pfill {
-    fill: #36b86b;
-    rx: 6px;
+    fill: var(--accent);
 }
 
 .ptxt {
@@ -1326,7 +1387,8 @@ textarea.inline {
     height: 100%;
     overflow: auto;
     background: #fff;
-    border: 1px solid #9bb393;
+    border: 1px solid #e3e7ef;
+    border-radius: 6px;
     box-sizing: border-box;
     font-size: 11px;
 }

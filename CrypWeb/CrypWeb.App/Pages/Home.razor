@@ -316,7 +316,7 @@
                           ShowExperimental="settings.ShowExperimental"
                           OnOpenTemplate="t => OpenTemplate(t)"/>
             }
-            <main class="@(mode != Mode.None ? "tracking" : "")" style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
+            <main class="comp-@settings.ComponentStyle @(mode != Mode.None ? "tracking" : "")" style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
                   @ondragover="DragOver" @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">
                 @if (error != null)
                 {
@@ -506,7 +506,7 @@
                                     y="@F(p.Y)"
                                     width="@F(nw)"
                                     height="@F(nh)"
-                                    rx="5"
+                                    rx="@(settings.ComponentStyle == "classic" ? 5 : 8)"
                                     class="frame"
                                     style="fill:@WindowBackground(p)"
                                     @onpointerdown="OnPointer(p, e => NodeDown(e, p))"
@@ -520,6 +520,8 @@
                                     @onpointerdown="OnPointer(p, e => NodeDown(e, p, true))"
                                     @onpointerdown:stopPropagation
                                     @ondblclick="On(p, () => EditName(p))"/>
+                                <rect x="@F(p.X + 10)" y="@F(p.Y + 22)" width="@F(Math.Max(0, nw - 20))" height="1.5" rx="0.75"
+                                      class="accent" style="fill:@col"/>
                                 @Txt(p.X + TitleCenter(p, nw), p.Y + 15, "title", "middle", HeaderTitle(p, meta, nw))
                                 <g class="tb">
                                     @if (HasPresentation(p))
@@ -608,11 +610,19 @@
                                     }
 
                                     var pct = rn == null ? 0 : (int)Math.Round(Math.Clamp(rn.Progress, 0, 1) * 100);
-                                    <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F(nw - 12)" height="12"
-                                          class="pbg"/>
-                                    <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F((nw - 12) * pct / 100.0)"
-                                          height="12" class="pfill"/>
-                                    @Txt(p.X + nw / 2, p.Y + nh - 8, "ptxt", "middle", pct + "%")
+                                    @if (settings.ComponentStyle == "classic")
+                                    {
+                                        <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F(nw - 12)" height="12" class="pbg"/>
+                                        <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F((nw - 12) * pct / 100.0)" height="12" class="pfill"/>
+                                        @Txt(p.X + nw / 2, p.Y + nh - 8, "ptxt", "middle", pct + "%")
+                                    }
+                                    else
+                                    {
+                                        <rect x="@F(p.X + 10)" y="@F(p.Y + nh - 11)" width="@F(Math.Max(0, nw - 20))" height="3" rx="1.5"
+                                              class="pbg"><title>@(pct)%</title></rect>
+                                        <rect x="@F(p.X + 10)" y="@F(p.Y + nh - 11)" width="@F(Math.Max(0, nw - 20) * pct / 100.0)"
+                                              height="3" rx="1.5" class="pfill"/>
+                                    }
                                 }
                                 @Txt(p.X + 2, p.Y + nh + 14, "uname", "start", Title(p, meta))
                                 @if (showTimings && rn is { Runs: > 0 })

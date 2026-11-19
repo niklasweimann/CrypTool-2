@@ -34,6 +34,18 @@ public static class Theme
     /// In HLS terms the lightness moves 62.5 % of the way to white; hue and saturation stay. Transparent
     /// presentations show this color behind them.
     /// </summary>
+    /// <summary>The color moved by <paramref name="amount" /> (0..1) towards white; "#rrggbb" in and out.</summary>
+    public static string Tint(string color, double amount)
+    {
+        string hex = color.TrimStart('#');
+        if (hex.Length != 6 || !int.TryParse(hex, System.Globalization.NumberStyles.HexNumber, null, out int rgb))
+        {
+            return "#ffffff";
+        }
+        int Mix(int channel) => (int)Math.Round(channel + (255 - channel) * amount);
+        return $"#{Mix((rgb >> 16) & 0xFF):x2}{Mix((rgb >> 8) & 0xFF):x2}{Mix(rgb & 0xFF):x2}";
+    }
+
     public static string CategoryLightColor(string category)
     {
         string hex = CategoryColor(category).TrimStart('#');

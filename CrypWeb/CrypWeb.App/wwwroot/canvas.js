@@ -171,7 +171,7 @@ const EXPORT_STYLE_PROPERTIES = [
     'overflow', 'display',
 ];
 const EXPORT_TEXTAREA_STYLE =
-    'white-space:pre-wrap;font:12px monospace;padding:3px;background:#fff;border:1px solid #bbb;height:100%;box-sizing:border-box;';
+    'white-space:pre-wrap;font:12px monospace;padding:3px;background:#fff;border:1px solid #e3e7ef;border-radius:6px;height:100%;box-sizing:border-box;';
 const EXPORT_MARGIN = 40; // total extra space around the content, in workspace units
 const EXPORT_SCALE = 2;   // the PNG has twice the resolution
 

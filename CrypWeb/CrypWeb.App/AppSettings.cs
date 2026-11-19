@@ -12,6 +12,12 @@ public sealed class AppSettings
     /// <summary>0 = decided by the component, 1 = always show the presentation, 2 = always the icon view.</summary>
     public int DefaultView { get; set; }
 
+    /// <summary>
+    ///     Look of the components on the canvas: "classic" (as in CT2: window tinted in the category color), "clean" (white,
+    ///     category as a thin line) or "tinted" (clean, with a light tint of the category color).
+    /// </summary>
+    public string ComponentStyle { get; set; } = "tinted";
+
     public int GuiUpdateMs { get; set; } = 80;
     public int SleepMs { get; set; } = 1;
     public bool ReplacePlaceholders { get; set; } = true;
