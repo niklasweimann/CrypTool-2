@@ -595,7 +595,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/CaesarVisualization.cwm": "Cryptography/Classic/CaesarVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/CaesarVisualization.cwm"
  },
  {
   "name": "Camellia",
@@ -2686,7 +2691,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/NihilistVisualization.cwm": "Cryptography/Classic/NihilistVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/NihilistVisualization.cwm"
  },
  {
   "name": "Nihilist-Chiffre",
@@ -4705,7 +4715,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Classic/VigenereVisualization.cwm": "Cryptography/Classic/VigenereVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Classic/VigenereVisualization.cwm"
  },
  {
   "name": "Vigenère-Chiffre",

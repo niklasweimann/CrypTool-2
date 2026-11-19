@@ -76,5 +76,8 @@
  "Shacal MAC|": "Hashfunctions/MAC_Shacal-2.cwm",
  "Hashwert einer Datei|": "Hashfunctions/FileHash.cwm",
  "Tiger MAC|": "Hashfunctions/HMAC_Tiger.cwm",
- "EC-Berechnungen|": "Protocols/ECC_DH.cwm"
+ "EC-Berechnungen|": "Protocols/ECC_DH.cwm",
+ "Caesar / Rot-13|visualization": "Cryptography/Classic/CaesarVisualization.cwm",
+ "Vigenère|visualization": "Cryptography/Classic/VigenereVisualization.cwm",
+ "Nihilist|visualization": "Cryptography/Classic/NihilistVisualization.cwm"
 }

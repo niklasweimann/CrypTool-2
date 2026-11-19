@@ -726,6 +726,49 @@ TEMPLATES += [
          keywords="HMAC, Tiger, MAC"),
 ]
 
+CVZ = "CipherVisualization.CipherVisualization"
+
+
+def visualization(out, cipher, text, key, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A template whose component is shown with its presentation (view state 1): text and key on the left, the picture of the calculation in the middle."""
+    text_input, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=text_input, x=40, y=40, w=260, h=150, settings=dict(Text=text))),
+             dict(add=dict(type=text_input, x=40, y=240, w=260, h=100, settings=dict(Text=key))),
+             dict(add=dict(type=CVZ, x=360, y=40, w=700, h=560, viewState=1, settings=dict(Cipher=str(cipher), Action="0"))),
+             dict(add=dict(type=output, x=360, y=640, w=700, h=100)),
+             dict(connect={"from": f"{text_input}#0.TextOutput", "to": f"{CVZ}.InputText"}),
+             dict(connect={"from": f"{text_input}#1.TextOutput", "to": f"{CVZ}.Key"}),
+             dict(connect={"from": f"{CVZ}.OutputText", "to": f"{output}.Input"})]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin="CipherVisualization",
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    visualization("Cryptography/Classic/CaesarVisualization", 0, "HELLO WORLD", "3", "Caesar Cipher Visualization", "Caesar-Chiffre: Visualisierung",
+                  "The alphabet shifted by the key, with the letters of the text marked.",
+                  "Das um den Schlüssel verschobene Alphabet, mit den Buchstaben des Textes markiert.",
+                  "The {\\\\b Cipher Visualization} component encrypts the text with the Caesar cipher and shows the plain alphabet above the shifted one. Change the text and the key (a number or a letter) on the left, and switch the component to decryption in its settings.",
+                  "Die Komponente {\\\\b Chiffren-Visualisierung} verschlüsselt den Text mit der Caesar-Chiffre und zeigt das Klaralphabet über dem verschobenen. Ändern Sie links Text und Schlüssel (eine Zahl oder einen Buchstaben) und stellen Sie die Komponente in ihren Einstellungen auf Entschlüsseln.",
+                  "Caesar, visualization, shift, alphabet"),
+    visualization("Cryptography/Classic/VigenereVisualization", 1, "ATTACK AT DAWN", "LEMON", "Vigenère Cipher Visualization", "Vigenère-Chiffre: Visualisierung",
+                  "The Vigenère square with the cells that the text uses.",
+                  "Das Vigenère-Quadrat mit den Zellen, die der Text benutzt.",
+                  "The {\\\\b Cipher Visualization} component encrypts the text with the Vigenère cipher. In the square the row is the key letter and the column the plaintext letter; the cell where they meet is the ciphertext letter. The cells used are green, below them the first steps are listed.",
+                  "Die Komponente {\\\\b Chiffren-Visualisierung} verschlüsselt den Text mit der Vigenère-Chiffre. Im Quadrat ist die Zeile der Schlüsselbuchstabe und die Spalte der Klartextbuchstabe; die Zelle, in der sie sich treffen, ist der Geheimtextbuchstabe. Die benutzten Zellen sind grün, darunter sind die ersten Schritte aufgelistet.",
+                  "Vigenere, visualization, tableau"),
+    visualization("Cryptography/Classic/NihilistVisualization", 2, "DYNAMITE WINTER PALACE", "ZEBRAS RUSSIAN", "Nihilist Cipher Visualization", "Nihilist-Chiffre: Visualisierung",
+                  "The Polybius square and the additions of the Nihilist cipher.",
+                  "Das Polybius-Quadrat und die Additionen der Nihilist-Chiffre.",
+                  "The key has two words: ZEBRAS makes the Polybius square, RUSSIAN is the additive key. Each letter of the text becomes the number of its row and column, the number of the key letter is added: D = 23, R = 14, 23 + 14 = 37. The example is the one of the Wikipedia article.",
+                  "Der Schlüssel hat zwei Wörter: ZEBRAS bildet das Polybius-Quadrat, RUSSIAN ist der additive Schlüssel. Jeder Buchstabe des Textes wird zur Zahl aus Zeile und Spalte, die Zahl des Schlüsselbuchstabens wird addiert: D = 23, R = 14, 23 + 14 = 37. Das Beispiel ist das aus dem Wikipedia-Artikel.",
+                  "Nihilist, Polybius, visualization"),
+]
+
 
 def attr(text):
     return text.replace("&", "&amp;").replace('"', "&quot;")

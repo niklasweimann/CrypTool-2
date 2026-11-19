@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: VigenereVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Vigenère Cipher Visualization</title>
+  <summary lang="en"><i>Vigenère Cipher Visualization</i></summary>
+  <description lang="en">The Vigenère square with the cells that the text uses.</description>
+  <keywords lang="en">Vigenere, visualization, tableau</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\\b Cipher Visualization} component encrypts the text with the Vigenère cipher. In the square the row is the key letter and the column the plaintext letter; the cell where they meet is the ciphertext letter. The cells used are green, below them the first steps are listed." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Vigenère-Chiffre: Visualisierung</title>
+  <summary lang="de"><i>Vigenère-Chiffre: Visualisierung</i></summary>
+  <description lang="de">Das Vigenère-Quadrat mit den Zellen, die der Text benutzt.</description>
+  <keywords lang="en">Vigenere, visualization, tableau</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\\b Chiffren-Visualisierung} verschlüsselt den Text mit der Vigenère-Chiffre. Im Quadrat ist die Zeile der Schlüsselbuchstabe und die Spalte der Klartextbuchstabe; die Zelle, in der sie sich treffen, ist der Geheimtextbuchstabe. Die benutzten Zellen sind grün, darunter sind die ersten Schritte aufgelistet." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="VigenereVisualization.png" />
+  <relevantPlugins>
+    <plugin name="CipherVisualization" />
+  </relevantPlugins>
+</sample>

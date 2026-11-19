@@ -17,7 +17,7 @@ public static class DeriveCommand
     /// Instead of <c>set</c> an edit can have <c>retype</c>: <c>{"type": "...", "assembly": "...", "name": "...", "settings": {...}}</c>
     /// replaces the component by another one that has the same connectors (e.g. Camellia by BlockCiphers); its settings
     /// are exactly the listed ones, with the value type of the setting of the same name (or of <c>typeLike</c>) in the old component.
-    /// Other edits change the structure: <c>{"add": {"type": "...", "x": 0, "y": 0, "w": 100, "h": 100, "settings": {...}}}</c> places a
+    /// Other edits change the structure: <c>{"add": {"type": "...", "x": 0, "y": 0, "w": 100, "h": 100, "viewState": 1, "settings": {...}}}</c> places a
     /// component (palette entry from plugins.json), <c>{"connect": {"from": "Type#n.Port", "to": "Type#n.Port"}}</c> and
     /// <c>{"disconnect": {...}}</c> add and remove a wire, <c>{"remove": "type part"}</c> deletes components, an "add" can give a <c>"name"</c>, <c>{"move": {"match": "...", "dx": 0, "dy": 0}}</c> shifts components (an "add" can also give <c>"at": {"match", "dx", "dy"}</c>
     /// instead of x and y); "Type#n" is the n-th (from 0) component whose type contains "Type".
@@ -150,6 +150,7 @@ public static class DeriveCommand
         }
         if (add.TryGetProperty("name", out var title)) entry.Name = title.GetString()!;   // the title shown on the component
         var node = editor.AddPlugin(entry, x, y);
+        if (add.TryGetProperty("viewState", out var viewState)) node.ViewState = viewState.GetInt32();   // 1 shows the presentation of the component
         if (add.TryGetProperty("settings", out var settings))
         {
             foreach (var setting in settings.EnumerateObject())

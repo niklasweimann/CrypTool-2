@@ -315,6 +315,11 @@
     <Compile Include="../../CrypPlugins/CipherMAC/CipherMAC.cs" Link="CipherMAC/CipherMAC.cs" />
     <EmbeddedResource Include="../../CrypPlugins/CipherMAC/Properties/Resources.resx" LogicalName="CipherMAC.Properties.Resources.resources" Link="CipherMAC/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/CipherMAC/Properties/Resources.de.resx" LogicalName="CipherMAC.Properties.Resources.de.resources" Link="CipherMAC/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/CipherVisualization/CipherVisualizationSettings.cs" Link="CipherVisualization/CipherVisualizationSettings.cs" />
+    <Compile Include="../../CrypPlugins/CipherVisualization/CipherVisualization.cs" Link="CipherVisualization/CipherVisualization.cs" />
+    <Compile Include="../../CrypPlugins/CipherVisualization/Properties/Resources.Designer.cs" Link="CipherVisualization/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/CipherVisualization/Properties/Resources.resx" LogicalName="CipherVisualization.Properties.Resources.resources" Link="CipherVisualization/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/CipherVisualization/Properties/Resources.de.resx" LogicalName="CipherVisualization.Properties.Resources.de.resources" Link="CipherVisualization/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ClassicMcEliece/ClassicMcElieceSettings.cs" Link="ClassicMcEliece/ClassicMcElieceSettings.cs" />
     <Compile Include="../../CrypPlugins/ClassicMcEliece/ClassicMcEliece.cs" Link="ClassicMcEliece/ClassicMcEliece.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ClassicMcEliece/Properties/Resources.resx" LogicalName="ClassicMcEliece.Properties.Resources.resources" Link="ClassicMcEliece/Properties/Resources.resx" />

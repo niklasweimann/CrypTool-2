@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    This component encrypts or decrypts with the Caesar, the Vigenère or the Nihilist cipher and shows in its presentation how the result comes about.
+    The Caesar cipher replaces every letter by the letter a fixed number of places further in the alphabet; the presentation shows the plain alphabet above the shifted one.
+    The Vigenère cipher uses a key word: every plaintext letter is shifted by the letter of the key word, in the Vigenère square the cell in the row of the key letter and the column of the plaintext letter is the ciphertext letter.
+    The Nihilist cipher turns every letter into a two-digit number with a Polybius square (a 5x5 square made of a keyword, J is I) and adds the number of a letter of the additive key; the result is a list of numbers.
+  </introduction>
+  <introduction lang="de-DE">
+    Diese Komponente ver- oder entschlüsselt mit der Caesar-, der Vigenère- oder der Nihilist-Chiffre und zeigt in ihrer Präsentation, wie das Ergebnis zustande kommt.
+    Die Caesar-Chiffre ersetzt jeden Buchstaben durch den, der eine feste Zahl von Stellen weiter im Alphabet steht; die Präsentation zeigt das Klaralphabet über dem verschobenen.
+    Die Vigenère-Chiffre verwendet ein Schlüsselwort: Jeder Klartextbuchstabe wird um den Buchstaben des Schlüsselworts verschoben, im Vigenère-Quadrat ist die Zelle in der Zeile des Schlüsselbuchstabens und der Spalte des Klartextbuchstabens der Geheimtextbuchstabe.
+    Die Nihilist-Chiffre macht aus jedem Buchstaben mit einem Polybius-Quadrat (einem 5x5-Quadrat aus einem Schlüsselwort, J gilt als I) eine zweistellige Zahl und addiert die Zahl eines Buchstabens des additiven Schlüssels; das Ergebnis ist eine Liste von Zahlen.
+  </introduction>
+  <usage lang="en">
+    Choose the cipher and the action in the settings. The text is expected on the input "Text", the key on the input "Key". Caesar: the key is the shift, a number or a letter (A = 0). Vigenère: the key is a word. Nihilist: the key has two words separated by a space, the keyword of the square and the additive key (for example "ZEBRAS RUSSIAN"); decryption takes the numbers, separated by spaces. The output "Result" is the encrypted or decrypted text. The presentation shows the calculation.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Chiffre und die Aktion. Der Text wird am Eingang "Text" erwartet, der Schlüssel am Eingang "Schlüssel". Caesar: Der Schlüssel ist die Verschiebung, eine Zahl oder ein Buchstabe (A = 0). Vigenère: Der Schlüssel ist ein Wort. Nihilist: Der Schlüssel hat zwei durch ein Leerzeichen getrennte Wörter, das Schlüsselwort des Quadrats und den additiven Schlüssel (zum Beispiel "ZEBRAS RUSSIAN"); die Entschlüsselung nimmt die Zahlen, durch Leerzeichen getrennt. Der Ausgang "Ergebnis" ist der ver- oder entschlüsselte Text. Die Präsentation zeigt die Rechnung.
+  </usage>
+</documentation>

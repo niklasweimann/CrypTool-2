@@ -44,6 +44,7 @@ public static class ComponentTests
         HashBasedSignatures();
         ClassicMcEliece();
         HmacHashes();
+        CipherVisualization();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -844,6 +845,31 @@ public static class ComponentTests
             var actual = Hmac(hash, message, digestKey);
             Check(actual != null && actual.SequenceEqual(expected) && actual.Length == expected.Length, $"HMAC-{names[hash]} equals the construction of RFC 2104 written out with the hash function ({expected.Length} bytes)");
         }
+    }
+
+    static string? Viz(int cipher, string text, string key, int action = 0)
+    {
+        var component = Component("CipherVisualization.CipherVisualization", ("Cipher", cipher.ToString()), ("Action", action.ToString()));
+        component.PreExecution();
+        component.Set("InputText", text);
+        component.Set("Key", key);
+        component.Execute();
+        var output = (string?)component.Get("OutputText");
+        component.PostExecution();
+        return output;
+    }
+
+    static void CipherVisualization()
+    {
+        // Caesar: HELLO by 3 (and by the letter D), ROT13 twice, decryption
+        Check(Viz(0, "HELLO", "3") == "KHOOR" && Viz(0, "Hello, World", "D") == "KHOOR, ZRUOG" && Viz(0, Viz(0, "ROT THIRTEEN", "13")!, "13") == "ROT THIRTEEN" && Viz(0, "KHOOR", "3", 1) == "HELLO" && Viz(0, "ABC", "-1") == "ZAB", "Caesar: HELLO by 3 = KHOOR, the key letter D, ROT13 twice, decryption, shift -1");
+        // Vigenere: the example of Wikipedia (ATTACKATDAWN with LEMON), decryption, other characters are kept
+        Check(Viz(1, "ATTACKATDAWN", "LEMON") == "LXFOPVEFRNHR" && Viz(1, "LXFOPVEFRNHR", "LEMON", 1) == "ATTACKATDAWN", "Vigenère: ATTACKATDAWN with LEMON = LXFOPVEFRNHR, and back");
+        Check(Viz(1, "ATTACK AT DAWN!", "LEMON") == "LXFOPV EF RNHR!", "Vigenère: spaces and punctuation are kept and use up no key letter");
+        // Nihilist: the example of Wikipedia: square of ZEBRAS, additive key RUSSIAN, DYNAMITE WINTER PALACE begins 37 106 62 36 67 47 86 26 (calculated letter by letter by hand)
+        var nihilist = Viz(2, "DYNAMITE WINTER PALACE", "ZEBRAS RUSSIAN")!;
+        Check(nihilist.StartsWith("37 106 62 36 67 47 86 26 ") && nihilist.Split(' ').Length == 20 && Viz(2, nihilist, "ZEBRAS RUSSIAN", 1) == "DYNAMITEWINTERPALACE", $"Nihilist: DYNAMITE WINTER PALACE with ZEBRAS / RUSSIAN begins 37 106 62 36 67 47 86 26, and decrypts ({nihilist})");
+        Check(Viz(2, "TEXT", "ZEBRAS") == null && Viz(2, "99 99", "ZEBRAS RUSSIAN", 1) == null && Viz(2, "x y", "ZEBRAS RUSSIAN", 1) == null, "Nihilist: a key with one word, numbers that fit no letter and text instead of numbers are refused");
     }
 
     static void Digest(string name, int algorithm, string text, string expected)

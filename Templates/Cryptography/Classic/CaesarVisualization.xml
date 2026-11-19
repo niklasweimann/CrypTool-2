@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CaesarVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Caesar Cipher Visualization</title>
+  <summary lang="en"><i>Caesar Cipher Visualization</i></summary>
+  <description lang="en">The alphabet shifted by the key, with the letters of the text marked.</description>
+  <keywords lang="en">Caesar, visualization, shift, alphabet</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\\b Cipher Visualization} component encrypts the text with the Caesar cipher and shows the plain alphabet above the shifted one. Change the text and the key (a number or a letter) on the left, and switch the component to decryption in its settings." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Caesar-Chiffre: Visualisierung</title>
+  <summary lang="de"><i>Caesar-Chiffre: Visualisierung</i></summary>
+  <description lang="de">Das um den Schlüssel verschobene Alphabet, mit den Buchstaben des Textes markiert.</description>
+  <keywords lang="en">Caesar, visualization, shift, alphabet</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\\b Chiffren-Visualisierung} verschlüsselt den Text mit der Caesar-Chiffre und zeigt das Klaralphabet über dem verschobenen. Ändern Sie links Text und Schlüssel (eine Zahl oder einen Buchstaben) und stellen Sie die Komponente in ihren Einstellungen auf Entschlüsseln." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CaesarVisualization.png" />
+  <relevantPlugins>
+    <plugin name="CipherVisualization" />
+  </relevantPlugins>
+</sample>

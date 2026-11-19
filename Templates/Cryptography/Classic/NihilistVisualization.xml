@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NihilistVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Nihilist Cipher Visualization</title>
+  <summary lang="en"><i>Nihilist Cipher Visualization</i></summary>
+  <description lang="en">The Polybius square and the additions of the Nihilist cipher.</description>
+  <keywords lang="en">Nihilist, Polybius, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key has two words: ZEBRAS makes the Polybius square, RUSSIAN is the additive key. Each letter of the text becomes the number of its row and column, the number of the key letter is added: D = 23, R = 14, 23 + 14 = 37. The example is the one of the Wikipedia article." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Nihilist-Chiffre: Visualisierung</title>
+  <summary lang="de"><i>Nihilist-Chiffre: Visualisierung</i></summary>
+  <description lang="de">Das Polybius-Quadrat und die Additionen der Nihilist-Chiffre.</description>
+  <keywords lang="en">Nihilist, Polybius, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel hat zwei Wörter: ZEBRAS bildet das Polybius-Quadrat, RUSSIAN ist der additive Schlüssel. Jeder Buchstabe des Textes wird zur Zahl aus Zeile und Spalte, die Zahl des Schlüsselbuchstabens wird addiert: D = 23, R = 14, 23 + 14 = 37. Das Beispiel ist das aus dem Wikipedia-Artikel." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NihilistVisualization.png" />
+  <relevantPlugins>
+    <plugin name="CipherVisualization" />
+  </relevantPlugins>
+</sample>
