@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A convolutional code produces its output bits from the current and the previous input bits, so every input bit influences several output bits. This code has two bits of memory and makes two output bits (generators 111 and 101) for every input bit. The Viterbi algorithm decodes it by looking for the path through the trellis of the four states of the encoder whose output differs least from the received bits. Its free distance is 5, so every combination of two bit errors is corrected. Convolutional codes are used in mobile radio and satellite links.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein Faltungscode erzeugt seine Ausgabebits aus dem aktuellen und den vorherigen Eingabebits, sodass jedes Eingabebit mehrere Ausgabebits beeinflusst. Dieser Code hat zwei Bit Gedächtnis und macht aus jedem Eingabebit zwei Ausgabebits (Generatoren 111 und 101). Der Viterbi-Algorithmus decodiert ihn, indem er den Pfad durch das Trellis der vier Zustände des Codierers sucht, dessen Ausgabe sich am wenigsten von den empfangenen Bits unterscheidet. Die freie Distanz ist 5, daher wird jede Kombination aus zwei Bitfehlern korrigiert. Faltungscodes werden im Mobilfunk und bei Satellitenverbindungen eingesetzt.
+  </introduction>
+  <usage lang="en">
+    Connect the message as bits and, optionally, the positions of the bit errors (for example "3 9"). The component codes the message, flips the bits, decodes with the Viterbi algorithm and reports whether the errors were corrected.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie die Nachricht als Bits und optional die Positionen der Bitfehler (zum Beispiel „3 9“). Die Komponente codiert die Nachricht, kippt die Bits, decodiert mit dem Viterbi-Algorithmus und meldet, ob die Fehler korrigiert wurden.
+  </usage>
+</documentation>

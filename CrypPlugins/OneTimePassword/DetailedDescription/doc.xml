@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Two-factor authentication adds a second proof to the password: a code that only a device with a shared secret can compute. HOTP (RFC 4226) computes the code from a counter that increases with every use; TOTP (RFC 6238) uses the current time divided by a period (usually 30 seconds), so the code is valid only briefly. Both compute an HMAC of the counter, cut four bytes out of it at a position that the last byte determines (dynamic truncation) and reduce them modulo 10^digits. Authenticator apps use TOTP with a Base32 secret.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Zwei-Faktor-Authentisierung fügt dem Passwort einen zweiten Nachweis hinzu: einen Code, den nur ein Gerät mit einem gemeinsamen Geheimnis berechnen kann. HOTP (RFC 4226) berechnet den Code aus einem Zähler, der bei jeder Benutzung steigt; TOTP (RFC 6238) benutzt die aktuelle Zeit geteilt durch einen Zeitschritt (meist 30 Sekunden), der Code gilt also nur kurz. Beide berechnen einen HMAC des Zählers, schneiden daraus an einer vom letzten Byte bestimmten Stelle vier Bytes heraus (dynamische Kürzung) und reduzieren sie modulo 10^Stellen. Authenticator-Apps benutzen TOTP mit einem Base32-Geheimnis.
+  </introduction>
+  <usage lang="en">
+    Connect the shared secret and the counter (HOTP) or the time in seconds since 1970 (TOTP). Choose the method, the hash function, the number of digits and the format of the secret in the settings.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie das gemeinsame Geheimnis und den Zähler (HOTP) oder die Zeit in Sekunden seit 1970 (TOTP). Wählen Sie das Verfahren, die Hashfunktion, die Anzahl der Stellen und das Format des Geheimnisses in den Einstellungen.
+  </usage>
+</documentation>

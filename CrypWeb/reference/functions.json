@@ -778,7 +778,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/ExposureNotification.cwm": "Protocols/ExposureNotification.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/ExposureNotification.cwm"
  },
  {
   "name": "Cramer-Shoup",
@@ -2295,7 +2300,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/NumberLength.cwm": "Tools/NumberLength.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/NumberLength.cwm"
  },
  {
   "name": "Lattice",
@@ -3457,7 +3467,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Mathematics/ReciprocalSubtraction.cwm": "Mathematics/ReciprocalSubtraction.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Mathematics/ReciprocalSubtraction.cwm"
  },
  {
   "name": "RIPEMD",
@@ -4928,7 +4943,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Codes/ViterbiDecoder.cwm": "Codes/ViterbiDecoder.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Codes/ViterbiDecoder.cwm"
  },
  {
   "name": "VSH",
@@ -5284,7 +5304,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/TwoFactorTotp.cwm": "Protocols/TwoFactorTotp.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/TwoFactorTotp.cwm"
  },
  {
   "name": "Zyklische Redundanzprüfung (CRC)",

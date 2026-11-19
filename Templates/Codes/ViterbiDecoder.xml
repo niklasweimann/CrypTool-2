@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ViterbiDecoder.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Convolutional Code and Viterbi Decoder</title>
+  <summary lang="en"><i>Convolutional Code and Viterbi Decoder</i></summary>
+  <description lang="en">A message is coded with a convolutional code, two bits are flipped and the Viterbi decoder corrects them.</description>
+  <keywords lang="en">Viterbi, convolutional code, error correction, trellis</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the positions of the errors: any two errors are corrected, because the free distance of the code is 5. Add a third close to them to see the decoder fail." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Faltungscode und Viterbi-Decoder</title>
+  <summary lang="de"><i>Faltungscode und Viterbi-Decoder</i></summary>
+  <description lang="de">Eine Nachricht wird mit einem Faltungscode codiert, zwei Bits werden gekippt, und der Viterbi-Decoder korrigiert sie.</description>
+  <keywords lang="en">Viterbi, convolutional code, error correction, trellis</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Positionen der Fehler: Beliebige zwei Fehler werden korrigiert, weil die freie Distanz des Codes 5 ist. Fügen Sie einen dritten in ihrer Nähe hinzu, um den Decoder scheitern zu sehen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ViterbiDecoder.png" />
+  <relevantPlugins>
+    <plugin name="ConvolutionalCode" />
+  </relevantPlugins>
+</sample>

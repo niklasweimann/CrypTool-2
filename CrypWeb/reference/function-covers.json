@@ -108,5 +108,10 @@
  "Byteweise Addition|analysis": "Cryptanalysis/Classic/ByteAdditionAnalysis.cwm",
  "Hill-Chiffre|analysis": "Cryptanalysis/Classic/HillKnownPlaintext.cwm",
  "Fleissner Grille analysis|": "Cryptanalysis/Classic/FleissnerAnalysis.cwm",
- "Periodizitäts|analysis": "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm"
+ "Periodizitäts|analysis": "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm",
+ "Länge einer Zahl|": "Tools/NumberLength.cwm",
+ "Reziproke Substraktion|": "Mathematics/ReciprocalSubtraction.cwm",
+ "Viterbi|analysis": "Codes/ViterbiDecoder.cwm",
+ "Zwei-Faktor Authentisierung|": "Protocols/TwoFactorTotp.cwm",
+ "Corona / COVID|": "Protocols/ExposureNotification.cwm"
 }

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NumberLength.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Length of a Number</title>
+  <summary lang="en"><i>Length of a Number</i></summary>
+  <description lang="en">The number of digits, bits and bytes of the number 2^100.</description>
+  <keywords lang="en">length of a number, digits, bits, size</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Enter any number. The base of the digits can be changed in the settings of the {\\b Number Tools} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Länge einer Zahl</title>
+  <summary lang="de"><i>Länge einer Zahl</i></summary>
+  <description lang="de">Die Anzahl der Stellen, Bits und Bytes der Zahl 2^100.</description>
+  <keywords lang="en">length of a number, digits, bits, size</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Geben Sie eine beliebige Zahl ein. Die Basis der Stellen lässt sich in den Einstellungen der Komponente {\\b Zahlenwerkzeuge} ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NumberLength.png" />
+  <relevantPlugins>
+    <plugin name="NumberTools" />
+  </relevantPlugins>
+</sample>

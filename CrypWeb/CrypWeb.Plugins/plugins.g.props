@@ -367,6 +367,11 @@
     <Compile Include="../../CrypPlugins/Converter/Properties/Resources.Designer.cs" Link="Converter/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Converter/Properties/Resources.resx" LogicalName="Converter.Properties.Resources.resources" Link="Converter/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Converter/Properties/Resources.de.resx" LogicalName="Converter.Properties.Resources.de.resources" Link="Converter/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ConvolutionalCode/ConvolutionalCodeSettings.cs" Link="ConvolutionalCode/ConvolutionalCodeSettings.cs" />
+    <Compile Include="../../CrypPlugins/ConvolutionalCode/ConvolutionalCode.cs" Link="ConvolutionalCode/ConvolutionalCode.cs" />
+    <Compile Include="../../CrypPlugins/ConvolutionalCode/Properties/Resources.Designer.cs" Link="ConvolutionalCode/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ConvolutionalCode/Properties/Resources.resx" LogicalName="ConvolutionalCode.Properties.Resources.resources" Link="ConvolutionalCode/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ConvolutionalCode/Properties/Resources.de.resx" LogicalName="ConvolutionalCode.Properties.Resources.de.resources" Link="ConvolutionalCode/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/CostFunction/CostFunction.cs" Link="CostFunction/CostFunction.cs" />
     <Compile Include="../../CrypPlugins/CostFunction/RegEx.cs" Link="CostFunction/RegEx.cs" />
     <Compile Include="../../CrypPlugins/CostFunction/CostFunctionSettings.cs" Link="CostFunction/CostFunctionSettings.cs" />
@@ -582,6 +587,11 @@
     <Compile Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.Designer.cs" Link="EnigmaAnalyzer/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.resx" LogicalName="CrypTool.EnigmaAnalyzer.Properties.Resources.resources" Link="EnigmaAnalyzer/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/EnigmaAnalyzer/Properties/Resources.de.resx" LogicalName="CrypTool.EnigmaAnalyzer.Properties.Resources.de.resources" Link="EnigmaAnalyzer/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ExposureNotification/ExposureNotificationSettings.cs" Link="ExposureNotification/ExposureNotificationSettings.cs" />
+    <Compile Include="../../CrypPlugins/ExposureNotification/ExposureNotification.cs" Link="ExposureNotification/ExposureNotification.cs" />
+    <Compile Include="../../CrypPlugins/ExposureNotification/Properties/Resources.Designer.cs" Link="ExposureNotification/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ExposureNotification/Properties/Resources.resx" LogicalName="ExposureNotification.Properties.Resources.resources" Link="ExposureNotification/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ExposureNotification/Properties/Resources.de.resx" LogicalName="ExposureNotification.Properties.Resources.de.resources" Link="ExposureNotification/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL_Algorithms.cs" Link="FEAL/FEAL_Algorithms.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEAL.cs" Link="FEAL/FEAL.cs" />
     <Compile Include="../../CrypPlugins/FEAL/FEALSettings.cs" Link="FEAL/FEALSettings.cs" />
@@ -963,6 +973,11 @@
     <Compile Include="../../CrypPlugins/NumberTheory/NumberTheory.cs" Link="NumberTheory/NumberTheory.cs" />
     <EmbeddedResource Include="../../CrypPlugins/NumberTheory/Properties/Resources.resx" LogicalName="NumberTheory.Properties.Resources.resources" Link="NumberTheory/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/NumberTheory/Properties/Resources.de.resx" LogicalName="NumberTheory.Properties.Resources.de.resources" Link="NumberTheory/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/NumberTools/NumberTools.cs" Link="NumberTools/NumberTools.cs" />
+    <Compile Include="../../CrypPlugins/NumberTools/NumberToolsSettings.cs" Link="NumberTools/NumberToolsSettings.cs" />
+    <Compile Include="../../CrypPlugins/NumberTools/Properties/Resources.Designer.cs" Link="NumberTools/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/NumberTools/Properties/Resources.resx" LogicalName="NumberTools.Properties.Resources.resources" Link="NumberTools/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/NumberTools/Properties/Resources.de.resx" LogicalName="NumberTools.Properties.Resources.de.resources" Link="NumberTools/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Numbers/NumberSettings.cs" Link="Numbers/NumberSettings.cs" />
     <Compile Include="../../CrypPlugins/Numbers/NumberInputSettings.cs" Link="Numbers/NumberInputSettings.cs" />
     <Compile Include="../../CrypPlugins/Numbers/NumberOperations.cs" Link="Numbers/NumberOperations.cs" />
@@ -978,6 +993,11 @@
     <Compile Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.Designer.cs" Link="ObliviousTransfer2/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.resx" LogicalName="ObliviousTransfer2.Properties.Resources.resources" Link="ObliviousTransfer2/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ObliviousTransfer2/Properties/Resources.de.resx" LogicalName="ObliviousTransfer2.Properties.Resources.de.resources" Link="ObliviousTransfer2/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/OneTimePassword/OneTimePasswordSettings.cs" Link="OneTimePassword/OneTimePasswordSettings.cs" />
+    <Compile Include="../../CrypPlugins/OneTimePassword/OneTimePassword.cs" Link="OneTimePassword/OneTimePassword.cs" />
+    <Compile Include="../../CrypPlugins/OneTimePassword/Properties/Resources.Designer.cs" Link="OneTimePassword/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/OneTimePassword/Properties/Resources.resx" LogicalName="OneTimePassword.Properties.Resources.resources" Link="OneTimePassword/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/OneTimePassword/Properties/Resources.de.resx" LogicalName="OneTimePassword.Properties.Resources.de.resources" Link="OneTimePassword/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/PKCS5/PKCS5.cs" Link="PKCS5/PKCS5.cs" />
     <Compile Include="../../CrypPlugins/PKCS5/PKCS5Settings.cs" Link="PKCS5/PKCS5Settings.cs" />
     <Compile Include="../../CrypPlugins/PKCS5/Properties/Resources.Designer.cs" Link="PKCS5/Properties/Resources.Designer.cs" />

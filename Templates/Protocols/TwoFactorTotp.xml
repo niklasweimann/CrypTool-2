@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TwoFactorTotp.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Two-Factor Authentication: TOTP</title>
+  <summary lang="en"><i>Two-Factor Authentication: TOTP</i></summary>
+  <description lang="en">The time-based one-time password of RFC 6238 for a time and a shared secret.</description>
+  <keywords lang="en">two-factor, TOTP, HOTP, one-time password, authenticator</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The values are the test case of RFC 6238: the time 1111111109 gives the code 07081804. Choose HOTP in the settings of the {\\b One-Time Password} component to use a counter." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zwei-Faktor-Authentisierung: TOTP</title>
+  <summary lang="de"><i>Zwei-Faktor-Authentisierung: TOTP</i></summary>
+  <description lang="de">Das zeitbasierte Einmalpasswort nach RFC 6238 für eine Zeit und ein gemeinsames Geheimnis.</description>
+  <keywords lang="en">two-factor, TOTP, HOTP, one-time password, authenticator</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Werte sind der Testfall aus RFC 6238: Die Zeit 1111111109 ergibt den Code 07081804. Wählen Sie in den Einstellungen der Komponente {\\b Einmalpasswort} HOTP, um einen Zähler zu benutzen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TwoFactorTotp.png" />
+  <relevantPlugins>
+    <plugin name="OneTimePassword" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ReciprocalSubtraction.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Reciprocal Subtraction</title>
+  <summary lang="en"><i>Reciprocal Subtraction</i></summary>
+  <description lang="en">The greatest common divisor of two numbers by repeated subtraction.</description>
+  <keywords lang="en">reciprocal subtraction, euclid, gcd, anthyphairesis</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Each line shows how often the smaller number is subtracted from the larger one and what remains; the last remainder before zero is the greatest common divisor." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Reziproke Subtraktion</title>
+  <summary lang="de"><i>Reziproke Subtraktion</i></summary>
+  <description lang="de">Der größte gemeinsame Teiler zweier Zahlen durch wiederholte Subtraktion.</description>
+  <keywords lang="en">reciprocal subtraction, euclid, gcd, anthyphairesis</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Jede Zeile zeigt, wie oft die kleinere Zahl von der größeren abgezogen wird und was übrig bleibt; der letzte Rest vor null ist der größte gemeinsame Teiler." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ReciprocalSubtraction.png" />
+  <relevantPlugins>
+    <plugin name="NumberTools" />
+  </relevantPlugins>
+</sample>

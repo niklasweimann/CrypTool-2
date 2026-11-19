@@ -54,6 +54,7 @@ public static class ComponentTests
         RainbowSideChannelHuffman();
         KeySearchTests();
         AnalysisTests();
+        ToolTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1149,6 +1150,53 @@ public static class ComponentTests
         var big = global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt(plain, 6, Enumerable.Range(0, 9).Select(i => (i * 5 + 1) % 4).ToArray());
         Check(global::ClassicAnalysis.ClassicAnalyses.FleissnerAnalysis(big, 6, 1)[0].Text == padded6, "Fleissner analysis: a 6 x 6 grille (262144 grilles) is found as well");
     }
+
+    static void ToolTests()
+    {
+        // number tools
+        var big = System.Numerics.BigInteger.Pow(2, 100);
+        Check(global::NumberTools.NumberFacts.Digits(big, 10) == 31 && global::NumberTools.NumberFacts.Bits(big) == 101 && global::NumberTools.NumberFacts.Bytes(big) == 13 && global::NumberTools.NumberFacts.Digits(big, 16) == 26 && global::NumberTools.NumberFacts.Digits(0, 10) == 1 && global::NumberTools.NumberFacts.Digits(999, 10) == 3 && global::NumberTools.NumberFacts.Digits(1000, 10) == 4, "number length: 2^100 has 31 decimal digits, 101 bits, 13 bytes and 26 hexadecimal digits; 999 has 3 and 1000 has 4 digits");
+        var steps = new List<global::NumberTools.NumberFacts.Step>();
+        Check(global::NumberTools.NumberFacts.ReciprocalSubtraction(252, 105, steps) == 21 && steps.Count == 3 && steps[0].Quotient == 2 && steps[0].Remainder == 42 && steps[1].Quotient == 2 && steps[2].Quotient == 2, "reciprocal subtraction: gcd(252, 105) = 21 in three steps (252 = 2 * 105 + 42, 105 = 2 * 42 + 21, 42 = 2 * 21)");
+        var rnd = new Random(5);
+        bool gcdOk = true;
+        for (int i = 0; i < 200; i++) { var a = new System.Numerics.BigInteger(rnd.NextInt64(1, 1000000000000)); var b = new System.Numerics.BigInteger(rnd.NextInt64(1, 1000000000000)); gcdOk &= global::NumberTools.NumberFacts.ReciprocalSubtraction(a, b, new List<global::NumberTools.NumberFacts.Step>()) == System.Numerics.BigInteger.GreatestCommonDivisor(a, b); }
+        Check(gcdOk, "reciprocal subtraction: equals the greatest common divisor of .NET for 200 random pairs");
+
+        // convolutional code (7, 5): 1011 gives 11 10 00 01 01 11, and every combination of two bit errors is corrected
+        Check(global::ConvolutionalCode.ConvolutionalCoding.Encode("1011") == "111000010111", "convolutional code (7, 5): 1011 is coded as 11 10 00 01 01 11 (with the two tail bits)");
+        Check(global::ConvolutionalCode.ConvolutionalCoding.Decode("111000010111") == "1011", "Viterbi decoder: the error-free code gives the message back");
+        string message = "10110100111010", coded = global::ConvolutionalCode.ConvolutionalCoding.Encode(message);
+        bool single = Enumerable.Range(1, coded.Length).All(p => global::ConvolutionalCode.ConvolutionalCoding.Decode(global::ConvolutionalCode.ConvolutionalCoding.Flip(coded, new[] { p })) == message);
+        bool pairs = true;
+        for (int p = 1; p <= coded.Length; p++) { for (int q = p + 1; q <= coded.Length; q++) { pairs &= global::ConvolutionalCode.ConvolutionalCoding.Decode(global::ConvolutionalCode.ConvolutionalCoding.Flip(coded, new[] { p, q })) == message; } }
+        Check(single && pairs, $"Viterbi decoder: every single error and every pair of errors in the {coded.Length} coded bits is corrected (free distance 5)");
+        Check(global::ConvolutionalCode.ConvolutionalCoding.Decode(global::ConvolutionalCode.ConvolutionalCoding.Flip(coded, new[] { 1, 2, 3, 4, 5, 6 })) != message, "Viterbi decoder: six errors in a row are too many");
+
+        // one-time passwords: RFC 4226 appendix D and RFC 6238 appendix B
+        byte[] secret = System.Text.Encoding.ASCII.GetBytes("12345678901234567890");
+        var hotp = Enumerable.Range(0, 10).Select(c => global::OneTimePassword.OneTimePasswords.Hotp(secret, c, 6, 0)).ToArray();
+        Check(string.Join(" ", hotp) == "755224 287082 359152 969429 338314 254676 287922 162583 399871 520489", "HOTP: the ten test values of RFC 4226 (755224 287082 359152 969429 338314 254676 287922 162583 399871 520489)");
+        var totp = new long[] { 59, 1111111109, 1111111111, 1234567890, 2000000000, 20000000000 }.Select(t => global::OneTimePassword.OneTimePasswords.Totp(secret, t, 30, 8, 0)).ToArray();
+        Check(string.Join(" ", totp) == "94287082 07081804 14050471 89005924 69279037 65353130", "TOTP (SHA-1): the test values of RFC 6238 for 59, 1111111109, 1111111111, 1234567890, 2000000000 and 20000000000");
+        Check(global::OneTimePassword.OneTimePasswords.Totp(System.Text.Encoding.ASCII.GetBytes("12345678901234567890123456789012"), 59, 30, 8, 1) == "46119246" && global::OneTimePassword.OneTimePasswords.Totp(System.Text.Encoding.ASCII.GetBytes("1234567890123456789012345678901234567890123456789012345678901234"), 59, 30, 8, 2) == "90693936", "TOTP: the SHA-256 and SHA-512 test values of RFC 6238 at time 59");
+        Check(global::OneTimePassword.OneTimePasswords.Base32("GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ").SequenceEqual(secret), "Base32: GEZDGNBVGY3TQOJQ... is 12345678901234567890");
+
+        // Exposure Notification: HKDF against .NET, RPI against AES of .NET, and the metadata round trip
+        byte[] tek = Enumerable.Range(0, 16).Select(i => (byte)(i * 17 + 3)).ToArray();
+        byte[] rpik = global::ExposureNotification.ExposureNotificationKeys.RollingProximityKey(tek);
+        Check(rpik.SequenceEqual(System.Security.Cryptography.HKDF.DeriveKey(System.Security.Cryptography.HashAlgorithmName.SHA256, tek, 16, null, System.Text.Encoding.ASCII.GetBytes("EN-RPIK"))) && global::ExposureNotification.ExposureNotificationKeys.MetadataKey(tek).SequenceEqual(System.Security.Cryptography.HKDF.DeriveKey(System.Security.Cryptography.HashAlgorithmName.SHA256, tek, 16, null, System.Text.Encoding.ASCII.GetBytes("EN-AEMK"))), "Exposure Notification: RPIK and AEMK equal HKDF-SHA-256 of .NET with the labels EN-RPIK and EN-AEMK");
+        uint interval = 2670000;
+        var block = new byte[16]; System.Text.Encoding.ASCII.GetBytes("EN-RPI").CopyTo(block, 0); BitConverter.GetBytes(interval).CopyTo(block, 12);
+        byte[] expected = System.Security.Cryptography.Aes.Create().Let(a => { a.Key = rpik; return a.EncryptEcb(block, System.Security.Cryptography.PaddingMode.None); });
+        byte[] rpi = global::ExposureNotification.ExposureNotificationKeys.RollingProximityIdentifier(tek, interval);
+        Check(rpi.SequenceEqual(expected) && !rpi.SequenceEqual(global::ExposureNotification.ExposureNotificationKeys.RollingProximityIdentifier(tek, interval + 1)), "Exposure Notification: the identifier is AES-128(RPIK, \"EN-RPI\" || 0 || interval) and changes with every interval");
+        byte[] metadata = { 0x40, 0xe2, 0x00, 0x00 };
+        byte[] encrypted = global::ExposureNotification.ExposureNotificationKeys.EncryptMetadata(tek, rpi, metadata);
+        Check(!encrypted.SequenceEqual(metadata) && global::ExposureNotification.ExposureNotificationKeys.EncryptMetadata(tek, rpi, encrypted).SequenceEqual(metadata), "Exposure Notification: the metadata are encrypted and the same operation decrypts them");
+    }
+
+    static T2 Let<T, T2>(this T value, Func<T, T2> f) => f(value);
 
     static void ProtocolVisualization()
     {

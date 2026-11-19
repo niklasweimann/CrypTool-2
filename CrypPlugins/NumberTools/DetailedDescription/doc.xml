@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The length of a number matters in cryptography because the size of the numbers measures the security of RSA and similar systems: the modulus of an RSA key has 2048 bits or more, which is a number of more than 600 decimal digits. Reciprocal subtraction (anthyphairesis) is the oldest form of the Euclidean algorithm: the smaller number is subtracted from the larger one again and again, and then the roles are swapped; the last non-zero value is the greatest common divisor. Counting the repeated subtractions of a step gives the quotient of the division with remainder.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Länge einer Zahl ist in der Kryptografie wichtig, weil die Größe der Zahlen die Sicherheit von RSA und ähnlichen Verfahren misst: Der Modul eines RSA-Schlüssels hat 2048 Bit oder mehr, eine Zahl mit mehr als 600 Dezimalstellen. Die reziproke Subtraktion (Anthyphairesis) ist die älteste Form des euklidischen Algorithmus: Die kleinere Zahl wird immer wieder von der größeren abgezogen, dann werden die Rollen getauscht; der letzte Wert ungleich null ist der größte gemeinsame Teiler. Die wiederholten Subtraktionen eines Schritts ergeben den Quotienten der Division mit Rest.
+  </introduction>
+  <usage lang="en">
+    Choose the function in the settings. Length: connect a number; the output is the number of digits in the chosen base, the report adds bits and bytes. Reciprocal subtraction: connect two numbers.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Funktion in den Einstellungen. Länge: Verbinden Sie eine Zahl; der Ausgang ist die Anzahl der Stellen zur gewählten Basis, der Bericht nennt zusätzlich Bits und Bytes. Reziproke Subtraktion: Verbinden Sie zwei Zahlen.
+  </usage>
+</documentation>

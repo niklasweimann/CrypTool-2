@@ -1110,6 +1110,30 @@ TEMPLATES += [
 ]
 
 
+TEMPLATES += [
+    tool("Tools/NumberLength", "NumberTools.NumberTools", [("InputA", "1267650600228229401496703205376")], ["Result", "Report"], dict(Mode="0", Base="10"),
+         "Length of a Number", "Länge einer Zahl", "The number of digits, bits and bytes of the number 2^100.", "Die Anzahl der Stellen, Bits und Bytes der Zahl 2^100.",
+         "Enter any number. The base of the digits can be changed in the settings of the {\\\\b Number Tools} component.", "Geben Sie eine beliebige Zahl ein. Die Basis der Stellen lässt sich in den Einstellungen der Komponente {\\\\b Zahlenwerkzeuge} ändern.",
+         "length of a number, digits, bits, size"),
+    tool("Mathematics/ReciprocalSubtraction", "NumberTools.NumberTools", [("InputA", "252"), ("InputB", "105")], ["Result", "Report"], dict(Mode="1"),
+         "Reciprocal Subtraction", "Reziproke Subtraktion", "The greatest common divisor of two numbers by repeated subtraction.", "Der größte gemeinsame Teiler zweier Zahlen durch wiederholte Subtraktion.",
+         "Each line shows how often the smaller number is subtracted from the larger one and what remains; the last remainder before zero is the greatest common divisor.",
+         "Jede Zeile zeigt, wie oft die kleinere Zahl von der größeren abgezogen wird und was übrig bleibt; der letzte Rest vor null ist der größte gemeinsame Teiler.", "reciprocal subtraction, euclid, gcd, anthyphairesis", input_height=80),
+    tool("Codes/ViterbiDecoder", "ConvolutionalCode.ConvolutionalCode", [("InputBits", "1011010011101"), ("ErrorPositions", "3 11")], ["Encoded", "Received", "Decoded", "Report"], dict(),
+         "Convolutional Code and Viterbi Decoder", "Faltungscode und Viterbi-Decoder", "A message is coded with a convolutional code, two bits are flipped and the Viterbi decoder corrects them.", "Eine Nachricht wird mit einem Faltungscode codiert, zwei Bits werden gekippt, und der Viterbi-Decoder korrigiert sie.",
+         "Change the positions of the errors: any two errors are corrected, because the free distance of the code is 5. Add a third close to them to see the decoder fail.",
+         "Ändern Sie die Positionen der Fehler: Beliebige zwei Fehler werden korrigiert, weil die freie Distanz des Codes 5 ist. Fügen Sie einen dritten in ihrer Nähe hinzu, um den Decoder scheitern zu sehen.", "Viterbi, convolutional code, error correction, trellis", input_height=80),
+    tool("Protocols/TwoFactorTotp", "OneTimePassword.OneTimePassword", [("Secret", "12345678901234567890"), ("CounterOrTime", "1111111109")], ["Code"], dict(Mode="1", Algorithm="0", Digits="8", Period="30", SecretFormat="0"),
+         "Two-Factor Authentication: TOTP", "Zwei-Faktor-Authentisierung: TOTP", "The time-based one-time password of RFC 6238 for a time and a shared secret.", "Das zeitbasierte Einmalpasswort nach RFC 6238 für eine Zeit und ein gemeinsames Geheimnis.",
+         "The values are the test case of RFC 6238: the time 1111111109 gives the code 07081804. Choose HOTP in the settings of the {\\\\b One-Time Password} component to use a counter.",
+         "Die Werte sind der Testfall aus RFC 6238: Die Zeit 1111111109 ergibt den Code 07081804. Wählen Sie in den Einstellungen der Komponente {\\\\b Einmalpasswort} HOTP, um einen Zähler zu benutzen.", "two-factor, TOTP, HOTP, one-time password, authenticator", input_height=80),
+    tool("Protocols/ExposureNotification", "ExposureNotification.ExposureNotification", [("TemporaryExposureKey", "03142536475869708192A3B4C5D6E7F8"), ("IntervalNumber", "2670000"), ("Metadata", "40E20000")], ["RollingProximityIdentifier", "EncryptedMetadata", "Report"], dict(),
+         "Exposure Notification (Corona-Warn-App)", "Exposure Notification (Corona-Warn-App)", "The Rolling Proximity Identifier that a phone sends in one 10-minute interval, derived from its daily key.", "Der Rolling Proximity Identifier, den ein Telefon in einem 10-Minuten-Intervall sendet, abgeleitet aus seinem Tagesschlüssel.",
+         "Change the interval number: every interval gives another identifier that cannot be linked to the others without the daily key.",
+         "Ändern Sie die Intervallnummer: Jedes Intervall ergibt einen anderen Identifier, der ohne den Tagesschlüssel nicht mit den anderen verknüpft werden kann.", "Corona, exposure notification, HKDF, AES, privacy", input_height=80),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

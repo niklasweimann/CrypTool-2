@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ExposureNotification.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Exposure Notification (Corona-Warn-App)</title>
+  <summary lang="en"><i>Exposure Notification (Corona-Warn-App)</i></summary>
+  <description lang="en">The Rolling Proximity Identifier that a phone sends in one 10-minute interval, derived from its daily key.</description>
+  <keywords lang="en">Corona, exposure notification, HKDF, AES, privacy</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the interval number: every interval gives another identifier that cannot be linked to the others without the daily key." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Exposure Notification (Corona-Warn-App)</title>
+  <summary lang="de"><i>Exposure Notification (Corona-Warn-App)</i></summary>
+  <description lang="de">Der Rolling Proximity Identifier, den ein Telefon in einem 10-Minuten-Intervall sendet, abgeleitet aus seinem Tagesschlüssel.</description>
+  <keywords lang="en">Corona, exposure notification, HKDF, AES, privacy</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Intervallnummer: Jedes Intervall ergibt einen anderen Identifier, der ohne den Tagesschlüssel nicht mit den anderen verknüpft werden kann." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ExposureNotification.png" />
+  <relevantPlugins>
+    <plugin name="ExposureNotification" />
+  </relevantPlugins>
+</sample>

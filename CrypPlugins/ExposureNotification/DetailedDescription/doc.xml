@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Contact tracing apps such as the Corona-Warn-App use the Exposure Notification framework of Apple and Google. Every day the phone makes a random Temporary Exposure Key. From it the keys RPIK and AEMK are derived with HKDF-SHA-256, and every 10 minutes a new Rolling Proximity Identifier is made by encrypting the text "EN-RPI", zeros and the interval number with AES-128 under RPIK. Phones that are near each other exchange these identifiers by Bluetooth; they cannot be linked to a person or to each other. If someone is infected, the daily keys of the days in question are published, and every phone can compute the identifiers again and compare them with those it has heard.
+  </introduction>
+  <introduction lang="de-DE">
+    Kontaktverfolgungs-Apps wie die Corona-Warn-App benutzen das Exposure-Notification-Framework von Apple und Google. Jeden Tag erzeugt das Telefon einen zufälligen Temporary Exposure Key. Daraus werden mit HKDF-SHA-256 die Schlüssel RPIK und AEMK abgeleitet, und alle 10 Minuten entsteht ein neuer Rolling Proximity Identifier, indem der Text „EN-RPI“, Nullen und die Intervallnummer mit AES-128 unter RPIK verschlüsselt werden. Telefone in der Nähe tauschen diese Identifier per Bluetooth aus; sie lassen sich weder einer Person noch einander zuordnen. Ist jemand infiziert, werden die Tagesschlüssel der betreffenden Tage veröffentlicht, und jedes Telefon kann die Identifier neu berechnen und mit den gehörten vergleichen.
+  </introduction>
+  <usage lang="en">
+    Connect the Temporary Exposure Key (32 hexadecimal digits) and the interval number; the output is the Rolling Proximity Identifier of that interval. Optionally connect 4 bytes of metadata to get them encrypted.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie den Temporary Exposure Key (32 Hexadezimalziffern) und die Intervallnummer; der Ausgang ist der Rolling Proximity Identifier dieses Intervalls. Optional können Sie 4 Byte Metadaten verbinden, um sie verschlüsseln zu lassen.
+  </usage>
+</documentation>
