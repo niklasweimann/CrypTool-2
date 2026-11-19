@@ -36,10 +36,10 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 | 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
-| 3b Restliche Einträge (auf Wunsch: „alle 61 versuchen“) | **47 von 61 umgesetzt**, 14 offen mit Begründung (siehe unten) |
+| 3b Restliche Einträge (auf Wunsch: „alle 61 versuchen“) | **53 von 61 umgesetzt**, 8 offen mit Begründung (siehe unten); MARS, MISTY1 und SAFER+ kamen nach einer Web-Recherche nach den Spezifikationen dazu |
 | 3 Visualisierungen, Spiele | **fertig**: alle Visualisierungen und Lernspiele der Funktionsliste sind abgedeckt (Plugins `CipherVisualization`, `MathVisualization`, `ProtocolVisualization`, `RandomVisualization`, `NumberShark`, `DivisorGame`, `Sudoku`, `AntColony`, `PatternLock`, `Kleptography`; Templates unter `Cryptography/`, `Protocols/`, `Tools/` und `Games/`) |
 
-Abdeckung: 328 von 342 Einträgen (14 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
+Abdeckung: 334 von 342 Einträgen (8 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
 
 | Plugin | Inhalt |
 |---|---|
@@ -92,17 +92,17 @@ Abdeckung: 328 von 342 Einträgen (14 offen). Neue Plugins in `CrypPlugins/` (al
 | `Barcode` | EAN-13 und EAN-8 mit Prüfziffer |
 | `CipherIdentification` | Schätzung der Chiffre aus Koinzidenzindex, Entropie, Alphabet und Periode |
 | `VerySmoothHash` | Very Smooth Hash nach der Definition (Block- und Paddingwahl sind eigene Entscheidungen) |
+| `ExtraBlockCiphers` | MARS (alle 120 Known-Answer-Tests von IBM, überarbeitete Schlüsselaufbereitung), MISTY1 (Tabellen und Aufbau aus RFC 2994, zwei veröffentlichte Testvektoren) und SAFER+ (öffentliche Testvektoren für 128, 192 und 256 Bit, Bias-Tabelle des Referenzcodes); ECB, CMAC, CBC-MAC; auch in `KeySearch` |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
-Was von den 14 offenen Einträgen bleibt und warum. Alle anderen der ursprünglich 61 sind jetzt umgesetzt oder einem Template zugeordnet.
+Was von den 8 offenen Einträgen bleibt und warum. Alle anderen der ursprünglich 61 sind jetzt umgesetzt oder einem Template zugeordnet. MARS, MISTY1 und SAFER+ wurden nach einer Web-Recherche nach den Originalspezifikationen (IBM-Veröffentlichung mit S-Box und Testvektoren, RFC 2994, öffentlich gemeinfreier Referenzcode von LibTomCrypt) gebaut und gegen deren Testvektoren geprüft.
 
 | Einträge | Grund |
 |---|---|
-| MARS, MARS MAC, MARS-Angriff | Die 512-Wort-S-Box von MARS ist nicht aus der Spezifikation herleitbar (sie wurde nach einer SHA-1-Erzeugung durch eine Suche nach Eigenschaften angepasst); ohne die Tabelle oder einen Testvektor lässt sich die Chiffre nicht prüfbar bauen |
-| Misty, Misty MAC | Die S-Boxen S7 und S9 und die Konstanten stehen nur als Tabellen in der Spezifikation; keine Referenz zum Prüfen |
-| SAFER+, SAFER++ | Der Aufbau (Exponent und Logarithmus zur Basis 45 modulo 257, Pseudo-Hadamard-Transformationen) ist bekannt, aber die genaue Schlüsselaufbereitung und die Mischreihenfolge sind aus dem Gedächtnis nicht sicher genug, und es gibt keinen Testvektor |
-| DHA, DHA MAC, FORK, FORK MAC, TwoTrack MAC | Spezifikationen und Konstanten dieser Hashfunktionen sind ohne Quelle nicht verfügbar; auf eine Erfindung „im Stil von“ wurde bewusst verzichtet |
-| Dragon | Stromchiffre mit zwei großen S-Boxen und festen Konstanten; ohne Spezifikation nicht prüfbar |
+| DHA, DHA MAC, FORK, FORK MAC | Die Spezifikationen (NIST-Hash-Workshop 2005 bzw. FSE 2006) waren nicht abrufbar: Die Server lieferten nur eine Weiterleitungsseite, die Springer-Fassung ist bezahlpflichtig. FORK-256 hat außerdem zwei Fassungen (Original und „tweaked“); ohne Konstanten und Testvektoren ist eine Umsetzung nicht prüfbar |
+| SAFER++ | Die NESSIE-Spezifikation (anderer Schlüsselaufbau und andere Mischschicht als SAFER+) war nicht abrufbar; es fand sich keine freie Referenzimplementierung |
+| TwoTrack MAC | Das Verfahren (den Boer, Van Rompay, Preneel, Vandewalle, 2001) baut auf den zwei Spuren von RIPEMD auf; das Papier war nicht abrufbar, es gibt keine Testvektoren |
+| Dragon | Die zwei 8x32-S-Boxen sind nur in der Referenzimplementierung bzw. im ausführlichen eSTREAM-Dokument angegeben; die ecrypt-Seite antwortete mit Fehlern, die kurze Beschreibung enthält die Tabellen nicht |
 | Web-Terminal | Kein kryptografisches Verfahren, sondern ein Kommandozeilen-Zugang auf der Webseite von CrypTool-Online; im Browser-Programm nicht sinnvoll |
 
 Zuordnungen, die eine Näherung sind und geprüft werden sollten: OpenSSL (CTO-Werkzeug für Schlüssel und Zertifikate) wird durch das Schlüsselwerkzeug abgedeckt, SPHINCS durch SPHINCS+, MD durch MD2, MD4 und MD5, Periodizität durch die Kasiski- und Autokorrelations-Vorlage. Die vier Methoden der Kleptographie und der Aufbau von VSH, CFS (kleine Parameter), DGHV statt des Gitterverfahrens von Gentry und Halevi sowie die Wahl der DESL-Eigenschaften (Anfangs- und Endpermutation bleiben erhalten) sind eigene Entscheidungen, weil die Quellcodes von CT1 und JCT nicht benutzt wurden und für einige davon keine Testvektoren verfügbar waren; die Einzel-S-Box von DESL ist aus dem Artikel erinnert und erfüllt die Entwurfskriterien der DES-S-Boxen.
@@ -133,7 +133,7 @@ Die Punkte der Plan-Aufzählung einzeln, mit der Komponente und dem Template, di
 | Android-Muster | `PatternLock` (neu) | `Games/PatternLock` |
 | Huffman-Fehlerkorrektur | `HuffmanErrors` (neu) | `Codes/HuffmanBitError`, `Codes/HuffmanErrorCorrection` |
 
-*Stand der Erweiterung:* Auf Wunsch wurden auch die übrigen Einträge versucht; 47 sind umgesetzt, 14 bleiben offen, weil Konstanten oder Spezifikationen fehlen (siehe oben).
+*Stand der Erweiterung:* Auf Wunsch wurden auch die übrigen Einträge versucht; 53 sind umgesetzt, 8 bleiben offen, weil Spezifikationen nicht abrufbar waren (siehe oben).
 
 *Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster und die Kleptographie hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 
