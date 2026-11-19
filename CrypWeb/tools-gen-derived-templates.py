@@ -1195,6 +1195,50 @@ TEMPLATES += [
 ]
 
 
+HYBRID = dict(
+    base="Tools/RandomNumberGenerators", plugin="HybridEncryption",
+    edits=[dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+           dict(add=dict(type="CrypTool.TextInput.TextInput", x=40, y=40, w=320, h=80, settings=dict(Text="Meet me at the old bridge at midnight."))),
+           dict(add=dict(type="CrypTool.TextInput.TextInput", x=40, y=180, w=320, h=200, settings=dict(Text=SAMPLE_RSA_PUBLIC))),
+           dict(add=dict(type="CrypTool.TextInput.TextInput", x=40, y=420, w=320, h=240, settings=dict(Text=SAMPLE_RSA_PRIVATE))),
+           dict(add=dict(type="HybridEncryption.HybridEncryption", x=420, y=40, w=300, h=140, settings=dict(Mode="0"))),
+           dict(add=dict(type="HybridEncryption.HybridEncryption", x=780, y=40, w=300, h=140, settings=dict(Mode="1"))),
+           dict(add=dict(type="TextOutput.TextOutput", x=420, y=260, w=320, h=200)),
+           dict(add=dict(type="TextOutput.TextOutput", x=780, y=260, w=320, h=200)),
+           dict(connect={"from": "CrypTool.TextInput.TextInput#0.TextOutput", "to": "HybridEncryption.HybridEncryption#0.Input"}),
+           dict(connect={"from": "CrypTool.TextInput.TextInput#1.TextOutput", "to": "HybridEncryption.HybridEncryption#0.Key"}),
+           dict(connect={"from": "HybridEncryption.HybridEncryption#0.Output", "to": "HybridEncryption.HybridEncryption#1.Input"}),
+           dict(connect={"from": "CrypTool.TextInput.TextInput#2.TextOutput", "to": "HybridEncryption.HybridEncryption#1.Key"}),
+           dict(connect={"from": "HybridEncryption.HybridEncryption#0.Output", "to": "TextOutput.TextOutput#0.Input"}),
+           dict(connect={"from": "HybridEncryption.HybridEncryption#1.Output", "to": "TextOutput.TextOutput#1.Input"})])
+
+TEMPLATES += [
+    dict(out="Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES", **HYBRID,
+         en=dict(title="Hybrid Encryption (RSA-AES)", summary="<i>Hybrid Encryption (RSA-AES)</i>", description="A message is encrypted with AES-GCM, the AES key with the RSA public key, and decrypted again.", memo="The first component encrypts with the public key, the second decrypts with the private key. The key pair is a 1024-bit demonstration key made with OpenSSL: do not use it for anything else."),
+         de=dict(title="Hybride Verschlüsselung (RSA-AES)", summary="<i>Hybride Verschlüsselung (RSA-AES)</i>", description="Eine Nachricht wird mit AES-GCM verschlüsselt, der AES-Schlüssel mit dem öffentlichen RSA-Schlüssel, und wieder entschlüsselt.", memo="Die erste Komponente verschlüsselt mit dem öffentlichen Schlüssel, die zweite entschlüsselt mit dem privaten. Das Schlüsselpaar ist ein 1024-Bit-Demonstrationsschlüssel, der mit OpenSSL erzeugt wurde: Benutzen Sie ihn für nichts anderes."),
+         keywords="hybrid encryption, RSA, AES, OAEP, GCM"),
+    tool("Cryptography/Modern/Symmetric/PBES2", "PasswordBasedEncryption.PasswordBasedEncryption", [("Input", "Meet me at the old bridge at midnight."), ("Password", "correct horse battery staple")], ["Output", "Report"], dict(Mode="0", Iterations="10000", Hash="1"),
+         "Password-Based Encryption (PBES2)", "Passwortbasierte Verschlüsselung (PBES2)", "A text is encrypted with a key derived from a password (PBKDF2, AES-256-CBC).", "Ein Text wird mit einem aus einem Passwort abgeleiteten Schlüssel verschlüsselt (PBKDF2, AES-256-CBC).",
+         "The result is the ASN.1 structure of PKCS #5 in Base64; a random salt is chosen every time. Choose Decrypt in the settings of the {\\\\b Password-Based Encryption} component and connect the result to decrypt.",
+         "Das Ergebnis ist die ASN.1-Struktur von PKCS #5 in Base64; jedes Mal wird ein zufälliger Salt gewählt. Wählen Sie in den Einstellungen der Komponente {\\\\b Passwortbasierte Verschlüsselung} Entschlüsseln und verbinden Sie das Ergebnis, um zu entschlüsseln.", "PBES2, PBKDF2, password, AES, PKCS5"),
+    tool("Protocols/BurmesterDesmedt", "MultipartyKeyExchange.MultipartyKeyExchange", [("Parameters", "1019 2 17 23 41 59")], ["Key", "Report"], dict(),
+         "Multi-Party Key Exchange (Burmester-Desmedt)", "Schlüsselaustausch für mehrere Teilnehmer (Burmester-Desmedt)", "Four parties in a ring agree on a common key.", "Vier Teilnehmer in einem Ring einigen sich auf einen gemeinsamen Schlüssel.",
+         "The parameters are the prime 1019, the generator 2 and the secret numbers 17, 23, 41 and 59 of the four parties. Add more numbers for more parties.",
+         "Die Parameter sind die Primzahl 1019, der Erzeuger 2 und die geheimen Zahlen 17, 23, 41 und 59 der vier Teilnehmer. Fügen Sie weitere Zahlen für weitere Teilnehmer hinzu.", "multi-party, key exchange, Burmester, Desmedt, conference key", input_height=80),
+    tool("Tools/EllipticCurveRandomGenerator", "EcRandom.EcRandom", [], ["Output", "Report"], dict(Curve="0", Seed="1", Blocks="5"),
+         "Elliptic Curve Random Generator with Backdoor", "Zufallsgenerator auf elliptischen Kurven mit Hintertür", "A Dual_EC_DRBG-style generator and the prediction of its output with the backdoor.", "Ein Generator im Stil von Dual_EC_DRBG und die Vorhersage seiner Ausgabe mit der Hintertür.",
+         "The attack needs two blocks and tries 65536 values; it then predicts all further blocks.", "Der Angriff braucht zwei Blöcke und probiert 65536 Werte; danach sagt er alle weiteren Blöcke voraus.", "elliptic curve, random number generator, Dual_EC_DRBG, backdoor"),
+    tool("Cryptography/Modern/Asymmetric/HomomorphicPaillier", "HomomorphicEncryption.HomomorphicEncryption", [("InputA", "12345"), ("InputB", "6789")], ["Result", "Report"], dict(Scheme="1", Seed="1"),
+         "Homomorphic Encryption: Paillier", "Homomorphe Verschlüsselung: Paillier", "Two numbers are encrypted, added in encrypted form and decrypted: 12345 + 6789.", "Zwei Zahlen werden verschlüsselt, in verschlüsselter Form addiert und entschlüsselt: 12345 + 6789.",
+         "Choose RSA or DGHV in the settings of the {\\\\b Homomorphic Encryption} component to see multiplication and the noise of a fully homomorphic scheme.",
+         "Wählen Sie in den Einstellungen der Komponente {\\\\b Homomorphe Verschlüsselung} RSA oder DGHV, um die Multiplikation und das Rauschen eines voll homomorphen Verfahrens zu sehen.", "homomorphic encryption, Paillier, RSA, DGHV, Gentry", input_height=80),
+    tool("Cryptography/Modern/Asymmetric/HomomorphicDGHV", "HomomorphicEncryption.HomomorphicEncryption", [("InputA", "1"), ("InputB", "1")], ["Result", "Report"], dict(Scheme="2", Seed="1"),
+         "Homomorphic Encryption: DGHV (fully homomorphic)", "Homomorphe Verschlüsselung: DGHV (voll homomorph)", "Bits are encrypted, XOR and AND are computed on the ciphertexts, and the noise grows until the decryption fails.", "Bits werden verschlüsselt, XOR und UND werden auf den Geheimtexten berechnet, und das Rauschen wächst, bis die Entschlüsselung scheitert.",
+         "Every multiplication makes the noise larger; when it reaches half of the secret number p the decryption is wrong. Gentry's bootstrapping removes the noise.",
+         "Jede Multiplikation vergrößert das Rauschen; erreicht es die Hälfte der geheimen Zahl p, ist die Entschlüsselung falsch. Das Bootstrapping von Gentry entfernt das Rauschen.", "homomorphic encryption, DGHV, fully homomorphic, noise, bootstrapping", input_height=80),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

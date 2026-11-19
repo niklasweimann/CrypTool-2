@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: BurmesterDesmedt.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Multi-Party Key Exchange (Burmester-Desmedt)</title>
+  <summary lang="en"><i>Multi-Party Key Exchange (Burmester-Desmedt)</i></summary>
+  <description lang="en">Four parties in a ring agree on a common key.</description>
+  <keywords lang="en">multi-party, key exchange, Burmester, Desmedt, conference key</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are the prime 1019, the generator 2 and the secret numbers 17, 23, 41 and 59 of the four parties. Add more numbers for more parties." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Schlüsselaustausch für mehrere Teilnehmer (Burmester-Desmedt)</title>
+  <summary lang="de"><i>Schlüsselaustausch für mehrere Teilnehmer (Burmester-Desmedt)</i></summary>
+  <description lang="de">Vier Teilnehmer in einem Ring einigen sich auf einen gemeinsamen Schlüssel.</description>
+  <keywords lang="en">multi-party, key exchange, Burmester, Desmedt, conference key</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind die Primzahl 1019, der Erzeuger 2 und die geheimen Zahlen 17, 23, 41 und 59 der vier Teilnehmer. Fügen Sie weitere Zahlen für weitere Teilnehmer hinzu." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="BurmesterDesmedt.png" />
+  <relevantPlugins>
+    <plugin name="MultipartyKeyExchange" />
+  </relevantPlugins>
+</sample>

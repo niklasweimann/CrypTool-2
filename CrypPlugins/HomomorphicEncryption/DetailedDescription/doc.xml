@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A homomorphic encryption scheme lets someone calculate with encrypted data without the key. Textbook RSA is multiplicatively homomorphic: E(a) * E(b) = E(a * b). The Paillier system is additively homomorphic: E(a) * E(b) = E(a + b), and E(a)^k = E(k * a); it is used for electronic voting. A fully homomorphic scheme supports both addition and multiplication, and so any calculation. The scheme of van Dijk, Gentry, Halevi and Vaikuntanathan (DGHV) encrypts a bit m as m + 2r + pq with a small noise r: the sum of ciphertexts is the XOR and the product the AND of the bits, but every multiplication makes the noise larger, and when it reaches p/2 the decryption is wrong. The bootstrapping of Gentry removes the noise by evaluating the decryption on encrypted data.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein homomorphes Verschlüsselungsverfahren erlaubt es, mit verschlüsselten Daten zu rechnen, ohne den Schlüssel zu kennen. Das Lehrbuch-RSA ist multiplikativ homomorph: E(a) * E(b) = E(a * b). Das Paillier-System ist additiv homomorph: E(a) * E(b) = E(a + b) und E(a)^k = E(k * a); es wird bei elektronischen Wahlen eingesetzt. Ein voll homomorphes Verfahren unterstützt Addition und Multiplikation und damit jede Berechnung. Das Verfahren von van Dijk, Gentry, Halevi und Vaikuntanathan (DGHV) verschlüsselt ein Bit m als m + 2r + pq mit kleinem Rauschen r: Die Summe von Geheimtexten ist das XOR und das Produkt das UND der Bits, aber jede Multiplikation vergrößert das Rauschen, und erreicht es p/2, ist die Entschlüsselung falsch. Das Bootstrapping von Gentry entfernt das Rauschen, indem es die Entschlüsselung auf verschlüsselten Daten auswertet.
+  </introduction>
+  <usage lang="en">
+    Choose the scheme in the settings and connect two numbers (two bits for DGHV). The steps show the ciphertexts, the calculation on the ciphertexts and the decryption.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie das Verfahren in den Einstellungen und verbinden Sie zwei Zahlen (zwei Bits bei DGHV). Die Schritte zeigen die Geheimtexte, die Rechnung mit den Geheimtexten und die Entschlüsselung.
+  </usage>
+</documentation>

@@ -56,6 +56,8 @@ public static class ComponentTests
         AnalysisTests();
         ToolTests();
         KeyAndCertificateTests();
+        EncryptionSchemeTests();
+        EcAndHomomorphicTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1280,6 +1282,95 @@ public static class ComponentTests
             Org.BouncyCastle.Crypto.AsymmetricKeyParameter pub2;
             Check(global::KeyTool.KeyTools.ReadKey(publicPem, out pub2) == null && pub2 != null, "key tool: a public key alone is read without a private key");
         }
+    }
+
+    static void EncryptionSchemeTests()
+    {
+        using var rsa = System.Security.Cryptography.RSA.Create(2048);
+        byte[] pkcs8 = rsa.ExportPkcs8PrivateKey();
+
+        // PBES2: a key encrypted by .NET is decrypted by us (all three hash functions), and a structure made by us is read by .NET
+        var hashes = new[] { System.Security.Cryptography.HashAlgorithmName.SHA1, System.Security.Cryptography.HashAlgorithmName.SHA256, System.Security.Cryptography.HashAlgorithmName.SHA512 };
+        for (int hash = 0; hash < 3; hash++)
+        {
+            byte[] netEncrypted = rsa.ExportEncryptedPkcs8PrivateKey("correct horse", new System.Security.Cryptography.PbeParameters(System.Security.Cryptography.PbeEncryptionAlgorithm.Aes256Cbc, hashes[hash], 2000));
+            Check(global::PasswordBasedEncryption.Pbes2.Decrypt(netEncrypted, "correct horse").SequenceEqual(pkcs8), $"PBES2: a private key encrypted by .NET (PBKDF2 with {hashes[hash].Name}, AES-256-CBC) is decrypted by our component");
+            byte[] ours = global::PasswordBasedEncryption.Pbes2.Encrypt(pkcs8, "battery staple", Enumerable.Range(1, 16).Select(i => (byte)i).ToArray(), Enumerable.Range(17, 16).Select(i => (byte)i).ToArray(), 1500, hash);
+            using var imported = System.Security.Cryptography.RSA.Create();
+            imported.ImportEncryptedPkcs8PrivateKey("battery staple", ours, out _);
+            Check(imported.ExportPkcs8PrivateKey().SequenceEqual(pkcs8), $"PBES2: the structure made by our component (PBKDF2 with {hashes[hash].Name}) is read by .NET and gives the same key");
+        }
+        bool refused = false;
+        try { global::PasswordBasedEncryption.Pbes2.Decrypt(global::PasswordBasedEncryption.Pbes2.Encrypt(new byte[] { 1, 2, 3 }, "a", new byte[8], new byte[16], 10, 1), "b"); } catch (ArgumentException) { refused = true; }
+        Check(refused, "PBES2: a wrong password is refused (the padding is wrong)");
+        Check(global::PasswordBasedEncryption.Pbes2.Decrypt(global::PasswordBasedEncryption.Pbes2.Encrypt(System.Text.Encoding.UTF8.GetBytes("hello world"), "pw", new byte[8], new byte[16], 10, 1), "pw").SequenceEqual(System.Text.Encoding.UTF8.GetBytes("hello world")), "PBES2: encryption and decryption of a short text");
+
+        // hybrid encryption against RSA-OAEP and AES-GCM of .NET
+        string privatePem = rsa.ExportPkcs8PrivateKeyPem(), publicPem = rsa.ExportSubjectPublicKeyInfoPem();
+        byte[] message = System.Text.Encoding.UTF8.GetBytes("Meet me at the old bridge at midnight.");
+        byte[] packet = global::HybridEncryption.HybridEncryptionScheme.Encrypt(message, global::HybridEncryption.HybridEncryptionScheme.ReadKey(publicPem));
+        int length = packet[0] << 8 | packet[1];
+        byte[] wrapped = packet.Skip(2).Take(length).ToArray(), nonce = packet.Skip(2 + length).Take(12).ToArray(), rest = packet.Skip(14 + length).ToArray();
+        byte[] aesKey = rsa.Decrypt(wrapped, System.Security.Cryptography.RSAEncryptionPadding.OaepSHA256);
+        var plain = new byte[message.Length];
+        using (var gcm = new System.Security.Cryptography.AesGcm(aesKey, 16)) { gcm.Decrypt(nonce, rest.Take(message.Length).ToArray(), rest.Skip(message.Length).ToArray(), plain); }
+        Check(length == 256 && aesKey.Length == 32 && plain.SequenceEqual(message), "hybrid encryption: .NET unwraps the AES key (RSA-OAEP, SHA-256) and decrypts the message (AES-256-GCM) of our packet");
+        // a packet made by .NET is decrypted by us
+        byte[] netKey = new byte[32], netNonce = new byte[12], netCipher = new byte[message.Length], netTag = new byte[16];
+        new Random(8).NextBytes(netKey); new Random(9).NextBytes(netNonce);
+        using (var gcm = new System.Security.Cryptography.AesGcm(netKey, 16)) { gcm.Encrypt(netNonce, message, netCipher, netTag); }
+        byte[] netWrapped = rsa.Encrypt(netKey, System.Security.Cryptography.RSAEncryptionPadding.OaepSHA256);
+        byte[] netPacket = new[] { (byte)(netWrapped.Length >> 8), (byte)netWrapped.Length }.Concat(netWrapped).Concat(netNonce).Concat(netCipher).Concat(netTag).ToArray();
+        Check(global::HybridEncryption.HybridEncryptionScheme.Decrypt(netPacket, global::HybridEncryption.HybridEncryptionScheme.ReadKey(privatePem)).SequenceEqual(message), "hybrid encryption: a packet made with .NET is decrypted by our component");
+        packet[packet.Length - 1] ^= 1;
+        bool tampered = false;
+        try { global::HybridEncryption.HybridEncryptionScheme.Decrypt(packet, global::HybridEncryption.HybridEncryptionScheme.ReadKey(privatePem)); } catch (ArgumentException) { tampered = true; }
+        Check(tampered, "hybrid encryption: a changed packet is refused (authentication tag)");
+
+        // Burmester-Desmedt: three to six parties get the same key g^(r1 r2 + r2 r3 + ... + rn r1)
+        bool all = true;
+        for (int parties = 3; parties <= 6; parties++)
+        {
+            var secrets = Enumerable.Range(0, parties).Select(i => new System.Numerics.BigInteger(7 + i * 13 + i * i)).ToList();
+            var result = global::MultipartyKeyExchange.BurmesterDesmedt.Run(1019, 2, secrets);
+            System.Numerics.BigInteger exponent = 0;
+            for (int i = 0; i < parties; i++) { exponent += secrets[i] * secrets[(i + 1) % parties]; }
+            all &= result.Agree && result.Parties.All(x => x.Key == System.Numerics.BigInteger.ModPow(2, exponent, 1019));
+        }
+        Check(all, "Burmester-Desmedt: 3, 4, 5 and 6 parties all compute g^(r1 r2 + r2 r3 + ... + rn r1) mod p");
+        bool bad = false;
+        try { global::MultipartyKeyExchange.BurmesterDesmedt.Run(1021 * 3, 2, new System.Numerics.BigInteger[] { 3, 4, 5 }); } catch (ArgumentException) { bad = true; }
+        try { global::MultipartyKeyExchange.BurmesterDesmedt.Run(1019, 2, new System.Numerics.BigInteger[] { 3, 4 }); bad = false; } catch (ArgumentException) { }
+        Check(bad, "Burmester-Desmedt: a modulus that is not prime and fewer than three parties are refused");
+    }
+
+    static void EcAndHomomorphicTests()
+    {
+        // elliptic curve generator: the backdoor predicts the output; the points are on the curve and P = e * Q
+        var generator = new global::EcRandom.EcGenerator(0, 3, 3);
+        Check(generator.P.IsValid() && generator.Q.IsValid() && generator.P.Equals(generator.Q.Multiply(generator.Backdoor)) && generator.BlockBits == 240, "EC generator: P and Q are points of P-256, P = e * Q, and the blocks have 240 bits");
+        var output = Enumerable.Range(0, 6).Select(i => generator.Next()).ToList();
+        var predicted = generator.Predict(output, 6);
+        Check(predicted.Count == 6 && predicted.Zip(output, (a, b) => a.Equals(b)).All(x => x) && output.Distinct().Count() == 6, "EC generator: from the first two blocks the backdoor predicts the next four blocks (16 bits tried) exactly");
+        var wrong = new global::EcRandom.EcGenerator(0, 3, 3);
+        var other = new global::EcRandom.EcGenerator(0, 4, 3);
+        Check(other.Predict(new List<Org.BouncyCastle.Math.BigInteger> { wrong.Next(), wrong.Next() }, 4).Count == 0, "EC generator: without the right backdoor number the attack finds nothing");
+
+        // homomorphic encryption
+        var rsa = new global::HomomorphicEncryption.Homomorphic.RsaScheme(1);
+        System.Numerics.BigInteger a = 12345, b = 6789;
+        Check(rsa.Decrypt(rsa.Encrypt(a)) == a && rsa.Decrypt(rsa.Multiply(rsa.Encrypt(a), rsa.Encrypt(b))) == a * b % rsa.N, "homomorphic RSA: D(E(a) * E(b)) = a * b mod n");
+        var paillier = new global::HomomorphicEncryption.Homomorphic.PaillierScheme(1);
+        var ca = paillier.Encrypt(a); var cb = paillier.Encrypt(b);
+        Check(paillier.Decrypt(ca) == a && ca != paillier.Encrypt(a) && paillier.Decrypt(paillier.Add(ca, cb)) == a + b && paillier.Decrypt(paillier.Scale(ca, b)) == a * b % paillier.N, "Paillier: encryption is randomized, D(E(a) * E(b)) = a + b and D(E(a)^b) = a * b");
+        var dghv = new global::HomomorphicEncryption.Homomorphic.DghvScheme(1);
+        bool gates = true;
+        for (int x = 0; x <= 1; x++) { for (int y = 0; y <= 1; y++) { var cx = dghv.Encrypt(x); var cy = dghv.Encrypt(y); gates &= dghv.Decrypt(cx) == x && dghv.Decrypt(dghv.Xor(cx, cy)) == (x ^ y) && dghv.Decrypt(dghv.And(cx, cy)) == (x & y); } }
+        Check(gates, "DGHV: the sum of two ciphertexts decrypts to the XOR and the product to the AND of the bits, for all four pairs");
+        var deep = dghv.Encrypt(1);
+        int levels = 0, noise0 = dghv.Noise(deep);
+        for (; levels < 40; levels++) { deep = dghv.And(deep, dghv.Encrypt(1)); if (dghv.Decrypt(deep) != 1) { break; } }
+        Check(levels > 3 && levels < 40 && dghv.Noise(deep) > noise0, $"DGHV: the noise grows with every multiplication (from {noise0} bits); the decryption is wrong after {levels} multiplications, bootstrapping would be needed");
     }
 
     static void ProtocolVisualization()

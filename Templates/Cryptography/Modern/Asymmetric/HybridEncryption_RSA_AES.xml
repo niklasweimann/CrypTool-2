@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HybridEncryption_RSA_AES.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Hybrid Encryption (RSA-AES)</title>
+  <summary lang="en"><i>Hybrid Encryption (RSA-AES)</i></summary>
+  <description lang="en">A message is encrypted with AES-GCM, the AES key with the RSA public key, and decrypted again.</description>
+  <keywords lang="en">hybrid encryption, RSA, AES, OAEP, GCM</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first component encrypts with the public key, the second decrypts with the private key. The key pair is a 1024-bit demonstration key made with OpenSSL: do not use it for anything else." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Hybride Verschlüsselung (RSA-AES)</title>
+  <summary lang="de"><i>Hybride Verschlüsselung (RSA-AES)</i></summary>
+  <description lang="de">Eine Nachricht wird mit AES-GCM verschlüsselt, der AES-Schlüssel mit dem öffentlichen RSA-Schlüssel, und wieder entschlüsselt.</description>
+  <keywords lang="en">hybrid encryption, RSA, AES, OAEP, GCM</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente verschlüsselt mit dem öffentlichen Schlüssel, die zweite entschlüsselt mit dem privaten. Das Schlüsselpaar ist ein 1024-Bit-Demonstrationsschlüssel, der mit OpenSSL erzeugt wurde: Benutzen Sie ihn für nichts anderes." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HybridEncryption_RSA_AES.png" />
+  <relevantPlugins>
+    <plugin name="HybridEncryption" />
+  </relevantPlugins>
+</sample>

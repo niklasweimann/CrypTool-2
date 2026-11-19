@@ -1248,7 +1248,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/EllipticCurveRandomGenerator.cwm": "Tools/EllipticCurveRandomGenerator.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/EllipticCurveRandomGenerator.cwm"
  },
  {
   "name": "EC-Berechnungen",
@@ -1926,7 +1931,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm": "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm"
  },
  {
   "name": "Homophone Substitution",
@@ -2980,7 +2990,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/PBES2.cwm": "Cryptography/Modern/Symmetric/PBES2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/PBES2.cwm"
  },
  {
   "name": "PBKDF-1 (PKCS#5 2.0)",
@@ -3610,7 +3625,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES.cwm": "Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES.cwm"
  },
  {
   "name": "RSA-Signatur",
@@ -3790,7 +3810,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/BurmesterDesmedt.cwm": "Protocols/BurmesterDesmedt.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/BurmesterDesmedt.cwm"
  },
  {
   "name": "Schlüsselsuche",

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HomomorphicDGHV.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Homomorphic Encryption: DGHV (fully homomorphic)</title>
+  <summary lang="en"><i>Homomorphic Encryption: DGHV (fully homomorphic)</i></summary>
+  <description lang="en">Bits are encrypted, XOR and AND are computed on the ciphertexts, and the noise grows until the decryption fails.</description>
+  <keywords lang="en">homomorphic encryption, DGHV, fully homomorphic, noise, bootstrapping</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Every multiplication makes the noise larger; when it reaches half of the secret number p the decryption is wrong. Gentry's bootstrapping removes the noise." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Homomorphe Verschlüsselung: DGHV (voll homomorph)</title>
+  <summary lang="de"><i>Homomorphe Verschlüsselung: DGHV (voll homomorph)</i></summary>
+  <description lang="de">Bits werden verschlüsselt, XOR und UND werden auf den Geheimtexten berechnet, und das Rauschen wächst, bis die Entschlüsselung scheitert.</description>
+  <keywords lang="en">homomorphic encryption, DGHV, fully homomorphic, noise, bootstrapping</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Jede Multiplikation vergrößert das Rauschen; erreicht es die Hälfte der geheimen Zahl p, ist die Entschlüsselung falsch. Das Bootstrapping von Gentry entfernt das Rauschen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HomomorphicDGHV.png" />
+  <relevantPlugins>
+    <plugin name="HomomorphicEncryption" />
+  </relevantPlugins>
+</sample>

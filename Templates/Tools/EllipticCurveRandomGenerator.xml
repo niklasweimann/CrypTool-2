@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: EllipticCurveRandomGenerator.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Elliptic Curve Random Generator with Backdoor</title>
+  <summary lang="en"><i>Elliptic Curve Random Generator with Backdoor</i></summary>
+  <description lang="en">A Dual_EC_DRBG-style generator and the prediction of its output with the backdoor.</description>
+  <keywords lang="en">elliptic curve, random number generator, Dual_EC_DRBG, backdoor</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The attack needs two blocks and tries 65536 values; it then predicts all further blocks." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zufallsgenerator auf elliptischen Kurven mit Hintertür</title>
+  <summary lang="de"><i>Zufallsgenerator auf elliptischen Kurven mit Hintertür</i></summary>
+  <description lang="de">Ein Generator im Stil von Dual_EC_DRBG und die Vorhersage seiner Ausgabe mit der Hintertür.</description>
+  <keywords lang="en">elliptic curve, random number generator, Dual_EC_DRBG, backdoor</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Angriff braucht zwei Blöcke und probiert 65536 Werte; danach sagt er alle weiteren Blöcke voraus." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="EllipticCurveRandomGenerator.png" />
+  <relevantPlugins>
+    <plugin name="EcRandom" />
+  </relevantPlugins>
+</sample>

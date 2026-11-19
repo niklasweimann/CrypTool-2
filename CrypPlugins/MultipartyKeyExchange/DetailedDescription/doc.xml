@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Diffie-Hellman key exchange is made for two parties. The protocol of Burmester and Desmedt gives a common key to n parties in a ring with only two rounds of broadcasts: in the first round every party publishes z_i = g^r_i, in the second X_i = (z_(i+1) / z_(i-1))^r_i, and then every party computes the same key g^(r1 r2 + r2 r3 + ... + rn r1) from its own secret, the two neighbours and the published values. An eavesdropper sees only the published values. The protocol protects against passive attackers; it does not authenticate the parties.
+  </introduction>
+  <introduction lang="de-DE">
+    Der Diffie-Hellman-Schlüsselaustausch ist für zwei Teilnehmer gemacht. Das Protokoll von Burmester und Desmedt gibt n Teilnehmern in einem Ring mit nur zwei Runden von Rundsendungen einen gemeinsamen Schlüssel: In der ersten Runde veröffentlicht jeder z_i = g^r_i, in der zweiten X_i = (z_(i+1) / z_(i-1))^r_i, und dann berechnet jeder aus seinem Geheimnis, den beiden Nachbarn und den veröffentlichten Werten denselben Schlüssel g^(r1 r2 + r2 r3 + ... + rn r1). Ein Lauscher sieht nur die veröffentlichten Werte. Das Protokoll schützt vor passiven Angreifern; es authentifiziert die Teilnehmer nicht.
+  </introduction>
+  <usage lang="en">
+    Connect the parameters "p g r1 r2 r3 ...", for example "1019 2 17 23 41 59" for four parties.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie die Parameter „p g r1 r2 r3 ...“, zum Beispiel „1019 2 17 23 41 59“ für vier Teilnehmer.
+  </usage>
+</documentation>

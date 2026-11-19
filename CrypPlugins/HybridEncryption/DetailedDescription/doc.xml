@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Public-key encryption is slow and can encrypt only short messages, symmetric encryption is fast but needs a shared key. Hybrid encryption combines both: a random AES key encrypts the message (here AES-256 in GCM mode, which also authenticates it), and only this short key is encrypted with the RSA public key of the receiver (RSA-OAEP with SHA-256). The receiver decrypts the AES key with the private key and then the message. This is the structure of S/MIME, PGP and TLS with RSA key exchange.
+  </introduction>
+  <introduction lang="de-DE">
+    Public-Key-Verschlüsselung ist langsam und kann nur kurze Nachrichten verschlüsseln, symmetrische Verschlüsselung ist schnell, braucht aber einen gemeinsamen Schlüssel. Die hybride Verschlüsselung verbindet beides: Ein zufälliger AES-Schlüssel verschlüsselt die Nachricht (hier AES-256 im GCM-Modus, der sie auch authentifiziert), und nur dieser kurze Schlüssel wird mit dem öffentlichen RSA-Schlüssel des Empfängers verschlüsselt (RSA-OAEP mit SHA-256). Der Empfänger entschlüsselt den AES-Schlüssel mit dem privaten Schlüssel und danach die Nachricht. So sind S/MIME, PGP und TLS mit RSA-Schlüsselaustausch aufgebaut.
+  </introduction>
+  <usage lang="en">
+    Encrypt: connect the message and the public RSA key (PEM). Decrypt: choose Decrypt in the settings and connect the packet and the private key.
+  </usage>
+  <usage lang="de-DE">
+    Verschlüsseln: Verbinden Sie die Nachricht und den öffentlichen RSA-Schlüssel (PEM). Entschlüsseln: Wählen Sie in den Einstellungen Entschlüsseln und verbinden Sie das Paket und den privaten Schlüssel.
+  </usage>
+</documentation>

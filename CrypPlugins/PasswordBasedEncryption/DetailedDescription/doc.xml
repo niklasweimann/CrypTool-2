@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Passwords are too short and too predictable to be keys, so a key is derived from the password: PBKDF2 (PKCS #5, RFC 8018) applies an HMAC many times to the password and a random salt, which makes every password guess of an attacker slow and defeats precomputed tables. PBES2 combines this with a cipher (here AES-256 in CBC mode with PKCS #7 padding) and stores salt, iteration count, algorithms and IV in an ASN.1 structure next to the encrypted data. This is the format of password-encrypted private keys (PKCS #8) and is read by other tools, for example OpenSSL and .NET.
+  </introduction>
+  <introduction lang="de-DE">
+    Passwörter sind zu kurz und zu vorhersagbar, um Schlüssel zu sein, daher wird aus dem Passwort ein Schlüssel abgeleitet: PBKDF2 (PKCS #5, RFC 8018) wendet einen HMAC viele Male auf das Passwort und einen zufälligen Salt an, was jeden Passwortversuch eines Angreifers langsam macht und vorberechnete Tabellen nutzlos. PBES2 verbindet das mit einer Chiffre (hier AES-256 im CBC-Modus mit PKCS-#7-Padding) und speichert Salt, Iterationszahl, Algorithmen und IV in einer ASN.1-Struktur neben den verschlüsselten Daten. Das ist das Format passwortverschlüsselter privater Schlüssel (PKCS #8) und wird von anderen Werkzeugen gelesen, zum Beispiel OpenSSL und .NET.
+  </introduction>
+  <usage lang="en">
+    Encrypt: connect the text and the password, optionally a salt; the result is the Base64 encoded structure. Decrypt: choose Decrypt in the settings and connect the structure and the password.
+  </usage>
+  <usage lang="de-DE">
+    Verschlüsseln: Verbinden Sie den Text und das Passwort, optional einen Salt; das Ergebnis ist die Base64-codierte Struktur. Entschlüsseln: Wählen Sie in den Einstellungen Entschlüsseln und verbinden Sie die Struktur und das Passwort.
+  </usage>
+</documentation>

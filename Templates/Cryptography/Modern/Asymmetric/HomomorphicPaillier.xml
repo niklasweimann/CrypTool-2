@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HomomorphicPaillier.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Homomorphic Encryption: Paillier</title>
+  <summary lang="en"><i>Homomorphic Encryption: Paillier</i></summary>
+  <description lang="en">Two numbers are encrypted, added in encrypted form and decrypted: 12345 + 6789.</description>
+  <keywords lang="en">homomorphic encryption, Paillier, RSA, DGHV, Gentry</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Choose RSA or DGHV in the settings of the {\\b Homomorphic Encryption} component to see multiplication and the noise of a fully homomorphic scheme." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Homomorphe Verschlüsselung: Paillier</title>
+  <summary lang="de"><i>Homomorphe Verschlüsselung: Paillier</i></summary>
+  <description lang="de">Zwei Zahlen werden verschlüsselt, in verschlüsselter Form addiert und entschlüsselt: 12345 + 6789.</description>
+  <keywords lang="en">homomorphic encryption, Paillier, RSA, DGHV, Gentry</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Wählen Sie in den Einstellungen der Komponente {\\b Homomorphe Verschlüsselung} RSA oder DGHV, um die Multiplikation und das Rauschen eines voll homomorphen Verfahrens zu sehen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HomomorphicPaillier.png" />
+  <relevantPlugins>
+    <plugin name="HomomorphicEncryption" />
+  </relevantPlugins>
+</sample>

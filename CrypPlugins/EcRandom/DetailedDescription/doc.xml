@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A random number generator on an elliptic curve takes a state s, makes the next state s2 = x(s * P) and the output from x(s2 * Q), where x is the x coordinate of a point. This is the structure of Dual_EC_DRBG, a generator standardized by NIST in 2006. If the points P and Q are chosen so that P = e * Q for a secret number e, then whoever knows e can compute the next state from two output blocks: the output is x(s2 * Q) up to its leading 16 bits, the 65536 possible values give about half as many points R on the curve, x(e * R) = x(s2 * P) is a candidate for the next state, and the second block tells which candidate is right. All further output can be predicted. This is the backdoor that Dual_EC_DRBG was suspected of having; here P is made from Q by a secret number to show the attack.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein Zufallsgenerator auf einer elliptischen Kurve nimmt einen Zustand s, bildet den nächsten Zustand s2 = x(s * P) und die Ausgabe aus x(s2 * Q), wobei x die x-Koordinate eines Punktes ist. So ist Dual_EC_DRBG aufgebaut, ein Generator, den das NIST 2006 standardisiert hat. Wählt man die Punkte P und Q so, dass P = e * Q für eine geheime Zahl e gilt, kann jeder, der e kennt, aus zwei Ausgabeblöcken den nächsten Zustand berechnen: Die Ausgabe ist x(s2 * Q) bis auf ihre führenden 16 Bit, die 65536 möglichen Werte ergeben etwa halb so viele Punkte R auf der Kurve, x(e * R) = x(s2 * P) ist ein Kandidat für den nächsten Zustand, und der zweite Block verrät, welcher Kandidat stimmt. Alle weitere Ausgabe lässt sich vorhersagen. Das ist die Hintertür, die man bei Dual_EC_DRBG vermutete; hier wird P aus Q durch eine geheime Zahl gebildet, um den Angriff zu zeigen.
+  </introduction>
+  <usage lang="en">
+    Choose the curve, the seed and the number of blocks in the settings and run the workspace. The first output is the random blocks, the second the result of the attack with the backdoor.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Kurve, den Startwert und die Anzahl der Blöcke und lassen Sie den Arbeitsbereich laufen. Der erste Ausgang sind die Zufallsblöcke, der zweite das Ergebnis des Angriffs mit der Hintertür.
+  </usage>
+</documentation>

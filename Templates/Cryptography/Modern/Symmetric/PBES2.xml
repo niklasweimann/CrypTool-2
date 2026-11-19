@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PBES2.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Password-Based Encryption (PBES2)</title>
+  <summary lang="en"><i>Password-Based Encryption (PBES2)</i></summary>
+  <description lang="en">A text is encrypted with a key derived from a password (PBKDF2, AES-256-CBC).</description>
+  <keywords lang="en">PBES2, PBKDF2, password, AES, PKCS5</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The result is the ASN.1 structure of PKCS #5 in Base64; a random salt is chosen every time. Choose Decrypt in the settings of the {\\b Password-Based Encryption} component and connect the result to decrypt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Passwortbasierte Verschlüsselung (PBES2)</title>
+  <summary lang="de"><i>Passwortbasierte Verschlüsselung (PBES2)</i></summary>
+  <description lang="de">Ein Text wird mit einem aus einem Passwort abgeleiteten Schlüssel verschlüsselt (PBKDF2, AES-256-CBC).</description>
+  <keywords lang="en">PBES2, PBKDF2, password, AES, PKCS5</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Ergebnis ist die ASN.1-Struktur von PKCS #5 in Base64; jedes Mal wird ein zufälliger Salt gewählt. Wählen Sie in den Einstellungen der Komponente {\\b Passwortbasierte Verschlüsselung} Entschlüsseln und verbinden Sie das Ergebnis, um zu entschlüsseln." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PBES2.png" />
+  <relevantPlugins>
+    <plugin name="PasswordBasedEncryption" />
+  </relevantPlugins>
+</sample>

@@ -120,5 +120,10 @@
  "Schlüssel anzeigen/exportieren|": "Cryptography/Modern/Asymmetric/KeyShow.cwm",
  "Public-Key Infrastructure|": "Protocols/CertificateChain.cwm",
  "Zertifikate verifizieren|": "Protocols/CertificateChain.cwm",
- "OpenSSL|": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm"
+ "OpenSSL|": "Cryptography/Modern/Asymmetric/KeyGeneratorRSA.cwm",
+ "PBES2|": "Cryptography/Modern/Symmetric/PBES2.cwm",
+ "RSA-AES|": "Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES.cwm",
+ "Schlüsselaustausch (multipartit)|": "Protocols/BurmesterDesmedt.cwm",
+ "EC|prng": "Tools/EllipticCurveRandomGenerator.cwm",
+ "Homomorphe Verschlüsselung (HE) (mit RSA, Paillier, Gentry & Hallevi)|": "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm"
 }

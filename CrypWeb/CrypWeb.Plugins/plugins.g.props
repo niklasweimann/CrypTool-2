@@ -565,6 +565,11 @@
     <Compile Include="../../CrypPlugins/DivisorGame/Properties/Resources.Designer.cs" Link="DivisorGame/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/DivisorGame/Properties/Resources.resx" LogicalName="DivisorGame.Properties.Resources.resources" Link="DivisorGame/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/DivisorGame/Properties/Resources.de.resx" LogicalName="DivisorGame.Properties.Resources.de.resources" Link="DivisorGame/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/EcRandom/EcRandom.cs" Link="EcRandom/EcRandom.cs" />
+    <Compile Include="../../CrypPlugins/EcRandom/EcRandomSettings.cs" Link="EcRandom/EcRandomSettings.cs" />
+    <Compile Include="../../CrypPlugins/EcRandom/Properties/Resources.Designer.cs" Link="EcRandom/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/EcRandom/Properties/Resources.resx" LogicalName="EcRandom.Properties.Resources.resources" Link="EcRandom/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/EcRandom/Properties/Resources.de.resx" LogicalName="EcRandom.Properties.Resources.de.resources" Link="EcRandom/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCInput.cs" Link="EllipticCurveCryptography/ECCInput.cs" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCInputSettings.cs" Link="EllipticCurveCryptography/ECCInputSettings.cs" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCOperations.cs" Link="EllipticCurveCryptography/ECCOperations.cs" />
@@ -737,6 +742,11 @@
     <Compile Include="../../CrypPlugins/HmacHashes/HmacHashes.cs" Link="HmacHashes/HmacHashes.cs" />
     <EmbeddedResource Include="../../CrypPlugins/HmacHashes/Properties/Resources.resx" LogicalName="HmacHashes.Properties.Resources.resources" Link="HmacHashes/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/HmacHashes/Properties/Resources.de.resx" LogicalName="HmacHashes.Properties.Resources.de.resources" Link="HmacHashes/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/HomomorphicEncryption/HomomorphicEncryptionSettings.cs" Link="HomomorphicEncryption/HomomorphicEncryptionSettings.cs" />
+    <Compile Include="../../CrypPlugins/HomomorphicEncryption/HomomorphicEncryption.cs" Link="HomomorphicEncryption/HomomorphicEncryption.cs" />
+    <Compile Include="../../CrypPlugins/HomomorphicEncryption/Properties/Resources.Designer.cs" Link="HomomorphicEncryption/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/HomomorphicEncryption/Properties/Resources.resx" LogicalName="HomomorphicEncryption.Properties.Resources.resources" Link="HomomorphicEncryption/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/HomomorphicEncryption/Properties/Resources.de.resx" LogicalName="HomomorphicEncryption.Properties.Resources.de.resources" Link="HomomorphicEncryption/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/HomophonicSubstitutionAnalyzer/WordFinder.cs" Link="HomophonicSubstitutionAnalyzer/WordFinder.cs" />
     <Compile Include="../../CrypPlugins/HomophonicSubstitutionAnalyzer/NomenclatureElementFinder.cs" Link="HomophonicSubstitutionAnalyzer/NomenclatureElementFinder.cs" />
     <Compile Include="../../CrypPlugins/HomophonicSubstitutionAnalyzer/Tools.cs" Link="HomophonicSubstitutionAnalyzer/Tools.cs" />
@@ -758,6 +768,11 @@
     <Compile Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.Designer.cs" Link="HuffmanErrors/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.resx" LogicalName="HuffmanErrors.Properties.Resources.resources" Link="HuffmanErrors/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/HuffmanErrors/Properties/Resources.de.resx" LogicalName="HuffmanErrors.Properties.Resources.de.resources" Link="HuffmanErrors/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/HybridEncryption/HybridEncryptionSettings.cs" Link="HybridEncryption/HybridEncryptionSettings.cs" />
+    <Compile Include="../../CrypPlugins/HybridEncryption/HybridEncryption.cs" Link="HybridEncryption/HybridEncryption.cs" />
+    <Compile Include="../../CrypPlugins/HybridEncryption/Properties/Resources.Designer.cs" Link="HybridEncryption/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/HybridEncryption/Properties/Resources.resx" LogicalName="HybridEncryption.Properties.Resources.resources" Link="HybridEncryption/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/HybridEncryption/Properties/Resources.de.resx" LogicalName="HybridEncryption.Properties.Resources.de.resources" Link="HybridEncryption/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/IDPAttack/HighscoreList.cs" Link="IDPAttack/HighscoreList.cs" />
     <Compile Include="../../CrypPlugins/IDPAttack/ValueKey.cs" Link="IDPAttack/ValueKey.cs" />
     <Compile Include="../../CrypPlugins/IDPAttack/IDPAnalyser.cs" Link="IDPAttack/IDPAnalyser.cs" />
@@ -955,6 +970,11 @@
     <Compile Include="../../CrypPlugins/MorseCode/Properties/Resources.Designer.cs" Link="MorseCode/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/MorseCode/Properties/Resources.resx" LogicalName="MorseCode.Properties.Resources.resources" Link="MorseCode/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/MorseCode/Properties/Resources.de.resx" LogicalName="MorseCode.Properties.Resources.de.resources" Link="MorseCode/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/MultipartyKeyExchange/MultipartyKeyExchange.cs" Link="MultipartyKeyExchange/MultipartyKeyExchange.cs" />
+    <Compile Include="../../CrypPlugins/MultipartyKeyExchange/MultipartyKeyExchangeSettings.cs" Link="MultipartyKeyExchange/MultipartyKeyExchangeSettings.cs" />
+    <Compile Include="../../CrypPlugins/MultipartyKeyExchange/Properties/Resources.Designer.cs" Link="MultipartyKeyExchange/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/MultipartyKeyExchange/Properties/Resources.resx" LogicalName="MultipartyKeyExchange.Properties.Resources.resources" Link="MultipartyKeyExchange/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/MultipartyKeyExchange/Properties/Resources.de.resx" LogicalName="MultipartyKeyExchange.Properties.Resources.de.resources" Link="MultipartyKeyExchange/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/NLFSR/NLFSR.cs" Link="NLFSR/NLFSR.cs" />
     <Compile Include="../../CrypPlugins/NLFSR/NLFSRSettings.cs" Link="NLFSR/NLFSRSettings.cs" />
     <Compile Include="../../CrypPlugins/NLFSR/Properties/Resources.Designer.cs" Link="NLFSR/Properties/Resources.Designer.cs" />
@@ -1052,6 +1072,11 @@
     <Compile Include="../../CrypPlugins/Paillier/Properties/Resources.Designer.cs" Link="Paillier/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Paillier/Properties/Resources.resx" LogicalName="Paillier.Properties.Resources.resources" Link="Paillier/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Paillier/Properties/Resources.de.resx" LogicalName="Paillier.Properties.Resources.de.resources" Link="Paillier/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PasswordBasedEncryption/PasswordBasedEncryption.cs" Link="PasswordBasedEncryption/PasswordBasedEncryption.cs" />
+    <Compile Include="../../CrypPlugins/PasswordBasedEncryption/PasswordBasedEncryptionSettings.cs" Link="PasswordBasedEncryption/PasswordBasedEncryptionSettings.cs" />
+    <Compile Include="../../CrypPlugins/PasswordBasedEncryption/Properties/Resources.Designer.cs" Link="PasswordBasedEncryption/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PasswordBasedEncryption/Properties/Resources.resx" LogicalName="PasswordBasedEncryption.Properties.Resources.resources" Link="PasswordBasedEncryption/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PasswordBasedEncryption/Properties/Resources.de.resx" LogicalName="PasswordBasedEncryption.Properties.Resources.de.resources" Link="PasswordBasedEncryption/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/PasswordStrength/PasswordStrength.cs" Link="PasswordStrength/PasswordStrength.cs" />
     <Compile Include="../../CrypPlugins/PasswordStrength/KeePassQualityEstimation.cs" Link="PasswordStrength/KeePassQualityEstimation.cs" />
     <Compile Include="../../CrypPlugins/PasswordStrength/PasswordStrengthSettings.cs" Link="PasswordStrength/PasswordStrengthSettings.cs" />
