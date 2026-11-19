@@ -6,6 +6,8 @@ cd "$(dirname "$0")"
 if [ "$1" != "--skip-templates" ]; then
   ./tools-copy-templates.sh
 fi
+# the dark variant of the interface (wwwroot/css/dark.css) from app.css and docs.css
+python3 tools-gen-dark.py
 # the documentation (wwwroot/docs) from the doc.xml files of the plugins and the template descriptions
 python3 tools-gen-docs.py
 # the file lists of the offline dialog (needs the templates, docs/, vfs/ and wpf-res/)

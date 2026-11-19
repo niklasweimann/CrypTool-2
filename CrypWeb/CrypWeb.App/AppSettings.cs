@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using CrypTool.Web.Core;
 using Microsoft.JSInterop;
 
@@ -12,11 +13,34 @@ public sealed class AppSettings
     /// <summary>0 = decided by the component, 1 = always show the presentation, 2 = always the icon view.</summary>
     public int DefaultView { get; set; }
 
-    /// <summary>
-    ///     Look of the components on the canvas: "classic" (as in CT2: window tinted in the category color), "clean" (white,
-    ///     category as a thin line) or "tinted" (clean, with a light tint of the category color).
-    /// </summary>
-    public string ComponentStyle { get; set; } = "tinted";
+    /// <summary>The design in use: the id of a ready-made one (<see cref="Designs.Presets" />) or <see cref="Designs.Custom" />.</summary>
+    public string DesignId { get; set; } = Designs.DefaultId;
+
+    /// <summary>The user's own design; made from the design in use when something is changed (see SettingsPage).</summary>
+    public Design Custom { get; set; } = Designs.Default.Design.Clone();
+
+    /// <summary>Whether the interface is light or dark as the design in use says (<see cref="Design.DarkUi" />).</summary>
+    public bool UiFollowsDesign { get; set; } = true;
+
+    /// <summary>"light", "dark" or "system" (the setting of the device); used while the interface does not follow the design.</summary>
+    public string UiMode { get; set; } = "system";
+
+    /// <summary>The mode of the interface now: "light", "dark" or "system".</summary>
+    [JsonIgnore]
+    public string EffectiveUiMode => UiFollowsDesign ? (Current.DarkUi ? "dark" : "light") : UiMode;
+
+    /// <summary>The tab of the settings page; kept while the page is closed and opened again (not stored).</summary>
+    [JsonIgnore]
+    public string SettingsTab { get; set; } = "general";
+
+    /// <summary>The design in use.</summary>
+    [JsonIgnore]
+    public Design Current => DesignId == Designs.Custom ? Custom : (Designs.Find(DesignId) ?? Designs.Default).Design;
+
+    // settings of earlier versions: the colors and the look were stored here (see Migrate)
+    public string? ComponentStyle { get; set; }
+    public Dictionary<string, string>? TypeColors { get; set; }
+    public Dictionary<string, string>? CategoryColors { get; set; }
 
     public int GuiUpdateMs { get; set; } = 80;
     public int SleepMs { get; set; } = 1;
@@ -41,15 +65,35 @@ public sealed class AppSettings
     /// <summary>View tab: snap components to the grid.</summary>
     public bool Snap { get; set; } = true;
 
-    public Dictionary<string, string> TypeColors { get; set; } = new();
-    public Dictionary<string, string> CategoryColors { get; set; } = new();
-
+    /// <summary>Gives the colors of the design in use to <see cref="Theme" />.</summary>
     public void ApplyTheme()
     {
         Theme.TypeOverrides.Clear();
-        foreach (var kv in TypeColors) Theme.TypeOverrides[kv.Key] = kv.Value;
+        foreach (var kv in Current.TypeColors) Theme.TypeOverrides[kv.Key] = kv.Value;
         Theme.CategoryOverrides.Clear();
-        foreach (var kv in CategoryColors) Theme.CategoryOverrides[kv.Key] = kv.Value;
+        foreach (var kv in Current.CategoryColors) Theme.CategoryOverrides[kv.Key] = kv.Value;
+    }
+
+    /// <summary>Settings of earlier versions had colors and a look of their own: they become the custom design.</summary>
+    private void Migrate()
+    {
+        var colors = (TypeColors?.Count ?? 0) + (CategoryColors?.Count ?? 0) > 0;
+        if (colors)
+        {
+            Custom = Designs.Default.Design.Clone();
+            foreach (var kv in TypeColors ?? new()) Custom.TypeColors[kv.Key] = kv.Value;
+            foreach (var kv in CategoryColors ?? new()) Custom.CategoryColors[kv.Key] = kv.Value;
+            if (ComponentStyle != null && Designs.Looks.Contains(ComponentStyle)) Custom.Look = ComponentStyle;
+            DesignId = Designs.Custom;
+        }
+        else if (ComponentStyle == "classic")
+        {
+            DesignId = "classic";
+        }
+
+        TypeColors = null;
+        CategoryColors = null;
+        ComponentStyle = null;
     }
 
     public static async Task<AppSettings> LoadAsync(IJSRuntime js)
@@ -59,6 +103,7 @@ public sealed class AppSettings
             var raw = await js.InvokeAsync<string?>("ct2.store.get", Key);
             if (!string.IsNullOrEmpty(raw) && JsonSerializer.Deserialize<AppSettings>(raw) is { } s)
             {
+                s.Migrate();
                 s.ApplyTheme();
                 return s;
             }

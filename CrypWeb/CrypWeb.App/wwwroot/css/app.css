@@ -450,7 +450,7 @@ main {
     width: 100%;
     height: 100%;
     display: block;
-    background: linear-gradient(180deg, #c9ddf8 0%, #a9c8f2 100%);
+    background: linear-gradient(180deg, var(--cv-top, #c9ddf8) 0%, var(--cv-bottom, #a9c8f2) 100%);
     cursor: default;
     user-select: none;
     touch-action: none;
@@ -1293,6 +1293,64 @@ textarea.inline {
     background: #fff;
 }
 
+/* a dark canvas: labels and the outline of the wires turn light */
+.cv-dark .uname {
+    fill: #e6eaf2;
+}
+
+.cv-dark .wire-under {
+    stroke: #fff;
+    opacity: .4;
+}
+
+.cv-dark .empty-hint {
+    color: #cfd6e4;
+}
+
+/* look "contrast": white windows with a strong outline, for low vision */
+.comp-contrast .node .frame {
+    stroke: #111;
+    stroke-width: 2;
+    filter: none;
+}
+
+.comp-contrast .node .accent {
+    opacity: 1;
+    height: 3px;
+}
+
+.comp-contrast .node.selected .frame {
+    stroke: var(--accent);
+    stroke-width: 3.5;
+    filter: none;
+}
+
+.comp-contrast .title {
+    font-weight: 700;
+}
+
+.comp-contrast .ti {
+    stroke: #111;
+    stroke-width: 1.6;
+}
+
+.comp-contrast .port {
+    stroke: #000;
+    stroke-width: 1.5;
+}
+
+.comp-contrast .pbg {
+    fill: #d9d9d9;
+}
+
+.comp-contrast .pfill {
+    fill: #111;
+}
+
+.comp-contrast .nview, .comp-contrast .nat {
+    border: 1.5px solid #111;
+}
+
 /* "tinted": the category line below the title at full strength */
 .comp-tinted .node .accent {
     opacity: 1;
@@ -1629,15 +1687,93 @@ textarea.inline {
     max-width: 640px;
 }
 
+/* settings: vertical tabs, controls on the right */
+.set-layout {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-top: 14px;
+}
+
+.set-tabs {
+    flex: none;
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-right: 1px solid var(--line);
+    padding-right: 10px;
+    position: sticky;
+    top: 0;
+}
+
+.set-tab {
+    text-align: left;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    padding: 8px 12px;
+    font: inherit;
+    color: #3d4556;
+    cursor: pointer;
+}
+
+.set-tab:hover {
+    background: #eef1f6;
+}
+
+.set-tab.on {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.set-panel {
+    flex: 1;
+    min-width: 0;
+    max-width: 680px;
+}
+
 .settings .mrow {
-    max-width: 640px;
+    max-width: 680px;
+}
+
+.settings .mctl select {
+    flex: none;
+    min-width: 260px;
+}
+
+.mslider .mnum {
+    flex: none;
+    width: 78px;
+}
+
+.mslider .munit {
+    color: #667;
+    width: 22px;
+}
+
+.sgrp.first {
+    margin-top: 0;
+}
+
+.cgroup {
+    margin: 8px 0 14px;
+}
+
+.cgtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--muted);
+    margin-bottom: 6px;
 }
 
 .colgrid {
     display: grid;
-    grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
     gap: 6px 14px;
-    max-width: 640px;
+    max-width: 680px;
 }
 
 .colrow {
@@ -1651,6 +1787,53 @@ textarea.inline {
     height: 22px;
     padding: 0;
     border: 1px solid #b7c3d8;
+}
+
+/* the design in use: canvas, categories, data types */
+.dpreview {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    margin: 6px 0 6px;
+    max-width: 680px;
+}
+
+.dchip {
+    width: 34px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, .25);
+}
+
+.dtypes {
+    display: flex;
+    gap: 3px;
+    margin-left: auto;
+}
+
+.dtypes i {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .35);
+}
+
+@media (max-width: 720px) {
+    .set-layout {
+        flex-direction: column;
+    }
+
+    .set-tabs {
+        width: auto;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border-right: 0;
+        position: static;
+    }
 }
 
 .cvtools {

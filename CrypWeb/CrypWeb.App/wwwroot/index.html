@@ -7,6 +7,14 @@
     <title>CrypTool 2 Web Edition</title>
     <base href="/"/>
     <link id="webassembly" rel="preload"/>
+    <script>
+        // the light/dark mode of the last visit (see ct2.setUiMode): applied before anything is drawn
+        try {
+            const mode = localStorage.getItem('ct2web.uimode');
+            if (mode === 'dark' || (mode === 'system' && matchMedia('(prefers-color-scheme: dark)').matches))
+                document.documentElement.classList.add('ui-dark');
+        } catch (e) { /* storage unavailable */ }
+    </script>
     <style>
         html, body {
             margin: 0;
@@ -73,6 +81,7 @@
     <link href="css/wpf.css" rel="stylesheet"/>
     <link href="lib/katex/katex.min.css" rel="stylesheet"/>
     <link href="css/docs.css" rel="stylesheet"/>
+    <link href="css/dark.css" rel="stylesheet"/>
     <link href="favicon.ico" rel="icon" sizes="16x16 32x32 48x48"/>
     <link href="favicon.png" rel="icon" sizes="32x32" type="image/png"/>
     <link href="icon-192.png" rel="icon" sizes="192x192" type="image/png"/>

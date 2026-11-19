@@ -441,10 +441,12 @@ public partial class Home : IDisposable, IHandleEvent
             }
 
             await SyncPreviewAsync();
+            await SyncUiModeAsync();
             return;
         }
 
         self = DotNetObjectReference.Create(this);
+        await SyncUiModeAsync();
         await Js.InvokeVoidAsync("ct2.init", self, "main svg.canvas");
         await Js.InvokeVoidAsync("ct2.initFileDrop", self);
         // the engine runs in this app: plugin code on background threads, presentations on this (UI) thread
@@ -458,6 +460,24 @@ public partial class Home : IDisposable, IHandleEvent
         await Js.InvokeVoidAsync("ct2.cacheAppFiles", new object[] { Localizer.Languages.Select(l => l.Code).ToArray() });
         StartAutosave();
         await RunPendingLink();
+    }
+
+    private string? shownUiMode;
+
+    /// <summary>Gives the light/dark mode of the interface to the page when it changed (settings, design).</summary>
+    private async Task SyncUiModeAsync()
+    {
+        var mode = settings.EffectiveUiMode;
+        if (mode == shownUiMode) return;
+        shownUiMode = mode;
+        try
+        {
+            await Js.InvokeVoidAsync("ct2.setUiMode", mode);
+        }
+        catch (JSException)
+        {
+            /* page is going away */
+        }
     }
 
     /// <summary>Appends to the log of <paramref name="doc" /> (default: the active document); the oldest entries are dropped.</summary>
@@ -591,6 +611,7 @@ public partial class Home : IDisposable, IHandleEvent
             ed.SelectedWire = null;
             connecting = null;
             hoverPort = null; // also closes a connector bubble that missed its "pointer left" event
+            hoverWire = null; // ... and ends the focus on a wire: the others are no longer faded
             mode = Mode.None;
         }
         else if (k.StartsWith("arrow") && ed.Selection.Count > 0)

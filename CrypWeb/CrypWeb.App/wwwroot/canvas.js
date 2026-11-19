@@ -367,11 +367,28 @@ window.ct2.exportPng = async (selector, fileName, x, y, w, h) => {
     clone.setAttribute('height', height);
     clone.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
     clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    clone.style.background = 'linear-gradient(180deg,#c9ddf8,#a9c8f2)';
+    // the background of the workspace, as the design in use has it
+    const shown = getComputedStyle(svg);
+    const top = shown.getPropertyValue('--cv-top').trim() || '#c9ddf8';
+    const bottom = shown.getPropertyValue('--cv-bottom').trim() || '#a9c8f2';
+    clone.style.background = 'linear-gradient(180deg,' + top + ',' + bottom + ')';
     const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     background.setAttribute('width', width);
     background.setAttribute('height', height);
-    background.setAttribute('fill', '#b9d2f4');
+    const gradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+    gradient.setAttribute('id', 'ct2-export-bg');
+    gradient.setAttribute('x1', '0');
+    gradient.setAttribute('y1', '0');
+    gradient.setAttribute('x2', '0');
+    gradient.setAttribute('y2', '1');
+    for (const [offset, color] of [['0', top], ['1', bottom]]) {
+        const stop = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop.setAttribute('offset', offset);
+        stop.setAttribute('stop-color', color);
+        gradient.appendChild(stop);
+    }
+    clone.insertBefore(gradient, clone.firstChild);
+    background.setAttribute('fill', 'url(#ct2-export-bg)');
     clone.insertBefore(background, clone.firstChild);
 
     // SVG -> image -> canvas -> PNG
@@ -505,6 +522,20 @@ window.ct2.focus = selector => {
 window.ct2.scrollIntoView = selector => document.querySelector(selector)?.scrollIntoView({block: 'nearest'});
 
 /** Copies a text to the clipboard; returns false when the browser refuses. */
+/**
+ * Light or dark interface ("dark", "light" or "system"): the class ui-dark on the root element switches on css/dark.css.
+ * The mode is also kept under its own key, so that index.html can apply it before the app has started (no flash).
+ */
+window.ct2.setUiMode = mode => {
+    const query = window.matchMedia('(prefers-color-scheme: dark)');
+    const apply = () => document.documentElement.classList.toggle('ui-dark', mode === 'dark' || (mode === 'system' && query.matches));
+    if (window.ct2.uiModeListener) query.removeEventListener('change', window.ct2.uiModeListener);
+    window.ct2.uiModeListener = mode === 'system' ? apply : null;
+    if (window.ct2.uiModeListener) query.addEventListener('change', apply);
+    try { localStorage.setItem('ct2web.uimode', mode); } catch (e) { /* storage unavailable */ }
+    apply();
+};
+
 window.ct2.copyText = async text => {
     try {
         await navigator.clipboard.writeText(text);

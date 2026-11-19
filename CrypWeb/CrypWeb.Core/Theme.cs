@@ -18,14 +18,17 @@ public static class Theme
     public static readonly string[] CategoryKeys =
     {
         "CiphersClassic", "CiphersModernSymmetric", "CiphersModernAsymmetric", "Steganography", "HashFunctions",
-        "CryptanalysisSpecific", "CryptanalysisGeneric", "Protocols", "ToolsMisc",
+        "CryptanalysisSpecific", "CryptanalysisGeneric", "Protocols", "ToolsMisc", "ToolsDataInputOutput",
     };
 
     public static string CategoryColor(string category)
     {
-        // all "Tools..." categories share one color setting
-        var key = category.StartsWith("Tools") ? "ToolsMisc" : category;
-        return CategoryOverrides.TryGetValue(key, out var color) ? color : DefaultCategoryColor(category);
+        // the inputs and outputs have a color setting of their own; the other "Tools..." categories share one
+        var key = category.StartsWith("Tools") && category != "ToolsDataInputOutput" ? "ToolsMisc" : category;
+        if (CategoryOverrides.TryGetValue(key, out var color)) return color;
+        // a design without a color for the inputs and outputs (an older custom one) gives them the color of the tools
+        if (category == "ToolsDataInputOutput" && CategoryOverrides.TryGetValue("ToolsMisc", out color)) return color;
+        return DefaultCategoryColor(category);
     }
 
     /// <summary>

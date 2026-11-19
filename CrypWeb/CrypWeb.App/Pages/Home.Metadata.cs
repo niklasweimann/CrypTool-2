@@ -229,7 +229,7 @@ public partial class Home
     private string WindowBackground(PluginNode p)
     {
         var category = Meta(p)?.Category ?? "Undefined";
-        return settings.ComponentStyle switch
+        return settings.Current.Look switch
         {
             "classic" => Theme.CategoryLightColor(category),
             "tinted" => Theme.Tint(Theme.CategoryColor(category), 0.86),

@@ -1,93 +1,154 @@
 @using CrypTool.Web.Core
+@using System.Globalization
+@* Settings: vertical tabs on the left (one per topic), the controls of the tab on the right. A design (colors, canvas
+   background, look of the components) is picked from the ready-made ones or edited as the custom design: changing
+   anything while a ready-made design is selected copies that design to the custom one first (see Edit). *@
 <div class="page settings">
     <h1>@Loc["doc.settings"]</h1>
-    <div class="sgrp">@Loc["set.workspace"]</div>
-    <div class="mrow">
-        <div class="mlabel">@Loc["set.defaultView"]</div>
-        <div class="mctl mradios">
-            <label><input
-                    type="radio"
-                    name="dv"
-                    checked="@(S.DefaultView == 0)"
-                    @onchange="() => Set(() => S.DefaultView = 0)"/> @Loc["set.view.plugin"]</label>
-            <label><input
-                    type="radio"
-                    name="dv"
-                    checked="@(S.DefaultView == 1)"
-                    @onchange="() => Set(() => S.DefaultView = 1)"/> @Loc["set.view.open"]</label>
-            <label><input
-                    type="radio"
-                    name="dv"
-                    checked="@(S.DefaultView == 2)"
-                    @onchange="() => Set(() => S.DefaultView = 2)"/> @Loc["set.view.closed"]</label>
-        </div>
-    </div>
-    <div class="mrow">
-        <div class="mlabel">@Loc["set.componentStyle"]</div>
-        <div class="mctl mradios">
-            @foreach (var style in new[] { "classic", "clean", "tinted" })
+    <div class="set-layout">
+        <nav class="set-tabs" role="tablist">
+            @foreach (var t in Tabs)
             {
-                var st = style;
-                <label><input
-                        type="radio"
-                        name="cs"
-                        checked="@(S.ComponentStyle == st)"
-                        @onchange="() => Set(() => S.ComponentStyle = st)"/> @Loc["set.style." + st]</label>
+                var id = t;
+                <button class="set-tab @(S.SettingsTab == id ? "on" : "")" role="tab" aria-selected="@(S.SettingsTab == id)"
+                        @onclick="() => S.SettingsTab = id">@Loc["set.tab." + id]</button>
+            }
+        </nav>
+        <div class="set-panel" role="tabpanel">
+            @switch (S.SettingsTab)
+            {
+                case "general":
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.defaultView"]</div>
+                        <div class="mctl">
+                            <select @onchange="e => Set(() => S.DefaultView = Num(e, 0))">
+                                <option value="0" selected="@(S.DefaultView == 0)">@Loc["set.view.plugin"]</option>
+                                <option value="1" selected="@(S.DefaultView == 1)">@Loc["set.view.open"]</option>
+                                <option value="2" selected="@(S.DefaultView == 2)">@Loc["set.view.closed"]</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.placeholders"]</div>
+                        <div class="mctl"><input
+                                type="checkbox"
+                                checked="@S.ReplacePlaceholders"
+                                @onchange="e => Set(() => S.ReplacePlaceholders = (bool)(e.Value ?? false))"/></div>
+                    </div>
+                    break;
+
+                case "execution":
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.guiUpdate"]</div>
+                        @Slider(S.GuiUpdateMs, 10, 1000, 10, 80, v => S.GuiUpdateMs = v)
+                    </div>
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.sleep"]</div>
+                        @Slider(S.SleepMs, 1, 500, 1, 1, v => S.SleepMs = v)
+                    </div>
+                    break;
+
+                case "design":
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.design"]</div>
+                        <div class="mctl">
+                            <select @onchange="e => PickDesign(e.Value?.ToString() ?? Designs.DefaultId)">
+                                @foreach (var group in new[] { "light", "dark", "access" })
+                                {
+                                    <optgroup label="@Loc["set.group." + group]">
+                                        @foreach (var p in Designs.Presets.Where(p => p.Group == group))
+                                        {
+                                            <option value="@p.Id" selected="@(S.DesignId == p.Id)">@Loc["design." + p.Id]</option>
+                                        }
+                                    </optgroup>
+                                }
+                                <optgroup label="@Loc["set.group.custom"]">
+                                    <option value="@Designs.Custom" selected="@(S.DesignId == Designs.Custom)">@Loc["design.custom"]</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dpreview" style="background:linear-gradient(180deg,@D.CanvasTop,@D.CanvasBottom)" aria-hidden="true">
+                        @foreach (var key in Theme.CategoryKeys)
+                        {
+                            <span class="dchip" style="background:@D.CategoryColors.GetValueOrDefault(key, "#ccc")"></span>
+                        }
+                        <span class="dtypes">
+                            @foreach (var key in Theme.DataTypeKeys)
+                            {
+                                <i style="background:@D.TypeColors.GetValueOrDefault(key, "#ccc")"></i>
+                            }
+                        </span>
+                    </div>
+                    <div class="mnote">@Loc[S.DesignId == Designs.Custom ? "set.customNote" : "set.presetNote"]</div>
+                    <div class="sgrp">@Loc["set.interface"]</div>
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.uiFollows"]</div>
+                        <div class="mctl"><input
+                                type="checkbox"
+                                checked="@S.UiFollowsDesign"
+                                @onchange="e => Set(() => S.UiFollowsDesign = (bool)(e.Value ?? false))"/></div>
+                    </div>
+                    @if (S.UiFollowsDesign)
+                    {
+                        <div class="mrow">
+                            <div class="mlabel">@Loc["set.darkUi"]</div>
+                            <div class="mctl"><input
+                                    type="checkbox"
+                                    checked="@D.DarkUi"
+                                    @onchange="e => Edit(d => d.DarkUi = (bool)(e.Value ?? false))"/></div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mrow">
+                            <div class="mlabel">@Loc["set.uiMode"]</div>
+                            <div class="mctl">
+                                <select @onchange="e => Set(() => S.UiMode = e.Value?.ToString() ?? S.UiMode)">
+                                    @foreach (var mode in new[] { "light", "dark", "system" })
+                                    {
+                                        <option value="@mode" selected="@(S.UiMode == mode)">@Loc["set.mode." + mode]</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    }
+                    <div class="sgrp">@Loc["set.workspaceLook"]</div>
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.componentStyle"]</div>
+                        <div class="mctl">
+                            <select @onchange="e => Edit(d => d.Look = e.Value?.ToString() ?? d.Look)">
+                                @foreach (var look in Designs.Looks)
+                                {
+                                    <option value="@look" selected="@(D.Look == look)">@Loc["set.style." + look]</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mrow">
+                        <div class="mlabel">@Loc["set.canvasBackground"]</div>
+                        <div class="mctl">
+                            @ColorInput(D.CanvasTop, v => Edit(d => d.CanvasTop = v), Loc["set.canvasTop"])
+                            @ColorInput(D.CanvasBottom, v => Edit(d => d.CanvasBottom = v), Loc["set.canvasBottom"])
+                        </div>
+                    </div>
+                    <div class="sgrp">@Loc["set.typeColors"]</div>
+                    @ColorGroup("set.group.numbers", TypeColors("System.Int32", "System.Double", "System.Numerics.BigInteger"))
+                    @ColorGroup("set.group.data", TypeColors("System.Byte", "System.String", "System.Boolean"))
+                    @ColorGroup("set.group.other", TypeColors("System.Object", "Stream"))
+                    <div class="sgrp">@Loc["set.catColors"]</div>
+                    @ColorGroup("set.group.ciphers", CategoryColors("CiphersClassic", "CiphersModernSymmetric", "CiphersModernAsymmetric"))
+                    @ColorGroup("set.group.analysis", CategoryColors("CryptanalysisSpecific", "CryptanalysisGeneric"))
+                    @ColorGroup("set.group.misc", CategoryColors("Steganography", "HashFunctions", "Protocols", "ToolsMisc", "ToolsDataInputOutput"))
+                    @if (S.DesignId == Designs.Custom)
+                    {
+                        <div class="mrow">
+                            <button class="rbtn small" @onclick="ResetCustom">@Loc["set.resetCustom"]</button>
+                        </div>
+                    }
+                    break;
             }
         </div>
-    </div>
-    <div class="mrow">
-        <div class="mlabel">@Loc["set.guiUpdate"]</div>
-        <div class="mctl mslider"><input
-                type="range"
-                min="10"
-                max="1000"
-                step="10"
-                value="@S.GuiUpdateMs"
-                @onchange="e => Set(() => S.GuiUpdateMs = Num(e, 80))"/><span>@S.GuiUpdateMs ms</span></div>
-    </div>
-    <div class="mrow">
-        <div class="mlabel">@Loc["set.sleep"]</div>
-        <div class="mctl mslider"><input
-                type="range"
-                min="1"
-                max="500"
-                step="1"
-                value="@S.SleepMs"
-                @onchange="e => Set(() => S.SleepMs = Num(e, 1))"/><span>@S.SleepMs ms</span></div>
-    </div>
-    <div class="mrow">
-        <div class="mlabel">@Loc["set.placeholders"]</div>
-        <div class="mctl"><input
-                type="checkbox"
-                checked="@S.ReplacePlaceholders"
-                @onchange="e => Set(() => S.ReplacePlaceholders = (bool)(e.Value ?? false))"/></div>
-    </div>
-
-    <div class="sgrp">@Loc["set.typeColors"]</div>
-    <div class="colgrid">
-        @foreach (var k in Theme.DataTypeKeys)
-        {
-            var key = k;
-            <label class="colrow"><input
-                    type="color"
-                    value="@(S.TypeColors.GetValueOrDefault(key) ?? Theme.DefaultTypeColor(key))"
-                    @onchange="e => Color(S.TypeColors, key, e.Value?.ToString())"/>@key.Split('.').Last()</label>
-        }
-    </div>
-    <div class="sgrp">@Loc["set.catColors"]</div>
-    <div class="colgrid">
-        @foreach (var k in Theme.CategoryKeys)
-        {
-            var key = k;
-            <label class="colrow"><input
-                    type="color"
-                    value="@(S.CategoryColors.GetValueOrDefault(key) ?? Theme.DefaultCategoryColor(key))"
-                    @onchange="e => Color(S.CategoryColors, key, e.Value?.ToString())"/>@Loc["cat." + key]</label>
-        }
-    </div>
-    <div class="mrow">
-        <button class="rbtn small" @onclick="ResetColors">@Loc["set.resetColors"]</button>
     </div>
 </div>
 
@@ -96,9 +157,16 @@
     [Parameter] public Localizer Loc { get; set; } = default!;
     [Parameter] public EventCallback OnChanged { get; set; }
 
+    private static readonly string[] Tabs = { "general", "execution", "design" };
+
+    /// <summary>The design in use (what the controls show).</summary>
+    private Design D => S.Current;
+
+    private static CultureInfo Inv => CultureInfo.InvariantCulture;
+
     static int Num(ChangeEventArgs e, int fallback)
     {
-        return int.TryParse(e.Value?.ToString(), out var value) ? value : fallback;
+        return int.TryParse(e.Value?.ToString(), NumberStyles.Integer, Inv, out var value) ? value : fallback;
     }
 
     /// <summary>Applies the change to the settings and tells the page to save them.</summary>
@@ -108,17 +176,66 @@
         return OnChanged.InvokeAsync();
     }
 
-    Task Color(Dictionary<string, string> colors, string key, string? value)
+    /// <summary>Changes the design: a ready-made one is first copied to the custom design, which then changes.</summary>
+    Task Edit(Action<Design> change)
     {
-        if (!string.IsNullOrEmpty(value)) colors[key] = value;
+        if (S.DesignId != Designs.Custom)
+        {
+            S.Custom = S.Current.Clone();
+            S.DesignId = Designs.Custom;
+        }
+
+        change(S.Custom);
         return OnChanged.InvokeAsync();
     }
 
-    Task ResetColors()
-    {
-        S.TypeColors.Clear();
-        S.CategoryColors.Clear();
-        return OnChanged.InvokeAsync();
-    }
+    Task PickDesign(string id) => Set(() => S.DesignId = id);
 
+    Task ResetCustom() => Set(() => S.Custom = Designs.Default.Design.Clone());
+
+    // ---- controls ----
+
+    /// <summary>A slider with a number field behind it; both change the same value.</summary>
+    private RenderFragment Slider(int value, int min, int max, int step, int fallback, Action<int> apply) => __builder =>
+    {
+        <div class="mctl mslider">
+            <input type="range" min="@min" max="@max" step="@step" value="@value"
+                   @onchange="e => Set(() => apply(Math.Clamp(Num(e, fallback), min, max)))"/>
+            <input type="number" class="mnum" min="@min" max="@max" step="@step" value="@value"
+                   @onchange="e => Set(() => apply(Math.Clamp(Num(e, fallback), min, max)))"/>
+            <span class="munit">ms</span>
+        </div>
+    };
+
+    private RenderFragment ColorInput(string value, Func<string, Task> apply, string label) => __builder =>
+    {
+        <label class="colrow"><input type="color" value="@value" title="@label" aria-label="@label"
+                                     @onchange="e => ApplyColor(e.Value?.ToString(), apply)"/><span>@label</span></label>
+    };
+
+    private static Task ApplyColor(string? value, Func<string, Task> apply) =>
+        string.IsNullOrEmpty(value) ? Task.CompletedTask : apply(value);
+
+    private record ColorItem(string Label, string Value, Func<string, Task> Apply);
+
+    private IEnumerable<ColorItem> TypeColors(params string[] keys) =>
+        keys.Select(k => new ColorItem(k.Split('.').Last(), D.TypeColors.GetValueOrDefault(k, Theme.DefaultTypeColor(k)),
+            v => Edit(d => d.TypeColors[k] = v)));
+
+    private IEnumerable<ColorItem> CategoryColors(params string[] keys) =>
+        keys.Select(k => new ColorItem(Loc["cat." + k], D.CategoryColors.GetValueOrDefault(k, Theme.DefaultCategoryColor(k)),
+            v => Edit(d => d.CategoryColors[k] = v)));
+
+    private RenderFragment ColorGroup(string title, IEnumerable<ColorItem> items) => __builder =>
+    {
+        <div class="cgroup">
+            <div class="cgtitle">@Loc[title]</div>
+            <div class="colgrid">
+                @foreach (var item in items)
+                {
+                    @ColorInput(item.Value, item.Apply, item.Label)
+                }
+            </div>
+        </div>
+    };
 }

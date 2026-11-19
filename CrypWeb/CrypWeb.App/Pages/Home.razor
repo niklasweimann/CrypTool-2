@@ -316,7 +316,7 @@
                           ShowExperimental="settings.ShowExperimental"
                           OnOpenTemplate="t => OpenTemplate(t)"/>
             }
-            <main class="comp-@settings.ComponentStyle @(mode != Mode.None ? "tracking" : "")" style="@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
+            <main class="comp-@settings.Current.Look @(settings.Current.IsDark ? "cv-dark" : "") @(mode != Mode.None ? "tracking" : "")" style="--cv-top:@settings.Current.CanvasTop;--cv-bottom:@settings.Current.CanvasBottom;@(active.Kind == DocKind.Workspace ? "" : "display:none")" @ondragover:preventDefault
                   @ondragover="DragOver" @ondrop="Drop" @onpointerup="Up" @onpointerleave="Up">
                 @if (error != null)
                 {
@@ -506,7 +506,7 @@
                                     y="@F(p.Y)"
                                     width="@F(nw)"
                                     height="@F(nh)"
-                                    rx="@(settings.ComponentStyle == "classic" ? 5 : 8)"
+                                    rx="@(settings.Current.Look switch { "classic" => 5, "contrast" => 4, _ => 8 })"
                                     class="frame"
                                     style="fill:@WindowBackground(p)"
                                     @onpointerdown="OnPointer(p, e => NodeDown(e, p))"
@@ -610,7 +610,7 @@
                                     }
 
                                     var pct = rn == null ? 0 : (int)Math.Round(Math.Clamp(rn.Progress, 0, 1) * 100);
-                                    @if (settings.ComponentStyle == "classic")
+                                    @if (settings.Current.Look == "classic")
                                     {
                                         <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F(nw - 12)" height="12" class="pbg"/>
                                         <rect x="@F(p.X + 6)" y="@F(p.Y + nh - 17)" width="@F((nw - 12) * pct / 100.0)" height="12" class="pfill"/>
