@@ -650,7 +650,8 @@
                                           style="fill:@Theme.TypeColor(c.DataTypeName)"
                                           @onpointerenter="On(c, () => hoverPort = c)" @onpointerleave="() => hoverPort = null"
                                           @onpointerdown="OnPointer(c, e => PortDown(e, c))" @onpointerdown:stopPropagation
-                                          @onpointerup="On(c, () => PortUp(c))" @onpointerup:stopPropagation>
+                                          @onpointerup="On(c, () => PortUp(c))" @onpointerup:stopPropagation
+                                          @ondblclick="On(c, () => PortDoubleClick(c))" @ondblclick:stopPropagation>
                                         <title>@PortTip(c, meta)</title></path>
                                 }
                                 }
