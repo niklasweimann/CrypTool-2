@@ -3,34 +3,80 @@
 @using CrypTool.Web.Core
 @using CrypWeb.App.Engine
 @implements IHandleEvent
-@* Link manager (Home › Extras › Links): makes links that open a template with chosen settings (see TemplateLink), and keeps them. *@
+@inject HttpClient Http
+@* Link manager (Home › Extras › Links): makes links that open a template with chosen settings (see TemplateLink) or a page of the documentation (see DocLink), and keeps them. *@
 <div class="sm-back" @onclick="Close">
     <div class="sm-dialog wide lm" @onclick:stopPropagation @onkeydown="OnKey" tabindex="0">
-        <div class="mhead" style="background:#3b5aa0">
-            <div class="mtitle">@Loc["links.title"]<small>@Loc["links.intro"]</small></div>
-            <button class="mx" @onclick="Close" title="@Loc["view.close"]">✕</button>
+        <div class="mhead lm-head" style="background:#3b5aa0">
+            <div class="mtitle">@Loc["links.title"]<small>@Loc[docMode ? "links.introDoc" : "links.intro"]</small></div>
+            <button class="mx lm-x" @onclick="Close" title="@Loc["view.close"]">✕</button>
         </div>
         <div class="mbody lm-body">
             <div class="lm-col lm-pick">
-                <div class="lm-h">1 · @Loc["links.template"]</div>
-                <input class="lm-search" placeholder="@Loc["panel.search"]" @bind="search" @bind:event="oninput"/>
-                <div class="lm-tlist">
-                    @foreach (var t in Templates.Where(t => search.Length == 0 || t.Contains(search, StringComparison.OrdinalIgnoreCase)).Take(300))
-                    {
-                        var tt = t;
-                        <div class="lm-t @(tt == template ? "on" : "")" title="@tt" @onclick="() => PickTemplate(tt)">
-                            @if (Icons.Contains(tt))
-                            {
-                                <img src="@IconOf(tt)"/>
-                            }
-                            <span>@Path.GetFileNameWithoutExtension(tt)</span><small>@(Path.GetDirectoryName(tt)?.Replace("/", " › "))</small>
-                        </div>
-                    }
+                <div class="lm-mode">
+                    <button class="@(!docMode ? "on" : "")" @onclick="() => SetMode(false)">@Loc["links.modeTemplate"]</button>
+                    <button class="@(docMode ? "on" : "")" @onclick="() => SetMode(true)">@Loc["links.modeDoc"]</button>
                 </div>
+                <div class="lm-h">1 · @Loc[docMode ? "links.docPage" : "links.template"]</div>
+                <input class="lm-search" placeholder="@Loc["panel.search"]" @bind="search" @bind:event="oninput"/>
+                @if (docMode)
+                {
+                    <div class="lm-tlist">
+                        @if (docIndex == null)
+                        {
+                            <div class="mhint">@Loc[docFailed ? "docs.failed" : "docs.loading"]</div>
+                        }
+                        @foreach (var e in DocEntries.Take(300))
+                        {
+                            var ee = e;
+                            <div class="lm-t @(ee.Target == docTarget ? "on" : "")" title="@ee.Target" @onclick="() => PickDoc(ee.Target)">
+                                @if (ee.Icon != null)
+                                {
+                                    <img src="@ee.Icon"/>
+                                }
+                                <span>@ee.Title</span><small>@ee.Group</small>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="lm-tlist">
+                        @foreach (var t in Templates.Where(t => search.Length == 0 || t.Contains(search, StringComparison.OrdinalIgnoreCase)).Take(300))
+                        {
+                            var tt = t;
+                            <div class="lm-t @(tt == template ? "on" : "")" title="@tt" @onclick="() => PickTemplate(tt)">
+                                @if (Icons.Contains(tt))
+                                {
+                                    <img src="@IconOf(tt)"/>
+                                }
+                                <span>@Path.GetFileNameWithoutExtension(tt)</span><small>@(Path.GetDirectoryName(tt)?.Replace("/", " › "))</small>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
             <div class="lm-col lm-edit">
-                <div class="lm-h">2 · @Loc["links.settings"]</div>
-                @if (template == null)
+                <div class="lm-h">2 · @Loc[docMode ? "links.docPreview" : "links.settings"]</div>
+                @if (docMode)
+                {
+                    @if (CurrentDoc is { } d)
+                    {
+                        <div class="lm-docprev">
+                            <b>@d.Title</b>
+                            <small>@d.Group</small>
+                            @if (d.Summary.Length > 0)
+                            {
+                                <p>@((MarkupString)d.Summary)</p>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mhint">@Loc["links.pickDocFirst"]</div>
+                    }
+                }
+                else if (template == null)
                 {
                     <div class="mhint">@Loc["links.pickFirst"]</div>
                 }
@@ -99,16 +145,19 @@
             </div>
             <div class="lm-col lm-out">
                 <div class="lm-h">3 · @Loc["links.link"]</div>
-                <label class="lm-opt"><input type="checkbox" @bind="run"/> @Loc["links.run"]</label>
-                <label class="lm-opt">@Loc["links.lang"]
-                    <select @bind="lang">
-                        <option value="">@Loc["links.langAny"]</option>
-                        @foreach (var l in Localizer.Languages)
-                        {
-                            <option value="@l.Code">@l.Name</option>
-                        }
-                    </select>
-                </label>
+                @if (!docMode)
+                {
+                    <label class="lm-opt"><input type="checkbox" @bind="run"/> @Loc["links.run"]</label>
+                    <label class="lm-opt">@Loc["links.lang"]
+                        <select @bind="lang">
+                            <option value="">@Loc["links.langAny"]</option>
+                            @foreach (var l in Localizer.Languages)
+                            {
+                                <option value="@l.Code">@l.Name</option>
+                            }
+                        </select>
+                    </label>
+                }
                 <input class="lm-name" placeholder="@Loc["links.namePlaceholder"]" @bind="name" @bind:event="oninput"/>
                 <textarea class="lm-url" readonly rows="4">@(Url ?? "")</textarea>
                 <div class="lm-btns">
@@ -116,7 +165,7 @@
                     <button disabled="@(Url == null)" @onclick="Test" title="@Loc["links.testTip"]">@Loc["links.test"]</button>
                     <button disabled="@(Url == null)" @onclick="SaveLink">@Loc[editing != null ? "links.update" : "links.save"]</button>
                 </div>
-                @if (overrides.Count > 0)
+                @if (!docMode && overrides.Count > 0)
                 {
                     <div class="lm-sum">@Loc.T("links.changedCount", overrides.Count)</div>
                 }
@@ -130,7 +179,7 @@
                     {
                         var ll = l;
                         <div class="lm-link @(ReferenceEquals(ll, editing) ? "on" : "")">
-                            <div class="lm-ln" title="@ll.Url">@ll.Name</div>
+                            <div class="lm-ln" title="@ll.Url">@(DocLink.Parse(ll.Url) != null ? "📖 " : "")@ll.Name</div>
                             <div class="lm-la">
                                 <button title="@Loc["links.copy"]" @onclick="() => CopyUrl(ll.Url)">⧉</button>
                                 <button title="@Loc["links.edit"]" @onclick="() => Edit(ll)">✎</button>
@@ -156,6 +205,11 @@
     [Parameter] public string BaseUri { get; set; } = "";
     [Parameter] public EventCallback OnLinksChanged { get; set; }
     [Parameter] public EventCallback<TemplateLink> OnTest { get; set; }
+
+    /// <summary>Opens a documentation page ("component/&lt;type&gt;", ...) in the documentation tab.</summary>
+    [Parameter] public EventCallback<string> OnTestDoc { get; set; }
+
+    [Parameter] public bool ShowExperimental { get; set; }
     [Parameter] public EventCallback OnClose { get; set; }
     [Inject] private IJSRuntime Js { get; set; } = default!;
 
@@ -186,6 +240,10 @@
     }
     private string search = "";
     private string? template;
+    private bool docMode;
+    private string? docTarget;
+    private DocsIndex? docIndex;
+    private bool docFailed;
     private Workspace? workspace;
     private bool loading;
     private int? expanded;
@@ -203,7 +261,68 @@
 
     private static string IconOf(string t) => "templates/" + Uri.EscapeDataString(t[..^4]).Replace("%2F", "/") + ".png";
 
-    private string? Url => template == null ? null : BuildLink().ToUrl(BaseUri);
+    private string? Url => docMode
+        ? (docTarget == null ? null : BaseUri + DocLink.Href(DocLink.Split(docTarget).Kind, DocLink.Split(docTarget).Id).Replace("%2F", "/"))
+        : template == null ? null : BuildLink().ToUrl(BaseUri);
+
+    // ---- documentation links ----
+
+    private sealed record DocEntry(string Target, string Title, string Group, string? Icon, string Summary);
+
+    private IEnumerable<DocEntry> AllDocs()
+    {
+        if (docIndex == null) yield break;
+        var lang = Loc.Lang;
+        foreach (var a in docIndex.Articles)
+            yield return new DocEntry("article/" + a.Id, DocsText.Pick(a.Title, lang), Loc["docs.articles"], null, "");
+        foreach (var c in docIndex.Components.Where(c => c.Article && (ShowExperimental || !c.Experimental)))
+            yield return new DocEntry("component/" + c.Id, c.NameFor(lang), Loc["panel.components"] + " › " + Loc["cat." + c.Category], c.Icon, c.TooltipFor(lang));
+        foreach (var t in docIndex.Templates.Where(t => ShowExperimental || !t.Experimental))
+        {
+            var title = DocsText.Pick(t.Title, lang);
+            yield return new DocEntry("template/" + t.Id, title.Length > 0 ? title : Path.GetFileNameWithoutExtension(t.Id),
+                Loc["panel.templates"] + " › " + t.Folder.Replace("/", " › "), null, DocsText.Pick(t.Summary, lang));
+        }
+    }
+
+    private IEnumerable<DocEntry> DocEntries =>
+        AllDocs().Where(e => search.Length == 0 || e.Title.Contains(search, StringComparison.OrdinalIgnoreCase) || e.Target.Contains(search, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(e => e.Group.StartsWith(Loc["docs.articles"]) ? 0 : 1).ThenBy(e => e.Group, StringComparer.CurrentCultureIgnoreCase).ThenBy(e => e.Title, StringComparer.CurrentCultureIgnoreCase);
+
+    private DocEntry? CurrentDoc => docTarget == null ? null : AllDocs().FirstOrDefault(e => e.Target == docTarget);
+
+    private async Task SetMode(bool doc)
+    {
+        if (docMode == doc) return;
+        docMode = doc;
+        search = "";
+        copied = false;
+        editing = null;
+        if (doc) await LoadDocIndex();
+    }
+
+    private async Task LoadDocIndex()
+    {
+        if (docIndex != null) return;
+        docFailed = false;
+        Redraw();
+        try
+        {
+            docIndex = await Http.GetFromJsonAsync<DocsIndex>("docs/index.json");
+        }
+        catch (Exception)
+        {
+            docFailed = true;
+        }
+    }
+
+    private void PickDoc(string target)
+    {
+        docTarget = target;
+        copied = false;
+        if (editing == null || DocLink.Parse(editing.Url) == null) editing = null;
+        name = CurrentDoc?.Title ?? target;
+    }
 
     private TemplateLink BuildLink()
     {
@@ -348,18 +467,20 @@
 
     private async Task Test()
     {
-        await OnTest.InvokeAsync(BuildLink());
+        if (docMode && docTarget != null) await OnTestDoc.InvokeAsync(docTarget);
+        else await OnTest.InvokeAsync(BuildLink());
     }
 
     private async Task TestUrl(string url)
     {
-        if (TemplateLink.Parse(url) is { } link) await OnTest.InvokeAsync(link);
+        if (DocLink.Parse(url) is { } target) await OnTestDoc.InvokeAsync(target);
+        else if (TemplateLink.Parse(url) is { } link) await OnTest.InvokeAsync(link);
     }
 
     private async Task SaveLink()
     {
         if (Url is not { } url) return;
-        var title = name.Trim().Length > 0 ? name.Trim() : Path.GetFileNameWithoutExtension(template!);
+        var title = name.Trim().Length > 0 ? name.Trim() : docMode ? docTarget! : Path.GetFileNameWithoutExtension(template!);
         if (editing != null && Links.Contains(editing))
         {
             editing.Name = title;
@@ -376,6 +497,19 @@
 
     private async Task Edit(SavedLink l)
     {
+        if (DocLink.Parse(l.Url) is { } target)
+        {
+            docMode = true;
+            search = "";
+            await LoadDocIndex();
+            editing = l;
+            docTarget = target;
+            name = l.Name;
+            copied = false;
+            return;
+        }
+
+        docMode = false;
         if (TemplateLink.Parse(l.Url) is not { } link) return;
         editing = l;
         name = l.Name;

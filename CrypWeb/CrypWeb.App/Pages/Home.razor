@@ -239,19 +239,15 @@
                     <div
                         class="catbtn @(OpenTemplateCat == "*" && filter.Length == 0 ? "on" : "")"
                         style="border-left-color:#888"
-                        @onclick="PickAllTemplates"><span>@Loc["cat.all"]</span><i>@VisibleTemplates.Count()</i></div>
+                        @onclick="PickAllTemplates"><Icon Name="g-all" Size="20"/><span>@Loc["cat.all"]</span><i>@VisibleTemplates.Count()</i></div>
                     @foreach (var c in TemplateCategories)
                     {
                         var key = c;
-                        var ic = VisibleTemplates.FirstOrDefault(t => TemplateCategory(t) == key && templateIcons.Contains(t));
                         <div
                             class="catbtn @(OpenTemplateCat == key && filter.Length == 0 ? "on" : "")"
                             style="border-left-color:#5b7db1"
                             @onclick="On(key, () => PickTemplateCat(key))">
-                            @if (ic != null)
-                            {
-                                <img src="@TemplateIcon(ic)"/>
-                            }
+                            <Icon Name="@TemplateCategoryGlyph(key)" Size="20"/>
                             <span>@key</span><i>@VisibleTemplates.Count(t => TemplateCategory(t) == key)</i>
                         </div>
                     }
@@ -263,19 +259,15 @@
                     <div
                         class="catbtn @(OpenCat == "*" && filter.Length == 0 ? "on" : "")"
                         style="border-left-color:#888"
-                        @onclick="PickAll"><span>@Loc["cat.all"]</span><i>@VisibleMeta.Count()</i></div>
+                        @onclick="PickAll"><Icon Name="g-all" Size="20"/><span>@Loc["cat.all"]</span><i>@VisibleMeta.Count()</i></div>
                     @foreach (var g in VisibleMeta.GroupBy(m => m.Category).OrderBy(g => CatLabel(g.Key)))
                     {
                         var key = g.Key;
-                        var ic = g.FirstOrDefault(m => m.Icon != null)?.Icon;
                         <div
                             class="catbtn @(OpenCat == key && filter.Length == 0 ? "on" : "")"
                             style="border-left-color:@Theme.CategoryColor(key)"
                             @onclick="On(key, () => PickCat(key))">
-                            @if (ic != null)
-                            {
-                                <img src="@ic"/>
-                            }
+                            <Icon Name="@ComponentCategoryGlyph(key)" Size="20"/>
                             <span>@CatLabel(key)</span><i>@g.Count()</i>
                         </div>
                     }
@@ -1016,7 +1008,9 @@
                      TitleOf="p => Title(p, Meta(p))"
                      Links="settings.Links"
                      BaseUri="@Nav.BaseUri"
+                     ShowExperimental="settings.ShowExperimental"
                      OnLinksChanged="SaveLinks"
+                     OnTestDoc="t => { linkManagerOpen = false; Nav.NavigateTo(DocLink.Href(DocLink.Split(t).Kind, DocLink.Split(t).Id)); }"
                      OnTest="async l => { linkManagerOpen = false; await OpenLink(l); }"
                      OnClose="() => linkManagerOpen = false"/>
     }

@@ -2,7 +2,7 @@
 """Scans CrypPlugins/* and Experimental/CrypPlugins/*, then generates what the browser build needs:
 
   CrypWeb.App/wwwroot/plugins.json                 metadata of all components (name, ports, localized texts, icon, ...)
-  CrypWeb.App/wwwroot/icons/*.png                  the plugin icons
+  CrypWeb.App/wwwroot/icons/*                      the plugin icons (.png of the plugins, .svg made for those without one: tools_icons.py)
   CrypWeb.Plugins/plugins.g.props                  compile / resource items of the shared plugin assembly
   CrypWeb.Plugins/isolated.g.props                 references to the isolated plugin projects
   CrypWeb.Plugins/libraries.g.json                 LibSource libraries that are compiled into the plugin assembly
@@ -17,11 +17,14 @@ plugins.json; the app hides them until they are switched on under View. An exper
 in CrypPlugins is an older copy and is skipped.
 """
 import glob
+import hashlib
 import json
 import os
 import re
 import shutil
 import xml.etree.ElementTree as ET
+
+import tools_icons
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 PLUGINS_DIR = os.path.join(ROOT, 'CrypPlugins')
@@ -304,6 +307,20 @@ def copy_icon(plugin_dir, icon_list, full_name):
     return icon
 
 
+def plugin_icon(plugin_dir, icon_list, full_name, name, category):
+    """The icon of the plugin; one made for it when it has none or only the default flower of the plugin template."""
+    icon = copy_icon(plugin_dir, icon_list, full_name)
+    if icon:
+        with open(os.path.join(OUT, icon), 'rb') as f:
+            if hashlib.md5(f.read()).hexdigest() != tools_icons.FLOWER_MD5:
+                return icon
+        os.remove(os.path.join(OUT, icon))
+    icon = 'icons/%s.svg' % full_name
+    with open(os.path.join(OUT, icon), 'w', encoding='utf-8') as f:
+        f.write(tools_icons.make_icon(full_name, name, category, tools_icons.glyph_paths()))
+    return icon
+
+
 def parse_ports(body, texts):
     """The connectors of a plugin class: name, direction, C# type, caption, tooltip, mandatory, control."""
     ports = []
@@ -397,7 +414,8 @@ def extract_components(folder, plugin_dir, sources, resources, localized, exclud
                 name=texts.get(name_key, class_name),
                 tooltip=texts.get(tooltip_key, ''),
                 category=category.group(1) if category else 'Undefined',
-                icon=copy_icon(plugin_dir, icon_list, full_name),
+                icon=plugin_icon(plugin_dir, icon_list, full_name, texts.get(name_key, class_name),
+                                 category.group(1) if category else 'Undefined'),
                 ports=ports,
                 supported=folder not in excluded,
                 presentation=not has_no_presentation(body),

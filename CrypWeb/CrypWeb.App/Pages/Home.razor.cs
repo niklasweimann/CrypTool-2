@@ -181,6 +181,40 @@ public partial class Home : IDisposable, IHandleEvent
     /// <summary>Top level folder of a template: its category in the list below the templates.</summary>
     private static string TemplateCategory(string template) => template.Split('/')[0];
 
+    // The line icons of the category lists (glyphs of Components/Icon.razor).
+    private static string TemplateCategoryGlyph(string category) => category switch
+    {
+        "Codes" => "g-code",
+        "Cryptanalysis" => "g-search",
+        "Cryptography" => "g-lock",
+        "Hashfunctions" => "g-hash",
+        "Mathematics" => "g-sigma",
+        "Protocols" => "g-sequence",
+        "Steganography" => "g-hidden",
+        "Tools" => "g-calc",
+        "Experimental" => "g-flask",
+        _ => "g-all"
+    };
+
+    private static string ComponentCategoryGlyph(string category) => category switch
+    {
+        "CiphersClassic" => "g-shift",
+        "CiphersModernSymmetric" => "g-blocks",
+        "CiphersModernAsymmetric" => "g-key",
+        "CryptanalysisGeneric" => "g-bars",
+        "CryptanalysisSpecific" => "g-search",
+        "HashFunctions" => "g-hash",
+        "Protocols" => "g-sequence",
+        "Steganography" => "g-hidden",
+        "ToolsBoolean" => "g-logic",
+        "ToolsCodes" => "g-code",
+        "ToolsDataflow" => "g-route",
+        "ToolsDataInputOutput" => "g-database",
+        "ToolsRandomNumbers" => "g-dice",
+        "DECRYPTProjectComponent" => "g-chip",
+        _ => "g-calc"
+    };
+
     private IEnumerable<string> TemplateCategories => VisibleTemplates.Select(TemplateCategory).Distinct().OrderBy(c => c);
 
     /// <summary>The expanded template category ("*" = all); the first one until the user picks one.</summary>
