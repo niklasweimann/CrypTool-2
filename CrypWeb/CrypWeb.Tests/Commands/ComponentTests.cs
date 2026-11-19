@@ -1004,19 +1004,28 @@ public static class ComponentTests
 
     static void Kleptography()
     {
-        // SETUP attack: for several runs the attacker recovers p and q of the victim's modulus from its upper bits
-        bool all = true, primes = true, sizes = true;
-        for (int run = 1; run <= 5; run++)
+        // four ways to generate the primes: the attacker finds p and q for the three backdoors in several runs, and nothing in an honest key
+        var names = new[] { "honest", "SETUP upper bits", "SETUP lower bits", "shared pad" };
+        for (int method = 0; method < 4; method++)
         {
-            var attack = global::Kleptography.SetupAttack.Run(run);
-            all &= attack.Recovered && attack.RecoveredP == attack.P && attack.RecoveredQ == attack.Q && attack.RecoveredP * attack.RecoveredQ == attack.N;
-            primes &= global::Kleptography.SetupAttack.IsPrime(attack.P) && global::Kleptography.SetupAttack.IsPrime(attack.Q);
-            sizes &= attack.N.GetBitLength() >= 316 && attack.N.GetBitLength() <= 321 && attack.P.GetBitLength() == 160;
+            bool recovered = true, none = true, primes = true, sizes = true;
+            for (int run = 1; run <= 5; run++)
+            {
+                var attack = global::Kleptography.SetupAttack.Run(run, method);
+                if (method == 0) { none &= !attack.Recovered; }
+                else { recovered &= attack.Recovered && attack.RecoveredP == attack.P && attack.RecoveredQ == attack.Q && attack.RecoveredP * attack.RecoveredQ == attack.N; }
+                primes &= global::Kleptography.SetupAttack.IsPrime(attack.P) && global::Kleptography.SetupAttack.IsPrime(attack.Q);
+                sizes &= attack.N.GetBitLength() >= 310 && attack.N.GetBitLength() <= 321 && attack.P.GetBitLength() == 160;
+            }
+            Check(method == 0 ? none : recovered, method == 0 ? "kleptography, honest generation: the attacker finds nothing in five runs" : $"kleptography, {names[method]}: from the key the attacker finds p and q in five runs");
+            Check(primes && sizes, $"kleptography, {names[method]}: p and q are prime (Miller-Rabin) and n has 310 to 321 bits, like an ordinary modulus");
         }
-        Check(all, "kleptography: from the upper bits of n the attacker finds p and q in five runs");
-        Check(primes && sizes, "kleptography: p and q are prime (Miller-Rabin) and n has 316 to 321 bits, like an ordinary modulus");
-        var first = global::Kleptography.SetupAttack.Run(1);
+        var first = global::Kleptography.SetupAttack.Run(1, 1);
         Check(System.Numerics.BigInteger.ModPow(first.Encrypted, first.AttackerD, first.AttackerN) == first.Seed && (first.N >> global::Kleptography.SetupAttack.ShiftBits) == first.Encrypted, "kleptography: the upper bits of n are the seed encrypted with the attacker's key, and his secret exponent decrypts them");
+        var lower = global::Kleptography.SetupAttack.Run(1, 2);
+        Check(lower.N % (System.Numerics.BigInteger.One << global::Kleptography.SetupAttack.LowBits) == lower.Encrypted, "kleptography: the lower 130 bits of n are exactly the hidden value");
+        var pad = global::Kleptography.SetupAttack.Run(1, 3);
+        Check((pad.N >> global::Kleptography.SetupAttack.ShiftBits) == (pad.Seed ^ pad.Pad), "kleptography: with a shared pad the upper bits of n are the seed XOR the pad");
         Check(global::Kleptography.SetupAttack.IsPrime(1000003) && !global::Kleptography.SetupAttack.IsPrime(1000001) && global::Kleptography.SetupAttack.IsPrime(System.Numerics.BigInteger.Pow(2, 127) - 1), "kleptography: primality test (1000003 and the Mersenne prime 2^127 - 1 are prime, 1000001 = 101 * 9901 is not)");
     }
 

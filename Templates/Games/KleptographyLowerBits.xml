@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KleptographyLowerBits.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Kleptography: SETUP Attack on RSA (lower bits)</title>
+  <summary lang="en"><i>Kleptography: SETUP Attack on RSA (lower bits)</i></summary>
+  <description lang="en">The hidden value is in the lower bits of the modulus.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Compare with the other methods in the settings of the {\\b Kleptography} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Kleptographie: SETUP-Angriff auf RSA (untere Bits)</title>
+  <summary lang="de"><i>Kleptographie: SETUP-Angriff auf RSA (untere Bits)</i></summary>
+  <description lang="de">Der versteckte Wert steckt in den unteren Bits des Moduls.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Vergleichen Sie mit den anderen Methoden in den Einstellungen der Komponente {\\b Kleptographie}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KleptographyLowerBits.png" />
+  <relevantPlugins>
+    <plugin name="Kleptography" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KleptographyHonest.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Kleptography: Honest Key Generation</title>
+  <summary lang="en"><i>Kleptography: Honest Key Generation</i></summary>
+  <description lang="en">Nothing is hidden; the attack finds nothing.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Compare with the other methods in the settings of the {\\b Kleptography} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Kleptographie: Ehrliche Schlüsselerzeugung</title>
+  <summary lang="de"><i>Kleptographie: Ehrliche Schlüsselerzeugung</i></summary>
+  <description lang="de">Nichts ist versteckt; der Angriff findet nichts.</description>
+  <keywords lang="en">kleptography, SETUP, backdoor, RSA, key generation</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Vergleichen Sie mit den anderen Methoden in den Einstellungen der Komponente {\\b Kleptographie}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KleptographyHonest.png" />
+  <relevantPlugins>
+    <plugin name="Kleptography" />
+  </relevantPlugins>
+</sample>

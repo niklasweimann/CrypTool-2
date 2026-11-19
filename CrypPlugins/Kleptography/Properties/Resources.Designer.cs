@@ -79,6 +79,24 @@ namespace Kleptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to AttackFailedHonest.
+        /// </summary>
+        internal static string AttackFailedHonest {
+            get {
+                return ResourceManager.GetString("AttackFailedHonest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AttackHonest.
+        /// </summary>
+        internal static string AttackHonest {
+            get {
+                return ResourceManager.GetString("AttackHonest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to AttackP.
         /// </summary>
         internal static string AttackP {
@@ -97,6 +115,15 @@ namespace Kleptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to AttackRead2.
+        /// </summary>
+        internal static string AttackRead2 {
+            get {
+                return ResourceManager.GetString("AttackRead2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to AttackSeed.
         /// </summary>
         internal static string AttackSeed {
@@ -106,11 +133,29 @@ namespace Kleptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to AttackSeed3.
+        /// </summary>
+        internal static string AttackSeed3 {
+            get {
+                return ResourceManager.GetString("AttackSeed3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to AttackerKey.
         /// </summary>
         internal static string AttackerKey {
             get {
                 return ResourceManager.GetString("AttackerKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AttackerPad.
+        /// </summary>
+        internal static string AttackerPad {
+            get {
+                return ResourceManager.GetString("AttackerPad", resourceCulture);
             }
         }
         
@@ -129,6 +174,105 @@ namespace Kleptography.Properties {
         internal static string Intro {
             get {
                 return ResourceManager.GetString("Intro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to Method.
+        /// </summary>
+        internal static string Method {
+            get {
+                return ResourceManager.GetString("Method", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to Method0.
+        /// </summary>
+        internal static string Method0 {
+            get {
+                return ResourceManager.GetString("Method0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to Method1.
+        /// </summary>
+        internal static string Method1 {
+            get {
+                return ResourceManager.GetString("Method1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to Method2.
+        /// </summary>
+        internal static string Method2 {
+            get {
+                return ResourceManager.GetString("Method2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to Method3.
+        /// </summary>
+        internal static string Method3 {
+            get {
+                return ResourceManager.GetString("Method3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodCaption.
+        /// </summary>
+        internal static string MethodCaption {
+            get {
+                return ResourceManager.GetString("MethodCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodList1.
+        /// </summary>
+        internal static string MethodList1 {
+            get {
+                return ResourceManager.GetString("MethodList1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodList2.
+        /// </summary>
+        internal static string MethodList2 {
+            get {
+                return ResourceManager.GetString("MethodList2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodList3.
+        /// </summary>
+        internal static string MethodList3 {
+            get {
+                return ResourceManager.GetString("MethodList3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodList4.
+        /// </summary>
+        internal static string MethodList4 {
+            get {
+                return ResourceManager.GetString("MethodList4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to MethodTooltip.
+        /// </summary>
+        internal static string MethodTooltip {
+            get {
+                return ResourceManager.GetString("MethodTooltip", resourceCulture);
             }
         }
         
@@ -214,6 +358,15 @@ namespace Kleptography.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to VictimEncrypted3.
+        /// </summary>
+        internal static string VictimEncrypted3 {
+            get {
+                return ResourceManager.GetString("VictimEncrypted3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to VictimN.
         /// </summary>
         internal static string VictimN {
@@ -237,6 +390,24 @@ namespace Kleptography.Properties {
         internal static string VictimQ {
             get {
                 return ResourceManager.GetString("VictimQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to VictimQ0.
+        /// </summary>
+        internal static string VictimQ0 {
+            get {
+                return ResourceManager.GetString("VictimQ0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to VictimQ2.
+        /// </summary>
+        internal static string VictimQ2 {
+            get {
+                return ResourceManager.GetString("VictimQ2", resourceCulture);
             }
         }
         

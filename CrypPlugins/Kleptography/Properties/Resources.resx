@@ -123,23 +123,71 @@
   <data name="AttackFailed" xml:space="preserve">
     <value>The attack failed for this run.</value>
   </data>
+  <data name="AttackFailedHonest" xml:space="preserve">
+    <value>The attack fails: nothing is hidden in an honest key. Compare with the other methods.</value>
+  </data>
+  <data name="AttackHonest" xml:space="preserve">
+    <value>The attacker looks at the upper and lower bits of n and tries to decrypt them: no prime divides n.</value>
+  </data>
   <data name="AttackP" xml:space="preserve">
     <value>From s he computes p = {0} and q = n / p = {1}.</value>
   </data>
   <data name="AttackRead" xml:space="preserve">
     <value>The attacker reads the upper bits of n: {0} (this is c).</value>
   </data>
+  <data name="AttackRead2" xml:space="preserve">
+    <value>The attacker reads the lower bits of n: n mod 2^130 = {0}; c = 2 * (encrypted seed) + 1.</value>
+  </data>
   <data name="AttackSeed" xml:space="preserve">
     <value>He decrypts them with d: s = {0}.</value>
+  </data>
+  <data name="AttackSeed3" xml:space="preserve">
+    <value>He combines them with the pad: s = {0}.</value>
   </data>
   <data name="AttackerKey" xml:space="preserve">
     <value>Public key of the attacker, built into the generator: N = {0}, e = {1}. The secret exponent d stays with the attacker.</value>
   </data>
+  <data name="AttackerPad" xml:space="preserve">
+    <value>The generator and the attacker share a secret pad (128 bits). Whoever learns the pad (by taking the device apart) can read all keys: this is the weakness against the SETUP attack, where the generator knows only the public key.</value>
+  </data>
   <data name="Conclusion" xml:space="preserve">
-    <value>Without the secret exponent d, n looks random and is as hard to factor as any other modulus. So the backdoor cannot be found by looking at the keys, only by examining the generator itself. This is a demonstration of one method (the seed is hidden in the upper bits of n); real SETUP attacks use elliptic curves to hide more bits.</value>
+    <value>Without the secret exponent d, n looks random and is as hard to factor as any other modulus. So the backdoor cannot be found by looking at the keys, only by examining the generator itself. The four methods of the settings show the honest generation, two places for the hidden value and the difference between a public-key and a shared-secret backdoor. Real SETUP attacks use elliptic curves to hide more bits.</value>
   </data>
   <data name="Intro" xml:space="preserve">
     <value>A changed key generator (a smart card, a library) makes RSA keys that look normal. Without it nobody sees the difference, but the attacker, who knows a secret key, can factor every public key it makes. Small numbers are used here.</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Method: {0}</value>
+  </data>
+  <data name="Method0" xml:space="preserve">
+    <value>honest generation, the attacker finds nothing</value>
+  </data>
+  <data name="Method1" xml:space="preserve">
+    <value>the seed is encrypted with the RSA key of the attacker and hidden in the upper bits of n</value>
+  </data>
+  <data name="Method2" xml:space="preserve">
+    <value>the same value is hidden in the lower bits of n: q is chosen so that n mod 2^130 is the value</value>
+  </data>
+  <data name="Method3" xml:space="preserve">
+    <value>no public key: the seed is combined (XOR) with a secret pad that attacker and generator share, in the upper bits of n</value>
+  </data>
+  <data name="MethodCaption" xml:space="preserve">
+    <value>Method</value>
+  </data>
+  <data name="MethodList1" xml:space="preserve">
+    <value>Honest generation (nothing hidden)</value>
+  </data>
+  <data name="MethodList2" xml:space="preserve">
+    <value>SETUP, upper bits of n (RSA)</value>
+  </data>
+  <data name="MethodList3" xml:space="preserve">
+    <value>SETUP, lower bits of n (RSA)</value>
+  </data>
+  <data name="MethodList4" xml:space="preserve">
+    <value>Symmetric backdoor with a secret pad</value>
+  </data>
+  <data name="MethodTooltip" xml:space="preserve">
+    <value>How the primes are generated.</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Kleptography (SETUP attack)</value>
@@ -168,6 +216,9 @@
   <data name="VictimEncrypted" xml:space="preserve">
     <value>The seed is encrypted with the key of the attacker: c = s^e mod N = {0}.</value>
   </data>
+  <data name="VictimEncrypted3" xml:space="preserve">
+    <value>The seed is combined with the pad: c = s XOR pad = {0}.</value>
+  </data>
   <data name="VictimN" xml:space="preserve">
     <value>The public key of the victim is n = p * q = {0} ({1} bits). It looks like any RSA modulus.</value>
   </data>
@@ -176,6 +227,12 @@
   </data>
   <data name="VictimQ" xml:space="preserve">
     <value>The prime q is chosen so that p * q begins with c: q = next prime after (c * 2^192) / p = {0}.</value>
+  </data>
+  <data name="VictimQ0" xml:space="preserve">
+    <value>The prime q is chosen at random: q = {0}.</value>
+  </data>
+  <data name="VictimQ2" xml:space="preserve">
+    <value>The prime q is chosen so that p * q mod 2^130 = c (q = c / p mod 2^130 plus a multiple of 2^130, the first prime): q = {0}.</value>
   </data>
   <data name="VictimSeed" xml:space="preserve">
     <value>A random seed s is chosen: s = {0}.</value>

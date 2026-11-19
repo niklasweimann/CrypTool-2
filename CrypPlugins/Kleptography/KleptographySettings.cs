@@ -6,9 +6,17 @@ namespace Kleptography
 {
     public class KleptographySettings : ISettings
     {
+        private int _method = 1;
         private int _seed = 1;
 
-        [TaskPane("SeedCaption", "SeedTooltip", null, 1, false, ControlType.NumericUpDown, ValidationType.RangeInteger, 1, 100000)]
+        [TaskPane("MethodCaption", "MethodTooltip", null, 1, false, ControlType.ComboBox, new string[] { "MethodList1", "MethodList2", "MethodList3", "MethodList4" })]
+        public int Method
+        {
+            get => _method;
+            set { if (value != _method) { _method = value; OnPropertyChanged("Method"); } }
+        }
+
+        [TaskPane("SeedCaption", "SeedTooltip", null, 2, false, ControlType.NumericUpDown, ValidationType.RangeInteger, 1, 100000)]
         public int Seed
         {
             get => _seed;

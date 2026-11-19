@@ -10,6 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using System.Numerics;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Kleptography
 {
@@ -44,7 +45,7 @@ namespace Kleptography
         /// <summary>Starts a new game when the workspace runs; the game then goes on in the presentation.</summary>
         public void Execute()
         {
-            ((KleptographyPresentation)Presentation).Start(_settings.Seed);
+            ((KleptographyPresentation)Presentation).Start(_settings.Method, _settings.Seed);
         }
 
         public void Stop()
@@ -82,6 +83,9 @@ namespace Kleptography
         public BigInteger Seed, P, Q, N, Encrypted;
         public BigInteger RecoveredSeed, RecoveredP, RecoveredQ;
         public bool Recovered;
+        public int Method;
+        public BigInteger Pad;   // method 3: the shared secret of attacker and generator
+        public const int LowBits = 130;
 
         public static readonly int[] SmallPrimes = { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 
@@ -128,11 +132,15 @@ namespace Kleptography
             return NextPrime(start);
         }
 
-        /// <summary>The attacker makes a key pair (two 64-bit primes, e = 65537); the victim's seed and everything follows from the numbers of the run.</summary>
-        public static SetupAttack Run(int number)
+        /// <summary>
+        /// The four ways to generate the primes: 0 honest (nothing hidden), 1 seed encrypted with the attacker's RSA key in the upper bits of n,
+        /// 2 the same in the lower bits of n (q is chosen so that n mod 2^130 is the hidden value), 3 the seed hidden in the upper bits of n with a secret
+        /// pad that attacker and generator share (symmetric, simpler, but everybody who learns the pad can read all keys).
+        /// </summary>
+        public static SetupAttack Run(int number, int method)
         {
             var random = new Random(number);
-            var attack = new SetupAttack();
+            var attack = new SetupAttack { Method = method };
             BigInteger a, b;
             do
             {
@@ -143,20 +151,45 @@ namespace Kleptography
             }
             while (a == b || BigInteger.GreatestCommonDivisor(attack.AttackerE, (a - 1) * (b - 1)) != 1 || attack.AttackerN.GetBitLength() < 127);
             attack.AttackerD = ModInverse(attack.AttackerE, (a - 1) * (b - 1));
+            using (var hmac = new HMACSHA256(Encoding.ASCII.GetBytes("secret of the attacker " + number)))
+            {
+                attack.Pad = FromBytes(hmac.ComputeHash(Encoding.ASCII.GetBytes("setup")).Take(16).ToArray());
+            }
 
-            // the victim's (changed) key generation
+            // the victim's key generation
             attack.Seed = RandomBits(random, 100);
             attack.P = PrimeFromSeed(attack.Seed);
-            attack.Encrypted = BigInteger.ModPow(attack.Seed, attack.AttackerE, attack.AttackerN);
-            BigInteger target = attack.Encrypted << ShiftBits;
-            attack.Q = NextPrime(target / attack.P);
+            if (method == 0)
+            {
+                attack.Q = NextPrime(RandomBits(random, 159));
+            }
+            else if (method == 2)
+            {
+                attack.Encrypted = 2 * BigInteger.ModPow(attack.Seed, attack.AttackerE, attack.AttackerN) + 1;   // odd, so that q can be computed
+                BigInteger modulus = BigInteger.One << LowBits;
+                BigInteger baseQ = attack.Encrypted * ModInverse(attack.P, modulus) % modulus;
+                BigInteger t = RandomBits(random, 30);
+                BigInteger q = baseQ + t * modulus;
+                while (!IsPrime(q)) { t++; q = baseQ + t * modulus; }
+                attack.Q = q;
+            }
+            else
+            {
+                attack.Encrypted = method == 1 ? BigInteger.ModPow(attack.Seed, attack.AttackerE, attack.AttackerN) : attack.Seed ^ attack.Pad;
+                attack.Q = NextPrime((attack.Encrypted << ShiftBits) / attack.P);
+            }
             attack.N = attack.P * attack.Q;
 
-            // the attacker reads the upper bits of the public key n
+            // the attacker reads the key
             for (int carry = 0; carry < 2 && !attack.Recovered; carry++)
             {
-                BigInteger candidate = (attack.N >> ShiftBits) - carry;
-                BigInteger seed = BigInteger.ModPow(candidate, attack.AttackerD, attack.AttackerN);
+                BigInteger seed;
+                if (method == 2) { if (carry > 0) { break; } seed = BigInteger.ModPow(((attack.N % (BigInteger.One << LowBits)) - 1) / 2, attack.AttackerD, attack.AttackerN); }
+                else
+                {
+                    BigInteger candidate = (attack.N >> ShiftBits) - carry;
+                    seed = method == 3 ? candidate ^ attack.Pad : BigInteger.ModPow(candidate, attack.AttackerD, attack.AttackerN);
+                }
                 BigInteger p = PrimeFromSeed(seed);
                 if (attack.N % p == 0) { attack.RecoveredSeed = seed; attack.RecoveredP = p; attack.RecoveredQ = attack.N / p; attack.Recovered = true; }
             }
@@ -190,11 +223,11 @@ namespace Kleptography
 
         public SetupAttack Attack { get; private set; }
 
-        public void Start(int number)
+        public void Start(int method, int number)
         {
             Action start = () =>
             {
-                Attack = SetupAttack.Run(number);
+                Attack = SetupAttack.Run(number, Math.Max(0, Math.Min(3, method)));
                 Show();
             };
             if (Dispatcher.CheckAccess()) { start(); } else { Dispatcher.BeginInvoke(start); }
@@ -213,23 +246,30 @@ namespace Kleptography
             Action<string, bool> line = (text, bold) => panel.Children.Add(new TextBlock { Text = text, FontSize = bold ? 14 : 12, FontWeight = bold ? FontWeights.Bold : FontWeights.Normal, TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, bold ? 10 : 2, 0, 2) });
             line(Properties.Resources.Title, true);
             line(Properties.Resources.Intro, false);
-            line(Properties.Resources.StepAttacker, true);
-            line(string.Format(Properties.Resources.AttackerKey, Short(a.AttackerN), a.AttackerE), false);
+            int m = a.Method;
+            line(string.Format(Properties.Resources.Method, new[] { Properties.Resources.Method0, Properties.Resources.Method1, Properties.Resources.Method2, Properties.Resources.Method3 }[m]), false);
+            if (m > 0)
+            {
+                line(Properties.Resources.StepAttacker, true);
+                line(m == 3 ? Properties.Resources.AttackerPad : string.Format(Properties.Resources.AttackerKey, Short(a.AttackerN), a.AttackerE), false);
+            }
             line(Properties.Resources.StepVictim, true);
             line(string.Format(Properties.Resources.VictimSeed, Short(a.Seed)), false);
             line(string.Format(Properties.Resources.VictimP, Short(a.P)), false);
-            line(string.Format(Properties.Resources.VictimEncrypted, Short(a.Encrypted)), false);
-            line(string.Format(Properties.Resources.VictimQ, Short(a.Q)), false);
+            if (m > 0) { line(string.Format(m == 3 ? Properties.Resources.VictimEncrypted3 : Properties.Resources.VictimEncrypted, Short(a.Encrypted)), false); }
+            line(string.Format(m == 0 ? Properties.Resources.VictimQ0 : m == 2 ? Properties.Resources.VictimQ2 : Properties.Resources.VictimQ, Short(a.Q)), false);
             line(string.Format(Properties.Resources.VictimN, Short(a.N), a.N.GetBitLength()), false);
             line(Properties.Resources.StepAttack, true);
-            line(string.Format(Properties.Resources.AttackRead, Short(a.N >> SetupAttack.ShiftBits)), false);
+            if (m == 0) { line(Properties.Resources.AttackHonest, false); }
+            else if (m == 2) { line(string.Format(Properties.Resources.AttackRead2, Short(a.N % (BigInteger.One << SetupAttack.LowBits))), false); }
+            else { line(string.Format(Properties.Resources.AttackRead, Short(a.N >> SetupAttack.ShiftBits)), false); }
             if (a.Recovered)
             {
-                line(string.Format(Properties.Resources.AttackSeed, Short(a.RecoveredSeed)), false);
+                line(string.Format(m == 3 ? Properties.Resources.AttackSeed3 : Properties.Resources.AttackSeed, Short(a.RecoveredSeed)), false);
                 line(string.Format(Properties.Resources.AttackP, Short(a.RecoveredP), Short(a.RecoveredQ)), false);
                 line(string.Format(Properties.Resources.AttackFactors, a.RecoveredP * a.RecoveredQ == a.N), true);
             }
-            else { line(Properties.Resources.AttackFailed, true); }
+            else { line(m == 0 ? Properties.Resources.AttackFailedHonest : Properties.Resources.AttackFailed, true); }
             line(Properties.Resources.Conclusion, false);
             Content = new ScrollViewer { Content = panel, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
         }

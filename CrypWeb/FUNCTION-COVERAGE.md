@@ -64,7 +64,7 @@ Abdeckung: 280 von 342 Einträgen (62 offen). Neue Plugins in `CrypPlugins/` (al
 | `Sudoku` | Zudo-Ku: Rätsel mit eindeutiger Lösung (Löser prüft die Eindeutigkeit), reproduzierbar je Rätselnummer |
 | `AntColony` | Ameisenalgorithmus (Ant System von Dorigo u. a.) für das Problem des Handlungsreisenden, gegen Brute Force geprüft |
 | `PatternLock` | Android-Entsperrmuster: Regeln, die 389112 gültigen Muster (nach Längen geprüft), SHA-1-Wert und Angriff durch Probieren |
-| `Kleptography` | SETUP-Angriff auf die RSA-Schlüsselerzeugung (Young/Yung): der Startwert von p, mit dem Schlüssel des Angreifers verschlüsselt, steckt in den oberen Bits von n; der Angreifer liest p und q aus. Eine der vier Methoden des Funktionslisten-Eintrags, mit kleinen Zahlen |
+| `Kleptography` | SETUP-Angriff auf die RSA-Schlüsselerzeugung (Young/Yung): der Startwert von p, mit dem Schlüssel des Angreifers verschlüsselt, steckt in den oberen Bits von n; der Angreifer liest p und q aus. Vier Methoden einstellbar: ehrliche Erzeugung, SETUP in den oberen Bits, SETUP in den unteren Bits, symmetrische Hintertür mit gemeinsamem Pad; mit kleinen Zahlen, Templates unter `Games/Kleptography*` |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
 Was von den 62 offenen Einträgen bleibt und warum:

@@ -123,23 +123,71 @@
   <data name="AttackFailed" xml:space="preserve">
     <value>Der Angriff ist bei diesem Ablauf fehlgeschlagen.</value>
   </data>
+  <data name="AttackFailedHonest" xml:space="preserve">
+    <value>Der Angriff scheitert: In einem ehrlichen Schlüssel ist nichts versteckt. Vergleichen Sie mit den anderen Methoden.</value>
+  </data>
+  <data name="AttackHonest" xml:space="preserve">
+    <value>Der Angreifer betrachtet die oberen und die unteren Bits von n und versucht sie zu entschlüsseln: Keine Primzahl teilt n.</value>
+  </data>
   <data name="AttackP" xml:space="preserve">
     <value>Aus s berechnet er p = {0} und q = n / p = {1}.</value>
   </data>
   <data name="AttackRead" xml:space="preserve">
     <value>Der Angreifer liest die oberen Bits von n: {0} (das ist c).</value>
   </data>
+  <data name="AttackRead2" xml:space="preserve">
+    <value>Der Angreifer liest die unteren Bits von n: n mod 2^130 = {0}; c = 2 * (verschlüsselter Startwert) + 1.</value>
+  </data>
   <data name="AttackSeed" xml:space="preserve">
     <value>Er entschlüsselt sie mit d: s = {0}.</value>
+  </data>
+  <data name="AttackSeed3" xml:space="preserve">
+    <value>Er verknüpft sie mit dem Pad: s = {0}.</value>
   </data>
   <data name="AttackerKey" xml:space="preserve">
     <value>Öffentlicher Schlüssel des Angreifers, im Generator eingebaut: N = {0}, e = {1}. Der geheime Exponent d bleibt beim Angreifer.</value>
   </data>
+  <data name="AttackerPad" xml:space="preserve">
+    <value>Der Generator und der Angreifer teilen ein geheimes Pad (128 Bit). Wer das Pad kennt (etwa durch Zerlegen des Geräts), kann alle Schlüssel lesen: Das ist die Schwäche gegenüber dem SETUP-Angriff, bei dem der Generator nur den öffentlichen Schlüssel kennt.</value>
+  </data>
   <data name="Conclusion" xml:space="preserve">
-    <value>Ohne den geheimen Exponenten d sieht n zufällig aus und ist so schwer zu zerlegen wie jeder andere Modul. Die Hintertür findet man also nicht an den Schlüsseln, sondern nur durch Untersuchen des Generators selbst. Dies ist die Vorführung einer Methode (der Startwert steckt in den oberen Bits von n); echte SETUP-Angriffe verstecken mehr Bits mithilfe elliptischer Kurven.</value>
+    <value>Ohne den geheimen Exponenten d sieht n zufällig aus und ist so schwer zu zerlegen wie jeder andere Modul. Die Hintertür findet man also nicht an den Schlüsseln, sondern nur durch Untersuchen des Generators selbst. Die vier Methoden der Einstellungen zeigen die ehrliche Erzeugung, zwei Orte für den versteckten Wert und den Unterschied zwischen einer Hintertür mit öffentlichem Schlüssel und einer mit gemeinsamem Geheimnis. Echte SETUP-Angriffe verstecken mehr Bits mithilfe elliptischer Kurven.</value>
   </data>
   <data name="Intro" xml:space="preserve">
     <value>Ein veränderter Schlüsselgenerator (eine Chipkarte, eine Bibliothek) erzeugt RSA-Schlüssel, die normal aussehen. Ohne ihn sieht niemand den Unterschied, aber der Angreifer, der einen geheimen Schlüssel kennt, kann jeden öffentlichen Schlüssel zerlegen, den er erzeugt. Hier werden kleine Zahlen benutzt.</value>
+  </data>
+  <data name="Method" xml:space="preserve">
+    <value>Methode: {0}</value>
+  </data>
+  <data name="Method0" xml:space="preserve">
+    <value>ehrliche Erzeugung, der Angreifer findet nichts</value>
+  </data>
+  <data name="Method1" xml:space="preserve">
+    <value>der Startwert wird mit dem RSA-Schlüssel des Angreifers verschlüsselt und in den oberen Bits von n versteckt</value>
+  </data>
+  <data name="Method2" xml:space="preserve">
+    <value>derselbe Wert wird in den unteren Bits von n versteckt: q wird so gewählt, dass n mod 2^130 der Wert ist</value>
+  </data>
+  <data name="Method3" xml:space="preserve">
+    <value>kein öffentlicher Schlüssel: Der Startwert wird (XOR) mit einem geheimen Pad verknüpft, das Angreifer und Generator teilen, in den oberen Bits von n</value>
+  </data>
+  <data name="MethodCaption" xml:space="preserve">
+    <value>Methode</value>
+  </data>
+  <data name="MethodList1" xml:space="preserve">
+    <value>Ehrliche Erzeugung (nichts versteckt)</value>
+  </data>
+  <data name="MethodList2" xml:space="preserve">
+    <value>SETUP, obere Bits von n (RSA)</value>
+  </data>
+  <data name="MethodList3" xml:space="preserve">
+    <value>SETUP, untere Bits von n (RSA)</value>
+  </data>
+  <data name="MethodList4" xml:space="preserve">
+    <value>Symmetrische Hintertür mit geheimem Pad</value>
+  </data>
+  <data name="MethodTooltip" xml:space="preserve">
+    <value>Wie die Primzahlen erzeugt werden.</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Kleptographie (SETUP-Angriff)</value>
@@ -168,6 +216,9 @@
   <data name="VictimEncrypted" xml:space="preserve">
     <value>Der Startwert wird mit dem Schlüssel des Angreifers verschlüsselt: c = s^e mod N = {0}.</value>
   </data>
+  <data name="VictimEncrypted3" xml:space="preserve">
+    <value>Der Startwert wird mit dem Pad verknüpft: c = s XOR Pad = {0}.</value>
+  </data>
   <data name="VictimN" xml:space="preserve">
     <value>Der öffentliche Schlüssel des Opfers ist n = p * q = {0} ({1} Bit). Er sieht aus wie jeder RSA-Modul.</value>
   </data>
@@ -176,6 +227,12 @@
   </data>
   <data name="VictimQ" xml:space="preserve">
     <value>Die Primzahl q wird so gewählt, dass p * q mit c beginnt: q = nächste Primzahl nach (c * 2^192) / p = {0}.</value>
+  </data>
+  <data name="VictimQ0" xml:space="preserve">
+    <value>Die Primzahl q wird zufällig gewählt: q = {0}.</value>
+  </data>
+  <data name="VictimQ2" xml:space="preserve">
+    <value>Die Primzahl q wird so gewählt, dass p * q mod 2^130 = c ist (q = c / p mod 2^130 plus ein Vielfaches von 2^130, die erste Primzahl): q = {0}.</value>
   </data>
   <data name="VictimSeed" xml:space="preserve">
     <value>Es wird ein zufälliger Startwert s gewählt: s = {0}.</value>
