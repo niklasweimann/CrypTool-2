@@ -193,13 +193,14 @@
     <value>Diffie-Hellman:  p g a1 b1 [a2 b2]    23 5 6 15 4 9
 Signatur:  p q e                    1009 1013 17
 Authentifizierung:  Passwort A1 A2    secret 8271 9034
-S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
+S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11
+TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameter</value>
   </data>
   <data name="ParametersTooltip" xml:space="preserve">
-    <value>Zahlen, durch Leerzeichen getrennt. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (Primzahl, Erzeuger, geheime Exponenten von Alice und Bob je Sitzung). Signatur: p q e (zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels). Authentifizierung: Passwort Aufforderung1 Aufforderung2 (drei Wörter). S/MIME: pA qA eA pB qB eB (die RSA-Schlüssel von Alice und Bob).</value>
+    <value>Zahlen, durch Leerzeichen getrennt. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (Primzahl, Erzeuger, geheime Exponenten von Alice und Bob je Sitzung). Signatur: p q e (zwei Primzahlen und der öffentliche Exponent eines RSA-Schlüssels). Authentifizierung: Passwort Aufforderung1 Aufforderung2 (drei Wörter). S/MIME: pA qA eA pB qB eB (die RSA-Schlüssel von Alice und Bob). TLS: p g a b (Primzahl, Erzeuger, geheime Exponenten von Client und Server).</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Protokoll-Visualisierung</value>
@@ -221,6 +222,9 @@ S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
   </data>
   <data name="ProtocolList4" xml:space="preserve">
     <value>S/MIME (signierte und verschlüsselte E-Mail)</value>
+  </data>
+  <data name="ProtocolList5" xml:space="preserve">
+    <value>TLS-1.3-Handshake</value>
   </data>
   <data name="ProtocolTooltip" xml:space="preserve">
     <value>Wählen Sie das Protokoll, das gezeigt wird.</value>
@@ -278,6 +282,27 @@ S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
   </data>
   <data name="SmimeValid" xml:space="preserve">
     <value>Bob kann die Nachricht lesen, und die Signatur ist gültig: Die Nachricht stammt von Alice und wurde nicht verändert.</value>
+  </data>
+  <data name="TlsEveFound" xml:space="preserve">
+    <value>Eve sieht p, g, A und B und findet den Exponenten a = {0} durch Probieren: Sie berechnet dasselbe Geheimnis und alle Schlüssel. Bei einer echten Gruppe ist das nicht möglich.</value>
+  </data>
+  <data name="TlsEveNotTried" xml:space="preserve">
+    <value>Die Primzahl ist zu groß, als dass Eve den Exponenten durch Probieren finden könnte.</value>
+  </data>
+  <data name="TlsExplanation" xml:space="preserve">
+    <value>Client und Server tauschen Schlüsselanteile aus (Diffie-Hellman), beide berechnen dasselbe Geheimnis, und daraus, aus dem Hash der Nachrichten und HKDF folgen alle Schlüssel. Die Finished-Nachrichten beweisen, dass beide Seiten dieselben Schlüssel haben und dieselben Nachrichten gesehen haben. Dieses Beispiel benutzt eine kleine Diffie-Hellman-Gruppe statt einer elliptischen Kurve, und das Zertifikat wird nur genannt.</value>
+  </data>
+  <data name="TlsFailed" xml:space="preserve">
+    <value>Eine Finished-Nachricht ist falsch: Der Handshake scheitert.</value>
+  </data>
+  <data name="TlsNote" xml:space="preserve">
+    <value>Der Schlüsselplan ist der aus RFC 8446 (HKDF-Extract und HKDF-Expand-Label mit SHA-256); vereinfacht sind nur die Diffie-Hellman-Gruppe, die Nachrichtencodierung und das Zertifikat. Die Nachrichten nach dem ServerHello sind mit den Handshake-Schlüsseln verschlüsselt; der Schlüssel für die Daten stammt aus dem Hash aller Handshake-Nachrichten.</value>
+  </data>
+  <data name="TlsOk" xml:space="preserve">
+    <value>Beide Finished-Nachrichten sind korrekt: Der Handshake ist gelungen, und beide Seiten benutzen dieselben Anwendungsschlüssel.</value>
+  </data>
+  <data name="TlsTitle" xml:space="preserve">
+    <value>TLS-1.3-Handshake: Wie Client und Server Schlüssel vereinbaren</value>
   </data>
   <data name="WaitingText" xml:space="preserve">
     <value>Das Bild erscheint, wenn der Arbeitsbereich gelaufen ist.</value>

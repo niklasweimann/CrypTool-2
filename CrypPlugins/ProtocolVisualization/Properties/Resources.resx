@@ -193,13 +193,14 @@
     <value>Diffie-Hellman:  p g a1 b1 [a2 b2]    23 5 6 15 4 9
 Signature:  p q e                    1009 1013 17
 Authentication:  password n1 n2     secret 8271 9034
-S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
+S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11
+TLS:  p g a b                   23 5 6 15</value>
   </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameters</value>
   </data>
   <data name="ParametersTooltip" xml:space="preserve">
-    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key). Authentication: password challenge1 challenge2 (three words). S/MIME: pA qA eA pB qB eB (the RSA keys of Alice and Bob).</value>
+    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key). Authentication: password challenge1 challenge2 (three words). S/MIME: pA qA eA pB qB eB (the RSA keys of Alice and Bob). TLS: p g a b (prime, generator, secret exponents of client and server).</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Protocol Visualization</value>
@@ -221,6 +222,9 @@ S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
   </data>
   <data name="ProtocolList4" xml:space="preserve">
     <value>S/MIME (signed and encrypted e-mail)</value>
+  </data>
+  <data name="ProtocolList5" xml:space="preserve">
+    <value>TLS 1.3 handshake</value>
   </data>
   <data name="ProtocolTooltip" xml:space="preserve">
     <value>Select the protocol that is shown.</value>
@@ -278,6 +282,27 @@ S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
   </data>
   <data name="SmimeValid" xml:space="preserve">
     <value>Bob can read the message, and the signature is valid: the message is from Alice and was not changed.</value>
+  </data>
+  <data name="TlsEveFound" xml:space="preserve">
+    <value>Eve sees p, g, A and B and finds the exponent a = {0} by trial: she computes the same secret and all keys. With a real group this is not feasible.</value>
+  </data>
+  <data name="TlsEveNotTried" xml:space="preserve">
+    <value>The prime is too large for Eve to find the exponent by trial.</value>
+  </data>
+  <data name="TlsExplanation" xml:space="preserve">
+    <value>The client and the server exchange key shares (Diffie-Hellman), both compute the same secret, and from it, the hash of the messages and HKDF all keys follow. The Finished messages prove that both sides have the same keys and have seen the same messages. This example uses a small Diffie-Hellman group instead of an elliptic curve, and the certificate is only named.</value>
+  </data>
+  <data name="TlsFailed" xml:space="preserve">
+    <value>A Finished message is wrong: the handshake fails.</value>
+  </data>
+  <data name="TlsNote" xml:space="preserve">
+    <value>The key schedule is the one of RFC 8446 (HKDF-Extract and HKDF-Expand-Label with SHA-256); only the Diffie-Hellman group, the message encoding and the certificate are simplified. The messages after the ServerHello are encrypted with the handshake keys; the key for the data comes from the hash of all handshake messages.</value>
+  </data>
+  <data name="TlsOk" xml:space="preserve">
+    <value>Both Finished messages are correct: the handshake succeeded and both sides use the same application keys.</value>
+  </data>
+  <data name="TlsTitle" xml:space="preserve">
+    <value>TLS 1.3 handshake: how client and server agree on keys</value>
   </data>
   <data name="WaitingText" xml:space="preserve">
     <value>The picture appears when the workspace has run.</value>

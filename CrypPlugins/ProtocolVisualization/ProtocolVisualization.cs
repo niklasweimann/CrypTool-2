@@ -75,6 +75,12 @@ namespace ProtocolVisualization
                     Result = authentication.Accepted ? "ok" : "failed";
                     view.ShowAuthentication(authentication);
                 }
+                else if (_settings.Protocol == 4)
+                {
+                    Calculations.TlsResult tls = Calculations.Tls(Parameters);
+                    Result = tls.Verified ? "ok" : "failed";
+                    view.ShowTls(tls);
+                }
                 else if (_settings.Protocol == 3)
                 {
                     Calculations.SmimeResult smime = Calculations.Smime(Parameters, Message ?? "");
@@ -270,6 +276,123 @@ namespace ProtocolVisualization
             r.Response2 = Hmac(r.Password, r.Nonce2);
             r.Accepted = r.Response1 == Hmac(r.Password, r.Nonce1);
             r.ReplayAccepted = r.Response1 == r.Response2;
+            return r;
+        }
+
+        // ---------------------------------------------------------------- TLS 1.3 handshake
+
+        public sealed class TlsResult
+        {
+            public BigInteger P, G, A, B, PublicA, PublicB, Shared;
+            public string ClientRandom, ServerRandom;
+            public string HandshakeSecret, ClientHandshakeKey, ServerHandshakeKey, ServerFinished, ClientFinished;
+            public string ClientKey, ClientIv, ServerKey, ServerIv;
+            public bool Verified, ClientVerified;
+            public BigInteger EveFound;                 // the exponent that Eve finds by trial (0: not tried, the prime is too large)
+            public bool EveHasKeys;
+        }
+
+        public static byte[] HkdfExtract(byte[] salt, byte[] ikm)
+        {
+            using (var hmac = new HMACSHA256(salt)) { return hmac.ComputeHash(ikm); }
+        }
+
+        /// <summary>HKDF-Expand of RFC 5869 with HMAC-SHA-256.</summary>
+        public static byte[] HkdfExpand(byte[] prk, byte[] info, int length)
+        {
+            var result = new List<byte>();
+            byte[] previous = new byte[0];
+            using (var hmac = new HMACSHA256(prk))
+            {
+                for (byte counter = 1; result.Count < length; counter++)
+                {
+                    previous = hmac.ComputeHash(previous.Concat(info).Concat(new[] { counter }).ToArray());
+                    result.AddRange(previous);
+                }
+            }
+            return result.Take(length).ToArray();
+        }
+
+        /// <summary>HKDF-Expand-Label of TLS 1.3 (RFC 8446, section 7.1).</summary>
+        public static byte[] ExpandLabel(byte[] secret, string label, byte[] context, int length)
+        {
+            byte[] full = Encoding.ASCII.GetBytes("tls13 " + label);
+            var info = new List<byte> { (byte)(length >> 8), (byte)length, (byte)full.Length };
+            info.AddRange(full);
+            info.Add((byte)context.Length);
+            info.AddRange(context);
+            return HkdfExpand(secret, info.ToArray(), length);
+        }
+
+        public static byte[] DeriveSecret(byte[] secret, string label, byte[] transcriptHash) => ExpandLabel(secret, label, transcriptHash, 32);
+
+        private static byte[] Sha256Bytes(byte[] data)
+        {
+            using (var sha = SHA256.Create()) { return sha.ComputeHash(data); }
+        }
+
+        private static string Hex(byte[] data) => BitConverter.ToString(data).Replace("-", "");
+
+        /// <summary>
+        /// Parameters: p g a b: prime, generator and the secret exponents of client and server for the key exchange (a small Diffie-Hellman group instead of
+        /// an elliptic curve, so that the numbers can be followed). The key schedule is the one of TLS 1.3 (RFC 8446): HKDF with SHA-256, the transcript hash
+        /// of the messages, handshake traffic keys, Finished messages (HMAC over the transcript) and the application traffic keys.
+        /// </summary>
+        public static TlsResult Tls(string parameters)
+        {
+            BigInteger[] v = Numbers(parameters, 4, "p g a b: prime, generator and the secret exponents of client and server");
+            var r = new TlsResult { P = v[0], G = v[1], A = v[2], B = v[3] };
+            if (!IsPrime(r.P)) { throw new ArgumentException("p must be a prime."); }
+            if (r.G < 2 || r.G >= r.P) { throw new ArgumentException("g must be at least 2 and smaller than p."); }
+            if (r.A < 1 || r.A >= r.P || r.B < 1 || r.B >= r.P) { throw new ArgumentException("The secret exponents must be at least 1 and smaller than p."); }
+            r.PublicA = BigInteger.ModPow(r.G, r.A, r.P);
+            r.PublicB = BigInteger.ModPow(r.G, r.B, r.P);
+            r.Shared = BigInteger.ModPow(r.PublicB, r.A, r.P);
+            r.ClientRandom = Hex(Sha256Bytes(Encoding.UTF8.GetBytes("client random " + parameters)));
+            r.ServerRandom = Hex(Sha256Bytes(Encoding.UTF8.GetBytes("server random " + parameters)));
+
+            byte[] zero = new byte[32], empty = Sha256Bytes(new byte[0]);
+            byte[] clientHello = Encoding.UTF8.GetBytes("ClientHello " + r.ClientRandom + " key_share " + r.PublicA);
+            byte[] serverHello = Encoding.UTF8.GetBytes("ServerHello " + r.ServerRandom + " key_share " + r.PublicB);
+            byte[] hello = Sha256Bytes(clientHello.Concat(serverHello).ToArray());
+            byte[] z = r.Shared.ToByteArray().Reverse().SkipWhile(x => x == 0).ToArray();
+
+            byte[] early = HkdfExtract(zero, zero);
+            byte[] handshake = HkdfExtract(DeriveSecret(early, "derived", empty), z);
+            byte[] clientHs = DeriveSecret(handshake, "c hs traffic", hello), serverHs = DeriveSecret(handshake, "s hs traffic", hello);
+            r.HandshakeSecret = Hex(handshake);
+            r.ClientHandshakeKey = Hex(clientHs);
+            r.ServerHandshakeKey = Hex(serverHs);
+
+            // the server proves that it holds the handshake keys: HMAC over the transcript with the finished key
+            byte[] serverFlight = Sha256Bytes(hello.Concat(Encoding.UTF8.GetBytes("EncryptedExtensions Certificate CertificateVerify")).ToArray());
+            byte[] serverFinished = new HMACSHA256(ExpandLabel(serverHs, "finished", new byte[0], 32)).ComputeHash(serverFlight);
+            r.ServerFinished = Hex(serverFinished);
+            byte[] clientCheck = new HMACSHA256(ExpandLabel(serverHs, "finished", new byte[0], 32)).ComputeHash(serverFlight);
+            r.Verified = clientCheck.SequenceEqual(serverFinished);
+            byte[] clientFlight = Sha256Bytes(serverFlight.Concat(serverFinished).ToArray());
+            byte[] clientFinished = new HMACSHA256(ExpandLabel(clientHs, "finished", new byte[0], 32)).ComputeHash(clientFlight);
+            r.ClientFinished = Hex(clientFinished);
+            r.ClientVerified = new HMACSHA256(ExpandLabel(clientHs, "finished", new byte[0], 32)).ComputeHash(clientFlight).SequenceEqual(clientFinished);
+
+            byte[] master = HkdfExtract(DeriveSecret(handshake, "derived", empty), zero);
+            byte[] clientAp = DeriveSecret(master, "c ap traffic", clientFlight), serverAp = DeriveSecret(master, "s ap traffic", clientFlight);
+            r.ClientKey = Hex(ExpandLabel(clientAp, "key", new byte[0], 16));
+            r.ClientIv = Hex(ExpandLabel(clientAp, "iv", new byte[0], 12));
+            r.ServerKey = Hex(ExpandLabel(serverAp, "key", new byte[0], 16));
+            r.ServerIv = Hex(ExpandLabel(serverAp, "iv", new byte[0], 12));
+
+            // an eavesdropper who sees p, g, A and B: with a small prime the exponent is found by trial, and then every key follows
+            if (r.P < 2000000)
+            {
+                BigInteger x = 1;
+                for (BigInteger e = 1; e < r.P; e++)
+                {
+                    x = x * r.G % r.P;
+                    if (x == r.PublicA) { r.EveFound = e; break; }
+                }
+                r.EveHasKeys = r.EveFound > 0 && BigInteger.ModPow(r.PublicB, r.EveFound, r.P) == r.Shared;
+            }
             return r;
         }
 
@@ -544,6 +667,32 @@ namespace ProtocolVisualization
             var line = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 1, 0, 1) };
             line.Children.Add(Box(text, brush, 790, false, false));
             return line;
+        }
+
+        // ------------------------------------------------------------------ TLS 1.3 handshake
+
+        public void ShowTls(Calculations.TlsResult r)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.TlsTitle, 16, true));
+                Add(Text(Properties.Resources.TlsExplanation, 12));
+                Heading("Alice (client)", Properties.Resources.OpenChannel, "Bob (server)");
+                Row(string.Format(Properties.Resources.ChooseSecret, "a", r.A), "", string.Format(Properties.Resources.ChooseSecret, "b", r.B));
+                Row("1. ClientHello\nrandom " + Short(r.ClientRandom) + "\nkey_share A = g^a mod p = " + r.PublicA, "ClientHello, A = " + r.PublicA, "");
+                Row("", "ServerHello, B = " + r.PublicB, "2. ServerHello\nrandom " + Short(r.ServerRandom) + "\nkey_share B = g^b mod p = " + r.PublicB, false);
+                Row("3. Z = B^a mod p = " + r.Shared + "\nHandshake secret = HKDF(Z)\n" + Short(r.HandshakeSecret), "", "3. Z = A^b mod p = " + r.Shared + "\nthe same handshake secret");
+                Row("", "", "4. handshake traffic keys from the secret and the hash of ClientHello and ServerHello:\nclient " + Short(r.ClientHandshakeKey) + "\nserver " + Short(r.ServerHandshakeKey));
+                Row("", "encrypted: EncryptedExtensions, Certificate, CertificateVerify, Finished\n" + Short(r.ServerFinished), "5. Finished = HMAC(finished key, hash of the messages so far)", false);
+                Row("6. checks the Finished value: " + (r.Verified ? "correct" : "wrong"), "", "");
+                Row("7. Finished\n" + Short(r.ClientFinished), "encrypted: Finished", "8. checks it: " + (r.ClientVerified ? "correct" : "wrong"));
+                Row("9. application keys\nkey " + r.ClientKey + "\niv " + r.ClientIv, "", "9. the same\nkey " + r.ServerKey + "\niv " + r.ServerIv);
+                var verdict = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 1, 0, 1) };
+                verdict.Children.Add(Box(r.Verified && r.ClientVerified ? Properties.Resources.TlsOk : Properties.Resources.TlsFailed, r.Verified && r.ClientVerified ? GoodBrush : BadBrush, 790, true, false));
+                Add(verdict);
+                Add(EveLine(r.EveFound > 0 ? string.Format(Properties.Resources.TlsEveFound, r.EveFound) : Properties.Resources.TlsEveNotTried, r.EveFound > 0 ? BadBrush : GoodBrush));
+                Add(Text(Environment.NewLine + Properties.Resources.TlsNote, 12));
+            });
         }
 
         // ------------------------------------------------------------------ S/MIME

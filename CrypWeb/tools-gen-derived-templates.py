@@ -897,6 +897,13 @@ TEMPLATES += [
                            "The parameters are the RSA keys of Alice (signature) and Bob (encryption) as two primes and an exponent each. The keys are tiny so that the numbers can be followed; real keys have 2048 bits or more.",
                            "Die Parameter sind die RSA-Schlüssel von Alice (Signatur) und Bob (Verschlüsselung) als je zwei Primzahlen und ein Exponent. Die Schlüssel sind winzig, damit sich die Zahlen verfolgen lassen; echte Schlüssel haben 2048 Bit oder mehr.",
                            "S/MIME, e-mail, hybrid encryption, signature, visualization"),
+    protocol_visualization("Protocols/TlsHandshakeVisualization", 4, "23 5 6 15", None, None,
+                           "TLS 1.3 Handshake: Visualization", "TLS-1.3-Handshake: Visualisierung",
+                           "The handshake between client and server with key shares, Finished messages and the keys of the key schedule of RFC 8446.",
+                           "Der Handshake zwischen Client und Server mit Schlüsselanteilen, Finished-Nachrichten und den Schlüsseln des Schlüsselplans aus RFC 8446.",
+                           "The parameters are p = 23, g = 5 and the secret exponents of client and server (6 and 15). A small prime lets Eve find the exponent by trial; with a large prime (try 1000000007) she does not try. The keys are computed with HKDF and SHA-256 as in TLS 1.3.",
+                           "Die Parameter sind p = 23, g = 5 und die geheimen Exponenten von Client und Server (6 und 15). Bei einer kleinen Primzahl findet Eve den Exponenten durch Probieren; bei einer großen (probieren Sie 1000000007) versucht sie es nicht. Die Schlüssel werden wie bei TLS 1.3 mit HKDF und SHA-256 berechnet.",
+                           "TLS, SSL, handshake, key exchange, HKDF, visualization"),
 ]
 
 

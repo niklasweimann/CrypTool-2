@@ -1031,6 +1031,23 @@ public static class ComponentTests
 
     static void ProtocolVisualization()
     {
+        // TLS 1.3 key schedule: HKDF against RFC 5869 (test case 1) and .NET, the labels against RFC 8448 (early secret and "derived" secret), then the handshake
+        {
+            byte[] ikm = Enumerable.Repeat((byte)0x0b, 22).ToArray(), salt = Enumerable.Range(0, 13).Select(i => (byte)i).ToArray(), info = Enumerable.Range(0xf0, 10).Select(i => (byte)i).ToArray();
+            byte[] prk = global::ProtocolVisualization.Calculations.HkdfExtract(salt, ikm);
+            byte[] okm = global::ProtocolVisualization.Calculations.HkdfExpand(prk, info, 42);
+            Check(Convert.ToHexString(prk) == "077709362C2E32DF0DDC3F0DC47BBA6390B6C73BB50F9C3122EC844AD7C2B3E5" && Convert.ToHexString(okm) == "3CB25F25FAACD57A90434F64D0362F2A2D2D0A90CF1A5A4C5DB02D56ECC4C5BF34007208D5B887185865", "HKDF: RFC 5869 test case 1 (PRK and OKM)");
+            Check(okm.SequenceEqual(System.Security.Cryptography.HKDF.Expand(System.Security.Cryptography.HashAlgorithmName.SHA256, prk, 42, info)), "HKDF-Expand equals the .NET implementation");
+            byte[] zero = new byte[32], empty = System.Security.Cryptography.SHA256.HashData(new byte[0]);
+            byte[] early = global::ProtocolVisualization.Calculations.HkdfExtract(zero, zero);
+            byte[] derived = global::ProtocolVisualization.Calculations.DeriveSecret(early, "derived", empty);
+            Check(Convert.ToHexString(early) == "33AD0A1C607EC03B09E6CD9893680CE210ADF300AA1F2660E1B22E10F170F92A" && Convert.ToHexString(derived) == "6F2615A108C702C5678F54FC9DBAB69716C076189C48250CEBEAC3576C3611BA", "TLS 1.3 key schedule: early secret and derived secret equal RFC 8448");
+            var tls = global::ProtocolVisualization.Calculations.Tls("23 5 6 15");
+            Check(tls.PublicA == 8 && tls.PublicB == 19 && tls.Shared == 2 && tls.Verified && tls.ClientVerified && tls.EveFound == 6 && tls.EveHasKeys && tls.ClientKey.Length == 32 && tls.ClientIv.Length == 24, "TLS 1.3 handshake: p = 23, g = 5, a = 6, b = 15 give the secret 2 on both sides, both Finished messages verify, and Eve finds a = 6 by trial");
+            Check(global::ProtocolVisualization.Calculations.Tls("23 5 6 15").ClientKey == tls.ClientKey && global::ProtocolVisualization.Calculations.Tls("23 5 4 9").ClientKey != tls.ClientKey, "TLS 1.3 handshake: the same parameters give the same keys, other exponents other keys");
+            Check(global::ProtocolVisualization.Calculations.Tls("1000000007 5 123456 654321").EveFound == 0, "TLS 1.3 handshake: for a large prime Eve does not try");
+        }
+
         // Diffie-Hellman: the example of Wikipedia (p = 23, g = 5, a = 6, b = 15: A = 8, B = 19, K = 2); a second session with other exponents
         var exchange = global::ProtocolVisualization.Calculations.Exchange("23 5 6 15 4 9");
         var first = exchange.Sessions[0];

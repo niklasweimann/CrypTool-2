@@ -367,6 +367,15 @@ namespace ProtocolVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to ProtocolList5.
+        /// </summary>
+        internal static string ProtocolList5 {
+            get {
+                return ResourceManager.GetString("ProtocolList5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to ProtocolTooltip.
         /// </summary>
         internal static string ProtocolTooltip {
@@ -534,6 +543,69 @@ namespace ProtocolVisualization.Properties {
         internal static string SmimeValid {
             get {
                 return ResourceManager.GetString("SmimeValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsEveFound.
+        /// </summary>
+        internal static string TlsEveFound {
+            get {
+                return ResourceManager.GetString("TlsEveFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsEveNotTried.
+        /// </summary>
+        internal static string TlsEveNotTried {
+            get {
+                return ResourceManager.GetString("TlsEveNotTried", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsExplanation.
+        /// </summary>
+        internal static string TlsExplanation {
+            get {
+                return ResourceManager.GetString("TlsExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsFailed.
+        /// </summary>
+        internal static string TlsFailed {
+            get {
+                return ResourceManager.GetString("TlsFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsNote.
+        /// </summary>
+        internal static string TlsNote {
+            get {
+                return ResourceManager.GetString("TlsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsOk.
+        /// </summary>
+        internal static string TlsOk {
+            get {
+                return ResourceManager.GetString("TlsOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to TlsTitle.
+        /// </summary>
+        internal static string TlsTitle {
+            get {
+                return ResourceManager.GetString("TlsTitle", resourceCulture);
             }
         }
         

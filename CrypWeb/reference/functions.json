@@ -4406,7 +4406,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/TlsHandshakeVisualization.cwm": "Protocols/TlsHandshakeVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/TlsHandshakeVisualization.cwm"
  },
  {
   "name": "Transkriptor",
