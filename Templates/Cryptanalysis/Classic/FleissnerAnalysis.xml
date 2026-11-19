@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: FleissnerAnalysis.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Fleissner Grille: Analysis</title>
+  <summary lang="en"><i>Fleissner Grille: Analysis</i></summary>
+  <description lang="en">All 4 x 4 grilles are tried; the result with the most common bigrams and trigrams is the text.</description>
+  <keywords lang="en">Fleissner, grille, transposition, analysis</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Set the size 6 for a 6 x 6 grille (262144 grilles; the ciphertext length must be a multiple of 36)." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Fleißner-Schablone: Analyse</title>
+  <summary lang="de"><i>Fleißner-Schablone: Analyse</i></summary>
+  <description lang="de">Alle 4 x 4-Schablonen werden probiert; das Ergebnis mit den meisten häufigen Bi- und Trigrammen ist der Text.</description>
+  <keywords lang="en">Fleissner, grille, transposition, analysis</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Stellen Sie die Größe 6 für eine 6 x 6-Schablone ein (262144 Schablonen; die Länge des Geheimtextes muss ein Vielfaches von 36 sein)." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="FleissnerAnalysis.png" />
+  <relevantPlugins>
+    <plugin name="ClassicAnalysis" />
+  </relevantPlugins>
+</sample>

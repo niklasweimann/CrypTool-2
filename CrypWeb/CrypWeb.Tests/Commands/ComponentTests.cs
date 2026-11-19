@@ -53,6 +53,7 @@ public static class ComponentTests
         Kleptography();
         RainbowSideChannelHuffman();
         KeySearchTests();
+        AnalysisTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1106,6 +1107,47 @@ public static class ComponentTests
         }
         long none;
         Check(global::KeySearch.KeySearching.Search(0, new byte[16], 4, new byte[8], new byte[8], out none) == null && none == 16, "key search: a wrong ciphertext finds nothing after all 2^4 tries");
+    }
+
+    static void AnalysisTests()
+    {
+        // N-grams, normalized compression distance, byte-wise addition
+        var grams = global::TextAnalysis.TextStatistics.NGrams("Hello, hello!", 1, 3);
+        Check(grams[0].Text == "L" && grams[0].Count == 4 && grams[1].Text == "E" && grams.Sum(g => g.Count) == 8, "N-gram: letters of \"Hello, hello!\": L four times, then E, H, O twice (punctuation ignored); the top 3 are L, E, H");
+        var bigrams = global::TextAnalysis.TextStatistics.NGrams("abab", 2, 5);
+        Check(bigrams.Count == 2 && bigrams[0].Text == "AB" && bigrams[0].Count == 2 && bigrams[1].Text == "BA" && Math.Abs(bigrams[0].Percent - 66.666) < 0.01, "N-gram: bigrams of abab are AB twice and BA once");
+        string english = string.Concat(Enumerable.Repeat("the quick brown fox jumps over the lazy dog while the cat sleeps in the sun and the birds sing in the trees ", 8));
+        string similar = string.Concat(Enumerable.Repeat("the quick brown fox jumps over the lazy dog while the cat sleeps in the shade and the birds sing in the trees ", 8));
+        var randomText = new string(Enumerable.Range(0, english.Length).Select(i => (char)('a' + new Random(i).Next(26) * 1)).ToArray());
+        double same = global::TextAnalysis.TextStatistics.Ncd(english, english), near = global::TextAnalysis.TextStatistics.Ncd(english, similar), far = global::TextAnalysis.TextStatistics.Ncd(english, new string(Enumerable.Range(0, 900).Select(i => (char)(33 + (i * 7919 + i * i * 31) % 90)).ToArray()));
+        Check(same < 0.1 && near < far && far > 0.6, $"Vitanyi distance: the same text {same:F3}, a similar text {near:F3}, an unrelated text {far:F3}");
+        var secret = System.Text.Encoding.ASCII.GetBytes("Meet me at the old bridge at midnight and bring the documents.");
+        var shifted = secret.Select(b => (byte)(b + 77)).ToArray();
+        var ranked = global::TextAnalysis.TextStatistics.ByteAddition(shifted);
+        Check(ranked[0].Value == 77 && ranked[0].Plaintext.SequenceEqual(secret), "byte-wise addition: the constant 77 is found and the text is read");
+
+        // Hill cipher (the example of Wikipedia: key GYBNQKURP, ACT gives POH) and the known-plaintext attack
+        var key3 = new int[,] { { 6, 24, 1 }, { 13, 16, 10 }, { 20, 17, 15 } };
+        Check(global::ClassicAnalysis.ClassicAnalyses.HillEncrypt("ACT", key3) == "POH", "Hill cipher: key GYBNQKURP turns ACT into POH");
+        string hillPlain = "HELLOWORLDFROMTHEHILLCIPHERXYZ", hillCipher = global::ClassicAnalysis.ClassicAnalyses.HillEncrypt(hillPlain, key3);
+        var recovered = global::ClassicAnalysis.ClassicAnalyses.HillKey(hillPlain, hillCipher, 3);
+        Check(Enumerable.Range(0, 9).All(i => recovered[i / 3, i % 3] == key3[i / 3, i % 3]), "Hill analysis: the key matrix is recovered from 10 blocks of known plaintext");
+        var key2 = new int[,] { { 3, 3 }, { 2, 5 } };
+        var inverse2 = global::ClassicAnalysis.ClassicAnalyses.Inverse(key2);
+        Check(inverse2 != null && inverse2[0, 0] == 15 && inverse2[0, 1] == 17 && inverse2[1, 0] == 20 && inverse2[1, 1] == 9 && global::ClassicAnalysis.ClassicAnalyses.Inverse(new int[,] { { 2, 4 }, { 1, 2 } }) == null, "Hill: the inverse of (3 3; 2 5) modulo 26 is (15 17; 20 9), a matrix with determinant 0 has none");
+
+        // Fleissner grille: every cell is a hole exactly once in four turns, round trip, and the analysis finds the text
+        int[] choice = { 0, 1, 2, 3 };
+        var cells = Enumerable.Range(0, 4).SelectMany(t => global::ClassicAnalysis.ClassicAnalyses.Holes(4, choice, t, 1)).ToList();
+        Check(cells.Distinct().Count() == 16, "Fleissner grille: the 4 x 4 grille covers every cell once in its four positions");
+        string plain = "THEMEETINGWILLBEHELDATTHEOLDBRIDGEATMIDNIGHTANDTHENEVERTHATENDSTHEMISSION";
+        string padded = plain.PadRight((plain.Length + 15) / 16 * 16, 'X'), padded6 = plain.PadRight((plain.Length + 35) / 36 * 36, 'X');
+        string cipher = global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt(plain, 4, choice);
+        Check(cipher != padded && cipher.OrderBy(c => c).SequenceEqual(padded.OrderBy(c => c)) && global::ClassicAnalysis.ClassicAnalyses.FleissnerDecrypt(cipher, 4, choice) == padded, "Fleissner grille: encryption permutes the letters and decryption gives the text back");
+        var candidates = global::ClassicAnalysis.ClassicAnalyses.FleissnerAnalysis(cipher, 4, 3);
+        Check(candidates[0].Text == padded, $"Fleissner analysis: of 512 grilles (both turning directions) the best one gives the text back (score {candidates[0].Score}, the next {candidates[1].Score})");
+        var big = global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt(plain, 6, Enumerable.Range(0, 9).Select(i => (i * 5 + 1) % 4).ToArray());
+        Check(global::ClassicAnalysis.ClassicAnalyses.FleissnerAnalysis(big, 6, 1)[0].Text == padded6, "Fleissner analysis: a 6 x 6 grille (262144 grilles) is found as well");
     }
 
     static void ProtocolVisualization()

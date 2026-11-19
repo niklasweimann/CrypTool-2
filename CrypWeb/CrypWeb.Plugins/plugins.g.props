@@ -325,6 +325,11 @@
     <Compile Include="../../CrypPlugins/CipherVisualization/Properties/Resources.Designer.cs" Link="CipherVisualization/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/CipherVisualization/Properties/Resources.resx" LogicalName="CipherVisualization.Properties.Resources.resources" Link="CipherVisualization/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/CipherVisualization/Properties/Resources.de.resx" LogicalName="CipherVisualization.Properties.Resources.de.resources" Link="CipherVisualization/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/ClassicAnalysis/ClassicAnalysisSettings.cs" Link="ClassicAnalysis/ClassicAnalysisSettings.cs" />
+    <Compile Include="../../CrypPlugins/ClassicAnalysis/ClassicAnalysis.cs" Link="ClassicAnalysis/ClassicAnalysis.cs" />
+    <Compile Include="../../CrypPlugins/ClassicAnalysis/Properties/Resources.Designer.cs" Link="ClassicAnalysis/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/ClassicAnalysis/Properties/Resources.resx" LogicalName="ClassicAnalysis.Properties.Resources.resources" Link="ClassicAnalysis/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/ClassicAnalysis/Properties/Resources.de.resx" LogicalName="ClassicAnalysis.Properties.Resources.de.resources" Link="ClassicAnalysis/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ClassicMcEliece/ClassicMcElieceSettings.cs" Link="ClassicMcEliece/ClassicMcElieceSettings.cs" />
     <Compile Include="../../CrypPlugins/ClassicMcEliece/ClassicMcEliece.cs" Link="ClassicMcEliece/ClassicMcEliece.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ClassicMcEliece/Properties/Resources.resx" LogicalName="ClassicMcEliece.Properties.Resources.resources" Link="ClassicMcEliece/Properties/Resources.resx" />
@@ -1281,6 +1286,11 @@
     <Compile Include="../../CrypPlugins/TEA/Properties/Resources.Designer.cs" Link="TEA/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/TEA/Properties/Resources.resx" LogicalName="TEA.Properties.Resources.resources" Link="TEA/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/TEA/Properties/Resources.de.resx" LogicalName="TEA.Properties.Resources.de.resources" Link="TEA/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/TextAnalysis/TextAnalysis.cs" Link="TextAnalysis/TextAnalysis.cs" />
+    <Compile Include="../../CrypPlugins/TextAnalysis/TextAnalysisSettings.cs" Link="TextAnalysis/TextAnalysisSettings.cs" />
+    <Compile Include="../../CrypPlugins/TextAnalysis/Properties/Resources.Designer.cs" Link="TextAnalysis/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/TextAnalysis/Properties/Resources.resx" LogicalName="TextAnalysis.Properties.Resources.resources" Link="TextAnalysis/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/TextAnalysis/Properties/Resources.de.resx" LogicalName="TextAnalysis.Properties.Resources.de.resources" Link="TextAnalysis/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/TextInput/TextInput.cs" Link="TextInput/TextInput.cs" />
     <Compile Include="../../CrypPlugins/TextInput/TextInputSettings.cs" Link="TextInput/TextInputSettings.cs" />
     <Compile Include="../../CrypPlugins/TextInput/Properties/Resources.Designer.cs" Link="TextInput/Properties/Resources.Designer.cs" />

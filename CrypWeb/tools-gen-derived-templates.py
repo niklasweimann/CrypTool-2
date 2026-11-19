@@ -1082,6 +1082,34 @@ for _cipher, (_name, _key, _plain, _cipher_text) in KEY_SEARCH.items():
                           f"key search, attack, {_name}, brute force, known plaintext"))
 
 
+TEXT_SAMPLE_EN = "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity."
+TEXT_SAMPLE_2 = "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness."
+TEXT_SAMPLE_3 = "The quick brown fox jumps over the lazy dog while seven zebras quietly watch the river flow past the hills."
+
+TEMPLATES += [
+    tool("Cryptanalysis/Classic/NGramAnalysis", "TextAnalysis.TextAnalysis", [("InputA", TEXT_SAMPLE_EN)], ["Report"], dict(Mode="0", N="2", Top="12"),
+         "N-gram Analysis", "N-Gramm-Analyse", "The most frequent bigrams of a text.", "Die häufigsten Bigramme eines Textes.",
+         "Change the length n of the n-grams in the settings of the {\\\\b Text Analysis} component: 1 gives letters, 3 gives trigrams.",
+         "Ändern Sie die Länge n der N-Gramme in den Einstellungen der Komponente {\\\\b Textanalyse}: 1 ergibt Buchstaben, 3 ergibt Trigramme.", "n-gram, bigram, trigram, frequency, analysis"),
+    tool("Cryptanalysis/Classic/VitanyiDistance", "TextAnalysis.TextAnalysis", [("InputA", TEXT_SAMPLE_EN), ("InputB", TEXT_SAMPLE_2)], ["Result", "Report"], dict(Mode="1"),
+         "Normalized Compression Distance (Vitányi)", "Normalisierter Kompressionsabstand (Vitányi)", "How similar two texts are, measured by compression.", "Wie ähnlich zwei Texte sind, gemessen durch Kompression.",
+         f"The two texts share a long beginning, so their distance is small. Replace the second text by this one to see a large distance: {TEXT_SAMPLE_3}",
+         f"Die beiden Texte haben einen langen gemeinsamen Anfang, ihr Abstand ist daher klein. Ersetzen Sie den zweiten Text durch diesen, um einen großen Abstand zu sehen: {TEXT_SAMPLE_3}", "Vitanyi, compression distance, Kolmogorov complexity, similarity", input_height=140),
+    tool("Cryptanalysis/Classic/ByteAdditionAnalysis", "TextAnalysis.TextAnalysis", [("InputA", "9AB2B2C16DBAB26DAEC16DC1B5B26DBCB9B16DAFBFB6B1B4B26DAEC16DBAB6B1BBB6B4B5C16DAEBBB16DAFBFB6BBB46DC1B5B26DB1BCB0C2BAB2BBC1C07B")], ["Result", "Report"], dict(Mode="2"),
+         "Analysis of a Byte-wise Addition", "Analyse einer byteweisen Addition", "A constant was added to every byte of the text: all 256 constants are tried.", "Zu jedem Byte des Textes wurde eine Konstante addiert: Alle 256 Konstanten werden probiert.",
+         "The ciphertext is given as hexadecimal digits. The report lists the three most text-like results.",
+         "Der Geheimtext ist als Hexadezimalziffern angegeben. Der Bericht listet die drei am meisten textähnlichen Ergebnisse.", "byte addition, caesar, analysis, constant", input_height=160),
+    tool("Cryptanalysis/Classic/HillKnownPlaintext", "ClassicAnalysis.ClassicAnalysis", [("Plaintext", "HELLOWORLDFROMTHEHILLCIPHERXYZ"), ("Ciphertext", "TFJIPIJSGZDKBSPPRBLASLSLZNVLXV")], ["Key", "Report"], dict(Mode="0", Size="3"),
+         "Hill Cipher: Known-Plaintext Attack", "Hill-Chiffre: Known-Plaintext-Angriff", "The 3 x 3 key matrix is calculated from known plaintext and ciphertext.", "Die 3 x 3-Schlüsselmatrix wird aus bekanntem Klartext und Geheimtext berechnet.",
+         "The key is GYBNQKURP, the matrix (6 24 1; 13 16 10; 20 17 15). With the size 2 and a 2 x 2 cipher the attack works the same way.",
+         "Der Schlüssel ist GYBNQKURP, die Matrix (6 24 1; 13 16 10; 20 17 15). Mit der Größe 2 und einer 2 x 2-Chiffre funktioniert der Angriff genauso.", "Hill cipher, known plaintext, matrix, analysis"),
+    tool("Cryptanalysis/Classic/FleissnerAnalysis", "ClassicAnalysis.ClassicAnalysis", [("Ciphertext", "TLLENEGHWEBMETIIHBRAETOELLIDDTHDGANMIIGEHADTTDNTHNDVHEAETNSETRTEHXXSNSXEXMXIXIOX")], ["Key", "Report"], dict(Mode="1", Size="4"),
+         "Fleissner Grille: Analysis", "Fleißner-Schablone: Analyse", "All 4 x 4 grilles are tried; the result with the most common bigrams and trigrams is the text.", "Alle 4 x 4-Schablonen werden probiert; das Ergebnis mit den meisten häufigen Bi- und Trigrammen ist der Text.",
+         "Set the size 6 for a 6 x 6 grille (262144 grilles; the ciphertext length must be a multiple of 36).",
+         "Stellen Sie die Größe 6 für eine 6 x 6-Schablone ein (262144 Schablonen; die Länge des Geheimtextes muss ein Vielfaches von 36 sein).", "Fleissner, grille, transposition, analysis", input_height=160),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

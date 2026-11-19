@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: VitanyiDistance.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Normalized Compression Distance (Vitányi)</title>
+  <summary lang="en"><i>Normalized Compression Distance (Vitányi)</i></summary>
+  <description lang="en">How similar two texts are, measured by compression.</description>
+  <keywords lang="en">Vitanyi, compression distance, Kolmogorov complexity, similarity</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The two texts share a long beginning, so their distance is small. Replace the second text by this one to see a large distance: The quick brown fox jumps over the lazy dog while seven zebras quietly watch the river flow past the hills." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Normalisierter Kompressionsabstand (Vitányi)</title>
+  <summary lang="de"><i>Normalisierter Kompressionsabstand (Vitányi)</i></summary>
+  <description lang="de">Wie ähnlich zwei Texte sind, gemessen durch Kompression.</description>
+  <keywords lang="en">Vitanyi, compression distance, Kolmogorov complexity, similarity</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die beiden Texte haben einen langen gemeinsamen Anfang, ihr Abstand ist daher klein. Ersetzen Sie den zweiten Text durch diesen, um einen großen Abstand zu sehen: The quick brown fox jumps over the lazy dog while seven zebras quietly watch the river flow past the hills." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="VitanyiDistance.png" />
+  <relevantPlugins>
+    <plugin name="TextAnalysis" />
+  </relevantPlugins>
+</sample>

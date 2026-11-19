@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ByteAdditionAnalysis.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Analysis of a Byte-wise Addition</title>
+  <summary lang="en"><i>Analysis of a Byte-wise Addition</i></summary>
+  <description lang="en">A constant was added to every byte of the text: all 256 constants are tried.</description>
+  <keywords lang="en">byte addition, caesar, analysis, constant</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The ciphertext is given as hexadecimal digits. The report lists the three most text-like results." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Analyse einer byteweisen Addition</title>
+  <summary lang="de"><i>Analyse einer byteweisen Addition</i></summary>
+  <description lang="de">Zu jedem Byte des Textes wurde eine Konstante addiert: Alle 256 Konstanten werden probiert.</description>
+  <keywords lang="en">byte addition, caesar, analysis, constant</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Geheimtext ist als Hexadezimalziffern angegeben. Der Bericht listet die drei am meisten textähnlichen Ergebnisse." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ByteAdditionAnalysis.png" />
+  <relevantPlugins>
+    <plugin name="TextAnalysis" />
+  </relevantPlugins>
+</sample>

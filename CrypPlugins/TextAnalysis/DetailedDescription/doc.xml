@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    N-gram statistics count how often every group of n letters occurs; the frequencies of letters, bigrams and trigrams are the basis of the analysis of classical ciphers. The normalized compression distance (Cilibrasi and Vitanyi) measures how similar two texts are without knowing their language: the better the second text compresses when appended to the first, the more they share. The analysis of the byte-wise addition tries all 256 constants that could have been added to every byte and ranks the results by how much they look like English text.
+  </introduction>
+  <introduction lang="de-DE">
+    N-Gramm-Statistiken zählen, wie oft jede Gruppe von n Buchstaben vorkommt; die Häufigkeiten von Buchstaben, Bigrammen und Trigrammen sind die Grundlage der Analyse klassischer Chiffren. Der normalisierte Kompressionsabstand (Cilibrasi und Vitanyi) misst, wie ähnlich zwei Texte sind, ohne ihre Sprache zu kennen: Je besser sich der zweite Text hinter dem ersten komprimieren lässt, desto mehr haben beide gemeinsam. Die Analyse der byteweisen Addition probiert alle 256 Konstanten, die zu jedem Byte addiert worden sein könnten, und ordnet die Ergebnisse danach, wie sehr sie wie englischer Text aussehen.
+  </introduction>
+  <usage lang="en">
+    Choose the analysis in the settings. N-grams: connect a text. Distance: connect two texts. Byte-wise addition: connect the ciphertext as hexadecimal digits.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Analyse in den Einstellungen. N-Gramme: Verbinden Sie einen Text. Abstand: Verbinden Sie zwei Texte. Byteweise Addition: Verbinden Sie den Geheimtext als Hexadezimalziffern.
+  </usage>
+</documentation>

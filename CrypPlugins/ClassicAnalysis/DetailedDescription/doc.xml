@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Hill cipher multiplies blocks of n letters by a key matrix modulo 26. It is linear, so it falls to a known-plaintext attack: with n blocks of plaintext and their ciphertext whose matrix is invertible modulo 26, the key is K = C times the inverse of P. The Fleissner grille (turning grille) is a transposition cipher: the plaintext is written into the holes of a square grille that is turned by 90 degrees three times, and the grid is read row by row. For a grille of size n there are 4^(n*n/4) grilles (256 for n = 4, 262144 for n = 6), few enough to try all and rank the results by how many common bigrams and trigrams they contain.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Hill-Chiffre multipliziert Blöcke aus n Buchstaben modulo 26 mit einer Schlüsselmatrix. Sie ist linear und fällt daher einem Known-Plaintext-Angriff zum Opfer: Mit n Blöcken Klartext, deren Matrix modulo 26 invertierbar ist, und ihrem Geheimtext ist der Schlüssel K = C mal die Inverse von P. Die Fleißner-Schablone (Drehschablone) ist eine Transpositionschiffre: Der Klartext wird in die Löcher einer quadratischen Schablone geschrieben, die dreimal um 90 Grad gedreht wird, und das Gitter wird zeilenweise gelesen. Für eine Schablone der Größe n gibt es 4^(n*n/4) Schablonen (256 für n = 4, 262144 für n = 6), wenige genug, um alle zu probieren und die Ergebnisse nach der Zahl häufiger Bigramme zu ordnen.
+  </introduction>
+  <usage lang="en">
+    Hill: connect the known plaintext and the ciphertext and set the size of the key matrix. Fleissner: connect the ciphertext (its length must be a multiple of n*n) and set the size of the grille; the output is the best plaintext, the report lists the five best.
+  </usage>
+  <usage lang="de-DE">
+    Hill: Verbinden Sie den bekannten Klartext und den Geheimtext und stellen Sie die Größe der Schlüsselmatrix ein. Fleißner: Verbinden Sie den Geheimtext (seine Länge muss ein Vielfaches von n*n sein) und stellen Sie die Größe der Schablone ein; der Ausgang ist der beste Klartext, der Bericht listet die fünf besten auf.
+  </usage>
+</documentation>

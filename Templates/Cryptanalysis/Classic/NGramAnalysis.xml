@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NGramAnalysis.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">N-gram Analysis</title>
+  <summary lang="en"><i>N-gram Analysis</i></summary>
+  <description lang="en">The most frequent bigrams of a text.</description>
+  <keywords lang="en">n-gram, bigram, trigram, frequency, analysis</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the length n of the n-grams in the settings of the {\\b Text Analysis} component: 1 gives letters, 3 gives trigrams." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">N-Gramm-Analyse</title>
+  <summary lang="de"><i>N-Gramm-Analyse</i></summary>
+  <description lang="de">Die häufigsten Bigramme eines Textes.</description>
+  <keywords lang="en">n-gram, bigram, trigram, frequency, analysis</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Länge n der N-Gramme in den Einstellungen der Komponente {\\b Textanalyse}: 1 ergibt Buchstaben, 3 ergibt Trigramme." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NGramAnalysis.png" />
+  <relevantPlugins>
+    <plugin name="TextAnalysis" />
+  </relevantPlugins>
+</sample>

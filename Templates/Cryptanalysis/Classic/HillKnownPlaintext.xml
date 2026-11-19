@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HillKnownPlaintext.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Hill Cipher: Known-Plaintext Attack</title>
+  <summary lang="en"><i>Hill Cipher: Known-Plaintext Attack</i></summary>
+  <description lang="en">The 3 x 3 key matrix is calculated from known plaintext and ciphertext.</description>
+  <keywords lang="en">Hill cipher, known plaintext, matrix, analysis</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key is GYBNQKURP, the matrix (6 24 1; 13 16 10; 20 17 15). With the size 2 and a 2 x 2 cipher the attack works the same way." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Hill-Chiffre: Known-Plaintext-Angriff</title>
+  <summary lang="de"><i>Hill-Chiffre: Known-Plaintext-Angriff</i></summary>
+  <description lang="de">Die 3 x 3-Schlüsselmatrix wird aus bekanntem Klartext und Geheimtext berechnet.</description>
+  <keywords lang="en">Hill cipher, known plaintext, matrix, analysis</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel ist GYBNQKURP, die Matrix (6 24 1; 13 16 10; 20 17 15). Mit der Größe 2 und einer 2 x 2-Chiffre funktioniert der Angriff genauso." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HillKnownPlaintext.png" />
+  <relevantPlugins>
+    <plugin name="ClassicAnalysis" />
+  </relevantPlugins>
+</sample>

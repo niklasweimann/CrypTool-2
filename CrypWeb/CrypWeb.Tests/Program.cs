@@ -82,6 +82,10 @@ switch (command)
             Console.WriteLine(cipher + "|" + global::KeySearch.KeySearching.ToHex(key) + "|" + global::KeySearch.KeySearching.ToHex(plaintext) + "|" + global::KeySearch.KeySearching.ToHex(global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext)));
         }
         break;
+    case "adem":    // example data of the analysis templates (tools-gen-derived-templates.py)
+        Console.WriteLine("hill|" + global::ClassicAnalysis.ClassicAnalyses.HillEncrypt("HELLOWORLDFROMTHEHILLCIPHERXYZ", new int[,] { { 6, 24, 1 }, { 13, 16, 10 }, { 20, 17, 15 } }));
+        Console.WriteLine("fleissner|" + global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt("THEMEETINGWILLBEHELDATTHEOLDBRIDGEATMIDNIGHTANDTHENEVERTHATENDSTHEMISSION", 4, new[] { 0, 1, 2, 3 }));
+        break;
     case "kat":
         Environment.ExitCode = ComponentTests.Run() ? 0 : 1;
         break;

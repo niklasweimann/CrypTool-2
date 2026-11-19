@@ -562,7 +562,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/ByteAdditionAnalysis.cwm": "Cryptanalysis/Classic/ByteAdditionAnalysis.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/ByteAdditionAnalysis.cwm"
  },
  {
   "name": "Caesar / Rot-13",
@@ -1519,7 +1524,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/FleissnerAnalysis.cwm": "Cryptanalysis/Classic/FleissnerAnalysis.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/FleissnerAnalysis.cwm"
  },
  {
   "name": "FORK",
@@ -1861,7 +1871,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/HillKnownPlaintext.cwm": "Cryptanalysis/Classic/HillKnownPlaintext.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/HillKnownPlaintext.cwm"
  },
  {
   "name": "Histogramm",
@@ -2696,7 +2711,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/NGramAnalysis.cwm": "Cryptanalysis/Classic/NGramAnalysis.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/NGramAnalysis.cwm"
  },
  {
   "name": "Navajo-Code",
@@ -2966,7 +2986,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm": "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/Kasiskis Test and Autocorrelation.cwm"
  },
  {
   "name": "PKCS#1",
@@ -4887,7 +4912,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/VitanyiDistance.cwm": "Cryptanalysis/Classic/VitanyiDistance.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/VitanyiDistance.cwm"
  },
  {
   "name": "Viterbi",
