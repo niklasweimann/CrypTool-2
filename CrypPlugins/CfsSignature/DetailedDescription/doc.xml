@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The McEliece cryptosystem hides the structure of an error-correcting code (a binary Goppa code); decoding a message with errors is easy for the owner of the code and hard for everybody else. It can be turned around to a signature (Courtois, Finiasz and Sendrier, 2001): the signature is an error vector of small weight whose syndrome, computed with the public parity-check matrix, equals the hash value of the message. Only the owner can find it, because a random syndrome can be decoded (is the syndrome of a vector with at most t errors) only with probability about 1/t!; so the signer tries counters until a hash value can be decoded. Verification is only an addition of at most t columns of the public matrix. Code-based schemes are candidates against quantum computers. The parameters of this demonstration (a Goppa code of length 256 with t = 4) are tiny and give no security; real CFS uses m = 16 and t = 9 and very large keys.
+  </introduction>
+  <introduction lang="de-DE">
+    Das McEliece-Kryptosystem verbirgt die Struktur eines fehlerkorrigierenden Codes (eines binären Goppa-Codes); eine Nachricht mit Fehlern zu decodieren ist für den Besitzer des Codes leicht und für alle anderen schwer. Man kann es zu einer Signatur umdrehen (Courtois, Finiasz und Sendrier, 2001): Die Signatur ist ein Fehlervektor kleinen Gewichts, dessen mit der öffentlichen Kontrollmatrix berechnetes Syndrom dem Hashwert der Nachricht entspricht. Nur der Besitzer kann ihn finden, denn ein zufälliges Syndrom lässt sich nur mit einer Wahrscheinlichkeit von etwa 1/t! decodieren (ist das Syndrom eines Vektors mit höchstens t Fehlern); der Signierer probiert deshalb Zähler, bis ein Hashwert decodierbar ist. Die Prüfung ist nur eine Addition von höchstens t Spalten der öffentlichen Matrix. Codebasierte Verfahren sind Kandidaten gegen Quantencomputer. Die Parameter dieser Vorführung (ein Goppa-Code der Länge 256 mit t = 4) sind winzig und bieten keine Sicherheit; echtes CFS benutzt m = 16 und t = 9 und sehr große Schlüssel.
+  </introduction>
+  <usage lang="en">
+    Connect the message; optionally a different message to verify. The report shows how many hash values had to be tried.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie die Nachricht; optional eine andere Nachricht zur Prüfung. Der Bericht zeigt, wie viele Hashwerte probiert werden mussten.
+  </usage>
+</documentation>

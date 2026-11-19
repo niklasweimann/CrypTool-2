@@ -137,5 +137,6 @@
  "ASCII|": "Tools/ASCIICodes.cwm",
  "Barcode|": "Codes/Barcode_EAN13.cwm",
  "Chiffre-Identifizierung|": "Cryptanalysis/Classic/CipherIdentification.cwm",
- "VSH|": "Hashfunctions/VerySmoothHash.cwm"
+ "VSH|": "Hashfunctions/VerySmoothHash.cwm",
+ "McEliece-Signatur|": "Cryptography/Modern/Asymmetric/Signature_McEliece_CFS.cwm"
 }

@@ -1304,6 +1304,14 @@ TEMPLATES += [
 ]
 
 
+TEMPLATES += [
+    tool("Cryptography/Modern/Asymmetric/Signature_McEliece_CFS", "CfsSignature.CfsSignature", [("Message", "Pay Bob 10 euros"), ("Received", "Pay Bob 10 euros")], ["Signature", "Valid", "Report"], dict(Seed="1"),
+         "McEliece Signature (CFS)", "McEliece-Signatur (CFS)", "A code-based signature: an error vector whose syndrome is the hash value, found by decoding a Goppa code.", "Eine codebasierte Signatur: ein Fehlervektor, dessen Syndrom der Hashwert ist, gefunden durch Decodieren eines Goppa-Codes.",
+         "The report shows how many hash values had to be tried until one could be decoded. Change the received message to see the verification fail. The code is tiny (length 256, t = 4) and gives no security.",
+         "Der Bericht zeigt, wie viele Hashwerte probiert werden mussten, bis einer decodiert werden konnte. Ändern Sie die empfangene Nachricht, um die Prüfung scheitern zu sehen. Der Code ist winzig (Länge 256, t = 4) und bietet keine Sicherheit.", "McEliece, CFS, Goppa code, code-based signature, post-quantum", input_height=80),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

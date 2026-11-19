@@ -61,6 +61,7 @@ public static class ComponentTests
         SignatureSchemeTests();
         MlKemTests();
         CodeAndIdentificationTests();
+        CfsTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1530,6 +1531,43 @@ public static class ComponentTests
         for (int b = 0; b < bits.Count; b += blockBits) { System.Numerics.BigInteger f = 1; for (int j = 0; j < blockBits; j++) { if (bits[b + j] == 1) { f *= vsh.Primes[j]; } } x = x * x % n * f % n; }
         Check(hash == x && steps.Count == bits.Count / blockBits && hash < n && vsh.Primes.Take(5).SequenceEqual(new[] { 2, 3, 5, 7, 11 }), $"VSH: the hash value equals the definition (block size {blockBits} bits, primes 2, 3, 5, 7, 11, ...)");
         Check(!hash.Equals(vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abd"), out _)) && vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abc"), out _) == hash && !hash.Equals(vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abc\0"), out _)), "VSH: another text, and the same text with a zero byte, gives another hash value; the same text always the same");
+    }
+
+    static void CfsTests()
+    {
+        // GF(2^8): the AES-like field of the code is a field (every nonzero element has an inverse), x^8 + x^4 + x^3 + x^2 + 1
+        Check(Enumerable.Range(1, 255).All(a => global::CfsSignature.Gf.Mul((byte)a, global::CfsSignature.Gf.Inv((byte)a)) == 1) && global::CfsSignature.Gf.Mul(2, 128) == 0x1d, "GF(2^8): every nonzero element has an inverse, and 2 * 128 = x^8 = 0x1d");
+        var scheme = new global::CfsSignature.CfsScheme(1);
+        Check(global::CfsSignature.CfsScheme.IsIrreducible(scheme.Goppa) && !global::CfsSignature.CfsScheme.IsIrreducible(global::CfsSignature.Gf.Multiply(new byte[] { 3, 1 }, new byte[] { 5, 0, 0, 1 })) && !global::CfsSignature.CfsScheme.IsIrreducible(global::CfsSignature.Gf.Multiply(new byte[] { 3, 1, 1 }, new byte[] { 7, 9, 1 })), "Goppa polynomial: the secret polynomial of degree 4 is irreducible; products of a linear and a cubic or of two quadratics are not");
+        // Patterson's algorithm: every error of weight 0 to 4 is found from its syndrome
+        var random = new Random(3);
+        bool decoded = true;
+        for (int trial = 0; trial < 300; trial++)
+        {
+            int weight = trial % 5;
+            var positions = Enumerable.Range(0, 256).OrderBy(x => random.Next()).Take(weight).OrderBy(x => x).ToList();
+            var found = scheme.Decode(scheme.Syndrome(positions));
+            decoded &= found != null && found.OrderBy(x => x).SequenceEqual(positions);
+        }
+        Check(decoded, "Goppa code: Patterson's algorithm finds every error of weight 0 to 4 from its syndrome (300 random errors)");
+        int decodable = 0, total = 4000;
+        for (uint s = 1; s <= total; s++) { if (scheme.Decode(s * 1000003u) != null) { decodable++; } }
+        Check(decodable > total / 40 / 2 && decodable < total / 24 * 2, $"Goppa code: {decodable} of {total} random syndromes can be decoded (expected about 1/24 = {total / 24})");
+        // signatures
+        bool signed_ = true, rejected = true;
+        int maxCounter = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            string message = "message " + i;
+            var positions = scheme.Sign(message, out int counter);
+            maxCounter = Math.Max(maxCounter, counter);
+            signed_ &= positions.Length <= 4 && global::CfsSignature.CfsScheme.Verify(message, positions, counter, scheme.PublicColumns);
+            rejected &= !global::CfsSignature.CfsScheme.Verify(message + "!", positions, counter, scheme.PublicColumns) && !global::CfsSignature.CfsScheme.Verify(message, positions, counter + 1, scheme.PublicColumns);
+        }
+        Check(signed_ && rejected, $"CFS: 8 signatures verify (counters up to {maxCounter}), and a changed message or counter is refused");
+        var other = new global::CfsSignature.CfsScheme(2);
+        var sig = scheme.Sign("hello", out int c0);
+        Check(!global::CfsSignature.CfsScheme.Verify("hello", sig, c0, other.PublicColumns) && Enumerable.Range(0, 32).All(j => scheme.PublicColumns[j] == 1u << j), "CFS: the public matrix is in systematic form (the first 32 columns are the unit vectors), and another key does not verify");
     }
 
     static void ProtocolVisualization()

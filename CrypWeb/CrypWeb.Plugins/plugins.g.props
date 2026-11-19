@@ -248,6 +248,11 @@
     <Compile Include="../../CrypPlugins/CertificateTool/Properties/Resources.Designer.cs" Link="CertificateTool/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/CertificateTool/Properties/Resources.resx" LogicalName="CertificateTool.Properties.Resources.resources" Link="CertificateTool/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/CertificateTool/Properties/Resources.de.resx" LogicalName="CertificateTool.Properties.Resources.de.resources" Link="CertificateTool/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/CfsSignature/CfsSignature.cs" Link="CfsSignature/CfsSignature.cs" />
+    <Compile Include="../../CrypPlugins/CfsSignature/CfsSignatureSettings.cs" Link="CfsSignature/CfsSignatureSettings.cs" />
+    <Compile Include="../../CrypPlugins/CfsSignature/Properties/Resources.Designer.cs" Link="CfsSignature/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/CfsSignature/Properties/Resources.resx" LogicalName="CfsSignature.Properties.Resources.resources" Link="CfsSignature/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/CfsSignature/Properties/Resources.de.resx" LogicalName="CfsSignature.Properties.Resources.de.resources" Link="CfsSignature/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ChaCha/ChaChaSettings.cs" Link="ChaCha/ChaChaSettings.cs" />
     <Compile Include="../../CrypPlugins/ChaCha/Version.cs" Link="ChaCha/Version.cs" />
     <Compile Include="../../CrypPlugins/ChaCha/ChaCha.cs" Link="ChaCha/ChaCha.cs" />
