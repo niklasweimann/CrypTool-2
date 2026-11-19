@@ -133,5 +133,9 @@
  "Multivariate cryptography|": "Cryptography/Modern/Asymmetric/Signature_OilAndVinegar.cwm",
  "SPHINCS-Signatur|": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm",
  "MD|": "Hashfunctions/MD5.cwm",
- "ML-KEM (Kyber)|": "Cryptography/Modern/Asymmetric/MLKEM.cwm"
+ "ML-KEM (Kyber)|": "Cryptography/Modern/Asymmetric/MLKEM.cwm",
+ "ASCII|": "Tools/ASCIICodes.cwm",
+ "Barcode|": "Codes/Barcode_EAN13.cwm",
+ "Chiffre-Identifizierung|": "Cryptanalysis/Classic/CipherIdentification.cwm",
+ "VSH|": "Hashfunctions/VerySmoothHash.cwm"
 }

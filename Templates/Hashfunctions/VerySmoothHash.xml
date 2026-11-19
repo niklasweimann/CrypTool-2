@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: VerySmoothHash.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Very Smooth Hash (VSH)</title>
+  <summary lang="en"><i>Very Smooth Hash (VSH)</i></summary>
+  <description lang="en">A hash function whose collision resistance is related to factoring.</description>
+  <keywords lang="en">VSH, very smooth hash, hash function, factoring</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the size of the modulus in the settings of the {\\b Very Smooth Hash} component: a larger modulus gives larger blocks." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Very Smooth Hash (VSH)</title>
+  <summary lang="de"><i>Very Smooth Hash (VSH)</i></summary>
+  <description lang="de">Eine Hashfunktion, deren Kollisionsresistenz mit dem Faktorisieren zusammenhängt.</description>
+  <keywords lang="en">VSH, very smooth hash, hash function, factoring</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Größe des Moduls in den Einstellungen der Komponente {\\b Very Smooth Hash}: Ein größerer Modul ergibt größere Blöcke." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="VerySmoothHash.png" />
+  <relevantPlugins>
+    <plugin name="VerySmoothHash" />
+  </relevantPlugins>
+</sample>

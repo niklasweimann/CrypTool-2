@@ -72,6 +72,11 @@
     <Compile Include="../../CrypPlugins/ArrayOperations/Properties/Resources.Designer.cs" Link="ArrayOperations/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.resx" LogicalName="ArrayOperations.Properties.Resources.resources" Link="ArrayOperations/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayOperations/Properties/Resources.de.resx" LogicalName="ArrayOperations.Properties.Resources.de.resources" Link="ArrayOperations/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/AsciiCodes/AsciiCodes.cs" Link="AsciiCodes/AsciiCodes.cs" />
+    <Compile Include="../../CrypPlugins/AsciiCodes/AsciiCodesSettings.cs" Link="AsciiCodes/AsciiCodesSettings.cs" />
+    <Compile Include="../../CrypPlugins/AsciiCodes/Properties/Resources.Designer.cs" Link="AsciiCodes/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/AsciiCodes/Properties/Resources.resx" LogicalName="AsciiCodes.Properties.Resources.resources" Link="AsciiCodes/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/AsciiCodes/Properties/Resources.de.resx" LogicalName="AsciiCodes.Properties.Resources.de.resources" Link="AsciiCodes/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Asn1Viewer/Asn1ViewerSettings.cs" Link="Asn1Viewer/Asn1ViewerSettings.cs" />
     <Compile Include="../../CrypPlugins/Asn1Viewer/Asn1Viewer.cs" Link="Asn1Viewer/Asn1Viewer.cs" />
     <Compile Include="../../CrypPlugins/Asn1Viewer/Properties/Resources.Designer.cs" Link="Asn1Viewer/Properties/Resources.Designer.cs" />
@@ -140,6 +145,11 @@
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Resources.resx" LogicalName="CrypTool.BaconCipher.Properties.Resources.resources" Link="BaconCipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Resources.de.resx" LogicalName="CrypTool.BaconCipher.Properties.Resources.de.resources" Link="BaconCipher/Properties/Resources.de.resx" />
     <EmbeddedResource Include="../../CrypPlugins/BaconCipher/Properties/Ressources.resx" LogicalName="BaconianCipher.Properties.Ressources.resources" Link="BaconCipher/Properties/Ressources.resx" />
+    <Compile Include="../../CrypPlugins/Barcode/BarcodeSettings.cs" Link="Barcode/BarcodeSettings.cs" />
+    <Compile Include="../../CrypPlugins/Barcode/Barcode.cs" Link="Barcode/Barcode.cs" />
+    <Compile Include="../../CrypPlugins/Barcode/Properties/Resources.Designer.cs" Link="Barcode/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Barcode/Properties/Resources.resx" LogicalName="Barcode.Properties.Resources.resources" Link="Barcode/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Barcode/Properties/Resources.de.resx" LogicalName="Barcode.Properties.Resources.de.resources" Link="Barcode/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/BazeriesCipher/BazeriesCipher.cs" Link="BazeriesCipher/BazeriesCipher.cs" />
     <Compile Include="../../CrypPlugins/BazeriesCipher/BazeriesCipherSettings.cs" Link="BazeriesCipher/BazeriesCipherSettings.cs" />
     <Compile Include="../../CrypPlugins/BazeriesCipher/Properties/Resources.Designer.cs" Link="BazeriesCipher/Properties/Resources.Designer.cs" />
@@ -325,6 +335,11 @@
     <EmbeddedResource Include="../../CrypPlugins/Chaocipher/Properties/PresentationTranslation.de.resx" LogicalName="CrypTool.Chaocipher.Properties.PresentationTranslation.de.resources" Link="Chaocipher/Properties/PresentationTranslation.de.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Chaocipher/Properties/Resources.resx" LogicalName="CrypTool.Chaocipher.Properties.Resources.resources" Link="Chaocipher/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Chaocipher/Properties/Resources.de.resx" LogicalName="CrypTool.Chaocipher.Properties.Resources.de.resources" Link="Chaocipher/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/CipherIdentification/CipherIdentification.cs" Link="CipherIdentification/CipherIdentification.cs" />
+    <Compile Include="../../CrypPlugins/CipherIdentification/CipherIdentificationSettings.cs" Link="CipherIdentification/CipherIdentificationSettings.cs" />
+    <Compile Include="../../CrypPlugins/CipherIdentification/Properties/Resources.Designer.cs" Link="CipherIdentification/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/CipherIdentification/Properties/Resources.resx" LogicalName="CipherIdentification.Properties.Resources.resources" Link="CipherIdentification/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/CipherIdentification/Properties/Resources.de.resx" LogicalName="CipherIdentification.Properties.Resources.de.resources" Link="CipherIdentification/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/CipherMAC/CipherMACSettings.cs" Link="CipherMAC/CipherMACSettings.cs" />
     <Compile Include="../../CrypPlugins/CipherMAC/ShacalEngine.cs" Link="CipherMAC/ShacalEngine.cs" />
     <Compile Include="../../CrypPlugins/CipherMAC/CipherMAC.cs" Link="CipherMAC/CipherMAC.cs" />
@@ -1447,6 +1462,11 @@
     <Compile Include="../../CrypPlugins/Vernam/Properties/Resources.Designer.cs" Link="Vernam/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Vernam/Properties/Resources.resx" LogicalName="Vernam.Properties.Resources.resources" Link="Vernam/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Vernam/Properties/Resources.de.resx" LogicalName="Vernam.Properties.Resources.de.resources" Link="Vernam/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/VerySmoothHash/VerySmoothHash.cs" Link="VerySmoothHash/VerySmoothHash.cs" />
+    <Compile Include="../../CrypPlugins/VerySmoothHash/VerySmoothHashSettings.cs" Link="VerySmoothHash/VerySmoothHashSettings.cs" />
+    <Compile Include="../../CrypPlugins/VerySmoothHash/Properties/Resources.Designer.cs" Link="VerySmoothHash/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/VerySmoothHash/Properties/Resources.resx" LogicalName="VerySmoothHash.Properties.Resources.resources" Link="VerySmoothHash/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/VerySmoothHash/Properties/Resources.de.resx" LogicalName="VerySmoothHash.Properties.Resources.de.resources" Link="VerySmoothHash/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Vigenere/Vigenere.cs" Link="Vigenere/Vigenere.cs" />
     <Compile Include="../../CrypPlugins/Vigenere/VigenereSettings.cs" Link="Vigenere/VigenereSettings.cs" />
     <Compile Include="../../CrypPlugins/Vigenere/Properties/Resources.Designer.cs" Link="Vigenere/Properties/Resources.Designer.cs" />

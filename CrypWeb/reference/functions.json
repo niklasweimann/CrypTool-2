@@ -175,7 +175,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Tools/ASCIICodes.cwm": "Tools/ASCIICodes.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Tools/ASCIICodes.cwm"
  },
  {
   "name": "ASN.1",
@@ -282,7 +287,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Codes/Barcode_EAN13.cwm": "Codes/Barcode_EAN13.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Codes/Barcode_EAN13.cwm"
  },
  {
   "name": "Base 64 Decode and Encode",
@@ -732,7 +742,12 @@
   "ct2": false,
   "jct": false,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Classic/CipherIdentification.cwm": "Cryptanalysis/Classic/CipherIdentification.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Classic/CipherIdentification.cwm"
  },
  {
   "name": "Chinesischer Restsatz (CRT)",
@@ -5052,7 +5067,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Hashfunctions/VerySmoothHash.cwm": "Hashfunctions/VerySmoothHash.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/VerySmoothHash.cwm"
  },
  {
   "name": "Wasserzeichen erstellen",

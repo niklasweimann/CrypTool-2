@@ -1282,6 +1282,28 @@ TEMPLATES += [
 ]
 
 
+SAMPLE_VIGENERE = "TXUGN EVGHU FRUJR CWMZY JEOYA ZAXSQ RIPHU LXMGV YKXSZ LRUBC ZWESF DMABB QESCB OJAFG FRQAH DXNSV YAMBG ZJMKV QITCJ PZQFY TXFZR VRAKA ELQTR PPUBT DSDJV PAECS DYOVN XEZAN JFQCA SMETV CWFSA EIDWA REZSV RLNCH CLACQ ELUGG CYFVV DWAKR WPRWK PHUBG SIYWA OWATG SIEIE CSGBQ TRSTN XMXWR DXTOG SIUGP ZREWQ PVQRG SIDWT SXRIY AVADR CXKCS DSYSB YIAFB ELQFB QXTSV CHMIT SXQFF XCPSN CQDPR YRQHF LMPVV DPMRL ESTWZ ZRQRN JLMJR JSGVR LVPHU LXZSG SIDTV PPPDN COUGY PXMHY LWFAE MIZBR EVQDY TIPHU LXTSU LHZCG"
+
+TEMPLATES += [
+    tool("Tools/ASCIICodes", "AsciiCodes.AsciiCodes", [("Input", "Hello CrypTool")], ["Output"], dict(Mode="0"),
+         "ASCII Codes", "ASCII-Codes", "A text as decimal ASCII codes.", "Ein Text als dezimale ASCII-Codes.",
+         "Choose hexadecimal or binary codes, the conversion back to text or the ASCII table in the settings of the {\\\\b ASCII Codes} component.",
+         "Wählen Sie in den Einstellungen der Komponente {\\\\b ASCII-Codes} Hexadezimal- oder Binärcodes, die Umwandlung zurück in Text oder die ASCII-Tabelle.", "ASCII, codes, text, binary, hexadecimal", input_height=80),
+    tool("Codes/Barcode_EAN13", "Barcode.Barcode", [("Input", "400638133393")], ["Output", "Modules", "Report"], dict(Format="0"),
+         "Barcode: EAN-13", "Barcode: EAN-13", "The bars of an EAN-13 barcode; the check digit is added.", "Die Striche eines EAN-13-Barcodes; die Prüfziffer wird ergänzt.",
+         "Enter 12 digits; the thirteenth, the check digit, is calculated. Choose EAN-8 in the settings of the {\\\\b Barcode} component for the short code.",
+         "Geben Sie 12 Ziffern ein; die dreizehnte, die Prüfziffer, wird berechnet. Wählen Sie in den Einstellungen der Komponente {\\\\b Barcode} EAN-8 für den kurzen Code.", "barcode, EAN-13, EAN-8, check digit", input_height=80),
+    tool("Cryptanalysis/Classic/CipherIdentification", "CipherIdentification.CipherIdentification", [("Input", SAMPLE_VIGENERE)], ["Guess", "Report"], dict(),
+         "Cipher Identification", "Chiffre-Identifizierung", "The kind of a cipher is estimated from the statistics of the ciphertext.", "Die Art einer Chiffre wird aus den Statistiken des Geheimtextes geschätzt.",
+         "The sample is a Vigenere cipher with the key LEMON: the index of coincidence is low, but the columns for the key length 5 are monoalphabetic. Paste another ciphertext.",
+         "Das Beispiel ist eine Vigenère-Chiffre mit dem Schlüssel LEMON: Der Koinzidenzindex ist niedrig, aber die Spalten für die Schlüssellänge 5 sind monoalphabetisch. Fügen Sie einen anderen Geheimtext ein.", "cipher identification, index of coincidence, entropy, classification", input_height=200),
+    tool("Hashfunctions/VerySmoothHash", "VerySmoothHash.VerySmoothHash", [("Input", "abc")], ["Hash", "Report"], dict(ModulusBits="512", Seed="1"),
+         "Very Smooth Hash (VSH)", "Very Smooth Hash (VSH)", "A hash function whose collision resistance is related to factoring.", "Eine Hashfunktion, deren Kollisionsresistenz mit dem Faktorisieren zusammenhängt.",
+         "Change the size of the modulus in the settings of the {\\\\b Very Smooth Hash} component: a larger modulus gives larger blocks.",
+         "Ändern Sie die Größe des Moduls in den Einstellungen der Komponente {\\\\b Very Smooth Hash}: Ein größerer Modul ergibt größere Blöcke.", "VSH, very smooth hash, hash function, factoring", input_height=80),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

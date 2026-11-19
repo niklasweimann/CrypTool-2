@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A cipher can often be recognized by simple statistics before any key is tried. The alphabet tells whether the text is binary, numbers, hexadecimal, Base64 or letters. For letters, the index of coincidence (the probability that two letters of the text are equal) is about 0.066 for English and for every cipher that only exchanges letters or moves them (monoalphabetic substitution, transposition), and falls towards 0.038 for random letters, which is where polyalphabetic ciphers such as Vigenere lie. A transposition keeps the letter frequencies of the language exactly, a substitution does not, which the chi-square distance to the language shows. If the columns of the text for some key length have the index of a language, the cipher is a Vigenere cipher with that key length. The result is an estimate, not a proof: it narrows down which analysis to try first.
+  </introduction>
+  <introduction lang="de-DE">
+    Eine Chiffre lässt sich oft schon mit einfachen Statistiken erkennen, bevor ein Schlüssel probiert wird. Das Alphabet zeigt, ob der Text binär, Zahlen, hexadezimal, Base64 oder Buchstaben ist. Bei Buchstaben beträgt der Koinzidenzindex (die Wahrscheinlichkeit, dass zwei Buchstaben des Textes gleich sind) für Englisch und für jede Chiffre, die Buchstaben nur austauscht oder verschiebt (monoalphabetische Substitution, Transposition), etwa 0,066 und fällt bei Zufallsbuchstaben gegen 0,038, wo polyalphabetische Chiffren wie Vigenère liegen. Eine Transposition behält die Buchstabenhäufigkeiten der Sprache genau bei, eine Substitution nicht, was der Chi-Quadrat-Abstand zur Sprache zeigt. Haben die Spalten des Textes für eine Schlüssellänge den Index einer Sprache, ist die Chiffre eine Vigenère-Chiffre mit dieser Schlüssellänge. Das Ergebnis ist eine Schätzung, kein Beweis: Es grenzt ein, welche Analyse man zuerst versuchen sollte.
+  </introduction>
+  <usage lang="en">
+    Connect the ciphertext. The report shows the measurements and the most likely kinds of cipher.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie den Geheimtext. Der Bericht zeigt die Messwerte und die wahrscheinlichsten Arten der Chiffre.
+  </usage>
+</documentation>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    ASCII (American Standard Code for Information Interchange) assigns the numbers 0 to 127 to the letters, digits, punctuation marks and control characters of English text, so that a text becomes a sequence of numbers that ciphers can work on. The tool converts text to the codes (decimal, hexadecimal or as 7-bit values written with 8 binary digits) and back, and shows the table.
+  </introduction>
+  <introduction lang="de-DE">
+    ASCII (American Standard Code for Information Interchange) ordnet den Buchstaben, Ziffern, Satzzeichen und Steuerzeichen englischer Texte die Zahlen 0 bis 127 zu, sodass ein Text zu einer Folge von Zahlen wird, mit denen Chiffren arbeiten können. Das Werkzeug wandelt Text in die Codes um (dezimal, hexadezimal oder als 7-Bit-Werte mit 8 Binärziffern) und zurück und zeigt die Tabelle.
+  </introduction>
+  <usage lang="en">
+    Choose the conversion in the settings and connect the text or the codes. The table needs no input.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Umwandlung in den Einstellungen und verbinden Sie den Text oder die Codes. Die Tabelle braucht keine Eingabe.
+  </usage>
+</documentation>

@@ -60,6 +60,7 @@ public static class ComponentTests
         EcAndHomomorphicTests();
         SignatureSchemeTests();
         MlKemTests();
+        CodeAndIdentificationTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1469,6 +1470,66 @@ public static class ComponentTests
         scheme.KeyGen(new byte[32], new byte[32], out var key, out _);
         var bad = (byte[])key.Clone(); bad[0] = 0xff; bad[1] = 0xff;
         Check(scheme.IsValidEncapsulationKey(key) && !scheme.IsValidEncapsulationKey(bad) && !scheme.IsValidEncapsulationKey(key.Take(100).ToArray()), "ML-KEM: the check of the encapsulation key (length, coefficients below q) refuses a damaged key");
+    }
+
+    static void CodeAndIdentificationTests()
+    {
+        // ASCII
+        Check(global::AsciiCodes.AsciiConversion.Encode("Hi!", 10) == "72 105 33" && global::AsciiCodes.AsciiConversion.Encode("Hi!", 16) == "48 69 21" && global::AsciiCodes.AsciiConversion.Encode("Hi!", 2) == "01001000 01101001 00100001", "ASCII: Hi! is 72 105 33 = 48 69 21 = 01001000 01101001 00100001");
+        Check(global::AsciiCodes.AsciiConversion.Decode("72 105 33", 10) == "Hi!" && global::AsciiCodes.AsciiConversion.Decode("48 69 21", 16) == "Hi!" && global::AsciiCodes.AsciiConversion.Decode("01001000 01101001 00100001", 2) == "Hi!", "ASCII: the codes are converted back in all three bases");
+        bool refused = false;
+        try { global::AsciiCodes.AsciiConversion.Encode("é", 10); } catch (ArgumentException) { refused = true; }
+        try { global::AsciiCodes.AsciiConversion.Decode("200", 10); refused = false; } catch (ArgumentException) { }
+        var table = global::AsciiCodes.AsciiConversion.Table().Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        Check(refused && table.Length == 129 && table[66].Contains(" A") && table[33].Contains("space"), "ASCII: characters beyond 127 are refused; the table has 128 lines (65 is A, 32 is the space)");
+
+        // EAN: check digits of known numbers, structure and decoding
+        Check(global::Barcode.Ean.CheckDigit("400638133393") == 1 && global::Barcode.Ean.CheckDigit("9638507") == 4 && global::Barcode.Ean.CheckDigit("590123412345") == 7 && global::Barcode.Ean.CheckDigit("7351353") == 7, "EAN check digits: 4006381333931, 96385074, 5901234123457 and 73513537");
+        string completed;
+        string modules = global::Barcode.Ean.Modules("400638133393", true, out completed);
+        Check(completed == "4006381333931" && modules.Length == 95 && modules.StartsWith("101") && modules.EndsWith("101") && modules.Substring(45, 5) == "01010", "EAN-13: the number is completed with its check digit; 95 modules with the start, middle (01010) and end pattern");
+        Check(global::Barcode.Ean.Decode(modules, true) == "4006381333931" && global::Barcode.Ean.Decode(global::Barcode.Ean.Modules("96385074", false, out _), false) == "96385074" && global::Barcode.Ean.Modules("96385074", false, out _).Length == 67, "EAN: the digits are read back from the modules (EAN-13 with its first digit from the L/G pattern, EAN-8 with 67 modules)");
+        bool all = true;
+        for (int first = 0; first <= 9; first++) { string digits = first + "23456789012"; all &= global::Barcode.Ean.Decode(global::Barcode.Ean.Modules(digits, true, out string done), true) == done; }
+        Check(all, "EAN-13: all ten patterns of the first digit decode");
+        Check(global::Barcode.Ean.R(0) == "1110010" && global::Barcode.Ean.R(9) == "1110100", "EAN: the R codes are the complements of the L codes (0: 1110010, 9: 1110100)");
+        bool wrong = false;
+        try { global::Barcode.Ean.Modules("4006381333932", true, out _); } catch (ArgumentException) { wrong = true; }
+        Check(wrong, "EAN: a wrong check digit is refused");
+
+        // cipher identification
+        string english = "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. My dear Mr Bennet, said his lady to him one day, have you heard that Netherfield Park is let at last? Mr Bennet replied that he had not. But it is, returned she; for Mrs Long has just been here, and she told me all about it. Mr Bennet made no answer. Do you not want to know who has taken it? cried his wife impatiently. You want to tell me, and I have no objection to hearing it. This was invitation enough.";
+        string letters = new string(english.ToUpperInvariant().Where(c => c >= 'A' && c <= 'Z').ToArray());
+        string caesar = new string(letters.Select(c => (char)('A' + (c - 'A' + 7) % 26)).ToArray());
+        string key = "LEMON";
+        string vigenere = new string(letters.Select((c, i) => (char)('A' + (c - 'A' + key[i % 5] - 'A') % 26)).ToArray());
+        var columns = new string(Enumerable.Range(0, 9).SelectMany(c => letters.Where((x, i) => i % 9 == c)).ToArray());
+        var random = new Random(4);
+        string noise = new string(Enumerable.Range(0, 700).Select(i => (char)('A' + random.Next(26))).ToArray());
+        var plainAnalysis = global::CipherIdentification.CipherIdentifier.Analyse(english);
+        var caesarAnalysis = global::CipherIdentification.CipherIdentifier.Analyse(caesar);
+        var transposed = global::CipherIdentification.CipherIdentifier.Analyse(columns);
+        var vigenereAnalysis = global::CipherIdentification.CipherIdentifier.Analyse(vigenere);
+        var noiseAnalysis = global::CipherIdentification.CipherIdentifier.Analyse(noise);
+        Check(plainAnalysis.IndexOfCoincidence > 0.060 && caesarAnalysis.IndexOfCoincidence > 0.060 && Math.Abs(plainAnalysis.IndexOfCoincidence - caesarAnalysis.IndexOfCoincidence) < 1e-12 && vigenereAnalysis.IndexOfCoincidence < 0.050 && noiseAnalysis.IndexOfCoincidence < 0.045, $"cipher identification: the index of coincidence of English is {plainAnalysis.IndexOfCoincidence:F4}, unchanged by a Caesar shift, {vigenereAnalysis.IndexOfCoincidence:F4} for a Vigenere cipher and {noiseAnalysis.IndexOfCoincidence:F4} for random letters");
+        Check(caesarAnalysis.Guess.StartsWith("a monoalphabetic substitution") && plainAnalysis.Guess.StartsWith("plaintext or a transposition") && transposed.Guess.StartsWith("plaintext or a transposition"), "cipher identification: a Caesar cipher is a monoalphabetic substitution, plaintext and a transposition keep the letter frequencies of English");
+        Check(vigenereAnalysis.BestPeriod == 5 && vigenereAnalysis.Guess.Contains("key of length 5") && noiseAnalysis.Guess.StartsWith("a polyalphabetic cipher with a long key"), "cipher identification: the Vigenere cipher with the key LEMON is found with period 5, random letters have no structure");
+        Check(global::CipherIdentification.CipherIdentifier.Analyse("0110100101101001").Alphabet == "binary digits" && global::CipherIdentification.CipherIdentifier.Analyse("4a7b9c0d1e2f3a4b").Alphabet == "hexadecimal digits" && global::CipherIdentification.CipherIdentifier.Analyse("U29tZSBkYXRhIQ==").Alphabet == "Base64" && global::CipherIdentification.CipherIdentifier.Analyse("12 34 56 78").Alphabet == "decimal digits", "cipher identification: binary digits, hexadecimal digits, Base64 and decimal numbers are recognised");
+
+        // Very Smooth Hash: the definition recomputed with BigInteger
+        var n = new System.Numerics.BigInteger(1000003) * 1000033;
+        var vsh = new global::VerySmoothHash.VshFunction(n);
+        var hash = vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abc"), out var steps);
+        System.Numerics.BigInteger x = 1;
+        var bits = System.Text.Encoding.UTF8.GetBytes("abc").SelectMany(b => Enumerable.Range(0, 8).Select(i => b >> (7 - i) & 1)).ToList();
+        int blockBits = vsh.BlockBits;
+        while (bits.Count % blockBits != 0) { bits.Add(0); }
+        var lengthBits = Enumerable.Range(0, 64).Select(i => (int)((24L >> (63 - i)) & 1)).ToList();
+        while (lengthBits.Count % blockBits != 0) { lengthBits.Insert(0, 0); }
+        bits.AddRange(lengthBits);
+        for (int b = 0; b < bits.Count; b += blockBits) { System.Numerics.BigInteger f = 1; for (int j = 0; j < blockBits; j++) { if (bits[b + j] == 1) { f *= vsh.Primes[j]; } } x = x * x % n * f % n; }
+        Check(hash == x && steps.Count == bits.Count / blockBits && hash < n && vsh.Primes.Take(5).SequenceEqual(new[] { 2, 3, 5, 7, 11 }), $"VSH: the hash value equals the definition (block size {blockBits} bits, primes 2, 3, 5, 7, 11, ...)");
+        Check(!hash.Equals(vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abd"), out _)) && vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abc"), out _) == hash && !hash.Equals(vsh.Hash(System.Text.Encoding.UTF8.GetBytes("abc\0"), out _)), "VSH: another text, and the same text with a zero byte, gives another hash value; the same text always the same");
     }
 
     static void ProtocolVisualization()

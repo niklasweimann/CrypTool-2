@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ASCIICodes.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ASCII Codes</title>
+  <summary lang="en"><i>ASCII Codes</i></summary>
+  <description lang="en">A text as decimal ASCII codes.</description>
+  <keywords lang="en">ASCII, codes, text, binary, hexadecimal</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Choose hexadecimal or binary codes, the conversion back to text or the ASCII table in the settings of the {\\b ASCII Codes} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ASCII-Codes</title>
+  <summary lang="de"><i>ASCII-Codes</i></summary>
+  <description lang="de">Ein Text als dezimale ASCII-Codes.</description>
+  <keywords lang="en">ASCII, codes, text, binary, hexadecimal</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Wählen Sie in den Einstellungen der Komponente {\\b ASCII-Codes} Hexadezimal- oder Binärcodes, die Umwandlung zurück in Text oder die ASCII-Tabelle." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ASCIICodes.png" />
+  <relevantPlugins>
+    <plugin name="AsciiCodes" />
+  </relevantPlugins>
+</sample>

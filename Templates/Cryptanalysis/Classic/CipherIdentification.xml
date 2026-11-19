@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CipherIdentification.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Cipher Identification</title>
+  <summary lang="en"><i>Cipher Identification</i></summary>
+  <description lang="en">The kind of a cipher is estimated from the statistics of the ciphertext.</description>
+  <keywords lang="en">cipher identification, index of coincidence, entropy, classification</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The sample is a Vigenere cipher with the key LEMON: the index of coincidence is low, but the columns for the key length 5 are monoalphabetic. Paste another ciphertext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chiffre-Identifizierung</title>
+  <summary lang="de"><i>Chiffre-Identifizierung</i></summary>
+  <description lang="de">Die Art einer Chiffre wird aus den Statistiken des Geheimtextes geschätzt.</description>
+  <keywords lang="en">cipher identification, index of coincidence, entropy, classification</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Beispiel ist eine Vigenère-Chiffre mit dem Schlüssel LEMON: Der Koinzidenzindex ist niedrig, aber die Spalten für die Schlüssellänge 5 sind monoalphabetisch. Fügen Sie einen anderen Geheimtext ein." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CipherIdentification.png" />
+  <relevantPlugins>
+    <plugin name="CipherIdentification" />
+  </relevantPlugins>
+</sample>

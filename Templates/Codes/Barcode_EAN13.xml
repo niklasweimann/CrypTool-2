@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Barcode_EAN13.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Barcode: EAN-13</title>
+  <summary lang="en"><i>Barcode: EAN-13</i></summary>
+  <description lang="en">The bars of an EAN-13 barcode; the check digit is added.</description>
+  <keywords lang="en">barcode, EAN-13, EAN-8, check digit</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Enter 12 digits; the thirteenth, the check digit, is calculated. Choose EAN-8 in the settings of the {\\b Barcode} component for the short code." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Barcode: EAN-13</title>
+  <summary lang="de"><i>Barcode: EAN-13</i></summary>
+  <description lang="de">Die Striche eines EAN-13-Barcodes; die Prüfziffer wird ergänzt.</description>
+  <keywords lang="en">barcode, EAN-13, EAN-8, check digit</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Geben Sie 12 Ziffern ein; die dreizehnte, die Prüfziffer, wird berechnet. Wählen Sie in den Einstellungen der Komponente {\\b Barcode} EAN-8 für den kurzen Code." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Barcode_EAN13.png" />
+  <relevantPlugins>
+    <plugin name="Barcode" />
+  </relevantPlugins>
+</sample>

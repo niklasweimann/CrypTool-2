@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A barcode is a machine-readable code: here the EAN-13 and EAN-8 codes that are printed on products. The digits are written as patterns of seven narrow bars and spaces (modules); the left half uses two different codes (L and G) whose sequence encodes the first digit of an EAN-13, the right half a third code (R). A start, a middle and an end guard frame the halves. The last digit is a check digit: the digits are weighted alternately with 3 and 1, and the weighted sum plus the check digit is a multiple of 10, which finds every single wrong digit and most swaps of neighbouring digits. Barcodes contain no secret and are no encryption, but they show how data is coded and protected against errors.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein Barcode ist ein maschinenlesbarer Code: Hier die EAN-13- und EAN-8-Codes, die auf Produkten stehen. Die Ziffern werden als Muster aus sieben schmalen Strichen und Lücken (Modulen) geschrieben; die linke Hälfte benutzt zwei verschiedene Codes (L und G), deren Abfolge die erste Ziffer eines EAN-13 verschlüsselt, die rechte Hälfte einen dritten Code (R). Ein Start-, ein Mittel- und ein Endmuster rahmen die Hälften. Die letzte Ziffer ist eine Prüfziffer: Die Ziffern werden abwechselnd mit 3 und 1 gewichtet, und die gewichtete Summe plus die Prüfziffer ist ein Vielfaches von 10, was jede einzelne falsche Ziffer und die meisten Vertauschungen benachbarter Ziffern findet. Barcodes enthalten kein Geheimnis und sind keine Verschlüsselung, zeigen aber, wie Daten codiert und gegen Fehler geschützt werden.
+  </introduction>
+  <usage lang="en">
+    Choose the format and connect the digits (with or without the check digit).
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie das Format und verbinden Sie die Ziffern (mit oder ohne Prüfziffer).
+  </usage>
+</documentation>

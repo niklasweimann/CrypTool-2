@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Very Smooth Hash (VSH) is a hash function whose collision resistance can be related to a number theoretic problem: a collision gives a nontrivial modular square root of a very smooth number modulo n, which is believed to be as hard as factoring n. It is built like a short chain of squarings: for each block of k bits, x becomes x^2 times the product of those of the first k primes whose bit is set, modulo n. It is much slower than SHA-256 but shows how a hash function can be based on a hard problem. The parameters follow the definition in the paper; the padding (zero bits and a final block with the length) is a choice of this implementation, so the hash values are not those of other VSH implementations.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Very Smooth Hash (VSH) ist eine Hashfunktion, deren Kollisionsresistenz sich auf ein zahlentheoretisches Problem zurückführen lässt: Eine Kollision liefert eine nichttriviale modulare Quadratwurzel einer sehr glatten Zahl modulo n, was vermutlich so schwer ist wie das Faktorisieren von n. Sie ist wie eine kurze Kette von Quadrierungen aufgebaut: Für jeden Block aus k Bit wird x zu x^2 mal dem Produkt derjenigen der ersten k Primzahlen, deren Bit gesetzt ist, modulo n. Sie ist viel langsamer als SHA-256, zeigt aber, wie sich eine Hashfunktion auf ein schweres Problem stützen kann. Die Parameter folgen der Definition aus dem Artikel; das Padding (Nullbits und ein Schlussblock mit der Länge) ist eine Entscheidung dieser Implementierung, die Hashwerte sind also nicht die anderer VSH-Implementierungen.
+  </introduction>
+  <usage lang="en">
+    Connect the text. Set the size of the modulus and the seed in the settings.
+  </usage>
+  <usage lang="de-DE">
+    Verbinden Sie den Text. Stellen Sie in den Einstellungen die Größe des Moduls und den Startwert ein.
+  </usage>
+</documentation>
