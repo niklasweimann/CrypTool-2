@@ -36,9 +36,10 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 | 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
+| 3b Restliche Einträge (auf Wunsch: „alle 61 versuchen“) | **47 von 61 umgesetzt**, 14 offen mit Begründung (siehe unten) |
 | 3 Visualisierungen, Spiele | **fertig**: alle Visualisierungen und Lernspiele der Funktionsliste sind abgedeckt (Plugins `CipherVisualization`, `MathVisualization`, `ProtocolVisualization`, `RandomVisualization`, `NumberShark`, `DivisorGame`, `Sudoku`, `AntColony`, `PatternLock`, `Kleptography`; Templates unter `Cryptography/`, `Protocols/`, `Tools/` und `Games/`) |
 
-Abdeckung: 281 von 342 Einträgen (61 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
+Abdeckung: 328 von 342 Einträgen (14 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
 
 | Plugin | Inhalt |
 |---|---|
@@ -68,52 +69,44 @@ Abdeckung: 281 von 342 Einträgen (61 offen). Neue Plugins in `CrypPlugins/` (al
 | `RainbowTable` | Regenbogentabelle für Passwörter aus 3 bis 4 Kleinbuchstaben: Ketten, Reduktionsfunktionen, Suche, Abdeckung und Erfolgsquote (Stufe-3-Plan: Rainbow Tables) |
 | `SideChannel` | simulierte Seitenkanalangriffe: SPA auf Square-and-Multiply und DPA auf das S-Box-Byte von AES (S-Box aus dem Inversen in GF(2^8) berechnet) (Stufe-3-Plan: Side-Channel DPA/SPA) |
 | `HuffmanErrors` | Huffman-Code, ein Bitfehler und Hamming(7,4)-Korrektur (Stufe-3-Plan: Huffman-Fehlerkorrektur) |
+| `KeySearch` | Schlüsselsuche mit teilweise bekanntem Schlüssel für IDEA, RC2, RC4, RC6, Serpent, Twofish, DESX, AES, DES, DESL, DESXL (die Angriffe und DES-Analysen der Liste); RC4, AES und DES gegen bekannte Vektoren |
+| `TextAnalysis` | N-Gramm-Häufigkeiten, normalisierter Kompressionsabstand (Vitányi), Analyse der byteweisen Addition |
+| `ClassicAnalysis` | Known-Plaintext-Angriff auf die Hill-Chiffre (Beispiel aus Wikipedia), Fleißner-Schablone (alle 4^(n²/4) Schablonen, 4x4 und 6x6) |
+| `NumberTools` | Länge einer Zahl, reziproke Subtraktion (Euklid durch Subtraktion, gegen .NET-ggT geprüft) |
+| `ConvolutionalCode` | Faltungscode (7, 5) und Viterbi-Decoder (jeder Einzel- und Doppelfehler wird korrigiert) |
+| `OneTimePassword` | HOTP und TOTP (die Testwerte aus RFC 4226 und RFC 6238) |
+| `ExposureNotification` | Schlüsselplan der Corona-Warn-App (HKDF, AES; gegen .NET geprüft) |
+| `Asn1Viewer` | ASN.1-Struktur anzeigen und Signaturen einer CMS-Nachricht extrahieren (mit OpenSSL erzeugte Nachricht) |
+| `KeyTool` | RSA- und EC-Schlüssel erzeugen, aus PEM importieren, anzeigen, exportieren (gegen .NET geprüft) |
+| `CertificateTool` | Zertifikatskette (Wurzel, Zwischenstelle, Server) erzeugen, Ketten prüfen, Zertifikate anzeigen (die Kette baut auch .NET) |
+| `PasswordBasedEncryption` | PBES2 nach RFC 8018 (PBKDF2, AES-256-CBC); mit .NET in beide Richtungen ausgetauscht |
+| `HybridEncryption` | RSA-OAEP und AES-GCM; mit .NET in beide Richtungen ausgetauscht |
+| `MultipartyKeyExchange` | Schlüsselaustausch für mehrere Teilnehmer nach Burmester und Desmedt |
+| `EcRandom` | Dual_EC_DRBG-artiger Zufallsgenerator auf elliptischen Kurven mit Hintertür und Vorhersage |
+| `HomomorphicEncryption` | RSA (Produkt), Paillier (Summe) und DGHV (voll homomorph über den ganzen Zahlen, mit Rauschen) |
+| `SignatureSchemes` | Guillou-Quisquater, redigierbare Signatur (Merkle-Baum), Merkle-Signatur mit mehreren Baumschichten (deckt CMSS und GMSS ab) und Oil and Vinegar (multivariat) |
+| `CfsSignature` | McEliece-Signatur (CFS) mit einem kleinen Goppa-Code (m = 8, t = 4) und dem Algorithmus von Patterson |
+| `MlKem` | ML-KEM (Kyber) nach FIPS 203, alle drei Parametersätze; **bitgenau gegen OpenSSL geprüft** (Schlüssel aus demselben Startwert, Entkapselung von OpenSSL-Geheimtexten) |
+| `DesVariants` | DES aus den Tabellen (mit .NET-DES über 200 Zufallsschlüssel verglichen), DESL mit der Einzel-S-Box, DESX, DESXL |
+| `AsciiCodes` | ASCII-Umwandlung und -Tabelle |
+| `Barcode` | EAN-13 und EAN-8 mit Prüfziffer |
+| `CipherIdentification` | Schätzung der Chiffre aus Koinzidenzindex, Entropie, Alphabet und Periode |
+| `VerySmoothHash` | Very Smooth Hash nach der Definition (Block- und Paddingwahl sind eigene Entscheidungen) |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
-Was von den 61 offenen Einträgen bleibt und warum:
+Was von den 14 offenen Einträgen bleibt und warum. Alle anderen der ursprünglich 61 sind jetzt umgesetzt oder einem Template zugeordnet.
 
-| Gruppe | Einträge | Grund |
-|---|---|---|
-| Analysen und Angriffe | Hill, Vitányi, Periodizität, N-Gramm, Viterbi, byteweise Addition, Fleissner, DESX/DESL/DESXL; Angriffe auf IDEA, RC2, RC4, RC6, Serpent, Twofish, MARS | eigene Analysekomponenten bzw. Anbindung der neuen Chiffren an den KeySearcher (Steuerverbindung) |
-| Algorithmen, deren Tabellen oder Spezifikation fehlen | MARS, Misty, SAFER+/++, Dragon, DHA, FORK, TwoTrack, DESL/DESXL, VSH, MD, GMSS/CMSS, GQ, McEliece-Signatur, Multivariate, Redactable Signatures, Homomorphe Verschlüsselung (RSA/Gentry-Halevi), ML-KEM | S-Boxen und Konstanten lassen sich nicht aus dem Gedächtnis zuverlässig nachbauen; ML-KEM fehlt in der BouncyCastle-Version des Repos |
-| Infrastruktur, im Browser nicht sinnvoll | OpenSSL, Web-Terminal, PKI, Zertifikate prüfen, Signatur extrahieren, Schlüssel erzeugen/importieren/anzeigen, ASN.1, Zwei-Faktor, RSA-AES, PBES2, CTO-Werkzeuge (Barcode, ASCII, Corona, Chiffre-Identifizierung) | Schlüsselverwaltung/Netz/Dateisystem; teils nur über eigene Komponenten |
+| Einträge | Grund |
+|---|---|
+| MARS, MARS MAC, MARS-Angriff | Die 512-Wort-S-Box von MARS ist nicht aus der Spezifikation herleitbar (sie wurde nach einer SHA-1-Erzeugung durch eine Suche nach Eigenschaften angepasst); ohne die Tabelle oder einen Testvektor lässt sich die Chiffre nicht prüfbar bauen |
+| Misty, Misty MAC | Die S-Boxen S7 und S9 und die Konstanten stehen nur als Tabellen in der Spezifikation; keine Referenz zum Prüfen |
+| SAFER+, SAFER++ | Der Aufbau (Exponent und Logarithmus zur Basis 45 modulo 257, Pseudo-Hadamard-Transformationen) ist bekannt, aber die genaue Schlüsselaufbereitung und die Mischreihenfolge sind aus dem Gedächtnis nicht sicher genug, und es gibt keinen Testvektor |
+| DHA, DHA MAC, FORK, FORK MAC, TwoTrack MAC | Spezifikationen und Konstanten dieser Hashfunktionen sind ohne Quelle nicht verfügbar; auf eine Erfindung „im Stil von“ wurde bewusst verzichtet |
+| Dragon | Stromchiffre mit zwei großen S-Boxen und festen Konstanten; ohne Spezifikation nicht prüfbar |
+| Web-Terminal | Kein kryptografisches Verfahren, sondern ein Kommandozeilen-Zugang auf der Webseite von CrypTool-Online; im Browser-Programm nicht sinnvoll |
 
-Zuordnungen, die eine Näherung sind und geprüft werden sollten: ECC-AES wird durch ECIES gedeckt, McEliece und Niederreiter durch Classic McEliece, Shacal durch Shacal-2, Enigma-Visualisierung durch die Enigma-Komponente mit Präsentation, Hash-Algorithmen-Visualisierung durch die MD5-Präsentation.
+Zuordnungen, die eine Näherung sind und geprüft werden sollten: OpenSSL (CTO-Werkzeug für Schlüssel und Zertifikate) wird durch das Schlüsselwerkzeug abgedeckt, SPHINCS durch SPHINCS+, MD durch MD2, MD4 und MD5, Periodizität durch die Kasiski- und Autokorrelations-Vorlage. Die vier Methoden der Kleptographie und der Aufbau von VSH, CFS (kleine Parameter), DGHV statt des Gitterverfahrens von Gentry und Halevi sowie die Wahl der DESL-Eigenschaften (Anfangs- und Endpermutation bleiben erhalten) sind eigene Entscheidungen, weil die Quellcodes von CT1 und JCT nicht benutzt wurden und für einige davon keine Testvektoren verfügbar waren; die Einzel-S-Box von DESL ist aus dem Artikel erinnert und erfüllt die Entwurfskriterien der DES-S-Boxen.
 
-## 2. Lizenz
-
-- CrypTool 2 ist Apache-2.0.
-- CT1 ist **GPL-2.0**, JCT (`core`, `crypto`) ist **EPL-1.0**.
-
-Entschieden: Die Liste ist nur der Aufhänger. Es wird **kein Code** aus CT1 oder JCT gelesen oder übernommen; die Algorithmen werden aus Standards und Papieren (FIPS, RFC, Originalarbeiten) und mit BouncyCastle in CT2-Stil neu implementiert. Die Algorithmen selbst sind nicht geschützt, nur die jeweilige Implementierung.
-
-## 3. Kernidee: eine Funktionsliste als Quelle der Wahrheit
-
-Nicht pro Funktion einzeln planen, sondern eine Datei `functions.json` pflegen (aus der Seite erzeugt, siehe `reference/function-list-gaps.tsv`):
-
-```
-{ "name": "IDEA", "kind": "cipher|analysis|visualization|protocol|tool|game",
-  "source": ["CT1","JCT"], "crypweb": { "status": "done|template|component|visual|oos",
-  "template": "Cryptography/Modern/IDEA.cwm", "component": "IDEA" } }
-```
-
-- Der Test `functions` in `CrypWeb.Tests` prüft: jeder Eintrag ist `done` oder hat Template/Komponente, die es wirklich gibt und die läuft. So ist „Parität" messbar, wie bisher bei den 281 Templates.
-- Eine Seite „Funktionen" im Start-Center (reine Liste mit Suche, Filter nach Art, jeder Eintrag öffnet sein Template) deckt die Liste 1:1 ab. Keine Nachbildung der CT1/JCT-Perspektiven: Die Dokument- und die Algorithmen-Perspektive sind nur andere Einstiege in dieselben Funktionen, im Browser reicht das Workspace-Modell.
-- Das Command-Palette-Feature findet die Einträge ebenfalls.
-
-## 4. Vorgehen in Stufen (nach Aufwand, nicht nach Alphabet)
-
-**Stufe 0 – Inventur (fertig).** Die Lücke ist 157 Einträge groß. Offen bleibt, ob einzelne davon schon als CT2-Template unter anderem Namen existieren (z. B. „Skytale / Gartenzaun", „Hill-Chiffre", „Vigenère"-Visualisierung); das wird zu Beginn jeder Stufe je Eintrag geprüft und der Eintrag dann in `functions.json`-Alias oder Zuordnung nachgetragen.
-
-**Stufe 1 – nur Templates, kein neuer Code.** Alles, was sich mit vorhandenen Komponenten bauen lässt: Klassik-Varianten aus CTO (Atbash, Beaufort, Porta, Gronsfeld, Trithemius, Rotation, Multiplikation, Railfence/Redefence, Skytale, Bit-Shift, Base64, ASCII, UU), Analyse-Templates für vorhandene Chiffren (DESX-/DESL-Angriffe, Vernam, Hill, Periodizität, Viterbi), Häufigkeit/Histogramm/Hash einer Datei. Hier lohnt eine Prüfung, was die Komponenten schon können (z. B. ob Caesar und Vigenère die Varianten mit Parametern abdecken).
-
-**Stufe 2 – neue Komponenten ohne UI (mittel, hoher Ertrag).** Reine Algorithmen mit BouncyCastle oder Eigenbau, gleiche Plugin-Schnittstelle wie bisher, damit sie auch in CT2 nutzbar sind:
-- Blockchiffren: IDEA, MARS, RC5, RC6, SAFER+/++, Serpent, Shacal, Misty, DESX/DESL/DESXL (je mit MAC-Variante über eine gemeinsame CMAC-Komponente statt 15 einzelner).
-- Stromchiffren/PRNG: Dragon, LKG, IKG, BBS, x² mod N, EC-PRNG; Zufallstests FIPS-140-1, Poker, Runs, Serial.
-- Hashes: MD2, MD4, RIPEMD-160, Tiger, VSH.
-- Public Key: ElGamal, DSA, ECDSA, ECNR, ECIES, GQ, Rabin, McEliece, Niederreiter, Winternitz, Merkle, CMSS/GMSS, SPHINCS(+), Multivariate, HE, PBES2, Schlüsselaustausch mehrparteilich.
-- Mathematik: EC-Berechnungen, binäre Exponentiation, Shanks BSGS, CRT, reziproke Subtraktion, Länge einer Zahl, Teilerspiel.
-- Daten: Entropie, Zip/Unzip, ASN.1, Signatur erzeugen/prüfen/extrahieren, Zertifikate prüfen.
 Pro Gruppe ein eigener Commit und ein Test mit bekannten Testvektoren.
 
 **Stufe 3 – Visualisierungen (groß).** Die JCT-Visualisierungen (RSA, DES, ECC/ECDH, Hashing, SSL, Zero-Knowledge, Shamir/VSS, Zufall, Signaturen, Side-Channel DPA/SPA, Kleptographie, Rainbow Tables, ACO, Android-Muster, Huffman-Fehlerkorrektur u. a.) bekommen jeweils eine Komponente plus Präsentation in der bestehenden `CrypWeb.Wpf`-Teilmenge, wie schon die CT2-Visualisierungen. Reihenfolge nach Nutzen für Lehre: RSA, ECC, Hash, DES, Shamir, Zufall, Signatur, danach der Rest. Die Spiele (Zahlenhai, Zudo-Ku, Teilerspiel) ganz ans Ende.
@@ -139,6 +132,8 @@ Die Punkte der Plan-Aufzählung einzeln, mit der Komponente und dem Template, di
 | ACO | `AntColony` (neu) | `Games/AntColony` |
 | Android-Muster | `PatternLock` (neu) | `Games/PatternLock` |
 | Huffman-Fehlerkorrektur | `HuffmanErrors` (neu) | `Codes/HuffmanBitError`, `Codes/HuffmanErrorCorrection` |
+
+*Stand der Erweiterung:* Auf Wunsch wurden auch die übrigen Einträge versucht; 47 sind umgesetzt, 14 bleiben offen, weil Konstanten oder Spezifikationen fehlen (siehe oben).
 
 *Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster und die Kleptographie hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 
