@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DivisorGame.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Divisor Game</title>
+  <summary lang="en"><i>Divisor Game</i></summary>
+  <description lang="en">Take divisors of 60 against the computer; whoever has to take 1 loses.</description>
+  <keywords lang="en">divisor game, chomp, divisors, game</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The computer searches all positions. The first player can always win: try to find the winning first move for other numbers in the settings of the {\\b Divisor Game} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Teilerspiel</title>
+  <summary lang="de"><i>Teilerspiel</i></summary>
+  <description lang="de">Nehmen Sie Teiler von 60 gegen den Computer; wer die 1 nehmen muss, verliert.</description>
+  <keywords lang="en">divisor game, chomp, divisors, game</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Computer durchsucht alle Stellungen. Der erste Spieler kann immer gewinnen: Versuchen Sie, in den Einstellungen der Komponente {\\b Teilerspiel} für andere Zahlen den gewinnenden ersten Zug zu finden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DivisorGame.png" />
+  <relevantPlugins>
+    <plugin name="DivisorGame" />
+  </relevantPlugins>
+</sample>

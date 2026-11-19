@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SmimeVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">S/MIME: Visualization</title>
+  <summary lang="en"><i>S/MIME: Visualization</i></summary>
+  <description lang="en">A signed and encrypted e-mail step by step: signature, session key, symmetric encryption and the session key encrypted for the recipient.</description>
+  <keywords lang="en">S/MIME, e-mail, hybrid encryption, signature, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are the RSA keys of Alice (signature) and Bob (encryption) as two primes and an exponent each. The keys are tiny so that the numbers can be followed; real keys have 2048 bits or more." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">S/MIME: Visualisierung</title>
+  <summary lang="de"><i>S/MIME: Visualisierung</i></summary>
+  <description lang="de">Eine signierte und verschlüsselte E-Mail Schritt für Schritt: Signatur, Sitzungsschlüssel, symmetrische Verschlüsselung und der für den Empfänger verschlüsselte Sitzungsschlüssel.</description>
+  <keywords lang="en">S/MIME, e-mail, hybrid encryption, signature, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind die RSA-Schlüssel von Alice (Signatur) und Bob (Verschlüsselung) als je zwei Primzahlen und ein Exponent. Die Schlüssel sind winzig, damit sich die Zahlen verfolgen lassen; echte Schlüssel haben 2048 Bit oder mehr." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SmimeVisualization.png" />
+  <relevantPlugins>
+    <plugin name="ProtocolVisualization" />
+  </relevantPlugins>
+</sample>

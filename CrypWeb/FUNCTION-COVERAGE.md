@@ -36,9 +36,9 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 | 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
-| 3 Visualisierungen, Spiele | begonnen: `CipherVisualization` (Caesar, Vigenère, Nihilist), `MathVisualization` (RSA, Shamir, elliptische Kurve), `ProtocolVisualization` (Diffie-Hellman mit PFS, digitale Signatur), `RandomVisualization` (Zufall) |
+| 3 Visualisierungen, Spiele | **fertig**: alle Visualisierungen und Lernspiele der Funktionsliste sind abgedeckt (Plugins `CipherVisualization`, `MathVisualization`, `ProtocolVisualization`, `RandomVisualization`, `NumberShark`, `DivisorGame`, `Sudoku`, `AntColony`, `PatternLock`; Templates unter `Cryptography/`, `Protocols/`, `Tools/` und `Games/`) |
 
-Abdeckung: 272 von 342 Einträgen (70 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
+Abdeckung: 279 von 342 Einträgen (63 offen). Neue Plugins in `CrypPlugins/` (alle mit Testvektoren oder Gegenproben im Test `kat`):
 
 | Plugin | Inhalt |
 |---|---|
@@ -58,17 +58,21 @@ Abdeckung: 272 von 342 Einträgen (70 offen). Neue Plugins in `CrypPlugins/` (al
 | `ClassicVariants` | Porta, Rail Fence/Redefence, Kamasutra, Doppelkasten |
 | `CipherVisualization` | Caesar, Vigenère, Nihilist mit Präsentation (Stufe 3; Präsentationen sind reiner C#-Code aus WPF-Elementen, ohne XAML) |
 | `MathVisualization` | RSA mit allen Zwischenwerten, Shamir-Polynom als Punktdiagramm, Punkte und Addition auf einer elliptischen Kurve über Fp |
-| `ProtocolVisualization` | Diffie-Hellman (mehrere Sitzungen, Perfect Forward Secrecy, Lauscher probiert) und digitale Signatur (Hash, RSA, Prüfung einer veränderten Nachricht) als Nachrichtenfolge |
+| `ProtocolVisualization` | Diffie-Hellman (mehrere Sitzungen, Perfect Forward Secrecy, Lauscher probiert), digitale Signatur (Hash, RSA, Prüfung einer veränderten Nachricht), Authentifizierung im Netz (Passwort-Hash, Challenge-Response mit HMAC, Wiedereinspielung) und S/MIME (RSA-Signatur, AES-Sitzungsschlüssel, Umschlag) als Nachrichtenfolge |
+| `NumberShark` | Zahlenhai-Spiel mit getesteter Spiellogik (Punktesumme n(n+1)/2) |
+| `DivisorGame` | Teilerspiel (Chomp auf den Teilern); der Computer durchsucht alle Stellungen, der Test prüft, dass der Anziehende für 2 bis 120 gewinnt |
+| `Sudoku` | Zudo-Ku: Rätsel mit eindeutiger Lösung (Löser prüft die Eindeutigkeit), reproduzierbar je Rätselnummer |
+| `AntColony` | Ameisenalgorithmus (Ant System von Dorigo u. a.) für das Problem des Handlungsreisenden, gegen Brute Force geprüft |
+| `PatternLock` | Android-Entsperrmuster: Regeln, die 389112 gültigen Muster (nach Längen geprüft), SHA-1-Wert und Angriff durch Probieren |
 | `RandomVisualization` | Bitbild, Histogramm und Paar-Diagramm aufeinanderfolgender Bytes, Mittelwert, Chi-Quadrat und Korrelation |
 
-Was von den 80 offenen Einträgen bleibt und warum:
+Was von den 63 offenen Einträgen bleibt und warum:
 
 | Gruppe | Einträge | Grund |
 |---|---|---|
-| Visualisierungen und Lernprogramme | 15 Visualisierungen, Spiele (Zahlenhai, Zudo-Ku, Teilerspiel), Ameisenalgorithmus, Android-Muster | Stufe 3: brauchen eine Oberfläche |
 | Analysen und Angriffe | Hill, Vitányi, Periodizität, N-Gramm, Viterbi, byteweise Addition, Fleissner, DESX/DESL/DESXL; Angriffe auf IDEA, RC2, RC4, RC6, Serpent, Twofish, MARS, Kleptographie | eigene Analysekomponenten bzw. Anbindung der neuen Chiffren an den KeySearcher (Steuerverbindung) |
 | Algorithmen, deren Tabellen oder Spezifikation fehlen | MARS, Misty, SAFER+/++, Dragon, DHA, FORK, TwoTrack, DESL/DESXL, VSH, MD, GMSS/CMSS, GQ, McEliece-Signatur, Multivariate, Redactable Signatures, Homomorphe Verschlüsselung (RSA/Gentry-Halevi), ML-KEM | S-Boxen und Konstanten lassen sich nicht aus dem Gedächtnis zuverlässig nachbauen; ML-KEM fehlt in der BouncyCastle-Version des Repos |
-| Infrastruktur, im Browser nicht sinnvoll | OpenSSL, Web-Terminal, TLS-Handshake, PKI, Zertifikate prüfen, Signatur extrahieren, Schlüssel erzeugen/importieren/anzeigen, ASN.1, S/MIME, Zwei-Faktor, RSA-AES, PBES2, CTO-Werkzeuge (Barcode, ASCII, Corona, Chiffre-Identifizierung) | Schlüsselverwaltung/Netz/Dateisystem; teils nur über eigene Komponenten |
+| Infrastruktur, im Browser nicht sinnvoll | OpenSSL, Web-Terminal, TLS-Handshake, PKI, Zertifikate prüfen, Signatur extrahieren, Schlüssel erzeugen/importieren/anzeigen, ASN.1, Zwei-Faktor, RSA-AES, PBES2, CTO-Werkzeuge (Barcode, ASCII, Corona, Chiffre-Identifizierung) | Schlüsselverwaltung/Netz/Dateisystem; teils nur über eigene Komponenten |
 
 Zuordnungen, die eine Näherung sind und geprüft werden sollten: ECC-AES wird durch ECIES gedeckt, McEliece und Niederreiter durch Classic McEliece, Shacal durch Shacal-2, Enigma-Visualisierung durch die Enigma-Komponente mit Präsentation, Hash-Algorithmen-Visualisierung durch die MD5-Präsentation.
 
@@ -109,6 +113,8 @@ Nicht pro Funktion einzeln planen, sondern eine Datei `functions.json` pflegen (
 Pro Gruppe ein eigener Commit und ein Test mit bekannten Testvektoren.
 
 **Stufe 3 – Visualisierungen (groß).** Die JCT-Visualisierungen (RSA, DES, ECC/ECDH, Hashing, SSL, Zero-Knowledge, Shamir/VSS, Zufall, Signaturen, Side-Channel DPA/SPA, Kleptographie, Rainbow Tables, ACO, Android-Muster, Huffman-Fehlerkorrektur u. a.) bekommen jeweils eine Komponente plus Präsentation in der bestehenden `CrypWeb.Wpf`-Teilmenge, wie schon die CT2-Visualisierungen. Reihenfolge nach Nutzen für Lehre: RSA, ECC, Hash, DES, Shamir, Zufall, Signatur, danach der Rest. Die Spiele (Zahlenhai, Zudo-Ku, Teilerspiel) ganz ans Ende.
+
+*Stand: fertig.* Zuletzt kamen die Authentifizierung im Netz, S/MIME, die drei Spiele, der Ameisenalgorithmus und das Android-Muster hinzu. Offen sind jetzt nur noch Analysen und Angriffe (eigene Komponenten bzw. KeySearcher-Anbindung), Algorithmen ohne verfügbare Tabellen und Infrastruktur, also Einträge, die nicht zur Stufe 3 gehören.
 
 **Stufe 4 – CTO-Werkzeuge.** Klären, ob der Quellcode von CrypTool-Online verfügbar und kompatibel lizenziert ist (nicht geprüft). Wenn ja, ist ein Link/Einbetten aus dem Funktions-Index die billigste Lösung; sonst Stufe 1 oder 2.
 

@@ -61,6 +61,96 @@ namespace ProtocolVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to AuthChallenge.
+        /// </summary>
+        internal static string AuthChallenge {
+            get {
+                return ResourceManager.GetString("AuthChallenge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthChallengeEve.
+        /// </summary>
+        internal static string AuthChallengeEve {
+            get {
+                return ResourceManager.GetString("AuthChallengeEve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthChallengeTitle.
+        /// </summary>
+        internal static string AuthChallengeTitle {
+            get {
+                return ResourceManager.GetString("AuthChallengeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthHashEve.
+        /// </summary>
+        internal static string AuthHashEve {
+            get {
+                return ResourceManager.GetString("AuthHashEve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthHashTitle.
+        /// </summary>
+        internal static string AuthHashTitle {
+            get {
+                return ResourceManager.GetString("AuthHashTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthPlainEve.
+        /// </summary>
+        internal static string AuthPlainEve {
+            get {
+                return ResourceManager.GetString("AuthPlainEve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthPlainTitle.
+        /// </summary>
+        internal static string AuthPlainTitle {
+            get {
+                return ResourceManager.GetString("AuthPlainTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthSameNonce.
+        /// </summary>
+        internal static string AuthSameNonce {
+            get {
+                return ResourceManager.GetString("AuthSameNonce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthenticationExplanation.
+        /// </summary>
+        internal static string AuthenticationExplanation {
+            get {
+                return ResourceManager.GetString("AuthenticationExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to AuthenticationTitle.
+        /// </summary>
+        internal static string AuthenticationTitle {
+            get {
+                return ResourceManager.GetString("AuthenticationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to Changed.
         /// </summary>
         internal static string Changed {
@@ -259,6 +349,24 @@ namespace ProtocolVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to ProtocolList3.
+        /// </summary>
+        internal static string ProtocolList3 {
+            get {
+                return ResourceManager.GetString("ProtocolList3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to ProtocolList4.
+        /// </summary>
+        internal static string ProtocolList4 {
+            get {
+                return ResourceManager.GetString("ProtocolList4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to ProtocolTooltip.
         /// </summary>
         internal static string ProtocolTooltip {
@@ -322,6 +430,15 @@ namespace ProtocolVisualization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string, similar to SessionKeyNote.
+        /// </summary>
+        internal static string SessionKeyNote {
+            get {
+                return ResourceManager.GetString("SessionKeyNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string, similar to SessionTitle.
         /// </summary>
         internal static string SessionTitle {
@@ -372,6 +489,51 @@ namespace ProtocolVisualization.Properties {
         internal static string SmallKeyNote {
             get {
                 return ResourceManager.GetString("SmallKeyNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to SmimeExplanation.
+        /// </summary>
+        internal static string SmimeExplanation {
+            get {
+                return ResourceManager.GetString("SmimeExplanation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to SmimeInvalid.
+        /// </summary>
+        internal static string SmimeInvalid {
+            get {
+                return ResourceManager.GetString("SmimeInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to SmimeNote.
+        /// </summary>
+        internal static string SmimeNote {
+            get {
+                return ResourceManager.GetString("SmimeNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to SmimeTitle.
+        /// </summary>
+        internal static string SmimeTitle {
+            get {
+                return ResourceManager.GetString("SmimeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string, similar to SmimeValid.
+        /// </summary>
+        internal static string SmimeValid {
+            get {
+                return ResourceManager.GetString("SmimeValid", resourceCulture);
             }
         }
         

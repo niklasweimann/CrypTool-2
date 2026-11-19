@@ -69,7 +69,19 @@ namespace ProtocolVisualization
 
             try
             {
-                if (_settings.Protocol == 1)
+                if (_settings.Protocol == 2)
+                {
+                    Calculations.AuthenticationResult authentication = Calculations.Authentication(Parameters);
+                    Result = authentication.Accepted ? "ok" : "failed";
+                    view.ShowAuthentication(authentication);
+                }
+                else if (_settings.Protocol == 3)
+                {
+                    Calculations.SmimeResult smime = Calculations.Smime(Parameters, Message ?? "");
+                    Result = smime.Valid ? "valid" : "invalid";
+                    view.ShowSmime(smime);
+                }
+                else if (_settings.Protocol == 1)
                 {
                     Calculations.SignatureResult signature = Calculations.Signature(Parameters, Message ?? "", Received ?? Message ?? "");
                     Result = signature.Valid ? "valid" : "invalid";
@@ -227,6 +239,110 @@ namespace ProtocolVisualization
             return result;
         }
 
+
+        // ---------------------------------------------------------------- authentication in a network
+
+        public sealed class AuthenticationResult
+        {
+            public string Password, Nonce1, Nonce2;
+            public string PasswordHash;                 // SHA-256 of the password
+            public string Response1, Response2;         // HMAC-SHA-256 of the nonces with the password as key
+            public bool Accepted;                       // the genuine response to the first challenge is accepted
+            public bool ReplayAccepted;                 // the response to the first challenge, replayed against the second one
+        }
+
+        public static string Hmac(string key, string message)
+        {
+            using (var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(key)))
+            {
+                return BitConverter.ToString(hmac.ComputeHash(Encoding.UTF8.GetBytes(message))).Replace("-", "");
+            }
+        }
+
+        /// <summary>Parameters: password nonce1 nonce2 (three words): the shared password and the two challenges that the server sends in two logins.</summary>
+        public static AuthenticationResult Authentication(string parameters)
+        {
+            string[] words = parameters.Split(new[] { ' ', ',', ';', '\n', '\r', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+            if (words.Length < 3) { throw new ArgumentException("The parameters are password, nonce1 and nonce2: the password and the two challenges of the server, as three words."); }
+            var r = new AuthenticationResult { Password = words[0], Nonce1 = words[1], Nonce2 = words[2] };
+            r.PasswordHash = Sha256(r.Password);
+            r.Response1 = Hmac(r.Password, r.Nonce1);
+            r.Response2 = Hmac(r.Password, r.Nonce2);
+            r.Accepted = r.Response1 == Hmac(r.Password, r.Nonce1);
+            r.ReplayAccepted = r.Response1 == r.Response2;
+            return r;
+        }
+
+        // ---------------------------------------------------------------- S/MIME
+
+        public sealed class SmimeResult
+        {
+            public BigInteger NAlice, EAlice, DAlice, NBob, EBob, DBob;
+            public string Message, Hash, SessionKey, Cipher;
+            public BigInteger Reduced, Signature, Recovered;
+            public List<BigInteger> WrappedKey = new List<BigInteger>();
+            public string Decrypted;
+            public bool Valid;
+        }
+
+        /// <summary>
+        /// Parameters: pA qA eA pB qB eB: the RSA keys of Alice (signing) and Bob (encryption) as two primes and a public exponent each; n of Bob must exceed 255.
+        /// Alice signs the hash of the message, encrypts message and signature with a session key (AES-128-CBC) and encrypts the session key for Bob with his RSA key
+        /// (byte by byte only because the example key is so small); Bob reverses the steps and verifies the signature.
+        /// </summary>
+        public static SmimeResult Smime(string parameters, string message)
+        {
+            BigInteger[] v = Numbers(parameters, 6, "pA qA eA pB qB eB: two primes and the public exponent for Alice's signature key, and the same for Bob's encryption key");
+            var r = new SmimeResult { Message = message };
+            Func<BigInteger, BigInteger, BigInteger, BigInteger[]> key = (p, q, e) =>
+            {
+                if (!IsPrime(p) || !IsPrime(q) || p == q) { throw new ArgumentException("p and q must be two different primes."); }
+                BigInteger phi = (p - 1) * (q - 1);
+                if (e < 2 || e >= phi || BigInteger.GreatestCommonDivisor(e, phi) != 1) { throw new ArgumentException("e must be coprime to phi(n) = " + phi + " and smaller than it."); }
+                return new[] { p * q, e, Inverse(e, phi) };
+            };
+            BigInteger[] alice = key(v[0], v[1], v[2]), bob = key(v[3], v[4], v[5]);
+            r.NAlice = alice[0]; r.EAlice = alice[1]; r.DAlice = alice[2];
+            r.NBob = bob[0]; r.EBob = bob[1]; r.DBob = bob[2];
+            if (r.NBob < 256) { throw new ArgumentException("The modulus of Bob's key must be at least 256, because the session key is encrypted byte by byte."); }
+
+            // Alice: sign, then encrypt message and signature with the session key, then wrap the session key for Bob
+            r.Hash = Sha256(message);
+            r.Reduced = Reduce(r.Hash, r.NAlice);
+            r.Signature = BigInteger.ModPow(r.Reduced, r.DAlice, r.NAlice);
+            byte[] sessionKey;
+            using (var sha = SHA256.Create()) { sessionKey = sha.ComputeHash(Encoding.UTF8.GetBytes("session key for " + message)).Take(16).ToArray(); }
+            r.SessionKey = BitConverter.ToString(sessionKey).Replace("-", "");
+            byte[] cipher = AesCbc(sessionKey, Encoding.UTF8.GetBytes(message + "|" + r.Signature), true);
+            r.Cipher = BitConverter.ToString(cipher).Replace("-", "");
+            foreach (byte b in sessionKey) { r.WrappedKey.Add(BigInteger.ModPow(b, r.EBob, r.NBob)); }
+
+            // Bob: unwrap the session key, decrypt, verify the signature
+            byte[] unwrapped = r.WrappedKey.Select(c => (byte)BigInteger.ModPow(c, r.DBob, r.NBob)).ToArray();
+            string plain = Encoding.UTF8.GetString(AesCbc(unwrapped, cipher, false));
+            int bar = plain.LastIndexOf('|');
+            r.Decrypted = bar < 0 ? plain : plain.Substring(0, bar);
+            BigInteger.TryParse(bar < 0 ? "0" : plain.Substring(bar + 1), out BigInteger signature);
+            r.Recovered = BigInteger.ModPow(signature, r.EAlice, r.NAlice);
+            r.Valid = r.Recovered == Reduce(Sha256(r.Decrypted), r.NAlice);
+            return r;
+        }
+
+        private static byte[] AesCbc(byte[] key, byte[] data, bool encrypt)
+        {
+            using (var aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.IV = new byte[16];   // a fixed IV is only acceptable because every message has its own session key
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+                using (ICryptoTransform transform = encrypt ? aes.CreateEncryptor() : aes.CreateDecryptor())
+                {
+                    return transform.TransformFinalBlock(data, 0, data.Length);
+                }
+            }
+        }
+
         // ---------------------------------------------------------------- signature
 
         public sealed class SignatureResult
@@ -246,6 +362,8 @@ namespace ProtocolVisualization
                 return BitConverter.ToString(sha.ComputeHash(Encoding.UTF8.GetBytes(text))).Replace("-", "");
             }
         }
+
+        public static BigInteger Sha256Reduced(string text, BigInteger n) => Reduce(Sha256(text), n);
 
         private static BigInteger Reduce(string hash, BigInteger n)
         {
@@ -388,6 +506,72 @@ namespace ProtocolVisualization
                 Add(Text(Properties.Resources.ForwardSecrecyExplanation, 12));
             });
         }
+
+
+        // ------------------------------------------------------------------ authentication
+
+        private static string Short(string hex) => hex.Length > 32 ? hex.Substring(0, 32) + "..." : hex;
+
+        public void ShowAuthentication(Calculations.AuthenticationResult r)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.AuthenticationTitle, 16, true));
+                Add(Text(Properties.Resources.AuthenticationExplanation, 12));
+
+                Add(Text(Properties.Resources.AuthPlainTitle, 14, true));
+                Heading("Alice (client)", Properties.Resources.OpenChannel, "Bob (server)");
+                Row("", "login: alice, password: " + r.Password, "password is " + r.Password + ": accepted");
+                Add(EveLine(string.Format(Properties.Resources.AuthPlainEve, r.Password), BadBrush));
+
+                Add(Text(Properties.Resources.AuthHashTitle, 14, true));
+                Heading("Alice (client)", Properties.Resources.OpenChannel, "Bob (server)");
+                Row("H = SHA-256(password)\n" + Short(r.PasswordHash), "login: alice, H = " + Short(r.PasswordHash), "compares H with the stored value: accepted");
+                Add(EveLine(Properties.Resources.AuthHashEve, BadBrush));
+
+                Add(Text(Properties.Resources.AuthChallengeTitle, 14, true));
+                Heading("Alice (client)", Properties.Resources.OpenChannel, "Bob (server)");
+                Row("", string.Format(Properties.Resources.AuthChallenge, r.Nonce1), "chooses the challenge " + r.Nonce1, false);
+                Row("R = HMAC(password, " + r.Nonce1 + ")\n" + Short(r.Response1), "R = " + Short(r.Response1), "computes the same value from the stored password: " + (r.Accepted ? "accepted" : "rejected"));
+                Row("", string.Format(Properties.Resources.AuthChallenge, r.Nonce2), "next login, new challenge " + r.Nonce2, false);
+                Row("Eve sends the old response\n" + Short(r.Response1), "R = " + Short(r.Response1), "expects HMAC(password, " + r.Nonce2 + ")\n" + Short(r.Response2) + "\n" + (r.ReplayAccepted ? "the same: replay accepted" : "different: rejected"), true, r.ReplayAccepted ? BadBrush : GoodBrush);
+                Add(EveLine(r.ReplayAccepted ? Properties.Resources.AuthSameNonce : Properties.Resources.AuthChallengeEve, r.ReplayAccepted ? BadBrush : GoodBrush));
+            });
+        }
+
+        private static StackPanel EveLine(string text, Brush brush)
+        {
+            var line = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 1, 0, 1) };
+            line.Children.Add(Box(text, brush, 790, false, false));
+            return line;
+        }
+
+        // ------------------------------------------------------------------ S/MIME
+
+        public void ShowSmime(Calculations.SmimeResult r)
+        {
+            Show(() =>
+            {
+                Add(Text(Properties.Resources.SmimeTitle, 16, true));
+                Add(Text(Properties.Resources.SmimeExplanation, 12));
+                Heading("Alice", Properties.Resources.OpenChannel, "Bob");
+                Row(Properties.Resources.Message + ": \"" + r.Message + "\"", "", "");
+                Row("1. h = SHA-256(" + Properties.Resources.Message + ") mod nA = " + r.Reduced + "\ns = h^dA mod nA = " + r.Signature, "", "");
+                Row("2. K = " + r.SessionKey + "\n(" + Properties.Resources.SessionKeyNote + ")", "", "");
+                Row("3. AES-128-CBC(K, message + signature)\n" + Short(r.Cipher), "", "");
+                Row("4. K^eB mod nB, byte by byte\n" + string.Join(" ", r.WrappedKey.Take(6)) + " ...", "", "");
+                Row("", string.Join(" ", r.WrappedKey.Take(3)) + " ...\n" + Short(r.Cipher), "", true);
+                Row("", "", "5. K^dB mod nB: " + r.SessionKey);
+                Row("", "", "6. AES decryption: \"" + r.Decrypted + "\" and s = " + r.Signature);
+                Row("", "", "7. s^eA mod nA = " + r.Recovered + "\nSHA-256 of the message mod nA = " + Reduce256(r));
+                var verdict = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(0, 1, 0, 1) };
+                verdict.Children.Add(Box(r.Valid ? Properties.Resources.SmimeValid : Properties.Resources.SmimeInvalid, r.Valid ? GoodBrush : BadBrush, 790, true, false));
+                Add(verdict);
+                Add(Text(Environment.NewLine + Properties.Resources.SmimeNote, 12));
+            });
+        }
+
+        private static string Reduce256(Calculations.SmimeResult r) => Calculations.Sha256Reduced(r.Decrypted, r.NAlice).ToString();
 
         // ------------------------------------------------------------------ signature
 

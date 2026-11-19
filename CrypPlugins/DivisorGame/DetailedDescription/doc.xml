@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The divisor game is Chomp played on the divisors of a number: when you take a divisor, it and all divisors that are multiples of it disappear, and whoever has to take 1 loses. As in Chomp, the player who moves first has a winning strategy for every number larger than 1 (if the second player had one, the first could copy it by taking the largest divisor first), but the strategy is not known in general and has to be found by searching. The computer searches all positions.
+  </introduction>
+  <introduction lang="de-DE">
+    Das Teilerspiel ist Chomp auf den Teilern einer Zahl: Nimmt man einen Teiler, verschwinden er und alle Teiler, die Vielfache von ihm sind, und wer die 1 nehmen muss, verliert. Wie bei Chomp hat der Spieler, der zuerst zieht, für jede Zahl größer als 1 eine Gewinnstrategie (hätte der zweite eine, könnte der erste sie kopieren, indem er zuerst den größten Teiler nimmt), aber die Strategie ist im Allgemeinen nicht bekannt und muss durch Suchen gefunden werden. Der Computer durchsucht alle Stellungen.
+  </introduction>
+  <usage lang="en">
+    Set the number in the settings (and whether the computer starts) and run the workspace. Click a divisor to take it; the computer answers at once. Grey divisors are gone, the red 1 is the poison.
+  </usage>
+  <usage lang="de-DE">
+    Stellen Sie in den Einstellungen die Zahl ein (und ob der Computer beginnt) und lassen Sie den Arbeitsbereich laufen. Klicken Sie einen Teiler an, um ihn zu nehmen; der Computer antwortet sofort. Graue Teiler sind weg, die rote 1 ist das Gift.
+  </usage>
+</documentation>

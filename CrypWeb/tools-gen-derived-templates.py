@@ -882,6 +882,23 @@ TEMPLATES += [
                          "random numbers, visualization, histogram, pairs"),
 ]
 
+TEMPLATES += [
+    protocol_visualization("Protocols/AuthenticationVisualization", 2, "secret 8271 9034", None, None,
+                           "Authentication in a Network: Visualization", "Authentifizierung im Netz: Visualisierung",
+                           "Three ways to prove that one knows a password, and what an eavesdropper can do with each.",
+                           "Drei Wege zu beweisen, dass man ein Passwort kennt, und was ein Lauscher mit jedem anfangen kann.",
+                           "The parameters are the password and two challenges of the server (three words). Sending the password lets Eve read it; sending its hash value lets her replay it; with challenge and response the old response is useless for a new challenge. Give the same challenge twice and the replay succeeds.",
+                           "Die Parameter sind das Passwort und zwei Aufforderungen des Servers (drei Wörter). Wird das Passwort gesendet, liest Eve es mit; wird sein Hashwert gesendet, kann sie ihn wiederholen; bei Aufforderung und Antwort ist die alte Antwort für eine neue Aufforderung nutzlos. Geben Sie dieselbe Aufforderung zweimal an, und der Replay gelingt.",
+                           "authentication, challenge response, replay, password, visualization"),
+    protocol_visualization("Protocols/SmimeVisualization", 3, "1009 1013 17 1019 1021 11", "Meet me at noon", None,
+                           "S/MIME: Visualization", "S/MIME: Visualisierung",
+                           "A signed and encrypted e-mail step by step: signature, session key, symmetric encryption and the session key encrypted for the recipient.",
+                           "Eine signierte und verschlüsselte E-Mail Schritt für Schritt: Signatur, Sitzungsschlüssel, symmetrische Verschlüsselung und der für den Empfänger verschlüsselte Sitzungsschlüssel.",
+                           "The parameters are the RSA keys of Alice (signature) and Bob (encryption) as two primes and an exponent each. The keys are tiny so that the numbers can be followed; real keys have 2048 bits or more.",
+                           "Die Parameter sind die RSA-Schlüssel von Alice (Signatur) und Bob (Verschlüsselung) als je zwei Primzahlen und ein Exponent. Die Schlüssel sind winzig, damit sich die Zahlen verfolgen lassen; echte Schlüssel haben 2048 Bit oder mehr.",
+                           "S/MIME, e-mail, hybrid encryption, signature, visualization"),
+]
+
 
 def attr(text):
     return text.replace("&", "&amp;").replace('"', "&quot;")
@@ -903,6 +920,47 @@ def rewrite_xml(base_xml, spec, out_name):
     return xml
 
 
+def game(out, plugin_type, settings, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords):
+    """A learning game: one component, shown with its presentation (the game is played in it)."""
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=plugin_type, x=40, y=40, w=760, h=700, viewState=1, settings=settings))]
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin=plugin_type.split(".")[0],
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+TEMPLATES += [
+    game("Games/NumberShark", "NumberShark.NumberShark", dict(Size="24"), "Number Shark", "Zahlenhai",
+         "A game with the divisors of the numbers 1 to 24 against the shark.", "Ein Spiel mit den Teilern der Zahlen von 1 bis 24 gegen den Hai.",
+         "Take a number; the shark takes its divisors. Change the size in the settings of the {\\\\b Number Shark} component.",
+         "Nehmen Sie eine Zahl; der Hai nimmt ihre Teiler. Ändern Sie die Größe in den Einstellungen der Komponente {\\\\b Zahlenhai}.",
+         "number shark, taxman, divisors, game, primes"),
+    game("Games/DivisorGame", "DivisorGame.DivisorGame", dict(Number="60"), "Divisor Game", "Teilerspiel",
+         "Take divisors of 60 against the computer; whoever has to take 1 loses.", "Nehmen Sie Teiler von 60 gegen den Computer; wer die 1 nehmen muss, verliert.",
+         "The computer searches all positions. The first player can always win: try to find the winning first move for other numbers in the settings of the {\\\\b Divisor Game} component.",
+         "Der Computer durchsucht alle Stellungen. Der erste Spieler kann immer gewinnen: Versuchen Sie, in den Einstellungen der Komponente {\\\\b Teilerspiel} für andere Zahlen den gewinnenden ersten Zug zu finden.",
+         "divisor game, chomp, divisors, game"),
+    game("Games/Sudoku", "Sudoku.Sudoku", dict(Puzzle="1", Difficulty="1"), "Zudo-Ku (Sudoku)", "Zudo-Ku (Sudoku)",
+         "A Sudoku puzzle with a unique solution.", "Ein Sudoku-Rätsel mit eindeutiger Lösung.",
+         "Click a cell, then a digit. The same puzzle number always gives the same puzzle; change number and difficulty in the settings of the {\\\\b Sudoku} component.",
+         "Klicken Sie eine Zelle, dann eine Ziffer. Dieselbe Rätselnummer ergibt immer dasselbe Rätsel; ändern Sie Nummer und Schwierigkeit in den Einstellungen der Komponente {\\\\b Sudoku}.",
+         "sudoku, zudo-ku, latin square, game"),
+    game("Games/AntColony", "AntColony.AntColony", dict(Cities="12", Ants="20", Seed="1"), "Ant Colony Optimization", "Ameisenalgorithmus",
+         "Ants search the shortest round trip through 12 cities.", "Ameisen suchen die kürzeste Rundreise durch 12 Städte.",
+         "Press the buttons to let the ants walk. Change the number of cities, ants, the weights and the evaporation in the settings of the {\\\\b Ant Colony} component.",
+         "Drücken Sie die Schaltflächen, um die Ameisen laufen zu lassen. Ändern Sie Städte, Ameisen, Gewichte und Verdunstung in den Einstellungen der Komponente {\\\\b Ameisenalgorithmus}.",
+         "ant colony, ACO, travelling salesman, pheromone, heuristic"),
+    game("Games/PatternLock", "PatternLock.PatternLock", dict(ShowNumbers="True"), "Android Unlock Pattern", "Android-Entsperrmuster",
+         "Draw a pattern, see how few patterns exist and find it from its hash value.", "Zeichnen Sie ein Muster, sehen Sie, wie wenige Muster es gibt, und finden Sie es aus seinem Hashwert.",
+         "Click the points in the order of the pattern. The stored value is an unsalted SHA-1 hash, so trying all 389112 patterns with the {\\\\b Find it from the hash} button finds it at once.",
+         "Klicken Sie die Punkte in der Reihenfolge des Musters an. Der gespeicherte Wert ist ein SHA-1-Hash ohne Salt; mit der Schaltfläche {\\\\b Aus dem Hash finden} werden alle 389112 Muster probiert und das Muster sofort gefunden.",
+         "android, unlock pattern, SHA-1, brute force, hash"),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]
@@ -921,3 +979,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

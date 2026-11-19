@@ -48,6 +48,8 @@ public static class ComponentTests
         MathVisualization();
         ProtocolVisualization();
         RandomVisualization();
+        Games();
+        AntsAndPatterns();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -919,6 +921,86 @@ public static class ComponentTests
         return result;
     }
 
+    static void Games()
+    {
+        // number shark: with the numbers 1..6 the player takes 6, the shark gets 1+2+3, and 4 and 5 have no free divisor left (the shark takes them)
+        var shark = new global::NumberShark.SharkGame(6);
+        Check(!shark.IsValid(7) && shark.IsValid(6) && shark.IsValid(5) && !shark.IsValid(1), "number shark: 1 can never be taken (no divisor), a prime can while 1 is free");
+        bool moved = shark.Move(6);
+        Check(moved && shark.PlayerScore == 6 && shark.SharkScore == 15 && shark.Finished, "number shark: after 6 the shark has 1+2+3 and, as no move is left, 4+5 (15 in all)");
+        Check(!shark.Move(4), "number shark: no move after the end");
+        var wide = new global::NumberShark.SharkGame(24);
+        Check(!wide.Move(1) && wide.Move(24) && wide.SharkScore == 1 + 2 + 3 + 4 + 6 + 8 + 12 && !wide.IsValid(12), "number shark: 24 gives the shark all its divisors; 12 is gone");
+        var total = new global::NumberShark.SharkGame(30);
+        while (!total.Finished) { total.Move(total.ValidMoves().Last()); }
+        Check(total.PlayerScore + total.SharkScore == 30 * 31 / 2, "number shark: every number is scored by one side (the points add up to n(n+1)/2)");
+
+        // divisor game: the player who starts wins for every number above 1 (strategy-stealing argument)
+        bool startersWin = true;
+        for (int n = 2; n <= 120; n++) { var position = new global::DivisorGame.DivisorPosition(n); startersWin &= position.IsWinning(position.Full); }
+        Check(startersWin, "divisor game: the first player wins for every number from 2 to 120");
+        var twelve = new global::DivisorGame.DivisorPosition(12);
+        long afterTwo = twelve.Take(twelve.Full, 2);
+        Check(twelve.Divisors.SequenceEqual(new[] { 1, 2, 3, 4, 6, 12 }) && twelve.Moves(afterTwo).SequenceEqual(new[] { 3 }), "divisor game: taking 2 from 12 removes 2, 4, 6 and 12; only 3 (and the poison 1) is left");
+        Check(!twelve.IsWinning(afterTwo) == !twelve.Moves(afterTwo).Any(d => !twelve.IsWinning(twelve.Take(afterTwo, d))), "divisor game: a position is winning exactly when a move leads to a losing one");
+        long position6 = twelve.Take(twelve.Full, 12);   // 1 2 3 4 6 left
+        Check(twelve.Take(position6, twelve.BestMove(position6)) != position6 && !twelve.IsWinning(twelve.Take(position6, twelve.BestMove(position6))) == twelve.IsWinning(position6), "divisor game: the computer's best move leaves a losing position when it can");
+
+        // sudoku: shuffled valid grid, unique solution, same number gives the same puzzle
+        var puzzle = global::Sudoku.SudokuPuzzle.Generate(7, 32);
+        bool valid = !global::Sudoku.SudokuPuzzle.Conflicts(puzzle.Solution).Any() && puzzle.Solution.All(d => d >= 1 && d <= 9);
+        for (int i = 0; i < 9; i++)
+        {
+            valid &= Enumerable.Range(0, 9).Select(k => puzzle.Solution[i * 9 + k]).Distinct().Count() == 9 && Enumerable.Range(0, 9).Select(k => puzzle.Solution[k * 9 + i]).Distinct().Count() == 9
+                  && Enumerable.Range(0, 9).Select(k => puzzle.Solution[(i / 3 * 3 + k / 3) * 9 + i % 3 * 3 + k % 3]).Distinct().Count() == 9;
+        }
+        Check(valid, "sudoku: the generated solution has every digit once in each row, column and box");
+        int clues = puzzle.Givens.Count(d => d != 0);
+        Check(clues >= 32 && clues < 45 && Enumerable.Range(0, 81).All(c => puzzle.Givens[c] == 0 || puzzle.Givens[c] == puzzle.Solution[c]), $"sudoku: {clues} digits are given, all from the solution");
+        Check(global::Sudoku.SudokuPuzzle.CountSolutions((int[])puzzle.Givens.Clone(), 2) == 1, "sudoku: the puzzle has exactly one solution");
+        Check(global::Sudoku.SudokuPuzzle.Generate(7, 32).Givens.SequenceEqual(puzzle.Givens) && !global::Sudoku.SudokuPuzzle.Generate(8, 32).Givens.SequenceEqual(puzzle.Givens), "sudoku: the same number gives the same puzzle, another number another one");
+        var grid = (int[])puzzle.Solution.Clone();
+        Check(global::Sudoku.SudokuPuzzle.IsSolved(grid), "sudoku: the solution is recognised as solved");
+        int free = Enumerable.Range(0, 81).First(c => puzzle.Givens[c] == 0);
+        grid[free] = grid[free] % 9 + 1;
+        Check(!global::Sudoku.SudokuPuzzle.IsSolved(grid) && global::Sudoku.SudokuPuzzle.Conflicts(grid).Any(), "sudoku: a wrong digit makes a conflict");
+    }
+
+    static void AntsAndPatterns()
+    {
+        // ant system: cities on a circle (the best tour is the polygon, 8 * 2 * sin(pi / 8)), and random cities against a brute-force search of all tours
+        var x = Enumerable.Range(0, 8).Select(i => Math.Cos(2 * Math.PI * i / 8)).ToArray();
+        var y = Enumerable.Range(0, 8).Select(i => Math.Sin(2 * Math.PI * i / 8)).ToArray();
+        var circle = new global::AntColony.AntSystem(x, y, 20, 1, 3, 0.5, 4);
+        for (int i = 0; i < 60; i++) { circle.Iterate(); }
+        double polygon = 8 * 2 * Math.Sin(Math.PI / 8);
+        Check(Math.Abs(circle.BestLength - polygon) < 1e-9 && circle.BestTour.OrderBy(c => c).SequenceEqual(Enumerable.Range(0, 8)), $"ant system: eight cities on a circle give the polygon as the best tour ({circle.BestLength:F4} = {polygon:F4}), and the tour visits every city once");
+        var random = new global::AntColony.AntSystem(7, 20, 1, 3, 0.5, 3);
+        double before = random.Pheromone[0, 1];
+        random.Iterate();
+        Check(random.Pheromone[0, 1] >= before * 0.5 - 1e-12 && random.Iterations == 1, "ant system: the pheromone evaporates by the given share and only grows by what the ants deposit");
+        for (int i = 0; i < 60; i++) { random.Iterate(); }
+        double optimum = double.MaxValue;
+        void Permute(int[] tour, int k) { if (k == tour.Length) { optimum = Math.Min(optimum, random.Length(tour)); return; } for (int i = k; i < tour.Length; i++) { (tour[k], tour[i]) = (tour[i], tour[k]); Permute(tour, k + 1); (tour[k], tour[i]) = (tour[i], tour[k]); } }
+        Permute(Enumerable.Range(0, 7).ToArray(), 1);
+        Check(random.BestLength >= optimum - 1e-9 && random.BestLength <= optimum * 1.05 && random.BestLength <= random.NearestNeighbourLength + 1e-9, $"ant system: seven random cities: the ants' best tour {random.BestLength:F4} is not below the optimum {optimum:F4} (brute force), within 5 percent of it, and not longer than the nearest-neighbour tour {random.NearestNeighbourLength:F4}");
+        var same = new global::AntColony.AntSystem(7, 20, 1, 3, 0.5, 3);
+        for (int i = 0; i < 61; i++) { same.Iterate(); }
+        Check(same.BestLength == random.BestLength, "ant system: the same seed gives the same run");
+
+        // unlock pattern: the number of valid patterns is known (389112 in all)
+        var counts = Enumerable.Range(4, 6).Select(n => global::PatternLock.PatternRules.Count(n)).ToArray();
+        Check(counts.SequenceEqual(new long[] { 1624, 7152, 26016, 72912, 140704, 140704 }) && counts.Sum() == 389112, $"unlock pattern: 1624, 7152, 26016, 72912, 140704 and 140704 patterns of length 4 to 9 ({counts.Sum()} in all)");
+        var rules = global::PatternLock.PatternRules.Between;
+        Check(rules(0, 2) == 1 && rules(0, 8) == 4 && rules(1, 7) == 4 && rules(6, 2) == 4 && rules(0, 5) == -1 && rules(0, 1) == -1 && rules(0, 6) == 3 && rules(4, 4) == -1, "unlock pattern: the point that a line goes over (0-2 over 1, 0-8 over 4, 1-7 over 4, 0-5 over none)");
+        var pattern = new[] { 0, 4, 8, 5 };
+        var hash = global::PatternLock.PatternRules.Hash(pattern);
+        Check(hash.SequenceEqual(System.Security.Cryptography.SHA1.HashData(new byte[] { 0, 4, 8, 5 })), "unlock pattern: the stored value is the SHA-1 hash of the point numbers as bytes");
+        var found = global::PatternLock.PatternRules.Crack(hash, out long tries);
+        Check(found != null && found.SequenceEqual(pattern) && tries > 0 && tries <= 389112, $"unlock pattern: trying all patterns finds {string.Join(" ", found ?? new int[0])} after {tries} tries");
+        Check(global::PatternLock.PatternRules.Crack(new byte[20], out long all) == null && all == 389112, "unlock pattern: a hash value that no pattern has is not found after all 389112 patterns");
+    }
+
     static void ProtocolVisualization()
     {
         // Diffie-Hellman: the example of Wikipedia (p = 23, g = 5, a = 6, b = 15: A = 8, B = 19, K = 2); a second session with other exponents
@@ -941,6 +1023,28 @@ public static class ComponentTests
               "signature visualization: n, d, the reduced SHA-256 value and the signature equal the calculation with .NET; the message arrives unchanged and is valid");
         var tampered = global::ProtocolVisualization.Calculations.Signature("1009 1013 17", "Pay Bob 10 euros", "Pay Bob 1000 euros");
         Check(tampered.Tampered && tampered.Valid == (H("Pay Bob 10 euros") == H("Pay Bob 1000 euros")) && !tampered.Valid && Proto(1, "1009 1013 17", "Pay Bob 10 euros", "Pay Bob 1000 euros") == "invalid", "signature visualization: a message that was changed on the way is not valid");
+        // authentication in a network: the responses are HMAC-SHA-256 of the challenges with the password as key
+        var auth = global::ProtocolVisualization.Calculations.Authentication("secret 8271 9034");
+        string HmacHex(string key, string text) => Convert.ToHexString(System.Security.Cryptography.HMACSHA256.HashData(System.Text.Encoding.UTF8.GetBytes(key), System.Text.Encoding.UTF8.GetBytes(text)));
+        Check(auth.Response1 == HmacHex("secret", "8271") && auth.Response2 == HmacHex("secret", "9034") && auth.PasswordHash == Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("secret"))) && auth.Accepted && !auth.ReplayAccepted && Proto(2, "secret 8271 9034") == "ok",
+              "authentication visualization: the password hash and the responses equal SHA-256 and HMAC-SHA-256 of .NET; the response to the old challenge is not accepted for the new one");
+        Check(global::ProtocolVisualization.Calculations.Authentication("secret 8271 8271").ReplayAccepted && Proto(2, "secret 8271") == null, "authentication visualization: a repeated challenge lets the replay succeed; fewer than three words are refused");
+
+        // S/MIME: every step is calculated again with .NET
+        var smime = global::ProtocolVisualization.Calculations.Smime("1009 1013 17 1019 1021 11", "Meet me at noon");
+        var sessionKey = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("session key for Meet me at noon"))[..16];
+        var nAlice = new System.Numerics.BigInteger(1009) * 1013;
+        var nBob = new System.Numerics.BigInteger(1019) * 1021;
+        System.Numerics.BigInteger Inv(System.Numerics.BigInteger e, System.Numerics.BigInteger phi) { System.Numerics.BigInteger x = 1; while (e * x % phi != 1) x++; return x; }
+        var dBob = Inv(11, new System.Numerics.BigInteger(1018) * 1020);
+        using var aes = System.Security.Cryptography.Aes.Create();
+        aes.Key = sessionKey;
+        var clear = aes.DecryptCbc(Convert.FromHexString(smime.Cipher), new byte[16]);
+        var text = System.Text.Encoding.UTF8.GetString(clear);
+        Check(smime.SessionKey == Convert.ToHexString(sessionKey) && smime.WrappedKey.Count == 16 && smime.WrappedKey.Select((c, i) => System.Numerics.BigInteger.ModPow(c, dBob, nBob) == sessionKey[i]).All(b => b)
+              && text == "Meet me at noon|" + smime.Signature && smime.Signature == System.Numerics.BigInteger.ModPow(new System.Numerics.BigInteger(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("Meet me at noon")), isUnsigned: true, isBigEndian: true) % nAlice, Inv(17, new System.Numerics.BigInteger(1008) * 1012), nAlice),
+              "S/MIME visualization: the session key, its RSA-encrypted bytes, the AES ciphertext (message | signature) and the signature equal the calculation with .NET");
+        Check(smime.Valid && smime.Decrypted == "Meet me at noon" && Proto(3, "1009 1013 17 1019 1021 11", "Meet me at noon") == "valid" && Proto(3, "1009 1013 17 11 13 7", "x") == null && Proto(3, "1009 1013 17", "x") == null, "S/MIME visualization: Bob reads the message and the signature is valid; a modulus below 256 for Bob and missing parameters are refused");
         Check(Proto(1, "1009 1009 17", "x") == null && Proto(1, "1008 1013 17", "x") == null && Proto(1, "1009 1013 2", "x") == null, "signature visualization: equal primes, a number that is not prime and an exponent that is not coprime to phi are refused");
     }
 

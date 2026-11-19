@@ -58,6 +58,11 @@
     <Compile Include="../../CrypPlugins/Anonymity/Helper/EquivalenceClassColor.cs" Link="Anonymity/Helper/EquivalenceClassColor.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Anonymity/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Anonymity.Properties.Resources.resources" Link="Anonymity/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Anonymity/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Anonymity.Properties.Resources.de.resources" Link="Anonymity/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/AntColony/AntColonySettings.cs" Link="AntColony/AntColonySettings.cs" />
+    <Compile Include="../../CrypPlugins/AntColony/AntColony.cs" Link="AntColony/AntColony.cs" />
+    <Compile Include="../../CrypPlugins/AntColony/Properties/Resources.Designer.cs" Link="AntColony/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/AntColony/Properties/Resources.resx" LogicalName="AntColony.Properties.Resources.resources" Link="AntColony/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/AntColony/Properties/Resources.de.resx" LogicalName="AntColony.Properties.Resources.de.resources" Link="AntColony/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/ArrayIndexer/ArrayIndexer.cs" Link="ArrayIndexer/ArrayIndexer.cs" />
     <Compile Include="../../CrypPlugins/ArrayIndexer/Properties/Resources.Designer.cs" Link="ArrayIndexer/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/ArrayIndexer/Properties/Resources.resx" LogicalName="ArrayIndexer.Properties.Resources.resources" Link="ArrayIndexer/Properties/Resources.resx" />
@@ -535,6 +540,11 @@
     <Compile Include="../../CrypPlugins/DigitalSignatures/DigitalSignaturesSettings.cs" Link="DigitalSignatures/DigitalSignaturesSettings.cs" />
     <EmbeddedResource Include="../../CrypPlugins/DigitalSignatures/Properties/Resources.resx" LogicalName="DigitalSignatures.Properties.Resources.resources" Link="DigitalSignatures/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/DigitalSignatures/Properties/Resources.de.resx" LogicalName="DigitalSignatures.Properties.Resources.de.resources" Link="DigitalSignatures/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/DivisorGame/DivisorGameSettings.cs" Link="DivisorGame/DivisorGameSettings.cs" />
+    <Compile Include="../../CrypPlugins/DivisorGame/DivisorGame.cs" Link="DivisorGame/DivisorGame.cs" />
+    <Compile Include="../../CrypPlugins/DivisorGame/Properties/Resources.Designer.cs" Link="DivisorGame/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DivisorGame/Properties/Resources.resx" LogicalName="DivisorGame.Properties.Resources.resources" Link="DivisorGame/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/DivisorGame/Properties/Resources.de.resx" LogicalName="DivisorGame.Properties.Resources.de.resources" Link="DivisorGame/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCInput.cs" Link="EllipticCurveCryptography/ECCInput.cs" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCInputSettings.cs" Link="EllipticCurveCryptography/ECCInputSettings.cs" />
     <Compile Include="../../CrypPlugins/EllipticCurveCryptography/ECCOperations.cs" Link="EllipticCurveCryptography/ECCOperations.cs" />
@@ -924,6 +934,11 @@
     <Compile Include="../../CrypPlugins/Nihilist/Properties/Resources.Designer.cs" Link="Nihilist/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Nihilist/Properties/Resources.resx" LogicalName="CrypTool.Nihilist.Properties.Resources.resources" Link="Nihilist/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Nihilist/Properties/Resources.de.resx" LogicalName="CrypTool.Nihilist.Properties.Resources.de.resources" Link="Nihilist/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/NumberShark/NumberShark.cs" Link="NumberShark/NumberShark.cs" />
+    <Compile Include="../../CrypPlugins/NumberShark/NumberSharkSettings.cs" Link="NumberShark/NumberSharkSettings.cs" />
+    <Compile Include="../../CrypPlugins/NumberShark/Properties/Resources.Designer.cs" Link="NumberShark/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/NumberShark/Properties/Resources.resx" LogicalName="NumberShark.Properties.Resources.resources" Link="NumberShark/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/NumberShark/Properties/Resources.de.resx" LogicalName="NumberShark.Properties.Resources.de.resources" Link="NumberShark/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/NumberTheory/NumberTheorySettings.cs" Link="NumberTheory/NumberTheorySettings.cs" />
     <Compile Include="../../CrypPlugins/NumberTheory/NumberTheory.cs" Link="NumberTheory/NumberTheory.cs" />
     <EmbeddedResource Include="../../CrypPlugins/NumberTheory/Properties/Resources.resx" LogicalName="NumberTheory.Properties.Resources.resources" Link="NumberTheory/Properties/Resources.resx" />
@@ -988,6 +1003,11 @@
     <Compile Include="../../CrypPlugins/PasswordStrength/Properties/Resources.Designer.cs" Link="PasswordStrength/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/PasswordStrength/Properties/Resources.resx" LogicalName="CrypTool.Plugins.Tools.Properties.Resources.resources" Link="PasswordStrength/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/PasswordStrength/Properties/Resources.de.resx" LogicalName="CrypTool.Plugins.Tools.Properties.Resources.de.resources" Link="PasswordStrength/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/PatternLock/PatternLockSettings.cs" Link="PatternLock/PatternLockSettings.cs" />
+    <Compile Include="../../CrypPlugins/PatternLock/PatternLock.cs" Link="PatternLock/PatternLock.cs" />
+    <Compile Include="../../CrypPlugins/PatternLock/Properties/Resources.Designer.cs" Link="PatternLock/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/PatternLock/Properties/Resources.resx" LogicalName="PatternLock.Properties.Resources.resources" Link="PatternLock/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/PatternLock/Properties/Resources.de.resx" LogicalName="PatternLock.Properties.Resources.de.resources" Link="PatternLock/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/PictureOutput/PictureOutput.cs" Link="PictureOutput/PictureOutput.cs" />
     <Compile Include="../../CrypPlugins/PictureOutput/Properties/Resources.Designer.cs" Link="PictureOutput/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/PictureOutput/Properties/Resources.resx" LogicalName="PictureOutput.Properties.Resources.resources" Link="PictureOutput/Properties/Resources.resx" />
@@ -1198,6 +1218,11 @@
     <Compile Include="../../CrypPlugins/Substitution/Properties/Resources.Designer.cs" Link="Substitution/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Substitution/Properties/Resources.resx" LogicalName="CrypTool.Substitution.Properties.Resources.resources" Link="Substitution/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Substitution/Properties/Resources.de.resx" LogicalName="CrypTool.Substitution.Properties.Resources.de.resources" Link="Substitution/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/Sudoku/Sudoku.cs" Link="Sudoku/Sudoku.cs" />
+    <Compile Include="../../CrypPlugins/Sudoku/SudokuSettings.cs" Link="Sudoku/SudokuSettings.cs" />
+    <Compile Include="../../CrypPlugins/Sudoku/Properties/Resources.Designer.cs" Link="Sudoku/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/Sudoku/Properties/Resources.resx" LogicalName="Sudoku.Properties.Resources.resources" Link="Sudoku/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/Sudoku/Properties/Resources.de.resx" LogicalName="Sudoku.Properties.Resources.de.resources" Link="Sudoku/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryCipherSettings.cs" Link="SyllabaryCipher/SyllabaryCipherSettings.cs" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryCipher.cs" Link="SyllabaryCipher/SyllabaryCipher.cs" />
     <Compile Include="../../CrypPlugins/SyllabaryCipher/SyllabaryTables.cs" Link="SyllabaryCipher/SyllabaryTables.cs" />

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The number shark game (also called taxman) is a game with numbers and their divisors, played against the shark. The numbers 1 to n are on the table. You take a number and score it; the shark takes all its divisors that are still free and scores them. You may only take a number if the shark gets at least one number for it. When no such number is left, the shark takes the rest. Prime numbers are good choices only early: a prime has just the divisor 1, so it is available only as long as 1 is free. The game trains the thinking about divisors, primes and multiples that number theory needs.
+  </introduction>
+  <introduction lang="de-DE">
+    Das Zahlenhai-Spiel (auch Steuereintreiber genannt) ist ein Spiel mit Zahlen und ihren Teilern gegen den Hai. Die Zahlen 1 bis n liegen auf dem Tisch. Du nimmst eine Zahl und erhältst ihre Punkte; der Hai nimmt alle ihre noch freien Teiler und erhält deren Punkte. Du darfst eine Zahl nur nehmen, wenn der Hai mindestens eine Zahl dafür bekommt. Ist keine solche Zahl mehr übrig, nimmt der Hai den Rest. Primzahlen sind nur früh gute Züge: Eine Primzahl hat nur den Teiler 1, ist also nur nehmbar, solange die 1 frei ist. Das Spiel übt das Denken in Teilern, Primzahlen und Vielfachen, das die Zahlentheorie braucht.
+  </introduction>
+  <usage lang="en">
+    Set the biggest number in the settings and run the workspace. Click a number to take it: blue numbers can be taken, grey ones cannot (the shark would get nothing), green ones are yours, red ones the shark's. "New game" starts again.
+  </usage>
+  <usage lang="de-DE">
+    Stellen Sie in den Einstellungen die größte Zahl ein und lassen Sie den Arbeitsbereich laufen. Klicken Sie eine Zahl an, um sie zu nehmen: Blaue Zahlen können genommen werden, graue nicht (der Hai bekäme nichts), grüne gehören Ihnen, rote dem Hai. "Neues Spiel" beginnt von vorn.
+  </usage>
+</documentation>

@@ -86,5 +86,12 @@
  "Diffie-Hellman-Schlüsselaustausch (Perfect Forward Secrecy)|visualization": "Protocols/DiffieHellmanForwardSecrecy.cwm",
  "Digitale Signatur|visualization": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm",
  "Signatur|visualization": "Cryptography/Modern/Asymmetric/DigitalSignatureVisualization.cwm",
- "Zufall|visualization": "Tools/RandomVisualization.cwm"
+ "Zufall|visualization": "Tools/RandomVisualization.cwm",
+ "Authentifizierungsverfahren im Netz|visualization": "Protocols/AuthenticationVisualization.cwm",
+ "Sichere E-Mail (S/MIME)|visualization": "Protocols/SmimeVisualization.cwm",
+ "Zahlenhai (Number Shark, Taxman)|": "Games/NumberShark.cwm",
+ "Teilerspiel|": "Games/DivisorGame.cwm",
+ "Zudo-Ku|": "Games/Sudoku.cwm",
+ "Ameisenalgorithmus (ACO)|": "Games/AntColony.cwm",
+ "Android Entsperrmuster (AUP)|": "Games/PatternLock.cwm"
 }

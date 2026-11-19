@@ -147,7 +147,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/AntColony.cwm": "Games/AntColony.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/AntColony.cwm"
  },
  {
   "name": "Android Entsperrmuster (AUP)",
@@ -156,7 +161,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/PatternLock.cwm": "Games/PatternLock.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/PatternLock.cwm"
  },
  {
   "name": "ASCII",
@@ -199,7 +209,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/AuthenticationVisualization.cwm": "Protocols/AuthenticationVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/AuthenticationVisualization.cwm"
  },
  {
   "name": "Autokorrelation",
@@ -3904,7 +3919,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Protocols/SmimeVisualization.cwm": "Protocols/SmimeVisualization.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Protocols/SmimeVisualization.cwm"
  },
  {
   "name": "Sicherer Chat – Angewandte Kryptografie",
@@ -4321,7 +4341,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/DivisorGame.cwm": "Games/DivisorGame.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/DivisorGame.cwm"
  },
  {
   "name": "Threefish",
@@ -5046,7 +5071,12 @@
   "ct2": false,
   "jct": true,
   "cto": true,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/NumberShark.cwm": "Games/NumberShark.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/NumberShark.cwm"
  },
  {
   "name": "Zahlentheorie (siehe auch Primzahlen)",
@@ -5133,7 +5163,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Games/Sudoku.cwm": "Games/Sudoku.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Games/Sudoku.cwm"
  },
  {
   "name": "Zufall",

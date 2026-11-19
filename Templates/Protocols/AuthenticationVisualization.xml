@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: AuthenticationVisualization.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Authentication in a Network: Visualization</title>
+  <summary lang="en"><i>Authentication in a Network: Visualization</i></summary>
+  <description lang="en">Three ways to prove that one knows a password, and what an eavesdropper can do with each.</description>
+  <keywords lang="en">authentication, challenge response, replay, password, visualization</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The parameters are the password and two challenges of the server (three words). Sending the password lets Eve read it; sending its hash value lets her replay it; with challenge and response the old response is useless for a new challenge. Give the same challenge twice and the replay succeeds." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Authentifizierung im Netz: Visualisierung</title>
+  <summary lang="de"><i>Authentifizierung im Netz: Visualisierung</i></summary>
+  <description lang="de">Drei Wege zu beweisen, dass man ein Passwort kennt, und was ein Lauscher mit jedem anfangen kann.</description>
+  <keywords lang="en">authentication, challenge response, replay, password, visualization</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Parameter sind das Passwort und zwei Aufforderungen des Servers (drei Wörter). Wird das Passwort gesendet, liest Eve es mit; wird sein Hashwert gesendet, kann sie ihn wiederholen; bei Aufforderung und Antwort ist die alte Antwort für eine neue Aufforderung nutzlos. Geben Sie dieselbe Aufforderung zweimal an, und der Replay gelingt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="AuthenticationVisualization.png" />
+  <relevantPlugins>
+    <plugin name="ProtocolVisualization" />
+  </relevantPlugins>
+</sample>

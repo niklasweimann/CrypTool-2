@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Android can be unlocked with a pattern: a path through the nine points of a 3x3 grid. There are only 389112 valid patterns (1624 of length 4, 7152 of length 5, 26016 of length 6, 72912 of length 7, and 140704 each of length 8 and 9), about 18.6 bit, more than a four-digit PIN (10000 values, 13.3 bit), but people choose only a few of them (most start in a corner and are short). Android stores the SHA-1 hash of the point numbers without a salt, so a stolen file can be solved by trying all 389112 patterns, which takes a fraction of a second.
+  </introduction>
+  <introduction lang="de-DE">
+    Android lässt sich mit einem Muster entsperren: einem Weg durch die neun Punkte eines 3x3-Gitters. Es gibt nur 389112 gültige Muster (1624 der Länge 4, 7152 der Länge 5, 26016 der Länge 6, 72912 der Länge 7 und je 140704 der Länge 8 und 9), etwa 18,6 Bit, mehr als eine vierstellige PIN (10000 Werte, 13,3 Bit); Menschen wählen davon aber nur wenige (die meisten beginnen in einer Ecke und sind kurz). Android speichert den SHA-1-Hash der Punktnummern ohne Salt, sodass eine gestohlene Datei durch Probieren aller 389112 Muster in einem Bruchteil einer Sekunde gelöst werden kann.
+  </introduction>
+  <usage lang="en">
+    Click the points in the order of your pattern. The program shows how many patterns of this length exist and the stored hash value. "Find it from the hash" tries all patterns until the hash matches.
+  </usage>
+  <usage lang="de-DE">
+    Klicken Sie die Punkte in der Reihenfolge Ihres Musters an. Das Programm zeigt, wie viele Muster dieser Länge es gibt, und den gespeicherten Hashwert. "Aus dem Hash finden" probiert alle Muster, bis der Hash passt.
+  </usage>
+</documentation>

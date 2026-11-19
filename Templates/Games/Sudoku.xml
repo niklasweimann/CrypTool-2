@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Sudoku.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Zudo-Ku (Sudoku)</title>
+  <summary lang="en"><i>Zudo-Ku (Sudoku)</i></summary>
+  <description lang="en">A Sudoku puzzle with a unique solution.</description>
+  <keywords lang="en">sudoku, zudo-ku, latin square, game</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Click a cell, then a digit. The same puzzle number always gives the same puzzle; change number and difficulty in the settings of the {\\b Sudoku} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zudo-Ku (Sudoku)</title>
+  <summary lang="de"><i>Zudo-Ku (Sudoku)</i></summary>
+  <description lang="de">Ein Sudoku-Rätsel mit eindeutiger Lösung.</description>
+  <keywords lang="en">sudoku, zudo-ku, latin square, game</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Klicken Sie eine Zelle, dann eine Ziffer. Dieselbe Rätselnummer ergibt immer dasselbe Rätsel; ändern Sie Nummer und Schwierigkeit in den Einstellungen der Komponente {\\b Sudoku}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Sudoku.png" />
+  <relevantPlugins>
+    <plugin name="Sudoku" />
+  </relevantPlugins>
+</sample>

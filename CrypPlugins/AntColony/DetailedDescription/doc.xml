@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Ant colony optimization is a search method that is inspired by ants: real ants find short ways to food because they leave a scent (pheromone) on their way, short ways are walked more often and so get more scent, and the scent of unused ways evaporates. The ant system of Dorigo, Maniezzo and Colorni applies this to the travelling salesman problem, the shortest round trip through all cities. Such tour problems are related to the hard problems that cryptography uses (the knapsack and lattice problems), and heuristics like this one are also used in the cryptanalysis of classical ciphers.
+  </introduction>
+  <introduction lang="de-DE">
+    Der Ameisenalgorithmus ist ein Suchverfahren nach dem Vorbild von Ameisen: Echte Ameisen finden kurze Wege zum Futter, weil sie auf ihrem Weg einen Duftstoff (Pheromon) hinterlassen; kurze Wege werden öfter begangen und bekommen so mehr Duft, und der Duft ungenutzter Wege verdunstet. Das Ameisensystem von Dorigo, Maniezzo und Colorni wendet das auf das Problem des Handlungsreisenden an, die kürzeste Rundreise durch alle Städte. Solche Tourenprobleme sind mit den schweren Problemen verwandt, die die Kryptografie nutzt (Rucksack- und Gitterprobleme), und solche Heuristiken werden auch bei der Analyse klassischer Chiffren verwendet.
+  </introduction>
+  <usage lang="en">
+    Set cities, ants, the weights of pheromone (alpha) and distance (beta) and the evaporation in the settings and run the workspace. "1 round", "10 rounds" and "100 rounds" let the ants walk; the red line is the shortest tour found so far, the blue lines are the pheromone. Compare with the tour that always goes to the nearest city.
+  </usage>
+  <usage lang="de-DE">
+    Stellen Sie in den Einstellungen Städte, Ameisen, die Gewichte von Pheromon (Alpha) und Entfernung (Beta) und die Verdunstung ein und lassen Sie den Arbeitsbereich laufen. "1 Runde", "10 Runden" und "100 Runden" lassen die Ameisen laufen; die rote Linie ist die bisher kürzeste Tour, die blauen Linien sind das Pheromon. Vergleichen Sie mit der Tour, die immer zur nächsten Stadt geht.
+  </usage>
+</documentation>

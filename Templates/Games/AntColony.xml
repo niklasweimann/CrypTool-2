@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: AntColony.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Ant Colony Optimization</title>
+  <summary lang="en"><i>Ant Colony Optimization</i></summary>
+  <description lang="en">Ants search the shortest round trip through 12 cities.</description>
+  <keywords lang="en">ant colony, ACO, travelling salesman, pheromone, heuristic</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Press the buttons to let the ants walk. Change the number of cities, ants, the weights and the evaporation in the settings of the {\\b Ant Colony} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Ameisenalgorithmus</title>
+  <summary lang="de"><i>Ameisenalgorithmus</i></summary>
+  <description lang="de">Ameisen suchen die kürzeste Rundreise durch 12 Städte.</description>
+  <keywords lang="en">ant colony, ACO, travelling salesman, pheromone, heuristic</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Drücken Sie die Schaltflächen, um die Ameisen laufen zu lassen. Ändern Sie Städte, Ameisen, Gewichte und Verdunstung in den Einstellungen der Komponente {\\b Ameisenalgorithmus}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="AntColony.png" />
+  <relevantPlugins>
+    <plugin name="AntColony" />
+  </relevantPlugins>
+</sample>

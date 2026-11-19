@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Sudoku asks for a grid of 9x9 digits in which every row, column and 3x3 box holds each digit from 1 to 9 once. The puzzles are made by shuffling a valid grid in ways that keep it valid (rows within a band, columns within a stack, the bands and stacks, the digits) and then removing digits for as long as the solution stays unique, which a solver checks. Sudoku is a latin square with an extra condition; latin squares are the key tables of the Vigenère cipher, and the exact cover structure of Sudoku appears in combinatorial cryptanalysis.
+  </introduction>
+  <introduction lang="de-DE">
+    Sudoku verlangt ein 9x9-Gitter aus Ziffern, in dem jede Zeile, Spalte und jedes 3x3-Feld jede Ziffer von 1 bis 9 einmal enthält. Die Rätsel entstehen, indem ein gültiges Gitter auf eine Weise gemischt wird, die es gültig lässt (Zeilen innerhalb eines Bandes, Spalten innerhalb eines Stapels, die Bänder und Stapel, die Ziffern), und danach Ziffern entfernt werden, solange die Lösung eindeutig bleibt, was ein Löser prüft. Sudoku ist ein lateinisches Quadrat mit einer Zusatzbedingung; lateinische Quadrate sind die Schlüsseltabellen der Vigenère-Chiffre.
+  </introduction>
+  <usage lang="en">
+    Choose the puzzle number and the difficulty in the settings and run the workspace. Click an empty cell, then a digit (or "Clear"). "Check" marks digits that repeat in their row, column or box in red and tells whether the puzzle is solved; "Show solution" shows the solution; "Next puzzle" makes a new one.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie in den Einstellungen die Rätselnummer und die Schwierigkeit und lassen Sie den Arbeitsbereich laufen. Klicken Sie eine leere Zelle an, dann eine Ziffer (oder "Löschen"). "Prüfen" markiert Ziffern, die sich in Zeile, Spalte oder Feld wiederholen, rot und sagt, ob das Rätsel gelöst ist; "Lösung zeigen" zeigt die Lösung; "Nächstes Rätsel" erzeugt ein neues.
+  </usage>
+</documentation>

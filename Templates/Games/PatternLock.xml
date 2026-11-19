@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PatternLock.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Android Unlock Pattern</title>
+  <summary lang="en"><i>Android Unlock Pattern</i></summary>
+  <description lang="en">Draw a pattern, see how few patterns exist and find it from its hash value.</description>
+  <keywords lang="en">android, unlock pattern, SHA-1, brute force, hash</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Click the points in the order of the pattern. The stored value is an unsalted SHA-1 hash, so trying all 389112 patterns with the {\\b Find it from the hash} button finds it at once." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Android-Entsperrmuster</title>
+  <summary lang="de"><i>Android-Entsperrmuster</i></summary>
+  <description lang="de">Zeichnen Sie ein Muster, sehen Sie, wie wenige Muster es gibt, und finden Sie es aus seinem Hashwert.</description>
+  <keywords lang="en">android, unlock pattern, SHA-1, brute force, hash</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Klicken Sie die Punkte in der Reihenfolge des Musters an. Der gespeicherte Wert ist ein SHA-1-Hash ohne Salt; mit der Schaltfläche {\\b Aus dem Hash finden} werden alle 389112 Muster probiert und das Muster sofort gefunden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PatternLock.png" />
+  <relevantPlugins>
+    <plugin name="PatternLock" />
+  </relevantPlugins>
+</sample>

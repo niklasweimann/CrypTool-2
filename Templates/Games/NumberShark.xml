@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NumberShark.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Number Shark</title>
+  <summary lang="en"><i>Number Shark</i></summary>
+  <description lang="en">A game with the divisors of the numbers 1 to 24 against the shark.</description>
+  <keywords lang="en">number shark, taxman, divisors, game, primes</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Take a number; the shark takes its divisors. Change the size in the settings of the {\\b Number Shark} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Zahlenhai</title>
+  <summary lang="de"><i>Zahlenhai</i></summary>
+  <description lang="de">Ein Spiel mit den Teilern der Zahlen von 1 bis 24 gegen den Hai.</description>
+  <keywords lang="en">number shark, taxman, divisors, game, primes</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Nehmen Sie eine Zahl; der Hai nimmt ihre Teiler. Ändern Sie die Größe in den Einstellungen der Komponente {\\b Zahlenhai}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NumberShark.png" />
+  <relevantPlugins>
+    <plugin name="NumberShark" />
+  </relevantPlugins>
+</sample>

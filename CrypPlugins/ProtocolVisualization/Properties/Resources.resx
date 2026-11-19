@@ -117,6 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthChallenge" xml:space="preserve">
+    <value>challenge {0}</value>
+  </data>
+  <data name="AuthChallengeEve" xml:space="preserve">
+    <value>The response depends on the challenge, and the server chooses a new challenge for every login. The old response is useless for Eve, and the password never goes over the channel.</value>
+  </data>
+  <data name="AuthChallengeTitle" xml:space="preserve">
+    <value>3. Challenge and response</value>
+  </data>
+  <data name="AuthHashEve" xml:space="preserve">
+    <value>Eve does not learn the password, but she sends the same hash value herself and is accepted (replay attack): for the server the hash value is the password.</value>
+  </data>
+  <data name="AuthHashTitle" xml:space="preserve">
+    <value>2. Only a hash value of the password is sent</value>
+  </data>
+  <data name="AuthPlainEve" xml:space="preserve">
+    <value>Eve reads the password {0} from the channel and can log in at once.</value>
+  </data>
+  <data name="AuthPlainTitle" xml:space="preserve">
+    <value>1. The password is sent as it is</value>
+  </data>
+  <data name="AuthSameNonce" xml:space="preserve">
+    <value>The server used the same challenge twice, so the old response fits and Eve is accepted. Challenges must never repeat.</value>
+  </data>
+  <data name="AuthenticationExplanation" xml:space="preserve">
+    <value>Alice proves to a server that she knows the password. Eve listens on the channel and tries to log in as Alice afterwards. The three methods differ in what Eve learns.</value>
+  </data>
+  <data name="AuthenticationTitle" xml:space="preserve">
+    <value>Authentication in a network: three methods</value>
+  </data>
   <data name="Changed" xml:space="preserve">
     <value>changed on the way</value>
   </data>
@@ -160,13 +190,16 @@
     <value>open channel (Eve listens)</value>
   </data>
   <data name="ParameterExamples" xml:space="preserve">
-    <value>Diffie-Hellman:  p g a1 b1 [a2 b2]    23 5 6 15 4 9\nSignature:  p q e                    1009 1013 17</value>
+    <value>Diffie-Hellman:  p g a1 b1 [a2 b2]    23 5 6 15 4 9
+Signature:  p q e                    1009 1013 17
+Authentication:  password n1 n2     secret 8271 9034
+S/MIME:  pA qA eA pB qB eB     1009 1013 17 1019 1021 11</value>
   </data>
   <data name="ParametersCaption" xml:space="preserve">
     <value>Parameters</value>
   </data>
   <data name="ParametersTooltip" xml:space="preserve">
-    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key).</value>
+    <value>Numbers separated by spaces. Diffie-Hellman: p g a1 b1 [a2 b2 ...] (prime, generator, secret exponents of Alice and Bob per session). Signature: p q e (two primes and the public exponent of an RSA key). Authentication: password challenge1 challenge2 (three words). S/MIME: pA qA eA pB qB eB (the RSA keys of Alice and Bob).</value>
   </data>
   <data name="PluginCaption" xml:space="preserve">
     <value>Protocol Visualization</value>
@@ -182,6 +215,12 @@
   </data>
   <data name="ProtocolList2" xml:space="preserve">
     <value>Digital signature</value>
+  </data>
+  <data name="ProtocolList3" xml:space="preserve">
+    <value>Authentication in a network</value>
+  </data>
+  <data name="ProtocolList4" xml:space="preserve">
+    <value>S/MIME (signed and encrypted e-mail)</value>
   </data>
   <data name="ProtocolTooltip" xml:space="preserve">
     <value>Select the protocol that is shown.</value>
@@ -204,6 +243,9 @@
   <data name="SameKey" xml:space="preserve">
     <value>Both have the key K = {0}</value>
   </data>
+  <data name="SessionKeyNote" xml:space="preserve">
+    <value>in practice random; here derived from the message so that the example is repeatable</value>
+  </data>
   <data name="SessionTitle" xml:space="preserve">
     <value>Session {0}</value>
   </data>
@@ -221,6 +263,21 @@
   </data>
   <data name="SmallKeyNote" xml:space="preserve">
     <value>The key of the example is very small: the hash value (256 bits) is reduced modulo n, so different messages can have the same signature. Real keys have 2048 bits or more, and the whole hash value is signed (with a padding).</value>
+  </data>
+  <data name="SmimeExplanation" xml:space="preserve">
+    <value>Alice signs the message with her private key, encrypts message and signature with a session key (a fast symmetric cipher) and encrypts the session key with Bob's public key. Bob reverses the steps with his private key and checks the signature with Alice's public key.</value>
+  </data>
+  <data name="SmimeInvalid" xml:space="preserve">
+    <value>The signature is NOT valid.</value>
+  </data>
+  <data name="SmimeNote" xml:space="preserve">
+    <value>The RSA keys of the example are tiny, so the session key is encrypted byte by byte and the hash value is reduced modulo n. With real keys (2048 bits or more) the whole session key is encrypted in one piece, with padding, and the whole hash value is signed.</value>
+  </data>
+  <data name="SmimeTitle" xml:space="preserve">
+    <value>S/MIME: signed and encrypted e-mail</value>
+  </data>
+  <data name="SmimeValid" xml:space="preserve">
+    <value>Bob can read the message, and the signature is valid: the message is from Alice and was not changed.</value>
   </data>
   <data name="WaitingText" xml:space="preserve">
     <value>The picture appears when the workspace has run.</value>
