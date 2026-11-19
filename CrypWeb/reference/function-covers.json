@@ -95,5 +95,12 @@
  "Ameisenalgorithmus (ACO)|": "Games/AntColony.cwm",
  "Android Entsperrmuster (AUP)|": "Games/PatternLock.cwm",
  "Kleptographie (4 Methoden Primzahlen zu generieren, SETUP-|attack": "Games/Kleptography.cwm",
- "TLS handshake|": "Protocols/TlsHandshakeVisualization.cwm"
+ "TLS handshake|": "Protocols/TlsHandshakeVisualization.cwm",
+ "IDEA|attack": "Cryptanalysis/Modern/KeySearch_IDEA.cwm",
+ "RC2|attack": "Cryptanalysis/Modern/KeySearch_RC2.cwm",
+ "RC4|attack": "Cryptanalysis/Modern/KeySearch_RC4.cwm",
+ "RC6|attack": "Cryptanalysis/Modern/KeySearch_RC6.cwm",
+ "Serpent|attack": "Cryptanalysis/Modern/KeySearch_Serpent.cwm",
+ "Twofish|attack": "Cryptanalysis/Modern/KeySearch_Twofish.cwm",
+ "DESX|analysis": "Cryptanalysis/Modern/KeySearch_DESX.cwm"
 }

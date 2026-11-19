@@ -1003,7 +1003,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_DESX.cwm": "Cryptanalysis/Modern/KeySearch_DESX.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_DESX.cwm"
  },
  {
   "name": "DESXL",
@@ -1990,7 +1995,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_IDEA.cwm": "Cryptanalysis/Modern/KeySearch_IDEA.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_IDEA.cwm"
  },
  {
   "name": "IDEA MAC",
@@ -3266,7 +3276,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_RC2.cwm": "Cryptanalysis/Modern/KeySearch_RC2.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_RC2.cwm"
  },
  {
   "name": "RC2 MAC",
@@ -3308,7 +3323,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_RC4.cwm": "Cryptanalysis/Modern/KeySearch_RC4.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_RC4.cwm"
  },
  {
   "name": "RC5",
@@ -3361,7 +3381,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_RC6.cwm": "Cryptanalysis/Modern/KeySearch_RC6.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_RC6.cwm"
  },
  {
   "name": "RC6 MAC",
@@ -3792,7 +3817,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_Serpent.cwm": "Cryptanalysis/Modern/KeySearch_Serpent.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_Serpent.cwm"
  },
  {
   "name": "Serpent MAC",
@@ -4621,7 +4651,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_Twofish.cwm": "Cryptanalysis/Modern/KeySearch_Twofish.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_Twofish.cwm"
  },
  {
   "name": "Twofish MAC",

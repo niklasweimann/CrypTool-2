@@ -1041,6 +1041,47 @@ TEMPLATES += [
 ]
 
 
+def tool(out, plugin_type, inputs, outputs, settings, title_en, title_de, description_en, description_de, memo_en, memo_de, keywords, input_height=100):
+    """A tool: text inputs on the left, the component, text outputs below it. inputs: (port, text); outputs: port names."""
+    text_input, output = "CrypTool.TextInput.TextInput", "TextOutput.TextOutput"
+    edits = [dict(remove="RandomNumberGenerator"), dict(remove="TextOutput"),
+             dict(add=dict(type=plugin_type, x=420, y=40, w=300, h=160, settings=settings))]
+    for k, (port, text) in enumerate(inputs):
+        edits.append(dict(add=dict(type=text_input, x=40, y=40 + k * (input_height + 40), w=320, h=input_height, settings=dict(Text=text))))
+        edits.append(dict(connect={"from": f"{text_input}#{k}.TextOutput", "to": f"{plugin_type}.{port}"}))
+    for k, port in enumerate(outputs):
+        edits.append(dict(add=dict(type=output, x=420 + (k % 2) * 330, y=260 + (k // 2) * 160, w=320, h=120)))
+        edits.append(dict(connect={"from": f"{plugin_type}.{port}", "to": f"{output}#{k}.Input"}))
+    return dict(
+        out=out, base="Tools/RandomNumberGenerators", edits=edits, plugin=plugin_type.split(".")[0],
+        en=dict(title=title_en, summary=f"<i>{title_en}</i>", description=description_en, memo=memo_en),
+        de=dict(title=title_de, summary=f"<i>{title_de}</i>", description=description_de, memo=memo_de),
+        keywords=keywords,
+    )
+
+
+# data of the key search templates: cipher index -> (name, key, plaintext, ciphertext), made by the command kdemo of CrypWeb.Tests
+KEY_SEARCH = {
+    0: ("IDEA", "3B76B1EC27629DD8134E89C4FF3A75B0", "5468652073656372", "CADD2E5A5B25B72E"),
+    1: ("RC2", "3C77B2ED28639ED9144F8AC5003B76B1", "5468652073656372", "FE7332D7D6A2A73F"),
+    2: ("RC4", "3D78B3EE29649FDA15508BC6013C77B2", "546865207365637265742069732073616665", "23AC39C228725B55C3020BAEE9EB925441C1"),
+    3: ("RC6", "3E79B4EF2A65A0DB16518CC7023D78B3", "54686520736563726574206973207361", "A92DBCBD57CE17DCF347DC2D1ABE4BF9"),
+    4: ("Serpent", "3F7AB5F02B66A1DC17528DC8033E79B4", "54686520736563726574206973207361", "F9778C980A2C5E8BD0F5B8A0F4840DD9"),
+    5: ("Twofish", "407BB6F12C67A2DD18538EC9043F7AB5", "54686520736563726574206973207361", "9863B217DB47883A40E8013CE6E99228"),
+    6: ("DESX", "417CB7F22D68A3DE19548FCA05407BB6F12C67A2DD18538E", "5468652073656372", "80BD30D92295E805"),
+}
+for _cipher, (_name, _key, _plain, _cipher_text) in KEY_SEARCH.items():
+    TEMPLATES.append(tool(f"Cryptanalysis/Modern/KeySearch_{_name}", "KeySearch.KeySearch",
+                          [("Plaintext", _plain), ("Ciphertext", _cipher_text), ("KnownKey", _key[:-4] + "0000")], ["FoundKey", "Tries", "Report"],
+                          dict(Cipher=str(_cipher), UnknownBits="16"),
+                          f"Key Search for {_name} (last 16 key bits unknown)", f"Schlüsselsuche für {_name} (letzte 16 Schlüsselbits unbekannt)",
+                          f"Plaintext and ciphertext are known, the key is known except for its last 16 bits: all 65536 values are tried.",
+                          f"Klartext und Geheimtext sind bekannt, der Schlüssel ist bis auf seine letzten 16 Bits bekannt: Alle 65536 Werte werden probiert.",
+                          f"The key {_key} is given with the last 16 bits set to zero. Each extra unknown bit doubles the work: change the number in the settings of the {{\\\\b Key Search}} component (up to 24 bits).",
+                          f"Der Schlüssel {_key} ist mit den letzten 16 Bits auf null angegeben. Jedes weitere unbekannte Bit verdoppelt die Arbeit: Ändern Sie die Zahl in den Einstellungen der Komponente {{\\\\b Schlüsselsuche}} (bis 24 Bit).",
+                          f"key search, attack, {_name}, brute force, known plaintext"))
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

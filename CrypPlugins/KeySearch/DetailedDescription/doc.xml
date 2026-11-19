@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A key search on a partly known key shows how much of the security of a cipher is the length of its key: with a key of which all but n bits are known, 2^n encryptions find it. Real keys with 128 bits are out of reach, but 20 unknown bits take seconds. This is the attack of the key search programs of CrypTool 1 on IDEA, RC2, RC4, RC6, Serpent, Twofish and DESX, with the known part of the key given.
+  </introduction>
+  <introduction lang="de-DE">
+    Eine Schlüsselsuche mit teilweise bekanntem Schlüssel zeigt, wie viel der Sicherheit einer Chiffre in der Länge ihres Schlüssels liegt: Ist der Schlüssel bis auf n Bits bekannt, finden ihn 2^n Verschlüsselungen. Echte Schlüssel mit 128 Bit sind unerreichbar, aber 20 unbekannte Bits dauern Sekunden. Das ist der Angriff der Schlüsselsuche-Programme von CrypTool 1 auf IDEA, RC2, RC4, RC6, Serpent, Twofish und DESX, bei dem der bekannte Teil des Schlüssels vorgegeben wird.
+  </introduction>
+  <usage lang="en">
+    Give a known plaintext (hex, whole blocks), its ciphertext in ECB mode and the key with the unknown bits set to any value. The last "unknown bits" bits of the key are searched.
+  </usage>
+  <usage lang="de-DE">
+    Geben Sie einen bekannten Klartext (hex, ganze Blöcke), seinen Geheimtext im ECB-Modus und den Schlüssel an, dessen unbekannte Bits beliebig gesetzt sind. Die letzten „unbekannten Bits“ des Schlüssels werden gesucht.
+  </usage>
+</documentation>

@@ -797,6 +797,11 @@
     <Compile Include="../../CrypPlugins/Keccak/Properties/Resources.Designer.cs" Link="Keccak/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Keccak/Properties/Resources.resx" LogicalName="Keccak.Properties.Resources.resources" Link="Keccak/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Keccak/Properties/Resources.de.resx" LogicalName="Keccak.Properties.Resources.de.resources" Link="Keccak/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/KeySearch/KeySearchSettings.cs" Link="KeySearch/KeySearchSettings.cs" />
+    <Compile Include="../../CrypPlugins/KeySearch/KeySearch.cs" Link="KeySearch/KeySearch.cs" />
+    <Compile Include="../../CrypPlugins/KeySearch/Properties/Resources.Designer.cs" Link="KeySearch/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearch/Properties/Resources.resx" LogicalName="KeySearch.Properties.Resources.resources" Link="KeySearch/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/KeySearch/Properties/Resources.de.resx" LogicalName="KeySearch.Properties.Resources.de.resources" Link="KeySearch/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/KeySearcher/MachInfo.cs" Link="KeySearcher/MachInfo.cs" />
     <Compile Include="../../CrypPlugins/KeySearcher/Information.cs" Link="KeySearcher/Information.cs" />
     <Compile Include="../../CrypPlugins/KeySearcher/KeySearcherSettings.cs" Link="KeySearcher/KeySearcherSettings.cs" />

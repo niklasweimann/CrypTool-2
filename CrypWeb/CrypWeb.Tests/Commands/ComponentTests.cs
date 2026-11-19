@@ -52,6 +52,7 @@ public static class ComponentTests
         AntsAndPatterns();
         Kleptography();
         RainbowSideChannelHuffman();
+        KeySearchTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1079,6 +1080,32 @@ public static class ComponentTests
         Check(corrected, $"Huffman with Hamming(7,4): a bit error at any of the {length} positions is corrected");
         Check(garbled, "Huffman without protection: a bit error at any position garbles the text");
         Check(global::HuffmanErrors.HuffmanCoding.Transmit("aaaa", false, 0).Decoded == "aaaa" && global::HuffmanErrors.HuffmanCoding.Transmit("", false, 0).Decoded == "", "Huffman: a text of one character and the empty text");
+    }
+
+    static void KeySearchTests()
+    {
+        byte[] Hex(string h) => global::KeySearch.KeySearching.FromHex(h);
+        string ToHex(byte[] b) => global::KeySearch.KeySearching.ToHex(b);
+        Check(ToHex(global::KeySearch.KeySearching.Encrypt(2, System.Text.Encoding.ASCII.GetBytes("Key"), System.Text.Encoding.ASCII.GetBytes("Plaintext"))) == "BBF316E8D940AF0AD3", "RC4: key \"Key\", plaintext \"Plaintext\" gives BBF316E8D940AF0AD3 (the well-known example)");
+        Check(ToHex(global::KeySearch.KeySearching.Encrypt(7, Hex("000102030405060708090A0B0C0D0E0F"), Hex("00112233445566778899AABBCCDDEEFF"))) == "69C4E0D86A7B0430D8CDB78070B4C55A", "AES in the key search: FIPS 197 example");
+        Check(ToHex(global::KeySearch.KeySearching.Encrypt(8, Hex("133457799BBCDFF1"), Hex("0123456789ABCDEF"))) == "85E813540F0AB405", "DES in the key search: the classic example");
+        // every cipher: key search with 10 unknown bits finds the key (the found key encrypts the plaintext to the ciphertext)
+        for (int cipher = 0; cipher < global::KeySearch.KeySearching.Names.Length; cipher++)
+        {
+            var random = new Random(cipher + 1);
+            var key = new byte[global::KeySearch.KeySearching.KeyLength(cipher)];
+            random.NextBytes(key);
+            int block = cipher == 2 ? 11 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1) ? 8 : 16;
+            var plaintext = new byte[block * 2];
+            random.NextBytes(plaintext);
+            var ciphertext = global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext);
+            var guess = (byte[])key.Clone();
+            guess[guess.Length - 1] ^= 0xff; guess[guess.Length - 2] ^= 0x03;   // the last 10 bits are wrong
+            var found = global::KeySearch.KeySearching.Search(cipher, guess, 10, plaintext, ciphertext, out long tries);
+            Check(found != null && global::KeySearch.KeySearching.Encrypt(cipher, found, plaintext).SequenceEqual(ciphertext) && tries <= 1024, $"key search {(global::KeySearch.KeySearching.Names[cipher])}: a key with 10 unknown bits is found after {tries} of 1024 tries and encrypts the plaintext to the ciphertext");
+        }
+        long none;
+        Check(global::KeySearch.KeySearching.Search(0, new byte[16], 4, new byte[8], new byte[8], out none) == null && none == 16, "key search: a wrong ciphertext finds nothing after all 2^4 tries");
     }
 
     static void ProtocolVisualization()

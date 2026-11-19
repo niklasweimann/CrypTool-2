@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KeySearch_Serpent.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Key Search for Serpent (last 16 key bits unknown)</title>
+  <summary lang="en"><i>Key Search for Serpent (last 16 key bits unknown)</i></summary>
+  <description lang="en">Plaintext and ciphertext are known, the key is known except for its last 16 bits: all 65536 values are tried.</description>
+  <keywords lang="en">key search, attack, Serpent, brute force, known plaintext</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key 3F7AB5F02B66A1DC17528DC8033E79B4 is given with the last 16 bits set to zero. Each extra unknown bit doubles the work: change the number in the settings of the {\\b Key Search} component (up to 24 bits)." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Schlüsselsuche für Serpent (letzte 16 Schlüsselbits unbekannt)</title>
+  <summary lang="de"><i>Schlüsselsuche für Serpent (letzte 16 Schlüsselbits unbekannt)</i></summary>
+  <description lang="de">Klartext und Geheimtext sind bekannt, der Schlüssel ist bis auf seine letzten 16 Bits bekannt: Alle 65536 Werte werden probiert.</description>
+  <keywords lang="en">key search, attack, Serpent, brute force, known plaintext</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel 3F7AB5F02B66A1DC17528DC8033E79B4 ist mit den letzten 16 Bits auf null angegeben. Jedes weitere unbekannte Bit verdoppelt die Arbeit: Ändern Sie die Zahl in den Einstellungen der Komponente {\\b Schlüsselsuche} (bis 24 Bit)." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KeySearch_Serpent.png" />
+  <relevantPlugins>
+    <plugin name="KeySearch" />
+  </relevantPlugins>
+</sample>

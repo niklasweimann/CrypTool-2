@@ -13,6 +13,7 @@
 //   runtype <type>      run every template containing the component type, with timings
 //   palette <out.json>  write the palette entries found in the templates
 //   derive <base.cwm> <out.cwm> <edits.json>   copy a template and change component settings (tools-gen-derived-templates.py)
+//   kdemo               key search data for the templates
 //   kat                 known-answer tests of the components added for the function list (ComponentTests.cs)
 //   functions [file]  coverage of the CrypTool function list (reference/functions.json, made by tools-gen-functions.py)
 //   culture | bindtest | triggertest | present3d     checks of single features
@@ -69,6 +70,16 @@ switch (command)
             foreach (var c in type.GetConstructors()) Console.WriteLine("   new(" + string.Join(", ", c.GetParameters().Select(p => p.ParameterType.Name + " " + p.Name)) + ")");
             foreach (var m in type.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.DeclaredOnly).Where(m => !m.IsSpecialName))
                 Console.WriteLine("   " + (m.IsStatic ? "static " : "") + m.ReturnType.Name + " " + m.Name + "(" + string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name + " " + p.Name)) + ")");
+        }
+        break;
+    case "kdemo":   // key, plaintext and ciphertext of the key search templates (tools-gen-derived-templates.py)
+        for (int cipher = 0; cipher < global::KeySearch.KeySearching.Names.Length; cipher++)
+        {
+            var key = Enumerable.Range(0, global::KeySearch.KeySearching.KeyLength(cipher)).Select(i => (byte)(0x3b * (i + 1) + cipher)).ToArray();
+            var plaintext = global::KeySearch.KeySearching.FromHex("546865207365637265742069732073616665");   // "The secret is safe" (18 bytes) cut to whole blocks below
+            int block = cipher == 2 ? 18 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1) ? 8 : 16;
+            plaintext = plaintext.Take(block).ToArray();
+            Console.WriteLine(cipher + "|" + global::KeySearch.KeySearching.ToHex(key) + "|" + global::KeySearch.KeySearching.ToHex(plaintext) + "|" + global::KeySearch.KeySearching.ToHex(global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext)));
         }
         break;
     case "kat":
