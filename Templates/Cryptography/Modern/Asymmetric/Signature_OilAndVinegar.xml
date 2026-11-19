@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_OilAndVinegar.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Multivariate Signature: Oil and Vinegar</title>
+  <summary lang="en"><i>Multivariate Signature: Oil and Vinegar</i></summary>
+  <description lang="en">A signature whose public key is a system of quadratic equations over GF(251).</description>
+  <keywords lang="en">multivariate cryptography, oil and vinegar, UOV, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The signer chooses random vinegar values and solves a linear system for the oil values; the verifier only evaluates the public polynomials." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Multivariate Signatur: Oil and Vinegar</title>
+  <summary lang="de"><i>Multivariate Signatur: Oil and Vinegar</i></summary>
+  <description lang="de">Eine Signatur, deren öffentlicher Schlüssel ein System quadratischer Gleichungen über GF(251) ist.</description>
+  <keywords lang="en">multivariate cryptography, oil and vinegar, UOV, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Signierer wählt zufällige Vinegar-Werte und löst ein lineares Gleichungssystem für die Oil-Werte; der Prüfer wertet nur die öffentlichen Polynome aus." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_OilAndVinegar.png" />
+  <relevantPlugins>
+    <plugin name="SignatureSchemes" />
+  </relevantPlugins>
+</sample>

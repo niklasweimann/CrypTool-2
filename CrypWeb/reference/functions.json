@@ -757,7 +757,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_CMSS.cwm": "Cryptography/Modern/Asymmetric/Signature_CMSS.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_CMSS.cwm"
  },
  {
   "name": "Coin-Flipping-Protokoll",
@@ -1621,7 +1626,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_GMSS.cwm": "Cryptography/Modern/Asymmetric/Signature_GMSS.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_GMSS.cwm"
  },
  {
   "name": "GOST-Magma-Chiffre",
@@ -1647,7 +1657,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_GQ.cwm": "Cryptography/Modern/Asymmetric/Signature_GQ.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_GQ.cwm"
  },
  {
   "name": "Grain",
@@ -2528,7 +2543,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Hashfunctions/MD5.cwm": "Hashfunctions/MD5.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Hashfunctions/MD5.cwm"
  },
  {
   "name": "MD2",
@@ -2725,7 +2745,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_OilAndVinegar.cwm": "Cryptography/Modern/Asymmetric/Signature_OilAndVinegar.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_OilAndVinegar.cwm"
  },
  {
   "name": "N-Gramm",
@@ -3474,7 +3499,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_Redactable.cwm": "Cryptography/Modern/Asymmetric/Signature_Redactable.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_Redactable.cwm"
  },
  {
   "name": "Redefence",
@@ -4286,7 +4316,12 @@
   "ct2": false,
   "jct": true,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm"
  },
  {
   "name": "SPHINCS+ signature",

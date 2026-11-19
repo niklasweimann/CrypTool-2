@@ -58,6 +58,7 @@ public static class ComponentTests
         KeyAndCertificateTests();
         EncryptionSchemeTests();
         EcAndHomomorphicTests();
+        SignatureSchemeTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1371,6 +1372,66 @@ public static class ComponentTests
         int levels = 0, noise0 = dghv.Noise(deep);
         for (; levels < 40; levels++) { deep = dghv.And(deep, dghv.Encrypt(1)); if (dghv.Decrypt(deep) != 1) { break; } }
         Check(levels > 3 && levels < 40 && dghv.Noise(deep) > noise0, $"DGHV: the noise grows with every multiplication (from {noise0} bits); the decryption is wrong after {levels} multiplications, bootstrapping would be needed");
+    }
+
+    static void SignatureSchemeTests()
+    {
+        var gq = new global::SignatureSchemes.GuillouQuisquater(1, "alice");
+        Check(System.Numerics.BigInteger.ModPow(gq.B, gq.E, gq.N) * gq.J % gq.N == 1, "Guillou-Quisquater: the secret B satisfies B^e * J = 1 mod n");
+        bool gqOk = true, gqBad = true;
+        for (int i = 0; i < 20; i++)
+        {
+            string message = "message " + i;
+            gq.Sign(message, out var d, out var big);
+            gqOk &= gq.Verify(message, d, big);
+            gqBad &= !gq.Verify(message + "!", d, big) && !gq.Verify(message, d, big + 1);
+        }
+        Check(gqOk && gqBad, "Guillou-Quisquater: 20 signatures verify, and a changed message or a changed D is refused");
+
+        var red = new global::SignatureSchemes.RedactableSignature(2);
+        red.Sign("The meeting is on Friday at the old bridge with Mr Smith");
+        var full = red.Redact(new int[0]);
+        var partly = red.Redact(new[] { 7, 8, 9, 10, 11 });
+        Check(red.Verify(full) && red.Verify(partly) && partly.Words.Count(w => w == null) == 5 && partly.Salts[7] == null, "redactable signature: the signature is valid for the whole message and for the message with five words removed");
+        partly.Words[2] = "Monday";
+        Check(!red.Verify(partly), "redactable signature: a changed word that is still visible makes the signature invalid");
+        var other = red.Redact(new[] { 1 });
+        other.Hashes[0] = global::SignatureSchemes.Hashing.H(new byte[] { 1 });
+        Check(!red.Verify(other), "redactable signature: a hash value put in place of a hidden word makes the signature invalid");
+        Check(global::SignatureSchemes.RedactableSignature.Root(new List<byte[]> { new byte[] { 1 } }).SequenceEqual(new byte[] { 1 }) && !global::SignatureSchemes.RedactableSignature.Root(new List<byte[]> { new byte[] { 1 }, new byte[] { 2 }, new byte[] { 3 } }).SequenceEqual(global::SignatureSchemes.RedactableSignature.Root(new List<byte[]> { new byte[] { 1 }, new byte[] { 3 }, new byte[] { 2 } })), "Merkle tree: one leaf is its own root, and the order of the leaves matters");
+
+        var tree = new global::SignatureSchemes.MultiTreeSignature(3, 2, 2);
+        byte[] publicKey = tree.PublicKey;
+        bool treeOk = true;
+        foreach (long index in new long[] { 0, 1, 5, 14, 15 })
+        {
+            byte[] signature = tree.Sign("message " + index, index);
+            treeOk &= global::SignatureSchemes.MultiTreeSignature.Verify("message " + index, signature, publicKey, 2, 2) && signature.Length == 4 + 2 * (67 + 2) * 32;
+        }
+        Check(treeOk && tree.Capacity == 16, "multi-tree Merkle signature: 2 layers of height 2 (16 signatures): signatures with the numbers 0, 1, 5, 14 and 15 verify against the public key");
+        byte[] sig = tree.Sign("hello", 6);
+        byte[] damaged = (byte[])sig.Clone(); damaged[200] ^= 1;
+        Check(!global::SignatureSchemes.MultiTreeSignature.Verify("hellO", sig, publicKey, 2, 2) && !global::SignatureSchemes.MultiTreeSignature.Verify("hello", damaged, publicKey, 2, 2) && !global::SignatureSchemes.MultiTreeSignature.Verify("hello", sig, new global::SignatureSchemes.MultiTreeSignature(4, 2, 2).PublicKey, 2, 2), "multi-tree Merkle signature: a changed message, a changed signature and another public key are refused");
+        var three = new global::SignatureSchemes.MultiTreeSignature(5, 3, 1);
+        Check(three.Capacity == 8 && Enumerable.Range(0, 8).All(i => global::SignatureSchemes.MultiTreeSignature.Verify("m", three.Sign("m", i), three.PublicKey, 3, 1)), "multi-tree Merkle signature: 3 layers of height 1 give 8 signatures, all valid");
+        bool refused = false;
+        try { tree.Sign("x", 16); } catch (ArgumentException) { refused = true; }
+        Check(refused, "multi-tree Merkle signature: a signature number beyond the capacity is refused");
+
+        var uov = new global::SignatureSchemes.OilAndVinegar(7, 4, 8);
+        bool uovOk = true, uovBad = true;
+        for (int i = 0; i < 10; i++)
+        {
+            var s = uov.Sign("message " + i);
+            uovOk &= uov.Verify("message " + i, s);
+            uovBad &= !uov.Verify("message " + i + "x", s);
+            var damagedSignature = (int[])s.Clone(); damagedSignature[3] = (damagedSignature[3] + 1) % 251;
+            uovBad &= !uov.Verify("message " + i, damagedSignature);
+        }
+        Check(uovOk && uovBad, "Oil and Vinegar: 10 signatures verify (the public polynomials give the target values), a changed message or signature is refused");
+        var identity = global::SignatureSchemes.OilAndVinegar.Multiply(new int[,] { { 3, 7 }, { 2, 5 } }, global::SignatureSchemes.OilAndVinegar.Invert(new int[,] { { 3, 7 }, { 2, 5 } }));
+        Check(identity[0, 0] == 1 && identity[1, 1] == 1 && identity[0, 1] == 0 && identity[1, 0] == 0, "Oil and Vinegar: the matrix inverse modulo 251 is correct");
+        Check(uov.Public.All(p => p.GetLength(0) == 12) && uov.Public.Length == 4, "Oil and Vinegar: 4 public polynomials in 12 variables");
     }
 
     static void ProtocolVisualization()

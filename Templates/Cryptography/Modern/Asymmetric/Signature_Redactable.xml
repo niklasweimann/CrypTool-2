@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_Redactable.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Redactable Signature</title>
+  <summary lang="en"><i>Redactable Signature</i></summary>
+  <description lang="en">The place and the name are removed from a signed message, and the signature is still valid.</description>
+  <keywords lang="en">redactable signature, Merkle tree, redaction, privacy</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The positions of the hidden words are given as numbers. Hide other words or none." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Redigierbare Signatur</title>
+  <summary lang="de"><i>Redigierbare Signatur</i></summary>
+  <description lang="de">Der Ort und der Name werden aus einer signierten Nachricht entfernt, und die Signatur ist weiterhin gültig.</description>
+  <keywords lang="en">redactable signature, Merkle tree, redaction, privacy</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Positionen der verborgenen Wörter sind als Zahlen angegeben. Verbergen Sie andere Wörter oder keine." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_Redactable.png" />
+  <relevantPlugins>
+    <plugin name="SignatureSchemes" />
+  </relevantPlugins>
+</sample>

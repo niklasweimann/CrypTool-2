@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Four signature schemes beyond RSA and DSA. The signature of Guillou and Quisquater (1988) is an identification protocol of the Fiat-Shamir type made into a signature; it needs fewer calculations than RSA signatures for the verifier. A redactable signature allows parts of a signed document to be removed without invalidating the signature, which matters when a document contains private data: here the words are the leaves of a Merkle hash tree, and a hidden word is replaced by the hash of its leaf. Merkle signatures with several layers of trees (CMSS and GMSS of Buchmann and others) make a hash-based signature scheme practical: the one-time keys of a tree sign messages or the root of a tree in the layer below, so the number of signatures grows exponentially with the number of layers, and only the public key of the top tree has to be known. Oil-and-Vinegar signatures (Kipnis and Patarin) are multivariate: the public key is a system of quadratic equations, and only the owner of the secret structure can solve them. Hash-based and multivariate schemes are candidates against quantum computers.
+  </introduction>
+  <introduction lang="de-DE">
+    Vier Signaturverfahren jenseits von RSA und DSA. Die Signatur von Guillou und Quisquater (1988) ist ein Identifikationsprotokoll vom Typ Fiat-Shamir, das zu einer Signatur gemacht wird; sie braucht für den Prüfer weniger Rechnung als RSA-Signaturen. Eine redigierbare Signatur erlaubt es, Teile eines signierten Dokuments zu entfernen, ohne die Signatur ungültig zu machen, was wichtig ist, wenn ein Dokument private Daten enthält: Hier sind die Wörter die Blätter eines Merkle-Hashbaums, und ein verborgenes Wort wird durch den Hash seines Blattes ersetzt. Merkle-Signaturen mit mehreren Baumschichten (CMSS und GMSS von Buchmann und anderen) machen ein hashbasiertes Signaturverfahren praktikabel: Die Einmalschlüssel eines Baums signieren Nachrichten oder die Wurzel eines Baums der darunterliegenden Schicht, die Zahl der Signaturen wächst also exponentiell mit der Zahl der Schichten, und nur der öffentliche Schlüssel des obersten Baums muss bekannt sein. Oil-and-Vinegar-Signaturen (Kipnis und Patarin) sind multivariat: Der öffentliche Schlüssel ist ein System quadratischer Gleichungen, das nur der Besitzer der geheimen Struktur lösen kann. Hashbasierte und multivariate Verfahren sind Kandidaten gegen Quantencomputer.
+  </introduction>
+  <usage lang="en">
+    Choose the scheme in the settings and connect the message. Optionally connect another message to verify (a changed message must fail). Redactable scheme: connect the positions of the words to hide. Multi-tree scheme: set layers, height and the number of the signature.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie das Verfahren in den Einstellungen und verbinden Sie die Nachricht. Optional können Sie eine andere Nachricht zur Prüfung verbinden (eine veränderte Nachricht muss scheitern). Redigierbares Verfahren: Verbinden Sie die Positionen der zu verbergenden Wörter. Mehrbaumverfahren: Stellen Sie Schichten, Höhe und die Nummer der Signatur ein.
+  </usage>
+</documentation>

@@ -125,5 +125,12 @@
  "RSA-AES|": "Cryptography/Modern/Asymmetric/HybridEncryption_RSA_AES.cwm",
  "Schlüsselaustausch (multipartit)|": "Protocols/BurmesterDesmedt.cwm",
  "EC|prng": "Tools/EllipticCurveRandomGenerator.cwm",
- "Homomorphe Verschlüsselung (HE) (mit RSA, Paillier, Gentry & Hallevi)|": "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm"
+ "Homomorphe Verschlüsselung (HE) (mit RSA, Paillier, Gentry & Hallevi)|": "Cryptography/Modern/Asymmetric/HomomorphicDGHV.cwm",
+ "GQ-Signatur|": "Cryptography/Modern/Asymmetric/Signature_GQ.cwm",
+ "Redactable signature schemes (RSS)|": "Cryptography/Modern/Asymmetric/Signature_Redactable.cwm",
+ "CMSS-Signatur|": "Cryptography/Modern/Asymmetric/Signature_CMSS.cwm",
+ "GMSS-Signatur|": "Cryptography/Modern/Asymmetric/Signature_GMSS.cwm",
+ "Multivariate cryptography|": "Cryptography/Modern/Asymmetric/Signature_OilAndVinegar.cwm",
+ "SPHINCS-Signatur|": "Cryptography/Modern/Asymmetric/Signature_SPHINCSplus.cwm",
+ "MD|": "Hashfunctions/MD5.cwm"
 }

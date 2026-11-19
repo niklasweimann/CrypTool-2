@@ -1239,6 +1239,25 @@ TEMPLATES += [
 ]
 
 
+TEMPLATES += [
+    tool("Cryptography/Modern/Asymmetric/Signature_GQ", "SignatureSchemes.SignatureSchemes", [("Message", "Pay Bob 10 euros"), ("Received", "Pay Bob 10 euros")], ["Signature", "Valid", "Report"], dict(Scheme="0", Seed="1"),
+         "Guillou-Quisquater Signature", "Guillou-Quisquater-Signatur", "A message is signed with the GQ scheme and the signature is verified.", "Eine Nachricht wird mit dem GQ-Verfahren signiert, und die Signatur wird geprüft.",
+         "Change the received message to see the verification fail.", "Ändern Sie die empfangene Nachricht, um die Prüfung scheitern zu sehen.", "Guillou-Quisquater, GQ, signature, identification", input_height=80),
+    tool("Cryptography/Modern/Asymmetric/Signature_Redactable", "SignatureSchemes.SignatureSchemes", [("Message", "The meeting is on Friday at the old bridge with Mr Smith"), ("Hide", "7 8 9 10 11")], ["Signature", "Valid", "Report"], dict(Scheme="1", Seed="1"),
+         "Redactable Signature", "Redigierbare Signatur", "The place and the name are removed from a signed message, and the signature is still valid.", "Der Ort und der Name werden aus einer signierten Nachricht entfernt, und die Signatur ist weiterhin gültig.",
+         "The positions of the hidden words are given as numbers. Hide other words or none.", "Die Positionen der verborgenen Wörter sind als Zahlen angegeben. Verbergen Sie andere Wörter oder keine.", "redactable signature, Merkle tree, redaction, privacy", input_height=80),
+    tool("Cryptography/Modern/Asymmetric/Signature_CMSS", "SignatureSchemes.SignatureSchemes", [("Message", "Pay Bob 10 euros")], ["Signature", "Valid", "Report"], dict(Scheme="2", Seed="1", Layers="2", Height="3", Index="5"),
+         "Merkle Signature with Two Layers of Trees (CMSS)", "Merkle-Signatur mit zwei Baumschichten (CMSS)", "A hash-based signature with 2 layers of trees of height 3: 64 signatures.", "Eine hashbasierte Signatur mit 2 Baumschichten der Höhe 3: 64 Signaturen.",
+         "Change the number of the signature (every one-time key may be used only once) or the height in the settings of the {\\\\b More Signature Schemes} component.", "Ändern Sie die Nummer der Signatur (jeder Einmalschlüssel darf nur einmal benutzt werden) oder die Höhe in den Einstellungen der Komponente {\\\\b Weitere Signaturverfahren}.", "CMSS, Merkle signature, hash-based, post-quantum", input_height=80),
+    tool("Cryptography/Modern/Asymmetric/Signature_GMSS", "SignatureSchemes.SignatureSchemes", [("Message", "Pay Bob 10 euros")], ["Signature", "Valid", "Report"], dict(Scheme="2", Seed="1", Layers="3", Height="2", Index="37"),
+         "Generalized Merkle Signature with Three Layers of Trees (GMSS)", "Verallgemeinerte Merkle-Signatur mit drei Baumschichten (GMSS)", "A hash-based signature with 3 layers of trees of height 2: 64 signatures.", "Eine hashbasierte Signatur mit 3 Baumschichten der Höhe 2: 64 Signaturen.",
+         "More layers make the signature longer but allow very many signatures with small trees.", "Mehr Schichten machen die Signatur länger, erlauben aber sehr viele Signaturen mit kleinen Bäumen.", "GMSS, Merkle signature, hash-based, post-quantum", input_height=80),
+    tool("Cryptography/Modern/Asymmetric/Signature_OilAndVinegar", "SignatureSchemes.SignatureSchemes", [("Message", "Pay Bob 10 euros")], ["Signature", "Valid", "Report"], dict(Scheme="3", Seed="1"),
+         "Multivariate Signature: Oil and Vinegar", "Multivariate Signatur: Oil and Vinegar", "A signature whose public key is a system of quadratic equations over GF(251).", "Eine Signatur, deren öffentlicher Schlüssel ein System quadratischer Gleichungen über GF(251) ist.",
+         "The signer chooses random vinegar values and solves a linear system for the oil values; the verifier only evaluates the public polynomials.", "Der Signierer wählt zufällige Vinegar-Werte und löst ein lineares Gleichungssystem für die Oil-Werte; der Prüfer wertet nur die öffentlichen Polynome aus.", "multivariate cryptography, oil and vinegar, UOV, post-quantum", input_height=80),
+]
+
+
 def main():
     for spec in TEMPLATES:
         base, out = TEMPLATES_DIR / spec["base"], TEMPLATES_DIR / spec["out"]

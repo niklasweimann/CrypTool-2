@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_CMSS.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Merkle Signature with Two Layers of Trees (CMSS)</title>
+  <summary lang="en"><i>Merkle Signature with Two Layers of Trees (CMSS)</i></summary>
+  <description lang="en">A hash-based signature with 2 layers of trees of height 3: 64 signatures.</description>
+  <keywords lang="en">CMSS, Merkle signature, hash-based, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Change the number of the signature (every one-time key may be used only once) or the height in the settings of the {\\b More Signature Schemes} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Merkle-Signatur mit zwei Baumschichten (CMSS)</title>
+  <summary lang="de"><i>Merkle-Signatur mit zwei Baumschichten (CMSS)</i></summary>
+  <description lang="de">Eine hashbasierte Signatur mit 2 Baumschichten der Höhe 3: 64 Signaturen.</description>
+  <keywords lang="en">CMSS, Merkle signature, hash-based, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Ändern Sie die Nummer der Signatur (jeder Einmalschlüssel darf nur einmal benutzt werden) oder die Höhe in den Einstellungen der Komponente {\\b Weitere Signaturverfahren}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_CMSS.png" />
+  <relevantPlugins>
+    <plugin name="SignatureSchemes" />
+  </relevantPlugins>
+</sample>

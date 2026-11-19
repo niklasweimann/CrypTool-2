@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Signature_GMSS.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Generalized Merkle Signature with Three Layers of Trees (GMSS)</title>
+  <summary lang="en"><i>Generalized Merkle Signature with Three Layers of Trees (GMSS)</i></summary>
+  <description lang="en">A hash-based signature with 3 layers of trees of height 2: 64 signatures.</description>
+  <keywords lang="en">GMSS, Merkle signature, hash-based, post-quantum</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="More layers make the signature longer but allow very many signatures with small trees." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Verallgemeinerte Merkle-Signatur mit drei Baumschichten (GMSS)</title>
+  <summary lang="de"><i>Verallgemeinerte Merkle-Signatur mit drei Baumschichten (GMSS)</i></summary>
+  <description lang="de">Eine hashbasierte Signatur mit 3 Baumschichten der Höhe 2: 64 Signaturen.</description>
+  <keywords lang="en">GMSS, Merkle signature, hash-based, post-quantum</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Mehr Schichten machen die Signatur länger, erlauben aber sehr viele Signaturen mit kleinen Bäumen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Signature_GMSS.png" />
+  <relevantPlugins>
+    <plugin name="SignatureSchemes" />
+  </relevantPlugins>
+</sample>

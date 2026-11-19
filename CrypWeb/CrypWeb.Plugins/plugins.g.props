@@ -1255,6 +1255,11 @@
     <Compile Include="../../CrypPlugins/SideChannel/Properties/Resources.Designer.cs" Link="SideChannel/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/SideChannel/Properties/Resources.resx" LogicalName="SideChannel.Properties.Resources.resources" Link="SideChannel/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/SideChannel/Properties/Resources.de.resx" LogicalName="SideChannel.Properties.Resources.de.resources" Link="SideChannel/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/SignatureSchemes/SignatureSchemesSettings.cs" Link="SignatureSchemes/SignatureSchemesSettings.cs" />
+    <Compile Include="../../CrypPlugins/SignatureSchemes/SignatureSchemes.cs" Link="SignatureSchemes/SignatureSchemes.cs" />
+    <Compile Include="../../CrypPlugins/SignatureSchemes/Properties/Resources.Designer.cs" Link="SignatureSchemes/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/SignatureSchemes/Properties/Resources.resx" LogicalName="SignatureSchemes.Properties.Resources.resources" Link="SignatureSchemes/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/SignatureSchemes/Properties/Resources.de.resx" LogicalName="SignatureSchemes.Properties.Resources.de.resources" Link="SignatureSchemes/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Solitaire/SolitaireSettings.cs" Link="Solitaire/SolitaireSettings.cs" />
     <Compile Include="../../CrypPlugins/Solitaire/Solitaire.cs" Link="Solitaire/Solitaire.cs" />
     <Compile Include="../../CrypPlugins/Solitaire/Properties/Resources.Designer.cs" Link="Solitaire/Properties/Resources.Designer.cs" />
