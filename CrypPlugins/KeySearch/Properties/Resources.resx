@@ -123,6 +123,12 @@
   <data name="CipherList1" xml:space="preserve">
     <value>IDEA</value>
   </data>
+  <data name="CipherList10" xml:space="preserve">
+    <value>DESL (DES with one S-box)</value>
+  </data>
+  <data name="CipherList11" xml:space="preserve">
+    <value>DESXL (DESL with whitening, 3 x 8 bytes)</value>
+  </data>
   <data name="CipherList2" xml:space="preserve">
     <value>RC2</value>
   </data>

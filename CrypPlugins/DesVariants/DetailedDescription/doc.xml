@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    DES uses eight different S-boxes, which take most of the area of a hardware implementation; this matters for RFID tags and other tiny devices. DESL (Leander, Paar, Poschmann and Schramm, 2007) replaces them by one S-box that is used eight times, which saves a large part of the area at a similar security against known attacks. DESX adds a whitening key before and after the encryption, which makes an exhaustive key search much more costly; DESXL is the same with DESL. The key of DESX and DESXL here has 24 bytes: the DES key, the pre-whitening key and the post-whitening key. The initial and final permutation are kept as in DES; leaving them out gives the same cipher up to a fixed permutation of the bits of plaintext and ciphertext. The DES variant of this component was checked against DES of .NET; the S-box of DESL satisfies the design criteria of the DES S-boxes (every row a permutation, one input bit changes at least two output bits).
+  </introduction>
+  <introduction lang="de-DE">
+    DES benutzt acht verschiedene S-Boxen, die in einer Hardware-Implementierung den größten Teil der Fläche beanspruchen; das ist für RFID-Etiketten und andere winzige Geräte wichtig. DESL (Leander, Paar, Poschmann und Schramm, 2007) ersetzt sie durch eine S-Box, die achtmal benutzt wird, was einen großen Teil der Fläche spart bei ähnlicher Sicherheit gegen bekannte Angriffe. DESX fügt einen Weißungsschlüssel vor und nach der Verschlüsselung hinzu, was eine vollständige Schlüsselsuche viel teurer macht; DESXL ist dasselbe mit DESL. Der Schlüssel von DESX und DESXL hat hier 24 Bytes: den DES-Schlüssel, den Vorweißungs- und den Nachweißungsschlüssel. Die Anfangs- und die Endpermutation bleiben wie bei DES erhalten; lässt man sie weg, ergibt sich dieselbe Chiffre bis auf eine feste Permutation der Bits von Klartext und Geheimtext. Die DES-Variante dieser Komponente wurde gegen DES von .NET geprüft; die S-Box von DESL erfüllt die Entwurfskriterien der DES-S-Boxen (jede Zeile eine Permutation, ein Eingabebit ändert mindestens zwei Ausgabebits).
+  </introduction>
+  <usage lang="en">
+    Choose the cipher and the direction in the settings and connect the data and the key as hexadecimal digits.
+  </usage>
+  <usage lang="de-DE">
+    Wählen Sie die Chiffre und die Richtung in den Einstellungen und verbinden Sie die Daten und den Schlüssel als Hexadezimalziffern.
+  </usage>
+</documentation>

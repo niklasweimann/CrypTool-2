@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DESL.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">DESL: DES with One S-Box</title>
+  <summary lang="en"><i>DESL: DES with One S-Box</i></summary>
+  <description lang="en">The lightweight DES variant DESL encrypts one block.</description>
+  <keywords lang="en">DESL, DES, lightweight, RFID, S-box</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="DESL replaces the eight S-boxes of DES by one that is used eight times. Choose DES to compare, or Decrypt in the settings of the {\\b DES Variants} component." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">DESL: DES mit einer S-Box</title>
+  <summary lang="de"><i>DESL: DES mit einer S-Box</i></summary>
+  <description lang="de">Die leichtgewichtige DES-Variante DESL verschlüsselt einen Block.</description>
+  <keywords lang="en">DESL, DES, lightweight, RFID, S-box</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="DESL ersetzt die acht S-Boxen von DES durch eine, die achtmal benutzt wird. Wählen Sie DES zum Vergleich oder Entschlüsseln in den Einstellungen der Komponente {\\b DES-Varianten}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DESL.png" />
+  <relevantPlugins>
+    <plugin name="DesVariants" />
+  </relevantPlugins>
+</sample>

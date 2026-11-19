@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DESXL.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">DESXL: DESL with Whitening</title>
+  <summary lang="en"><i>DESXL: DESL with Whitening</i></summary>
+  <description lang="en">DESL with a whitening key before and after the encryption.</description>
+  <keywords lang="en">DESXL, DESL, whitening, key search</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key has 24 bytes: the DES key, the pre-whitening key and the post-whitening key." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">DESXL: DESL mit Weißung</title>
+  <summary lang="de"><i>DESXL: DESL mit Weißung</i></summary>
+  <description lang="de">DESL mit einem Weißungsschlüssel vor und nach der Verschlüsselung.</description>
+  <keywords lang="en">DESXL, DESL, whitening, key search</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel hat 24 Bytes: den DES-Schlüssel, den Vor- und den Nachweißungsschlüssel." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DESXL.png" />
+  <relevantPlugins>
+    <plugin name="DesVariants" />
+  </relevantPlugins>
+</sample>

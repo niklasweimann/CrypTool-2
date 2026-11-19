@@ -1002,7 +1002,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/DESL.cwm": "Cryptography/Modern/Symmetric/DESL.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/DESL.cwm"
  },
  {
   "name": "DESL",
@@ -1013,7 +1018,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_DESL.cwm": "Cryptanalysis/Modern/KeySearch_DESL.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_DESL.cwm"
  },
  {
   "name": "DESX",
@@ -1052,7 +1062,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptography/Modern/Symmetric/DESXL.cwm": "Cryptography/Modern/Symmetric/DESXL.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptography/Modern/Symmetric/DESXL.cwm"
  },
  {
   "name": "DESXL",
@@ -1063,7 +1078,12 @@
   "ct2": false,
   "jct": false,
   "cto": false,
-  "status": "open"
+  "components": {},
+  "templates": {
+   "Cryptanalysis/Modern/KeySearch_DESXL.cwm": "Cryptanalysis/Modern/KeySearch_DESXL.cwm"
+  },
+  "status": "done",
+  "coveredBy": "Cryptanalysis/Modern/KeySearch_DESXL.cwm"
  },
  {
   "name": "Dezimalisierung",

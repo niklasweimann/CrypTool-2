@@ -570,6 +570,11 @@
     <Compile Include="../../CrypPlugins/Decimalization/Properties/Resources.Designer.cs" Link="Decimalization/Properties/Resources.Designer.cs" />
     <EmbeddedResource Include="../../CrypPlugins/Decimalization/Properties/Resources.resx" LogicalName="Decimalization.Properties.Resources.resources" Link="Decimalization/Properties/Resources.resx" />
     <EmbeddedResource Include="../../CrypPlugins/Decimalization/Properties/Resources.de.resx" LogicalName="Decimalization.Properties.Resources.de.resources" Link="Decimalization/Properties/Resources.de.resx" />
+    <Compile Include="../../CrypPlugins/DesVariants/DesVariantsSettings.cs" Link="DesVariants/DesVariantsSettings.cs" />
+    <Compile Include="../../CrypPlugins/DesVariants/DesVariants.cs" Link="DesVariants/DesVariants.cs" />
+    <Compile Include="../../CrypPlugins/DesVariants/Properties/Resources.Designer.cs" Link="DesVariants/Properties/Resources.Designer.cs" />
+    <EmbeddedResource Include="../../CrypPlugins/DesVariants/Properties/Resources.resx" LogicalName="DesVariants.Properties.Resources.resources" Link="DesVariants/Properties/Resources.resx" />
+    <EmbeddedResource Include="../../CrypPlugins/DesVariants/Properties/Resources.de.resx" LogicalName="DesVariants.Properties.Resources.de.resources" Link="DesVariants/Properties/Resources.de.resx" />
     <Compile Include="../../CrypPlugins/Dictionary/Dictionary.cs" Link="Dictionary/Dictionary.cs" />
     <Compile Include="../../CrypPlugins/Dictionary/DictionarySettings.cs" Link="Dictionary/DictionarySettings.cs" />
     <Compile Include="../../CrypPlugins/Dictionary/Properties/Settings.Designer.cs" Link="Dictionary/Properties/Settings.Designer.cs" />

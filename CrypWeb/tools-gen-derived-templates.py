@@ -1069,6 +1069,8 @@ KEY_SEARCH = {
     4: ("Serpent", "3F7AB5F02B66A1DC17528DC8033E79B4", "54686520736563726574206973207361", "F9778C980A2C5E8BD0F5B8A0F4840DD9"),
     5: ("Twofish", "407BB6F12C67A2DD18538EC9043F7AB5", "54686520736563726574206973207361", "9863B217DB47883A40E8013CE6E99228"),
     6: ("DESX", "417CB7F22D68A3DE19548FCA05407BB6F12C67A2DD18538E", "5468652073656372", "80BD30D92295E805"),
+    9: ("DESL", "447FBAF5306BA6E1", "5468652073656372", "3946FCE2850243B8"),
+    10: ("DESXL", "4580BBF6316CA7E21D5893CE09447FBAF5306BA6E11C5792", "5468652073656372", "9624E0F9F6CB111F"),
 }
 for _cipher, (_name, _key, _plain, _cipher_text) in KEY_SEARCH.items():
     TEMPLATES.append(tool(f"Cryptanalysis/Modern/KeySearch_{_name}", "KeySearch.KeySearch",
@@ -1309,6 +1311,17 @@ TEMPLATES += [
          "McEliece Signature (CFS)", "McEliece-Signatur (CFS)", "A code-based signature: an error vector whose syndrome is the hash value, found by decoding a Goppa code.", "Eine codebasierte Signatur: ein Fehlervektor, dessen Syndrom der Hashwert ist, gefunden durch Decodieren eines Goppa-Codes.",
          "The report shows how many hash values had to be tried until one could be decoded. Change the received message to see the verification fail. The code is tiny (length 256, t = 4) and gives no security.",
          "Der Bericht zeigt, wie viele Hashwerte probiert werden mussten, bis einer decodiert werden konnte. Ändern Sie die empfangene Nachricht, um die Prüfung scheitern zu sehen. Der Code ist winzig (Länge 256, t = 4) und bietet keine Sicherheit.", "McEliece, CFS, Goppa code, code-based signature, post-quantum", input_height=80),
+]
+
+
+TEMPLATES += [
+    tool("Cryptography/Modern/Symmetric/DESL", "DesVariants.DesVariants", [("Input", "5468652073656372"), ("Key", "447FBAF5306BA6E1")], ["Output"], dict(Variant="1", Mode="0"),
+         "DESL: DES with One S-Box", "DESL: DES mit einer S-Box", "The lightweight DES variant DESL encrypts one block.", "Die leichtgewichtige DES-Variante DESL verschlüsselt einen Block.",
+         "DESL replaces the eight S-boxes of DES by one that is used eight times. Choose DES to compare, or Decrypt in the settings of the {\\\\b DES Variants} component.",
+         "DESL ersetzt die acht S-Boxen von DES durch eine, die achtmal benutzt wird. Wählen Sie DES zum Vergleich oder Entschlüsseln in den Einstellungen der Komponente {\\\\b DES-Varianten}.", "DESL, DES, lightweight, RFID, S-box", input_height=80),
+    tool("Cryptography/Modern/Symmetric/DESXL", "DesVariants.DesVariants", [("Input", "5468652073656372"), ("Key", "4580BBF6316CA7E21D5893CE09447FBAF5306BA6E11C5792")], ["Output"], dict(Variant="3", Mode="0"),
+         "DESXL: DESL with Whitening", "DESXL: DESL mit Weißung", "DESL with a whitening key before and after the encryption.", "DESL mit einem Weißungsschlüssel vor und nach der Verschlüsselung.",
+         "The key has 24 bytes: the DES key, the pre-whitening key and the post-whitening key.", "Der Schlüssel hat 24 Bytes: den DES-Schlüssel, den Vor- und den Nachweißungsschlüssel.", "DESXL, DESL, whitening, key search", input_height=80),
 ]
 
 

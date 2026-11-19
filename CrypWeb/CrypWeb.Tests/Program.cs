@@ -77,7 +77,7 @@ switch (command)
         {
             var key = Enumerable.Range(0, global::KeySearch.KeySearching.KeyLength(cipher)).Select(i => (byte)(0x3b * (i + 1) + cipher)).ToArray();
             var plaintext = global::KeySearch.KeySearching.FromHex("546865207365637265742069732073616665");   // "The secret is safe" (18 bytes) cut to whole blocks below
-            int block = cipher == 2 ? 18 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1) ? 8 : 16;
+            int block = cipher == 2 ? 18 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1 || cipher == 9 || cipher == 10) ? 8 : 16;
             plaintext = plaintext.Take(block).ToArray();
             Console.WriteLine(cipher + "|" + global::KeySearch.KeySearching.ToHex(key) + "|" + global::KeySearch.KeySearching.ToHex(plaintext) + "|" + global::KeySearch.KeySearching.ToHex(global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext)));
         }

@@ -62,6 +62,7 @@ public static class ComponentTests
         MlKemTests();
         CodeAndIdentificationTests();
         CfsTests();
+        DesVariantTests();
 
         // Shacal is the compression function of SHA used as a block cipher: IV + Encrypt(key = message block, IV) is the hash value of that block.
         // The padded block of the message "abc" is 61 62 63 80 00 ... 00 18.
@@ -1104,7 +1105,7 @@ public static class ComponentTests
             var random = new Random(cipher + 1);
             var key = new byte[global::KeySearch.KeySearching.KeyLength(cipher)];
             random.NextBytes(key);
-            int block = cipher == 2 ? 11 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1) ? 8 : 16;
+            int block = cipher == 2 ? 11 : (cipher == 0 || cipher == 6 || cipher == 8 || cipher == 1 || cipher == 9 || cipher == 10) ? 8 : 16;
             var plaintext = new byte[block * 2];
             random.NextBytes(plaintext);
             var ciphertext = global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext);
@@ -1568,6 +1569,54 @@ public static class ComponentTests
         var other = new global::CfsSignature.CfsScheme(2);
         var sig = scheme.Sign("hello", out int c0);
         Check(!global::CfsSignature.CfsScheme.Verify("hello", sig, c0, other.PublicColumns) && Enumerable.Range(0, 32).All(j => scheme.PublicColumns[j] == 1u << j), "CFS: the public matrix is in systematic form (the first 32 columns are the unit vectors), and another key does not verify");
+    }
+
+    static void DesVariantTests()
+    {
+        // DES of our tables against DES of .NET (random keys and blocks), and the classic example
+        byte[] classicKey = global::DesVariants.DesFamily.FromHex("133457799BBCDFF1"), classicBlock = global::DesVariants.DesFamily.FromHex("0123456789ABCDEF");
+        Check(global::DesVariants.DesFamily.ToHex(global::DesVariants.DesFamily.Process(0, classicKey, classicBlock, true)) == "85E813540F0AB405", "DES (own tables): key 133457799BBCDFF1, plaintext 0123456789ABCDEF gives 85E813540F0AB405");
+        var random = new Random(11);
+        bool same = true;
+        for (int i = 0; i < 200; i++)
+        {
+            var key = new byte[8]; var data = new byte[16];
+            random.NextBytes(key); random.NextBytes(data);
+            using var des = System.Security.Cryptography.DES.Create();
+            des.Key = key; des.Mode = System.Security.Cryptography.CipherMode.ECB; des.Padding = System.Security.Cryptography.PaddingMode.None;
+            using var encryptor = des.CreateEncryptor();
+            byte[] expected = encryptor.TransformFinalBlock(data, 0, 16);
+            byte[] ours = global::DesVariants.DesFamily.Process(0, key, data, true);
+            same &= ours.SequenceEqual(expected) && global::DesVariants.DesFamily.Process(0, key, ours, false).SequenceEqual(data);
+        }
+        Check(same, "DES (own tables, the eight S-boxes): 200 random keys and blocks give the same ciphertext as DES of .NET and decrypt again");
+
+        // DESL: round trip, different from DES, and the S-box properties
+        bool roundTrip = true, differs = true;
+        for (int i = 0; i < 50; i++)
+        {
+            var key = new byte[24]; var data = new byte[16];
+            random.NextBytes(key); random.NextBytes(data);
+            foreach (int variant in new[] { 1, 2, 3 })
+            {
+                byte[] k = key.Take(global::DesVariants.DesFamily.KeyLength(variant)).ToArray();
+                roundTrip &= global::DesVariants.DesFamily.Process(variant, k, global::DesVariants.DesFamily.Process(variant, k, data, true), false).SequenceEqual(data);
+            }
+            differs &= !global::DesVariants.DesFamily.Process(1, key.Take(8).ToArray(), data, true).SequenceEqual(global::DesVariants.DesFamily.Process(0, key.Take(8).ToArray(), data, true));
+        }
+        Check(roundTrip && differs, "DESL, DESX, DESXL: encryption and decryption of 50 random keys and blocks are inverse; DESL differs from DES");
+        var box = global::DesVariants.DesEngineVariant.LightweightBox;
+        bool rows = Enumerable.Range(0, 4).All(r => box.Skip(16 * r).Take(16).OrderBy(x => x).SequenceEqual(Enumerable.Range(0, 16)));
+        int violations = 0;
+        Func<int, int> S = x => box[(((x >> 4) & 2) | (x & 1)) * 16 + ((x >> 1) & 15)];
+        for (int x = 0; x < 64; x++) { for (int b = 0; b < 6; b++) { if (System.Numerics.BitOperations.PopCount((uint)(S(x) ^ S(x ^ (1 << b)))) < 2) { violations++; } } }
+        bool standardRows = global::DesVariants.DesEngineVariant.StandardBoxes.All(b => Enumerable.Range(0, 4).All(r => b.Skip(16 * r).Take(16).OrderBy(x => x).SequenceEqual(Enumerable.Range(0, 16))));
+        Check(rows && violations == 0 && standardRows, "DESL: every row of the S-box is a permutation of 0 to 15 and one flipped input bit changes at least two output bits (as for the DES S-boxes)");
+        // DESX: whitening with the pre- and post-whitening key around DES
+        byte[] pre = new byte[8], post = new byte[8], dkey = new byte[8], plain = new byte[8];
+        random.NextBytes(pre); random.NextBytes(post); random.NextBytes(dkey); random.NextBytes(plain);
+        byte[] manual = global::DesVariants.DesFamily.Process(0, dkey, plain.Select((b, i) => (byte)(b ^ pre[i])).ToArray(), true).Select((b, i) => (byte)(b ^ post[i])).ToArray();
+        Check(global::DesVariants.DesFamily.Process(2, dkey.Concat(pre).Concat(post).ToArray(), plain, true).SequenceEqual(manual), "DESX: the result is E(P xor K2) xor K3 with DES");
     }
 
     static void ProtocolVisualization()

@@ -138,5 +138,9 @@
  "Barcode|": "Codes/Barcode_EAN13.cwm",
  "Chiffre-Identifizierung|": "Cryptanalysis/Classic/CipherIdentification.cwm",
  "VSH|": "Hashfunctions/VerySmoothHash.cwm",
- "McEliece-Signatur|": "Cryptography/Modern/Asymmetric/Signature_McEliece_CFS.cwm"
+ "McEliece-Signatur|": "Cryptography/Modern/Asymmetric/Signature_McEliece_CFS.cwm",
+ "DESL|": "Cryptography/Modern/Symmetric/DESL.cwm",
+ "DESXL|": "Cryptography/Modern/Symmetric/DESXL.cwm",
+ "DESL|analysis": "Cryptanalysis/Modern/KeySearch_DESL.cwm",
+ "DESXL|analysis": "Cryptanalysis/Modern/KeySearch_DESXL.cwm"
 }
