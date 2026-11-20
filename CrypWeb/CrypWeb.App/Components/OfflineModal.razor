@@ -73,6 +73,8 @@
 </div>
 
 @code {
+    private readonly StableHandlers stable = new();
+
 
     /// <summary>The running download, or null.</summary>
     [Parameter] public OfflineRun? Run { get; set; }
@@ -118,7 +120,7 @@
     }
 
     private RenderFragment Row(OfflineGroup g, string name, string? tip) => @<label class="ol-row @(selected.Contains(g.Id) ? "on" : "")">
-        <input type="checkbox" checked="@selected.Contains(g.Id)" disabled="@Busy" @onchange="e => Toggle(g.Id, (bool)e.Value!)"/>
+        <input type="checkbox" checked="@selected.Contains(g.Id)" disabled="@Busy" @onchange="stable.Of(g.Id, (ChangeEventArgs e) => Toggle(g.Id, (bool)e.Value!))"/>
         <span class="ol-name">@name@if (tip != null)
                                    {
                                        <small>@tip</small>

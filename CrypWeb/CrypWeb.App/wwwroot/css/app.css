@@ -1140,6 +1140,10 @@ textarea.inline {
     font-size: 11px;
 }
 
+.mnote.err {
+    color: #b00;
+}
+
 .mhint {
     padding: 20px;
     color: #778;
@@ -3295,5 +3299,49 @@ body.filedrag .drophint {
         animation: none !important;
         transition: none !important;
         scroll-behavior: auto !important;
+    }
+}
+
+/* ---- narrow screens (phones): the ribbon scrolls sideways instead of overlapping, the start page stacks ---- */
+@media (max-width: 720px) {
+    .rtabs {
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .rtab, .app-btn {
+        flex: none;
+        white-space: nowrap;
+    }
+
+    .rbody {
+        overflow-x: auto;
+        height: auto;
+        min-height: 80px;
+    }
+
+    .rgroup {
+        flex: none;
+    }
+
+    .rbtns .rbtn {
+        flex: none;
+    }
+
+    .page {
+        padding: 14px 12px;
+    }
+
+    .sc-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .sc-head h1 {
+        font-size: 26px;
+    }
+
+    .sc-head, .sc-intro, .sc-box, .sc-link {
+        min-width: 0;
+        overflow-wrap: anywhere;
     }
 }

@@ -214,11 +214,25 @@ public partial class Home
     private PluginNode AddAt(PaletteEntry entry, double x, double y)
     {
         ed.Checkpoint();
-        var plugin = ed.AddPlugin(entry, Snap(x), Snap(y));
+        (x, y) = FreeSpot(Snap(x), Snap(y));
+        var plugin = ed.AddPlugin(entry, x, y);
         if (settings.DefaultView == 2) plugin.ViewState = 7;
         else if (settings.DefaultView == 1) SetView(plugin, 1);
         SelectOnly(plugin.Id);
         return plugin;
+    }
+
+    /// <summary>Moves a new component's position diagonally until it no longer covers the top left corner of another one.</summary>
+    private (double, double) FreeSpot(double x, double y)
+    {
+        const double step = 32;
+        for (var i = 0; i < 50 && ed.Ws.Plugins.Any(p => Math.Abs(p.X - x) < step && Math.Abs(p.Y - y) < step); i++)
+        {
+            x += step;
+            y += step;
+        }
+
+        return (x, y);
     }
 
     private void SelectOnly(int id)

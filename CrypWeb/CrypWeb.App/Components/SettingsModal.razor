@@ -45,7 +45,7 @@
                                 {
                                     case "ComboBox" or "DynamicComboBox" or "LanguageSelector":
                                         <select value="@Cur(fld)"
-                                                @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)">
+                                                @onchange="Change(fld)">
                                             @for (var i = 0; i < fld.Options.Count; i++)
                                             {
                                                 var idx = i;
@@ -63,14 +63,14 @@
                                                         type="radio"
                                                         name="@fld.Name"
                                                         checked="@(Cur(fld) == idx.ToString())"
-                                                        @onchange="() => Set(fld, idx.ToString())"/> @fld.Options[idx]
+                                                        @onchange="Pick(fld, idx)"/> @fld.Options[idx]
                                                 </label>
                                             }
                                         </div>
                                         break;
                                     case "CheckBox":
                                         <input type="checkbox" checked="@(Cur(fld) == "True")"
-                                               @onchange="e => SetBool(fld, e.Value)"/>
+                                               @onchange="Toggle(fld)"/>
                                         break;
                                     case "Slider":
                                         <div class="mslider"><input
@@ -79,24 +79,25 @@
                                                 max="@Num(fld.Max, 100)"
                                                 step="@Num(fld.Step, 1)"
                                                 value="@Cur(fld)"
-                                                @oninput="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/><span>@Cur(fld)</span>
+                                                @oninput="Change(fld)"/><span>@Cur(fld)</span>
                                         </div>
                                         break;
                                     case "NumericUpDown":
                                         <input
+                                            class="@(Problem(fld) != null ? "bad" : "")"
                                             type="number"
                                             min="@(fld.Min?.ToString(Inv))"
                                             max="@(fld.Max?.ToString(Inv))"
                                             step="@Num(fld.Step, fld.ValueType == "int" ? 1 : 0.1)"
                                             value="@Cur(fld)"
-                                            @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                            @onchange="Change(fld)"/>
                                         break;
                                     case "TextBoxReadOnly":
                                         <input readonly value="@Cur(fld)"/>
                                         break;
                                     case "TextBoxHidden":
                                         <input type="password" value="@Cur(fld)"
-                                               @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                               @onchange="Change(fld)"/>
                                         break;
                                     case "OpenFileDialog" or "SaveFileDialog":
                                         <input value="@Cur(fld)" disabled/>
@@ -111,8 +112,12 @@
                                             class="@(Invalid(fld) ? "bad" : "")"
                                             type="@(fld.ValueType is "int" or "double" ? "number" : "text")"
                                             value="@Cur(fld)"
-                                            @onchange="e => Set(fld, e.Value?.ToString() ?? string.Empty)"/>
+                                            @onchange="Change(fld)"/>
                                         break;
+                                }
+                                @if (Problem(fld) is { } problem)
+                                {
+                                    <span class="mnote err">@problem</span>
                                 }
                             </div>
                         </div>
@@ -156,6 +161,8 @@
         Error = null;
         Fields = new List<SettingField>();
         cur.Clear();
+        problems.Clear();
+        handlers.Clear();
         try
         {
             // computed in the app; yields first so the dialog shows its "loading" state
@@ -206,16 +213,78 @@
         } // the pattern itself is invalid: do not block input
     }
 
+    // Event handlers of the fields. Blazor gives a handler a new id whenever its delegate changes; a lambda created in the
+    // render loop is a new delegate on every render, and an event that arrives while the DOM is being updated is then lost
+    // ("There is no event handler associated with this event"). One delegate per field and kind keeps the id stable.
+    readonly Dictionary<string, Delegate> handlers = new();
+    readonly Dictionary<string, string> problems = new();
+
+    T Cached<T>(string key, Func<T> create) where T : Delegate
+    {
+        if (handlers.TryGetValue(key, out var existing)) return (T)existing;
+        var made = create();
+        handlers[key] = made;
+        return made;
+    }
+
+    Func<ChangeEventArgs, Task> Change(SettingField f) =>
+        Cached("c:" + f.Name, () => (Func<ChangeEventArgs, Task>)(e => Set(f, e.Value?.ToString() ?? string.Empty)));
+
+    Func<ChangeEventArgs, Task> Toggle(SettingField f) =>
+        Cached("t:" + f.Name, () => (Func<ChangeEventArgs, Task>)(e => Set(f, e.Value is true ? "True" : "False")));
+
+    Func<ChangeEventArgs, Task> Pick(SettingField f, int index) =>
+        Cached("p:" + f.Name + ":" + index, () => (Func<ChangeEventArgs, Task>)(_ => Set(f, index.ToString())));
+
+    string? Problem(SettingField f)
+    {
+        return problems.GetValueOrDefault(f.Name);
+    }
+
+    /// <summary>
+    ///     Checks a number against the type and the range of the setting. Returns the value to store (a number outside the range
+    ///     is brought back into it), or null with a message when the text is not a number of the type.
+    /// </summary>
+    string? Validate(SettingField f, string v, out string? message)
+    {
+        message = null;
+        var isInt = f.ValueType == "int";
+        if (!isInt && f.ValueType != "double") return v;
+        if (!double.TryParse(v, NumberStyles.Float, Inv, out var n) || double.IsNaN(n) || double.IsInfinity(n))
+        {
+            message = "Please enter a number.";
+            return null;
+        }
+
+        if (isInt && n != Math.Floor(n))
+        {
+            message = "Please enter a whole number.";
+            return null;
+        }
+
+        // a range of 0..0 means "not specified"
+        var ranged = f.Min is { } lo && f.Max is { } hi && hi > lo;
+        var min = ranged ? f.Min!.Value : isInt ? int.MinValue : double.MinValue;
+        var max = ranged ? f.Max!.Value : isInt ? int.MaxValue : double.MaxValue;
+        if (n < min || n > max)
+        {
+            n = Math.Clamp(n, min, max);
+            message = $"Out of range, set to {n.ToString(Inv)}.";
+        }
+
+        return n.ToString(Inv);
+    }
+
     async Task Set(SettingField f, string v)
     {
+        var valid = Validate(f, v, out var message);
+        if (message == null) problems.Remove(f.Name);
+        else problems[f.Name] = message;
+        if (valid == null) { cur[f.Name] = v; return; } // not a number: keep the typed text, do not apply it
+        v = valid;
         cur[f.Name] = v;
         if (Invalid(f)) return;
         await OnChange.InvokeAsync((f.Name, v, f.TypeName));
-    }
-
-    Task SetBool(SettingField f, object? v)
-    {
-        return Set(f, v is true ? "True" : "False");
     }
 
     Task Close()

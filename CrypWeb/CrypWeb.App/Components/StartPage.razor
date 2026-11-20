@@ -44,7 +44,7 @@
                 {
                     var entry = recent;
                     var unavailable = entry.Kind == "file" && entry.Data == null; // a file that was too large to keep
-                    <div class="tplfile @(unavailable ? "dis" : "")" @onclick="() => OnOpenRecent.InvokeAsync(entry)">
+                    <div class="tplfile @(unavailable ? "dis" : "")" @onclick="stable.Of(entry, () => OnOpenRecent.InvokeAsync(entry))">
                         ▤ @Path.GetFileNameWithoutExtension(entry.Name)<i
                             class="rk">@(entry.Kind == "file" ? "file" : "")</i>
                     </div>
@@ -55,6 +55,8 @@
 </div>
 
 @code {
+    private readonly StableHandlers stable = new();
+
     [Parameter, EditorRequired] public IReadOnlyList<string> Templates { get; set; } = Array.Empty<string>();
     [Parameter, EditorRequired] public IReadOnlyList<Recent> Recents { get; set; } = Array.Empty<Recent>();
     [Parameter] public EventCallback OnNewWorkspace { get; set; }
@@ -129,7 +131,7 @@
                                                              var f = sub;
                                                              var open = Filter.Length > 0 || OpenFolders.Contains(f.Path); // a filter opens all folders
                                                              <div class="tpldir" style="padding-left:@(depth * 18)px"
-                                                                  @onclick="() => ToggleFolder(f.Path)">
+                                                                  @onclick="stable.Of(f.Path, () => ToggleFolder(f.Path))">
                                                                  <span
                                                                      class="tpltw">@(open ? "▾" : "▸")</span>📁 @f.Name<i>@Count(f)</i>
                                                              </div>
@@ -143,7 +145,7 @@
                                                              var template = file;
                                                              <div class="tplfile"
                                                                   style="padding-left:@(depth * 18 + 18)px"
-                                                                  @onclick="() => OnOpenTemplate.InvokeAsync(template)">
+                                                                  @onclick="stable.Of(template, () => OnOpenTemplate.InvokeAsync(template))">
                                                                  ▤ @Path.GetFileNameWithoutExtension(template)
                                                              </div>
                                                          }

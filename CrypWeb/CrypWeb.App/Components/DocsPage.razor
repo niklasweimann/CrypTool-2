@@ -97,6 +97,8 @@
 </div>
 
 @code {
+    private readonly StableHandlers stable = new();
+
     [Parameter, EditorRequired] public Localizer Loc { get; set; } = default!;
 
     /// <summary>"component/&lt;type&gt;", "template/&lt;path&gt;", "article/&lt;id&gt;" or empty for the overview.</summary>
@@ -379,7 +381,7 @@
         </header>
         <p class="dc-lede">@((MarkupString)DocsText.Pick(t.Summary, Loc.Lang))</p>
         <div class="dc-actions">
-            <button class="dc-primary" @onclick="() => OnOpenTemplate.InvokeAsync(t.Id)">▶ @Loc["docs.openTemplate"]</button>
+            <button class="dc-primary" @onclick="stable.Of(t, () => OnOpenTemplate.InvokeAsync(t.Id))">▶ @Loc["docs.openTemplate"]</button>
         </div>
         <img class="dc-shot" src="@PictureOf(t)" alt="" loading="lazy" onerror="this.style.display='none'"/>
         @if (DocsText.Pick(t.Description, Loc.Lang) is { Length: > 0 } description)

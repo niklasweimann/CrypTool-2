@@ -29,7 +29,7 @@
                         @foreach (var e in DocEntries.Take(300))
                         {
                             var ee = e;
-                            <div class="lm-t @(ee.Target == docTarget ? "on" : "")" title="@ee.Target" @onclick="() => PickDoc(ee.Target)">
+                            <div class="lm-t @(ee.Target == docTarget ? "on" : "")" title="@ee.Target" @onclick="stable.Of(ee.Target, () => PickDoc(ee.Target))">
                                 @if (ee.Icon != null)
                                 {
                                     <img src="@ee.Icon"/>
@@ -45,7 +45,7 @@
                         @foreach (var t in Templates.Where(t => search.Length == 0 || t.Contains(search, StringComparison.OrdinalIgnoreCase)).Take(300))
                         {
                             var tt = t;
-                            <div class="lm-t @(tt == template ? "on" : "")" title="@tt" @onclick="() => PickTemplate(tt)">
+                            <div class="lm-t @(tt == template ? "on" : "")" title="@tt" @onclick="stable.Of(tt, () => PickTemplate(tt))">
                                 @if (Icons.Contains(tt))
                                 {
                                     <img src="@IconOf(tt)"/>
@@ -97,7 +97,7 @@
                             var meta = MetaOf(pp);
                             var changedHere = overrides.Keys.Count(k => k.Id == pp.Id);
                             <div class="lm-comp @(expanded == pp.Id ? "open" : "")">
-                                <div class="lm-ch" @onclick="() => Toggle(pp)" style="border-left-color:@Theme.CategoryColor(meta?.Category ?? "Undefined")">
+                                <div class="lm-ch" @onclick="stable.Of(pp, () => Toggle(pp))" style="border-left-color:@Theme.CategoryColor(meta?.Category ?? "Undefined")">
                                     @if (meta?.Icon != null)
                                     {
                                         <img src="@meta.Icon"/>
@@ -131,7 +131,7 @@
                                                     <div class="mctl">@Field(pp, fld)</div>
                                                     @if (changed)
                                                     {
-                                                        <button class="lm-reset" title="@Loc["links.reset"]" @onclick="() => Reset(pp, fld)">↺</button>
+                                                        <button class="lm-reset" title="@Loc["links.reset"]" @onclick="stable.Of((pp, fld), () => Reset(pp, fld))">↺</button>
                                                     }
                                                 </div>
                                             }
@@ -181,10 +181,10 @@
                         <div class="lm-link @(ReferenceEquals(ll, editing) ? "on" : "")">
                             <div class="lm-ln" title="@ll.Url">@(DocLink.Parse(ll.Url) != null ? "📖 " : "")@ll.Name</div>
                             <div class="lm-la">
-                                <button title="@Loc["links.copy"]" @onclick="() => CopyUrl(ll.Url)">⧉</button>
-                                <button title="@Loc["links.edit"]" @onclick="() => Edit(ll)">✎</button>
-                                <button title="@Loc["links.test"]" @onclick="() => TestUrl(ll.Url)">▶</button>
-                                <button class="red" title="@Loc["links.delete"]" @onclick="() => Delete(ll)">✕</button>
+                                <button title="@Loc["links.copy"]" @onclick="stable.Of(ll, () => CopyUrl(ll.Url))">⧉</button>
+                                <button title="@Loc["links.edit"]" @onclick="stable.Of(ll, () => Edit(ll))">✎</button>
+                                <button title="@Loc["links.test"]" @onclick="stable.Of(ll, () => TestUrl(ll.Url))">▶</button>
+                                <button class="red" title="@Loc["links.delete"]" @onclick="stable.Of(ll, () => Delete(ll))">✕</button>
                             </div>
                         </div>
                     }
@@ -195,6 +195,8 @@
 </div>
 
 @code {
+    private readonly StableHandlers stable = new();
+
     [Parameter][EditorRequired] public IEnumerable<string> Templates { get; set; } = default!;
     [Parameter] public HashSet<string> Icons { get; set; } = new();
     [Parameter][EditorRequired] public Localizer Loc { get; set; } = default!;
@@ -432,7 +434,7 @@
         switch (f.Control)
         {
             case "ComboBox" or "DynamicComboBox" or "LanguageSelector" or "RadioButton":
-                <select @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)">
+                <select @onchange="stable.Of((p, f), (ChangeEventArgs e) => Set(p, f, e.Value?.ToString() ?? string.Empty))">
                     @for (var i = 0; i < f.Options.Count; i++)
                     {
                         var idx = i.ToString(Inv);
@@ -441,19 +443,19 @@
                 </select>
                 break;
             case "CheckBox":
-                <input type="checkbox" checked="@(value == "True")" @onchange="e => SetBool(p, f, e.Value)"/>
+                <input type="checkbox" checked="@(value == "True")" @onchange="stable.Of((p, f), (ChangeEventArgs e) => SetBool(p, f, e.Value))"/>
                 break;
             case "TextArea":
-                <textarea rows="4" spellcheck="false" value="@value" @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"></textarea>
+                <textarea rows="4" spellcheck="false" value="@value" @onchange="stable.Of((p, f), (ChangeEventArgs e) => Set(p, f, e.Value?.ToString() ?? string.Empty))"></textarea>
                 break;
             case "NumericUpDown" or "Slider":
                 var step = (f.Step ?? (f.ValueType == "int" ? 1 : 0.1)).ToString(Inv);
                 <input type="number" min="@(f.Min?.ToString(Inv))" max="@(f.Max?.ToString(Inv))" step="@step"
-                       value="@value" @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"/>
+                       value="@value" @onchange="stable.Of((p, f), (ChangeEventArgs e) => Set(p, f, e.Value?.ToString() ?? string.Empty))"/>
                 break;
             default:
                 <input type="@(f.ValueType is "int" or "double" ? "number" : "text")" value="@value"
-                       @onchange="e => Set(p, f, e.Value?.ToString() ?? string.Empty)"/>
+                       @onchange="stable.Of((p, f), (ChangeEventArgs e) => Set(p, f, e.Value?.ToString() ?? string.Empty))"/>
                 break;
         }
     };

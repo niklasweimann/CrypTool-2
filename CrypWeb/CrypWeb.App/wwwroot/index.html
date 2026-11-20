@@ -16,6 +16,35 @@
         } catch (e) { /* storage unavailable */ }
     </script>
     <style>
+        /* screens too narrow for the workspace editor (phones): a notice instead of an unusable app */
+        .small-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 30000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 24px;
+            text-align: center;
+            background: linear-gradient(#e8eef9, #c3d3f2);
+            font-family: "Segoe UI", system-ui, sans-serif;
+            color: #2b3f6b
+        }
+
+        .small-screen img { width: 80px; height: auto }
+        .small-screen h1 { font-size: 22px; margin: 6px 0 0 }
+        .small-screen p { margin: 0; max-width: 320px; line-height: 1.4 }
+        .small-screen button {
+            margin-top: 12px; padding: 8px 16px; border: 1px solid #9fb2d8; border-radius: 8px;
+            background: #fff; color: #2b3f6b; font: inherit; cursor: pointer
+        }
+
+        @media (max-width: 720px) {
+            html:not(.small-ok) .small-screen { display: flex }
+        }
+
         html, body {
             margin: 0;
             height: 100%
@@ -267,6 +296,29 @@
     })();
 </script>
 
+<div class="small-screen" role="alertdialog" aria-labelledby="small-title">
+    <img alt="" src="logo.png"/>
+    <h1 id="small-title">CrypTool 2 Web Edition</h1>
+    <p class="de">Der Workspace-Editor braucht mehr Platz. Bitte öffne die Seite auf einem Tablet, Laptop oder Desktop-Rechner.</p>
+    <p class="en">The workspace editor needs more room. Please open this page on a tablet, laptop or desktop computer.</p>
+    <button type="button" id="small-ok"></button>
+</div>
+<script>
+    // show only the language of the browser; "continue anyway" is remembered for this visit
+    (function () {
+        const de = (navigator.language || '').toLowerCase().startsWith('de');
+        const box = document.querySelector('.small-screen');
+        box.querySelector(de ? '.en' : '.de').remove();
+        const ok = document.getElementById('small-ok');
+        ok.textContent = de ? 'Trotzdem fortfahren' : 'Continue anyway';
+        try { if (sessionStorage.getItem('ct2web.smallok')) document.documentElement.classList.add('small-ok'); } catch (e) { /* storage unavailable */ }
+        ok.onclick = () => {
+            document.documentElement.classList.add('small-ok');
+            try { sessionStorage.setItem('ct2web.smallok', '1'); } catch (e) { /* storage unavailable */ }
+        };
+    })();
+</script>
+
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a class="reload" href=".">Reload</a>
@@ -284,6 +336,23 @@
 <script src="media.js"></script>
 <script autostart="false" src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
 <script>
+    // The multi-threaded .NET runtime needs SharedArrayBuffer, which the browser only offers to cross-origin isolated pages,
+    // and those exist only on HTTPS or on localhost. Elsewhere (e.g. http://192.168.x.x from a phone) the runtime cannot
+    // start and the loading bar would stand still without a word: say why instead.
+    if (!window.crossOriginIsolated || typeof SharedArrayBuffer === 'undefined') {
+        const de = (navigator.language || '').toLowerCase().startsWith('de');
+        const text = document.querySelector('.splash-text');
+        ctSplash.stop();
+        if (text) {
+            text.style.maxWidth = '320px';
+            text.style.textAlign = 'center';
+            text.style.color = '#b00020';
+            text.textContent = de
+                ? 'Die App kann hier nicht starten: Der Browser stellt SharedArrayBuffer nicht bereit. Das geht nur über HTTPS (oder auf localhost) mit den Headern Cross-Origin-Opener-Policy und Cross-Origin-Embedder-Policy.'
+                : 'The app cannot start here: the browser does not offer SharedArrayBuffer. That works only over HTTPS (or on localhost) with the Cross-Origin-Opener-Policy and Cross-Origin-Embedder-Policy headers.';
+        }
+        throw new Error('Not cross-origin isolated (needs HTTPS or localhost and the COOP/COEP headers)');
+    }
     // plugin texts come in every language the app offers: load all satellite resource assemblies
     Blazor.start({
         configureRuntime: runtime => runtime

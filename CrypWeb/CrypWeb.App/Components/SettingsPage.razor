@@ -19,7 +19,7 @@
             {
                 var id = t;
                 <button class="set-tab @(!Searching && S.SettingsTab == id ? "on" : "")" role="tab" aria-selected="@(!Searching && S.SettingsTab == id)"
-                        @onclick="() => Select(id)">@Loc["set.tab." + id]</button>
+                        @onclick="stable.Of(id, () => Select(id))">@Loc["set.tab." + id]</button>
             }
         </nav>
         <div class="set-panel" role="tabpanel">
@@ -45,6 +45,8 @@
 </div>
 
 @code {
+    private readonly StableHandlers stable = new();
+
     [Parameter] public AppSettings S { get; set; } = default!;
     [Parameter] public Localizer Loc { get; set; } = default!;
     [Parameter] public EventCallback OnChanged { get; set; }
