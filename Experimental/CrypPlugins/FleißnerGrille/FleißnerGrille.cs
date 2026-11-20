@@ -303,7 +303,14 @@ namespace CrypTool.Plugins.FleißnerGrille
                     else { encrypt = false; }
                     if (settings.ActionRotate == 0) { rotate = false; }
                     else { rotate = true; }
-                    myPresentation.main(settings.StringToStencil(StencilString), InputString + randomStr, encrypt, rotate, this);
+                    try
+                    {
+                        myPresentation.main(settings.StringToStencil(StencilString), InputString + randomStr, encrypt, rotate, this);
+                    }
+                    catch (NullReferenceException)
+                    {
+                        // the animation is only a picture: when the workspace is stopped early its parts are gone, which must not abort the cipher
+                    }
                 }
                , null);
             }
