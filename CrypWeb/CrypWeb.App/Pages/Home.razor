@@ -23,7 +23,9 @@
             <span class="rtab @(ribbonTab == 0 ? "on" : "")" @onclick="() => ribbonTab = 0">@Loc["tab.home"]</span>
             <span class="rtab @(ribbonTab == 2 ? "on" : "")" @onclick="() => ribbonTab = 2">@Loc["tab.edit"]</span>
             <span class="rtab @(ribbonTab == 1 ? "on" : "")" @onclick="() => ribbonTab = 1">@Loc["tab.view"]</span>
-            <span class="rtab-r"><span>@Loc["app.edition"]</span></span>
+            <span class="rtab-r"><a class="proto-badge" href="@BuildInfo.CommitUrl" target="_blank" rel="noopener"
+                                    title="@Loc["about.notOfficial"]">@Loc["app.edition"]<span
+                        class="proto-ver">@BuildInfo.GitHash</span></a></span>
         </div>
         @if (ribbonTab == 0)
         {

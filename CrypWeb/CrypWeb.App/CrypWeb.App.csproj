@@ -24,4 +24,23 @@
   </ItemGroup>
   <Import Project="..\CrypWeb.Plugins\isolated.g.props"/>
 
+  <!-- The git commit of the build, shown next to "Prototype" in the ribbon (BuildInfo.GitHash).
+       Without git (source archive) the build still works and the version shows "dev". -->
+  <Target Name="StampGitHash" BeforeTargets="GetAssemblyAttributes;CoreGenerateAssemblyInfo">
+    <Exec Command="git rev-parse --short HEAD" ConsoleToMSBuild="true" IgnoreExitCode="true" StandardOutputImportance="low"
+          StandardErrorImportance="low" WorkingDirectory="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="ConsoleOutput" PropertyName="CrypWebGitHash"/>
+      <Output TaskParameter="ExitCode" PropertyName="CrypWebGitExit"/>
+    </Exec>
+    <PropertyGroup>
+      <CrypWebGitHash Condition="'$(CrypWebGitExit)' != '0' Or '$(CrypWebGitHash)' == ''">dev</CrypWebGitHash>
+    </PropertyGroup>
+    <ItemGroup>
+      <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+        <_Parameter1>GitHash</_Parameter1>
+        <_Parameter2>$(CrypWebGitHash)</_Parameter2>
+      </AssemblyAttribute>
+    </ItemGroup>
+  </Target>
+
 </Project>
