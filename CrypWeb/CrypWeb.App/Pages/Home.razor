@@ -6,10 +6,10 @@
 @if (!started)
 {
     @* the same picture as the loading screen of index.html, until the start is decided (restored tabs, links): no tab flashes up *@
-    <div class="splash" style="z-index:1000">
-        <img alt="" class="splash-logo" src="logo.png"/>
+    <div class="splash done" style="z-index:1000">
+        @* the cipher disk is drawn by ctSplash (index.html) *@
+        <div class="splash-disk"></div>
         <div class="splash-title">CrypTool 2 Web Edition</div>
-        <div class="splash-bar"><div class="splash-fill"></div></div>
         <div class="splash-text">@Loc["splash.loading"]</div>
     </div>
 }

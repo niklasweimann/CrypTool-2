@@ -34,45 +34,89 @@
             color: #2b3f6b
         }
 
-        .splash-logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .25))
+        /* cipher disk (Alberti/Caesar): the outer ring is the plaintext alphabet, the inner ring turns one letter at a
+           time, so the window at the top always shows the current Caesar shift; the ring around it is the load progress */
+        .splash-disk {
+            position: relative;
+            width: 196px;
+            height: 196px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .2))
         }
 
+        .splash-disk::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(#3b5aa0 var(--splash-percent, 0%), rgba(59, 90, 160, .15) 0);
+            -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+            transition: background .2s
+        }
+
+        .splash.done .splash-disk::before { background: #3b5aa0 }
+        .splash.failed .splash-disk::before { display: none }
+
+        .splash-disk svg {
+            position: absolute;
+            inset: 9px;
+            width: calc(100% - 18px);
+            height: calc(100% - 18px);
+            overflow: visible
+        }
+
+        .splash-disk text {
+            font: 600 11px ui-monospace, "Cascadia Mono", Consolas, monospace;
+            text-anchor: middle;
+            dominant-baseline: central
+        }
+
+        .sd-outer { fill: #fff; stroke: #9fb2d8 }
+        .sd-outer-text { fill: #2b3f6b }
+        .sd-inner { fill: #dfe7f7; stroke: #9fb2d8 }
+        .sd-inner-text { fill: #3b5aa0 }
+        .sd-hub { fill: #fff; stroke: #9fb2d8 }
+        .sd-window { fill: none; stroke: #e0a020; stroke-width: 2 }
+
+        .sd-turn {
+            transform-origin: 0 0;
+            animation: splash-turn 10.4s infinite
+        }
+
+        /* the title is "decrypted" while the app loads: the letters not yet loaded show with the shift of the disk */
         .splash-title {
-            font-size: 28px;
-            font-weight: 600;
+            font: 600 26px ui-monospace, "Cascadia Mono", Consolas, monospace;
             letter-spacing: .5px;
-            margin-bottom: 18px
+            margin-bottom: 14px;
+            white-space: pre
         }
 
-        .splash-bar {
-            width: 240px;
-            height: 8px;
-            border-radius: 4px;
-            background: #fff;
-            box-shadow: inset 0 0 0 1px #9fb2d8;
-            overflow: hidden
-        }
-
-        .splash-fill {
-            height: 100%;
-            width: var(--blazor-load-percentage, 0%);
-            background: linear-gradient(#5b86d6, #3b5aa0);
-            transition: width .2s
-        }
+        .splash-title .enc { color: #8a9cc4 }
 
         .splash-text {
             font-size: 12px;
             color: #5b6f98;
-            margin-top: 6px;
             min-height: 16px
         }
 
         .splash-text::after {
-            content: var(--blazor-load-percentage-text, "")
+            content: " " var(--splash-percent-text, "")
+        }
+
+        html.ui-dark .splash { background: linear-gradient(#1f2738, #131927); color: #d6e0f5 }
+        html.ui-dark .sd-outer { fill: #1c2433; stroke: #46557a }
+        html.ui-dark .sd-hub { fill: #dfe7f7; stroke: #46557a }
+        html.ui-dark .splash-disk::before { background: conic-gradient(#7d9ee6 var(--splash-percent, 0%), rgba(125, 158, 230, .15) 0) }
+        html.ui-dark .splash.done .splash-disk::before { background: #7d9ee6 }
+        html.ui-dark .sd-outer-text { fill: #d6e0f5 }
+        html.ui-dark .sd-inner { fill: #26314a; stroke: #46557a }
+        html.ui-dark .sd-inner-text { fill: #9db8f0 }
+        html.ui-dark .splash-title .enc { color: #5d6d92 }
+        html.ui-dark .splash-text { color: #93a3c6 }
+
+        @media (prefers-reduced-motion: reduce) {
+            .sd-turn { animation: none; transform: rotate(-41.538deg) }
         }
     </style>
     <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -97,14 +141,131 @@
 <body>
 <div id="app">
     <div class="splash">
-        <img alt="" class="splash-logo" src="logo.png"/>
+        <div class="splash-disk"></div>
         <div class="splash-title">CrypTool 2 Web Edition</div>
-        <div class="splash-bar">
-            <div class="splash-fill"></div>
-        </div>
         <div class="splash-text">Loading…</div>
     </div>
 </div>
+
+<script>
+    // Loading screen: draws the cipher disk into every ".splash-disk" (also the one of Home.razor, which stays up until the
+    // start is decided) and "decrypts" the title while the app loads: the letters not loaded yet are shown Caesar-encrypted
+    // with the shift the disk shows right now. All disks run on the page's clock, so the handover to Home.razor is seamless.
+    window.ctSplash = (function () {
+        const STEP = 400;                       // ms per letter of the disk (10.4 s per turn, see .sd-turn)
+        const A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const NS = 'http://www.w3.org/2000/svg';
+        const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let stopped = false;
+
+        // one step per letter: rest, then turn to the next letter
+        const frames = [];
+        for (let k = 0; k < 26; k++) {
+            frames.push({ offset: k / 26, transform: `rotate(${-k * 360 / 26}deg)`, easing: 'step-end' });
+            frames.push({ offset: (k + .72) / 26, transform: `rotate(${-k * 360 / 26}deg)`, easing: 'ease-in-out' });
+        }
+        frames.push({ offset: 1, transform: 'rotate(-360deg)' });
+        const style = document.createElement('style');
+        style.textContent = '@keyframes splash-turn {' + frames.map(f =>
+            `${(f.offset * 100).toFixed(3)}% { transform: ${f.transform}; animation-timing-function: ${f.easing} }`).join('') + '}';
+        document.head.appendChild(style);
+
+        function el(name, attrs, parent) {
+            const e = document.createElementNS(NS, name);
+            for (const a in attrs) e.setAttribute(a, attrs[a]);
+            parent.appendChild(e);
+            return e;
+        }
+
+        function ring(parent, r, cls) {
+            for (let i = 0; i < 26; i++)
+                el('text', { x: 0, y: -r, class: cls, transform: `rotate(${i * 360 / 26})` }, parent).textContent = A[i];
+        }
+
+        function draw(box) {
+            if (box.firstChild) return;
+            const svg = el('svg', { viewBox: '-100 -100 200 200', 'aria-hidden': 'true' }, box);
+            el('circle', { r: 99, class: 'sd-outer' }, svg);
+            ring(svg, 88, 'sd-outer-text');
+            const turn = el('g', { class: 'sd-turn' }, svg);
+            el('circle', { r: 77, class: 'sd-inner' }, turn);
+            ring(turn, 66, 'sd-inner-text');
+            el('circle', { r: 54, class: 'sd-hub' }, svg);
+            el('image', { href: 'logo.png', x: -38, y: -38, width: 76, height: 76 }, svg);
+            el('rect', { x: -10, y: -100, width: 20, height: 46, rx: 6, class: 'sd-window' }, svg);
+            // run on the page's clock: a disk drawn later (Home.razor) stands where the first one stood
+            for (const a of turn.getAnimations ? turn.getAnimations() : []) a.startTime = 0;
+        }
+
+        function shift() {
+            return still ? 3 : Math.floor((document.timeline.currentTime || performance.now()) / STEP) % 26;
+        }
+
+        function caesar(c, k) {
+            const u = c.toUpperCase(), i = A.indexOf(u);
+            if (i < 0) return c;
+            const e = A[(i + k) % 26];
+            return c === u ? e : e.toLowerCase();
+        }
+
+        // the title of index.html only; the one of Home.razor shows up when everything is loaded
+        const title = document.querySelector('#app .splash-title');
+        const plain = title ? title.textContent : '';
+        let shown = '', percent = -1;
+
+        function tick() {
+            // runs while a loading screen is up (also the one of Home.razor, which shows the last percentage)
+            if (stopped || !document.querySelector('.splash')) return;
+            // Blazor counts the satellite resource assemblies (loadAllSatelliteResources) beyond its total: up to 100 % only
+            const p = Math.min(100, Math.round(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--blazor-load-percentage')) || 0));
+            if (p !== percent) {
+                percent = p;
+                document.documentElement.style.setProperty('--splash-percent', p + '%');
+                document.documentElement.style.setProperty('--splash-percent-text', `"${p}%"`);
+            }
+            if (title && title.isConnected) decrypt(p);
+            requestAnimationFrame(tick);
+        }
+
+        function decrypt(p) {
+            const done = Math.round(plain.length * p / 100);
+            const k = shift();
+            const enc = plain.slice(done).replace(/./g, c => caesar(c, k));
+            const html = plain.slice(0, done) + '\u0000' + enc;
+            if (html !== shown) {
+                shown = html;
+                title.textContent = plain.slice(0, done);
+                if (enc) {
+                    const span = document.createElement('span');
+                    span.className = 'enc';
+                    span.textContent = enc;
+                    title.appendChild(span);
+                }
+            }
+            if (done >= plain.length) title.closest('.splash').classList.add('done');
+        }
+
+        document.querySelectorAll('.splash-disk').forEach(draw);
+        tick();
+        // Home.razor puts up its own loading screen: give it the disk as well; done once that screen is gone
+        const watch = new MutationObserver(() => {
+            document.querySelectorAll('.splash-disk:empty').forEach(draw);
+            if (!document.querySelector('.splash')) watch.disconnect();
+        });
+        watch.observe(document.getElementById('app'), { childList: true, subtree: true });
+
+        return {
+            // the app cannot start: the plain title, no progress ring
+            stop() {
+                stopped = true;
+                if (title) {
+                    title.textContent = plain;
+                    title.closest('.splash').classList.add('failed');
+                }
+            }
+        };
+    })();
+</script>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
