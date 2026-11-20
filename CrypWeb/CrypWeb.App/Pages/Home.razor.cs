@@ -157,10 +157,10 @@ public partial class Home : IDisposable, IHandleEvent
 
     private int ZoomSlider => (int)Math.Round(100 * Math.Log(zoom / MinZoom) / Math.Log(ZoomRange));
 
-    /// <summary>The expanded palette category; the first one (alphabetically by label) until the user picks one.</summary>
+    /// <summary>The expanded palette category ("*" = all, the default until the user picks one).</summary>
     private string OpenCat
     {
-        get => openCat ?? VisibleMeta.Select(m => m.Category).Distinct().OrderBy(CatLabel).FirstOrDefault() ?? "";
+        get => openCat ?? "*";
         set => openCat = value;
     }
 
@@ -217,10 +217,10 @@ public partial class Home : IDisposable, IHandleEvent
 
     private IEnumerable<string> TemplateCategories => VisibleTemplates.Select(TemplateCategory).Distinct().OrderBy(c => c);
 
-    /// <summary>The expanded template category ("*" = all); the first one until the user picks one.</summary>
+    /// <summary>The expanded template category ("*" = all, the default until the user picks one).</summary>
     private string OpenTemplateCat
     {
-        get => openTemplateCat ?? TemplateCategories.FirstOrDefault() ?? "*";
+        get => openTemplateCat ?? "*";
         set => openTemplateCat = value;
     }
 
