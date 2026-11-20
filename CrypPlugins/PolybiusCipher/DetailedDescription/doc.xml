@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Polybius cipher (named after the Greek historian Polybius, who used the square for signalling with torches) replaces every letter by two numbers.<newline />
+    1. Write the alphabet (I and J together) into a 5x5 square, row by row; with a key word the keyed alphabet.<newline />
+    2. Replace every letter by the number of its row and the number of its column. The pairs are written with a space between them.<newline />
+    Decryption reads two digits at a time as row and column.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Polybios-Chiffre (nach dem griechischen Historiker Polybios benannt, der das Quadrat zum Signalisieren mit Fackeln benutzte) ersetzt jeden Buchstaben durch zwei Zahlen.<newline />
+    1. Schreiben Sie das Alphabet (I und J zusammen) zeilenweise in ein 5x5-Quadrat; mit einem Schlüsselwort das gemischte Alphabet.<newline />
+    2. Ersetzen Sie jeden Buchstaben durch die Nummer seiner Zeile und die Nummer seiner Spalte. Die Paare werden mit einem Leerzeichen dazwischen geschrieben.<newline />
+    Das Entschlüsseln liest je zwei Ziffern als Zeile und Spalte.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: Optional key word of the square; without it the plain alphabet is used (I and J together)
+    </section><section headline="Example">
+    With an empty key the square holds the plain alphabet: H is in row 2, column 3 and becomes 23, A becomes 11. A key word gives a keyed square, which is better against frequency analysis. The pairs are written with a space between them.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Optionales Schlüsselwort des Quadrats; ohne wird das einfache Alphabet benutzt (I und J zusammen)
+    </section><section headline="Beispiel">
+    Bei leerem Schlüssel enthält das Quadrat das einfache Alphabet: H steht in Zeile 2, Spalte 3 und wird zu 23, A wird zu 11. Ein Schlüsselwort ergibt ein gemischtes Quadrat, das gegen die Häufigkeitsanalyse besser schützt. Die Paare werden mit einem Leerzeichen dazwischen geschrieben.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

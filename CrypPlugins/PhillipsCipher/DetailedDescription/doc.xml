@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Phillips cipher uses eight 5x5 Polybius squares in turn, five letters with each, so its period is 40 letters.<newline />
+    1. Write the key word into a 5x5 square in alternating directions (row 1 left to right, row 2 right to left, ...), then the remaining letters (I and J together): this is square 1.<newline />
+    2. Squares 2 to 5 move the first row down one row at a time; squares 6 to 8 do this with the second row.<newline />
+    3. Every plaintext letter is replaced by the letter diagonally down to the right of it in the square of its block of five letters; a letter in the last column or row continues at the first column or row of the ring.<newline />
+    Decryption takes the letter diagonally up to the left.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Phillips-Chiffre benutzt nacheinander acht 5x5-Polybios-Quadrate, mit jedem fünf Buchstaben; ihre Periode ist also 40 Buchstaben.<newline />
+    1. Schreiben Sie das Schlüsselwort in wechselnder Richtung in ein 5x5-Quadrat (Zeile 1 von links nach rechts, Zeile 2 von rechts nach links, ...), danach die übrigen Buchstaben (I und J zusammen): Das ist Quadrat 1.<newline />
+    2. Die Quadrate 2 bis 5 verschieben die erste Zeile jeweils um eine Zeile nach unten; die Quadrate 6 bis 8 tun dasselbe mit der zweiten Zeile.<newline />
+    3. Jeder Klartextbuchstabe wird durch den Buchstaben schräg rechts darunter im Quadrat seines Fünferblocks ersetzt; ein Buchstabe in der letzten Spalte oder Zeile geht in der ersten Spalte oder Zeile des Rings weiter.<newline />
+    Das Entschlüsseln nimmt den Buchstaben schräg links darüber.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the first 5x5 square
+    </section><section headline="Example">
+    The first square is made from the key word DIAGONALS (written in alternating directions). Squares 2 to 5 move its first row down one row at a time, squares 6 to 8 do this with the second row; the period is therefore 40 letters.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des ersten 5x5-Quadrats
+    </section><section headline="Beispiel">
+    Das erste Quadrat entsteht aus dem Schlüsselwort DIAGONALS (in wechselnder Richtung geschrieben). Die Quadrate 2 bis 5 verschieben seine erste Zeile jeweils um eine Zeile nach unten, die Quadrate 6 bis 8 tun dasselbe mit der zweiten Zeile; die Periode beträgt daher 40 Buchstaben.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

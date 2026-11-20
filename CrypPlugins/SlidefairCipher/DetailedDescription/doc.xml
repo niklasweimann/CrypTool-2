@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Slidefair is a digraphic cipher of the ACA that uses a Vigenère, Variant or Beaufort table.<newline />
+    1. Cut the text into pairs (an odd text gets an X). The key word gives the period: the pairs use its letters one after the other.<newline />
+    2. The first letter of a pair is looked up in the top alphabet; the second in the row of the table that the key letter of the pair selects.<newline />
+    3. The two letters are opposite corners of a rectangle; the cipher letters are the other two corners, the one in the top alphabet first. If the letters form a vertical pair, the pair to its right replaces them.<newline />
+    The table is chosen in the settings: Vigenère (the row is the alphabet shifted by the key letter), Variant (shifted back) or Beaufort (reversed).
+  </introduction>
+  <introduction lang="de-DE">
+    Slidefair ist eine digraphische Chiffre der ACA mit einer Vigenère-, Variant- oder Beaufort-Tabelle.<newline />
+    1. Zerlegen Sie den Text in Paare (ein ungerader Text erhält ein X). Das Schlüsselwort bestimmt die Periode: Die Paare benutzen nacheinander seine Buchstaben.<newline />
+    2. Der erste Buchstabe eines Paares wird im oberen Alphabet gesucht, der zweite in der Zeile der Tabelle, die der Schlüsselbuchstabe des Paares wählt.<newline />
+    3. Die beiden Buchstaben sind gegenüberliegende Ecken eines Rechtecks; die Geheimtextbuchstaben sind die anderen beiden Ecken, zuerst der im oberen Alphabet. Bilden die Buchstaben ein senkrechtes Paar, ersetzt sie das Paar rechts davon.<newline />
+    Die Tabelle wird in den Einstellungen gewählt: Vigenère (die Zeile ist das um den Schlüsselbuchstaben verschobene Alphabet), Variant (zurückverschoben) oder Beaufort (umgekehrt).
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word
+    </section><section headline="Settings">
+    <b>Table</b>: The table of the encipherment: Vigenère, Variant or Beaufort
+    </section><section headline="Example">
+    The key word DIGRAPH gives the period 7: the pairs use the key letters D, I, G, R, A, P, H one after the other. Choose another table (Variant or Beaufort) in the settings of the <b>Slidefair Cipher</b> components.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort
+    </section><section headline="Einstellungen">
+    <b>Tabelle</b>: Die Tabelle der Verschlüsselung: Vigenère, Variant oder Beaufort
+    </section><section headline="Beispiel">
+    Das Schlüsselwort DIGRAPH ergibt die Periode 7: Die Paare benutzen nacheinander die Schlüsselbuchstaben D, I, G, R, A, P, H. Wählen Sie in den Einstellungen der Komponenten <b>Slidefair-Chiffre</b> eine andere Tabelle (Variant oder Beaufort).
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

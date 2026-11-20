@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Rasterschlüssel 44 (RS 44) was used by the German army from March 1944 as the successor of the Doppelkastenschlüssel. It is a pure transposition on a printed form of 24 rows and 25 columns; every row has 10 white cells, the others are black. The grid was changed every day, messages were limited to about 200 letters.<newline />
+    1. Choose a start cell and write the plaintext row by row into the white cells; black cells are skipped; at the end of a row writing continues at the left of the next row.<newline />
+    2. The columns have numbers (1 to 25, printed above them). Read the columns one after the other in the order of the numbers, starting at the reading column and going on from number 25 to 1, each from top to bottom.<newline />
+    3. The ciphertext has as many letters as the plaintext; it is written in groups of five. The message header (time, number of letters, start cell, reading column) is coded with the letter swap table; this component does not make it.<newline />
+    Decryption fills the cells that the message covers column by column in the same order and reads them row by row.
+  </introduction>
+  <introduction lang="de-DE">
+    Der Rasterschlüssel 44 (RS 44) wurde ab März 1944 vom deutschen Heer als Nachfolger des Doppelkastenschlüssels benutzt. Er ist eine reine Transposition auf einem gedruckten Formular aus 24 Zeilen und 25 Spalten; jede Zeile hat 10 weiße Felder, die anderen sind schwarz. Das Raster wurde täglich gewechselt, die Sprüche waren auf etwa 200 Buchstaben begrenzt.<newline />
+    1. Wählen Sie eine Startzelle und schreiben Sie den Klartext zeilenweise in die weißen Felder; schwarze Felder werden übersprungen; am Ende einer Zeile geht das Schreiben links in der nächsten Zeile weiter.<newline />
+    2. Die Spalten haben Nummern (1 bis 25, über ihnen gedruckt). Lesen Sie die Spalten nacheinander in der Reihenfolge der Nummern, beginnend bei der Herauslesespalte und von Nummer 25 weiter mit 1, jede von oben nach unten.<newline />
+    3. Der Geheimtext hat so viele Buchstaben wie der Klartext; er wird in Fünfergruppen geschrieben. Der Spruchkopf (Uhrzeit, Buchstabenzahl, Startzelle, Herauslesespalte) wird mit der Buchstabentauschtafel verschlüsselt; diese Komponente bildet ihn nicht.<newline />
+    Das Entschlüsseln füllt die Felder, die der Spruch belegt, spaltenweise in derselben Reihenfolge und liest sie zeilenweise.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Grid</b>: The grid, one line for each row: # for a black cell, . for a cell that can be written in<newline />
+    <b>Column numbers</b>: The numbers 1 to 25 printed above the columns, in the order of the columns of the grid
+    </section><section headline="Settings">
+    <b>Start row</b>: The row of the cell where writing starts<newline />
+    <b>Start column</b>: The column of the cell where writing starts (the first white cell from there is used)<newline />
+    <b>Reading column</b>: The number of the column where reading starts
+    </section><section headline="Example">
+    This is the example of the article on kryptografie.de (the first 14 rows of the form are used; the form was changed every day). Writing starts at row 5, column 14 (the cell bbae of the message header, the first white cell from there); reading starts at the column with the number 14 and goes on with 15, 16, ... 25, 1, ... 13. The ciphertext has exactly as many letters as the plaintext. The message header (time, number of letters, start cell and reading column, each coded with the letter swap table) is not made here. Text before encryption: digits, umlauts and punctuation are spelled out, ch and ck are written as q.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Raster</b>: Das Raster, eine Zeile je Reihe: # für ein schwarzes Feld, . für ein Feld, in das geschrieben wird<newline />
+    <b>Spaltennummern</b>: Die über den Spalten gedruckten Nummern 1 bis 25, in der Reihenfolge der Spalten des Rasters
+    </section><section headline="Einstellungen">
+    <b>Startzeile</b>: Die Zeile der Zelle, in der das Schreiben beginnt<newline />
+    <b>Startspalte</b>: Die Spalte der Zelle, in der das Schreiben beginnt (ab dort wird die erste weiße Zelle benutzt)<newline />
+    <b>Herauslesespalte</b>: Die Nummer der Spalte, in der das Herauslesen beginnt
+    </section><section headline="Beispiel">
+    Das ist das Beispiel aus dem Artikel auf kryptografie.de (benutzt werden die ersten 14 Zeilen des Formulars; das Formular wurde jeden Tag gewechselt). Das Schreiben beginnt in Zeile 5, Spalte 14 (die Zelle bbae des Spruchkopfs, ab dort das erste weiße Feld); das Herauslesen beginnt bei der Spalte mit der Nummer 14 und geht mit 15, 16, ... 25, 1, ... 13 weiter. Der Geheimtext hat genau so viele Buchstaben wie der Klartext. Der Spruchkopf (Uhrzeit, Buchstabenzahl, Startzelle und Herauslesespalte, jeweils mit der Buchstabentauschtafel verschlüsselt) wird hier nicht gebildet. Text vor der Verschlüsselung: Ziffern, Umlaute und Satzzeichen werden ausgeschrieben, ch und ck als q geschrieben.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Quagmire4Cipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Quagmire IV Cipher</title>
+  <summary lang="en"><i>Quagmire IV Cipher</i></summary>
+  <description lang="en">A Quagmire is a periodic cipher with keyed alphabets. The indicator key gives the period and the setting of the cipher alphabet against the plain alphabet; every letter of the indicator selects one alternative alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Quagmire IV has three keys: the key word of the plain alphabet (SENSORY), the indicator (EXTRA) and the key word of the cipher alphabet (PERCEPTION). In this example the indicator stands under the plain letter S, the setting {\b Indicator under} of the components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Quagmire-IV-Chiffre</title>
+  <summary lang="de"><i>Quagmire-IV-Chiffre</i></summary>
+  <description lang="de">Ein Quagmire ist eine periodische Chiffre mit gemischten Alphabeten. Der Indikator bestimmt die Periode und die Stellung des Geheimtextalphabets gegen das Klartextalphabet; jeder Buchstabe des Indikators wählt ein anderes Alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Quagmire IV hat drei Schlüssel: das Schlüsselwort des Klartextalphabets (SENSORY), den Indikator (EXTRA) und das Schlüsselwort des Geheimtextalphabets (PERCEPTION). In diesem Beispiel steht der Indikator unter dem Klartextbuchstaben S, der Einstellung {\b Indikator unter} der Komponenten." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Quagmire4Cipher.png" />
+  <relevantPlugins>
+    <plugin name="Quagmire4Cipher" />
+  </relevantPlugins>
+</sample>

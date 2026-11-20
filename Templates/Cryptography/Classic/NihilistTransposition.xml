@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NihilistTransposition.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Nihilist Transposition</title>
+  <summary lang="en"><i>Nihilist Transposition</i></summary>
+  <description lang="en">The text fills a square; its columns and then its rows are moved by the same key, and the result is read by rows or by columns.</description>
+  <keywords lang="en">Nihilist, transposition, square, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key 2134 says that the 1st column goes to the 2nd place, the 2nd to the 1st and so on, and the same for the rows. In this template the square is read by rows; the setting {\b Read by columns} of the {\b Nihilist Transposition} components reads it by columns." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Nihilisten-Transposition</title>
+  <summary lang="de"><i>Nihilisten-Transposition</i></summary>
+  <description lang="de">Der Text füllt ein Quadrat; seine Spalten und dann seine Zeilen werden mit demselben Schlüssel verschoben, und das Ergebnis wird zeilen- oder spaltenweise gelesen.</description>
+  <keywords lang="en">Nihilist, transposition, square, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel 2134 sagt, dass die 1. Spalte an die 2. Stelle kommt, die 2. an die 1. und so weiter, und dasselbe gilt für die Zeilen. In dieser Vorlage wird das Quadrat zeilenweise gelesen; die Einstellung {\b Spaltenweise lesen} der Komponenten {\b Nihilisten-Transposition} liest es spaltenweise." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NihilistTransposition.png" />
+  <relevantPlugins>
+    <plugin name="NihilistTransposition" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Fractionated Morse converts the text to Morse code and then to letters in groups of three symbols.<newline />
+    1. Write the text in Morse code with x between the letters and xx between the words.<newline />
+    2. Take the symbols in groups of three (dot, dash, x; the last group is filled up with x). There are 26 possible groups (all but xxx).<newline />
+    3. The groups are the letters of a keyed alphabet, in the order of the symbols (. - x): the first group (...) is the first letter of the keyed alphabet, the last (xx-) is the last.<newline />
+    Decryption turns the letters into groups, joins them and reads the Morse code.
+  </introduction>
+  <introduction lang="de-DE">
+    Fraktioniertes Morse wandelt den Text in Morsecode und diesen in Buchstaben aus Dreiergruppen von Zeichen.<newline />
+    1. Schreiben Sie den Text in Morsecode mit x zwischen den Buchstaben und xx zwischen den Wörtern.<newline />
+    2. Nehmen Sie die Zeichen in Dreiergruppen (Punkt, Strich, x; die letzte Gruppe wird mit x aufgefüllt). Es gibt 26 mögliche Gruppen (alle außer xxx).<newline />
+    3. Die Gruppen sind die Buchstaben eines gemischten Alphabets, in der Reihenfolge der Zeichen (. - x): Die erste Gruppe (...) ist der erste Buchstabe des gemischten Alphabets, die letzte (xx-) der letzte.<newline />
+    Das Entschlüsseln macht aus den Buchstaben wieder Gruppen, fügt sie zusammen und liest den Morsecode.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the alphabet
+    </section><section headline="Example">
+    There are 26 groups of three (all but xxx), one for each letter of the keyed alphabet ROUNDTABLE... The first group "-.-" becomes C. The second component decrypts to the Morse code and from there back to the text.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des Alphabets
+    </section><section headline="Beispiel">
+    Es gibt 26 Dreiergruppen (alle außer xxx), je eine für jeden Buchstaben des gemischten Alphabets ROUNDTABLE... Die erste Gruppe "-.-" wird zu C. Die zweite Komponente entschlüsselt zum Morsecode und von dort zurück zum Text.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

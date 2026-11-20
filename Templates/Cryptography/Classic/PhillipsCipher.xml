@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PhillipsCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Phillips Cipher</title>
+  <summary lang="en"><i>Phillips Cipher</i></summary>
+  <description lang="en">The Phillips cipher uses eight 5x5 Polybius squares in turn, five letters each; every letter is replaced by the one diagonally down to the right of it.</description>
+  <keywords lang="en">Phillips, Polybius, square, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first square is made from the key word DIAGONALS (written in alternating directions). Squares 2 to 5 move its first row down one row at a time, squares 6 to 8 do this with the second row; the period is therefore 40 letters." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Phillips-Chiffre</title>
+  <summary lang="de"><i>Phillips-Chiffre</i></summary>
+  <description lang="de">Die Phillips-Chiffre benutzt nacheinander acht 5x5-Polybius-Quadrate, je fünf Buchstaben; jeder Buchstabe wird durch den schräg rechts unter ihm ersetzt.</description>
+  <keywords lang="en">Phillips, Polybius, square, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das erste Quadrat entsteht aus dem Schlüsselwort DIAGONALS (in wechselnder Richtung geschrieben). Die Quadrate 2 bis 5 verschieben seine erste Zeile jeweils um eine Zeile nach unten, die Quadrate 6 bis 8 tun dasselbe mit der zweiten Zeile; die Periode beträgt daher 40 Buchstaben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PhillipsCipher.png" />
+  <relevantPlugins>
+    <plugin name="PhillipsCipher" />
+  </relevantPlugins>
+</sample>

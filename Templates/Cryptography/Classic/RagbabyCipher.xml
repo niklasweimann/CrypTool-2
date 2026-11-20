@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RagbabyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Ragbaby Cipher</title>
+  <summary lang="en"><i>Ragbaby Cipher</i></summary>
+  <description lang="en">Ragbaby shifts every letter in a 24-letter keyed alphabet by the number of its place: 1 for the first letter of the first word, 2 for the second letter, and so on; every new word starts with the number of the word.</description>
+  <keywords lang="en">Ragbaby, keyed alphabet, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The alphabet comes from the key word GROSBEAK (I/J and W/X share a place). The numbers are 1 2 3 4 for WORD, 2 3 4 5 ... for DIVISIONS, 3 4 5 for ARE and 4 5 6 7 for KEPT." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Ragbaby-Chiffre</title>
+  <summary lang="de"><i>Ragbaby-Chiffre</i></summary>
+  <description lang="de">Ragbaby verschiebt jeden Buchstaben in einem gemischten Alphabet aus 24 Buchstaben um die Zahl seiner Stelle: 1 für den ersten Buchstaben des ersten Wortes, 2 für den zweiten Buchstaben und so weiter; jedes neue Wort beginnt mit der Nummer des Wortes.</description>
+  <keywords lang="en">Ragbaby, keyed alphabet, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Alphabet kommt aus dem Schlüsselwort GROSBEAK (I/J und W/X teilen sich eine Stelle). Die Zahlen sind 1 2 3 4 für WORD, 2 3 4 5 ... für DIVISIONS, 3 4 5 für ARE und 4 5 6 7 für KEPT." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RagbabyCipher.png" />
+  <relevantPlugins>
+    <plugin name="RagbabyCipher" />
+  </relevantPlugins>
+</sample>

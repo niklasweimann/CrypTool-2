@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The ABC cipher has two stages.<newline />
+    1. Substitution: the text is cut into groups of three letters; the first letter stays, the second moves one letter on in the alphabet, the third two letters (a Vigenère cipher with the key ABC).<newline />
+    2. Transposition: the result is written in rows under the key word and the columns are read in the alphabetical order of its letters (an incomplete columnar transposition).<newline />
+    Decryption undoes the transposition first and then the substitution.
+  </introduction>
+  <introduction lang="de-DE">
+    Die ABC-Chiffre hat zwei Stufen.<newline />
+    1. Substitution: Der Text wird in Dreiergruppen zerlegt; der erste Buchstabe bleibt, der zweite rückt im Alphabet um einen Buchstaben weiter, der dritte um zwei (eine Vigenère-Chiffre mit dem Schlüssel ABC).<newline />
+    2. Transposition: Das Ergebnis wird zeilenweise unter das Schlüsselwort geschrieben, und die Spalten werden in der alphabetischen Reihenfolge seiner Buchstaben gelesen (eine unvollständige Spaltentransposition).<newline />
+    Das Entschlüsseln macht erst die Transposition, dann die Substitution rückgängig.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the columnar transposition (the substitution has the fixed key ABC)
+    </section><section headline="Example">
+    The first stage turns ATT into ABV; the second writes the result in rows under the key word ZEBRAS and reads the columns in the alphabetical order of its letters. The second component undoes both stages.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort der Spaltentransposition (die Substitution hat den festen Schlüssel ABC)
+    </section><section headline="Beispiel">
+    Die erste Stufe macht aus ATT die Buchstaben ABV; die zweite schreibt das Ergebnis zeilenweise unter das Schlüsselwort ZEBRAS und liest die Spalten in der alphabetischen Reihenfolge seiner Buchstaben. Die zweite Komponente macht beide Stufen rückgängig.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

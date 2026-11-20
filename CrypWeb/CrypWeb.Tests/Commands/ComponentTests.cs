@@ -41,6 +41,7 @@ public static class ComponentTests
         SecretSharing();
         DataTools();
         ClassicVariants();
+        AcaClassic();
         HashBasedSignatures();
         ClassicMcEliece();
         HmacHashes();
@@ -708,6 +709,157 @@ public static class ComponentTests
         }
         Check(ok, "two-square: round trips (an odd text gets an X)");
         Check(Classic(3, "TEXT", "ONLYONE") == null, "two-square: a key with only one word is refused");
+    }
+
+    /// <summary>The single-cipher components (tools_classic_specs.py): number of the cipher -> type and key inputs in order.</summary>
+    static readonly Dictionary<int, (string Type, string[] Keys)> AcaPlugins = new()
+    {
+        [1] = ("Quagmire1Cipher.Quagmire1Cipher", new[] { "Key", "Indicator" }),
+        [2] = ("Quagmire2Cipher.Quagmire2Cipher", new[] { "Key", "Indicator" }),
+        [3] = ("Quagmire3Cipher.Quagmire3Cipher", new[] { "Key", "Indicator" }),
+        [4] = ("Quagmire4Cipher.Quagmire4Cipher", new[] { "Key", "Indicator", "CipherKey" }),
+        [5] = ("PortaxCipher.PortaxCipher", new[] { "Key" }),
+        [6] = ("SlidefairCipher.SlidefairCipher", new[] { "Key" }),
+        [7] = ("ProgressiveKeyCipher.ProgressiveKeyCipher", new[] { "Key" }),
+        [8] = ("InterruptedKeyCipher.InterruptedKeyCipher", new[] { "Key", "Interruptions" }),
+        [10] = ("GromarkCipher.GromarkCipher", new[] { "Key", "Primer" }),
+        [11] = ("PeriodicGromarkCipher.PeriodicGromarkCipher", new[] { "Key" }),
+        [12] = ("CondiCipher.CondiCipher", new[] { "Key" }),
+        [13] = ("RagbabyCipher.RagbabyCipher", new[] { "Key" }),
+        [14] = ("PhillipsCipher.PhillipsCipher", new[] { "Key" }),
+        [15] = ("PhillipsRCCipher.PhillipsRCCipher", new[] { "Key" }),
+        [17] = ("NumberedKeyCipher.NumberedKeyCipher", new[] { "Key" }),
+        [18] = ("HomophonicCipher.HomophonicCipher", new[] { "Key" }),
+        [19] = ("NullCipher.NullCipher", new[] { "CoverText" }),
+        [22] = ("MyszkowskiTransposition.MyszkowskiTransposition", new[] { "Key" }),
+        [23] = ("AmscoCipher.AmscoCipher", new[] { "Key" }),
+        [24] = ("CadenusCipher.CadenusCipher", new[] { "Key" }),
+        [25] = ("NicodemusCipher.NicodemusCipher", new[] { "Key" }),
+        [26] = ("NihilistTransposition.NihilistTransposition", new[] { "Key" }),
+        [27] = ("RouteTransposition.RouteTransposition", Array.Empty<string>()),
+        [28] = ("SequenceTransposition.SequenceTransposition", new[] { "Key", "Primer" }),
+        [30] = ("SwagmanCipher.SwagmanCipher", new[] { "KeySquare" }),
+        [31] = ("CMBifidCipher.CMBifidCipher", new[] { "Key", "CipherKey" }),
+        [32] = ("DigrafidCipher.DigrafidCipher", new[] { "Key", "VerticalKey" }),
+        [33] = ("FractionatedMorseCipher.FractionatedMorseCipher", new[] { "Key" }),
+        [34] = ("MorbitCipher.MorbitCipher", new[] { "Key" }),
+        [35] = ("PolluxCipher.PolluxCipher", new[] { "Key" }),
+        [36] = ("TridigitalCipher.TridigitalCipher", new[] { "Key", "DigitKey" }),
+        [37] = ("TriSquareCipher.TriSquareCipher", new[] { "Key", "Key2", "Key3" }),
+        [38] = ("SeriatedPlayfairCipher.SeriatedPlayfairCipher", new[] { "Key" }),
+        [39] = ("CheckerboardCipher.CheckerboardCipher", new[] { "Key", "RowLabels", "ColumnLabels" }),
+        [40] = ("MonomeDinomeCipher.MonomeDinomeCipher", new[] { "Key", "DigitKey" }),
+        [41] = ("CompressocratCipher.CompressocratCipher", new[] { "Key" }),
+        [42] = ("HeadlinesCipher.HeadlinesCipher", new[] { "HatWord", "Key", "SettingWord" }),
+        [43] = ("PolybiusCipher.PolybiusCipher", new[] { "Key" }),
+        [44] = ("TapCode.TapCode", Array.Empty<string>()),
+        [45] = ("AbcCipher.AbcCipher", new[] { "Key" }),
+        [46] = ("Rasterschluessel44Cipher.Rasterschluessel44Cipher", new[] { "Grid", "ColumnNumbers" }),
+        [47] = ("WerftschluesselCipher.WerftschluesselCipher", new[] { "Table", "RowOrder" }),
+        [48] = ("LeSphinxCipher.LeSphinxCipher", new[] { "Key" }),
+    };
+
+    static string? Aca(int cipher, string text, string? key = null, string? key2 = null, string? key3 = null, int action = 0, params (string Name, string Value)[] settings)
+    {
+        var (type, ports) = AcaPlugins[cipher];
+        var all = new List<(string Name, string Value)> { ("Action", action.ToString()) };
+        all.AddRange(settings);
+        var component = Component(type, all.ToArray());
+        component.PreExecution();
+        component.Set("InputText", text);
+        var keys = new[] { key, key2, key3 };
+        for (var i = 0; i < ports.Length; i++) if (keys[i] != null) component.Set(ports[i], keys[i]!);
+        component.Execute();
+        var output = (string?)component.Get("OutputText");
+        component.PostExecution();
+        return output;
+    }
+
+    /// <summary>The ciphers of the American Cryptogram Association (one component for each cipher): the examples of the descriptions on cryptogram.org.</summary>
+    static void AcaClassic()
+    {
+        // encryption equals the ciphertext of the ACA, decryption gives the letters of the plaintext back
+        void Vector(string name, int cipher, string plain, string cipherText, string? key = null, string? key2 = null, string? key3 = null, params (string Name, string Value)[] settings)
+        {
+            var encrypted = Aca(cipher, plain, key, key2, key3, 0, settings)?.Replace(" ", "");
+            var decrypted = Aca(cipher, cipherText, key, key2, key3, 1, settings)?.Replace(" ", "");
+            var letters = new string(plain.ToUpperInvariant().Where(char.IsAsciiLetter).ToArray());
+            Check(encrypted == cipherText.Replace(" ", "") && decrypted != null && decrypted.StartsWith(letters), "ACA " + name + ": the example of the ACA, and back");
+        }
+        Vector("Quagmire I", 1, "The Quag One is a periodic cipher with a keyed plain alphabet run against a straight cipher alphabet",
+            "QPMGQRBUJUYIFDMPYAIFQYYJJJHJYCJLUUTPIDVWYMFSGAESDWHIZRBLIRVCFCZPELBPZYYJJJHWLJJLPUP", "SPRINGFEVER", "FLOWER");
+        Vector("Quagmire II", 2, "In the Quag Two a straight plain alphabet is run against a keyed cipher alphabet",
+            "JICICOSLYKILFVCHEBDXCCORJIOEWAFMWKKTXBGWHRJIBKEDBJWZABUXWHEHUXOXCU", "SPRINGFEVER", "FLOWER");
+        Vector("Quagmire III", 3, "The same keyed alphabet is used for plain and cipher alphabets", "KRSLWMITJDVIABMRGQMTMLLIVIFUIXRHTNYONVRHHIIIRMCAOVEI", "AUTOMOBILE", "HIGHWAY");
+        Vector("Quagmire IV", 4, "This one employs three keywords", "VBMRFCYISPMPBRRHEICXRREIGDX", "SENSORY", "EXTRA", "PERCEPTION", ("Under", "S"));
+        Vector("Portax", 5, "the early bird gets the worm", "NIJAMPBGQCWKHQJEUIKYMPAT", "EASY");
+        Vector("Slidefair", 6, "The Slidefair can be used with Vigenere, Variant or Beaufort", "EWKMCRNUAFCXTJYQMMYYFUTIGWZPKHJMPKBSAIECKVCFMIILCI", "DIGRAPH");
+        Vector("Progressive key", 7, "thisciphercanbeusedwithanyofth", "ZYIHGNGBMKJSORJAKZMQQMJRTFHBDC", "GRAPEFRUIT");
+        Vector("Interrupted key", 8, "This cipher can be used with any of the periodics", "HYIFQZPUKVQRBSEIJEQKZTVOBPOSZVSGSIICUIPY", "ORANGE", "4 6 2 3 4 3 1 1 5 1 2 3 5");
+        Vector("Gromark", 10, "thereareuptotensubstitutesperletter", "NFYCKBTIJCNWZYCACJNAYNLQPWWSTWPJQFL", "ENIGMA", "23452");
+        Vector("Periodic Gromark", 11, "wintryshowerswillcontinueforthenextfewdaysaccordingtothefore" + "cast",
+            "RHNAAXNRUZBNIUARXCRTPATBRLIGDSVCIRCVOYPVRAAZZMUSREQYEVMMURGWTLUD", "ENIGMA");
+        Check(Aca(12, "Ours is a very green pastime. The wide variety of ciphers we use can all be solved with pencil and paper.", "STRANGE", null, null, 0, ("Shift", "5"), ("Offset", "25"))
+            == "MORC PP D NBKE DJKPM RTDBQCR. JPX CKTV BNHUYJG VB YSFDXKC RC ESI UOJ JYF RQ IXIMBV HKQP DNMPSB YJQ BTTNK.", "ACA Condi: the example of the ACA (word divisions and punctuation are kept)");
+        Check(Aca(13, "word divisions are kept", "GROSBEAK") == "YBBL HNGQDUFGL DEF HFYR" && Aca(13, "YBBL HNGQDUFGL DEF HFYR", "GROSBEAK", null, null, 1) == "WORD DIVISIONS ARE KEPT", "ACA Ragbaby: the example of the ACA, and back");
+        var squares = "squares one and five are actually the same as are squares two and eight. The overall period is forty.";
+        Vector("Phillips", 14, squares, "KZWLYTGEDTQETARBTYGTLFXWLPPOXLTYKUTKGKYTKZWLYTGXSEQETIRZQAAQTCITYKPPVBLHEFHGREYXO", "DIAGONALS");
+        // the ACA gives the ciphertext in lines and joined; they differ in two letters (N/W and Y/O): here the lines
+        Vector("Phillips-RC", 15, squares, "KZWLYRGFIRUFQARNPYGPLFXWLPPOYBRYKURKGKYRKZWLYRGVCFUFQGRVQAAQTCITYFPPVSLMEHMGUFYVO", "DIAGONALS");
+        var numbered = Aca(17, "The road to success is always under construction", "I like ciphers.", null, null, 0, ("Offset", "18"));
+        Check(Aca(17, "04 19 20 21 02 23 25 04 02 22 05 16 16 15 22 22 11 22 23 12 07 23 09 22 05 01 25 20 21 16 02 01 22 04 21 05 16 04 17 02 01", "I like ciphers.", null, null, 1, ("Offset", "18")) == "THEROADTOSUCCESSISALWAYSUNDERCONSTRUCTION"
+            && Aca(17, numbered!, "I like ciphers.", null, null, 1, ("Offset", "18")) == "THEROADTOSUCCESSISALWAYSUNDERCONSTRUCTION", "ACA numbered key: the numbers of the ACA decrypt, and our own numbers too");
+        Check(Aca(18, "16 26 11 99 69 46 33 03 88 79 54 83 12 06 38 94 67 24 04 00 27 89", "GOLF", null, null, 1) == "WORDDIVISIONSMAYBEKEPT" && Aca(18, Aca(18, "ATTACKATDAWN", "GOLF")!, "GOLF", null, null, 1) == "ATTACKATDAWN", "ACA homophonic: the numbers of the ACA decrypt, round trip");
+        Check(Aca(19, "help", "the great old pumpers sold the sofa") == "THE GREAT OLD PUMPERS" && Aca(19, "THE GREAT OLD PUMPERS", null, null, null, 1) == "HELP", "ACA null: the middle letters of THE GREAT OLD PUMPERS are HELP");
+        Vector("Myszkowski", 22, "Incomplete columnar with pattern word key and letters under same number taken off by row from top to bottom",
+            "NOPEEOUNRIHATRWRKYNLTESNESMNMETKNFBRWRMOTBTOILLWTOATDEROOTOCMTCMATPENDEDERURAUBAEFYFOPOTM", "BANANA");
+        Vector("AMSCO", 23, "Incomplete columnar with alternating single letters and digraphs", "CECRTEGLENPHPLUTNANTEIOMOWIRSITDDSINTNALINESAALEMHATGLRGR", "41325");
+        Vector("Cadenus", 24, "A severe limitation on the usefulness of the Cadenus is that every message must be a multiple of twenty-five letters long",
+            "SYSTRETOMTATTLUSOATLEEESFIYHEASDFNMSCHBHNEUVSNPMTOFARENUSEIEEIELTARLMENTIEETOGEVESITFAISLTNGEEUVOWUL", "EASY");
+        Vector("Nicodemus", 25, "the early bird gets the worm", "HAYREVGNKIXKUWMTWMUGTAH", "CAT");
+        Vector("Nihilist transposition (by columns)", 26, "square needed here", "EQDERSEHNUEREADE", "2134", null, null, ("ByColumns", "True"));
+        Vector("Nihilist transposition (by rows)", 26, "square needed here", "ERNEQSUADEEDEHRE", "2134");
+        Vector("Route transposition", 27, "there are many routes", "THARYRESTUAMREEENO", null, null, null, ("Columns", "3"), ("WriteRoute", "5"), ("ReadRoute", "6"));
+        Vector("Sequence transposition", 28, "THE EARLY BIRD GETS THE WORM", "YHOMARTBDETHIGWLRESEERT", "GUMMYBEARS", "69315");
+        Vector("Swagman", 30, "Dont be afraid to take a big leap if one is indicated. You cannot cross a river or a chasm in two small jumps.",
+            "ENDSCMORDANIBOISICTNASTGBLTEWAOAREEFSAIDVPYRMOEAIAFUILRLDOCOTJNRAAENOUNCMITSOAPHSKATI", "32145 15324 24531 53412 41253");
+        Vector("CM Bifid", 31, "odd periods are popular", "FANXZEXFENUKKRBYNKAK", "EXTRAKLMPOHWZQDGVUSIFCBYN", "NOVELTY", null, ("Period", "7"));
+        Vector("Digrafid, 3 pairs", 32, "This is the forest pri", "HJMXWSWJADWGFCSPYI", "KEYWORD", "VERTICAL", null, ("Period", "3"));
+        Vector("Digrafid, 4 pairs", 32, "This is the forest pri", "HJTKVHYUFFWDSQYPRI", "KEYWORD", "VERTICAL", null, ("Period", "4"));
+        Check(Aca(33, "come at once", "ROUNDTABLE") == "CBIILTMHVVFL" && Aca(33, "CBIILTMHVVFL", "ROUNDTABLE", null, null, 1) == "COME AT ONCE", "ACA fractionated Morse: the example of the ACA, and back");
+        Check(Aca(34, "Once upon a time", "WISECRACK") == "27435881512827465679378" && Aca(34, "27435 88151 28274 65679 378", "WISECRACK", null, null, 1) == "ONCE UPON A TIME", "ACA Morbit: the example of the ACA, and back");
+        Check(Aca(35, "08639 34257 02417 68596 30414 56234 90874 5360", "x-..x.--x.", null, null, 1) == "LUCK HELPS" && Aca(35, Aca(35, "Luck helps", "x-..x.--x.")!, "x-..x.--x.", null, null, 1) == "LUCK HELPS", "ACA Pollux: the digits of the ACA decrypt, round trip");
+        Check(Aca(36, "the ides of march", "DRAGONFLY", "NOVELCRAFT") == "03095607958910773", "ACA Tridigital: the example of the ACA");
+        var squareKeys = ("NSFMUOAGPWVBHQXECIRYLDKTZ", "READINGBCFHKLMOPQSTUVWXYZ", "PASTINOQRMLYZUEKXWVBHGFDC");
+        Check(Aca(37, "RHL QXR LXO EVZ BAT XSE RXD DIU AAA BFZ", squareKeys.Item1, squareKeys.Item2, squareKeys.Item3, 1) == "THREEKEYSQUARESUSEDX"
+            && Aca(37, Aca(37, "threekeysquaresusedx", squareKeys.Item1, squareKeys.Item2, squareKeys.Item3)!, squareKeys.Item1, squareKeys.Item2, squareKeys.Item3, 1) == "THREEKEYSQUARESUSEDX", "ACA Tri-Square: the ciphertext of the ACA decrypts, round trip");
+        Check(Aca(38, "Come quickly we need help immediately. tom.", "LOGARITHM", null, null, 0, ("Period", "6")) == "NLBCSPCDFGXZQQCDCMGCGQTBHCFTRHFGWHGB", "ACA seriated Playfair: the example of the ACA");
+        Vector("Checkerboard (a)", 39, "numbers can also be u", "BHATCWCEKILILTKEAEBHAEKWLTAWCEKIAT", "KNIGHPQRSTOYZUAMXWVBLFEDC", "BLACK", "WHITE");
+        Check(Aca(39, "HR RY CG SS EA LA OT KS RS BR AS EG LY AG CS EI AT", "KNIGHPQRSTOYZUAMXWVBLFEDC", "HORSEBLACK", "GRAYSWHITE", 1) == "NUMBERSCANALSOBEU", "ACA checkerboard with two words at each side: the ciphertext of the ACA decrypts");
+        Check(Aca(40, "high frequency keys short enciphertext", "NOTARIES", "RMASTERTON") == "600676062753932516834655344460879516803860579" + "5359", "ACA Monome-Dinome: the example of the ACA");
+        var compressocrat = Aca(41, "the key word may be shifted", "FRACTION", null, null, 0, ("Shift", "2"));
+        Check(compressocrat!.StartsWith("ROYZPFNGVDNFNXZMROHDCR") && Aca(41, compressocrat, "FRACTION", null, null, 1, ("Shift", "2")) == "THEKEYWORDMAYBESHIFTED", "ACA Compressocrat: the example of the ACA, and back");
+        var headlines = "*Bush Signs Intelligence Overhaul Legislation\n*Bin *Laden Urges Fighters to Strike Oil Facilities";
+        var headlinesCipher = "*GCTJ TNWOT NOALZZNWLODL PHLXJFCZ ZLWNTZFANPO\n*VZS *IUXYS FDHYO CZHWPYDO PT OPDZMY TZI CURZIZPZYO";
+        Check(Aca(42, headlines, "APOTHECARY", "CHEMIST", "DRUGS") == headlinesCipher && Aca(42, headlinesCipher, "APOTHECARY", "CHEMIST", "DRUGS", 1) == headlines.ToUpperInvariant(), "ACA Headlines: the headlines of the ACA (hat APOTHECARY, key CHEMIST, setting DRUGS), and back");
+        Check(Aca(43, "HALLO", "") == "23 11 31 31 34" && Aca(43, "23 11 31 31 34", "", null, null, 1) == "HALLO", "Polybius cipher: HALLO -> 23 11 31 31 34 (Wikipedia), and back");
+        Check(Aca(44, "WASSER") == "52 11 43 43 15 42" && Aca(44, "52 11 43 43 15 42", null, null, null, 1) == "WASSER", "Tap code: WASSER -> 52 11 43 43 15 42 (Wikipedia), and back");
+        var abc = Aca(45, "Attack at dawn", "ZEBRAS");
+        Check(abc != null && Aca(45, abc, "ZEBRAS", null, null, 1) == "ATTACKATDAWN" && Aca(45, "AAAAAA", "A") == "ABCABC", "ABC cipher: the three-letter shifts 0, 1, 2 and the columnar transposition, round trip");
+        // hand ciphers of the German forces: the examples of kryptografie.de
+        var rs44Grid = "##..###..#..#.##.#.##.###\n.##.#.#..#.##.##.###.##.#\n..#.#..##.##.###.#..#####\n####..##...#..###..###.##\n.###.#..#.#.##.###.##..##\n#####..##.#..#.##.#.###..\n###.###.##.#.#.##.#..#..#\n####.##.###..#.###..#.#..\n##.####.###..###.#...#..#\n#####.##.##.#.##..#.#.#..\n#.#...##.#.#.##.#.##.####\n#####.#.#.#...#..#.###.##\n###..#..##...###..###.###\n.#...#.###.#.#.##.#.#####";
+        var rs44Numbers = "3 20 8 13 5 19 1 14 9 21 18 15 24 2 12 7 10 22 4 16 25 11 23 17 6";
+        var rs44Plain = "feind greift seit elf x vier fuenf uhr bei aa igqalfis igqalfis ee mit aqt panz naq suedwest an";
+        var rs44Cipher = "EEAAENIQSSIRLIEFESELTDIANMRQTVFNNRISIFFGPUEFZGNAEEHAEUTAIIEADAGQQLWIBSFFXUTIT";
+        Check(Aca(46, rs44Plain, rs44Grid, rs44Numbers, null, 0, ("StartRow", "5"), ("StartColumn", "14"), ("ReadNumber", "14")) == rs44Cipher
+            && Aca(46, rs44Cipher, rs44Grid, rs44Numbers, null, 1, ("StartRow", "5"), ("StartColumn", "14"), ("ReadNumber", "14")) == rs44Plain.Replace(" ", "").ToUpperInvariant(), "Rasterschlüssel 44: the example of kryptografie.de (77 letters), and back");
+        var werftTable = "KV=TC EO=XS IR=EK NK=HD BM=CT EM=KK SN=IP OI=LN NS=YM DS=FE EE=ZC RX=KM EX=VA NX=RB";
+        Check(Aca(47, "KEINE BESONDEREN VORKOMMNISSE", werftTable, "1 3 5 2 4 6") == "TXEHXCSKDSCKILYTKPNMFZKVRECMAB" && Aca(47, "TXEHXCSKDSCKILYTKPNMFZKVRECMAB", werftTable, "1 3 5 2 4 6", null, 1) == "KEINEBESONDERENVORKOMMNISSEXXX"
+            && Aca(47, "KEINE BESONDEREN VORKOMMNISSE", werftTable) == "TXEHXCSKDSCKILYTKPNMFZKVRECMAB", "Werftschlüssel: the example of kryptografie.de, with and without the row order, and back");
+        Check(Aca(47, "ABCDE", werftTable) == null && Aca(46, "TEXT", rs44Grid, rs44Numbers, null, 0, ("StartRow", "5"), ("StartColumn", "14"), ("ReadNumber", "99")) == null, "hand ciphers: a pair that is not in the table and a reading column that does not exist are refused");
+        Check(Aca(48, "TOPSECRETS") == "IRUVPYQHWB" && Aca(48, "IRUVPYQHWB", null, null, null, 1) == "TOPSECRETS" && Aca(48, "TOPSECRETSXY", "1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20") is { Length: 12 }, "Le Sphinx: TOPSECRETS -> IRUVPYQHWB (Crypto Museum), and back; a longer text starts again with the first lane");
+        // invalid input is refused with a message, not a crash
+        Check(Aca(10, "TEXT", "KEY", "1") == null && Aca(24, "SHORT", "EASY") == null && Aca(30, "TEXT", "11 22") == null, "ACA: a primer that is too short, a text of the wrong length and keys that do not fit are refused");
     }
 
     static string ClassicVariantsSquare(string keyword) => global::ClassicVariants.Ciphers.Square(keyword);

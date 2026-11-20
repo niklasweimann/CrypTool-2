@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PolluxCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Pollux Cipher</title>
+  <summary lang="en"><i>Pollux Cipher</i></summary>
+  <description lang="en">Pollux writes the text in Morse code; every dot, dash and separator is replaced by one of several digits.</description>
+  <keywords lang="en">Pollux, Morse, digits, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key says what the digits 1 2 3 4 5 6 7 8 9 0 stand for: x - . . x . - - x . (x is the separator). Every symbol uses its digits in turn, so the same letter gets different digits." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Pollux-Chiffre</title>
+  <summary lang="de"><i>Pollux-Chiffre</i></summary>
+  <description lang="de">Pollux schreibt den Text in Morsecode; jeder Punkt, Strich und Trenner wird durch eine von mehreren Ziffern ersetzt.</description>
+  <keywords lang="en">Pollux, Morse, digits, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel sagt, wofür die Ziffern 1 2 3 4 5 6 7 8 9 0 stehen: x - . . x . - - x . (x ist der Trenner). Jedes Zeichen benutzt der Reihe nach seine Ziffern, derselbe Buchstabe erhält also verschiedene Ziffern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PolluxCipher.png" />
+  <relevantPlugins>
+    <plugin name="PolluxCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PhillipsRCCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Phillips-RC Cipher</title>
+  <summary lang="en"><i>Phillips-RC Cipher</i></summary>
+  <description lang="en">Phillips-RC is the Phillips cipher in which both the rows and the columns are moved for each new square.</description>
+  <keywords lang="en">Phillips, Polybius, square, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Like in the Phillips cipher the eight squares are used in turn with five letters each, but from square to square a row and a column are moved. The key word is DIAGONALS." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Phillips-RC-Chiffre</title>
+  <summary lang="de"><i>Phillips-RC-Chiffre</i></summary>
+  <description lang="de">Phillips-RC ist die Phillips-Chiffre, bei der für jedes neue Quadrat sowohl die Zeilen als auch die Spalten verschoben werden.</description>
+  <keywords lang="en">Phillips, Polybius, square, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Wie bei der Phillips-Chiffre werden die acht Quadrate nacheinander mit je fünf Buchstaben benutzt, aber von Quadrat zu Quadrat werden eine Zeile und eine Spalte verschoben. Das Schlüsselwort ist DIAGONALS." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PhillipsRCCipher.png" />
+  <relevantPlugins>
+    <plugin name="PhillipsRCCipher" />
+  </relevantPlugins>
+</sample>

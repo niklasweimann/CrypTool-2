@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MyszkowskiTransposition.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Myszkowski Transposition</title>
+  <summary lang="en"><i>Myszkowski Transposition</i></summary>
+  <description lang="en">A columnar transposition with a key word that has repeated letters: columns with the same letter get the same number and are read together, row by row.</description>
+  <keywords lang="en">Myszkowski, columnar transposition, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="In BANANA the three A get the number 1, B the number 2 and the two N the number 3. The first piece of the ciphertext is therefore made of the 2nd, 4th and 6th columns, row by row." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Myszkowski-Transposition</title>
+  <summary lang="de"><i>Myszkowski-Transposition</i></summary>
+  <description lang="de">Eine Spaltentransposition mit einem Schlüsselwort mit wiederholten Buchstaben: Spalten mit demselben Buchstaben erhalten dieselbe Nummer und werden zusammen, Zeile für Zeile, gelesen.</description>
+  <keywords lang="en">Myszkowski, columnar transposition, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="In BANANA erhalten die drei A die Nummer 1, B die Nummer 2 und die beiden N die Nummer 3. Das erste Stück des Geheimtextes besteht daher aus der 2., 4. und 6. Spalte, Zeile für Zeile." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MyszkowskiTransposition.png" />
+  <relevantPlugins>
+    <plugin name="MyszkowskiTransposition" />
+  </relevantPlugins>
+</sample>

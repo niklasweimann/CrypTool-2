@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MonomeDinomeCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Monome-Dinome Cipher</title>
+  <summary lang="en"><i>Monome-Dinome Cipher</i></summary>
+  <description lang="en">The 24 letters are in a box of 3 rows and 8 columns; the letters of the top row are replaced by one digit, the others by two.</description>
+  <keywords lang="en">Monome-Dinome, digits, box, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The box comes from NOTARIES. The second key RMASTERTON gives the ten digits 6 3 1 8 9 2 7 0 5 4: the first two are the row digits of the second and third rows, the other eight are the column digits. Frequent letters in the top row make the ciphertext short." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Monome-Dinome-Chiffre</title>
+  <summary lang="de"><i>Monome-Dinome-Chiffre</i></summary>
+  <description lang="de">Die 24 Buchstaben stehen in einem Kasten aus 3 Zeilen und 8 Spalten; die Buchstaben der obersten Zeile werden durch eine Ziffer ersetzt, die anderen durch zwei.</description>
+  <keywords lang="en">Monome-Dinome, digits, box, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Kasten kommt aus NOTARIES. Der zweite Schlüssel RMASTERTON gibt die zehn Ziffern 6 3 1 8 9 2 7 0 5 4: Die ersten beiden sind die Zeilenziffern der zweiten und dritten Zeile, die anderen acht die Spaltenziffern. Häufige Buchstaben in der obersten Zeile machen den Geheimtext kurz." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MonomeDinomeCipher.png" />
+  <relevantPlugins>
+    <plugin name="MonomeDinomeCipher" />
+  </relevantPlugins>
+</sample>

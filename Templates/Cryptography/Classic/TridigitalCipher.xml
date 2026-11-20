@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TridigitalCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Tridigital Cipher</title>
+  <summary lang="en"><i>Tridigital Cipher</i></summary>
+  <description lang="en">A keyed alphabet fills a block of ten columns; every letter is replaced by the digit above its column, so every digit stands for three letters.</description>
+  <keywords lang="en">Tridigital, substitution, digits, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The alphabet comes from DRAGONFLY, the digits above the columns from NOVELCRAFT (6 7 0 3 5 2 8 1 4 9). The last column is empty; its digit 9 separates the words. Decryption is not unique: the second component lists the three possible letters of each digit in brackets." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Tridigital-Chiffre</title>
+  <summary lang="de"><i>Tridigital-Chiffre</i></summary>
+  <description lang="de">Ein gemischtes Alphabet füllt einen Block mit zehn Spalten; jeder Buchstabe wird durch die Ziffer über seiner Spalte ersetzt, jede Ziffer steht also für drei Buchstaben.</description>
+  <keywords lang="en">Tridigital, substitution, digits, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Alphabet kommt aus DRAGONFLY, die Ziffern über den Spalten aus NOVELCRAFT (6 7 0 3 5 2 8 1 4 9). Die letzte Spalte ist leer; ihre Ziffer 9 trennt die Wörter. Das Entschlüsseln ist nicht eindeutig: Die zweite Komponente listet die drei möglichen Buchstaben jeder Ziffer in Klammern auf." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TridigitalCipher.png" />
+  <relevantPlugins>
+    <plugin name="TridigitalCipher" />
+  </relevantPlugins>
+</sample>

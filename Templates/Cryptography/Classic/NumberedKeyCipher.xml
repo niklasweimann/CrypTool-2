@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NumberedKeyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Numbered Key Cipher</title>
+  <summary lang="en"><i>Numbered Key Cipher</i></summary>
+  <description lang="en">The key phrase is extended by the missing letters of the alphabet and numbered; every plaintext letter is replaced by the number of one of its places.</description>
+  <keywords lang="en">numbered key, substitution, homophonic, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The extended key of &quot;I LIKE CIPHERS&quot; is ILIKECIPHERSABDFGJMNOQTUVWXYZ; the numbering starts at its 18th place (setting {\b Offset}). The letter I occurs three times and has the numbers 11, 13 and 17, which are used in turn." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chiffre mit nummeriertem Schlüssel</title>
+  <summary lang="de"><i>Chiffre mit nummeriertem Schlüssel</i></summary>
+  <description lang="de">Der Schlüsselsatz wird um die fehlenden Buchstaben des Alphabets erweitert und nummeriert; jeder Klartextbuchstabe wird durch die Nummer einer seiner Stellen ersetzt.</description>
+  <keywords lang="en">numbered key, substitution, homophonic, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der erweiterte Schlüssel von &quot;I LIKE CIPHERS&quot; ist ILIKECIPHERSABDFGJMNOQTUVWXYZ; die Nummerierung beginnt an seiner 18. Stelle (Einstellung {\b Versatz}). Der Buchstabe I kommt dreimal vor und hat die Nummern 11, 13 und 17, die der Reihe nach benutzt werden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NumberedKeyCipher.png" />
+  <relevantPlugins>
+    <plugin name="NumberedKeyCipher" />
+  </relevantPlugins>
+</sample>

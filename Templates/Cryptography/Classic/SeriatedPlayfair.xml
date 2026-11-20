@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SeriatedPlayfair.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Seriated Playfair</title>
+  <summary lang="en"><i>Seriated Playfair</i></summary>
+  <description lang="en">The text is written in groups of two lines; the vertical pairs are enciphered with the Playfair rules.</description>
+  <keywords lang="en">Seriated Playfair, Playfair, digraph, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="With the period 6 the first group is COMEQU over ICKLYW (setting {\b Period}). If a vertical pair would be a double letter, an X is put into the lower line. The ciphertext is the two lines of every group one after the other." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Seriated Playfair</title>
+  <summary lang="de"><i>Seriated Playfair</i></summary>
+  <description lang="de">Der Text wird in Gruppen aus zwei Zeilen geschrieben; die senkrechten Paare werden nach den Playfair-Regeln verschlüsselt.</description>
+  <keywords lang="en">Seriated Playfair, Playfair, digraph, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Bei der Periode 6 ist die erste Gruppe COMEQU über ICKLYW (Einstellung {\b Periode}). Wäre ein senkrechtes Paar ein Doppelbuchstabe, wird ein X in die untere Zeile gesetzt. Der Geheimtext besteht aus den beiden Zeilen jeder Gruppe nacheinander." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SeriatedPlayfair.png" />
+  <relevantPlugins>
+    <plugin name="SeriatedPlayfairCipher" />
+  </relevantPlugins>
+</sample>

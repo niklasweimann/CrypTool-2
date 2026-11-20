@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: MorbitCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Morbit Cipher</title>
+  <summary lang="en"><i>Morbit Cipher</i></summary>
+  <description lang="en">Morbit writes the text in Morse code and replaces every pair of symbols (dot, dash, x) by a digit from 1 to 9.</description>
+  <keywords lang="en">Morbit, Morse, fractionation, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word WISECRACK of 9 letters numbers the nine possible pairs 9 5 8 4 2 7 1 3 6 (letters in alphabetical order, equal letters from left to right). The first pair &quot;--&quot; becomes 2." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Morbit-Chiffre</title>
+  <summary lang="de"><i>Morbit-Chiffre</i></summary>
+  <description lang="de">Morbit schreibt den Text in Morsecode und ersetzt jedes Paar von Zeichen (Punkt, Strich, x) durch eine Ziffer von 1 bis 9.</description>
+  <keywords lang="en">Morbit, Morse, fractionation, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort WISECRACK aus 9 Buchstaben nummeriert die neun möglichen Paare mit 9 5 8 4 2 7 1 3 6 (Buchstaben in alphabetischer Reihenfolge, gleiche Buchstaben von links nach rechts). Das erste Paar &quot;--&quot; wird zu 2." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="MorbitCipher.png" />
+  <relevantPlugins>
+    <plugin name="MorbitCipher" />
+  </relevantPlugins>
+</sample>

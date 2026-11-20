@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RunningKeyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Running Key Cipher</title>
+  <summary lang="en"><i>Running Key Cipher</i></summary>
+  <description lang="en">The key is a long text that is as long as the message, for example a passage of a book; it is added letter by letter as in the Vigenère cipher.</description>
+  <keywords lang="en">running key, book cipher, Vigenère, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="A running key cipher is a Vigenère cipher whose key is as long as the text, so the {\b Vigenère} component does it. In the example of the ACA the text is divided in half: the first half (THISCIPHERCANBEUSEDW) is the key of the second half." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chiffre mit laufendem Schlüssel</title>
+  <summary lang="de"><i>Chiffre mit laufendem Schlüssel</i></summary>
+  <description lang="de">Der Schlüssel ist ein langer Text, der so lang ist wie die Nachricht, zum Beispiel eine Buchstabenfolge aus einem Buch; er wird Buchstabe für Buchstabe addiert wie bei der Vigenère-Chiffre.</description>
+  <keywords lang="en">running key, book cipher, Vigenère, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Eine Chiffre mit laufendem Schlüssel ist eine Vigenère-Chiffre, deren Schlüssel so lang ist wie der Text, die Komponente {\b Vigenère} erledigt das also. Im Beispiel der ACA wird der Text in zwei Hälften geteilt: Die erste Hälfte (THISCIPHERCANBEUSEDW) ist der Schlüssel der zweiten." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RunningKeyCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

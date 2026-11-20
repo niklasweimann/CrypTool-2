@@ -1,4 +1,5 @@
 {
+ "ClassicCipherLib": "/Users/niklasweimann/dev/CrypTool-2/LibSource/ClassicCipherLib",
  "EnigmaAnalyzerLib": "/Users/niklasweimann/dev/CrypTool-2/LibSource/EnigmaAnalyzerLib/EnigmaAnalyzer",
  "FormatPreservingEncryptionWeydstone": "/Users/niklasweimann/dev/CrypTool-2/LibSource/FormatPreservingEncryptionWeydstone",
  "HexBox": "/Users/niklasweimann/dev/CrypTool-2/LibSource/HexBox",

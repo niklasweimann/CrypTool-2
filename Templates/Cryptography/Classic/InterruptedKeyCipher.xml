@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: InterruptedKeyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Interrupted Key Cipher</title>
+  <summary lang="en"><i>Interrupted Key Cipher</i></summary>
+  <description lang="en">A Vigenère cipher whose key word is interrupted: after a number of letters it starts again from its first letter.</description>
+  <keywords lang="en">interrupted key, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word is ORANGE; the second key gives the lengths of the pieces that are used: 4 letters (ORAN), then 6 (ORANGE), then 2 (OR) and so on, as in the example of the ACA. The entire key word has to be used at least once." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chiffre mit unterbrochenem Schlüssel</title>
+  <summary lang="de"><i>Chiffre mit unterbrochenem Schlüssel</i></summary>
+  <description lang="de">Eine Vigenère-Chiffre, deren Schlüsselwort unterbrochen wird: Nach einer Anzahl von Buchstaben beginnt es wieder beim ersten Buchstaben.</description>
+  <keywords lang="en">interrupted key, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort ist ORANGE; der zweite Schlüssel gibt die Längen der benutzten Stücke an: 4 Buchstaben (ORAN), dann 6 (ORANGE), dann 2 (OR) und so weiter, wie im Beispiel der ACA. Das ganze Schlüsselwort muss mindestens einmal benutzt werden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="InterruptedKeyCipher.png" />
+  <relevantPlugins>
+    <plugin name="InterruptedKeyCipher" />
+  </relevantPlugins>
+</sample>

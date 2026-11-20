@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The numbered key cipher replaces letters by numbers; every letter can have several numbers.<newline />
+    1. Extend the key phrase by the letters of the alphabet that are missing (in alphabetical order). Letters of the phrase that occur several times stay.<newline />
+    2. Number the places of this extended key 0, 1, 2, ... starting at the place given by the offset and going around.<newline />
+    3. Replace every plaintext letter by the number of one of its places; this component uses the numbers of a letter in turn, so repeated letters get different numbers. The numbers are written with two digits.<newline />
+    Decryption looks up the letter of every number.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Chiffre mit nummeriertem Schlüssel ersetzt Buchstaben durch Zahlen; jeder Buchstabe kann mehrere Zahlen haben.<newline />
+    1. Erweitern Sie den Schlüsselsatz um die fehlenden Buchstaben des Alphabets (in alphabetischer Reihenfolge). Buchstaben, die im Satz mehrfach vorkommen, bleiben.<newline />
+    2. Nummerieren Sie die Stellen dieses erweiterten Schlüssels mit 0, 1, 2, ... beginnend an der Stelle des Versatzes und im Kreis weiter.<newline />
+    3. Ersetzen Sie jeden Klartextbuchstaben durch die Nummer einer seiner Stellen; diese Komponente benutzt die Nummern eines Buchstabens der Reihe nach, wiederholte Buchstaben erhalten also verschiedene Nummern. Die Nummern werden zweistellig geschrieben.<newline />
+    Das Entschlüsseln sucht zu jeder Nummer den Buchstaben.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key phrase
+    </section><section headline="Settings">
+    <b>Offset</b>: The place of the extended key where the numbering starts
+    </section><section headline="Example">
+    The extended key of "I LIKE CIPHERS" is ILIKECIPHERSABDFGJMNOQTUVWXYZ; the numbering starts at its 18th place (setting <b>Offset</b>). The letter I occurs three times and has the numbers 11, 13 and 17, which are used in turn.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Der Schlüsselsatz
+    </section><section headline="Einstellungen">
+    <b>Versatz</b>: Die Stelle des erweiterten Schlüssels, an der die Nummerierung beginnt
+    </section><section headline="Beispiel">
+    Der erweiterte Schlüssel von "I LIKE CIPHERS" ist ILIKECIPHERSABDFGJMNOQTUVWXYZ; die Nummerierung beginnt an seiner 18. Stelle (Einstellung <b>Versatz</b>). Der Buchstabe I kommt dreimal vor und hat die Nummern 11, 13 und 17, die der Reihe nach benutzt werden.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

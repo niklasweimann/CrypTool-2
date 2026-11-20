@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CondiCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Condi Cipher</title>
+  <summary lang="en"><i>Condi Cipher</i></summary>
+  <description lang="en">The Condi cipher uses a keyed alphabet as a table; the step from a plaintext letter to its substitute is the position of the plaintext letter before it in the alphabet.</description>
+  <keywords lang="en">Condi, keyed alphabet, autokey, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word is STRANGE, the alphabet is moved by 5 places and the first letter is substituted with the start value 25 (settings {\b Alphabet shift} and {\b Offset} of the {\b Condi Cipher} components). Word divisions and punctuation are kept." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Condi-Chiffre</title>
+  <summary lang="de"><i>Condi-Chiffre</i></summary>
+  <description lang="de">Die Condi-Chiffre benutzt ein gemischtes Alphabet als Tabelle; die Schrittweite vom Klartextbuchstaben zu seinem Ersatz ist die Position des vorhergehenden Klartextbuchstabens im Alphabet.</description>
+  <keywords lang="en">Condi, keyed alphabet, autokey, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort ist STRANGE, das Alphabet ist um 5 Stellen verschoben, und der erste Buchstabe wird mit dem Startwert 25 ersetzt (Einstellungen {\b Alphabetverschiebung} und {\b Versatz} der Komponenten {\b Condi-Chiffre}). Wortgrenzen und Satzzeichen bleiben erhalten." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CondiCipher.png" />
+  <relevantPlugins>
+    <plugin name="CondiCipher" />
+  </relevantPlugins>
+</sample>

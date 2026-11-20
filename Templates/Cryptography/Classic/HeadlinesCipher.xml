@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HeadlinesCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Headlines Cipher</title>
+  <summary lang="en"><i>Headlines Cipher</i></summary>
+  <description lang="en">Five headlines are enciphered by simple substitution with the same mixed alphabet at five different settings; proper nouns are marked with an asterisk. Three related keywords make the alphabet and the settings.</description>
+  <keywords lang="en">Headlines, mixed alphabet, settings, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key block is made of the key word CHEMIST (its alphabet is written in rows of the width of the hat word APOTHECARY, and the columns are taken in the order of the letters of the hat), which gives the mixed alphabet CFUAPTOSNZILYEJWHGVBQMKXDR. Every line uses the next letter of the setting word DRUGS: the letter that stands under the first letter of the alphabet (as in Quagmire III). Asterisks, spaces and punctuation are kept." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Headlines-Chiffre</title>
+  <summary lang="de"><i>Headlines-Chiffre</i></summary>
+  <description lang="de">Fünf Schlagzeilen werden durch einfache Substitution mit demselben gemischten Alphabet in fünf verschiedenen Stellungen verschlüsselt; Eigennamen sind mit einem Stern markiert. Drei verwandte Schlüsselwörter bilden das Alphabet und die Stellungen.</description>
+  <keywords lang="en">Headlines, mixed alphabet, settings, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüsselblock besteht aus dem Schlüsselwort CHEMIST (sein Alphabet wird in Zeilen von der Breite des Hutwortes APOTHECARY geschrieben, und die Spalten werden in der Reihenfolge der Buchstaben des Hutes genommen), das ergibt das gemischte Alphabet CFUAPTOSNZILYEJWHGVBQMKXDR. Jede Zeile benutzt den nächsten Buchstaben des Einstellungswortes DRUGS: den Buchstaben, der unter dem ersten Buchstaben des Alphabets steht (wie bei Quagmire III). Sterne, Leerzeichen und Satzzeichen bleiben erhalten." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HeadlinesCipher.png" />
+  <relevantPlugins>
+    <plugin name="HeadlinesCipher" />
+  </relevantPlugins>
+</sample>

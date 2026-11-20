@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Rasterschluessel44Cipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Rasterschlüssel 44 (RS 44)</title>
+  <summary lang="en"><i>Rasterschlüssel 44 (RS 44)</i></summary>
+  <description lang="en">The Rasterschlüssel 44 of the German army (from March 1944) is a pure transposition on a printed form: a grid of 24 rows and 25 columns in which every row has 10 white cells. The text is written row by row into the white cells and read off by columns.</description>
+  <keywords lang="en">RS 44, Rasterschlüssel, transposition, grid, Wehrmacht</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="This is the example of the article on kryptografie.de (the first 14 rows of the form are used; the form was changed every day). Writing starts at row 5, column 14 (the cell bbae of the message header, the first white cell from there); reading starts at the column with the number 14 and goes on with 15, 16, ... 25, 1, ... 13. The ciphertext has exactly as many letters as the plaintext. The message header (time, number of letters, start cell and reading column, each coded with the letter swap table) is not made here. Text before encryption: digits, umlauts and punctuation are spelled out, ch and ck are written as q." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Rasterschlüssel 44 (RS 44)</title>
+  <summary lang="de"><i>Rasterschlüssel 44 (RS 44)</i></summary>
+  <description lang="de">Der Rasterschlüssel 44 des deutschen Heeres (ab März 1944) ist eine reine Transposition auf einem gedruckten Formular: ein Raster aus 24 Zeilen und 25 Spalten, in dem jede Zeile 10 weiße Felder hat. Der Text wird zeilenweise in die weißen Felder geschrieben und spaltenweise herausgelesen.</description>
+  <keywords lang="en">RS 44, Rasterschlüssel, transposition, grid, Wehrmacht</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das ist das Beispiel aus dem Artikel auf kryptografie.de (benutzt werden die ersten 14 Zeilen des Formulars; das Formular wurde jeden Tag gewechselt). Das Schreiben beginnt in Zeile 5, Spalte 14 (die Zelle bbae des Spruchkopfs, ab dort das erste weiße Feld); das Herauslesen beginnt bei der Spalte mit der Nummer 14 und geht mit 15, 16, ... 25, 1, ... 13 weiter. Der Geheimtext hat genau so viele Buchstaben wie der Klartext. Der Spruchkopf (Uhrzeit, Buchstabenzahl, Startzelle und Herauslesespalte, jeweils mit der Buchstabentauschtafel verschlüsselt) wird hier nicht gebildet. Text vor der Verschlüsselung: Ziffern, Umlaute und Satzzeichen werden ausgeschrieben, ch und ck als q geschrieben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Rasterschluessel44Cipher.png" />
+  <relevantPlugins>
+    <plugin name="Rasterschluessel44Cipher" />
+  </relevantPlugins>
+</sample>

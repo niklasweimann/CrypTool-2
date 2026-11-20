@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Cadenus is a columnar transposition of the ACA with a shift of every column.<newline />
+    1. The text needs 25 rows: 25 letters for every letter of the key word. Write it in rows under the key word.<newline />
+    2. A letter of the 25-letter alphabet (V and W together) is attached to every row, going down from A: A, Z, Y, X, V/W, U, ...<newline />
+    3. Every column of the plaintext block goes into the column of the cipher block that the alphabetical order of the key letters gives, but it starts at the row whose attached letter is the key letter of the column, and goes on around the block.<newline />
+    4. The ciphertext is read from the cipher block by rows.
+  </introduction>
+  <introduction lang="de-DE">
+    Cadenus ist eine Spaltentransposition der ACA mit einer Verschiebung jeder Spalte.<newline />
+    1. Der Text braucht 25 Zeilen: 25 Buchstaben für jeden Buchstaben des Schlüsselworts. Schreiben Sie ihn zeilenweise unter das Schlüsselwort.<newline />
+    2. An jeder Zeile steht ein Buchstabe des 25-Buchstaben-Alphabets (V und W zusammen), von A abwärts: A, Z, Y, X, V/W, U, ...<newline />
+    3. Jede Spalte des Klartextblocks kommt in die Spalte des Geheimtextblocks, die die alphabetische Reihenfolge der Schlüsselbuchstaben ergibt, beginnt aber in der Zeile, deren angehängter Buchstabe der Schlüsselbuchstabe der Spalte ist, und geht rund um den Block weiter.<newline />
+    4. Der Geheimtext wird zeilenweise aus dem Geheimtextblock gelesen.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word; the text needs 25 letters for every key letter
+    </section><section headline="Example">
+    The key word EASY has 4 letters, so the text needs 100 letters. The first plaintext column starts at the 22nd row (the one with E) and goes on around the block. The text of this template is the example of the ACA.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort; der Text braucht 25 Buchstaben je Schlüsselbuchstabe
+    </section><section headline="Beispiel">
+    Das Schlüsselwort EASY hat 4 Buchstaben, der Text braucht also 100 Buchstaben. Die erste Klartextspalte beginnt in der 22. Zeile (der mit E) und geht rund um den Block weiter. Der Text dieser Vorlage ist das Beispiel der ACA.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Gromark (GROnsfeld with Mixed Alphabet and Running Key) is a Gronsfeld cipher with a mixed cipher alphabet and a running key of digits.<newline />
+    1. Make the cipher alphabet: write the key word (without repeats) and then the rest of the alphabet in rows as wide as the key word; take the columns in the alphabetical order of the key letters.<newline />
+    2. The primer (5 digits) starts the running key; every further digit is the sum of two digits (mod 10): the first plus the second gives the sixth, the second plus the third the seventh, and so on.<newline />
+    3. Every plaintext letter moves to the right in the cipher alphabet by the digit at its position; the letter found there is the cipher letter.<newline />
+    Decryption moves to the left. The ACA writes the primer in front of the ciphertext.
+  </introduction>
+  <introduction lang="de-DE">
+    Gromark (GROnsfeld with Mixed Alphabet and Running Key) ist eine Gronsfeld-Chiffre mit gemischtem Geheimtextalphabet und laufendem Ziffernschlüssel.<newline />
+    1. Bilden Sie das Geheimtextalphabet: Schreiben Sie das Schlüsselwort (ohne Wiederholungen) und dann den Rest des Alphabets in Zeilen so breit wie das Schlüsselwort; nehmen Sie die Spalten in der alphabetischen Reihenfolge der Schlüsselbuchstaben.<newline />
+    2. Der Primer (5 Ziffern) beginnt den laufenden Schlüssel; jede weitere Ziffer ist die Summe zweier Ziffern (mod 10): die erste plus die zweite ergibt die sechste, die zweite plus die dritte die siebte und so weiter.<newline />
+    3. Jeder Klartextbuchstabe rückt im Geheimtextalphabet um die Ziffer seiner Stelle nach rechts; der dort gefundene Buchstabe ist der Geheimtextbuchstabe.<newline />
+    Das Entschlüsseln geht nach links. Die ACA schreibt den Primer vor den Geheimtext.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word<newline />
+    <b>Primer</b>: The primer, a number of digits (5 for Gromark and the sequence transposition)
+    </section><section headline="Example">
+    The cipher alphabet comes from the key word ENIGMA (the columns of its transposition block, taken in alphabetical order). The primer 23452 is extended to 2 3 4 5 2 5 7 9 7 7 ...; each digit says how far to the right of the plain letter the cipher letter stands.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort<newline />
+    <b>Primer</b>: Der Primer, eine Ziffernfolge (5 Ziffern bei Gromark und der Sequenz-Transposition)
+    </section><section headline="Beispiel">
+    Das Geheimtextalphabet kommt aus dem Schlüsselwort ENIGMA (den Spalten seines Transpositionsblocks in alphabetischer Reihenfolge). Der Primer 23452 wird zu 2 3 4 5 2 5 7 9 7 7 ... verlängert; jede Ziffer sagt, wie weit rechts vom Klartextbuchstaben der Geheimtextbuchstabe steht.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

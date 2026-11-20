@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The periodic Gromark cipher is a Gromark cipher in which the numbering of the key word is the primer and every group of one period starts at another place of the cipher alphabet.<newline />
+    1. Make the cipher alphabet from the key word as for Gromark. The primer is the numbering of the key letters in alphabetical order (ENIGMA gives 2 6 4 3 5 1).<newline />
+    2. Extend the primer to the length of the text by adding pairs of digits (mod 10).<newline />
+    3. Cut the text into groups of one period. The k-th group starts at the place of the k-th key letter (repeating) in the cipher alphabet; every letter moves on by the digit at its position.
+  </introduction>
+  <introduction lang="de-DE">
+    Die periodische Gromark-Chiffre ist eine Gromark-Chiffre, bei der die Nummerierung des Schlüsselworts der Primer ist und jede Gruppe einer Periode an einer anderen Stelle des Geheimtextalphabets beginnt.<newline />
+    1. Bilden Sie das Geheimtextalphabet aus dem Schlüsselwort wie bei Gromark. Der Primer ist die Nummerierung der Schlüsselbuchstaben in alphabetischer Reihenfolge (ENIGMA ergibt 2 6 4 3 5 1).<newline />
+    2. Verlängern Sie den Primer durch Addition von Ziffernpaaren (mod 10) auf die Länge des Textes.<newline />
+    3. Zerlegen Sie den Text in Gruppen einer Periode. Die k-te Gruppe beginnt an der Stelle des k-ten Schlüsselbuchstabens (wiederholt) im Geheimtextalphabet; jeder Buchstabe rückt um die Ziffer seiner Stelle weiter.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word (its numbering is the primer)
+    </section><section headline="Example">
+    The key word ENIGMA gives the primer 2 6 4 3 5 1 and the cipher alphabet; the key letters E, N, I, G, M, A (one for every group of 6 letters) set where the alphabet starts.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort (seine Nummerierung ist der Primer)
+    </section><section headline="Beispiel">
+    Das Schlüsselwort ENIGMA ergibt den Primer 2 6 4 3 5 1 und das Geheimtextalphabet; die Schlüsselbuchstaben E, N, I, G, M, A (einer je Gruppe von 6 Buchstaben) legen fest, wo das Alphabet beginnt.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

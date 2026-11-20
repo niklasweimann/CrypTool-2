@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ProgressiveKeyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Progressive Key Cipher</title>
+  <summary lang="en"><i>Progressive Key Cipher</i></summary>
+  <description lang="en">The text is enciphered with the key word, then a second time with a key letter that moves on after every group of one period: A, B, C, ... for the progression index 1.</description>
+  <keywords lang="en">progressive key, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word GRAPEFRUIT has 10 letters, so the second key letter is A for the first 10 letters, B for the next 10 and so on. The progression index can be changed in the settings of the {\b Progressive Key Cipher} components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Chiffre mit fortschreitendem Schlüssel</title>
+  <summary lang="de"><i>Chiffre mit fortschreitendem Schlüssel</i></summary>
+  <description lang="de">Der Text wird mit dem Schlüsselwort verschlüsselt, dann ein zweites Mal mit einem Schlüsselbuchstaben, der nach jeder Gruppe einer Periode weiterrückt: A, B, C, ... beim Fortschreitungsindex 1.</description>
+  <keywords lang="en">progressive key, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort GRAPEFRUIT hat 10 Buchstaben; der zweite Schlüsselbuchstabe ist also A für die ersten 10 Buchstaben, B für die nächsten 10 und so weiter. Der Fortschreitungsindex lässt sich in den Einstellungen der Komponenten {\b Chiffre mit fortschreitendem Schlüssel} ändern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ProgressiveKeyCipher.png" />
+  <relevantPlugins>
+    <plugin name="ProgressiveKeyCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CMBifidCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">CM Bifid Cipher</title>
+  <summary lang="en"><i>CM Bifid Cipher</i></summary>
+  <description lang="en">The conjugated matrix bifid cipher is the Bifid cipher with two squares: the plaintext letters are looked up in the first, the numbers are mixed over a period and read as letters of the second.</description>
+  <keywords lang="en">CM Bifid, conjugated matrix, fractionation, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first square is given by the 25 letters of the first key, the second by the key word NOVELTY written in alternating verticals. The period is 7 (setting {\b Period}): the row numbers and column numbers of 7 letters are written one after the other and taken in pairs." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">CM-Bifid-Chiffre</title>
+  <summary lang="de"><i>CM-Bifid-Chiffre</i></summary>
+  <description lang="de">Die Conjugated-Matrix-Bifid-Chiffre ist die Bifid-Chiffre mit zwei Quadraten: Die Klartextbuchstaben werden im ersten gesucht, die Zahlen über eine Periode gemischt und als Buchstaben des zweiten gelesen.</description>
+  <keywords lang="en">CM Bifid, conjugated matrix, fractionation, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das erste Quadrat ist durch die 25 Buchstaben des ersten Schlüssels gegeben, das zweite durch das Schlüsselwort NOVELTY, in abwechselnden Senkrechten geschrieben. Die Periode ist 7 (Einstellung {\b Periode}): Die Zeilen- und Spaltennummern von 7 Buchstaben werden hintereinander geschrieben und paarweise genommen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CMBifidCipher.png" />
+  <relevantPlugins>
+    <plugin name="CMBifidCipher" />
+  </relevantPlugins>
+</sample>

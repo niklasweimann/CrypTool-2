@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The tap code is the Polybius square of prisoners who tap messages on walls and pipes.<newline />
+    1. The square holds the alphabet without K (K is written as C), row by row.<newline />
+    2. A letter is tapped as the number of its row, a pause, and the number of its column: W is in row 5, column 2, five knocks, a pause, two knocks. The pause between two letters is longer.<newline />
+    This component writes the pairs of numbers; decryption reads two digits at a time.
+  </introduction>
+  <introduction lang="de-DE">
+    Der Klopfcode ist das Polybios-Quadrat von Gefangenen, die Nachrichten an Wände und Rohre klopfen.<newline />
+    1. Das Quadrat enthält das Alphabet ohne K (K wird als C geschrieben), zeilenweise.<newline />
+    2. Ein Buchstabe wird als Zahl seiner Zeile, eine Pause und Zahl seiner Spalte geklopft: W steht in Zeile 5, Spalte 2, fünf Klopfer, eine Pause, zwei Klopfer. Die Pause zwischen zwei Buchstaben ist länger.<newline />
+    Diese Komponente schreibt die Zahlenpaare; das Entschlüsseln liest je zwei Ziffern.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt
+    </section><section headline="Example">
+    W is in row 5, column 2: five knocks, a pause, two knocks. The output shows the numbers as digits; a K is written as C.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll
+    </section><section headline="Beispiel">
+    W steht in Zeile 5, Spalte 2: fünf Klopfer, eine Pause, zwei Klopfer. Die Ausgabe zeigt die Zahlen als Ziffern; ein K wird als C geschrieben.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

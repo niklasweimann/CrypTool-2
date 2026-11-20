@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PeriodicGromarkCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Periodic Gromark Cipher</title>
+  <summary lang="en"><i>Periodic Gromark Cipher</i></summary>
+  <description lang="en">A Gromark cipher in which the numbering of the key word is the primer and every group of one period starts at another place of the cipher alphabet.</description>
+  <keywords lang="en">periodic Gromark, running key, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word ENIGMA gives the primer 2 6 4 3 5 1 and the cipher alphabet; the key letters E, N, I, G, M, A (one for every group of 6 letters) set where the alphabet starts." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Periodische Gromark-Chiffre</title>
+  <summary lang="de"><i>Periodische Gromark-Chiffre</i></summary>
+  <description lang="de">Eine Gromark-Chiffre, bei der die Nummerierung des Schlüsselworts der Primer ist und jede Gruppe einer Periode an einer anderen Stelle des Geheimtextalphabets beginnt.</description>
+  <keywords lang="en">periodic Gromark, running key, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort ENIGMA ergibt den Primer 2 6 4 3 5 1 und das Geheimtextalphabet; die Schlüsselbuchstaben E, N, I, G, M, A (einer je Gruppe von 6 Buchstaben) legen fest, wo das Alphabet beginnt." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PeriodicGromarkCipher.png" />
+  <relevantPlugins>
+    <plugin name="PeriodicGromarkCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The ACA homophonic cipher replaces every letter by one of four two-digit numbers.<newline />
+    1. The 25 letters (I and J together) have the numbers 01 to 25 in the first row, 26 to 50 in the second, 51 to 75 in the third and 76 to 00 in the fourth.<newline />
+    2. The four letters of the key word say where each row starts: the key letter of a row has the first number of the row (G with 01, O with 26, ... for the key GOLF).<newline />
+    3. Every plaintext letter is replaced by its number in one of the four rows; this component takes the rows in turn.<newline />
+    Decryption finds the letter of every number.
+  </introduction>
+  <introduction lang="de-DE">
+    Die homophone Chiffre der ACA ersetzt jeden Buchstaben durch eine von vier zweistelligen Zahlen.<newline />
+    1. Die 25 Buchstaben (I und J zusammen) haben in der ersten Zeile die Zahlen 01 bis 25, in der zweiten 26 bis 50, in der dritten 51 bis 75 und in der vierten 76 bis 00.<newline />
+    2. Die vier Buchstaben des Schlüsselworts sagen, wo jede Zeile beginnt: Der Schlüsselbuchstabe einer Zeile hat die erste Zahl der Zeile (G mit 01, O mit 26, ... beim Schlüssel GOLF).<newline />
+    3. Jeder Klartextbuchstabe wird durch seine Zahl in einer der vier Zeilen ersetzt; diese Komponente nimmt die Zeilen der Reihe nach.<newline />
+    Das Entschlüsseln findet zu jeder Zahl den Buchstaben.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: 4 letters: they say where the numbers of the four rows start
+    </section><section headline="Example">
+    The key word GOLF gives G the number 01, O the number 26, L the number 51 and F the number 76. The component takes the four rows in turn, so repeated letters get different numbers.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: 4 Buchstaben: Sie sagen, wo die Zahlen der vier Zeilen beginnen
+    </section><section headline="Beispiel">
+    Das Schlüsselwort GOLF gibt G die Nummer 01, O die Nummer 26, L die Nummer 51 und F die Nummer 76. Die Komponente nimmt die vier Zeilen der Reihe nach, wiederholte Buchstaben erhalten also verschiedene Nummern.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

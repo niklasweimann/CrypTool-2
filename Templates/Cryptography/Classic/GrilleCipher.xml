@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: GrilleCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Turning Grille</title>
+  <summary lang="en"><i>Turning Grille</i></summary>
+  <description lang="en">A square card with holes is laid on the block; a quarter of the text is written through the holes, then the card is turned by 90 degrees, and so on until the block is full.</description>
+  <keywords lang="en">grille, turning grille, Cardan, Fleißner, transposition, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The {\b Fleißner Grille} component does this (it is an experimental component). The 4x4 grille of the ACA has the holes 1, 8, 10 and 12 (counted by rows); written as the stencil it is 1000000101010000 (1 = hole), which is entered in the settings of the component. Each of the four turns uses four places, and together they cover all 16 places once. The text has exactly 16 letters; a shorter text would be filled up with random letters. The ciphertext is read by rows; the second component, set to decrypt, undoes it." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Drehschablone (Grille)</title>
+  <summary lang="de"><i>Drehschablone (Grille)</i></summary>
+  <description lang="de">Eine quadratische Karte mit Löchern wird auf den Block gelegt; ein Viertel des Textes wird durch die Löcher geschrieben, dann wird die Karte um 90 Grad gedreht, und so weiter, bis der Block voll ist.</description>
+  <keywords lang="en">grille, turning grille, Cardan, Fleißner, transposition, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Komponente {\b Fleißner-Gitter} erledigt das (es ist eine experimentelle Komponente). Die 4x4-Schablone der ACA hat die Löcher 1, 8, 10 und 12 (zeilenweise gezählt); als Stencil geschrieben ist das 1000000101010000 (1 = Loch), der in den Einstellungen der Komponente eingetragen wird. Jede der vier Drehungen benutzt vier Plätze, und zusammen decken sie alle 16 Plätze genau einmal ab. Der Text hat genau 16 Buchstaben; ein kürzerer Text würde mit Zufallsbuchstaben aufgefüllt. Der Geheimtext wird zeilenweise gelesen; die zweite Komponente, auf Entschlüsseln gestellt, macht es rückgängig." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="GrilleCipher.png" />
+  <relevantPlugins>
+    <plugin name="FleißnerGrille" />
+  </relevantPlugins>
+</sample>

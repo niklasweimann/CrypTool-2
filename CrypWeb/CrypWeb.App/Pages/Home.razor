@@ -321,6 +321,7 @@
             else if (active.Kind == DocKind.Docs)
             {
                 <DocsPage Loc="Loc"
+                          Look="settings.Current"
                           Target="@docsTarget"
                           Plugins="meta"
                           ShowExperimental="settings.ShowExperimental"
@@ -395,6 +396,15 @@
                         value="@ZoomSlider"
                         @oninput="e => SetZoomSlider(e.Value?.ToString())"/>
                     <button @onclick="() => ZoomBy(1.25)">+</button>
+                </div>
+                @* notes (frame and rich text) lie in an HTML layer below the canvas, so components and wires are always in front of them *@
+                <div class="nclip nbelow">
+                    <div class="nviews" style="transform:translate(@(F(panX))px,@(F(panY))px) scale(@F(zoom))">
+                        @foreach (var t in ed.Ws.Texts.Where(t => !ReferenceEquals(t, editingNote)))
+                        {
+                            <div class="nview note-view" @key="(t.Id, false)" style="left:@(F(t.X))px;top:@(F(t.Y))px;width:@(F(t.Width))px;height:@(F(t.Height))px;z-index:@t.ZIndex">@((MarkupString)NoteHtml(t))</div>
+                        }
+                    </div>
                 </div>
                 <svg
                     class="canvas @(mode == Mode.Pan ? "grabbing" : "")"
@@ -710,10 +720,6 @@
                                    element the browser edited for the display (and the other way round) *@
                                 <div id="note-editor" class="nview note-view editing" @key="(t.Id, true)" contenteditable="true"
                                      spellcheck="false" style="@place" @onpointerdown:stopPropagation></div>
-                            }
-                            else
-                            {
-                                <div class="nview note-view" @key="(t.Id, false)" style="@place">@((MarkupString)NoteHtml(t))</div>
                             }
                         }
                         @foreach (var p in ed.Ws.Plugins.Where(n => !n.Minimized))

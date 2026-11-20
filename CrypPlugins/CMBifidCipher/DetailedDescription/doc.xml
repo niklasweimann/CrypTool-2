@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The conjugated matrix Bifid (CM Bifid) is the Bifid cipher with two squares.<newline />
+    1. Make two 5x5 squares (I and J together): the plain square from the first key word and the cipher square from the second (written in alternating verticals).<newline />
+    2. Cut the text into groups of the period (0 = the whole text). Look up every letter in the plain square and write the row numbers of the group in one line and the column numbers in a second line.<newline />
+    3. Read the two lines one after the other as a string of numbers and take two numbers at a time as row and column in the cipher square: this gives the cipher letters.<newline />
+    Decryption looks up the cipher letters in the cipher square, writes the numbers again and splits them into rows and columns.
+  </introduction>
+  <introduction lang="de-DE">
+    Das Conjugated Matrix Bifid (CM Bifid) ist die Bifid-Chiffre mit zwei Quadraten.<newline />
+    1. Bilden Sie zwei 5x5-Quadrate (I und J zusammen): das Klartextquadrat aus dem ersten Schlüsselwort und das Geheimtextquadrat aus dem zweiten (in abwechselnden Senkrechten geschrieben).<newline />
+    2. Zerlegen Sie den Text in Gruppen der Periode (0 = der ganze Text). Suchen Sie jeden Buchstaben im Klartextquadrat und schreiben Sie die Zeilennummern der Gruppe in eine Zeile und die Spaltennummern in eine zweite.<newline />
+    3. Lesen Sie die beiden Zeilen hintereinander als Zahlenfolge und nehmen Sie je zwei Zahlen als Zeile und Spalte im Geheimtextquadrat: Das ergibt die Geheimtextbuchstaben.<newline />
+    Das Entschlüsseln sucht die Geheimtextbuchstaben im Geheimtextquadrat, schreibt die Zahlen wieder hin und teilt sie in Zeilen und Spalten.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the plain square<newline />
+    <b>Cipher square key</b>: The key word of the cipher square (written in alternating verticals)
+    </section><section headline="Settings">
+    <b>Period</b>: Number of letters in a group; 0 uses the whole text
+    </section><section headline="Example">
+    The first square is given by the 25 letters of the first key, the second by the key word NOVELTY written in alternating verticals. The period is 7 (setting <b>Period</b>): the row numbers and column numbers of 7 letters are written one after the other and taken in pairs.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des Klartextquadrats<newline />
+    <b>Schlüssel des Geheimtextquadrats</b>: Das Schlüsselwort des Geheimtextquadrats (in abwechselnden Senkrechten geschrieben)
+    </section><section headline="Einstellungen">
+    <b>Periode</b>: Anzahl der Buchstaben in einer Gruppe; 0 verwendet den ganzen Text
+    </section><section headline="Beispiel">
+    Das erste Quadrat ist durch die 25 Buchstaben des ersten Schlüssels gegeben, das zweite durch das Schlüsselwort NOVELTY, in abwechselnden Senkrechten geschrieben. Die Periode ist 7 (Einstellung <b>Periode</b>): Die Zeilen- und Spaltennummern von 7 Buchstaben werden hintereinander geschrieben und paarweise genommen.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

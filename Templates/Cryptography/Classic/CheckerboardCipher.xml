@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CheckerboardCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Checkerboard Cipher</title>
+  <summary lang="en"><i>Checkerboard Cipher</i></summary>
+  <description lang="en">A Polybius square with a key word at its left and one above it: a letter is replaced by the letter of its row and the letter of its column.</description>
+  <keywords lang="en">Checkerboard, Polybius, square, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The rows are labelled BLACK, the columns WHITE. The letter N is in the first row and the second column and becomes BH. The cipher uses only the ten letters of the two words." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Checkerboard-Chiffre</title>
+  <summary lang="de"><i>Checkerboard-Chiffre</i></summary>
+  <description lang="de">Ein Polybius-Quadrat mit einem Schlüsselwort links und einem darüber: Ein Buchstabe wird durch den Buchstaben seiner Zeile und den Buchstaben seiner Spalte ersetzt.</description>
+  <keywords lang="en">Checkerboard, Polybius, square, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die Zeilen sind mit BLACK beschriftet, die Spalten mit WHITE. Der Buchstabe N steht in der ersten Zeile und der zweiten Spalte und wird zu BH. Die Chiffre benutzt nur die zehn Buchstaben der beiden Wörter." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CheckerboardCipher.png" />
+  <relevantPlugins>
+    <plugin name="CheckerboardCipher" />
+  </relevantPlugins>
+</sample>

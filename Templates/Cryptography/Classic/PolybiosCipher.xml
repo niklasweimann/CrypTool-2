@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PolybiosCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Polybius Cipher</title>
+  <summary lang="en"><i>Polybius Cipher</i></summary>
+  <description lang="en">The Polybius cipher replaces every letter by the number of its row and of its column in a 5x5 square; I and J share a cell.</description>
+  <keywords lang="en">Polybius, Polybios, square, coordinates</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="With an empty key the square holds the plain alphabet: H is in row 2, column 3 and becomes 23, A becomes 11. A key word gives a keyed square, which is better against frequency analysis. The pairs are written with a space between them." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Polybios-Chiffre</title>
+  <summary lang="de"><i>Polybios-Chiffre</i></summary>
+  <description lang="de">Die Polybios-Chiffre ersetzt jeden Buchstaben durch die Nummer seiner Zeile und seiner Spalte in einem 5x5-Quadrat; I und J teilen sich ein Feld.</description>
+  <keywords lang="en">Polybius, Polybios, square, coordinates</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Bei leerem Schlüssel enthält das Quadrat das einfache Alphabet: H steht in Zeile 2, Spalte 3 und wird zu 23, A wird zu 11. Ein Schlüsselwort ergibt ein gemischtes Quadrat, das gegen die Häufigkeitsanalyse besser schützt. Die Paare werden mit einem Leerzeichen dazwischen geschrieben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PolybiosCipher.png" />
+  <relevantPlugins>
+    <plugin name="PolybiusCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: GromarkCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Gromark Cipher</title>
+  <summary lang="en"><i>Gromark Cipher</i></summary>
+  <description lang="en">Gromark is a Gronsfeld cipher with a mixed alphabet and a running key: the digits of the key are made from a primer by adding pairs of digits (mod 10).</description>
+  <keywords lang="en">Gromark, Gronsfeld, running key, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The cipher alphabet comes from the key word ENIGMA (the columns of its transposition block, taken in alphabetical order). The primer 23452 is extended to 2 3 4 5 2 5 7 9 7 7 ...; each digit says how far to the right of the plain letter the cipher letter stands." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Gromark-Chiffre</title>
+  <summary lang="de"><i>Gromark-Chiffre</i></summary>
+  <description lang="de">Gromark ist eine Gronsfeld-Chiffre mit gemischtem Alphabet und laufendem Schlüssel: Die Ziffern des Schlüssels entstehen aus einem Primer durch Addition von Ziffernpaaren (mod 10).</description>
+  <keywords lang="en">Gromark, Gronsfeld, running key, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Geheimtextalphabet kommt aus dem Schlüsselwort ENIGMA (den Spalten seines Transpositionsblocks in alphabetischer Reihenfolge). Der Primer 23452 wird zu 2 3 4 5 2 5 7 9 7 7 ... verlängert; jede Ziffer sagt, wie weit rechts vom Klartextbuchstaben der Geheimtextbuchstabe steht." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="GromarkCipher.png" />
+  <relevantPlugins>
+    <plugin name="GromarkCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: RouteTransposition.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Route Transposition</title>
+  <summary lang="en"><i>Route Transposition</i></summary>
+  <description lang="en">The text is written into a block along one route and read from it along another, for example along diagonals and spirals.</description>
+  <keywords lang="en">route transposition, spiral, diagonal, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The block has 3 columns. The text is written in by alternating diagonals and taken out by a clockwise spiral (as in the example of the ACA). The settings {\b Write route} and {\b Read route} of the {\b Route Transposition} components offer ten routes." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Routentransposition</title>
+  <summary lang="de"><i>Routentransposition</i></summary>
+  <description lang="de">Der Text wird entlang einer Route in einen Block geschrieben und entlang einer anderen aus ihm gelesen, zum Beispiel entlang von Diagonalen und Spiralen.</description>
+  <keywords lang="en">route transposition, spiral, diagonal, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Block hat 3 Spalten. Der Text wird auf abwechselnden Diagonalen eingeschrieben und auf einer Spirale im Uhrzeigersinn herausgenommen (wie im Beispiel der ACA). Die Einstellungen {\b Schreibroute} und {\b Leseroute} der Komponenten {\b Routentransposition} bieten zehn Routen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="RouteTransposition.png" />
+  <relevantPlugins>
+    <plugin name="RouteTransposition" />
+  </relevantPlugins>
+</sample>

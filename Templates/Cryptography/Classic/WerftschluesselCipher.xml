@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: WerftschluesselCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Werftschlüssel (Reservehandverfahren)</title>
+  <summary lang="en"><i>Werftschlüssel (Reservehandverfahren)</i></summary>
+  <description lang="en">The Werftschlüssel of the German navy is a hand cipher with two steps: the groups of five letters are put into the rows of a box in a secret order, then two rows at a time are replaced pair by pair (letters above each other) with pairs from a table of all 676 double letters.</description>
+  <keywords lang="en">Werftschlüssel, Reservehandverfahren, Doppelbuchstabentauschtafel, Kriegsmarine, bigram</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="This is the example of the article on kryptografie.de. The plaintext KEINE BESONDEREN VORKOMMNISSE gives the groups KEINE BESON DEREN VORKO MMNIS SEXXX; the row order 1 3 5 2 4 6 puts them into the rows 1, 3, 5, 2, 4, 6. The pairs of rows 1 and 2 are K/V, E/O, I/R, N/K, E/O and are replaced by TC, XS, EK, HD, XS (table C of the key booklet): the first letters TXEHX and the second letters CSKDS are the first two groups of the ciphertext. The table is involutory (KV = TC and TC = KV), so the second component decrypts with the same table. Only the 14 pairs of the example are in this table; the whole table (676 pairs, 20 or 30 of them in a key booklet) can be pasted into the input." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Werftschlüssel (Reservehandverfahren)</title>
+  <summary lang="de"><i>Werftschlüssel (Reservehandverfahren)</i></summary>
+  <description lang="de">Der Werftschlüssel der deutschen Kriegsmarine ist ein Handverfahren mit zwei Schritten: Die Fünfergruppen werden in einer geheimen Reihenfolge in die Zeilen eines Kastens gesetzt, dann werden je zwei Zeilen Paar für Paar (übereinanderstehende Buchstaben) durch Paare aus einer Tafel aller 676 Doppelbuchstaben ersetzt.</description>
+  <keywords lang="en">Werftschlüssel, Reservehandverfahren, Doppelbuchstabentauschtafel, Kriegsmarine, bigram</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das ist das Beispiel aus dem Artikel auf kryptografie.de. Der Klartext KEINE BESONDEREN VORKOMMNISSE ergibt die Gruppen KEINE BESON DEREN VORKO MMNIS SEXXX; die Zeilenreihenfolge 1 3 5 2 4 6 setzt sie in die Zeilen 1, 3, 5, 2, 4, 6. Die Paare der Zeilen 1 und 2 sind K/V, E/O, I/R, N/K, E/O und werden durch TC, XS, EK, HD, XS ersetzt (Tafel C des Schlüsselhefts): Die ersten Buchstaben TXEHX und die zweiten CSKDS sind die ersten beiden Gruppen des Geheimtextes. Die Tafel ist involutorisch (KV = TC und TC = KV), die zweite Komponente entschlüsselt also mit derselben Tafel. In dieser Tafel stehen nur die 14 Paare des Beispiels; die ganze Tafel (676 Paare, 20 oder 30 davon in einem Schlüsselheft) kann in den Eingang eingefügt werden." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="WerftschluesselCipher.png" />
+  <relevantPlugins>
+    <plugin name="WerftschluesselCipher" />
+  </relevantPlugins>
+</sample>

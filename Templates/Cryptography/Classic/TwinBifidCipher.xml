@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TwinBifidCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Twin Bifid</title>
+  <summary lang="en"><i>Twin Bifid</i></summary>
+  <description lang="en">Two Bifid messages that are enciphered with the same square but with different periods have a phrase of the plaintext in common; this is the Twin Bifid exercise of the ACA.</description>
+  <keywords lang="en">Twin Bifid, Bifid, period, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The two {\b Bifid Cipher} components encipher the same text with the same key and the periods 5 and 7. For the ACA the periods should not both be even. Because the same phrase is mixed differently, the two ciphertexts give an attacker a lot of information about the square." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Twin Bifid</title>
+  <summary lang="de"><i>Twin Bifid</i></summary>
+  <description lang="de">Zwei Bifid-Nachrichten, die mit demselben Quadrat, aber mit verschiedenen Perioden verschlüsselt wurden, haben eine Phrase des Klartextes gemeinsam; das ist die Twin-Bifid-Aufgabe der ACA.</description>
+  <keywords lang="en">Twin Bifid, Bifid, period, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die beiden Komponenten {\b Bifid-Chiffre} verschlüsseln denselben Text mit demselben Schlüssel und den Perioden 5 und 7. Bei der ACA sollen die Perioden nicht beide gerade sein. Weil dieselbe Phrase verschieden gemischt wird, verraten die beiden Geheimtexte einem Angreifer viel über das Quadrat." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TwinBifidCipher.png" />
+  <relevantPlugins>
+    <plugin name="BifidCipher" />
+  </relevantPlugins>
+</sample>

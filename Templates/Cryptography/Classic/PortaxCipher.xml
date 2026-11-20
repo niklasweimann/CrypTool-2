@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: PortaxCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Portax Cipher</title>
+  <summary lang="en"><i>Portax Cipher</i></summary>
+  <description lang="en">Portax enciphers vertical pairs of letters with a slide: the two letters are opposite corners of a rectangle in the slide, the other two corners are the cipher letters. The key letter sets the slide.</description>
+  <keywords lang="en">Portax, slide, digraph, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The text is written in rows under the key word EASY, filled up with X, and each column is enciphered in pairs of two rows with the slide set by its key letter. The cipher is reciprocal: the second component, in decryption mode, performs the same operation." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Portax-Chiffre</title>
+  <summary lang="de"><i>Portax-Chiffre</i></summary>
+  <description lang="de">Portax verschlüsselt senkrechte Buchstabenpaare mit einem Schieber: Die beiden Buchstaben sind gegenüberliegende Ecken eines Rechtecks im Schieber, die anderen beiden Ecken sind die Geheimtextbuchstaben. Der Schlüsselbuchstabe stellt den Schieber ein.</description>
+  <keywords lang="en">Portax, slide, digraph, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Text wird in Zeilen unter das Schlüsselwort EASY geschrieben, mit X aufgefüllt, und jede Spalte wird in Paaren aus zwei Zeilen mit dem Schieber verschlüsselt, den ihr Schlüsselbuchstabe einstellt. Die Chiffre ist reziprok: Die zweite Komponente führt im Entschlüsselungsmodus dieselbe Operation aus." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="PortaxCipher.png" />
+  <relevantPlugins>
+    <plugin name="PortaxCipher" />
+  </relevantPlugins>
+</sample>

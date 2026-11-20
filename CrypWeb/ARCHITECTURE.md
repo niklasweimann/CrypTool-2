@@ -45,6 +45,7 @@ A short map for maintainers. The user-facing description and the list of support
 | change links to templates (format, link manager) | `CrypWeb.App/TemplateLink.cs`, `Components/LinkManager.razor`, `Home.Links.cs` |
 | change offline use (caching, installable app) | `wwwroot/service-worker.js`, `wwwroot/manifest.webmanifest`, `wwwroot/vfs.js`, `Home.Offline.cs` |
 | add a plugin to the build | `plugins.exclude`, `plugins.isolate`, then `python3 tools-gen-plugins.py` |
+| add a classic cipher (one component, one template) | algorithm in `LibSource/ClassicCipherLib`, entry in `tools_classic_specs.py`, template in `tools-gen-aca-templates.py`, then `tools-gen-classic-plugins.py`; see [ACA-CIPHERS.md](ACA-CIPHERS.md) |
 
 `Home` is one Blazor component split into partial classes, one per concern (`Home.<Concern>.cs`). The shared state
 (documents, selection, pan/zoom, drag state) lives in `Home.razor.cs`; the markup is `Home.razor`.
@@ -67,6 +68,8 @@ A short map for maintainers. The user-facing description and the list of support
 | `CrypWeb.Plugins/presentations.g.props`, `Presentations/**/*.g.cs` | `tools-gen-presentations.py` (input: `presentations.include`) |
 | `CrypWeb.Wpf/Media/Colors.g.cs` | `CrypWeb.Wpf/tools/gen-colors.py` |
 | virtual file system `manifest.json` | `tools-gen-vfs.py` |
+| `CrypPlugins/<Cipher>/` of the classic ciphers (43 components), the cipher entries of `CrypTool 2.sln` | `tools-gen-classic-plugins.py` (inputs: `tools_classic_specs.py`, the template descriptions of `tools-gen-aca-templates.py`) |
+| `Templates/Cryptography/Classic/` templates of those ciphers | `tools-gen-aca-templates.py` (needs the built `CrypWeb.Tests`) |
 | `CrypWeb.App/wwwroot/docs/` (documentation: index, one JSON per component, articles, pictures) | `tools-gen-docs.py` (run by `tools-build-web.sh`; inputs: `plugins.json`, the plugins' `doc.xml`, `Templates/**/*.xml`, `OnlineDocumentationGenerator/StaticDocs`) |
 | `CrypWeb.App/wwwroot/offline.json` (file lists of the offline dialog) | `tools-gen-offline.py` (run by `tools-build-web.sh`; needs the templates, `vfs/` and `wpf-res/`) |
 

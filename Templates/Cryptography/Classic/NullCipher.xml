@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NullCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Null Cipher</title>
+  <summary lang="en"><i>Null Cipher</i></summary>
+  <description lang="en">A null cipher hides the message in a harmless text: here the middle letter of each word is a letter of the message.</description>
+  <keywords lang="en">null cipher, steganography, concealment, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first component takes for every letter of HELP the next word of the cover text with this letter in the middle: THE, GREAT, OLD, PUMPERS. The second one reads the middle letters again. The place of the letter (first, middle, last) is a setting of the {\b Null Cipher} components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Nullen-Chiffre</title>
+  <summary lang="de"><i>Nullen-Chiffre</i></summary>
+  <description lang="de">Eine Nullen-Chiffre versteckt die Nachricht in einem harmlosen Text: Hier ist der mittlere Buchstabe jedes Wortes ein Buchstabe der Nachricht.</description>
+  <keywords lang="en">null cipher, steganography, concealment, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente nimmt für jeden Buchstaben von HELP das nächste Wort des Deckungstextes, das diesen Buchstaben in der Mitte hat: THE, GREAT, OLD, PUMPERS. Die zweite liest die mittleren Buchstaben wieder aus. Die Stelle des Buchstabens (erster, mittlerer, letzter) ist eine Einstellung der Komponenten {\b Nullen-Chiffre}." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NullCipher.png" />
+  <relevantPlugins>
+    <plugin name="NullCipher" />
+  </relevantPlugins>
+</sample>

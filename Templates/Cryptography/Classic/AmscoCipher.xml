@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: AmscoCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">AMSCO Cipher</title>
+  <summary lang="en"><i>AMSCO Cipher</i></summary>
+  <description lang="en">AMSCO is a columnar transposition in which the places of the block hold one letter or two letters alternately.</description>
+  <keywords lang="en">AMSCO, columnar transposition, digraph, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key 41325 gives the order of the columns. The first place holds two letters (setting {\b Start with a digraph}); the pattern alternates along the rows and down the columns, so the block is a checkerboard of digraphs and single letters." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">AMSCO-Chiffre</title>
+  <summary lang="de"><i>AMSCO-Chiffre</i></summary>
+  <description lang="de">AMSCO ist eine Spaltentransposition, bei der die Plätze des Blocks abwechselnd einen oder zwei Buchstaben enthalten.</description>
+  <keywords lang="en">AMSCO, columnar transposition, digraph, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Schlüssel 41325 gibt die Reihenfolge der Spalten an. Der erste Platz enthält zwei Buchstaben (Einstellung {\b Mit einem Digraph beginnen}); das Muster wechselt entlang der Zeilen und die Spalten hinunter, der Block ist also ein Schachbrett aus Digraphen und einzelnen Buchstaben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="AmscoCipher.png" />
+  <relevantPlugins>
+    <plugin name="AmscoCipher" />
+  </relevantPlugins>
+</sample>

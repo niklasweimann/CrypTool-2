@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A null cipher hides the message in an innocent text; it is a concealment (steganography), not an encryption.<newline />
+    1. For every letter of the message look for a word of the cover text that has this letter at the chosen place: the first, the middle or the last letter (for an even length the left of the two middle letters).<newline />
+    2. Write the words one after the other. The component searches the cover text from the word after the last one used and starts again at the beginning if needed.<newline />
+    3. To read the message take the chosen letter of every word of the text.
+  </introduction>
+  <introduction lang="de-DE">
+    Eine Nullen-Chiffre versteckt die Nachricht in einem harmlosen Text; sie ist eine Verdeckung (Steganografie), keine Verschlüsselung.<newline />
+    1. Suchen Sie für jeden Buchstaben der Nachricht ein Wort des Deckungstextes, das diesen Buchstaben an der gewählten Stelle hat: dem ersten, dem mittleren oder dem letzten Buchstaben (bei gerader Länge der linke der beiden mittleren).<newline />
+    2. Schreiben Sie die Wörter hintereinander. Die Komponente sucht im Deckungstext ab dem Wort nach dem zuletzt benutzten und beginnt bei Bedarf wieder am Anfang.<newline />
+    3. Zum Lesen der Nachricht nehmen Sie den gewählten Buchstaben jedes Wortes des Textes.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Cover text</b>: Words from which the cipher takes its words
+    </section><section headline="Settings">
+    <b>Null position</b>: Which letter of every word is the message
+    </section><section headline="Example">
+    The first component takes for every letter of HELP the next word of the cover text with this letter in the middle: THE, GREAT, OLD, PUMPERS. The second one reads the middle letters again. The place of the letter (first, middle, last) is a setting of the <b>Null Cipher</b> components.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Deckungstext</b>: Wörter, aus denen die Chiffre ihre Wörter nimmt
+    </section><section headline="Einstellungen">
+    <b>Stelle der Null</b>: Welcher Buchstabe jedes Wortes die Nachricht ist
+    </section><section headline="Beispiel">
+    Die erste Komponente nimmt für jeden Buchstaben von HELP das nächste Wort des Deckungstextes, das diesen Buchstaben in der Mitte hat: THE, GREAT, OLD, PUMPERS. Die zweite liest die mittleren Buchstaben wieder aus. Die Stelle des Buchstabens (erster, mittlerer, letzter) ist eine Einstellung der Komponenten <b>Nullen-Chiffre</b>.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

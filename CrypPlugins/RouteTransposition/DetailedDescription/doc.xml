@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    In a route transposition the text is written into a block along one route and read from it along another.<newline />
+    1. The block has the width given in the settings; the text is filled up with X to a full block.<newline />
+    2. The routes (all start at the top left): rows, columns, alternating rows or columns, diagonals, alternating diagonals (zigzag), and spirals inwards or outwards, clockwise or counterclockwise.<newline />
+    3. Write the text along the write route, read it along the read route. Decryption writes along the read route and reads along the write route.
+  </introduction>
+  <introduction lang="de-DE">
+    Bei einer Routentransposition wird der Text entlang einer Route in einen Block geschrieben und entlang einer anderen daraus gelesen.<newline />
+    1. Der Block hat die in den Einstellungen gewählte Breite; der Text wird mit X zu einem vollen Block aufgefüllt.<newline />
+    2. Die Routen (alle beginnen oben links): Zeilen, Spalten, Zeilen oder Spalten im Wechsel, Diagonalen, Diagonalen im Wechsel (Zickzack) und Spiralen nach innen oder außen, im oder gegen den Uhrzeigersinn.<newline />
+    3. Schreiben Sie den Text entlang der Schreibroute und lesen Sie ihn entlang der Leseroute. Das Entschlüsseln schreibt entlang der Leseroute und liest entlang der Schreibroute.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt
+    </section><section headline="Settings">
+    <b>Columns</b>: Width of the block<newline />
+    <b>Write route</b>: The path along which the text is written into the block<newline />
+    <b>Read route</b>: The path along which the text is read from the block
+    </section><section headline="Example">
+    The block has 3 columns. The text is written in by alternating diagonals and taken out by a clockwise spiral (as in the example of the ACA). The settings <b>Write route</b> and <b>Read route</b> of the <b>Route Transposition</b> components offer ten routes.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll
+    </section><section headline="Einstellungen">
+    <b>Spalten</b>: Breite des Blocks<newline />
+    <b>Schreibroute</b>: Der Weg, auf dem der Text in den Block geschrieben wird<newline />
+    <b>Leseroute</b>: Der Weg, auf dem der Text aus dem Block gelesen wird
+    </section><section headline="Beispiel">
+    Der Block hat 3 Spalten. Der Text wird auf abwechselnden Diagonalen eingeschrieben und auf einer Spirale im Uhrzeigersinn herausgenommen (wie im Beispiel der ACA). Die Einstellungen <b>Schreibroute</b> und <b>Leseroute</b> der Komponenten <b>Routentransposition</b> bieten zehn Routen.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

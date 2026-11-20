@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Nicodemus cipher combines three steps with one key word.<newline />
+    1. Columnar transposition: write the text in rows under the key word and take the columns in the alphabetical order of its letters; the columns now stand in that order.<newline />
+    2. Vigenère: add to every letter of a column the key letter that stands over it (the key word sorted alphabetically).<newline />
+    3. Read the letters off five at a time from every column in turn (from top to bottom); what is left of a column at the end is taken as it is.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Nicodemus-Chiffre verbindet drei Schritte mit einem Schlüsselwort.<newline />
+    1. Spaltentransposition: Schreiben Sie den Text zeilenweise unter das Schlüsselwort und nehmen Sie die Spalten in der alphabetischen Reihenfolge seiner Buchstaben; die Spalten stehen nun in dieser Reihenfolge.<newline />
+    2. Vigenère: Addieren Sie zu jedem Buchstaben einer Spalte den Schlüsselbuchstaben, der darüber steht (das alphabetisch sortierte Schlüsselwort).<newline />
+    3. Lesen Sie die Buchstaben jeweils fünf auf einmal aus jeder Spalte der Reihe nach (von oben nach unten); was am Ende von einer Spalte übrig ist, wird so genommen, wie es ist.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word
+    </section><section headline="Example">
+    With the key CAT the columns are put in the order A, C, T and enciphered with the key letters A, C, T; then the first five letters of every column are taken, then the next five, and so on.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort
+    </section><section headline="Beispiel">
+    Mit dem Schlüssel CAT werden die Spalten in die Reihenfolge A, C, T gebracht und mit den Schlüsselbuchstaben A, C, T verschlüsselt; danach werden die ersten fünf Buchstaben jeder Spalte genommen, dann die nächsten fünf und so weiter.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

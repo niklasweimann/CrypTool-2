@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Seriated Playfair writes the text in groups of two lines and enciphers the vertical pairs with the Playfair rules.<newline />
+    1. Make the 5x5 square from the key word (I and J together).<newline />
+    2. Write the text in groups: a line of the period length, then a second line of the same length under it. If a vertical pair would be a double letter, an X is put into the lower line.<newline />
+    3. Encipher every vertical pair: same row, take the letters to the right; same column, take the letters below; otherwise the other corners of the rectangle.<newline />
+    4. The ciphertext is the two lines of every group one after the other.
+  </introduction>
+  <introduction lang="de-DE">
+    Seriated Playfair schreibt den Text in Gruppen aus zwei Zeilen und verschlüsselt die senkrechten Paare nach den Playfair-Regeln.<newline />
+    1. Bilden Sie das 5x5-Quadrat aus dem Schlüsselwort (I und J zusammen).<newline />
+    2. Schreiben Sie den Text in Gruppen: eine Zeile von der Länge der Periode, darunter eine zweite Zeile derselben Länge. Wäre ein senkrechtes Paar ein Doppelbuchstabe, wird ein X in die untere Zeile gesetzt.<newline />
+    3. Verschlüsseln Sie jedes senkrechte Paar: gleiche Zeile, die Buchstaben rechts davon; gleiche Spalte, die Buchstaben darunter; sonst die anderen Ecken des Rechtecks.<newline />
+    4. Der Geheimtext besteht aus den beiden Zeilen jeder Gruppe nacheinander.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the square
+    </section><section headline="Settings">
+    <b>Period</b>: Number of letters in a line of a group
+    </section><section headline="Example">
+    With the period 6 the first group is COMEQU over ICKLYW (setting <b>Period</b>). If a vertical pair would be a double letter, an X is put into the lower line. The ciphertext is the two lines of every group one after the other.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des Quadrats
+    </section><section headline="Einstellungen">
+    <b>Periode</b>: Anzahl der Buchstaben in einer Zeile einer Gruppe
+    </section><section headline="Beispiel">
+    Bei der Periode 6 ist die erste Gruppe COMEQU über ICKLYW (Einstellung <b>Periode</b>). Wäre ein senkrechtes Paar ein Doppelbuchstabe, wird ein X in die untere Zeile gesetzt. Der Geheimtext besteht aus den beiden Zeilen jeder Gruppe nacheinander.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

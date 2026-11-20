@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: VariantCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Variant Cipher</title>
+  <summary lang="en"><i>Variant Cipher</i></summary>
+  <description lang="en">The Variant cipher is the Vigenère cipher with the subtraction C = P - K instead of the addition: encrypting with the Variant cipher is decrypting with the Vigenère cipher, and the other way round.</description>
+  <keywords lang="en">Variant, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first {\b Vigenère} component is set to {\b Decrypt}: it subtracts the key letters of APPLE from the plaintext letters (A = 0, B = 1, ...), which is the Variant encipherment. The second component, set to {\b Encrypt}, adds them again." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Variant-Chiffre</title>
+  <summary lang="de"><i>Variant-Chiffre</i></summary>
+  <description lang="de">Die Variant-Chiffre ist die Vigenère-Chiffre mit der Subtraktion C = P - K statt der Addition: Mit der Variant-Chiffre zu verschlüsseln heißt, mit der Vigenère-Chiffre zu entschlüsseln, und umgekehrt.</description>
+  <keywords lang="en">Variant, Vigenère, polyalphabetic, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Komponente {\b Vigenère} ist auf {\b Entschlüsseln} gestellt: Sie zieht die Schlüsselbuchstaben von APPLE von den Klartextbuchstaben ab (A = 0, B = 1, ...), das ist die Verschlüsselung der Variant-Chiffre. Die zweite Komponente, auf {\b Verschlüsseln} gestellt, addiert sie wieder." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="VariantCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: FractionatedMorseCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Fractionated Morse Cipher</title>
+  <summary lang="en"><i>Fractionated Morse Cipher</i></summary>
+  <description lang="en">The text is written in Morse code (x between letters, xx between words), the dots, dashes and x are taken in groups of three, and every group is a letter of a keyed alphabet.</description>
+  <keywords lang="en">fractionated Morse, Morse, fractionation, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="There are 26 groups of three (all but xxx), one for each letter of the keyed alphabet ROUNDTABLE... The first group &quot;-.-&quot; becomes C. The second component decrypts to the Morse code and from there back to the text." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Fraktioniertes Morse</title>
+  <summary lang="de"><i>Fraktioniertes Morse</i></summary>
+  <description lang="de">Der Text wird in Morsecode geschrieben (x zwischen Buchstaben, xx zwischen Wörtern), die Punkte, Striche und x werden in Dreiergruppen genommen, und jede Gruppe ist ein Buchstabe eines gemischten Alphabets.</description>
+  <keywords lang="en">fractionated Morse, Morse, fractionation, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Es gibt 26 Dreiergruppen (alle außer xxx), je eine für jeden Buchstaben des gemischten Alphabets ROUNDTABLE... Die erste Gruppe &quot;-.-&quot; wird zu C. Die zweite Komponente entschlüsselt zum Morsecode und von dort zurück zum Text." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="FractionatedMorseCipher.png" />
+  <relevantPlugins>
+    <plugin name="FractionatedMorseCipher" />
+  </relevantPlugins>
+</sample>

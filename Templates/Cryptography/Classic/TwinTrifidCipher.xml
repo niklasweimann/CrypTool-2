@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TwinTrifidCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Twin Trifid</title>
+  <summary lang="en"><i>Twin Trifid</i></summary>
+  <description lang="en">Two Trifid messages that are enciphered with the same key but with different periods have a phrase of the plaintext in common; this is the Twin Trifid exercise of the ACA.</description>
+  <keywords lang="en">Twin Trifid, Trifid, period, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The two {\b Trifid Cipher} components encipher the same text with the same key and the periods 5 and 7. For the ACA the periods should not both be divisible by three." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Twin Trifid</title>
+  <summary lang="de"><i>Twin Trifid</i></summary>
+  <description lang="de">Zwei Trifid-Nachrichten, die mit demselben Schlüssel, aber mit verschiedenen Perioden verschlüsselt wurden, haben eine Phrase des Klartextes gemeinsam; das ist die Twin-Trifid-Aufgabe der ACA.</description>
+  <keywords lang="en">Twin Trifid, Trifid, period, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die beiden Komponenten {\b Trifid-Chiffre} verschlüsseln denselben Text mit demselben Schlüssel und den Perioden 5 und 7. Bei der ACA sollen die Perioden nicht beide durch drei teilbar sein." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TwinTrifidCipher.png" />
+  <relevantPlugins>
+    <plugin name="TrifidCipher" />
+  </relevantPlugins>
+</sample>

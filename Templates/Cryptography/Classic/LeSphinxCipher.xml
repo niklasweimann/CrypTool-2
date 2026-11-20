@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: LeSphinxCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Le Sphinx</title>
+  <summary lang="en"><i>Le Sphinx</i></summary>
+  <description lang="en">Le Sphinx is a French pocket device (about 1930) with ten lanes of sliding alphabet bars: ten letters are enciphered at once, every letter by the bar of its lane.</description>
+  <keywords lang="en">Le Sphinx, Lugagne, strip cipher, sliding alphabets</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="In every lane an upper bar (plaintext) and a lower bar (ciphertext) are moved together. The key lists the numbers of the 20 bars; with the arrangement 1 to 20 the example of Crypto Museum TOPSECRETS gives IRUVPYQHWB: T is at place 19 of the first bar, and the first lower bar (11) has I there. A text longer than 10 letters starts again with the first lane." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Le Sphinx</title>
+  <summary lang="de"><i>Le Sphinx</i></summary>
+  <description lang="de">Le Sphinx ist ein französisches Taschengerät (um 1930) mit zehn Bahnen aus verschiebbaren Alphabetschienen: Zehn Buchstaben werden auf einmal verschlüsselt, jeder durch die Schiene seiner Bahn.</description>
+  <keywords lang="en">Le Sphinx, Lugagne, strip cipher, sliding alphabets</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="In jeder Bahn werden eine obere Schiene (Klartext) und eine untere (Geheimtext) zusammen verschoben. Der Schlüssel nennt die Nummern der 20 Schienen; mit der Anordnung 1 bis 20 ergibt das Beispiel des Crypto Museum TOPSECRETS die Buchstaben IRUVPYQHWB: T steht an Stelle 19 der ersten Schiene, und die erste untere Schiene (11) hat dort I. Ein Text von mehr als 10 Buchstaben beginnt wieder mit der ersten Bahn." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="LeSphinxCipher.png" />
+  <relevantPlugins>
+    <plugin name="LeSphinxCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Digrafid is a fractionating digraphic cipher of the ACA with two mixed alphabets of 27 symbols (the letters and #).<newline />
+    1. The first key word fills a table of 3 rows and 9 columns row by row (horizontal alphabet); the second fills a table of 9 rows and 3 columns column by column (vertical alphabet).<newline />
+    2. Cut the text into pairs (an odd text gets a #). A pair gives three digits: the column of the first letter in the horizontal alphabet, then a digit from its row (3 rows) and the column of the second letter in the vertical alphabet, and the row of the second letter.<newline />
+    3. The digits of a group of pairs (the period) are written under each other and read by lines; every three digits give a new pair from the two alphabets.
+  </introduction>
+  <introduction lang="de-DE">
+    Digrafid ist eine fraktionierende digraphische Chiffre der ACA mit zwei gemischten Alphabeten aus 27 Zeichen (den Buchstaben und #).<newline />
+    1. Das erste Schlüsselwort füllt eine Tabelle aus 3 Zeilen und 9 Spalten zeilenweise (waagerechtes Alphabet); das zweite füllt eine Tabelle aus 9 Zeilen und 3 Spalten spaltenweise (senkrechtes Alphabet).<newline />
+    2. Zerlegen Sie den Text in Paare (ein ungerader Text erhält ein #). Ein Paar ergibt drei Ziffern: die Spalte des ersten Buchstabens im waagerechten Alphabet, dann eine Ziffer aus seiner Zeile (3 Zeilen) und der Spalte des zweiten Buchstabens im senkrechten Alphabet, und die Zeile des zweiten Buchstabens.<newline />
+    3. Die Ziffern einer Gruppe von Paaren (der Periode) werden untereinander geschrieben und zeilenweise gelesen; je drei Ziffern ergeben ein neues Paar aus den beiden Alphabeten.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the horizontal alphabet<newline />
+    <b>Key of the vertical alphabet</b>: The key word of the vertical alphabet
+    </section><section headline="Settings">
+    <b>Period</b>: Number of pairs of letters in a group
+    </section><section headline="Example">
+    The horizontal alphabet comes from the key word KEYWORD, the vertical one from VERTICAL. With the period 3 (setting <b>Period</b>) the digits of 3 pairs are written under each other and read by lines. # is the 27th symbol; an odd text gets one.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des waagerechten Alphabets<newline />
+    <b>Schlüssel des senkrechten Alphabets</b>: Das Schlüsselwort des senkrechten Alphabets
+    </section><section headline="Einstellungen">
+    <b>Periode</b>: Anzahl der Buchstabenpaare in einer Gruppe
+    </section><section headline="Beispiel">
+    Das waagerechte Alphabet kommt aus dem Schlüsselwort KEYWORD, das senkrechte aus VERTICAL. Bei der Periode 3 (Einstellung <b>Periode</b>) werden die Ziffern von 3 Paaren untereinander geschrieben und zeilenweise gelesen. # ist das 27. Zeichen; ein ungerader Text erhält eines.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

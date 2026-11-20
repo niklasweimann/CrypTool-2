@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: HomophonicCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Homophonic Cipher (ACA)</title>
+  <summary lang="en"><i>Homophonic Cipher (ACA)</i></summary>
+  <description lang="en">Every letter has four two-digit numbers (01 to 00 in four rows of 25); the four letters of the key word say where the numbers of the rows start.</description>
+  <keywords lang="en">homophonic, substitution, numbers, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word GOLF gives G the number 01, O the number 26, L the number 51 and F the number 76. The component takes the four rows in turn, so repeated letters get different numbers." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Homophone Chiffre (ACA)</title>
+  <summary lang="de"><i>Homophone Chiffre (ACA)</i></summary>
+  <description lang="de">Jeder Buchstabe hat vier zweistellige Zahlen (01 bis 00 in vier Zeilen zu 25); die vier Buchstaben des Schlüsselworts sagen, wo die Zahlen der Zeilen beginnen.</description>
+  <keywords lang="en">homophonic, substitution, numbers, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort GOLF gibt G die Nummer 01, O die Nummer 26, L die Nummer 51 und F die Nummer 76. Die Komponente nimmt die vier Zeilen der Reihe nach, wiederholte Buchstaben erhalten also verschiedene Nummern." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="HomophonicCipher.png" />
+  <relevantPlugins>
+    <plugin name="HomophonicCipher" />
+  </relevantPlugins>
+</sample>

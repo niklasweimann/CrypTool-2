@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SlidefairCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Slidefair Cipher</title>
+  <summary lang="en"><i>Slidefair Cipher</i></summary>
+  <description lang="en">Slidefair enciphers pairs of letters: the first one is looked up in the top alphabet, the second one in the row of a Vigenère, Variant or Beaufort table that the key letter selects. The other corners of the rectangle are the cipher letters.</description>
+  <keywords lang="en">Slidefair, digraph, Vigenère, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The key word DIGRAPH gives the period 7: the pairs use the key letters D, I, G, R, A, P, H one after the other. Choose another table (Variant or Beaufort) in the settings of the {\b Slidefair Cipher} components." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Slidefair-Chiffre</title>
+  <summary lang="de"><i>Slidefair-Chiffre</i></summary>
+  <description lang="de">Slidefair verschlüsselt Buchstabenpaare: Der erste wird im oberen Alphabet gesucht, der zweite in der Zeile einer Vigenère-, Variant- oder Beaufort-Tabelle, die der Schlüsselbuchstabe wählt. Die anderen Ecken des Rechtecks sind die Geheimtextbuchstaben.</description>
+  <keywords lang="en">Slidefair, digraph, Vigenère, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das Schlüsselwort DIGRAPH ergibt die Periode 7: Die Paare benutzen nacheinander die Schlüsselbuchstaben D, I, G, R, A, P, H. Wählen Sie in den Einstellungen der Komponenten {\b Slidefair-Chiffre} eine andere Tabelle (Variant oder Beaufort)." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SlidefairCipher.png" />
+  <relevantPlugins>
+    <plugin name="SlidefairCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Quagmire3Cipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Quagmire III Cipher</title>
+  <summary lang="en"><i>Quagmire III Cipher</i></summary>
+  <description lang="en">A Quagmire is a periodic cipher with keyed alphabets. The indicator key gives the period and the setting of the cipher alphabet against the plain alphabet; every letter of the indicator selects one alternative alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Quagmire III uses the same keyed alphabet (key word AUTOMOBILE) as plain and cipher alphabet. The indicator HIGHWAY has 7 letters, so the period is 7." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Quagmire-III-Chiffre</title>
+  <summary lang="de"><i>Quagmire-III-Chiffre</i></summary>
+  <description lang="de">Ein Quagmire ist eine periodische Chiffre mit gemischten Alphabeten. Der Indikator bestimmt die Periode und die Stellung des Geheimtextalphabets gegen das Klartextalphabet; jeder Buchstabe des Indikators wählt ein anderes Alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Quagmire III verwendet dasselbe gemischte Alphabet (Schlüsselwort AUTOMOBILE) als Klartext- und Geheimtextalphabet. Der Indikator HIGHWAY hat 7 Buchstaben, die Periode ist also 7." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Quagmire3Cipher.png" />
+  <relevantPlugins>
+    <plugin name="Quagmire3Cipher" />
+  </relevantPlugins>
+</sample>

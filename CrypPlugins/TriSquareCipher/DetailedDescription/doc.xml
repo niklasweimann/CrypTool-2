@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Tri-Square encipherment of a pair of letters with three squares gives three cipher letters.<newline />
+    1. Make three 5x5 squares from three key words (I and J together).<newline />
+    2. Cut the text into pairs. Find the first letter in square 1 and the second in square 2.<newline />
+    3. First cipher letter: any letter of the column of the first plaintext letter in square 1 (this component takes the rows in turn). Second: the letter of square 3 in the row of the first and the column of the second plaintext letter. Third: any letter of the row of the second plaintext letter in square 2.<newline />
+    Decryption needs the column of the first, the row and column in square 3 and the row of the third letter to find the pair.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Tri-Square-Verschlüsselung eines Buchstabenpaares mit drei Quadraten ergibt drei Geheimtextbuchstaben.<newline />
+    1. Bilden Sie drei 5x5-Quadrate aus drei Schlüsselwörtern (I und J zusammen).<newline />
+    2. Zerlegen Sie den Text in Paare. Suchen Sie den ersten Buchstaben in Quadrat 1 und den zweiten in Quadrat 2.<newline />
+    3. Erster Geheimtextbuchstabe: ein beliebiger Buchstabe der Spalte des ersten Klartextbuchstabens in Quadrat 1 (diese Komponente nimmt die Zeilen der Reihe nach). Zweiter: der Buchstabe von Quadrat 3 in der Zeile des ersten und der Spalte des zweiten Klartextbuchstabens. Dritter: ein beliebiger Buchstabe der Zeile des zweiten Klartextbuchstabens in Quadrat 2.<newline />
+    Das Entschlüsseln braucht die Spalte des ersten, Zeile und Spalte in Quadrat 3 und die Zeile des dritten Buchstabens, um das Paar zu finden.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key 1</b>: The key word of square 1<newline />
+    <b>Key 2</b>: The key word of square 2<newline />
+    <b>Key 3</b>: The key word of square 3
+    </section><section headline="Example">
+    The first plaintext letter is looked up in square 1, the second in square 2. The first cipher letter is a letter of the column of the first one in square 1, the second one is the letter of square 3 where row and column meet, the third is a letter of the row of the second one in square 2. The component takes the free letters in turn.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel 1</b>: Das Schlüsselwort des Quadrats 1<newline />
+    <b>Schlüssel 2</b>: Das Schlüsselwort des Quadrats 2<newline />
+    <b>Schlüssel 3</b>: Das Schlüsselwort des Quadrats 3
+    </section><section headline="Beispiel">
+    Der erste Klartextbuchstabe wird in Quadrat 1 gesucht, der zweite in Quadrat 2. Der erste Geheimtextbuchstabe ist ein Buchstabe der Spalte des ersten in Quadrat 1, der zweite der Buchstabe von Quadrat 3, an dem sich Zeile und Spalte treffen, der dritte ein Buchstabe der Zeile des zweiten in Quadrat 2. Die Komponente nimmt die freien Buchstaben der Reihe nach.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

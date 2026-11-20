@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Le Sphinx is a French pocket device made by Georges Lugagne's company in Paris (about 1930; the earlier Transpositeur is from 1912). It has ten lanes with two sliding alphabet bars each.<newline />
+    1. In every lane an upper bar (plaintext) and a lower bar (ciphertext) move together; a bar is one of 20 scrambled alphabets numbered 1 to 20. Bars 1 to 10 are ascending alphabets, bars 11 to 20 descending ones.<newline />
+    2. The key is the arrangement of the bars: the numbers of the 10 upper bars, then of the 10 lower bars (1 2 ... 10 and 11 12 ... 20 without a key).<newline />
+    3. Ten letters are enciphered at once, one in every lane: the letter is set in the upper window of its lane, the cipher letter stands at the same place in the lower bar. The next group of ten starts again with the first lane.<newline />
+    Because the arrangement of the bars does not change during a message, the cipher is not very secure.
+  </introduction>
+  <introduction lang="de-DE">
+    Le Sphinx ist ein französisches Taschengerät der Firma von Georges Lugagne in Paris (um 1930; der frühere Transpositeur stammt von 1912). Es hat zehn Bahnen mit je zwei verschiebbaren Alphabetschienen.<newline />
+    1. In jeder Bahn bewegen sich eine obere Schiene (Klartext) und eine untere (Geheimtext) zusammen; eine Schiene ist eines von 20 gemischten Alphabeten mit den Nummern 1 bis 20. Die Schienen 1 bis 10 sind aufsteigende Alphabete, die Schienen 11 bis 20 absteigende.<newline />
+    2. Der Schlüssel ist die Anordnung der Schienen: die Nummern der 10 oberen Schienen, dann der 10 unteren (ohne Schlüssel 1 2 ... 10 und 11 12 ... 20).<newline />
+    3. Zehn Buchstaben werden auf einmal verschlüsselt, einer in jeder Bahn: Der Buchstabe wird im oberen Fenster seiner Bahn eingestellt, der Geheimtextbuchstabe steht an derselben Stelle der unteren Schiene. Die nächste Zehnergruppe beginnt wieder mit der ersten Bahn.<newline />
+    Weil sich die Anordnung der Schienen während eines Spruchs nicht ändert, ist die Chiffre nicht sehr sicher.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The numbers 1 to 20 of the bars: first the 10 upper bars, then the 10 lower bars of the lanes; without a key 1 2 ... 20
+    </section><section headline="Example">
+    In every lane an upper bar (plaintext) and a lower bar (ciphertext) are moved together. The key lists the numbers of the 20 bars; with the arrangement 1 to 20 the example of Crypto Museum TOPSECRETS gives IRUVPYQHWB: T is at place 19 of the first bar, and the first lower bar (11) has I there. A text longer than 10 letters starts again with the first lane.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Die Nummern 1 bis 20 der Schienen: erst die 10 oberen, dann die 10 unteren Schienen der Bahnen; ohne Schlüssel 1 2 ... 20
+    </section><section headline="Beispiel">
+    In jeder Bahn werden eine obere Schiene (Klartext) und eine untere (Geheimtext) zusammen verschoben. Der Schlüssel nennt die Nummern der 20 Schienen; mit der Anordnung 1 bis 20 ergibt das Beispiel des Crypto Museum TOPSECRETS die Buchstaben IRUVPYQHWB: T steht an Stelle 19 der ersten Schiene, und die erste untere Schiene (11) hat dort I. Ein Text von mehr als 10 Buchstaben beginnt wieder mit der ersten Bahn.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

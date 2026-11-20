@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The interrupted key cipher is a periodic cipher (Vigenère, Variant or Beaufort) whose key word is interrupted: after some letters it starts again from its first letter.<newline />
+    1. The second key lists the lengths of the pieces of the key word that are used, for example 4 6 2 3 (the list repeats when the text is longer).<newline />
+    2. Build the key text: the first 4 letters of the key word, then its first 6 letters, then the first 2, and so on.<newline />
+    3. Encipher the letters of the text with this key text. The ACA asks that the whole key word is used at least once.
+  </introduction>
+  <introduction lang="de-DE">
+    Die Chiffre mit unterbrochenem Schlüssel ist eine periodische Chiffre (Vigenère, Variant oder Beaufort), deren Schlüsselwort unterbrochen wird: Nach einigen Buchstaben beginnt es wieder beim ersten Buchstaben.<newline />
+    1. Der zweite Schlüssel nennt die Längen der benutzten Stücke des Schlüsselworts, zum Beispiel 4 6 2 3 (die Liste wiederholt sich, wenn der Text länger ist).<newline />
+    2. Bilden Sie den Schlüsseltext: die ersten 4 Buchstaben des Schlüsselworts, dann seine ersten 6 Buchstaben, dann die ersten 2 und so weiter.<newline />
+    3. Verschlüsseln Sie die Buchstaben des Textes mit diesem Schlüsseltext. Die ACA verlangt, dass das ganze Schlüsselwort mindestens einmal benutzt wird.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word<newline />
+    <b>Interruptions</b>: The lengths of the pieces of the key word that are used, e.g. "4 6 2 3" (the list is repeated)
+    </section><section headline="Settings">
+    <b>Table</b>: The table of the encipherment: Vigenère, Variant or Beaufort
+    </section><section headline="Example">
+    The key word is ORANGE; the second key gives the lengths of the pieces that are used: 4 letters (ORAN), then 6 (ORANGE), then 2 (OR) and so on, as in the example of the ACA. The entire key word has to be used at least once.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort<newline />
+    <b>Unterbrechungen</b>: Die Längen der benutzten Stücke des Schlüsselworts, z. B. "4 6 2 3" (die Liste wird wiederholt)
+    </section><section headline="Einstellungen">
+    <b>Tabelle</b>: Die Tabelle der Verschlüsselung: Vigenère, Variant oder Beaufort
+    </section><section headline="Beispiel">
+    Das Schlüsselwort ist ORANGE; der zweite Schlüssel gibt die Längen der benutzten Stücke an: 4 Buchstaben (ORAN), dann 6 (ORANGE), dann 2 (OR) und so weiter, wie im Beispiel der ACA. Das ganze Schlüsselwort muss mindestens einmal benutzt werden.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

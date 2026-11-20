@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: CompressocratCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Compressocrat Cipher</title>
+  <summary lang="en"><i>Compressocrat Cipher</i></summary>
+  <description lang="en">Compressocrat compresses the plaintext with a Huffman-like code of digits (1, 2, 3), takes the digits in groups of three and replaces every group by a letter of a keyed alphabet.</description>
+  <keywords lang="en">Compressocrat, Huffman, fractionation, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Frequent letters have short codes (E = 31, T = 12), rare ones long codes (Z = 321113). The alphabet comes from FRACTION and is moved by 2 places (setting {\b Alphabet shift}). The ciphertext is shorter than the plaintext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Compressocrat-Chiffre</title>
+  <summary lang="de"><i>Compressocrat-Chiffre</i></summary>
+  <description lang="de">Compressocrat komprimiert den Klartext mit einem Huffman-ähnlichen Code aus Ziffern (1, 2, 3), nimmt die Ziffern in Dreiergruppen und ersetzt jede Gruppe durch einen Buchstaben eines gemischten Alphabets.</description>
+  <keywords lang="en">Compressocrat, Huffman, fractionation, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Häufige Buchstaben haben kurze Codes (E = 31, T = 12), seltene lange (Z = 321113). Das Alphabet kommt aus FRACTION und ist um 2 Stellen verschoben (Einstellung {\b Alphabetverschiebung}). Der Geheimtext ist kürzer als der Klartext." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="CompressocratCipher.png" />
+  <relevantPlugins>
+    <plugin name="CompressocratCipher" />
+  </relevantPlugins>
+</sample>

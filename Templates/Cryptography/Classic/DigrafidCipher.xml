@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: DigrafidCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Digrafid Cipher</title>
+  <summary lang="en"><i>Digrafid Cipher</i></summary>
+  <description lang="en">Digrafid gives every pair of letters a three-digit number from a table with two mixed alphabets, fractionates the digits over a group of pairs and converts them back to pairs.</description>
+  <keywords lang="en">Digrafid, fractionation, digraph, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The horizontal alphabet comes from the key word KEYWORD, the vertical one from VERTICAL. With the period 3 (setting {\b Period}) the digits of 3 pairs are written under each other and read by lines. # is the 27th symbol; an odd text gets one." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Digrafid-Chiffre</title>
+  <summary lang="de"><i>Digrafid-Chiffre</i></summary>
+  <description lang="de">Digrafid gibt jedem Buchstabenpaar eine dreistellige Zahl aus einer Tabelle mit zwei gemischten Alphabeten, mischt die Ziffern über eine Gruppe von Paaren und wandelt sie zurück in Paare.</description>
+  <keywords lang="en">Digrafid, fractionation, digraph, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das waagerechte Alphabet kommt aus dem Schlüsselwort KEYWORD, das senkrechte aus VERTICAL. Bei der Periode 3 (Einstellung {\b Periode}) werden die Ziffern von 3 Paaren untereinander geschrieben und zeilenweise gelesen. # ist das 27. Zeichen; ein ungerader Text erhält eines." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="DigrafidCipher.png" />
+  <relevantPlugins>
+    <plugin name="DigrafidCipher" />
+  </relevantPlugins>
+</sample>

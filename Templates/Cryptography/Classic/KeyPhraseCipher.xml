@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: KeyPhraseCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Key Phrase Cipher</title>
+  <summary lang="en"><i>Key Phrase Cipher</i></summary>
+  <description lang="en">The cipher alphabet is a phrase of exactly 26 letters under the straight plain alphabet. Letters of the phrase occur several times, so a cipher letter can stand for more than one plain letter.</description>
+  <keywords lang="en">key phrase, substitution, ambiguous, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="This is a simple substitution, so the {\b Substitution} component does it: the source alphabet is A to Z, the destination alphabet is the phrase GIVE ME LIBERTY OR GIVE ME DEATH (26 letters). Decryption is not unique because letters of the phrase repeat." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Schlüsselsatz-Chiffre</title>
+  <summary lang="de"><i>Schlüsselsatz-Chiffre</i></summary>
+  <description lang="de">Das Geheimtextalphabet ist ein Satz aus genau 26 Buchstaben unter dem geraden Klartextalphabet. Buchstaben des Satzes kommen mehrfach vor, ein Geheimtextbuchstabe kann also für mehrere Klartextbuchstaben stehen.</description>
+  <keywords lang="en">key phrase, substitution, ambiguous, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Das ist eine einfache Substitution, die Komponente {\b Substitution} erledigt sie also: Das Quellalphabet ist A bis Z, das Zielalphabet der Satz GIVE ME LIBERTY OR GIVE ME DEATH (26 Buchstaben). Das Entschlüsseln ist nicht eindeutig, weil sich Buchstaben des Satzes wiederholen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="KeyPhraseCipher.png" />
+  <relevantPlugins>
+    <plugin name="Substitution" />
+  </relevantPlugins>
+</sample>

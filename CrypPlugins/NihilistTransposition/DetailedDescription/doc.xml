@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The Nihilist transposition moves the columns and the rows of a square with the same key.<newline />
+    1. The key (word or number) gives the size n of the square; the text is written into n x n squares (filled up with X).<newline />
+    2. The key says where every column goes: the column in the place k of the key goes to the place with the rank of the key digit (writing-in key); the same holds for the rows.<newline />
+    3. The square is read by rows or by columns (setting).
+  </introduction>
+  <introduction lang="de-DE">
+    Die Nihilisten-Transposition verschiebt die Spalten und Zeilen eines Quadrats mit demselben Schlüssel.<newline />
+    1. Der Schlüssel (Wort oder Zahl) gibt die Größe n des Quadrats an; der Text wird in n x n große Quadrate geschrieben (mit X aufgefüllt).<newline />
+    2. Der Schlüssel sagt, wohin jede Spalte kommt: Die Spalte an der Stelle k des Schlüssels kommt an die Stelle mit dem Rang der Schlüsselziffer (Einschreibeschlüssel); für die Zeilen gilt dasselbe.<newline />
+    3. Das Quadrat wird zeilenweise oder spaltenweise gelesen (Einstellung).
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key (word or number); the text fills squares as wide as the key is long
+    </section><section headline="Settings">
+    <b>Read by columns</b>: The square is read by columns (otherwise by rows)
+    </section><section headline="Example">
+    The key 2134 says that the 1st column goes to the 2nd place, the 2nd to the 1st and so on, and the same for the rows. In this template the square is read by rows; the setting <b>Read by columns</b> of the <b>Nihilist Transposition</b> components reads it by columns.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Der Schlüssel (Wort oder Zahl); der Text füllt Quadrate, die so breit sind wie der Schlüssel lang ist
+    </section><section headline="Einstellungen">
+    <b>Spaltenweise lesen</b>: Das Quadrat wird spaltenweise gelesen (sonst zeilenweise)
+    </section><section headline="Beispiel">
+    Der Schlüssel 2134 sagt, dass die 1. Spalte an die 2. Stelle kommt, die 2. an die 1. und so weiter, und dasselbe gilt für die Zeilen. In dieser Vorlage wird das Quadrat zeilenweise gelesen; die Einstellung <b>Spaltenweise lesen</b> der Komponenten <b>Nihilisten-Transposition</b> liest es spaltenweise.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Swagman is a transposition with a Latin square as key.<newline />
+    1. The key square has n rows and n columns with the numbers 1 to n, no number repeating in a row or a column (rows separated by spaces).<newline />
+    2. The text is written row by row into a rectangle of n rows (filled up with X); the key square is repeated along the columns.<newline />
+    3. Within every column the letter of row r moves to the row that the key square gives for row r in that column.<newline />
+    4. The ciphertext is read by columns.
+  </introduction>
+  <introduction lang="de-DE">
+    Swagman ist eine Transposition mit einem lateinischen Quadrat als Schlüssel.<newline />
+    1. Das Schlüsselquadrat hat n Zeilen und n Spalten mit den Zahlen 1 bis n, keine Zahl wiederholt sich in einer Zeile oder Spalte (Zeilen durch Leerzeichen getrennt).<newline />
+    2. Der Text wird zeilenweise in ein Rechteck aus n Zeilen geschrieben (mit X aufgefüllt); das Schlüsselquadrat wiederholt sich entlang der Spalten.<newline />
+    3. In jeder Spalte wandert der Buchstabe der Zeile r in die Zeile, die das Schlüsselquadrat für die Zeile r in dieser Spalte angibt.<newline />
+    4. Der Geheimtext wird spaltenweise gelesen.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key square</b>: The key square, its rows separated by spaces, e.g. "32145 15324 24531 53412 41253"
+    </section><section headline="Example">
+    The text is written into 5 rows; the key square (5x5, no number repeats in a row or a column) is repeated along the columns. The first column D E N C S goes to the rows 3 1 2 5 4 and becomes E N D S C. The ciphertext is read by columns.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüsselquadrat</b>: Das Schlüsselquadrat, die Zeilen durch Leerzeichen getrennt, z. B. "32145 15324 24531 53412 41253"
+    </section><section headline="Beispiel">
+    Der Text wird in 5 Zeilen geschrieben; das Schlüsselquadrat (5x5, keine Zahl wiederholt sich in einer Zeile oder Spalte) wird entlang der Spalten wiederholt. Die erste Spalte D E N C S geht in die Zeilen 3 1 2 5 4 und wird zu E N D S C. Der Geheimtext wird spaltenweise gelesen.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

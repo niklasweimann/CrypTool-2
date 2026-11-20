@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: AutokeyCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Autokey Cipher</title>
+  <summary lang="en">Encryption and decryption with the <i>autokey cipher</i></summary>
+  <description lang="en">The autokey cipher is a Vigenère cipher whose key is a short primer followed by the plaintext itself, so that the key is as long as the message and never repeats.</description>
+  <keywords lang="en">autokey, Vigenère, primer, polyalphabetic, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$Plaintext$" value="Plaintext" />
+    <replacement key="$Ciphertext$" value="Ciphertext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Decrypted Ciphertext" />
+    <replacement key="$Key$" value="Key" />
+    <replacement key="$memo$" value="The {\b Vigenère} component is set to the mode &quot;Vigenère Autokey&quot;: the primer PRIMER is the key for the first six letters, after that every plaintext letter is the key letter of the letter six places later. The receiver needs the primer; decryption recovers the plaintext letter by letter. The mode &quot;Beaufort Autokey&quot; does the same with the Beaufort table." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Autokey-Chiffre</title>
+  <summary lang="de">Ver- und Entschlüsselung mit der <i>Autokey-Chiffre</i></summary>
+  <description lang="de">Die Autokey-Chiffre ist eine Vigenère-Chiffre, deren Schlüssel aus einem kurzen Primer und danach dem Klartext selbst besteht, sodass der Schlüssel so lang ist wie die Nachricht und sich nie wiederholt.</description>
+  <keywords lang="en">autokey, Vigenère, primer, polyalphabetic, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$Plaintext$" value="Klartext" />
+    <replacement key="$Ciphertext$" value="Geheimtext" />
+    <replacement key="$Vigenère enc$" value="Vigenère" />
+    <replacement key="$Vigenère dec$" value="Vigenère" />
+    <replacement key="$Decrypted Ciphertext$" value="Entschlüsselter Geheimtext" />
+    <replacement key="$Key$" value="Schlüssel" />
+    <replacement key="$memo$" value="Die Komponente {\b Vigenère} ist auf die Betriebsart &quot;Vigenère Autokey&quot; gestellt: Der Primer PRIMER ist der Schlüssel für die ersten sechs Buchstaben, danach ist jeder Klartextbuchstabe der Schlüsselbuchstabe des Buchstabens sechs Stellen später. Der Empfänger braucht den Primer; die Entschlüsselung gewinnt den Klartext Buchstabe für Buchstabe zurück. Die Betriebsart &quot;Beaufort Autokey&quot; macht dasselbe mit der Beaufort-Tabelle." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="AutokeyCipher.png" />
+  <relevantPlugins>
+    <plugin name="Vigenere" />
+  </relevantPlugins>
+</sample>

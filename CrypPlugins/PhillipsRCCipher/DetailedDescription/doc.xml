@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Phillips-RC is the Phillips cipher in which both the rows and the columns of the squares are moved.<newline />
+    1. Make square 1 from the key word as for Phillips.<newline />
+    2. Squares 2 to 5 move the first row and the first column to the second, third, fourth and fifth place; squares 6 to 8 do this with the second row and column.<newline />
+    3. Use the eight squares in turn for five letters each and replace every letter by the letter diagonally down to the right.
+  </introduction>
+  <introduction lang="de-DE">
+    Phillips-RC ist die Phillips-Chiffre, bei der sowohl die Zeilen als auch die Spalten der Quadrate verschoben werden.<newline />
+    1. Bilden Sie Quadrat 1 aus dem Schlüsselwort wie bei Phillips.<newline />
+    2. Die Quadrate 2 bis 5 verschieben die erste Zeile und die erste Spalte an die zweite, dritte, vierte und fünfte Stelle; die Quadrate 6 bis 8 tun dasselbe mit der zweiten Zeile und Spalte.<newline />
+    3. Benutzen Sie die acht Quadrate nacheinander für je fünf Buchstaben und ersetzen Sie jeden Buchstaben durch den schräg rechts darunter.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the first 5x5 square
+    </section><section headline="Example">
+    Like in the Phillips cipher the eight squares are used in turn with five letters each, but from square to square a row and a column are moved. The key word is DIAGONALS.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des ersten 5x5-Quadrats
+    </section><section headline="Beispiel">
+    Wie bei der Phillips-Chiffre werden die acht Quadrate nacheinander mit je fünf Buchstaben benutzt, aber von Quadrat zu Quadrat werden eine Zeile und eine Spalte verschoben. Das Schlüsselwort ist DIAGONALS.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: NicodemusCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Nicodemus Cipher</title>
+  <summary lang="en"><i>Nicodemus Cipher</i></summary>
+  <description lang="en">Nicodemus combines three steps: a columnar transposition, a Vigenère encipherment of the columns with the same key, and reading the columns off five letters at a time.</description>
+  <keywords lang="en">Nicodemus, columnar transposition, Vigenère, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="With the key CAT the columns are put in the order A, C, T and enciphered with the key letters A, C, T; then the first five letters of every column are taken, then the next five, and so on." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Nicodemus-Chiffre</title>
+  <summary lang="de"><i>Nicodemus-Chiffre</i></summary>
+  <description lang="de">Nicodemus verbindet drei Schritte: eine Spaltentransposition, eine Vigenère-Verschlüsselung der Spalten mit demselben Schlüssel und das Ablesen der Spalten jeweils fünf Buchstaben auf einmal.</description>
+  <keywords lang="en">Nicodemus, columnar transposition, Vigenère, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Mit dem Schlüssel CAT werden die Spalten in die Reihenfolge A, C, T gebracht und mit den Schlüsselbuchstaben A, C, T verschlüsselt; danach werden die ersten fünf Buchstaben jeder Spalte genommen, dann die nächsten fünf und so weiter." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="NicodemusCipher.png" />
+  <relevantPlugins>
+    <plugin name="NicodemusCipher" />
+  </relevantPlugins>
+</sample>

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: ABCCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">ABC Cipher</title>
+  <summary lang="en"><i>ABC Cipher</i></summary>
+  <description lang="en">The ABC cipher has two stages: a Vigenère substitution with the key ABC (the letters of a group of three move on by 0, 1 and 2) and a columnar transposition.</description>
+  <keywords lang="en">ABC cipher, Vigenère, columnar transposition</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first stage turns ATT into ABV; the second writes the result in rows under the key word ZEBRAS and reads the columns in the alphabetical order of its letters. The second component undoes both stages." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">ABC-Chiffre</title>
+  <summary lang="de"><i>ABC-Chiffre</i></summary>
+  <description lang="de">Die ABC-Chiffre hat zwei Stufen: eine Vigenère-Substitution mit dem Schlüssel ABC (die Buchstaben einer Dreiergruppe rücken um 0, 1 und 2 weiter) und eine Spaltentransposition.</description>
+  <keywords lang="en">ABC cipher, Vigenère, columnar transposition</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Die erste Stufe macht aus ATT die Buchstaben ABV; die zweite schreibt das Ergebnis zeilenweise unter das Schlüsselwort ZEBRAS und liest die Spalten in der alphabetischen Reihenfolge seiner Buchstaben. Die zweite Komponente macht beide Stufen rückgängig." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="ABCCipher.png" />
+  <relevantPlugins>
+    <plugin name="AbcCipher" />
+  </relevantPlugins>
+</sample>

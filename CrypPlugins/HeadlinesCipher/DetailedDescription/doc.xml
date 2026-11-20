@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    Headlines is an ACA exercise: five headlines are enciphered by simple substitution with the same mixed alphabet at five different settings.<newline />
+    1. The hat word, the key word and the setting word are related by their meaning.<newline />
+    2. Write the alphabet of the key word in a block as wide as the hat word; number the columns by the alphabetical order of the hat letters and take them in that order: this is the mixed alphabet.<newline />
+    3. Headline k uses the k-th letter of the setting word: the cipher alphabet is the mixed alphabet starting with that letter.<newline />
+    4. Replace every letter of the headline; spaces, punctuation and the asterisks that mark proper nouns stay.
+  </introduction>
+  <introduction lang="de-DE">
+    Headlines ist eine ACA-Aufgabe: Fünf Schlagzeilen werden durch einfache Substitution mit demselben gemischten Alphabet in fünf verschiedenen Stellungen verschlüsselt.<newline />
+    1. Hutwort, Schlüsselwort und Einstellungswort hängen inhaltlich zusammen.<newline />
+    2. Schreiben Sie das Alphabet des Schlüsselworts in einen Block so breit wie das Hutwort; nummerieren Sie die Spalten nach der alphabetischen Reihenfolge der Hutbuchstaben und nehmen Sie sie in dieser Reihenfolge: Das ist das gemischte Alphabet.<newline />
+    3. Die Schlagzeile k benutzt den k-ten Buchstaben des Einstellungswortes: Das Geheimtextalphabet ist das gemischte Alphabet, beginnend mit diesem Buchstaben.<newline />
+    4. Ersetzen Sie jeden Buchstaben der Schlagzeile; Leerzeichen, Satzzeichen und die Sterne, die Eigennamen markieren, bleiben.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Hat word</b>: The hat word: its letters give the order of the columns<newline />
+    <b>Key</b>: The key word of the alphabet<newline />
+    <b>Setting word</b>: The setting word: every line (headline) uses the next letter of it
+    </section><section headline="Example">
+    The key block is made of the key word CHEMIST (its alphabet is written in rows of the width of the hat word APOTHECARY, and the columns are taken in the order of the letters of the hat), which gives the mixed alphabet CFUAPTOSNZILYEJWHGVBQMKXDR. Every line uses the next letter of the setting word DRUGS: the letter that stands under the first letter of the alphabet (as in Quagmire III). Asterisks, spaces and punctuation are kept.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Hutwort</b>: Das Hutwort: Seine Buchstaben bestimmen die Reihenfolge der Spalten<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des Alphabets<newline />
+    <b>Einstellungswort</b>: Das Einstellungswort: Jede Zeile (Schlagzeile) benutzt den nächsten Buchstaben
+    </section><section headline="Beispiel">
+    Der Schlüsselblock besteht aus dem Schlüsselwort CHEMIST (sein Alphabet wird in Zeilen von der Breite des Hutwortes APOTHECARY geschrieben, und die Spalten werden in der Reihenfolge der Buchstaben des Hutes genommen), das ergibt das gemischte Alphabet CFUAPTOSNZILYEJWHGVBQMKXDR. Jede Zeile benutzt den nächsten Buchstaben des Einstellungswortes DRUGS: den Buchstaben, der unter dem ersten Buchstaben des Alphabets steht (wie bei Quagmire III). Sterne, Leerzeichen und Satzzeichen bleiben erhalten.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

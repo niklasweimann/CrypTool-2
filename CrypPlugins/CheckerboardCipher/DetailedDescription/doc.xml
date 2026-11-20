@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    The checkerboard is a Polybius square with letters as coordinates.<newline />
+    1. Make the 5x5 square from the key word (I and J together). Put a word of five different letters at its left (rows) and one above it (columns). In the complex form there are two words at each side; this component uses them in turn.<newline />
+    2. A plaintext letter is replaced by the letter of its row and the letter of its column.<newline />
+    Decryption takes two letters at a time and looks up the cell.
+  </introduction>
+  <introduction lang="de-DE">
+    Das Checkerboard ist ein Polybios-Quadrat mit Buchstaben als Koordinaten.<newline />
+    1. Bilden Sie das 5x5-Quadrat aus dem Schlüsselwort (I und J zusammen). Setzen Sie ein Wort aus fünf verschiedenen Buchstaben links davon (Zeilen) und eines darüber (Spalten). In der komplexen Form gibt es zwei Wörter an jeder Seite; diese Komponente benutzt sie der Reihe nach.<newline />
+    2. Ein Klartextbuchstabe wird durch den Buchstaben seiner Zeile und den Buchstaben seiner Spalte ersetzt.<newline />
+    Das Entschlüsseln nimmt je zwei Buchstaben und sucht das Feld.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the square<newline />
+    <b>Row labels</b>: The 5 letters at the left of the square (10 for two words)<newline />
+    <b>Column labels</b>: The 5 letters above the square (10 for two words)
+    </section><section headline="Example">
+    The rows are labelled BLACK, the columns WHITE. The letter N is in the first row and the second column and becomes BH. The cipher uses only the ten letters of the two words.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des Quadrats<newline />
+    <b>Zeilenbeschriftung</b>: Die 5 Buchstaben links vom Quadrat (10 für zwei Wörter)<newline />
+    <b>Spaltenbeschriftung</b>: Die 5 Buchstaben über dem Quadrat (10 für zwei Wörter)
+    </section><section headline="Beispiel">
+    Die Zeilen sind mit BLACK beschriftet, die Spalten mit WHITE. Der Buchstabe N steht in der ersten Zeile und der zweiten Spalte und wird zu BH. Die Chiffre benutzt nur die zehn Buchstaben der beiden Wörter.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

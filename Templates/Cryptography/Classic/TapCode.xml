@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TapCode.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Tap Code (Klopfcode)</title>
+  <summary lang="en"><i>Tap Code (Klopfcode)</i></summary>
+  <description lang="en">The tap code of prisoners is a Polybius square (C and K share a cell): a letter is knocked as the number of its row, a pause, and the number of its column.</description>
+  <keywords lang="en">tap code, Klopfcode, prisoners, Polybius</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="W is in row 5, column 2: five knocks, a pause, two knocks. The output shows the numbers as digits; a K is written as C." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Klopfcode</title>
+  <summary lang="de"><i>Klopfcode</i></summary>
+  <description lang="de">Der Klopfcode von Gefangenen ist ein Polybios-Quadrat (C und K teilen sich ein Feld): Ein Buchstabe wird als Zahl der Zeile, eine Pause und Zahl der Spalte geklopft.</description>
+  <keywords lang="en">tap code, Klopfcode, prisoners, Polybius</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="W steht in Zeile 5, Spalte 2: fünf Klopfer, eine Pause, zwei Klopfer. Die Ausgabe zeigt die Zahlen als Ziffern; ein K wird als C geschrieben." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TapCode.png" />
+  <relevantPlugins>
+    <plugin name="TapCode" />
+  </relevantPlugins>
+</sample>

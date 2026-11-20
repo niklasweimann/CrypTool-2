@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    AMSCO is a columnar transposition in which the places of the block hold one letter or two letters alternately.<newline />
+    1. The key (word or number) gives the order of the columns. The block is filled row by row; the places alternate between a digraph and a single letter along the rows and down the columns (a checkerboard), starting with a digraph or a single letter (setting).<newline />
+    2. The text ends where it ends: the last place may hold only one letter of a digraph; no null is needed.<newline />
+    3. Read the columns in the order of the key, each from top to bottom.
+  </introduction>
+  <introduction lang="de-DE">
+    AMSCO ist eine Spaltentransposition, bei der die Plätze des Blocks abwechselnd einen oder zwei Buchstaben enthalten.<newline />
+    1. Der Schlüssel (Wort oder Zahl) gibt die Reihenfolge der Spalten an. Der Block wird zeilenweise gefüllt; die Plätze wechseln entlang der Zeilen und die Spalten hinunter zwischen Digraph und einzelnem Buchstaben (ein Schachbrett), beginnend mit einem Digraph oder einem einzelnen Buchstaben (Einstellung).<newline />
+    2. Der Text endet, wo er endet: Der letzte Platz kann nur einen Buchstaben eines Digraphs enthalten; eine Null ist nicht nötig.<newline />
+    3. Lesen Sie die Spalten in der Reihenfolge des Schlüssels, jede von oben nach unten.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word or number
+    </section><section headline="Settings">
+    <b>Start with a digraph</b>: The first place of the block holds two letters (otherwise one)
+    </section><section headline="Example">
+    The key 41325 gives the order of the columns. The first place holds two letters (setting <b>Start with a digraph</b>); the pattern alternates along the rows and down the columns, so the block is a checkerboard of digraphs and single letters.
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort oder die Zahl
+    </section><section headline="Einstellungen">
+    <b>Mit einem Digraph beginnen</b>: Der erste Platz des Blocks enthält zwei Buchstaben (sonst einen)
+    </section><section headline="Beispiel">
+    Der Schlüssel 41325 gibt die Reihenfolge der Spalten an. Der erste Platz enthält zwei Buchstaben (Einstellung <b>Mit einem Digraph beginnen</b>); das Muster wechselt entlang der Zeilen und die Spalten hinunter, der Block ist also ein Schachbrett aus Digraphen und einzelnen Buchstaben.
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>

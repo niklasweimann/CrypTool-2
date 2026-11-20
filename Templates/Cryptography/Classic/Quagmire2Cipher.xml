@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: Quagmire2Cipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Quagmire II Cipher</title>
+  <summary lang="en"><i>Quagmire II Cipher</i></summary>
+  <description lang="en">A Quagmire is a periodic cipher with keyed alphabets. The indicator key gives the period and the setting of the cipher alphabet against the plain alphabet; every letter of the indicator selects one alternative alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="Quagmire II runs a straight plain alphabet against a keyed cipher alphabet (from the key word SPRINGFEVER). The indicator key FLOWER has 6 letters, so the period is 6." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Quagmire-II-Chiffre</title>
+  <summary lang="de"><i>Quagmire-II-Chiffre</i></summary>
+  <description lang="de">Ein Quagmire ist eine periodische Chiffre mit gemischten Alphabeten. Der Indikator bestimmt die Periode und die Stellung des Geheimtextalphabets gegen das Klartextalphabet; jeder Buchstabe des Indikators wählt ein anderes Alphabet.</description>
+  <keywords lang="en">Quagmire, keyed alphabet, indicator, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Quagmire II lässt ein gerades Klartextalphabet gegen ein gemischtes Geheimtextalphabet (aus dem Schlüsselwort SPRINGFEVER) laufen. Der Indikator FLOWER hat 6 Buchstaben, die Periode ist also 6." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="Quagmire2Cipher.png" />
+  <relevantPlugins>
+    <plugin name="Quagmire2Cipher" />
+  </relevantPlugins>
+</sample>

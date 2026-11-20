@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: SwagmanCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Swagman Cipher</title>
+  <summary lang="en"><i>Swagman Cipher</i></summary>
+  <description lang="en">Swagman is a transposition with a Latin square as key: in every column of the text the letters are moved to the rows that the numbers of the key square give.</description>
+  <keywords lang="en">Swagman, Latin square, transposition, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The text is written into 5 rows; the key square (5x5, no number repeats in a row or a column) is repeated along the columns. The first column D E N C S goes to the rows 3 1 2 5 4 and becomes E N D S C. The ciphertext is read by columns." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Swagman-Chiffre</title>
+  <summary lang="de"><i>Swagman-Chiffre</i></summary>
+  <description lang="de">Swagman ist eine Transposition mit einem lateinischen Quadrat als Schlüssel: In jeder Spalte des Textes werden die Buchstaben in die Zeilen verschoben, die die Zahlen des Schlüsselquadrats angeben.</description>
+  <keywords lang="en">Swagman, Latin square, transposition, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der Text wird in 5 Zeilen geschrieben; das Schlüsselquadrat (5x5, keine Zahl wiederholt sich in einer Zeile oder Spalte) wird entlang der Spalten wiederholt. Die erste Spalte D E N C S geht in die Zeilen 3 1 2 5 4 und wird zu E N D S C. Der Geheimtext wird spaltenweise gelesen." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="SwagmanCipher.png" />
+  <relevantPlugins>
+    <plugin name="SwagmanCipher" />
+  </relevantPlugins>
+</sample>

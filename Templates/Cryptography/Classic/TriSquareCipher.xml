@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sample>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--File name: TriSquareCipher.xml-->
+  <!--Last edited: 2022.02.08-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'en' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="en">Tri-Square Cipher</title>
+  <summary lang="en"><i>Tri-Square Cipher</i></summary>
+  <description lang="en">Tri-Square enciphers a pair of letters with three squares and gives a group of three cipher letters; the first and the last may be chosen freely within a column or a row.</description>
+  <keywords lang="en">Tri-Square, Polybius, trigraph, ACA</keywords>
+  <replacements lang="en">
+    <replacement key="$random number generator$" value="RandomNumberGenerator" />
+    <replacement key="$output$" value="Random bytes" />
+    <replacement key="$memo$" value="The first plaintext letter is looked up in square 1, the second in square 2. The first cipher letter is a letter of the column of the first one in square 1, the second one is the letter of square 3 where row and column meet, the third is a letter of the row of the second one in square 2. The component takes the free letters in turn." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--Language 'de' starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <title lang="de">Tri-Square-Chiffre</title>
+  <summary lang="de"><i>Tri-Square-Chiffre</i></summary>
+  <description lang="de">Tri-Square verschlüsselt ein Buchstabenpaar mit drei Quadraten und liefert eine Gruppe von drei Geheimtextbuchstaben; der erste und der letzte dürfen innerhalb einer Spalte oder Zeile frei gewählt werden.</description>
+  <keywords lang="en">Tri-Square, Polybius, trigraph, ACA</keywords>
+  <replacements lang="de">
+    <replacement key="$random number generator$" value="Zufallszahlengenerator" />
+    <replacement key="$output$" value="Zufallsbytes" />
+    <replacement key="$memo$" value="Der erste Klartextbuchstabe wird in Quadrat 1 gesucht, der zweite in Quadrat 2. Der erste Geheimtextbuchstabe ist ein Buchstabe der Spalte des ersten in Quadrat 1, der zweite der Buchstabe von Quadrat 3, an dem sich Zeile und Spalte treffen, der dritte ein Buchstabe der Zeile des zweiten in Quadrat 2. Die Komponente nimmt die freien Buchstaben der Reihe nach." />
+  </replacements>
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <!--The general section starts here:-->
+  <!--- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <icon file="TriSquareCipher.png" />
+  <relevantPlugins>
+    <plugin name="TriSquareCipher" />
+  </relevantPlugins>
+</sample>

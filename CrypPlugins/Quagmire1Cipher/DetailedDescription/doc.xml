@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<documentation>
+  <language culture="en" />
+  <language culture="de-DE" />
+  <introduction lang="en">
+    A Quagmire is a periodic cipher with keyed alphabets from the American Cryptogram Association; the number says which of the two alphabets are keyed. In Quagmire I the plain alphabet is keyed (from the key word) and the cipher alphabet is the straight alphabet.<newline />
+    1. Make the keyed plain alphabet: the letters of the key word without repeats, then the remaining letters of the alphabet.<newline />
+    2. Write the straight alphabet as the cipher alphabet. The indicator key gives the period: it has one letter for every alternative alphabet. The first letter of the indicator is placed under the plain letter given in the setting (A), the cipher alphabet is shifted accordingly.<newline />
+    3. For every plaintext letter take the next letter of the indicator (it repeats), find the plaintext letter in the keyed plain alphabet and read the cipher letter in the same column of the row of the indicator letter.<newline />
+    Decryption goes the other way: find the cipher letter in the row and read the plain letter above it.
+  </introduction>
+  <introduction lang="de-DE">
+    Ein Quagmire ist eine periodische Chiffre mit gemischten Alphabeten aus der American Cryptogram Association; die Zahl sagt, welche der beiden Alphabete gemischt sind. Bei Quagmire I ist das Klartextalphabet gemischt (aus dem Schlüsselwort) und das Geheimtextalphabet das gerade Alphabet.<newline />
+    1. Bilden Sie das gemischte Klartextalphabet: die Buchstaben des Schlüsselworts ohne Wiederholungen, danach die übrigen Buchstaben des Alphabets.<newline />
+    2. Schreiben Sie das gerade Alphabet als Geheimtextalphabet. Der Indikator bestimmt die Periode: Er hat einen Buchstaben für jedes andere Alphabet. Der erste Buchstabe des Indikators steht unter dem in der Einstellung gewählten Klartextbuchstaben (A), das Geheimtextalphabet wird entsprechend verschoben.<newline />
+    3. Nehmen Sie für jeden Klartextbuchstaben den nächsten Buchstaben des Indikators (er wiederholt sich), suchen Sie den Klartextbuchstaben im gemischten Klartextalphabet und lesen Sie den Geheimtextbuchstaben in derselben Spalte der Zeile des Indikatorbuchstabens ab.<newline />
+    Das Entschlüsseln geht umgekehrt: Suchen Sie den Geheimtextbuchstaben in der Zeile und lesen Sie darüber den Klartextbuchstaben.
+  </introduction>
+  <usage lang="en">
+    <section headline="Inputs">
+    <b>Text</b>: The text to encrypt or decrypt<newline />
+    <b>Key</b>: The key word of the keyed plain alphabet<newline />
+    <b>Indicator</b>: The indicator key: it gives the period and the setting of the cipher alphabet
+    </section><section headline="Settings">
+    <b>Indicator under</b>: The plain letter above which the first letter of the indicator stands (A; for Quagmire IV often the first letter of the key word)
+    </section><section headline="Example">
+    Quagmire I uses a keyed plain alphabet (here from the key word SPRINGFEVER) against a straight cipher alphabet. The indicator key FLOWER gives the period 6: its letter stands under the plain letter A (see the setting <b>Indicator under</b>).
+    </section>
+  </usage>
+  <usage lang="de-DE">
+    <section headline="Eingänge">
+    <b>Text</b>: Der Text, der ver- oder entschlüsselt werden soll<newline />
+    <b>Schlüssel</b>: Das Schlüsselwort des gemischten Klartextalphabets<newline />
+    <b>Indikator</b>: Der Indikator: Er bestimmt die Periode und die Stellung des Geheimtextalphabets
+    </section><section headline="Einstellungen">
+    <b>Indikator unter</b>: Der Klartextbuchstabe, über dem der Indikatorbuchstabe steht (A; bei Quagmire IV oft der erste Buchstabe des Schlüsselworts)
+    </section><section headline="Beispiel">
+    Quagmire I verwendet ein gemischtes Klartextalphabet (hier aus dem Schlüsselwort SPRINGFEVER) gegen ein gerades Geheimtextalphabet. Der Indikator FLOWER ergibt die Periode 6: Sein Buchstabe steht unter dem Klartextbuchstaben A (siehe die Einstellung <b>Indikator unter</b>).
+    </section>
+  </usage>
+  <presentation lang="en">
+    The presentation shows the key tables made from the keys (squares, alphabets, the box or grid), with the places that the text uses marked in yellow, and the steps letter by letter with the results in green.
+  </presentation>
+  <presentation lang="de-DE">
+    Die Präsentation zeigt die aus den Schlüsseln gebildeten Tabellen (Quadrate, Alphabete, den Kasten oder das Raster), in denen die vom Text benutzten Stellen gelb markiert sind, und die Schritte Buchstabe für Buchstabe mit den Ergebnissen in Grün.
+  </presentation>
+</documentation>
