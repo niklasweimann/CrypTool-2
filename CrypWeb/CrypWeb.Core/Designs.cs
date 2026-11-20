@@ -17,6 +17,13 @@ public sealed class Design
 
     public string CanvasBottom { get; set; } = "#a9c8f2";
 
+    /// <summary>Background of the documentation pages (#rrggbb); the text color follows its brightness.</summary>
+    public string DocBackground { get; set; } = "#ffffff";
+
+    /// <summary>Whether the documentation background is dark: the text of the pages then turns light.</summary>
+    [System.Text.Json.Serialization.JsonIgnore]
+    public bool IsDocDark => Luminance(DocBackground) < 0.4;
+
     /// <summary>Data type name (<see cref="Theme.DataTypeKeys" />) -> #rrggbb.</summary>
     public Dictionary<string, string> TypeColors { get; set; } = new();
 
@@ -43,6 +50,7 @@ public sealed class Design
         if (!Designs.Looks.Contains(Look)) Look = "tinted";
         CanvasTop = Hex(CanvasTop, "#c9ddf8");
         CanvasBottom = Hex(CanvasBottom, "#a9c8f2");
+        DocBackground = Hex(DocBackground, "#ffffff");
         TypeColors = Theme.DataTypeKeys.ToDictionary(k => k, k => Hex(TypeColors?.GetValueOrDefault(k), Theme.DefaultTypeColor(k)));
         CategoryColors = Theme.CategoryKeys.ToDictionary(k => k, k => Hex(CategoryColors?.GetValueOrDefault(k), Theme.DefaultCategoryColor(k)));
         return this;
@@ -61,6 +69,7 @@ public sealed class Design
             DarkUi = DarkUi,
             CanvasTop = CanvasTop,
             CanvasBottom = CanvasBottom,
+            DocBackground = DocBackground,
             TypeColors = new Dictionary<string, string>(TypeColors),
             CategoryColors = new Dictionary<string, string>(CategoryColors)
         };
@@ -85,6 +94,7 @@ public static class Designs
     private static Preset Make(string id, string group, string look, string top, string bottom, string categories, string types)
     {
         var design = new Design { Look = look, CanvasTop = top, CanvasBottom = bottom, DarkUi = group == "dark" || id == "contrast-dark" };
+        design.DocBackground = design.DarkUi ? "#14161a" : "#ffffff";
         var cat = categories.Split(' ');
         var typ = types.Split(' ');
         for (var i = 0; i < Theme.CategoryKeys.Length; i++) design.CategoryColors[Theme.CategoryKeys[i]] = cat[i];

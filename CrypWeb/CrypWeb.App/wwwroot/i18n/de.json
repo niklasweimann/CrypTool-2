@@ -155,6 +155,8 @@
   "set.workspaceLook": "Arbeitsbereich",
   "set.canvasBackground": "Hintergrund",
   "set.canvasTop": "Oben",
+  "set.docBackground": "Hintergrund der Dokumentation",
+  "set.docBackgroundColor": "Farbe",
   "set.canvasBottom": "Unten",
   "set.resetCustom": "Eigenes Design zurücksetzen",
   "set.style.classic": "Klassisch (wie in CrypTool 2)",

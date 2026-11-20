@@ -1,0 +1,32 @@
+/* Background of the documentation pages: the color comes from the design (Design.DocBackground, set in the settings).
+   It is written by hand and comes after dark.css, so that it wins over the dark variant of the interface. */
+html .docs.dc-custom {
+    background: var(--doc-bg);
+}
+
+/* the article is a <main>, which app.css paints with the gradient of the canvas: the page color shows instead */
+html .docs.dc-custom .dc-main {
+    background: transparent;
+}
+
+html .docs.dc-onlight .dc-main {
+    --dc-text: #2a3142;
+    --muted: #5b6479;
+}
+
+html .docs.dc-onlight .dc-lede { color: #4a5368; }
+html .docs.dc-onlight .dc-toc a { color: #586078; }
+
+html .docs.dc-ondark .dc-main {
+    --dc-text: #d9deea;
+    --muted: #9aa3b5;
+}
+
+html .docs.dc-ondark .dc-lede { color: #aab2c3; }
+html .docs.dc-ondark .dc-toc a { color: #98a0b3; }
+html .docs.dc-ondark .dc-main code,
+html .docs.dc-ondark .dc-main th,
+html .docs.dc-ondark .dc-main pre {
+    background: rgba(255, 255, 255, 0.08);
+    color: inherit;
+}

@@ -182,6 +182,8 @@
         Add("design", "set.workspaceLook", "set.canvasBackground", Colors(
             ColorItem(Loc["set.canvasTop"], D.CanvasTop, v => d => d.CanvasTop = v),
             ColorItem(Loc["set.canvasBottom"], D.CanvasBottom, v => d => d.CanvasBottom = v)));
+        Add("design", "set.workspaceLook", "set.docBackground", Colors(
+            ColorItem(Loc["set.docBackgroundColor"], D.DocBackground, v => d => d.DocBackground = v)));
         AddColors(rows, "set.typeColors", "set.group.numbers", TypeColors("System.Int32", "System.Double", "System.Numerics.BigInteger"));
         AddColors(rows, "set.typeColors", "set.group.data", TypeColors("System.Byte", "System.String", "System.Boolean"));
         AddColors(rows, "set.typeColors", "set.group.other", TypeColors("System.Object", "Stream"));

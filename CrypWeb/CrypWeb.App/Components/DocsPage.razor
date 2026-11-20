@@ -7,7 +7,7 @@
    ("component/<type>", "template/<path>", "article/<id>"; nothing shows the overview). The texts come from
    wwwroot/docs, written at build time by tools-gen-docs.py from the plugins' doc.xml files. Links between pages are
    plain "?doc=..." links: Home reacts to the changed address and passes the new Target. *@
-<div class="docs">
+<div class="docs dc-custom @(Look.IsDocDark ? "dc-ondark" : "dc-onlight")" style="--doc-bg:@Look.DocBackground">
     <aside class="dc-nav">
         <div class="dc-search">
             <input placeholder="@Loc["docs.search"]" @bind="Query" @bind:event="oninput" aria-label="@Loc["docs.search"]"/>
@@ -106,6 +106,9 @@
     [Parameter] public IReadOnlyDictionary<string, PluginMeta> Plugins { get; set; } = new Dictionary<string, PluginMeta>();
 
     [Parameter] public bool ShowExperimental { get; set; }
+
+    /// <summary>The design in use: gives the background of the pages.</summary>
+    [Parameter] public Design Look { get; set; } = Designs.Default.Design;
     [Parameter] public EventCallback<string> OnOpenTemplate { get; set; }
 
     DocsIndex? index;
