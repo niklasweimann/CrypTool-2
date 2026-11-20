@@ -42,6 +42,9 @@ html.ui-dark .rtab {
 html.ui-dark .rtab:hover:not(.on) {
     background: #191d28;
 }
+html.ui-dark .proto-badge {
+    color: #f7e3c5;
+}
 html.ui-dark .rbtn {
     color: #c1c6d2;
 }
