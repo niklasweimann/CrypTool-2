@@ -27,6 +27,6 @@ Plugin presentations (XAML + code-behind) compile and run against it unchanged.
 
 ## Adding missing API
 
-Add a plugin folder to `presentations.include`, run `python3 tools-gen-presentations.py` and build. Compile errors name the
+Add a plugin folder to `presentations.include`, run `python3 tools/gen/presentations.py` and build. Compile errors name the
 missing types/members; unknown XAML elements and attributes are listed by `XamlDiagnostics` (printed by the `runall` test).
 Layout is the browser's job: `ActualWidth`/`ActualHeight` are only known for explicit sizes.

@@ -51,7 +51,7 @@ namespace DigrafidCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("DigrafidCipher.Properties.Resources", typeof(DigrafidCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(DigrafidCipher).Namespace + ".Properties.Resources", typeof(DigrafidCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

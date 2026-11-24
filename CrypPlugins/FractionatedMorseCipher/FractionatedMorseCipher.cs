@@ -48,7 +48,7 @@ namespace FractionatedMorseCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("FractionatedMorseCipher.Properties.Resources", typeof(FractionatedMorseCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(FractionatedMorseCipher).Namespace + ".Properties.Resources", typeof(FractionatedMorseCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

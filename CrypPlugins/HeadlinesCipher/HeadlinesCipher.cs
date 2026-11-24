@@ -54,7 +54,7 @@ namespace HeadlinesCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("HeadlinesCipher.Properties.Resources", typeof(HeadlinesCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(HeadlinesCipher).Namespace + ".Properties.Resources", typeof(HeadlinesCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

@@ -51,7 +51,7 @@ namespace Quagmire3Cipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("Quagmire3Cipher.Properties.Resources", typeof(Quagmire3Cipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(Quagmire3Cipher).Namespace + ".Properties.Resources", typeof(Quagmire3Cipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

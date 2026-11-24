@@ -4,7 +4,7 @@ using CrypTool.Web.Core;
 namespace CrypWeb.Tests;
 
 /// <summary>
-/// Makes a template from an existing one by changing component settings (used by tools-gen-derived-templates.py for
+/// Makes a template from an existing one by changing component settings (used by tools/gen/derived_templates.py for
 /// variants such as Beaufort = the Vigenère template with another mode).
 /// </summary>
 public static class DeriveCommand

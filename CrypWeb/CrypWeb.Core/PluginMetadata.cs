@@ -36,7 +36,7 @@ public sealed class PortMeta
     public bool Control { get; set; }
 }
 
-/// <summary>Component metadata extracted from the plugin sources (plugins.json, written by tools-gen-plugins.py).</summary>
+/// <summary>Component metadata extracted from the plugin sources (plugins.json, written by tools/gen/plugins.py).</summary>
 public sealed class PluginMeta
 {
     public string Type { get; set; } = "";

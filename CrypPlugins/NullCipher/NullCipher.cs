@@ -48,7 +48,7 @@ namespace NullCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("NullCipher.Properties.Resources", typeof(NullCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(NullCipher).Namespace + ".Properties.Resources", typeof(NullCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

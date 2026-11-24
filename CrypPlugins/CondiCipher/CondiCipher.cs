@@ -48,7 +48,7 @@ namespace CondiCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("CondiCipher.Properties.Resources", typeof(CondiCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(CondiCipher).Namespace + ".Properties.Resources", typeof(CondiCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

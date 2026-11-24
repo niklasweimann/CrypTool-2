@@ -48,7 +48,7 @@ namespace PolluxCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("PolluxCipher.Properties.Resources", typeof(PolluxCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(PolluxCipher).Namespace + ".Properties.Resources", typeof(PolluxCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

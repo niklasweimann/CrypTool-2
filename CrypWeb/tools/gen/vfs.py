@@ -10,7 +10,7 @@ import os
 import re
 import shutil
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 OUT = os.path.join(ROOT, 'CrypWeb', 'CrypWeb.App', 'wwwroot', 'vfs')
 
 # files that plugin projects copy next to the executable but that are code or configuration, not data

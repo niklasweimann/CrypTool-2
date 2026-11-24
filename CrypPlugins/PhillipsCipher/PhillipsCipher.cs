@@ -48,7 +48,7 @@ namespace PhillipsCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("PhillipsCipher.Properties.Resources", typeof(PhillipsCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(PhillipsCipher).Namespace + ".Properties.Resources", typeof(PhillipsCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

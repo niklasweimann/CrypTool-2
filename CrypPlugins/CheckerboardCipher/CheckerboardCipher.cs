@@ -54,7 +54,7 @@ namespace CheckerboardCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("CheckerboardCipher.Properties.Resources", typeof(CheckerboardCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(CheckerboardCipher).Namespace + ".Properties.Resources", typeof(CheckerboardCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

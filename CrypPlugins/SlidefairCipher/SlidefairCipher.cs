@@ -48,7 +48,7 @@ namespace SlidefairCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("SlidefairCipher.Properties.Resources", typeof(SlidefairCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(SlidefairCipher).Namespace + ".Properties.Resources", typeof(SlidefairCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

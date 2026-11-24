@@ -48,7 +48,7 @@ namespace MorbitCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("MorbitCipher.Properties.Resources", typeof(MorbitCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(MorbitCipher).Namespace + ".Properties.Resources", typeof(MorbitCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

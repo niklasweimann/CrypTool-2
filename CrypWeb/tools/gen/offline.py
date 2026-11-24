@@ -10,13 +10,13 @@ Groups:
   pictures   the component icons and the pictures that presentations show
   lang-xx    the dictionary and the n-gram statistics of one language
 
-Run after tools-copy-templates.sh, tools-gen-vfs.py and tools-gen-presentations.py (tools-build-web.sh does).
+Run after tools/build/copy-templates.sh, tools/gen/vfs.py and tools/gen/presentations.py (tools/build/build-web.sh does).
 """
 import json
 import os
 import re
 
-WWWROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'CrypWeb.App', 'wwwroot')
+WWWROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'CrypWeb.App', 'wwwroot')
 
 # Dictionary_de.dic, de-3gram-nocs.gz, de-3gram-nocs-sp.gz
 LANGUAGE_FILE = re.compile(r'^(?:Dictionary_([a-z]{2})\.dic|([a-z]{2})-\d+gram.*)$')

@@ -8,9 +8,9 @@ hand ciphers of the German forces. The rules and the examples (they are the test
 ## Structure
 
 Every cipher that no component did before has **a component of its own** in `CrypPlugins/<Name>` (43 components, usable in the desktop version too; their names are in the
-tables below). The components are generated from one specification (`tools_classic_specs.py`) by `tools-gen-classic-plugins.py`: component, settings, resources (English,
+tables below). The components are generated from one specification (`tools/gen/classic_specs.py`) by `tools/gen/classic_plugins.py`: component, settings, resources (English,
 German), documentation, project file, and the entries in `CrypTool 2.sln`. The algorithms are in the library `LibSource/ClassicCipherLib` (no plugin code in it);
-`tools-gen-aca-templates.py` makes one template for each cipher; `CrypWeb.Tests kat` runs the examples through the components.
+`tools/gen/aca_templates.py` makes one template for each cipher; `CrypWeb.Tests kat` runs the examples through the components.
 
 **No cipher is implemented twice.** Where a component existed already, the template uses it (the "Component" column names it):
 

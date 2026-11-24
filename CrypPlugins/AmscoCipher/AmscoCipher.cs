@@ -48,7 +48,7 @@ namespace AmscoCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("AmscoCipher.Properties.Resources", typeof(AmscoCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(AmscoCipher).Namespace + ".Properties.Resources", typeof(AmscoCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

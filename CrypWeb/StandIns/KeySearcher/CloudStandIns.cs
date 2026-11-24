@@ -2,7 +2,7 @@
 //
 // The browser build has no peer-to-peer network, so the KeySearcher always searches locally. These types replace
 // the parts of CrypCloudCore and VoluntLib2 the KeySearcher sources refer to, with the behaviour of "CrypCloud is
-// not running": no jobs, no workers. tools-gen-plugins.py compiles this file instead of the cloud sources
+// not running": no jobs, no workers. tools/gen/plugins.py compiles this file instead of the cloud sources
 // (see SOURCE_SUBSTITUTES there).
 using System;
 using System.Collections.Generic;

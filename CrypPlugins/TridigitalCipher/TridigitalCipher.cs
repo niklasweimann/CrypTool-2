@@ -51,7 +51,7 @@ namespace TridigitalCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("TridigitalCipher.Properties.Resources", typeof(TridigitalCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(TridigitalCipher).Namespace + ".Properties.Resources", typeof(TridigitalCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

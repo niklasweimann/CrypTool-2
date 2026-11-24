@@ -1,5 +1,5 @@
 {
- "_comment": "Entries of the function list that CT2 does not mark, but that a template of CrypWeb covers. Key: name|kinds as in function-list.json (kinds comma separated, empty after | for a plain function). Value: template path below ../Templates. Templates marked 'new' are made by tools-gen-derived-templates.py.",
+ "_comment": "Entries of the function list that CT2 does not mark, but that a template of CrypWeb covers. Key: name|kinds as in function-list.json (kinds comma separated, empty after | for a plain function). Value: template path below ../Templates. Templates marked 'new' are made by tools/gen/derived_templates.py.",
  "Atbash|": "Cryptography/Classic/AtbashCipher.cwm",
  "Multiplikationschiffre|": "Cryptography/Classic/MultiplicationCipher.cwm",
  "Beaufort-Chiffre|": "Cryptography/Classic/BeaufortCipher.cwm",

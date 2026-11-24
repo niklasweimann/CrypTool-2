@@ -48,7 +48,7 @@ namespace LeSphinxCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("LeSphinxCipher.Properties.Resources", typeof(LeSphinxCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(LeSphinxCipher).Namespace + ".Properties.Resources", typeof(LeSphinxCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

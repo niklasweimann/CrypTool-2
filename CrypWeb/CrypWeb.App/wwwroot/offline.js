@@ -1,6 +1,6 @@
 // Offline data of CrypTool 2 Web Edition: what the offline dialog (Components/OfflineModal.razor) shows and does.
 //
-// offline.json (written by tools-gen-offline.py) lists the downloadable files in groups with their sizes: the
+// offline.json (written by tools/gen/offline.py) lists the downloadable files in groups with their sizes: the
 // templates, the pictures (component icons, presentations) and the language data, one group per language. The files
 // are kept in the service worker's cache (service-worker.js), the same cache that also holds whatever was used once;
 // the service worker downloads them (message "precache"), so a download goes on while the dialog is closed.

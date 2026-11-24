@@ -88,8 +88,8 @@ public static class SnapCommands
             + "body{font:12px sans-serif;margin:8px;background:#ddd}div.t{display:inline-block;margin:4px;background:#fff;vertical-align:top}"
             + "div.f{width:400px;height:300px;overflow:hidden}iframe{width:800px;height:600px;border:0;transform:scale(.5);transform-origin:0 0}"
             + "</style>");
-        // reference pictures of the original views (CrypWeb/reference/<View>.png|jpg) are shown next to the rendering
-        var referenceDir = Path.Combine(AppContext.BaseDirectory, "../../../../reference");
+        // reference pictures of the original views (CrypWeb/docs/reference/<View>.png|jpg) are shown next to the rendering
+        var referenceDir = Path.Combine(AppContext.BaseDirectory, "../../../../docs/reference");
         var referenceOut = Path.Combine(outDir, "ref");
         Directory.CreateDirectory(referenceOut);
         foreach (var (name, template) in written)

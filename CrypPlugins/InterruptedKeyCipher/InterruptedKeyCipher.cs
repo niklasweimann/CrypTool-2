@@ -51,7 +51,7 @@ namespace InterruptedKeyCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("InterruptedKeyCipher.Properties.Resources", typeof(InterruptedKeyCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(InterruptedKeyCipher).Namespace + ".Properties.Resources", typeof(InterruptedKeyCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

@@ -1,0 +1,4 @@
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<!-- The original WPF XAML is only embedded as a resource and parsed at runtime by CrypWeb.Wpf; Rider cannot resolve WPF types here. -->
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=_002A_002Examl/@EntryIndexedValue">True</s:Boolean>
+</wpf:ResourceDictionary>

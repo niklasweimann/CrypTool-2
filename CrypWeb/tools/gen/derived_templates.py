@@ -2,10 +2,10 @@
 """Templates that are variants of existing ones (another mode, other key values): written next to the originals in
 ../Templates, as .cwm (settings changed by `CrypWeb.Tests derive`) and .xml (texts, in English and German).
 
-  python3 tools-gen-derived-templates.py
+  python3 tools/gen/derived_templates.py
 
 Each entry of TEMPLATES below says which template it is derived from and what changes. The function list entry the
-template covers is recorded in reference/function-aliases.json ("templates"). Needs the built CrypWeb.Tests.
+template covers is recorded in docs/reference/function-aliases.json ("templates"). Needs the built CrypWeb.Tests.
 """
 import json
 import re
@@ -15,7 +15,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
+HERE = Path(__file__).resolve().parents[2]
 TEMPLATES_DIR = HERE.parent / "Templates"
 CLASSIC = "Cryptography/Classic"
 ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

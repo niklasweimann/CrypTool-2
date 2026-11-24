@@ -51,7 +51,7 @@ namespace SequenceTransposition
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("SequenceTransposition.Properties.Resources", typeof(SequenceTransposition).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(SequenceTransposition).Namespace + ".Properties.Resources", typeof(SequenceTransposition).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

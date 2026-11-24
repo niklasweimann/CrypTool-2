@@ -5,7 +5,7 @@
 
 @* The documentation: navigation (components, templates, articles) and the article of the page named by Target
    ("component/<type>", "template/<path>", "article/<id>"; nothing shows the overview). The texts come from
-   wwwroot/docs, written at build time by tools-gen-docs.py from the plugins' doc.xml files. Links between pages are
+   wwwroot/docs, written at build time by tools/gen/docs.py from the plugins' doc.xml files. Links between pages are
    plain "?doc=..." links: Home reacts to the changed address and passes the new Target. *@
 <div class="docs dc-custom @(Look.IsDocDark ? "dc-ondark" : "dc-onlight")" style="--doc-bg:@Look.DocBackground">
     <aside class="dc-nav">
@@ -427,7 +427,7 @@
         }
     </text>;
 
-    /// <summary>The picture next to the template file (tools-copy-templates.sh copies it).</summary>
+    /// <summary>The picture next to the template file (tools/build/copy-templates.sh copies it).</summary>
     static string PictureOf(DocsTemplate t) =>
         "templates/" + string.Join("/", (t.Id[..^4] + ".png").Split('/').Select(Uri.EscapeDataString));
 

@@ -5,15 +5,15 @@ namespace CrypWeb.Tests;
 
 /// <summary>
 /// Coverage of the CrypTool function list (https://www.cryptool.org/de/functions/): checks that every component and
-/// template that reference/functions.json names for an entry really exists, and prints how many entries are done.
-/// The file is written by tools-gen-functions.py.
+/// template that docs/reference/functions.json names for an entry really exists, and prints how many entries are done.
+/// The file is written by tools/gen/functions.py.
 /// </summary>
 public static class FunctionsCommand
 {
     /// <summary>Returns false (and prints what is wrong) when an entry refers to a component or template that does not exist.</summary>
     public static bool Run(string templateRoot, string[] args)
     {
-        var path = args.Length > 2 ? args[2] : Path.Combine(templateRoot, "..", "CrypWeb", "reference", "functions.json");
+        var path = args.Length > 2 ? args[2] : Path.Combine(templateRoot, "..", "CrypWeb", "docs", "reference", "functions.json");
         using var document = JsonDocument.Parse(File.ReadAllText(path));
         int done = 0, partial = 0, open = 0, broken = 0;
         var openBySource = new SortedDictionary<string, int>();

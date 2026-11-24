@@ -48,7 +48,7 @@ namespace RagbabyCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("RagbabyCipher.Properties.Resources", typeof(RagbabyCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(RagbabyCipher).Namespace + ".Properties.Resources", typeof(RagbabyCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

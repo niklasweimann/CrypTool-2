@@ -45,7 +45,7 @@ namespace RouteTransposition
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("RouteTransposition.Properties.Resources", typeof(RouteTransposition).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(RouteTransposition).Namespace + ".Properties.Resources", typeof(RouteTransposition).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

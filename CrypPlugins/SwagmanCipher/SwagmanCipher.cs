@@ -48,7 +48,7 @@ namespace SwagmanCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("SwagmanCipher.Properties.Resources", typeof(SwagmanCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(SwagmanCipher).Namespace + ".Properties.Resources", typeof(SwagmanCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

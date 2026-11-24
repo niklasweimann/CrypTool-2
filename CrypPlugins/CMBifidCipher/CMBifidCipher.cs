@@ -51,7 +51,7 @@ namespace CMBifidCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("CMBifidCipher.Properties.Resources", typeof(CMBifidCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(CMBifidCipher).Namespace + ".Properties.Resources", typeof(CMBifidCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

@@ -2,7 +2,7 @@
 
 Browser/WebAssembly version of the CT2 workspace canvas (Blazor WASM).
 
-New to the code? Start with [ARCHITECTURE.md](ARCHITECTURE.md): project map, "where do I change what", generated files, conventions.
+New to the code? Start with [ARCHITECTURE.md](docs/ARCHITECTURE.md): project map, "where do I change what", generated files, conventions.
 
 - `CrypPluginBase.Portable` – original CrypPluginBase sources linked, against `CrypWeb.Wpf` (net10).
 - `CrypWeb.Wpf` – the part of WPF that plugins and their presentations use, rendered to HTML/SVG (see below).
@@ -10,9 +10,9 @@ New to the code? Start with [ARCHITECTURE.md](ARCHITECTURE.md): project map, "wh
 - `CrypWeb.App` – Blazor WebAssembly app: SVG canvas (pan/zoom/fit), template browser.
 - `CrypWeb.Tests` – command-line checks over all templates (`dotnet run --project CrypWeb.Tests -- ../Templates runall`; other commands are listed at the top of `CrypWeb.Tests/Program.cs`).
 
-IDE: open `CrypWeb/CrypWeb.sln` (Rider / Visual Studio). It contains only the CrypWeb projects, so it does not depend on the repository's own `CrypTool 2.sln` (which needs .NET Framework). After `python3 tools-gen-plugins.py` changes the list of isolated plugin projects, re-add them: `dotnet sln CrypWeb.sln add CrypWeb.Plugins.Isolated/*/*.csproj --solution-folder Plugins.Isolated`.
+IDE: open `CrypWeb/CrypWeb.sln` (Rider / Visual Studio). It contains only the CrypWeb projects, so it does not depend on the repository's own `CrypTool 2.sln` (which needs .NET Framework). After `python3 tools/gen/plugins.py` changes the list of isolated plugin projects, re-add them: `dotnet sln CrypWeb.sln add CrypWeb.Plugins.Isolated/*/*.csproj --solution-folder Plugins.Isolated`.
 
-Run (the script also copies the template icons, `<name>.png` next to each `.cwm`, and writes `templates/icons.json`): `./tools-copy-templates.sh && python3 tools-gen-docs.py && python3 tools-gen-offline.py && dotnet run --project CrypWeb.App --urls http://localhost:5199`
+Run (the script also copies the template icons, `<name>.png` next to each `.cwm`, and writes `templates/icons.json`): `./tools/build/copy-templates.sh && python3 tools/gen/docs.py && python3 tools/gen/offline.py && dotnet run --project CrypWeb.App --urls http://localhost:5199`
 
 Canvas features: move (multi/Shift-select, marquee, snap, arrow-key nudge), resize, pan (middle/right/Space), zoom at cursor, fit/100%,
 connect ports by drag (type-checked, re-route by dragging an input), select/delete wires, add components (palette drag/double-click) and notes,
@@ -45,8 +45,8 @@ back-pressure); plugin code runs on background threads as in CT2 (see "Threads" 
 `plugins.exclude` lists the few plugin folders that are not built (standalone tutorials and desktop-shell parts).
 TextInput/TextOutput/NumberInput/BooleanInput/BooleanOutput have browser-native replacements (`NativeComponent`).
 
-Regenerate metadata/icons/compile list: `python3 tools-gen-plugins.py`; after changing `presentations.include`:
-`python3 tools-gen-presentations.py`.
+Regenerate metadata/icons/compile list: `python3 tools/gen/plugins.py`; after changing `presentations.include`:
+`python3 tools/gen/presentations.py`.
 
 Control connections (IControl, e.g. KeySearcher → AES, TranspositionAnalyser → Transposition, cost functions) are
 set up when a run starts, as in CT2 (`ExecutionEngine.ConnectControls`: the master gets the slave's control object);
@@ -58,18 +58,18 @@ small factors only).
 ## Experimental components
 
 `Experimental/CrypPlugins` holds components that are not part of the CT2 release. The web build includes the ones that
-compile for the browser (`tools-gen-plugins.py` scans both folders; an experimental folder that also exists in
+compile for the browser (`tools/gen/plugins.py` scans both folders; an experimental folder that also exists in
 `CrypPlugins` is an older copy and is skipped; the reasons for the others are in `plugins.exclude`). They are marked
 `experimental` in `plugins.json` and hidden until **View › Experimental plugins** is switched on (stored with the
-settings); their templates (`Experimental/Templates`, copied by `tools-copy-templates.sh`) appear in the template list
-under "Experimental" at the same time. Their XAML views are compiled automatically (`tools-gen-presentations.py`).
+settings); their templates (`Experimental/Templates`, copied by `tools/build/copy-templates.sh`) appear in the template list
+under "Experimental" at the same time. Their XAML views are compiled automatically (`tools/gen/presentations.py`).
 JosseCipherAnalyzer was ported to the current `LanguageStatisticsLib` API, which it did not build against any more.
 Check: `dotnet run --project CrypWeb.Tests -- ../Experimental/Templates runall`.
 
 ## Localization (en / de)
 
 - **UI strings:** `CrypWeb.App/Localizer.cs` + `wwwroot/i18n/<lang>.json` (English is the fallback). Add a language by adding a JSON file and listing it in `Localizer.Languages`. The picker is in the ribbon, the choice is stored in `localStorage` (default: browser language).
-- **Plugin metadata:** `tools-gen-plugins.py` reads `Resources.<lang>.resx` next to each `Resources.resx` and writes the differences into `plugins.json` (`loc.<lang>`: name, tooltip, port captions/tooltips). Use `PluginMeta.NameFor/TooltipFor/PortCaptionFor/PortTooltipFor(lang)` (`CrypWeb.Core/Localization.cs`), English is the fallback.
+- **Plugin metadata:** `tools/gen/plugins.py` reads `Resources.<lang>.resx` next to each `Resources.resx` and writes the differences into `plugins.json` (`loc.<lang>`: name, tooltip, port captions/tooltips). Use `PluginMeta.NameFor/TooltipFor/PortCaptionFor/PortTooltipFor(lang)` (`CrypWeb.Core/Localization.cs`), English is the fallback.
 - **Templates:** `$placeholders$` and note texts come from the template's `.xml` (`TemplateStrings.Load(xml, lang)`). They are resolved when a template is loaded, so an unmodified template is reloaded when the language changes.
 - **Engine:** `EngineHost.SetCulture` sets `CurrentUICulture` (and the default for background threads) to the selected language before a workspace is opened or run. Localized plugin resources (`Resources.<lang>.resx`) are embedded as satellite resources of `CrypWeb.Plugins` and loaded with `loadAllSatelliteResources` (`Blazor.start` in `index.html`), so plugin log messages and exceptions use the selected language.
 - **Not localized yet:** component names given in a saved workspace (user-chosen), tooltips of the ribbon buttons, error messages of the app itself, plugin setting captions (the settings modal reuses the same lookup).
@@ -95,7 +95,7 @@ The plugin sources in `CrypPlugins/` are edited only to fix bugs that also affec
 | `System.Drawing.Common` (Windows only) | `CrypWeb.Drawing`: managed `Bitmap/Graphics/Pen/Brush/Font/...` on a pixel buffer, codecs by StbImageSharp/StbImageWriteSharp. Text is laid out but not drawn. |
 | OS crypto (`Aes`, `RijndaelManaged`, DES, 3DES, RC2) | `CrypWeb.Plugins/ManagedCrypto.cs`: same names in the global namespace (found before `using System.Security.Cryptography`), BouncyCastle inside; verified against .NET (`CrypWeb.Tests`) |
 | `NativeCryptography` (C++/CLI) | `CrypWeb.Plugins/NativeCryptoShim.cs` |
-| Data files read from disk | lazy files in the runtime's file system, downloaded on first open (`tools-gen-vfs.py`, `wwwroot/vfs.js`) |
+| Data files read from disk | lazy files in the runtime's file system, downloaded on first open (`tools/gen/vfs.py`, `wwwroot/vfs.js`) |
 | WPF-only input/output components | browser-native components (`NativeComponent`: text/number/boolean in-/output, picture output) |
 | Sockets (`NetworkSender`/`NetworkReceiver`) | `CrypWeb.Plugins/LoopbackNetwork.cs`: in-memory `UdpClient`/`TcpClient`/`TcpListener`; the templates send and receive within one workspace |
 | `ThreadPool.SetMaxThreads` (EnigmaAnalyzer) | `CrypWeb.Plugins/ThreadPoolShim.cs`: the pool is shared by the whole app, resizing it is ignored |
@@ -103,7 +103,7 @@ The plugin sources in `CrypPlugins/` are edited only to fix bugs that also affec
 | ZXing for `System.Drawing` (VisualEncoder/Decoder) | `CrypWeb.Plugins/ZXingBitmap.cs`: `BarcodeReader`/`BarcodeWriter` on top of the ZXing.Net package |
 | NAudio, OxyPlot (AudioInput/Output) | `CrypWeb.Plugins/NAudio.cs`, `OxyPlot.cs`: microphone and speakers of the page, a line plot drawn with `OnRender` |
 | ISAP commitment (C++ with GMP/MPFR) | `CrypWeb.Plugins/ISAPCommitmentScheme.cs`: managed port (BigInteger, exact fractions) |
-| CrypCloud / VoluntLib (KeySearcher) | `StandIns/KeySearcher/`: the distributed search reports that it is not available; the local search is the original (`SOURCE_SUBSTITUTES` in `tools-gen-plugins.py`) |
+| CrypCloud / VoluntLib (KeySearcher) | `StandIns/KeySearcher/`: the distributed search reports that it is not available; the local search is the original (`SOURCE_SUBSTITUTES` in `tools/gen/plugins.py`) |
 | Camera, microphone, speakers | `System.Windows.Hosting.BrowserDevices` (CrypWeb.Wpf) <-> `CrypWeb.App/Engine/MediaBridge.cs` <-> `wwwroot/media.js` (getUserMedia, Web Audio) |
 | Template data files (`Templates\Codes\QR_Code.png`) | in the virtual file system under `/Templates`, setting values are mapped by `TemplateFiles` |
 
@@ -125,7 +125,7 @@ against `CrypWeb.Wpf`, an implementation of the part of WPF that the plugins use
   styles, resources, animations and timers (`AnimationScheduler`), XAML loader (`Markup/`), HTML/SVG renderer (`Rendering/`),
   `PresentationHost` (change detection, input events).
 - **Build**: `presentations.include` lists the plugin folders whose presentation is compiled for real;
-  `python3 tools-gen-presentations.py` embeds the XAML, adds the code-behind, generates `InitializeComponent()` and copies pictures
+  `python3 tools/gen/presentations.py` embeds the XAML, adds the code-behind, generates `InitializeComponent()` and copies pictures
   to `wwwroot/wpf-res/`. A missing WPF type or member shows up as a compile error: add it to `CrypWeb.Wpf`.
 - **Threads, as on the desktop**: the app runs on the multi-threaded .NET runtime (`WasmEnableThreads`). The engine and the
   presentations live on the UI thread (`CrypWeb.App/Engine/EngineHost.cs`); plugin code (`Execute`) runs on background threads
@@ -201,7 +201,7 @@ The app is static (Blazor WASM, multi-threaded), so it is deployed as Workers *s
 
 ```sh
 npm install
-npm run build            # ./tools-build-web.sh: templates + dotnet publish -> dist/
+npm run build            # ./tools/build/build-web.sh: templates + dotnet publish -> dist/
 npm run dev              # local Workers runtime at http://localhost:8787
 npx wrangler login       # once
 npm run deploy           # build + wrangler deploy
@@ -214,7 +214,7 @@ Limits: 25 MiB per file / 20,000 files per version (currently ~1,700 files, larg
 
 The documentation tab (Home › Documentation, F1 for the selected component, links `?doc=component/<type>`, `?doc=template/<path>`,
 `?doc=article/<id>`) shows the component descriptions of the plugins' `doc.xml` files, the template descriptions and the general
-articles. `tools-gen-docs.py` (a step of `tools-build-web.sh`, no dependency on the OnlineDocumentationGenerator project or WPF)
+articles. `tools/gen/docs.py` (a step of `tools/build/build-web.sh`, no dependency on the OnlineDocumentationGenerator project or WPF)
 converts them to `wwwroot/docs/*.json`; `Components/DocsPage.razor` renders them (`css/docs.css`). Formulas (`$...$`, `$$...$$`) are
 typeset with KaTeX (`wwwroot/lib/katex`, vendored so that the app also works offline). Check the conversion warnings the script prints
 (e.g. a `docRef` to a component that does not exist).

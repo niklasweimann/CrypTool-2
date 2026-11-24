@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copies CT2 templates into the web app and writes templates/index.json.
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../.."
 DEST=CrypWeb.App/wwwroot/templates
 rm -rf "$DEST"; mkdir -p "$DEST"
 ( cd ../Templates && find . -name '*.cwm' | sort ) | while read -r f; do

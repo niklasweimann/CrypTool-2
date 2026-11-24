@@ -47,7 +47,7 @@ namespace PortaxCipher
                 GuiLogMessage("There is no input text.", NotificationLevel.Error);
                 return;
             }
-            string title = new System.Resources.ResourceManager("PortaxCipher.Properties.Resources", typeof(PortaxCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(PortaxCipher).Namespace + ".Properties.Resources", typeof(PortaxCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

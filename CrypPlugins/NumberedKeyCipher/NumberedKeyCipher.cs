@@ -48,7 +48,7 @@ namespace NumberedKeyCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("NumberedKeyCipher.Properties.Resources", typeof(NumberedKeyCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(NumberedKeyCipher).Namespace + ".Properties.Resources", typeof(NumberedKeyCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

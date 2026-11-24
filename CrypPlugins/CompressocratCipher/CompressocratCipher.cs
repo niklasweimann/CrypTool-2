@@ -48,7 +48,7 @@ namespace CompressocratCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("CompressocratCipher.Properties.Resources", typeof(CompressocratCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(CompressocratCipher).Namespace + ".Properties.Resources", typeof(CompressocratCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

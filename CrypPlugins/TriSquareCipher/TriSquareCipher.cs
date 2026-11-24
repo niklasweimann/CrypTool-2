@@ -54,7 +54,7 @@ namespace TriSquareCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("TriSquareCipher.Properties.Resources", typeof(TriSquareCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(TriSquareCipher).Namespace + ".Properties.Resources", typeof(TriSquareCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

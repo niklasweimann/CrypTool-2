@@ -2,16 +2,16 @@
 # Builds everything the web app needs and publishes it to ./dist (served by Cloudflare Workers static assets).
 # Pass --skip-templates to reuse the templates copied before.
 set -e
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/../.."
 if [ "$1" != "--skip-templates" ]; then
-  ./tools-copy-templates.sh
+  tools/build/copy-templates.sh
 fi
 # the dark variant of the interface (wwwroot/css/dark.css) from app.css and docs.css
-python3 tools-gen-dark.py
+python3 tools/gen/dark.py
 # the documentation (wwwroot/docs) from the doc.xml files of the plugins and the template descriptions
-python3 tools-gen-docs.py
+python3 tools/gen/docs.py
 # the file lists of the offline dialog (needs the templates, docs/, vfs/ and wpf-res/)
-python3 tools-gen-offline.py
+python3 tools/gen/offline.py
 rm -rf dist
 dotnet publish CrypWeb.App -c Release -nologo -v:q -o dist/_publish
 mv dist/_publish/wwwroot/* dist/ 2>/dev/null || true

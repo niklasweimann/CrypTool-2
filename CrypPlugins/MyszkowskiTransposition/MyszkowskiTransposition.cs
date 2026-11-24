@@ -48,7 +48,7 @@ namespace MyszkowskiTransposition
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("MyszkowskiTransposition.Properties.Resources", typeof(MyszkowskiTransposition).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(MyszkowskiTransposition).Namespace + ".Properties.Resources", typeof(MyszkowskiTransposition).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

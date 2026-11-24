@@ -32,7 +32,7 @@ public partial class Home : IDisposable, IHandleEvent
     private PaletteEntry? dragEntry;
     private bool dragMoved, spaceDown;
     private Dictionary<int, (double x, double y)> dragStart = new();
-    private double editX, editY, editW, editH;
+    private double editX, editY, editW;
     private VisualNode? editing;
     private string? error;
     private string filter = "", editText = "";
@@ -166,7 +166,7 @@ public partial class Home : IDisposable, IHandleEvent
 
     private bool HasSelection => ed.Selection.Count > 0 || ed.SelectedWire != null;
     private PluginNode? SelectedPlugin => ed.Selection.Count == 1 ? ed.Ws.Plugins.FirstOrDefault(p => ed.Selection.Contains(p.Id)) : null;
-    /// <summary>Folder of the experimental templates (copied from Experimental/Templates by tools-copy-templates.sh).</summary>
+    /// <summary>Folder of the experimental templates (copied from Experimental/Templates by tools/build/copy-templates.sh).</summary>
     private const string ExperimentalTemplateFolder = "Experimental/";
 
     /// <summary>The templates of the list: the experimental ones only when they are switched on.</summary>
@@ -393,7 +393,7 @@ public partial class Home : IDisposable, IHandleEvent
                 if (attempt == 3)
                     AddLog("Startup",
                         LogLevel.Error,
-                        "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools-copy-templates.sh");
+                        "Template list could not be loaded (templates/index.json): " + e.Message + " — generate it with CrypWeb/tools/build/copy-templates.sh");
                 else await Task.Delay(300);
             }
 

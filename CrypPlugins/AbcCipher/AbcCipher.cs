@@ -48,7 +48,7 @@ namespace AbcCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("AbcCipher.Properties.Resources", typeof(AbcCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(AbcCipher).Namespace + ".Properties.Resources", typeof(AbcCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

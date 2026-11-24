@@ -1,5 +1,5 @@
 """What the single-cipher components of the classic ciphers look like: folder and class name, inputs, settings and the call into
-LibSource/ClassicCipherLib. Used by tools-gen-classic-plugins.py (writes CrypPlugins/<Folder>) and tools-gen-aca-templates.py (the templates).
+LibSource/ClassicCipherLib. Used by tools/gen/classic_plugins.py (writes CrypPlugins/<Folder>) and tools/gen/aca_templates.py (the templates).
 
 The keys of PLUGINS are the numbers the ciphers had in the first, combined component; the templates generator uses them too.
 """

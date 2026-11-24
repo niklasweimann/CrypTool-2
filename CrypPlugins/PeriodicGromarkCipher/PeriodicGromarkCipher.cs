@@ -48,7 +48,7 @@ namespace PeriodicGromarkCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("PeriodicGromarkCipher.Properties.Resources", typeof(PeriodicGromarkCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(PeriodicGromarkCipher).Namespace + ".Properties.Resources", typeof(PeriodicGromarkCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

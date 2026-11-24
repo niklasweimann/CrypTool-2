@@ -48,7 +48,7 @@ namespace ProgressiveKeyCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("ProgressiveKeyCipher.Properties.Resources", typeof(ProgressiveKeyCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(ProgressiveKeyCipher).Namespace + ".Properties.Resources", typeof(ProgressiveKeyCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

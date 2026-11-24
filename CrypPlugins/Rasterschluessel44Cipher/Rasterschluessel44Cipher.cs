@@ -51,7 +51,7 @@ namespace Rasterschluessel44Cipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("Rasterschluessel44Cipher.Properties.Resources", typeof(Rasterschluessel44Cipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(Rasterschluessel44Cipher).Namespace + ".Properties.Resources", typeof(Rasterschluessel44Cipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

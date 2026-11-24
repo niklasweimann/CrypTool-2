@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """One template for each cipher of the American Cryptogram Association (ACA) that the ACA Ciphers component (CrypPlugins/AcaClassic) offers,
 plus Twin Bifid and Twin Trifid (two Bifid or Trifid components with different periods). Written next to the other classic templates in
-../Templates/Cryptography/Classic as .cwm and .xml (English and German), with the machinery of tools-gen-derived-templates.py.
+../Templates/Cryptography/Classic as .cwm and .xml (English and German), with the machinery of tools/gen/derived_templates.py.
 
-  python3 tools-gen-aca-templates.py
+  python3 tools/gen/aca_templates.py
 
 Each template encrypts a text with the cipher and decrypts the result again; the examples are those of the ACA's descriptions
 (https://www.cryptogram.org/resource-area/cipher-types/). Needs the built CrypWeb.Tests.
 """
 import importlib
 
-from tools_classic_specs import PLUGINS, TRACES
+from classic_specs import PLUGINS, TRACES
 
-derived = importlib.import_module("tools-gen-derived-templates")
+derived = importlib.import_module("derived_templates")
 
 CLASSIC = "Cryptography/Classic"
 RECORDS = {}   # cipher number -> description texts of its template; the plugin generator takes the documentation of a component from them
@@ -72,7 +72,7 @@ def aca(file, cipher, text, keys, title, titles_de, description, memo, keywords,
 
 
 def reuse(file, component, text, keys, step_settings, title, title_de, description, memo, keywords):
-    """A template of a cipher that an existing component does (see the table in ACA-CIPHERS.md): no component of its own."""
+    """A template of a cipher that an existing component does (see the table in docs/ACA-CIPHERS.md): no component of its own."""
     kind, in_port, out_port, key_ports, name_en, name_de = component
     memo = tuple(m.replace("{NAME}", "{\\b " + name + "}") for m, name in zip(memo, (name_en, name_de)))
     return chain(file, kind, in_port, out_port, key_ports, text, keys, step_settings, title, title_de, description, memo, keywords, kind.split(".")[-2])

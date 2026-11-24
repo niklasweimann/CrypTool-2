@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Writes one component for each cipher of tools_classic_specs.PLUGINS into CrypPlugins/<Folder>: component, settings, resources (English, German),
+"""Writes one component for each cipher of classic_specs.PLUGINS into CrypPlugins/<Folder>: component, settings, resources (English, German),
 documentation, project file and icon, and adds the projects to "CrypTool 2.sln". The algorithms are in LibSource/ClassicCipherLib.
 
-  python3 tools-gen-classic-plugins.py
+  python3 tools/gen/classic_plugins.py
 
 The plugins are ordinary CrypTool 2 plugins (they build on the desktop too). The documentation text of a component is the description of its template
-(tools-gen-aca-templates.py); the list of inputs and settings is made from the specification. Afterwards run tools-gen-plugins.py.
+(tools/gen/aca_templates.py); the list of inputs and settings is made from the specification. Afterwards run tools/gen/plugins.py.
 """
 import importlib
 import re
@@ -14,15 +14,15 @@ import uuid
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-from tools_classic_specs import PLUGINS
+from classic_specs import PLUGINS
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[3]
 PLUGINS_DIR = ROOT / "CrypPlugins"
 SOURCE = PLUGINS_DIR / "ClassicVariants"        # the files whose form is copied
 LIB_GUID = "{7C2A91E4-5B3D-4F6A-8E10-3D9B7A4C2F55}"
 OLD_FOLDER = "AcaClassic"                       # the first, combined component (removed)
-templates = importlib.import_module("tools-gen-aca-templates")
-import tools_classic_docs as docs
+templates = importlib.import_module("aca_templates")
+import classic_docs as docs
 
 
 def guid(name):
@@ -329,7 +329,7 @@ def write_project(folder):
 '''
     icon_group = '  <ItemGroup>\n    <Resource Include="icon.png" />\n  </ItemGroup>\n'
     assert icon_group in text
-    text = text.replace(icon_group, "", 1)   # no icon of their own: tools-gen-plugins.py makes one for the web edition, the desktop uses the default
+    text = text.replace(icon_group, "", 1)   # no icon of their own: tools/gen/plugins.py makes one for the web edition, the desktop uses the default
     marker = '  <ItemGroup>\n    <EmbeddedResource Include="Properties\\Resources.de.resx">'
     assert marker in text
     text = text.replace(marker, "  <ItemGroup>\n" + reference.replace("    <ProjectReference", "    <ProjectReference") + "  </ItemGroup>\n" + marker, 1)

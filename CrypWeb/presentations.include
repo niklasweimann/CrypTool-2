@@ -1,4 +1,4 @@
-# Plugin folders whose presentation is compiled from the original XAML + code-behind (see tools-gen-presentations.py).
+# Plugin folders whose presentation is compiled from the original XAML + code-behind (see tools/gen/presentations.py).
 AESVisualization
 AnalysisMonoalphabeticSubstitution
 BB84PhotonEncoder

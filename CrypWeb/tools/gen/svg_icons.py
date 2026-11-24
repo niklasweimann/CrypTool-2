@@ -1,4 +1,4 @@
-"""Icons for the components that have none of their own (used by tools-gen-plugins.py).
+"""Icons for the components that have none of their own (used by tools/gen/plugins.py).
 
 Many components of the web edition were written without an icon, or carry the default flower of the plugin template.
 Those get a small SVG icon in the style of the application: a rounded tile in the color of the component's category
@@ -9,7 +9,7 @@ initials instead.
 import os
 import re
 
-ICON_RAZOR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'CrypWeb.App', 'Components', 'Icon.razor')
+ICON_RAZOR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'CrypWeb.App', 'Components', 'Icon.razor')
 
 # md5 of the flower icon of the plugin template: a plugin that still has it counts as having no icon
 FLOWER_MD5 = 'cdcb18a3202bd092bf15be49af7b2c36'

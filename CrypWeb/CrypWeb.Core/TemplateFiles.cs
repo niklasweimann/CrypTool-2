@@ -3,7 +3,7 @@ namespace CrypTool.Web.Core;
 /// <summary>
 /// Files that templates refer to. CT2 templates name their data files relative to the CT2 program folder with
 /// Windows separators ("Templates\Codes\QR_Code.png", the picture a FileInput opens). In the browser those files are
-/// in the virtual file system under <see cref="Root"/> (see tools-gen-vfs.py).
+/// in the virtual file system under <see cref="Root"/> (see tools/gen/vfs.py).
 /// </summary>
 public static class TemplateFiles
 {

@@ -1,5 +1,5 @@
 /* Documentation page (Components/DocsPage.razor): navigation, article, table of contents.
-   The article HTML is written by tools-gen-docs.py and only uses p, b, i, u, h2-h4, ul/ol, table, figure, a, sup. */
+   The article HTML is written by tools/gen/docs.py and only uses p, b, i, u, h2-h4, ul/ol, table, figure, a, sup. */
 
 .docs {
     --dc-text: #2a3142;

@@ -45,7 +45,7 @@ namespace TapCode
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("TapCode.Properties.Resources", typeof(TapCode).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(TapCode).Namespace + ".Properties.Resources", typeof(TapCode).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

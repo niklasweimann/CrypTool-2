@@ -51,7 +51,7 @@ namespace MonomeDinomeCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("MonomeDinomeCipher.Properties.Resources", typeof(MonomeDinomeCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(MonomeDinomeCipher).Namespace + ".Properties.Resources", typeof(MonomeDinomeCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

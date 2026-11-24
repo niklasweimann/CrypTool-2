@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 """Function coverage of CrypWeb against the CrypTool function list (https://www.cryptool.org/de/functions/).
 
-  python3 tools-gen-functions.py [saved-page.html]
+  python3 tools/gen/functions.py [saved-page.html]
 
-With a saved copy of the page, reference/function-list.json (the snapshot of the list) is rewritten first.
+With a saved copy of the page, docs/reference/function-list.json (the snapshot of the list) is rewritten first.
 Then every entry that CT2 offers is matched against what CrypWeb has (components in plugins.json, templates under
-../Templates) and reference/functions.json is written. The summary printed at the end is what the
+../Templates) and docs/reference/functions.json is written. The summary printed at the end is what the
 `functions` command of CrypWeb.Tests checks.
 
 Only function names and where they are offered are taken from the list; no code of CT1 or JCrypTool is used.
 Status of an entry:
   done     CT2 offers it and every component/template named for it exists in CrypWeb (parts that
-           reference/function-aliases.json lists as not part of the browser version are not counted)
+           docs/reference/function-aliases.json lists as not part of the browser version are not counted)
   partial  some of the named components/templates were not found
-           or CT2 does not mark it, but a template listed in reference/function-covers.json covers it
+           or CT2 does not mark it, but a template listed in docs/reference/function-covers.json covers it
   open     CT2 does not offer it (only CT1 / JCrypTool / CrypTool-Online do) and no template covers it: to be built
 """
 import html
@@ -23,8 +23,8 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
-REFERENCE = HERE / "reference"
+HERE = Path(__file__).resolve().parents[2]
+REFERENCE = HERE / "docs" / "reference"
 TEMPLATES = HERE.parent / "Templates"
 PLUGINS = HERE / "CrypWeb.App/wwwroot/plugins.json"
 PLUGIN_SOURCES = HERE.parent / "CrypPlugins"

@@ -1,5 +1,5 @@
 """The long documentation of the classic cipher components (CrypPlugins/<Cipher>/DetailedDescription/doc.xml): for each cipher number of
-tools_classic_specs.PLUGINS the background and the procedure, English and German. tools-gen-classic-plugins.py makes the doc.xml from it, the
+classic_specs.PLUGINS the background and the procedure, English and German. tools/gen/classic_plugins.py makes the doc.xml from it, the
 specification (inputs, settings) and the example of the template. Lines of a text are separated by \\n; steps are written as "1. ...".
 """
 

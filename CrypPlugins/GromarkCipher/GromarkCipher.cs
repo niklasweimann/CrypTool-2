@@ -51,7 +51,7 @@ namespace GromarkCipher
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("GromarkCipher.Properties.Resources", typeof(GromarkCipher).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(GromarkCipher).Namespace + ".Properties.Resources", typeof(GromarkCipher).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

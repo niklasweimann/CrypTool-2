@@ -1,6 +1,6 @@
 namespace CrypWeb.App;
 
-// The documentation files written by tools-gen-docs.py (wwwroot/docs). Property names are the JSON keys (camelCase).
+// The documentation files written by tools/gen/docs.py (wwwroot/docs). Property names are the JSON keys (camelCase).
 
 /// <summary>Texts per language code ("en", "de"); <see cref="DocsText.Pick" /> falls back to English.</summary>
 public static class DocsText
@@ -100,7 +100,7 @@ public sealed class DocsReference
 
 /// <summary>
 ///     Links to documentation pages: <c>?doc=component/&lt;type&gt;</c>, <c>?doc=template/&lt;path&gt;</c>,
-///     <c>?doc=article/&lt;id&gt;</c>. The generated articles (tools-gen-docs.py) use the same form.
+///     <c>?doc=article/&lt;id&gt;</c>. The generated articles (tools/gen/docs.py) use the same form.
 /// </summary>
 public static class DocLink
 {

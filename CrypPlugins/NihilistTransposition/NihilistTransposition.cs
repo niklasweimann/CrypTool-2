@@ -48,7 +48,7 @@ namespace NihilistTransposition
                 return;
             }
             bool decrypt = _settings.Action == 1;
-            string title = new System.Resources.ResourceManager("NihilistTransposition.Properties.Resources", typeof(NihilistTransposition).Assembly).GetString("PluginCaption");
+            string title = new System.Resources.ResourceManager(typeof(NihilistTransposition).Namespace + ".Properties.Resources", typeof(NihilistTransposition).Assembly).GetString("PluginCaption");
             string lang = TraceBuilder.Language();
             try
             {

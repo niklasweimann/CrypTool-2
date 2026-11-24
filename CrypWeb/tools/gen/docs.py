@@ -3,7 +3,7 @@
 OnlineDocumentationGenerator project, which needs WPF and the desktop build).
 
 Reads
-  plugins.json                    which components exist and where their documentation file is ("doc", see tools-gen-plugins.py)
+  plugins.json                    which components exist and where their documentation file is ("doc", see tools/gen/plugins.py)
   CrypPlugins/*/<doc>.xml         the component documentation (<documentation> files, en/de)
   Templates/**/*.xml              title, summary, description and relevant components of every template
   OnlineDocumentationGenerator/StaticDocs/*.xml   the general articles (homomorphic ciphers, CrypTool book, ...)
@@ -27,7 +27,7 @@ import shutil
 import sys
 import xml.etree.ElementTree as ET
 
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
 CRYPWEB = os.path.join(ROOT, 'CrypWeb')
 WWWROOT = os.path.join(CRYPWEB, 'CrypWeb.App', 'wwwroot')
 OUT = os.path.join(WWWROOT, 'docs')

@@ -12,10 +12,10 @@
 //   settings <tpl>      print the stored settings of a template's components
 //   runtype <type>      run every template containing the component type, with timings
 //   palette <out.json>  write the palette entries found in the templates
-//   derive <base.cwm> <out.cwm> <edits.json>   copy a template and change component settings (tools-gen-derived-templates.py)
+//   derive <base.cwm> <out.cwm> <edits.json>   copy a template and change component settings (tools/gen/derived_templates.py)
 //   kdemo               key search data for the templates
 //   kat                 known-answer tests of the components added for the function list (ComponentTests.cs)
-//   functions [file]  coverage of the CrypTool function list (reference/functions.json, made by tools-gen-functions.py)
+//   functions [file]  coverage of the CrypTool function list (docs/reference/functions.json, made by tools/gen/functions.py)
 //   culture | bindtest | triggertest | present3d     checks of single features
 using CrypWeb.Tests;
 
@@ -72,7 +72,7 @@ switch (command)
                 Console.WriteLine("   " + (m.IsStatic ? "static " : "") + m.ReturnType.Name + " " + m.Name + "(" + string.Join(", ", m.GetParameters().Select(p => p.ParameterType.Name + " " + p.Name)) + ")");
         }
         break;
-    case "kdemo":   // key, plaintext and ciphertext of the key search templates (tools-gen-derived-templates.py)
+    case "kdemo":   // key, plaintext and ciphertext of the key search templates (tools/gen/derived_templates.py)
         for (int cipher = 0; cipher < global::KeySearch.KeySearching.Names.Length; cipher++)
         {
             var key = Enumerable.Range(0, global::KeySearch.KeySearching.KeyLength(cipher)).Select(i => (byte)(0x3b * (i + 1) + cipher)).ToArray();
@@ -82,7 +82,7 @@ switch (command)
             Console.WriteLine(cipher + "|" + global::KeySearch.KeySearching.ToHex(key) + "|" + global::KeySearch.KeySearching.ToHex(plaintext) + "|" + global::KeySearch.KeySearching.ToHex(global::KeySearch.KeySearching.Encrypt(cipher, key, plaintext)));
         }
         break;
-    case "adem":    // example data of the analysis templates (tools-gen-derived-templates.py)
+    case "adem":    // example data of the analysis templates (tools/gen/derived_templates.py)
         Console.WriteLine("hill|" + global::ClassicAnalysis.ClassicAnalyses.HillEncrypt("HELLOWORLDFROMTHEHILLCIPHERXYZ", new int[,] { { 6, 24, 1 }, { 13, 16, 10 }, { 20, 17, 15 } }));
         Console.WriteLine("fleissner|" + global::ClassicAnalysis.ClassicAnalyses.FleissnerEncrypt("THEMEETINGWILLBEHELDATTHEOLDBRIDGEATMIDNIGHTANDTHENEVERTHATENDSTHEMISSION", 4, new[] { 0, 1, 2, 3 }));
         break;

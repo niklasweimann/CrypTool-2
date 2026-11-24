@@ -4,7 +4,7 @@ using CrypTool.Web.Core;
 namespace CrypWeb.Tests;
 
 /// <summary>
-/// Known-answer tests of the components that were added for the CrypTool function list (see FUNCTION-COVERAGE.md):
+/// Known-answer tests of the components that were added for the CrypTool function list (see docs/FUNCTION-COVERAGE.md):
 /// each is run through the plugin registry like on the canvas, with settings and inputs, and the output is compared with
 /// the published test vector. Run with <c>dotnet run --project CrypWeb.Tests -- ../Templates kat</c>.
 /// </summary>
@@ -711,7 +711,7 @@ public static class ComponentTests
         Check(Classic(3, "TEXT", "ONLYONE") == null, "two-square: a key with only one word is refused");
     }
 
-    /// <summary>The single-cipher components (tools_classic_specs.py): number of the cipher -> type and key inputs in order.</summary>
+    /// <summary>The single-cipher components (tools/gen/classic_specs.py): number of the cipher -> type and key inputs in order.</summary>
     static readonly Dictionary<int, (string Type, string[] Keys)> AcaPlugins = new()
     {
         [1] = ("Quagmire1Cipher.Quagmire1Cipher", new[] { "Key", "Indicator" }),

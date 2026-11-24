@@ -10,7 +10,7 @@ Verwendet werden nur Name und Fundort einer Funktion; Code aus CT1 oder JCT wird
 | [reference/function-list.json](reference/function-list.json) | Momentaufnahme der Seite (Name, Art, Spalten, Fundorte) |
 | [reference/function-aliases.json](reference/function-aliases.json) | deutsche Namen der Liste, die nicht zu Klassen-/Ordnernamen passen, und was nicht in den Browser gehört (Tutorials, Wizard) |
 | [reference/functions.json](reference/functions.json) | erzeugt: Status je Eintrag (`done`, `partial`, `open`) und gefundene Komponenten/Templates |
-| `tools-gen-functions.py` | erzeugt `functions.json` (mit einer gespeicherten Seite als Argument auch die Momentaufnahme) |
+| `tools/gen/functions.py` | erzeugt `functions.json` (mit einer gespeicherten Seite als Argument auch die Momentaufnahme) |
 | `dotnet run --project CrypWeb.Tests -- ../Templates functions` | prüft, dass jede zugeordnete Komponente in der Registry und jedes Template als Datei existiert |
 
 ## 1. Ausgangslage
@@ -33,7 +33,7 @@ Hinweis: Die erste Fassung dieses Dokuments hatte die CT1-Spalte falsch gelesen 
 
 | Stufe | Ergebnis |
 |---|---|
-| 0 Inventur | fertig: `reference/functions.json`, Test `functions` |
+| 0 Inventur | fertig: `docs/reference/functions.json`, Test `functions` |
 | 1 Templates aus vorhandenen Komponenten | fertig |
 | 2 neue Komponenten ohne eigene Oberfläche | **fertig, soweit ohne Tabellen aus den Spezifikationen und ohne Oberfläche möglich** (siehe unten) |
 | 3b Restliche Einträge (auf Wunsch: „alle 61 versuchen“) | **53 von 61 umgesetzt**, 8 offen mit Begründung (siehe unten); MARS, MISTY1 und SAFER+ kamen nach einer Web-Recherche nach den Spezifikationen dazu |
